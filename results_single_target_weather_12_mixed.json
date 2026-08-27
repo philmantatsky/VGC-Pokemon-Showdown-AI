@@ -1,0 +1,917 @@
+{
+  "created_at": "2026-08-22T12:03:41-05:00",
+  "configuration": {
+    "budget_s": 8.0,
+    "screen_budget_s": 2.0,
+    "chance_samples": 4,
+    "decisions": 12,
+    "selective": true,
+    "follow_plan_branch": false,
+    "max_decisions_per_game": 3,
+    "ponder": true,
+    "ponder_budget_s": 6.0,
+    "ponder_choices": 96,
+    "ponder_chance_samples": 1,
+    "opponent_think_s": 0.0
+  },
+  "modes": {
+    "search": 12,
+    "search_fallback": 0,
+    "reuse": 0,
+    "skip_on_plan": 0,
+    "skip_on_ponder": 0,
+    "skip": 0
+  },
+  "p50_s": 7.811443520477042,
+  "p90_s": 7.9050351534970105,
+  "max_s": 8.030326250009239,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 7.734979875152931,
+      "end_to_end_s": 7.752857791958377,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.31373384265549653,
+        "saved_continuations": 0,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.0
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": null
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": []
+        }
+      },
+      "ponder": null,
+      "nodes": 1018,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 4.00003045797348e-06,
+      "post_submit_ponder_start_s": 0.00023512495681643486,
+      "p1_choice": "switch 4, switch 3",
+      "p2_choice": "move bravebird +1 mega, move fakeout +1"
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 7.636659333948046,
+      "end_to_end_s": 7.636659333948046,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "major_mechanic",
+          "planned_line_diverged",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.6708265326726706,
+        "saved_continuations": 3,
+        "saved_outcomes": 90,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.31373384265549653
+        },
+        "outcome_rejection": {
+          "reason": "no_evaluated_position_match",
+          "outcomes": 18,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 18,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          }
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 1,
+            "status": "late_cancelled_no_completed_roots"
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": [
+            "move protect, move suckerpunch +1 [encore_exposure]",
+            "move lastrespects +1, move protect [encore_exposure]"
+          ]
+        }
+      },
+      "ponder": {
+        "generation": 1,
+        "status": "late_cancelled_no_completed_roots"
+      },
+      "nodes": 961,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 3,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 4.292000085115433e-06,
+      "post_submit_ponder_start_s": 0.00025658286176621914,
+      "p1_choice": "move aquajet +1, move kowtowcleave +1",
+      "p2_choice": "move protect, move voltswitch -1"
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 7.652434000046924,
+      "end_to_end_s": 7.652434000046924,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "planned_line_diverged"
+        ],
+        "root_margin": 0.005895958728193373,
+        "saved_continuations": 0,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "no_matching_successor",
+          "matching_mass": 0.0,
+          "eligible_mass": 0.0,
+          "saved_continuations": 3,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 3,
+            "illegal_next": 0,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "0": {
+              "kind": "move",
+              "identifier": "protect",
+              "target": null,
+              "mega": false
+            },
+            "1": {
+              "kind": "move",
+              "identifier": "voltswitch",
+              "target": -1,
+              "mega": false
+            }
+          },
+          "searched_opponent_choices": [
+            "move tailwind, move encore +1"
+          ]
+        },
+        "outcome_rejection": {
+          "reason": "no_evaluated_position_match",
+          "outcomes": 90,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 90,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          }
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 2,
+            "status": "late_cancelled_no_completed_roots"
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {
+            "zero_damage": 1
+          },
+          "strict_rejections": [
+            "move protect, move protect [encore_exposure]"
+          ]
+        }
+      },
+      "ponder": {
+        "generation": 2,
+        "status": "late_cancelled_no_completed_roots"
+      },
+      "nodes": 944,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 2.7921050786972046e-06,
+      "post_submit_ponder_start_s": 0.0002465001307427883,
+      "p1_choice": "switch 4, switch 3",
+      "p2_choice": "switch 3, move encore +2"
+    },
+    {
+      "game": 1,
+      "turn": 1,
+      "open_sheet": false,
+      "elapsed_s": 7.821447624824941,
+      "end_to_end_s": 7.837012457894161,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.16417344109295395,
+        "saved_continuations": 7,
+        "saved_outcomes": 168,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.0
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": null
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": []
+        }
+      },
+      "ponder": null,
+      "nodes": 996,
+      "roots": 8,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 7,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 3.1660310924053192e-06,
+      "post_submit_ponder_start_s": 0.00020258408039808273,
+      "p1_choice": "move tailwind, move wavecrash +1",
+      "p2_choice": "move electroweb, move protect mega"
+    },
+    {
+      "game": 1,
+      "turn": 2,
+      "open_sheet": false,
+      "elapsed_s": 7.904245291138068,
+      "end_to_end_s": 7.904245291138068,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "major_mechanic",
+          "planned_line_diverged",
+          "side_condition_changed",
+          "stat_stage_changed"
+        ],
+        "root_margin": 0.05223328477366074,
+        "saved_continuations": 1,
+        "saved_outcomes": 39,
+        "reuse_rejection": {
+          "reason": "no_matching_successor",
+          "matching_mass": 0.0,
+          "eligible_mass": 0.0,
+          "saved_continuations": 7,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 7,
+            "illegal_next": 0,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "1": {
+              "kind": "move",
+              "identifier": "protect",
+              "target": null,
+              "mega": true
+            },
+            "0": {
+              "kind": "move",
+              "identifier": "electroweb",
+              "target": 1,
+              "mega": false
+            }
+          },
+          "searched_opponent_choices": [
+            "move electroweb, move bulletpunch +2",
+            "move electroweb, move bulletpunch +2 mega",
+            "move electroweb, move ironhead +2",
+            "move electroweb, move ironhead -1 mega",
+            "move protect, move ironhead +2 mega"
+          ]
+        },
+        "outcome_rejection": {
+          "reason": "no_evaluated_position_match",
+          "outcomes": 168,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 168,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          }
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 1,
+            "status": "late_cancelled_no_completed_roots"
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": [
+            "move tailwind, move wavecrash +2 [redundant_side_condition]"
+          ]
+        }
+      },
+      "ponder": {
+        "generation": 1,
+        "status": "late_cancelled_no_completed_roots"
+      },
+      "nodes": 859,
+      "roots": 8,
+      "truncated": true,
+      "fallback_reason": "partial_root_failure",
+      "saved_continuations": 1,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 3.291061148047447e-06,
+      "post_submit_ponder_start_s": 0.0003635829780250788,
+      "p1_choice": "move protect, move lastrespects +1",
+      "p2_choice": "move electroweb, move bodypress +2"
+    },
+    {
+      "game": 1,
+      "turn": 3,
+      "open_sheet": false,
+      "elapsed_s": 3.980242250021547,
+      "end_to_end_s": 3.980242250021547,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "faint",
+          "stat_stage_changed",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.00040638521804492456,
+        "saved_continuations": 1,
+        "saved_outcomes": 4,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.05223328477366074
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.05223328477366074
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 2,
+            "status": "running",
+            "root_choice": "move protect, move lastrespects +1",
+            "roots": 8,
+            "preferred_replies": 18
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": [
+            "move encore +2, move weatherball +1 mega [dominated_weather_ball]",
+            "move tailwind, move heatwave mega [redundant_side_condition]",
+            "move tailwind, switch 4 [redundant_side_condition]"
+          ]
+        }
+      },
+      "ponder": {
+        "generation": 2,
+        "status": "running",
+        "root_choice": "move protect, move lastrespects +1",
+        "roots": 8,
+        "preferred_replies": 18
+      },
+      "nodes": 116,
+      "roots": 8,
+      "truncated": true,
+      "fallback_reason": "partial_root_failure",
+      "saved_continuations": 1,
+      "fallbacks": 0,
+      "root_reconcile_failures": 4,
+      "root_refreshes": 1,
+      "last_reconcile_errors": [
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sneasler",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sneasler",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sneasler",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sneasler"
+      ],
+      "planning_error": null,
+      "submission_overhead_s": 5.082925781607628e-06,
+      "post_submit_ponder_start_s": 0.0002657498698681593,
+      "p1_choice": "move moonblast +2, move protect mega",
+      "p2_choice": "move fakeout +1, move protect"
+    },
+    {
+      "game": 2,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 7.773721958044916,
+      "end_to_end_s": 7.785874583059922,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.046215368628561376,
+        "saved_continuations": 0,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.0
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": null
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": []
+        }
+      },
+      "ponder": null,
+      "nodes": 1026,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 3.250082954764366e-06,
+      "post_submit_ponder_start_s": 0.0001418751198798418,
+      "p1_choice": "switch 3, switch 4",
+      "p2_choice": "move fakeout +1, move trickroom"
+    },
+    {
+      "game": 2,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 7.6194750419817865,
+      "end_to_end_s": 7.6194750419817865,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "field_changed",
+          "planned_line_diverged",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.08534372797949363,
+        "saved_continuations": 0,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.046215368628561376
+        },
+        "outcome_rejection": {
+          "reason": "no_evaluated_position_match",
+          "outcomes": 18,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 18,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          }
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 1,
+            "status": "late_cancelled_no_completed_roots"
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": []
+        }
+      },
+      "ponder": {
+        "generation": 1,
+        "status": "late_cancelled_no_completed_roots"
+      },
+      "nodes": 1032,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 3.2081734389066696e-06,
+      "post_submit_ponder_start_s": 0.00017270888201892376,
+      "p1_choice": "switch 4, switch 3",
+      "p2_choice": "move partingshot +1, move protect"
+    },
+    {
+      "game": 2,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 7.900064832996577,
+      "end_to_end_s": 7.900064832996577,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "stat_stage_changed",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.08089282615060679,
+        "saved_continuations": 0,
+        "saved_outcomes": 9,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.08534372797949363
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.08534372797949363
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 2,
+            "status": "running",
+            "root_choice": "switch 4, switch 3",
+            "roots": 6,
+            "preferred_replies": 18
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": []
+        }
+      },
+      "ponder": {
+        "generation": 2,
+        "status": "running",
+        "root_choice": "switch 4, switch 3",
+        "roots": 6,
+        "preferred_replies": 18
+      },
+      "nodes": 978,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "root_reconcile_failures": 3,
+      "root_refreshes": 1,
+      "last_reconcile_errors": [
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon mawile",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon mawile",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon mawile"
+      ],
+      "planning_error": null,
+      "submission_overhead_s": 2.874992787837982e-06,
+      "post_submit_ponder_start_s": 0.00020629214122891426,
+      "p1_choice": "switch 4, switch 3",
+      "p2_choice": "move ironhead +1 mega, switch 3"
+    },
+    {
+      "game": 3,
+      "turn": 1,
+      "open_sheet": false,
+      "elapsed_s": 7.872304124990478,
+      "end_to_end_s": 7.886779250111431,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.024744038582794614,
+        "saved_continuations": 2,
+        "saved_outcomes": 66,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.0
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": null
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {
+            "zero_damage": 1
+          },
+          "strict_rejections": []
+        }
+      },
+      "ponder": null,
+      "nodes": 910,
+      "roots": 8,
+      "truncated": true,
+      "fallback_reason": "partial_root_failure",
+      "saved_continuations": 2,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 3.3329706639051437e-06,
+      "post_submit_ponder_start_s": 0.00022558309137821198,
+      "p1_choice": "move suckerpunch +2, move aquajet +2",
+      "p2_choice": "move tailwind mega, move scald +2"
+    },
+    {
+      "game": 3,
+      "turn": 2,
+      "open_sheet": false,
+      "elapsed_s": 7.905122915981337,
+      "end_to_end_s": 7.905122915981337,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "major_mechanic",
+          "planned_line_diverged",
+          "side_condition_changed"
+        ],
+        "root_margin": 0.007974720470886876,
+        "saved_continuations": 2,
+        "saved_outcomes": 66,
+        "reuse_rejection": {
+          "reason": "weak_or_unrecorded_root",
+          "selective": true,
+          "continuations": 2,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.024744038582794614
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 66,
+          "root_margin": 0.024744038582794614
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 1,
+            "status": "late_cancelled_no_completed_roots"
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": []
+        }
+      },
+      "ponder": {
+        "generation": 1,
+        "status": "late_cancelled_no_completed_roots"
+      },
+      "nodes": 975,
+      "roots": 8,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 2,
+      "fallbacks": 0,
+      "root_reconcile_failures": 0,
+      "root_refreshes": 0,
+      "last_reconcile_errors": [],
+      "planning_error": null,
+      "submission_overhead_s": 4.415865987539291e-06,
+      "post_submit_ponder_start_s": 0.0005457908846437931,
+      "p1_choice": "move ironhead +1, move wavecrash +1",
+      "p2_choice": "move bravebird +1, move scald +1"
+    },
+    {
+      "game": 3,
+      "turn": 3,
+      "open_sheet": false,
+      "elapsed_s": 8.030326250009239,
+      "end_to_end_s": 8.030326250009239,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "faint",
+          "status_changed",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.10449126665777086,
+        "saved_continuations": 5,
+        "saved_outcomes": 144,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.007974720470886876
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.007974720470886876
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": {
+            "generation": 2,
+            "status": "running",
+            "root_choice": "move ironhead +1, move wavecrash +1",
+            "roots": 8,
+            "preferred_replies": 24
+          }
+        },
+        "live_illegal_choices": [],
+        "live_legality_changed_pick": false,
+        "live_guards": {
+          "changed_pick": false,
+          "stages": [],
+          "demotions": {},
+          "strict_rejections": []
+        }
+      },
+      "ponder": {
+        "generation": 2,
+        "status": "running",
+        "root_choice": "move ironhead +1, move wavecrash +1",
+        "roots": 8,
+        "preferred_replies": 24
+      },
+      "nodes": 1080,
+      "roots": 8,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 5,
+      "fallbacks": 0,
+      "root_reconcile_failures": 4,
+      "root_refreshes": 1,
+      "last_reconcile_errors": [
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sinistcha",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sinistcha",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sinistcha",
+        "ExactSimulatorError: Could not uniquely map snapshot Pokemon sinistcha"
+      ],
+      "planning_error": null,
+      "submission_overhead_s": 2.250075340270996e-06,
+      "post_submit_ponder_start_s": 0.00022604106925427914,
+      "p1_choice": "move kowtowcleave +1, move lastrespects +1",
+      "p2_choice": "move trickroom, move icebeam +1"
+    }
+  ]
+}

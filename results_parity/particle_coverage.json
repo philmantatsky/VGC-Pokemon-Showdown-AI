@@ -1,0 +1,836 @@
+{
+  "created_at": "2026-08-21T00:09:46-05:00",
+  "width": 8,
+  "required_coverage": 0.85,
+  "species_count": 165,
+  "mean_coverage": 0.8744981818181818,
+  "missing_species": [],
+  "accepted": true,
+  "rows": [
+    {
+      "species": "abomasnow",
+      "coverage": 0.9999,
+      "particles": 4
+    },
+    {
+      "species": "absol",
+      "coverage": 0.0,
+      "particles": 1
+    },
+    {
+      "species": "aegislash",
+      "coverage": 0.6953,
+      "particles": 12
+    },
+    {
+      "species": "aerodactyl",
+      "coverage": 0.9636,
+      "particles": 12
+    },
+    {
+      "species": "aerodactylmega",
+      "coverage": 0.9636,
+      "particles": 12
+    },
+    {
+      "species": "alcremie",
+      "coverage": 0.25,
+      "particles": 12
+    },
+    {
+      "species": "altaria",
+      "coverage": 0.9282,
+      "particles": 9
+    },
+    {
+      "species": "ampharos",
+      "coverage": 0.9522999999999999,
+      "particles": 2
+    },
+    {
+      "species": "annihilape",
+      "coverage": 0.8631,
+      "particles": 12
+    },
+    {
+      "species": "araquanid",
+      "coverage": 0.6755,
+      "particles": 12
+    },
+    {
+      "species": "arcaninehisui",
+      "coverage": 0.9075,
+      "particles": 12
+    },
+    {
+      "species": "archaludon",
+      "coverage": 0.9355,
+      "particles": 12
+    },
+    {
+      "species": "armarouge",
+      "coverage": 0.6887,
+      "particles": 12
+    },
+    {
+      "species": "audino",
+      "coverage": 0.8180999999999999,
+      "particles": 5
+    },
+    {
+      "species": "azumarill",
+      "coverage": 0.9056,
+      "particles": 2
+    },
+    {
+      "species": "barbaracle",
+      "coverage": 0.8462000000000001,
+      "particles": 3
+    },
+    {
+      "species": "barbaraclemega",
+      "coverage": 0.8462000000000001,
+      "particles": 3
+    },
+    {
+      "species": "basculegion",
+      "coverage": 0.9758,
+      "particles": 12
+    },
+    {
+      "species": "basculegionf",
+      "coverage": 0.8820999999999999,
+      "particles": 6
+    },
+    {
+      "species": "beedrill",
+      "coverage": 0.7778,
+      "particles": 2
+    },
+    {
+      "species": "bellibolt",
+      "coverage": 0.9034,
+      "particles": 7
+    },
+    {
+      "species": "blastoise",
+      "coverage": 0.9838,
+      "particles": 10
+    },
+    {
+      "species": "blastoisemega",
+      "coverage": 0.9838,
+      "particles": 10
+    },
+    {
+      "species": "blaziken",
+      "coverage": 0.9314,
+      "particles": 12
+    },
+    {
+      "species": "blazikenmega",
+      "coverage": 0.9314,
+      "particles": 12
+    },
+    {
+      "species": "camerupt",
+      "coverage": 0.9555,
+      "particles": 12
+    },
+    {
+      "species": "castform",
+      "coverage": 1.0,
+      "particles": 2
+    },
+    {
+      "species": "ceruledge",
+      "coverage": 0.9655999999999999,
+      "particles": 10
+    },
+    {
+      "species": "chandelure",
+      "coverage": 0.9541000000000001,
+      "particles": 6
+    },
+    {
+      "species": "charizard",
+      "coverage": 0.9893,
+      "particles": 12
+    },
+    {
+      "species": "charizardmegay",
+      "coverage": 0.9893,
+      "particles": 12
+    },
+    {
+      "species": "clefable",
+      "coverage": 0.7187,
+      "particles": 12
+    },
+    {
+      "species": "cofagrigus",
+      "coverage": 0.9333000000000001,
+      "particles": 4
+    },
+    {
+      "species": "corviknight",
+      "coverage": 0.8237,
+      "particles": 12
+    },
+    {
+      "species": "crabominable",
+      "coverage": 0.8,
+      "particles": 5
+    },
+    {
+      "species": "decidueyehisui",
+      "coverage": 0.8696999999999999,
+      "particles": 7
+    },
+    {
+      "species": "delphox",
+      "coverage": 0.993,
+      "particles": 5
+    },
+    {
+      "species": "delphoxmega",
+      "coverage": 0.993,
+      "particles": 5
+    },
+    {
+      "species": "ditto",
+      "coverage": 0,
+      "particles": 12
+    },
+    {
+      "species": "dragalge",
+      "coverage": 0.8714,
+      "particles": 12
+    },
+    {
+      "species": "dragalgemega",
+      "coverage": 0.8714,
+      "particles": 12
+    },
+    {
+      "species": "dragapult",
+      "coverage": 0.7361,
+      "particles": 12
+    },
+    {
+      "species": "dragonite",
+      "coverage": 0.7877,
+      "particles": 12
+    },
+    {
+      "species": "dragonitemega",
+      "coverage": 0.7877,
+      "particles": 12
+    },
+    {
+      "species": "drampa",
+      "coverage": 0.9,
+      "particles": 9
+    },
+    {
+      "species": "eelektross",
+      "coverage": 0.762,
+      "particles": 12
+    },
+    {
+      "species": "espathra",
+      "coverage": 0.8083,
+      "particles": 11
+    },
+    {
+      "species": "excadrill",
+      "coverage": 0.952,
+      "particles": 12
+    },
+    {
+      "species": "falinks",
+      "coverage": 0.9182,
+      "particles": 5
+    },
+    {
+      "species": "farigiraf",
+      "coverage": 0.8401,
+      "particles": 12
+    },
+    {
+      "species": "feraligatr",
+      "coverage": 0.9545,
+      "particles": 4
+    },
+    {
+      "species": "floetteeternal",
+      "coverage": 0.9994999999999999,
+      "particles": 9
+    },
+    {
+      "species": "floettemega",
+      "coverage": 0.9994999999999999,
+      "particles": 9
+    },
+    {
+      "species": "florges",
+      "coverage": 1.0,
+      "particles": 2
+    },
+    {
+      "species": "froslass",
+      "coverage": 0.9922,
+      "particles": 4
+    },
+    {
+      "species": "froslassmega",
+      "coverage": 0.9922,
+      "particles": 4
+    },
+    {
+      "species": "gallade",
+      "coverage": 0.9011,
+      "particles": 8
+    },
+    {
+      "species": "garchomp",
+      "coverage": 0.9104,
+      "particles": 12
+    },
+    {
+      "species": "gardevoir",
+      "coverage": 0.906,
+      "particles": 12
+    },
+    {
+      "species": "gengar",
+      "coverage": 0.9846,
+      "particles": 6
+    },
+    {
+      "species": "gholdengo",
+      "coverage": 0.9666,
+      "particles": 12
+    },
+    {
+      "species": "glaceon",
+      "coverage": 1.0,
+      "particles": 2
+    },
+    {
+      "species": "glimmora",
+      "coverage": 0.9526999999999999,
+      "particles": 12
+    },
+    {
+      "species": "glimmoramega",
+      "coverage": 0.9526999999999999,
+      "particles": 12
+    },
+    {
+      "species": "gliscor",
+      "coverage": 0.9301,
+      "particles": 9
+    },
+    {
+      "species": "golurk",
+      "coverage": 0.875,
+      "particles": 4
+    },
+    {
+      "species": "goodrahisui",
+      "coverage": 0.3636,
+      "particles": 3
+    },
+    {
+      "species": "greninja",
+      "coverage": 0.7609999999999999,
+      "particles": 11
+    },
+    {
+      "species": "grimmsnarl",
+      "coverage": 0.9581,
+      "particles": 12
+    },
+    {
+      "species": "gyarados",
+      "coverage": 0.9072,
+      "particles": 10
+    },
+    {
+      "species": "hatterene",
+      "coverage": 0.7545999999999999,
+      "particles": 10
+    },
+    {
+      "species": "hawlucha",
+      "coverage": 0.7145,
+      "particles": 5
+    },
+    {
+      "species": "houndoom",
+      "coverage": 0.6667,
+      "particles": 2
+    },
+    {
+      "species": "houndstone",
+      "coverage": 0.923,
+      "particles": 5
+    },
+    {
+      "species": "hydrapple",
+      "coverage": 0.8212,
+      "particles": 8
+    },
+    {
+      "species": "hydreigon",
+      "coverage": 0.9420000000000001,
+      "particles": 12
+    },
+    {
+      "species": "incineroar",
+      "coverage": 0.9576,
+      "particles": 12
+    },
+    {
+      "species": "jolteon",
+      "coverage": 0.7778,
+      "particles": 9
+    },
+    {
+      "species": "kangaskhan",
+      "coverage": 0.5805,
+      "particles": 12
+    },
+    {
+      "species": "kingambit",
+      "coverage": 0.9931,
+      "particles": 12
+    },
+    {
+      "species": "kleavor",
+      "coverage": 0.8998,
+      "particles": 6
+    },
+    {
+      "species": "klefki",
+      "coverage": 0.9244,
+      "particles": 6
+    },
+    {
+      "species": "kommoo",
+      "coverage": 0.9475,
+      "particles": 12
+    },
+    {
+      "species": "liepard",
+      "coverage": 0.7499,
+      "particles": 5
+    },
+    {
+      "species": "lopunny",
+      "coverage": 0.9269000000000001,
+      "particles": 4
+    },
+    {
+      "species": "lucario",
+      "coverage": 0.6909,
+      "particles": 12
+    },
+    {
+      "species": "lycanrocdusk",
+      "coverage": 0.9968,
+      "particles": 2
+    },
+    {
+      "species": "malamar",
+      "coverage": 0.9427,
+      "particles": 6
+    },
+    {
+      "species": "mamoswine",
+      "coverage": 0.947,
+      "particles": 9
+    },
+    {
+      "species": "maushold",
+      "coverage": 0.9269000000000001,
+      "particles": 12
+    },
+    {
+      "species": "mausholdfour",
+      "coverage": 0.9117000000000001,
+      "particles": 12
+    },
+    {
+      "species": "mawile",
+      "coverage": 0.9902000000000001,
+      "particles": 3
+    },
+    {
+      "species": "mawilemega",
+      "coverage": 0.9902000000000001,
+      "particles": 3
+    },
+    {
+      "species": "meganium",
+      "coverage": 0.9928,
+      "particles": 3
+    },
+    {
+      "species": "meowscarada",
+      "coverage": 0.8904000000000001,
+      "particles": 9
+    },
+    {
+      "species": "meowstic",
+      "coverage": 0.6225999999999999,
+      "particles": 12
+    },
+    {
+      "species": "metagross",
+      "coverage": 0.9586,
+      "particles": 12
+    },
+    {
+      "species": "metagrossmega",
+      "coverage": 0.9586,
+      "particles": 12
+    },
+    {
+      "species": "milotic",
+      "coverage": 0.9362999999999999,
+      "particles": 12
+    },
+    {
+      "species": "mimikyu",
+      "coverage": 0.9117,
+      "particles": 7
+    },
+    {
+      "species": "mrrime",
+      "coverage": 0.625,
+      "particles": 4
+    },
+    {
+      "species": "mudsdale",
+      "coverage": 0.8845999999999999,
+      "particles": 5
+    },
+    {
+      "species": "ninetales",
+      "coverage": 0.9525,
+      "particles": 9
+    },
+    {
+      "species": "ninetalesalola",
+      "coverage": 0.922,
+      "particles": 12
+    },
+    {
+      "species": "oranguru",
+      "coverage": 0.8366,
+      "particles": 12
+    },
+    {
+      "species": "orthworm",
+      "coverage": 0.9,
+      "particles": 6
+    },
+    {
+      "species": "overqwil",
+      "coverage": 0.8372,
+      "particles": 7
+    },
+    {
+      "species": "palafin",
+      "coverage": 0.8571,
+      "particles": 12
+    },
+    {
+      "species": "pelipper",
+      "coverage": 0.9397,
+      "particles": 12
+    },
+    {
+      "species": "pidgeot",
+      "coverage": 0.875,
+      "particles": 1
+    },
+    {
+      "species": "politoed",
+      "coverage": 0.8563,
+      "particles": 12
+    },
+    {
+      "species": "primarina",
+      "coverage": 0.9097000000000001,
+      "particles": 12
+    },
+    {
+      "species": "pyroar",
+      "coverage": 0.9701,
+      "particles": 9
+    },
+    {
+      "species": "pyroarmega",
+      "coverage": 0.9701,
+      "particles": 9
+    },
+    {
+      "species": "quaquaval",
+      "coverage": 0.8332999999999999,
+      "particles": 3
+    },
+    {
+      "species": "raichu",
+      "coverage": 0.8767,
+      "particles": 12
+    },
+    {
+      "species": "raichumegax",
+      "coverage": 0.8767,
+      "particles": 12
+    },
+    {
+      "species": "raichumegay",
+      "coverage": 0.8767,
+      "particles": 12
+    },
+    {
+      "species": "reuniclus",
+      "coverage": 0.7332000000000001,
+      "particles": 3
+    },
+    {
+      "species": "rotomheat",
+      "coverage": 0.9376,
+      "particles": 12
+    },
+    {
+      "species": "rotomwash",
+      "coverage": 0.9146,
+      "particles": 12
+    },
+    {
+      "species": "runerigus",
+      "coverage": 0.7618,
+      "particles": 6
+    },
+    {
+      "species": "sableye",
+      "coverage": 0.8441000000000001,
+      "particles": 12
+    },
+    {
+      "species": "samurotthisui",
+      "coverage": 0.9591000000000001,
+      "particles": 7
+    },
+    {
+      "species": "sceptile",
+      "coverage": 0.9652000000000001,
+      "particles": 9
+    },
+    {
+      "species": "scolipede",
+      "coverage": 0.8891999999999999,
+      "particles": 11
+    },
+    {
+      "species": "scovillain",
+      "coverage": 0.9928,
+      "particles": 6
+    },
+    {
+      "species": "scovillainmega",
+      "coverage": 0.9928,
+      "particles": 6
+    },
+    {
+      "species": "scrafty",
+      "coverage": 0.8367,
+      "particles": 12
+    },
+    {
+      "species": "simipour",
+      "coverage": 1.0,
+      "particles": 3
+    },
+    {
+      "species": "simisear",
+      "coverage": 1.0,
+      "particles": 1
+    },
+    {
+      "species": "sinistcha",
+      "coverage": 0.9378000000000001,
+      "particles": 12
+    },
+    {
+      "species": "sinistchamasterpiece",
+      "coverage": 0.896,
+      "particles": 12
+    },
+    {
+      "species": "skarmory",
+      "coverage": 0.7142999999999999,
+      "particles": 3
+    },
+    {
+      "species": "skeledirge",
+      "coverage": 0.8622000000000001,
+      "particles": 6
+    },
+    {
+      "species": "slowkinggalar",
+      "coverage": 0.6469,
+      "particles": 6
+    },
+    {
+      "species": "sneasler",
+      "coverage": 0.9657,
+      "particles": 12
+    },
+    {
+      "species": "snorlax",
+      "coverage": 0.8847,
+      "particles": 9
+    },
+    {
+      "species": "staraptor",
+      "coverage": 0.9848000000000001,
+      "particles": 12
+    },
+    {
+      "species": "staraptormega",
+      "coverage": 0.9848000000000001,
+      "particles": 12
+    },
+    {
+      "species": "starmie",
+      "coverage": 0.8659,
+      "particles": 8
+    },
+    {
+      "species": "swampert",
+      "coverage": 0.9584,
+      "particles": 12
+    },
+    {
+      "species": "swampertmega",
+      "coverage": 0.9584,
+      "particles": 12
+    },
+    {
+      "species": "sylveon",
+      "coverage": 0.9803,
+      "particles": 12
+    },
+    {
+      "species": "talonflame",
+      "coverage": 0.8733,
+      "particles": 12
+    },
+    {
+      "species": "taurospaldeaaqua",
+      "coverage": 0.6469,
+      "particles": 5
+    },
+    {
+      "species": "tinkaton",
+      "coverage": 0.8753,
+      "particles": 11
+    },
+    {
+      "species": "torkoal",
+      "coverage": 0.9235,
+      "particles": 12
+    },
+    {
+      "species": "toxapex",
+      "coverage": 0.9754,
+      "particles": 8
+    },
+    {
+      "species": "tsareena",
+      "coverage": 0.8692,
+      "particles": 12
+    },
+    {
+      "species": "typhlosionhisui",
+      "coverage": 0.952,
+      "particles": 6
+    },
+    {
+      "species": "tyranitar",
+      "coverage": 0.9403,
+      "particles": 12
+    },
+    {
+      "species": "tyranitarmega",
+      "coverage": 0.9403,
+      "particles": 12
+    },
+    {
+      "species": "vanilluxe",
+      "coverage": 0.9093,
+      "particles": 4
+    },
+    {
+      "species": "vaporeon",
+      "coverage": 0.7142999999999999,
+      "particles": 3
+    },
+    {
+      "species": "venusaur",
+      "coverage": 0.9679000000000001,
+      "particles": 12
+    },
+    {
+      "species": "victreebel",
+      "coverage": 0.875,
+      "particles": 4
+    },
+    {
+      "species": "vileplume",
+      "coverage": 0.9771,
+      "particles": 4
+    },
+    {
+      "species": "vivillon",
+      "coverage": 0.9624999999999999,
+      "particles": 3
+    },
+    {
+      "species": "vivillonfancy",
+      "coverage": 1.0,
+      "particles": 2
+    },
+    {
+      "species": "volcarona",
+      "coverage": 0.5505,
+      "particles": 12
+    },
+    {
+      "species": "weavile",
+      "coverage": 0.8872,
+      "particles": 10
+    },
+    {
+      "species": "whimsicott",
+      "coverage": 0.9359999999999999,
+      "particles": 12
+    },
+    {
+      "species": "wyrdeer",
+      "coverage": 0.9667,
+      "particles": 5
+    },
+    {
+      "species": "zoroarkhisui",
+      "coverage": 0.9001,
+      "particles": 8
+    }
+  ]
+}

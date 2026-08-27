@@ -1,0 +1,59 @@
+Froslass (F) @ Froslassite
+Ability: Snow Cloak
+Level: 50
+EVs: 28 HP / 1 Def / 20 SpA / 1 SpD / 16 Spe
+Modest Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
+
+Sneasler @ White Herb
+Ability: Unburden
+Level: 50
+EVs: 18 HP / 10 Atk / 21 Def / 17 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Fake Out
+- Protect
+
+Basculegion (M) @ Sitrus Berry
+Ability: Adaptability
+Level: 50
+EVs: 4 HP / 22 Atk / 30 Def / 10 Spe
+Adamant Nature
+- Agility
+- Last Respects
+- Aqua Jet
+- Protect
+
+Kingambit @ Chople Berry
+Ability: Supreme Overlord
+Level: 50
+EVs: 30 HP / 15 Atk / 1 Def / 1 SpD / 19 Spe
+Adamant Nature
+- Kowtow Cleave
+- Low Kick
+- Sucker Punch
+- Protect
+
+Dragonite @ Dragon Fang
+Ability: Multiscale
+Level: 50
+EVs: 21 HP / 32 Atk / 13 Spe
+Adamant Nature
+- Extreme Speed
+- Tailwind
+- Dragon Claw
+- Low Kick
+
+Milotic @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 31 HP / 21 Def / 12 SpD / 2 Spe
+Bold Nature
+- Muddy Water
+- Coil
+- Hypnosis
+- Recover

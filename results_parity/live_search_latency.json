@@ -1,0 +1,160 @@
+{
+  "created_at": "2026-08-21T00:28:42-05:00",
+  "configuration": {
+    "budget_s": 9.0,
+    "screen_budget_s": 2.0,
+    "chance_samples": 4,
+    "decisions": 12
+  },
+  "p50_s": 8.572641561971977,
+  "p90_s": 8.73792825420387,
+  "max_s": 8.801146291894838,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 8.66742204199545,
+      "end_to_end_s": 8.685848833993077,
+      "nodes": 1145,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 8.627954457886517,
+      "end_to_end_s": 8.627954457886517,
+      "nodes": 1100,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 8.688597042113543,
+      "end_to_end_s": 8.688597042113543,
+      "nodes": 1122,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 3
+    },
+    {
+      "game": 0,
+      "turn": 4,
+      "open_sheet": true,
+      "elapsed_s": 8.533124916953966,
+      "end_to_end_s": 8.533124916953966,
+      "nodes": 1115,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 3
+    },
+    {
+      "game": 0,
+      "turn": 5,
+      "open_sheet": true,
+      "elapsed_s": 8.454766832990572,
+      "end_to_end_s": 8.454766832990572,
+      "nodes": 1107,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_root_failure",
+      "fallbacks": 3
+    },
+    {
+      "game": 0,
+      "turn": 6,
+      "open_sheet": true,
+      "elapsed_s": 8.51088483305648,
+      "end_to_end_s": 8.51088483305648,
+      "nodes": 1385,
+      "roots": 1,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 5
+    },
+    {
+      "game": 0,
+      "turn": 7,
+      "open_sheet": true,
+      "elapsed_s": 6.212689167121425,
+      "end_to_end_s": 6.212689167121425,
+      "nodes": 1270,
+      "roots": 1,
+      "truncated": false,
+      "fallback_reason": null,
+      "fallbacks": 5
+    },
+    {
+      "game": 1,
+      "turn": 1,
+      "open_sheet": false,
+      "elapsed_s": 4.356667124899104,
+      "end_to_end_s": 4.370616083033383,
+      "nodes": 293,
+      "roots": 8,
+      "truncated": true,
+      "fallback_reason": "partial_root_failure",
+      "fallbacks": 0
+    },
+    {
+      "game": 1,
+      "turn": 2,
+      "open_sheet": false,
+      "elapsed_s": 8.743409499991685,
+      "end_to_end_s": 8.743409499991685,
+      "nodes": 1230,
+      "roots": 5,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 3
+    },
+    {
+      "game": 1,
+      "turn": 3,
+      "open_sheet": false,
+      "elapsed_s": 8.609434915939346,
+      "end_to_end_s": 8.609434915939346,
+      "nodes": 1099,
+      "roots": 2,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 6
+    },
+    {
+      "game": 1,
+      "turn": 4,
+      "open_sheet": false,
+      "elapsed_s": 8.535848208004609,
+      "end_to_end_s": 8.535848208004609,
+      "nodes": 1578,
+      "roots": 2,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 6
+    },
+    {
+      "game": 2,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 8.786297041922808,
+      "end_to_end_s": 8.801146291894838,
+      "nodes": 1077,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "fallbacks": 0
+    }
+  ]
+}

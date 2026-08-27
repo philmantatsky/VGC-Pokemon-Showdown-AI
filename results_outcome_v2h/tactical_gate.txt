@@ -1,0 +1,4 @@
+..................                                                       [100%]
+- generated xml file: /var/folders/z1/23p_x6vx3sl2yhlmwz0k576h0000gn/T/vgc-tactical-x89whsaf/report.xml -
+18 passed in 1.01s
+tactical ordering: 18/18 = 100.0% (required 90%)

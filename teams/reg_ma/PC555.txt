@@ -1,0 +1,59 @@
+Basculegion (M) @ Mystic Water
+Ability: Adaptability
+Level: 50
+EVs: 15 Atk / 14 Def / 12 SpD / 25 Spe
+Jolly Nature
+- Liquidation
+- Last Respects
+- Aqua Jet
+- Protect
+
+Kommo-o @ Leftovers
+Ability: Soundproof
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Clangorous Soul
+- Clanging Scales
+- Aura Sphere
+- Protect
+
+Sneasler @ White Herb
+Ability: Unburden
+Level: 50
+EVs: 20 HP / 10 Atk / 21 Def / 15 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Protect
+
+Kingambit @ Chople Berry
+Ability: Defiant
+Level: 50
+EVs: 32 HP / 31 Atk / 3 Def
+Adamant Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
+- Low Kick
+
+Aerodactyl @ Aerodactylite
+Ability: Unnerve
+Level: 50
+EVs: 3 HP / 15 Atk / 16 Def / 32 Spe
+Jolly Nature
+- Rock Slide
+- Dual Wingbeat
+- Tailwind
+- Protect
+
+Scovillain @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 31 HP / 15 Def / 20 SpD
+Calm Nature
+- Overheat
+- Leech Seed
+- Rage Powder
+- Protect

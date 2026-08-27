@@ -1,0 +1,476 @@
+{
+  "created_at": "2026-08-22T00:18:28-05:00",
+  "configuration": {
+    "budget_s": 3.0,
+    "screen_budget_s": 1.0,
+    "chance_samples": 1,
+    "decisions": 5,
+    "selective": true,
+    "follow_plan_branch": false,
+    "max_decisions_per_game": 5,
+    "ponder": true,
+    "ponder_budget_s": 4.0,
+    "ponder_choices": 96,
+    "ponder_chance_samples": 1,
+    "opponent_think_s": 1.0
+  },
+  "modes": {
+    "search": 4,
+    "search_fallback": 0,
+    "reuse": 0,
+    "skip_on_plan": 0,
+    "skip_on_ponder": 1,
+    "skip": 0
+  },
+  "p50_s": 2.685958582907915,
+  "p90_s": 2.7741092330776156,
+  "max_s": 2.81411008303985,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 2.7978428329806775,
+      "end_to_end_s": 2.81411008303985,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.2105180401019096,
+        "saved_continuations": 0,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.0
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": null
+        }
+      },
+      "ponder": null,
+      "nodes": 346,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "planning_error": null,
+      "submission_overhead_s": 3.3329706639051437e-06,
+      "post_submit_ponder_start_s": 0.0002234999556094408,
+      "p1_choice": "switch 4, switch 3",
+      "p2_choice": "move bravebird +1 mega, move fakeout +1"
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 0.2414682910311967,
+      "end_to_end_s": 0.2414682910311967,
+      "mode": "skip_on_ponder",
+      "schedule": {
+        "mode": "skip_on_ponder",
+        "reasons": [
+          "position_matches_background_expansion"
+        ],
+        "coverage": 0.8333333333333335,
+        "predicted_value": -0.13942351682785212,
+        "matched_worlds": 5,
+        "expanded_outcomes": 480,
+        "ponder": {
+          "generation": 1,
+          "status": "partial_cancelled",
+          "elapsed_s": 1.3928310419432819,
+          "roots_completed": 5,
+          "choices_simulated": 480,
+          "outcomes": 480,
+          "truncated": true,
+          "cancelled": false,
+          "error": null
+        }
+      },
+      "ponder": {
+        "generation": 1,
+        "status": "partial_cancelled",
+        "elapsed_s": 1.3928310419432819,
+        "roots_completed": 5,
+        "choices_simulated": 480,
+        "outcomes": 480,
+        "truncated": true,
+        "cancelled": false,
+        "error": null
+      },
+      "nodes": 0,
+      "roots": 6,
+      "truncated": false,
+      "fallback_reason": null,
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "planning_error": null,
+      "submission_overhead_s": 0.003003207966685295,
+      "post_submit_ponder_start_s": 0.0001652080100029707,
+      "p1_choice": "move wavecrash +2, move suckerpunch +1",
+      "p2_choice": "move protect, move voltswitch -1"
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 2.7141079581342638,
+      "end_to_end_s": 2.7141079581342638,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "active_in_ko_range",
+          "faint",
+          "periodic_refresh",
+          "planned_line_diverged",
+          "switch_or_new_pokemon",
+          "weather_changed"
+        ],
+        "root_margin": 0.912588038997787,
+        "saved_continuations": 11,
+        "saved_outcomes": 27,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.2105180401019096
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.2105180401019096
+        },
+        "ponder_rejection": {
+          "reason": "no_pondered_position_match",
+          "outcomes": 384,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 192,
+            "opponent_action": 190,
+            "request_state": 2,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "0": {
+              "kind": "move",
+              "identifier": "protect",
+              "target": null,
+              "mega": false
+            },
+            "1": {
+              "kind": "move",
+              "identifier": "voltswitch",
+              "target": -1,
+              "mega": false
+            }
+          },
+          "pondered_opponent_choices": [
+            "move bravebird +1, move charm +1",
+            "move bravebird +1, move charm +2",
+            "move bravebird +1, move charm -1",
+            "move bravebird +1, move encore +1",
+            "move bravebird +1, move encore +2",
+            "move bravebird +1, move encore -1",
+            "move bravebird +1, move voltswitch +1",
+            "move bravebird +1, move voltswitch +2",
+            "move bravebird +1, move voltswitch -1",
+            "move bravebird +1, switch 3",
+            "move bravebird +1, switch 4",
+            "move bravebird +2, move charm +1",
+            "move bravebird +2, move charm +2",
+            "move bravebird +2, move charm -1",
+            "move bravebird +2, move encore +1",
+            "move bravebird +2, move encore +2"
+          ]
+        }
+      },
+      "ponder": {
+        "generation": 2,
+        "status": "partial_cancelled",
+        "elapsed_s": 1.11614100006409,
+        "roots_completed": 4,
+        "choices_simulated": 384,
+        "outcomes": 384,
+        "truncated": true,
+        "cancelled": false,
+        "error": null
+      },
+      "nodes": 353,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 11,
+      "fallbacks": 3,
+      "planning_error": null,
+      "submission_overhead_s": 3.95788811147213e-06,
+      "post_submit_ponder_start_s": 0.00017562485300004482,
+      "p1_choice": "move aquajet +1, move kowtowcleave +1",
+      "p2_choice": "move bravebird +2, move lowkick +2"
+    },
+    {
+      "game": 0,
+      "turn": 4,
+      "open_sheet": true,
+      "elapsed_s": 2.685958582907915,
+      "end_to_end_s": 2.685958582907915,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "active_in_ko_range",
+          "faint",
+          "hidden_information_revealed",
+          "planned_line_diverged",
+          "switch_or_new_pokemon",
+          "weather_changed"
+        ],
+        "root_margin": 0.05600138036325378,
+        "saved_continuations": 0,
+        "saved_outcomes": 9,
+        "reuse_rejection": {
+          "reason": "no_matching_successor",
+          "matching_mass": 0.0,
+          "eligible_mass": 0.0,
+          "saved_continuations": 11,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 11,
+            "illegal_next": 0,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "0": {
+              "kind": "move",
+              "identifier": "bravebird",
+              "target": 2,
+              "mega": false
+            },
+            "1": {
+              "kind": "move",
+              "identifier": "lowkick",
+              "target": 2,
+              "mega": false
+            }
+          },
+          "searched_opponent_choices": [
+            "move bravebird +1, move lowkick +1",
+            "move bravebird +1, move rockslide",
+            "move closecombat +1, move knockoff +1",
+            "move closecombat +1, move rockslide",
+            "move tailwind, move knockoff +1",
+            "move tailwind, move lowkick +1",
+            "switch 3, move rockslide",
+            "switch 4, move rockslide"
+          ]
+        },
+        "outcome_rejection": {
+          "reason": "no_evaluated_position_match",
+          "outcomes": 27,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 27,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          }
+        },
+        "ponder_rejection": {
+          "reason": "no_pondered_position_match",
+          "outcomes": 240,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 237,
+            "request_state": 3,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "0": {
+              "kind": "move",
+              "identifier": "bravebird",
+              "target": 2,
+              "mega": false
+            },
+            "1": {
+              "kind": "move",
+              "identifier": "lowkick",
+              "target": 2,
+              "mega": false
+            }
+          },
+          "pondered_opponent_choices": [
+            "move bravebird +1, move knockoff +1",
+            "move bravebird +1, move knockoff +2",
+            "move bravebird +1, move knockoff -1",
+            "move bravebird +1, move lowkick +1",
+            "move bravebird +1, move lowkick +2",
+            "move bravebird +1, move lowkick -1",
+            "move bravebird +1, move protect",
+            "move bravebird +1, move rockslide",
+            "move bravebird +1, switch 3",
+            "move bravebird +1, switch 4",
+            "move bravebird +2, move knockoff +1",
+            "move bravebird +2, move knockoff +2",
+            "move bravebird +2, move knockoff -1",
+            "move bravebird +2, move lowkick +1",
+            "move bravebird +2, move lowkick +2",
+            "move bravebird +2, move lowkick -1"
+          ]
+        }
+      },
+      "ponder": {
+        "generation": 3,
+        "status": "completed",
+        "elapsed_s": 0.713127083145082,
+        "roots_completed": 3,
+        "choices_simulated": 240,
+        "outcomes": 240,
+        "truncated": false,
+        "cancelled": false,
+        "error": null
+      },
+      "nodes": 348,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 3,
+      "planning_error": null,
+      "submission_overhead_s": 3.6249402910470963e-06,
+      "post_submit_ponder_start_s": 0.00015874998643994331,
+      "p1_choice": "move moonblast +1, switch 4",
+      "p2_choice": "move protect, move rockslide"
+    },
+    {
+      "game": 0,
+      "turn": 5,
+      "open_sheet": true,
+      "elapsed_s": 2.6502840409521013,
+      "end_to_end_s": 2.6502840409521013,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "active_in_ko_range",
+          "planned_line_diverged",
+          "switch_or_new_pokemon",
+          "weather_changed"
+        ],
+        "root_margin": 0.09987401731116718,
+        "saved_continuations": 0,
+        "saved_outcomes": 9,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.05600138036325378
+        },
+        "outcome_rejection": {
+          "reason": "no_evaluated_position_match",
+          "outcomes": 9,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 9,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          }
+        },
+        "ponder_rejection": {
+          "reason": "no_pondered_position_match",
+          "outcomes": 240,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 237,
+            "request_state": 0,
+            "strategic_state": 3,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "0": {
+              "kind": "move",
+              "identifier": "protect",
+              "target": null,
+              "mega": false
+            },
+            "1": {
+              "kind": "move",
+              "identifier": "rockslide",
+              "target": 2,
+              "mega": false
+            }
+          },
+          "pondered_opponent_choices": [
+            "move bravebird +1, move knockoff +1",
+            "move bravebird +1, move knockoff +2",
+            "move bravebird +1, move knockoff -1",
+            "move bravebird +1, move lowkick +1",
+            "move bravebird +1, move lowkick +2",
+            "move bravebird +1, move lowkick -1",
+            "move bravebird +1, move protect",
+            "move bravebird +1, move rockslide",
+            "move bravebird +1, switch 3",
+            "move bravebird +1, switch 4",
+            "move bravebird +2, move knockoff +1",
+            "move bravebird +2, move knockoff +2",
+            "move bravebird +2, move knockoff -1",
+            "move bravebird +2, move lowkick +1",
+            "move bravebird +2, move lowkick +2",
+            "move bravebird +2, move lowkick -1"
+          ]
+        }
+      },
+      "ponder": {
+        "generation": 4,
+        "status": "completed",
+        "elapsed_s": 0.6647508330643177,
+        "roots_completed": 3,
+        "choices_simulated": 240,
+        "outcomes": 240,
+        "truncated": false,
+        "cancelled": false,
+        "error": null
+      },
+      "nodes": 348,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 3,
+      "planning_error": null,
+      "submission_overhead_s": 4.458008334040642e-06,
+      "post_submit_ponder_start_s": 0.00020991708151996136,
+      "p1_choice": "move encore +1, move protect",
+      "p2_choice": "move closecombat +1, move rockslide"
+    }
+  ]
+}

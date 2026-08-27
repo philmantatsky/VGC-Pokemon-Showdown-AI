@@ -1,0 +1,404 @@
+{
+  "evaluation_schema": 3,
+  "hidden_sheets": false,
+  "opponent_checkpoint": "results_repaired/opponents/64opp_3932160_v4.zip",
+  "seed": 20260831,
+  "n_battles": 8,
+  "arms": {
+    "champion_policy": {
+      "checkpoint": "results_repaired/champion.zip",
+      "preview_model": "data/opponent_preview_top500_regmb.pt",
+      "preview_control": "champion_policy",
+      "move_search": {
+        "enabled": false,
+        "backend": null,
+        "configuration": {
+          "normal_turn_budget_s": null,
+          "screen_budget_s": null,
+          "submission_reserve_s": null,
+          "risk_weights": null,
+          "chance_samples": null,
+          "maximum_determinizations": null,
+          "selective_search": null,
+          "ponder": null,
+          "opponent_think_s": 0.0
+        },
+        "decisions": 0,
+        "fallbacks": 0,
+        "truncations": 0,
+        "audit": null
+      },
+      "residual_ranker": null,
+      "wins": 7,
+      "battles": 8,
+      "win_rate": 0.875,
+      "wilson_95": [
+        0.5291051942301386,
+        0.9775830911367038
+      ],
+      "elapsed_seconds": 7.38110537501052,
+      "telemetry": {
+        "guards_ran": 146,
+        "encore_exposure:demoted": 53,
+        "status_immunity:demoted": 53,
+        "opponent_reranker_ran": 19,
+        "opponent_reranker_candidates": 67,
+        "tempo_reranker_ran": 19,
+        "redundant_side_condition:demoted": 51,
+        "guaranteed_ko": 4,
+        "zero_damage:demoted": 13,
+        "priority_block:demoted": 43,
+        "free_catastrophic_setup:demoted": 3,
+        "single_target_weather_ball:demoted": 18,
+        "dominated_weather_ball:demoted": 34,
+        "status_immunity": 1,
+        "combined_reranker": 2,
+        "opponent_reranker": 2,
+        "tempo_factor:protect_stalls_bad_room": 2,
+        "tempo_factor:protected_spread_in_bad_room": 1,
+        "tempo_reranker_influenced": 1,
+        "single_target_weather_ball": 2
+      },
+      "battle_results": [
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736694",
+          "won": false,
+          "lost": true,
+          "turns": 9,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "garchomp",
+            "charizard",
+            "whimsicott",
+            "sylveon",
+            "kingambit",
+            "basculegion"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736695",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "metagross",
+            "sneasler",
+            "hydreigon",
+            "incineroar",
+            "aerodactyl",
+            "floetteeternal"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736696",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "pyroar",
+            "whimsicott",
+            "ninetales",
+            "farigiraf",
+            "basculegion",
+            "floetteeternal"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736697",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "mausholdfour",
+            "blastoise",
+            "sinistcha",
+            "whimsicott",
+            "kingambit",
+            "basculegion"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736698",
+          "won": true,
+          "lost": false,
+          "turns": 4,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "sneasler",
+            "blastoise",
+            "kingambit",
+            "incineroar",
+            "delphox",
+            "sinistcha"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736699",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "raichu",
+            "grimmsnarl",
+            "archaludon",
+            "pelipper",
+            "venusaur",
+            "aerodactyl"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736700",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "vivillon",
+            "farigiraf",
+            "camerupt",
+            "kingambit",
+            "sylveon",
+            "sneasler"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736701",
+          "won": true,
+          "lost": false,
+          "turns": 6,
+          "opponent": "DelayedShapeAwar 1",
+          "opponent_team": [
+            "staraptor",
+            "whimsicott",
+            "blastoise",
+            "pelipper",
+            "basculegion",
+            "kingambit"
+          ]
+        }
+      ],
+      "replay_dir": "results_parity/replays_planner_repair/eval_planner_repair_open_learned8/champion_policy"
+    },
+    "live_exact_search": {
+      "checkpoint": "results_repaired/champion.zip",
+      "preview_model": "data/opponent_preview_top500_regmb.pt",
+      "preview_control": "champion_policy",
+      "move_search": {
+        "enabled": true,
+        "backend": "exact Pokemon Showdown snapshot backend",
+        "configuration": {
+          "normal_turn_budget_s": 9.0,
+          "screen_budget_s": 2.0,
+          "submission_reserve_s": 1.0,
+          "risk_weights": [
+            0.6,
+            0.3,
+            0.1
+          ],
+          "chance_samples": 1,
+          "maximum_determinizations": 8,
+          "selective_search": true,
+          "ponder": false,
+          "opponent_think_s": 0.0
+        },
+        "decisions": 31,
+        "fallbacks": 19,
+        "truncations": 23,
+        "audit": "results_parity/search_audits/eval_planner_repair_open_learned8_live_exact_search.jsonl",
+        "latency_ms": {
+          "count": 54,
+          "p50": 10618.095041951165,
+          "p90": 14253.445291891694,
+          "max": 20962.90241694078
+        },
+        "audit_decisions": 54,
+        "schedule_modes": {
+          "search": 30,
+          "search_fallback": 19,
+          "error_fallback": 0,
+          "reuse": 1,
+          "skip_on_plan": 4,
+          "skip_on_ponder": 0,
+          "skip": 0
+        },
+        "error_fallbacks": 0,
+        "shallow_search_fallbacks": 19,
+        "future_depth_completion_rate": 0.6122448979591837,
+        "live_illegal_choices": 0,
+        "live_legality_changed_picks": 0,
+        "live_safety_changed_picks": 9
+      },
+      "residual_ranker": null,
+      "wins": 7,
+      "battles": 8,
+      "win_rate": 0.875,
+      "wilson_95": [
+        0.5291051942301386,
+        0.9775830911367038
+      ],
+      "elapsed_seconds": 91.95353337493725,
+      "telemetry": {
+        "guards_ran": 112,
+        "encore_exposure:demoted": 53,
+        "exact_search_skipped": 23,
+        "status_immunity:demoted": 28,
+        "dominated_weather_ball:demoted": 38,
+        "opponent_reranker_ran": 16,
+        "opponent_reranker_candidates": 63,
+        "tempo_reranker_ran": 16,
+        "redundant_side_condition:demoted": 41,
+        "guaranteed_ko": 4,
+        "free_catastrophic_setup:demoted": 1,
+        "combined_reranker": 4,
+        "opponent_reranker": 4,
+        "exact_search": 31,
+        "exact_search_nodes": 1495,
+        "exact_search_truncated": 23,
+        "exact_search_partial:partial_determinization_search": 18,
+        "reserve_weather_mega": 1,
+        "tempo_factor:protect_stalls_bad_room": 1,
+        "exact_search_partial:live_safety_filter": 9,
+        "exact_search_reused_plan": 1,
+        "exact_search_complete": 8,
+        "exact_search_partial:reused_contingent_plan": 1,
+        "zero_damage": 2,
+        "zero_damage:demoted": 12
+      },
+      "battle_results": [
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736702",
+          "won": true,
+          "lost": false,
+          "turns": 6,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "garchomp",
+            "charizard",
+            "whimsicott",
+            "sylveon",
+            "kingambit",
+            "basculegion"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736703",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "metagross",
+            "sneasler",
+            "hydreigon",
+            "incineroar",
+            "aerodactyl",
+            "floetteeternal"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736704",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "dragonite",
+            "gyarados",
+            "azumarill",
+            "garchomp",
+            "milotic",
+            "politoed"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736705",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "mausholdfour",
+            "blastoise",
+            "sinistcha",
+            "whimsicott",
+            "kingambit",
+            "basculegion"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736706",
+          "won": false,
+          "lost": true,
+          "turns": 6,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "staraptor",
+            "charizard",
+            "glimmora",
+            "whimsicott",
+            "basculegion",
+            "garchomp"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736707",
+          "won": true,
+          "lost": false,
+          "turns": 6,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "raichu",
+            "grimmsnarl",
+            "archaludon",
+            "pelipper",
+            "venusaur",
+            "aerodactyl"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736708",
+          "won": true,
+          "lost": false,
+          "turns": 3,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "audino",
+            "overqwil",
+            "malamar",
+            "whimsicott",
+            "chandelure",
+            "zoroarkhisui"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-736709",
+          "won": true,
+          "lost": false,
+          "turns": 6,
+          "opponent": "DelayedShapeAwar 2",
+          "opponent_team": [
+            "staraptor",
+            "whimsicott",
+            "blastoise",
+            "pelipper",
+            "basculegion",
+            "kingambit"
+          ]
+        }
+      ],
+      "replay_dir": "results_parity/replays_planner_repair/eval_planner_repair_open_learned8/live_exact_search"
+    }
+  },
+  "candidate_preview_trained": false,
+  "live_search_requested": true,
+  "exact_preview_requested": false,
+  "outcome_preview_requested": false,
+  "search_every_turn_comparison": false,
+  "search_comparison_only": true,
+  "preview_comparison_only": false,
+  "patch_report": "poke-env parse errors swallowed: 609 (-sideend:<SideCondition.TAILWIND: 21> x503, -fieldend:<Field.TRICK_ROOM: 13> x106)"
+}

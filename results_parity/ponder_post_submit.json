@@ -1,0 +1,189 @@
+{
+  "created_at": "2026-08-22T00:04:22-05:00",
+  "configuration": {
+    "budget_s": 5.0,
+    "screen_budget_s": 1.5,
+    "chance_samples": 1,
+    "decisions": 3,
+    "selective": true,
+    "follow_plan_branch": false,
+    "max_decisions_per_game": 0,
+    "ponder": true,
+    "ponder_budget_s": 6.0,
+    "ponder_choices": 96,
+    "ponder_chance_samples": 1,
+    "opponent_think_s": 3.0
+  },
+  "modes": {
+    "search": 2,
+    "reuse": 0,
+    "skip_on_plan": 0,
+    "skip_on_ponder": 1,
+    "skip": 0
+  },
+  "p50_s": 4.53064995794557,
+  "p90_s": 4.608290391555056,
+  "max_s": 4.627700499957427,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 4.610846790950745,
+      "end_to_end_s": 4.627700499957427,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.16193131183437476,
+        "saved_continuations": 0,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.0
+        },
+        "ponder_rejection": {
+          "reason": "missing_ponder_prerequisite",
+          "outcomes": 0,
+          "last_ponder": null
+        }
+      },
+      "ponder": null,
+      "nodes": 601,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "submission_overhead_s": 4.166970029473305e-06,
+      "post_submit_ponder_start_s": 0.00017899996601045132
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 0.13425237499177456,
+      "end_to_end_s": 0.13425237499177456,
+      "mode": "skip_on_ponder",
+      "schedule": {
+        "mode": "skip_on_ponder",
+        "reasons": [
+          "position_matches_background_expansion"
+        ],
+        "coverage": 1.0,
+        "predicted_value": -0.13795215942572822,
+        "matched_worlds": 6,
+        "expanded_outcomes": 576,
+        "ponder": {
+          "generation": 1,
+          "status": "completed",
+          "elapsed_s": 1.6439742501825094,
+          "roots_completed": 6,
+          "choices_simulated": 576,
+          "outcomes": 576,
+          "truncated": false,
+          "cancelled": false,
+          "error": null
+        }
+      },
+      "ponder": {
+        "generation": 1,
+        "status": "completed",
+        "elapsed_s": 1.6439742501825094,
+        "roots_completed": 6,
+        "choices_simulated": 576,
+        "outcomes": 576,
+        "truncated": false,
+        "cancelled": false,
+        "error": null
+      },
+      "nodes": 0,
+      "roots": 6,
+      "truncated": false,
+      "fallback_reason": null,
+      "saved_continuations": 0,
+      "fallbacks": 0,
+      "submission_overhead_s": 0.16626158403232694,
+      "post_submit_ponder_start_s": 0.00030970782972872257
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 4.53064995794557,
+      "end_to_end_s": 4.53064995794557,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "active_in_ko_range",
+          "faint",
+          "periodic_refresh",
+          "planned_line_diverged",
+          "switch_or_new_pokemon",
+          "weather_changed"
+        ],
+        "root_margin": 0.1880304326491361,
+        "saved_continuations": 18,
+        "saved_outcomes": 27,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.16193131183437476
+        },
+        "outcome_rejection": {
+          "reason": "missing_outcome_prerequisite",
+          "outcomes": 0,
+          "root_margin": 0.16193131183437476
+        },
+        "ponder_rejection": {
+          "reason": "no_pondered_position_match",
+          "outcomes": 576,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 288,
+            "opponent_action": 285,
+            "request_state": 3,
+            "strategic_state": 0,
+            "damage_state": 0
+          }
+        }
+      },
+      "ponder": {
+        "generation": 2,
+        "status": "completed",
+        "elapsed_s": 1.5639526669401675,
+        "roots_completed": 6,
+        "choices_simulated": 576,
+        "outcomes": 576,
+        "truncated": false,
+        "cancelled": false,
+        "error": null
+      },
+      "nodes": 579,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 18,
+      "fallbacks": 3,
+      "submission_overhead_s": 4.00003045797348e-06,
+      "post_submit_ponder_start_s": 0.00013062497600913048
+    }
+  ]
+}

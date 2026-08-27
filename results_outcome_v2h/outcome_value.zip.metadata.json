@@ -1,0 +1,7 @@
+{
+ "sha256": "857681412ba5415095ef3dea889a72c7d654d443115acb64f36ec3f46a0fc82d",
+ "requires_knowledge_obs": true,
+ "obs_len": 12132,
+ "role": "outcome_value",
+ "stamped_at": "2026-08-24T05:59:13+00:00"
+}

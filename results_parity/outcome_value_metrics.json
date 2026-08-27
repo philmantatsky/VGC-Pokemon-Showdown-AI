@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "games": 10000,
+  "states": 64167,
+  "opponent_split": {
+    "train": 436,
+    "validation": 54,
+    "test": 55
+  },
+  "selected_epoch": 3,
+  "temperature": 1.249840110617017,
+  "test": {
+    "outcome_model": {
+      "brier": 0.10346382157216047,
+      "log_loss": 0.33039055635294423,
+      "calibration_error": 0.0221539891260615,
+      "accuracy": 0.8560756212837323
+    },
+    "champion_critic": {
+      "brier": 0.13423262826521612,
+      "log_loss": 0.45706231594258057,
+      "calibration_error": 0.0679460806051482,
+      "accuracy": 0.8152157341058088
+    }
+  },
+  "tactical_ordering": {
+    "passed": 12,
+    "total": 12,
+    "accuracy": 1.0
+  },
+  "accepted": true
+}

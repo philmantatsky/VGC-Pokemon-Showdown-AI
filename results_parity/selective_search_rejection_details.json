@@ -1,0 +1,139 @@
+{
+  "created_at": "2026-08-21T23:45:00-05:00",
+  "configuration": {
+    "budget_s": 5.0,
+    "screen_budget_s": 1.5,
+    "chance_samples": 1,
+    "decisions": 3,
+    "selective": true
+  },
+  "modes": {
+    "search": 3,
+    "reuse": 0,
+    "skip": 0
+  },
+  "p50_s": 4.522396334214136,
+  "p90_s": 4.616324833175168,
+  "max_s": 4.639806957915425,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 4.624111582990736,
+      "end_to_end_s": 4.639806957915425,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.3116288824484201,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        }
+      },
+      "nodes": 584,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 4.522396334214136,
+      "end_to_end_s": 4.522396334214136,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "major_mechanic",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.5940954837302075,
+        "saved_continuations": 3,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.3116288824484201
+        }
+      },
+      "nodes": 624,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 3,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 4.496560583822429,
+      "end_to_end_s": 4.496560583822429,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "planned_line_diverged"
+        ],
+        "root_margin": 0.027832000682619762,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "no_matching_successor",
+          "matching_mass": 0.0,
+          "eligible_mass": 0.0,
+          "saved_continuations": 3,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 3,
+            "illegal_next": 0,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "0": {
+              "kind": "move",
+              "identifier": "protect",
+              "target": null,
+              "mega": false
+            },
+            "1": {
+              "kind": "move",
+              "identifier": "voltswitch",
+              "target": -1,
+              "mega": false
+            }
+          },
+          "searched_opponent_choices": [
+            "move closecombat +1, move voltswitch +1",
+            "move tailwind, move encore +1",
+            "move tailwind, move voltswitch +1"
+          ]
+        }
+      },
+      "nodes": 628,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    }
+  ]
+}

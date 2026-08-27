@@ -1,0 +1,66 @@
+{
+  "created_at": "2026-08-27T11:05:11-05:00",
+  "dataset": {
+    "games_with_positions": 1750,
+    "hidden_positions": 5947,
+    "positions": 10924,
+    "usable_positions": 10437
+  },
+  "evaluated_residuals": [
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h/candidate_residual_epoch6.pt",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h/candidate_residual_epoch8.pt",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h/candidate_residual_epoch4.pt"
+  ],
+  "evaluation": {
+    "candidates": {
+      "distilled_policy": {
+        "deltas": {
+          "hidden": 0.016000000000000014,
+          "open": 0.0020000000000000018,
+          "population": 0.030000000000000027
+        },
+        "passes_regression_gate": true,
+        "rates": {
+          "hidden": 0.878,
+          "open": 0.848,
+          "population": 0.804
+        },
+        "score": 0.8335,
+        "score_delta": 0.019499999999999962
+      },
+      "preview_policy": {
+        "deltas": {
+          "hidden": -0.07199999999999995,
+          "open": -0.03799999999999992,
+          "population": -0.06400000000000006
+        },
+        "passes_regression_gate": false,
+        "rates": {
+          "hidden": 0.79,
+          "open": 0.808,
+          "population": 0.71
+        },
+        "score": 0.7545,
+        "score_delta": -0.05950000000000011
+      }
+    },
+    "champion": {
+      "rates": {
+        "hidden": 0.862,
+        "open": 0.846,
+        "population": 0.774
+      },
+      "score": 0.8140000000000001
+    },
+    "weights": {
+      "hidden": 1.0,
+      "open": 1.0,
+      "population": 2.0
+    }
+  },
+  "passed": false,
+  "reason": "no candidate improved the weighted score by 2pp without a mode regressing more than 2pp",
+  "training_data": [
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/counterfactual_data_v5h"
+  ]
+}

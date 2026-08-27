@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "created_at": "2026-08-24T00:59:55-05:00",
+  "fixtures": [
+    "unit_tests/test_tempo_reranker.py::test_tailwind_changes_speed_before_trick_room_inverts_order",
+    "unit_tests/test_tempo_reranker.py::test_turn_five_good_trick_room_penalizes_double_protect",
+    "unit_tests/test_tempo_reranker.py::test_protect_plus_earthquake_is_recognized_as_coordinated_progress",
+    "unit_tests/test_tempo_reranker.py::test_encore_can_force_trick_room_toggle_when_it_really_moves_first",
+    "unit_tests/test_guard_repairs.py::test_solo_guaranteed_earthquake_beats_resisted_dragon_claw",
+    "unit_tests/test_guard_repairs.py::test_last_respects_ko_beats_rain_aqua_jet_at_observed_policy_gap",
+    "unit_tests/test_guard_repairs.py::test_two_on_one_focus_attacks_with_both_slots",
+    "unit_tests/test_guard_repairs.py::test_yawn_switch_values_the_next_turn",
+    "unit_tests/test_guard_repairs.py::test_minus_two_physical_attacker_gets_a_switch_candidate",
+    "unit_tests/test_guard_repairs.py::test_rain_reserves_mega_charizard_y",
+    "unit_tests/test_guard_repairs.py::test_final_two_on_two_double_protect_makes_progress",
+    "unit_tests/test_guard_repairs.py::test_double_protect_is_demoted_into_likely_shell_smash",
+    "unit_tests/test_guard_repairs.py::test_last_pokemon_does_not_repeat_protect_without_a_stall_goal",
+    "unit_tests/test_guard_repairs.py::test_known_prankster_encore_demotes_first_protect",
+    "unit_tests/test_guard_repairs.py::test_no_weather_weather_ball_is_demoted_when_heat_wave_dominates",
+    "unit_tests/test_guard_repairs.py::test_sun_weather_ball_beats_heat_wave_with_one_delphox",
+    "unit_tests/test_guard_repairs.py::test_delphox_two_on_one_near_tie_attacks_with_both_slots",
+    "unit_tests/test_exact_planner.py::test_determinization_aggregation_penalizes_hidden_set_downside"
+  ],
+  "tests": 18,
+  "passed": 18,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "accuracy": 1.0,
+  "minimum": 0.9,
+  "accepted": true
+}

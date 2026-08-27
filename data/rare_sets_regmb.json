@@ -1,0 +1,13 @@
+{
+  "simisear": {
+    "sets": [
+      {
+        "ability": "blaze",
+        "count": 1,
+        "item": "charcoal",
+        "moves": ["fakeout", "flamethrower", "yawn", "protect"],
+        "prob": 1.0
+      }
+    ]
+  }
+}

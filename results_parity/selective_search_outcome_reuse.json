@@ -1,0 +1,186 @@
+{
+  "created_at": "2026-08-21T23:49:25-05:00",
+  "configuration": {
+    "budget_s": 5.0,
+    "screen_budget_s": 1.5,
+    "chance_samples": 1,
+    "decisions": 4,
+    "selective": true,
+    "follow_plan_branch": true
+  },
+  "modes": {
+    "search": 3,
+    "reuse": 0,
+    "skip_on_plan": 1,
+    "skip": 0
+  },
+  "p50_s": 3.255866103922017,
+  "p90_s": 4.581994721409865,
+  "max_s": 4.622036459157243,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 4.603088417090476,
+      "end_to_end_s": 4.622036459157243,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.28530706863868116,
+        "saved_continuations": 0,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        }
+      },
+      "nodes": 601,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 0.1076932919677347,
+      "end_to_end_s": 0.1076932919677347,
+      "mode": "skip_on_plan",
+      "schedule": {
+        "mode": "skip_on_plan",
+        "reasons": [
+          "position_matches_acceptable_searched_branch"
+        ],
+        "coverage": 0.5,
+        "predicted_value": -0.06548089883887356,
+        "reference_score": -0.1748685925014449,
+        "matched_worlds": 3,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.28530706863868116
+        }
+      },
+      "nodes": 0,
+      "roots": 6,
+      "truncated": false,
+      "fallback_reason": null,
+      "saved_continuations": 0,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 4.4885639999993145,
+      "end_to_end_s": 4.4885639999993145,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "active_in_ko_range",
+          "faint",
+          "periodic_refresh",
+          "switch_or_new_pokemon",
+          "weather_changed"
+        ],
+        "root_margin": 0.027406921739254297,
+        "saved_continuations": 6,
+        "saved_outcomes": 18,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.28530706863868116
+        }
+      },
+      "nodes": 559,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_root_failure",
+      "saved_continuations": 6,
+      "fallbacks": 3
+    },
+    {
+      "game": 0,
+      "turn": 4,
+      "open_sheet": true,
+      "elapsed_s": 2.0231682078447193,
+      "end_to_end_s": 2.0231682078447193,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "faint",
+          "planned_line_diverged",
+          "side_condition_changed",
+          "switch_or_new_pokemon",
+          "weather_changed"
+        ],
+        "root_margin": 0.14038763813144783,
+        "saved_continuations": 0,
+        "saved_outcomes": 3,
+        "reuse_rejection": {
+          "reason": "no_matching_successor",
+          "matching_mass": 0.0,
+          "eligible_mass": 0.0,
+          "saved_continuations": 6,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 1,
+            "opponent_action": 5,
+            "illegal_next": 0,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "1": {
+              "kind": "move",
+              "identifier": "protect",
+              "target": null,
+              "mega": false
+            },
+            "0": {
+              "kind": "move",
+              "identifier": "tailwind",
+              "target": null,
+              "mega": false
+            }
+          },
+          "searched_opponent_choices": [
+            "move bravebird +1, move protect",
+            "move bravebird +1, switch 4",
+            "move closecombat +1, move rockslide",
+            "move tailwind, move knockoff +1",
+            "move tailwind, move protect",
+            "switch 4, move protect"
+          ]
+        }
+      },
+      "nodes": 273,
+      "roots": 1,
+      "truncated": false,
+      "fallback_reason": null,
+      "saved_continuations": 0,
+      "fallbacks": 5
+    }
+  ]
+}

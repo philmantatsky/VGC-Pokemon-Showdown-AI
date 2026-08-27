@@ -1,0 +1,176 @@
+{
+  "created_at": "2026-08-21T23:46:43-05:00",
+  "configuration": {
+    "budget_s": 5.0,
+    "screen_budget_s": 1.5,
+    "chance_samples": 1,
+    "decisions": 4,
+    "selective": true,
+    "follow_plan_branch": true
+  },
+  "modes": {
+    "search": 4,
+    "reuse": 0,
+    "skip": 0
+  },
+  "p50_s": 4.512473666924052,
+  "p90_s": 4.58928744122386,
+  "max_s": 4.62155266595073,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 4.605120749911293,
+      "end_to_end_s": 4.62155266595073,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.2741799925556128,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        }
+      },
+      "nodes": 602,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 4.510945416986942,
+      "end_to_end_s": 4.510945416986942,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "major_mechanic",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.41591529892981227,
+        "saved_continuations": 5,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.2741799925556128
+        }
+      },
+      "nodes": 623,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 5,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 4.480800792109221,
+      "end_to_end_s": 4.480800792109221,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "active_in_ko_range",
+          "planned_line_diverged",
+          "side_condition_changed",
+          "volatile_effect_changed"
+        ],
+        "root_margin": 0.012668754657936043,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "no_matching_successor",
+          "matching_mass": 0.25584256129952043,
+          "eligible_mass": 0.0,
+          "saved_continuations": 5,
+          "rejected": {
+            "root_choice": 0,
+            "missing_world": 0,
+            "opponent_action": 3,
+            "illegal_next": 2,
+            "request_state": 0,
+            "strategic_state": 0,
+            "damage_state": 0
+          },
+          "observed_opponent_actions": {
+            "1": {
+              "kind": "move",
+              "identifier": "encore",
+              "target": 1,
+              "mega": false
+            },
+            "0": {
+              "kind": "move",
+              "identifier": "tailwind",
+              "target": null,
+              "mega": false
+            }
+          },
+          "searched_opponent_choices": [
+            "move bravebird +1, move voltswitch +1",
+            "move closecombat +1, move voltswitch +1",
+            "move tailwind, move encore +1",
+            "move tailwind, move voltswitch +1"
+          ]
+        }
+      },
+      "nodes": 530,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_root_failure",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 4,
+      "open_sheet": true,
+      "elapsed_s": 4.514001916861162,
+      "end_to_end_s": 4.514001916861162,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "active_in_ko_range",
+          "hidden_information_revealed",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.10422817347735663,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.012668754657936043
+        }
+      },
+      "nodes": 553,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    }
+  ]
+}

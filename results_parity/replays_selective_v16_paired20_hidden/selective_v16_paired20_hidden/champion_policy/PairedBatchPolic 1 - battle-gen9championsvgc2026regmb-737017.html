@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen9championsvgc2026regmb-737017</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen9championsvgc2026regmb-737017<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">PairedBatchPolic 1</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">DelayedShapeAwar 1</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen9championsvgc2026regmb-737017
+|init|battle
+|title|PairedBatchPolic 1 vs. DelayedShapeAwar 1
+|j|☆PairedBatchPolic 1
+|j|☆DelayedShapeAwar 1
+|gametype|doubles
+|player|p1|PairedBatchPolic 1|2|
+|player|p2|DelayedShapeAwar 1|169|
+|gen|9
+|tier|[Gen 9 Champions] VGC 2026 Reg M-B
+|rule|Species Clause: Limit one of each Pokémon
+|rule|Item Clause: Limit 1 of each item
+|clearpoke
+|poke|p1|Floette-Eternal, L50, F|
+|poke|p1|Charizard, L50, F|
+|poke|p1|Whimsicott, L50, F|
+|poke|p1|Garchomp, L50, F|
+|poke|p1|Basculegion, L50, M|
+|poke|p1|Kingambit, L50, M|
+|poke|p2|Incineroar, L50, F|
+|poke|p2|Sneasler, L50, F|
+|poke|p2|Delphox, L50, F|
+|poke|p2|Kingambit, L50, F|
+|poke|p2|Sinistcha, L50|
+|poke|p2|Blastoise, L50, M|
+|teampreview|4
+|uhtml|otsrequest|<button name="send" value="/acceptopenteamsheets" class="button" style="margin-right: 10px;"><strong>Accept Open Team Sheets</strong></button><button name="send" value="/rejectopenteamsheets" class="button" style="margin-top: 10px"><strong>Deny Open Team Sheets</strong></button>
+|
+|teamsize|p1|4
+|teamsize|p2|4
+|start
+|switch|p1a: Basculegion|Basculegion, L50, M|195/195
+|switch|p1b: Floette|Floette-Eternal, L50, F|151/151
+|switch|p2a: Kingambit|Kingambit, L50, F|100/100
+|switch|p2b: Delphox|Delphox, L50, F|100/100
+|turn|1
+|
+|detailschange|p2b: Delphox|Delphox-Mega, L50, F
+|-mega|p2b: Delphox|Delphox|Delphoxite
+|detailschange|p1b: Floette|Floette-Mega, L50, F
+|-mega|p1b: Floette|Floette|Floettite
+|-ability|p1b: Floette|Fairy Aura
+|move|p2b: Delphox|Protect|p2b: Delphox
+|-singleturn|p2b: Delphox|Protect
+|move|p1b: Floette|Dazzling Gleam|p2a: Kingambit|[spread] p2a
+|-activate|p2b: Delphox|move: Protect
+|-damage|p2a: Kingambit|44/100
+|move|p1a: Basculegion|Wave Crash|p2b: Delphox
+|-activate|p2b: Delphox|move: Protect
+|move|p2a: Kingambit|Kowtow Cleave|p1b: Floette
+|-resisted|p1b: Floette|1
+|-damage|p1b: Floette|92/151
+|
+|upkeep
+|turn|2
+|
+|move|p2a: Kingambit|Protect|p2a: Kingambit
+|-singleturn|p2a: Kingambit|Protect
+|move|p2b: Delphox|Heat Wave|p1b: Floette|[spread] p1a,p1b
+|-resisted|p1a: Basculegion|1
+|-damage|p1a: Basculegion|153/195
+|-damage|p1b: Floette|40/151
+|move|p1b: Floette|Dazzling Gleam|p2b: Delphox|[spread] p2b
+|-activate|p2a: Kingambit|move: Protect
+|-resisted|p2b: Delphox|1
+|-damage|p2b: Delphox|74/100
+|move|p1a: Basculegion|Wave Crash|p2b: Delphox
+|-supereffective|p2b: Delphox|1
+|-damage|p2b: Delphox|0 fnt
+|faint|p2b: Delphox
+|-damage|p1a: Basculegion|114/195|[from] Recoil
+|-damage|p1a: Basculegion|95/195|[from] item: Life Orb
+|
+|upkeep
+|
+|switch|p2b: Sneasler|Sneasler, L50, F|100/100
+|turn|3
+|
+|move|p1a: Basculegion|Protect|p1a: Basculegion
+|-singleturn|p1a: Basculegion|Protect
+|move|p2b: Sneasler|Quick Guard|p2b: Sneasler
+|-singleturn|p2b: Sneasler|Quick Guard
+|move|p2a: Kingambit|Sucker Punch||[still]
+|-fail|p2a: Kingambit
+|move|p1b: Floette|Dazzling Gleam|p2b: Sneasler|[spread] p2a,p2b
+|-damage|p2a: Kingambit|0 fnt
+|-damage|p2b: Sneasler|32/100
+|faint|p2a: Kingambit
+|
+|upkeep
+|
+|switch|p2a: Sinistcha|Sinistcha, L50|100/100
+|-heal|p2b: Sneasler|56/100|[from] ability: Hospitality|[of] p2a: Sinistcha
+|turn|4
+|
+|move|p2b: Sneasler|Close Combat|p1b: Floette
+|-resisted|p1b: Floette|1
+|-crit|p1b: Floette
+|-damage|p1b: Floette|0 fnt
+|-unboost|p2b: Sneasler|def|1
+|-unboost|p2b: Sneasler|spd|1
+|faint|p1b: Floette
+|move|p1a: Basculegion|Last Respects|p2b: Sneasler
+|-damage|p2b: Sneasler|0 fnt
+|faint|p2b: Sneasler
+|-damage|p1a: Basculegion|76/195|[from] item: Life Orb
+|move|p2a: Sinistcha|Matcha Gotcha|p1a: Basculegion
+|-supereffective|p1a: Basculegion|1
+|-damage|p1a: Basculegion|0 fnt
+|faint|p1a: Basculegion
+|
+|upkeep
+|
+|switch|p1b: Garchomp|Garchomp, L50, F|191/191
+|switch|p1a: Charizard|Charizard, L50, F|185/185
+|turn|5
+|
+|move|p1a: Charizard|Protect|p1a: Charizard
+|-singleturn|p1a: Charizard|Protect
+|move|p2a: Sinistcha|Protect|p2a: Sinistcha
+|-singleturn|p2a: Sinistcha|Protect
+|move|p1b: Garchomp|Rock Tomb|p2a: Sinistcha
+|-activate|p2a: Sinistcha|move: Protect
+|
+|upkeep
+|turn|6
+|
+|move|p1b: Garchomp|Rock Tomb|p2a: Sinistcha
+|-damage|p2a: Sinistcha|85/100
+|-unboost|p2a: Sinistcha|spe|1
+|move|p1a: Charizard|Heat Wave|p2a: Sinistcha|[miss]
+|-miss|p1a: Charizard|p2a: Sinistcha
+|move|p2a: Sinistcha|Matcha Gotcha|p1b: Garchomp|[spread] p1b
+|-miss|p2a: Sinistcha|p1a: Charizard
+|-damage|p1b: Garchomp|139/191
+|-heal|p2a: Sinistcha|100/100|[from] drain|[of] p1b: Garchomp
+|-status|p1b: Garchomp|brn
+|
+|-damage|p1b: Garchomp|128/191 brn|[from] brn
+|upkeep
+|turn|7
+|
+|move|p1a: Charizard|Protect|p1a: Charizard
+|-singleturn|p1a: Charizard|Protect
+|move|p1b: Garchomp|Rock Tomb|p2a: Sinistcha
+|-damage|p2a: Sinistcha|92/100
+|-unboost|p2a: Sinistcha|spe|1
+|move|p2a: Sinistcha|Matcha Gotcha|p1b: Garchomp|[spread] p1b
+|-activate|p1a: Charizard|move: Protect
+|-damage|p1b: Garchomp|77/191 brn
+|-heal|p2a: Sinistcha|100/100|[from] drain|[of] p1b: Garchomp
+|-enditem|p1b: Garchomp|Sitrus Berry|[eat]
+|-heal|p1b: Garchomp|124/191 brn|[from] item: Sitrus Berry
+|
+|-damage|p1b: Garchomp|113/191 brn|[from] brn
+|upkeep
+|turn|8
+|
+|move|p2a: Sinistcha|Rage Powder|p2a: Sinistcha
+|-singleturn|p2a: Sinistcha|move: Rage Powder
+|move|p1b: Garchomp|Dragon Claw|p2a: Sinistcha
+|-damage|p2a: Sinistcha|84/100
+|move|p1a: Charizard|Heat Wave|p2a: Sinistcha
+|-supereffective|p2a: Sinistcha|1
+|-damage|p2a: Sinistcha|6/100
+|
+|-damage|p1b: Garchomp|102/191 brn|[from] brn
+|upkeep
+|turn|9
+|
+|move|p2a: Sinistcha|Protect|p2a: Sinistcha
+|-singleturn|p2a: Sinistcha|Protect
+|move|p1b: Garchomp|Earthquake|p2a: Sinistcha|[spread] 
+|-activate|p2a: Sinistcha|move: Protect
+|-immune|p1a: Charizard
+|move|p1a: Charizard|Solar Beam||[still]
+|-prepare|p1a: Charizard|Solar Beam
+|
+|-damage|p1b: Garchomp|91/191 brn|[from] brn
+|upkeep
+|turn|10
+|
+|move|p1b: Garchomp|Rock Tomb|p2a: Sinistcha
+|-crit|p2a: Sinistcha
+|-damage|p2a: Sinistcha|0 fnt
+|faint|p2a: Sinistcha
+|
+|win|PairedBatchPolic 1
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

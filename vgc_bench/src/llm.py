@@ -1,0 +1,663 @@
+"""
+LLM-based player module for VGC-Bench.
+
+Provides a Pokemon VGC player that uses a large language model (Llama 3.1)
+to make battle decisions by generating natural language prompts describing
+the current game state and parsing the model's responses as action choices.
+"""
+
+import random
+from typing import Any
+
+import numpy as np
+import torch
+import transformers
+from poke_env.battle import AbstractBattle, DoubleBattle, Move, Pokemon
+from poke_env.environment import DoublesEnv
+from poke_env.player import BattleOrder, DefaultBattleOrder, Player
+
+from vgc_bench.src.policy import MaskedActorCriticPolicy
+from vgc_bench.src.utils import act_len
+
+
+class LLMPlayer(Player):
+    """
+    A Pokemon VGC player that uses a large language model for decision making.
+
+    Generates detailed text prompts describing the current battle state,
+    queries Llama 3.1 for action selection, and parses responses to
+    extract valid battle orders.
+
+    Attributes:
+        device: CUDA device for model inference.
+        model: Hugging Face text generation pipeline.
+        _teampreview_drafts: Mapping of battle tags to teampreview selections.
+    """
+
+    def __init__(self, device: str, *args: Any, **kwargs: Any):
+        """
+        Initialize the LLM player.
+
+        Args:
+            device: CUDA device string for model placement.
+            *args: Additional arguments for Player base class.
+            **kwargs: Additional keyword arguments for Player base class.
+        """
+        super().__init__(*args, **kwargs)
+        self.device = device
+        self._teampreview_drafts = {}
+        self.setup_llm()
+
+    def setup_llm(self):
+        """Load and configure the Llama 3.1 model and tokenizer."""
+        tokenizer = transformers.AutoTokenizer.from_pretrained(
+            "meta-llama/Meta-Llama-3.1-8B-Instruct"
+        )
+        model = transformers.AutoModelForCausalLM.from_pretrained(
+            "meta-llama/Meta-Llama-3.1-8B-Instruct",
+            torch_dtype="auto",
+            device_map=self.device,
+        )
+        tokenizer.pad_token = tokenizer.eos_token
+        model.config.pad_token_id = tokenizer.eos_token_id
+        self.model = transformers.pipelines.pipeline(
+            "text-generation", model=model, tokenizer=tokenizer
+        )
+
+    def get_response(self, prompt: str) -> str:
+        """
+        Query the LLM with a prompt and return its response.
+
+        Args:
+            prompt: The text prompt to send to the model.
+
+        Returns:
+            The model's generated response text.
+        """
+        input_dict = [
+            {
+                "role": "system",
+                "content": (
+                    "You are the strongest player of all time in competitive Pokemon"
+                    " VGC, the official competitive format for the core Pokemon video"
+                    " game series. You will do everything in your power to win this"
+                    " current battle, since this is the finals of the biggest"
+                    " tournament ever."
+                ),
+            },
+            {"role": "user", "content": prompt},
+        ]
+        response = self.model(input_dict)[0]["generated_text"][-1]["content"]
+        return response
+
+    def choose_move(self, battle: AbstractBattle) -> BattleOrder:
+        """
+        Choose moves for both active Pokemon using the LLM.
+
+        Args:
+            battle: The current battle state.
+
+        Returns:
+            Combined battle order for both active Pokemon.
+        """
+        assert isinstance(battle, DoubleBattle)
+        action1 = self.choose_move_individual(battle, 0, None)
+        if action1 < 0:
+            return DefaultBattleOrder()
+        action2 = self.choose_move_individual(battle, 1, action1)
+        action = np.array([action1, action2])
+        order = DoublesEnv.action_to_order(action, battle)
+        return order
+
+    def choose_move_individual(
+        self, battle: DoubleBattle, pos: int, ally_action: np.int64 | None
+    ) -> np.int64:
+        """
+        Choose a move for a single active Pokemon slot using the LLM.
+
+        Args:
+            battle: The current battle state.
+            pos: Active slot position (0 or 1).
+            ally_action: Action already chosen for ally (None for first slot).
+
+        Returns:
+            Action index for this slot.
+        """
+        if pos == 0:
+            mask = torch.tensor(DoublesEnv.get_action_mask_individual(battle, 0))
+            ally_order = None
+        else:
+            assert ally_action is not None
+            mask = torch.tensor(DoublesEnv.get_action_mask(battle)).unsqueeze(0)
+            ally_action_tensor = torch.tensor([[ally_action]])
+            mask = MaskedActorCriticPolicy._update_mask(mask, ally_action_tensor)[
+                0, act_len:
+            ]
+            ally_order = DoublesEnv._action_to_order_individual(
+                ally_action, battle, False, 0
+            )
+        action_space = [i for i, m in enumerate(mask.tolist()) if m == 1]
+        if not action_space:
+            return np.int64(0)
+        elif len(action_space) == 1:
+            return np.int64(action_space[0])
+        order_space = [
+            DoublesEnv._action_to_order_individual(np.int64(a), battle, False, pos)
+            for a in action_space
+        ]
+        action_names = [
+            self.explain_battle_order(battle, o, pos)
+            for o in order_space
+            if o is not None
+        ]
+        prompt = self.explain_battle(
+            battle,
+            self._teampreview_drafts[battle.battle_tag],
+            action_names,
+            ally_order,
+            pos,
+        )
+        response = self.get_response(prompt)
+        try:
+            action_index = int(response) - 1
+            action = action_space[action_index]
+        except IndexError:
+            print(f"INDEX OUT OF BOUNDS: {response}", flush=True)
+            action = -2
+        except ValueError:
+            print(f"INVALID RESPONSE: {response}", flush=True)
+            action = -2
+        return np.int64(action)
+
+    def teampreview(self, battle: AbstractBattle) -> str:
+        """
+        Select Pokemon for the battle using the LLM for teampreview decisions.
+
+        Args:
+            battle: The current battle state during team preview.
+
+        Returns:
+            Team order string for Pokemon Showdown.
+        """
+        assert isinstance(battle, DoubleBattle)
+        self._teampreview_drafts = {
+            tag: preview
+            for tag, preview in self._teampreview_drafts.items()
+            if tag in self.battles and not self.battles[tag].finished
+        }
+        actives = []
+        bench = []
+        self._teampreview_drafts[battle.battle_tag] = []
+        for _ in range(2):
+            actives += [self.teampreview_individual(battle, actives, bench)]
+            actives[-1]._selected_in_teampreview = True
+            self._teampreview_drafts[battle.battle_tag] += [
+                i
+                for i, p in enumerate(battle.team.values(), start=1)
+                if p == actives[-1]
+            ]
+        for _ in range(2):
+            bench += [self.teampreview_individual(battle, actives, bench)]
+            bench[-1]._selected_in_teampreview = True
+            self._teampreview_drafts[battle.battle_tag] += [
+                i for i, p in enumerate(battle.team.values(), start=1) if p == bench[-1]
+            ]
+        draft = self._teampreview_drafts[battle.battle_tag]
+        order = ",".join([str(i) for i in draft])
+        return f"/team {order}"
+
+    def teampreview_individual(
+        self, battle: DoubleBattle, actives: list[Pokemon], bench: list[Pokemon]
+    ) -> Pokemon:
+        """
+        Select one Pokemon for a teampreview slot using the LLM.
+
+        Args:
+            battle: The current battle state.
+            actives: Already-selected active Pokemon.
+            bench: Already-selected bench Pokemon.
+
+        Returns:
+            The Pokemon chosen for the next slot.
+        """
+        remaining_pokemon = [
+            p for p in battle.team.values() if p not in actives and p not in bench
+        ]
+        prompt = self.explain_battle_teampreview(battle, actives, bench)
+        response = self.get_response(prompt)
+        try:
+            action_index = int(response) - 1
+            mon = remaining_pokemon[action_index]
+        except IndexError:
+            print(f"INDEX OUT OF BOUNDS (teampreview): {response}", flush=True)
+            mon = random.choice(remaining_pokemon)
+        except ValueError:
+            print(f"INVALID RESPONSE (teampreview): {response}", flush=True)
+            mon = random.choice(remaining_pokemon)
+        return mon
+
+    @staticmethod
+    def explain_battle(
+        battle: DoubleBattle,
+        teampreview_draft: list[int],
+        action_names: list[str],
+        last_order: BattleOrder | None,
+        pos: int,
+    ) -> str:
+        """
+        Generate a detailed text prompt describing the current battle state.
+
+        Args:
+            battle: The current battle state.
+            teampreview_draft: List of Pokemon indices selected at teampreview.
+            action_names: Available action descriptions.
+            last_order: Previously chosen order for ally (if pos=1).
+            pos: Active slot position being queried.
+
+        Returns:
+            Formatted prompt string for the LLM.
+        """
+        active_mon = battle.active_pokemon[pos]
+        a1 = battle._active_pokemon[f"{battle.player_role}a"]
+        a2 = battle._active_pokemon[f"{battle.player_role}b"]
+        o1 = battle._opponent_active_pokemon[f"{battle.opponent_role}a"]
+        o2 = battle._opponent_active_pokemon[f"{battle.opponent_role}b"]
+        benched_pokemon = [
+            p
+            for i, p in enumerate(battle.team.values(), start=1)
+            if i in teampreview_draft and p not in [a1, a2]
+        ]
+        opp_benched_pokemon = [
+            p for p in battle.opponent_team.values() if p not in [o1, o2]
+        ]
+        listed_action_space = "\n".join(
+            f"{i + 1}. {name}" for i, name in enumerate(action_names)
+        )
+        weather_str = (
+            ", ".join(
+                f"{w.name.lower()} (active for {battle.turn - turn} turns)"
+                for w, turn in battle.weather.items()
+            )
+            or "None"
+        )
+        fields_str = (
+            ", ".join(
+                f"{f.name.lower()} (active for {battle.turn - turn} turns)"
+                for f, turn in battle.fields.items()
+            )
+            or "None"
+        )
+        tera_str = "Tera used." if battle.used_tera else "Tera available."
+        side_conds = (
+            ", ".join(s.name.lower() for s in battle.side_conditions.keys()) or None
+        )
+        opp_tera_str = (
+            "Opponent's tera already used."
+            if battle.opponent_used_tera
+            else "Tera available for opponent!"
+        )
+        opp_side_conds = (
+            ", ".join(s.name.lower() for s in battle.opponent_side_conditions.keys())
+            or "None"
+        )
+        slot_str = f"slot {pos + 1}"
+        if active_mon is not None:
+            slot_str += f" (your {active_mon.base_species})"
+        prev_str = ""
+        if pos == 1:
+            prev_str = (
+                f" The action you already chose for your first slot was {last_order}."
+            )
+        respond_str = (
+            "Respond with the number corresponding to your chosen action. PLEASE GIVE"
+            " NO FURTHER RESPONSE THAN THAT, JUST THE NUMBER WITH NO PUNCTUATION!"
+        )
+        return f"""The following is what you are currently observing:
+
+########## GLOBAL EFFECTS ##########
+
+Active weather: {weather_str}
+Active fields: {fields_str}
+
+########## YOUR SIDE ##########
+
+{tera_str}
+Active side conditions: {side_conds}
+
+### Active Pokemon ###
+
+Slot 1: {LLMPlayer.explain_pokemon(a1)}
+
+Slot 2: {LLMPlayer.explain_pokemon(a2)}
+
+### Benched Pokemon ###
+
+1. {LLMPlayer.explain_pokemon(benched_pokemon[0])}
+
+2. {LLMPlayer.explain_pokemon(benched_pokemon[1])}
+
+########## OPPONENT SIDE ##########
+
+Rating: {battle.opponent_rating}
+{opp_tera_str}
+Active side conditions: {opp_side_conds}
+
+### Active Pokemon ###
+
+1. {LLMPlayer.explain_pokemon(o1)}
+
+2. {LLMPlayer.explain_pokemon(o2)}
+
+### Benched Pokemon ###
+
+1. {LLMPlayer.explain_pokemon(opp_benched_pokemon[0])}
+
+2. {LLMPlayer.explain_pokemon(opp_benched_pokemon[1])}
+
+3. {LLMPlayer.explain_pokemon(opp_benched_pokemon[2])}
+
+4. {LLMPlayer.explain_pokemon(opp_benched_pokemon[3])}
+
+########## MAKE YOUR DECISION ##########
+
+Please select the optimal action for {slot_str}.{prev_str}
+
+Here are your available actions:
+{listed_action_space}
+
+{respond_str}"""
+
+    @staticmethod
+    def explain_battle_teampreview(
+        battle: DoubleBattle, actives: list[Pokemon], bench: list[Pokemon]
+    ) -> str:
+        """
+        Generate a text prompt for teampreview selection.
+
+        Args:
+            battle: The current battle state.
+            actives: Already-selected active Pokemon.
+            bench: Already-selected bench Pokemon.
+
+        Returns:
+            Formatted prompt string for the LLM.
+        """
+        remaining_pokemon = [
+            p for p in battle.team.values() if p not in actives and p not in bench
+        ]
+        opponent_pokemon = list(battle.opponent_team.values())
+        if len(actives) < 2:
+            position = len(actives) + 1
+            section = "active"
+        else:
+            position = len(bench) + 1
+            section = "bench"
+        select_str = (
+            'Please select a Pokemon from the "Your still-unchosen Pokemon" section to'
+            f' be put in position {position} of the "Your already-made {section}'
+            f' choices" section.'
+        )
+        recap_str = (
+            'Just to recap, your available responses in the "Your still-unchosen'
+            ' Pokemon" section are:'
+        )
+        respond_str = (
+            "Respond with the number corresponding to your choice. PLEASE GIVE NO"
+            " FURTHER RESPONSE THAN THAT, JUST THE NUMBER WITH NO PUNCTUATION!"
+        )
+        return f"""The following is what you are currently observing in teampreview:
+
+########## YOUR SIDE ##########
+
+### Your already-made active choices ###
+
+1. {LLMPlayer.explain_inactive_pokemon(actives[0]) if actives else "empty"}
+
+2. {LLMPlayer.explain_inactive_pokemon(actives[1]) if len(actives) > 1 else "empty"}
+
+### Your already-made bench choices ###
+
+1. {LLMPlayer.explain_inactive_pokemon(bench[0]) if bench else "empty"}
+
+2. {LLMPlayer.explain_inactive_pokemon(bench[1]) if len(bench) > 1 else "empty"}
+
+### Your still-unchosen Pokemon ###
+
+{LLMPlayer.explain_remaining_pokemon(remaining_pokemon)}
+
+########## OPPONENT SIDE ##########
+
+1. {LLMPlayer.explain_inactive_pokemon(opponent_pokemon[0])}
+
+2. {LLMPlayer.explain_inactive_pokemon(opponent_pokemon[1])}
+
+3. {LLMPlayer.explain_inactive_pokemon(opponent_pokemon[2])}
+
+4. {LLMPlayer.explain_inactive_pokemon(opponent_pokemon[3])}
+
+5. {LLMPlayer.explain_inactive_pokemon(opponent_pokemon[4])}
+
+6. {LLMPlayer.explain_inactive_pokemon(opponent_pokemon[5])}
+
+########## MAKE YOUR DECISION ##########
+
+{select_str}
+
+{recap_str}
+{LLMPlayer.explain_remaining_pokemon_short(remaining_pokemon)}
+
+{respond_str}"""
+
+    @staticmethod
+    def explain_battle_order(battle: DoubleBattle, order: BattleOrder, pos: int) -> str:
+        """
+        Convert a battle order to a human-readable description.
+
+        Args:
+            battle: The current battle state.
+            order: The battle order to describe.
+            pos: Active slot position.
+
+        Returns:
+            Human-readable description of the order.
+        """
+        order_str = str(order).removeprefix("/choose ")
+        if order_str.endswith(" 1"):
+            target = (
+                battle.opponent_active_pokemon[0].base_species
+                if battle.opponent_active_pokemon[0] is not None
+                else "empty slot"
+            )
+            order_str = f"{order_str[:-2]} targeting foe's {target}"
+        elif order_str.endswith(" 2"):
+            target = (
+                battle.opponent_active_pokemon[1].base_species
+                if battle.opponent_active_pokemon[1] is not None
+                else "empty slot"
+            )
+            order_str = f"{order_str[:-2]} targeting foe's {target}"
+        elif order_str.endswith(" -1"):
+            target = (
+                battle.active_pokemon[0].base_species
+                if battle.active_pokemon[0] is not None
+                else "empty slot"
+            )
+            order_str = f"{order_str[:-3]} targeting your {target}"
+        elif order_str.endswith(" -2"):
+            target = (
+                battle.active_pokemon[1].base_species
+                if battle.active_pokemon[1] is not None
+                else "empty slot"
+            )
+            order_str = f"{order_str[:-3]} targeting your {target}"
+        if "terastallize" in order_str:
+            active_mon = battle.active_pokemon[pos]
+            assert active_mon is not None
+            assert active_mon.tera_type is not None
+            order_str = order_str.replace(
+                "terastallize",
+                f"activating {active_mon.tera_type.name.lower()} tera type",
+            )
+        return order_str
+
+    @staticmethod
+    def explain_remaining_pokemon(remaining_pokemon: list[Pokemon]) -> str:
+        """Format a list of remaining Pokemon for display in prompts."""
+        remain_str = f"1. {LLMPlayer.explain_inactive_pokemon(remaining_pokemon[0])}"
+        remain_str += (
+            f"\n\n2. {LLMPlayer.explain_inactive_pokemon(remaining_pokemon[1])}"
+        )
+        remain_str += (
+            f"\n\n3. {LLMPlayer.explain_inactive_pokemon(remaining_pokemon[2])}"
+        )
+        if len(remaining_pokemon) > 3:
+            remain_str += (
+                f"\n\n4. {LLMPlayer.explain_inactive_pokemon(remaining_pokemon[3])}"
+            )
+        if len(remaining_pokemon) > 4:
+            remain_str += (
+                f"\n\n5. {LLMPlayer.explain_inactive_pokemon(remaining_pokemon[4])}"
+            )
+        if len(remaining_pokemon) > 5:
+            remain_str += (
+                f"\n\n6. {LLMPlayer.explain_inactive_pokemon(remaining_pokemon[5])}"
+            )
+        return remain_str
+
+    @staticmethod
+    def explain_remaining_pokemon_short(remaining_pokemon: list[Pokemon]) -> str:
+        """Format a list of remaining Pokemon names in compact form."""
+        remain_str = f"1. {remaining_pokemon[0].base_species}"
+        remain_str += f"\n2. {remaining_pokemon[1].base_species}"
+        remain_str += f"\n3. {remaining_pokemon[2].base_species}"
+        if len(remaining_pokemon) > 3:
+            remain_str += f"\n4. {remaining_pokemon[3].base_species}"
+        if len(remaining_pokemon) > 4:
+            remain_str += f"\n5. {remaining_pokemon[4].base_species}"
+        if len(remaining_pokemon) > 5:
+            remain_str += f"\n6. {remaining_pokemon[5].base_species}"
+        return remain_str
+
+    @staticmethod
+    def explain_pokemon(pokemon: Pokemon) -> str:
+        """Generate a detailed description of an active or inactive Pokemon."""
+        if pokemon.fainted:
+            return f"{pokemon.base_species} | fainted"
+        elif not pokemon.active:
+            return LLMPlayer.explain_inactive_pokemon(pokemon)
+        else:
+            effects = (
+                ", ".join(
+                    f"{e.name.lower()} (active for {counter} turns)"
+                    for e, counter in pokemon.effects.items()
+                )
+                or "None"
+            )
+            return (
+                LLMPlayer.explain_inactive_pokemon(pokemon)
+                + f"\n{LLMPlayer.explain_boosts(pokemon.boosts)}"
+                f"\nEffects: {effects}"
+                f"\nIs in first active turn (effects moves like fake out):"
+                f" {pokemon.first_turn}"
+                f"\nNumber of turns user has protected in a row:"
+                f" {pokemon.protect_counter}"
+            )
+
+    @staticmethod
+    def explain_inactive_pokemon(pokemon: Pokemon) -> str:
+        """Generate a description of a Pokemon not currently on the field."""
+        moves = list(pokemon.moves.values())
+        reveal_str = (
+            "revealed in battle" if pokemon.revealed else "unrevealed in battle"
+        )
+        type_str = "/".join([t.name.lower() for t in pokemon.base_types])
+        tera_type_str = (
+            str(pokemon.tera_type.name.lower())
+            if pokemon.tera_type is not None
+            else "None"
+        )
+        if pokemon.tera_type is not None and not pokemon.is_terastallized:
+            tera_type_str += " (unused)"
+        hp_str = (
+            f"{round(100 * pokemon.current_hp_fraction)}%"
+            if pokemon.max_hp > 0
+            else "unknown"
+        )
+        if pokemon.fainted:
+            return f"{pokemon.base_species} | fainted"
+        status = pokemon.status.name.lower() if pokemon.status is not None else "None"
+        move_strs = [
+            LLMPlayer.explain_move(moves[i]) if len(moves) > i else "None"
+            for i in range(4)
+        ]
+        header = (
+            f"{pokemon.base_species} | HP: {hp_str}"
+            f" | type: {type_str}"
+            f" | tera-type: {tera_type_str}"
+            f" | {reveal_str}"
+        )
+        return f"""{header}
+Ability: {pokemon.ability}
+Item: {pokemon.item}
+Status Effect: {status}
+Moves:
+    - {move_strs[0]}
+    - {move_strs[1]}
+    - {move_strs[2]}
+    - {move_strs[3]}
+Base stats:
+    {pokemon.base_stats["hp"]} HP
+    {pokemon.base_stats["atk"]} Attack
+    {pokemon.base_stats["def"]} Defense
+    {pokemon.base_stats["spa"]} Special Attack
+    {pokemon.base_stats["spd"]} Special Defense
+    {pokemon.base_stats["spe"]} Speed"""
+
+    @staticmethod
+    def explain_move(move: Move) -> str:
+        """Generate a one-line description of a Pokemon move."""
+        return (
+            f"{move.id}"
+            f" | pp: {move.current_pp}/{move.max_pp}"
+            f" | type: {move.type.name.lower()}"
+            f" | power: {move.base_power}"
+            f" | acc: {int(100 * move.accuracy)}%"
+            f" | category: {move.category.name.lower()}"
+        )
+
+    @staticmethod
+    def explain_boosts(boosts: dict[str, int]) -> str:
+        """Format stat boost modifiers as human-readable text."""
+        boost_str = "Stat Modifiers:"
+        if boosts["atk"] != 0:
+            boost_str += f"\n    Attack: x{LLMPlayer.explain_boost(boosts['atk'])}"
+        if boosts["def"] != 0:
+            boost_str += f"\n    Defense: x{LLMPlayer.explain_boost(boosts['def'])}"
+        if boosts["spa"] != 0:
+            boost_str += (
+                f"\n    Special Attack: x{LLMPlayer.explain_boost(boosts['spa'])}"
+            )
+        if boosts["spd"] != 0:
+            boost_str += (
+                f"\n    Special Defense: x{LLMPlayer.explain_boost(boosts['spd'])}"
+            )
+        if boosts["spe"] != 0:
+            boost_str += f"\n    Speed: x{LLMPlayer.explain_boost(boosts['spe'])}"
+        if boosts["accuracy"] != 0:
+            boost_str += (
+                f"\n    Accuracy: x{LLMPlayer.explain_boost(boosts['accuracy'])}"
+            )
+        if boosts["evasion"] != 0:
+            boost_str += f"\n    Evasion: x{LLMPlayer.explain_boost(boosts['evasion'])}"
+        if boost_str == "Stat Modifiers:":
+            boost_str += " None"
+        return boost_str
+
+    @staticmethod
+    def explain_boost(boost: int) -> float:
+        """Convert a stat stage boost to its multiplier value."""
+        if boost >= 0:
+            modifier = (2 + boost) / 2
+        else:
+            modifier = 2 / (2 - boost)
+        return round(modifier, ndigits=2)

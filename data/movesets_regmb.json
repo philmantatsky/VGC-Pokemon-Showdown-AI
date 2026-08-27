@@ -1,0 +1,3384 @@
+{
+ "abomasnow": {
+  "ability": "snowwarning",
+  "display": "Abomasnow",
+  "item": "expertbelt",
+  "moves": [
+   "blizzard",
+   "protect",
+   "earthpower",
+   "auroraveil"
+  ],
+  "spread": "Modest:18/0/1/32/0/15"
+ },
+ "abomasnowmega": {
+  "ability": "snowwarning",
+  "display": "Abomasnow-Mega",
+  "item": "abomasite",
+  "moves": [
+   "blizzard",
+   "earthpower",
+   "protect",
+   "energyball"
+  ],
+  "spread": "Quiet:32/0/2/32/0/0"
+ },
+ "absol": {
+  "ability": "justified",
+  "display": "Absol",
+  "item": "lifeorb",
+  "moves": [
+   "suckerpunch",
+   "protect",
+   "knockoff",
+   "closecombat"
+  ],
+  "spread": "Brave:27/32/4/0/3/0"
+ },
+ "absolmega": {
+  "ability": "magicbounce",
+  "display": "Absol-Mega",
+  "item": "absolite",
+  "moves": [
+   "suckerpunch",
+   "closecombat",
+   "knockoff",
+   "protect"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "aegislash": {
+  "ability": "stancechange",
+  "display": "Aegislash",
+  "item": "spelltag",
+  "moves": [
+   "kingsshield",
+   "shadowsneak",
+   "poltergeist",
+   "ironhead"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "aerodactyl": {
+  "ability": "unnerve",
+  "display": "Aerodactyl",
+  "item": "focussash",
+  "moves": [
+   "rockslide",
+   "tailwind",
+   "protect",
+   "wideguard"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "aerodactylmega": {
+  "ability": "toughclaws",
+  "display": "Aerodactyl-Mega",
+  "item": "aerodactylite",
+  "moves": [
+   "rockslide",
+   "tailwind",
+   "dualwingbeat",
+   "icefang"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "aggron": {
+  "ability": "sturdy",
+  "display": "Aggron",
+  "item": "expertbelt",
+  "moves": [
+   "heavyslam",
+   "bodypress",
+   "rockslide",
+   "icepunch"
+  ],
+  "spread": "Adamant:19/32/0/0/0/15"
+ },
+ "aggronmega": {
+  "ability": "filter",
+  "display": "Aggron-Mega",
+  "item": "aggronite",
+  "moves": [
+   "bodypress",
+   "protect",
+   "heavyslam",
+   "irondefense"
+  ],
+  "spread": "Careful:32/0/2/0/32/0"
+ },
+ "alakazam": {
+  "ability": "magicguard",
+  "display": "Alakazam",
+  "item": "focussash",
+  "moves": [
+   "psychic",
+   "protect",
+   "speedswap",
+   "encore"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "alakazammega": {
+  "ability": "trace",
+  "display": "Alakazam-Mega",
+  "item": "alakazite",
+  "moves": [
+   "protect",
+   "expandingforce",
+   "focusblast",
+   "dazzlinggleam"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "alcremie": {
+  "ability": "aromaveil",
+  "display": "Alcremie",
+  "item": "babiriberry",
+  "moves": [
+   "decorate",
+   "dazzlinggleam",
+   "encore",
+   "protect"
+  ],
+  "spread": "Hardy:32/0/0/0/0/0"
+ },
+ "altaria": {
+  "ability": "cloudnine",
+  "display": "Altaria",
+  "item": "habanberry",
+  "moves": [
+   "protect",
+   "perishsong",
+   "willowisp",
+   "tailwind"
+  ],
+  "spread": "Careful:32/0/16/0/15/3"
+ },
+ "altariamega": {
+  "ability": "pixilate",
+  "display": "Altaria-Mega",
+  "item": "altarianite",
+  "moves": [
+   "hypervoice",
+   "protect",
+   "tailwind",
+   "roost"
+  ],
+  "spread": "Modest:32/0/0/31/0/3"
+ },
+ "ampharosmega": {
+  "ability": "moldbreaker",
+  "display": "Ampharos-Mega",
+  "item": "ampharosite",
+  "moves": [
+   "dragonpulse",
+   "protect",
+   "thunderbolt",
+   "powergem"
+  ],
+  "spread": "Quiet:32/0/0/32/2/0"
+ },
+ "annihilape": {
+  "ability": "defiant",
+  "display": "Annihilape",
+  "item": "focussash",
+  "moves": [
+   "protect",
+   "closecombat",
+   "phantomforce",
+   "ragefist"
+  ],
+  "spread": "Jolly:0/32/1/0/1/32"
+ },
+ "appletun": {
+  "ability": "thickfat",
+  "display": "Appletun",
+  "item": "bigroot",
+  "moves": [
+   "appleacid",
+   "protect",
+   "leechseed",
+   "dragonpulse"
+  ],
+  "spread": "Calm:32/0/0/2/32/0"
+ },
+ "araquanid": {
+  "ability": "waterbubble",
+  "display": "Araquanid",
+  "item": "mysticwater",
+  "moves": [
+   "liquidation",
+   "wideguard",
+   "protect",
+   "leechlife"
+  ],
+  "spread": "Brave:32/32/2/0/0/0"
+ },
+ "arcanine": {
+  "ability": "intimidate",
+  "display": "Arcanine",
+  "item": "sitrusberry",
+  "moves": [
+   "protect",
+   "extremespeed",
+   "flareblitz",
+   "willowisp"
+  ],
+  "spread": "Adamant:32/0/16/0/0/18"
+ },
+ "arcaninehisui": {
+  "ability": "rockhead",
+  "display": "Arcanine-Hisui",
+  "item": "focussash",
+  "moves": [
+   "flareblitz",
+   "extremespeed",
+   "headsmash",
+   "protect"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "archaludon": {
+  "ability": "stamina",
+  "display": "Archaludon",
+  "item": "leftovers",
+  "moves": [
+   "electroshot",
+   "protect",
+   "flashcannon",
+   "dragonpulse"
+  ],
+  "spread": "Modest:32/0/0/1/29/4"
+ },
+ "ariados": {
+  "ability": "insomnia",
+  "display": "Ariados",
+  "item": "sitrusberry",
+  "moves": [
+   "ragepowder",
+   "protect",
+   "stringshot",
+   "knockoff"
+  ],
+  "spread": "Impish:32/0/20/0/14/0"
+ },
+ "armarouge": {
+  "ability": "flashfire",
+  "display": "Armarouge",
+  "item": "focussash",
+  "moves": [
+   "armorcannon",
+   "trickroom",
+   "protect",
+   "expandingforce"
+  ],
+  "spread": "Quiet:32/0/0/32/2/0"
+ },
+ "aromatisse": {
+  "ability": "aromaveil",
+  "display": "Aromatisse",
+  "item": "sitrusberry",
+  "moves": [
+   "trickroom",
+   "moonblast",
+   "healpulse",
+   "faketears"
+  ],
+  "spread": "Relaxed:26/0/27/2/11/0"
+ },
+ "audino": {
+  "ability": "healer",
+  "display": "Audino",
+  "item": "mentalherb",
+  "moves": [
+   "simplebeam",
+   "trickroom",
+   "protect",
+   "healpulse"
+  ],
+  "spread": "Relaxed:32/0/32/0/2/0"
+ },
+ "audinomega": {
+  "ability": "healer",
+  "display": "Audino-Mega",
+  "item": "audinite",
+  "moves": [
+   "trickroom",
+   "dazzlinggleam",
+   "lifedew",
+   "simplebeam"
+  ],
+  "spread": "Bold:32/0/17/0/17/0"
+ },
+ "aurorus": {
+  "ability": "snowwarning",
+  "display": "Aurorus",
+  "item": "focussash",
+  "moves": [
+   "ancientpower",
+   "protect",
+   "freezedry",
+   "blizzard"
+  ],
+  "spread": "Quiet:7/0/27/32/0/0"
+ },
+ "avalugghisui": {
+  "ability": "sturdy",
+  "display": "Avalugg-Hisui",
+  "item": "widelens",
+  "moves": [
+   "rockslide",
+   "mountaingale",
+   "bodypress",
+   "wideguard"
+  ],
+  "spread": "Brave:2/32/32/0/0/0"
+ },
+ "azumarill": {
+  "ability": "hugepower",
+  "display": "Azumarill",
+  "item": "sitrusberry",
+  "moves": [
+   "playrough",
+   "aquajet",
+   "protect",
+   "bellydrum"
+  ],
+  "spread": "Adamant:25/32/0/0/5/4"
+ },
+ "banettemega": {
+  "ability": "prankster",
+  "display": "Banette-Mega",
+  "item": "banettite",
+  "moves": [
+   "poltergeist",
+   "destinybond",
+   "shadowsneak",
+   "trickroom"
+  ],
+  "spread": "Adamant:32/32/1/0/1/0"
+ },
+ "barbaraclemega": {
+  "ability": "toughclaws",
+  "display": "Barbaracle-Mega",
+  "item": "barbaracite",
+  "moves": [
+   "closecombat",
+   "rockslide",
+   "protect",
+   "shellsmash"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "basculegion": {
+  "ability": "adaptability",
+  "display": "Basculegion",
+  "item": "choicescarf",
+  "moves": [
+   "lastrespects",
+   "aquajet",
+   "wavecrash",
+   "protect"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "basculegionf": {
+  "ability": "swiftswim",
+  "display": "Basculegion-F",
+  "item": "lifeorb",
+  "moves": [
+   "shadowball",
+   "muddywater",
+   "protect",
+   "aquajet"
+  ],
+  "spread": "Modest:4/0/19/20/4/19"
+ },
+ "bastiodon": {
+  "ability": "sturdy",
+  "display": "Bastiodon",
+  "item": "chopleberry",
+  "moves": [
+   "bodypress",
+   "irondefense",
+   "protect",
+   "heavyslam"
+  ],
+  "spread": "Careful:32/2/0/0/32/0"
+ },
+ "beartic": {
+  "ability": "swiftswim",
+  "display": "Beartic",
+  "item": "lifeorb",
+  "moves": [
+   "iciclecrash",
+   "closecombat",
+   "protect",
+   "rockslide"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "beedrillmega": {
+  "ability": "adaptability",
+  "display": "Beedrill-Mega",
+  "item": "beedrillite",
+  "moves": [
+   "poisonjab",
+   "protect",
+   "uturn",
+   "drillrun"
+  ],
+  "spread": "Adamant:0/30/5/0/0/31"
+ },
+ "bellibolt": {
+  "ability": "electromorphosis",
+  "display": "Bellibolt",
+  "item": "sitrusberry",
+  "moves": [
+   "paraboliccharge",
+   "protect",
+   "soak",
+   "thunderbolt"
+  ],
+  "spread": "Modest:32/0/11/7/16/0"
+ },
+ "blastoise": {
+  "ability": "torrent",
+  "display": "Blastoise",
+  "item": "sitrusberry",
+  "moves": [
+   "fakeout",
+   "flipturn",
+   "yawn",
+   "protect"
+  ],
+  "spread": "Impish:32/0/17/0/17/0"
+ },
+ "blastoisemega": {
+  "ability": "megalauncher",
+  "display": "Blastoise-Mega",
+  "item": "blastoisinite",
+  "moves": [
+   "waterspout",
+   "darkpulse",
+   "protect",
+   "shellsmash"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "blaziken": {
+  "ability": "speedboost",
+  "display": "Blaziken",
+  "item": "focussash",
+  "moves": [
+   "protect",
+   "coaching",
+   "aurasphere",
+   "heatwave"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "blazikenmega": {
+  "ability": "speedboost",
+  "display": "Blaziken-Mega",
+  "item": "blazikenite",
+  "moves": [
+   "closecombat",
+   "flareblitz",
+   "rockslide",
+   "detect"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "cameruptmega": {
+  "ability": "sheerforce",
+  "display": "Camerupt-Mega",
+  "item": "cameruptite",
+  "moves": [
+   "earthpower",
+   "protect",
+   "heatwave",
+   "ancientpower"
+  ],
+  "spread": "Quiet:32/0/2/32/0/0"
+ },
+ "castform": {
+  "ability": "forecast",
+  "display": "Castform",
+  "item": "nothing",
+  "moves": [
+   "weatherball",
+   "protect",
+   "thunder",
+   "icebeam"
+  ],
+  "spread": "Modest:32/0/0/32/0/2"
+ },
+ "ceruledge": {
+  "ability": "flashfire",
+  "display": "Ceruledge",
+  "item": "colburberry",
+  "moves": [
+   "bitterblade",
+   "protect",
+   "shadowsneak",
+   "bulkup"
+  ],
+  "spread": "Adamant:31/25/10/0/0/0"
+ },
+ "chandelure": {
+  "ability": "flashfire",
+  "display": "Chandelure",
+  "item": "focussash",
+  "moves": [
+   "shadowball",
+   "heatwave",
+   "trickroom",
+   "protect"
+  ],
+  "spread": "Quiet:32/0/1/32/1/0"
+ },
+ "chandeluremega": {
+  "ability": "infiltrator",
+  "display": "Chandelure-Mega",
+  "item": "chandelurite",
+  "moves": [
+   "shadowball",
+   "heatwave",
+   "protect",
+   "trickroom"
+  ],
+  "spread": "Modest:32/0/0/32/0/2"
+ },
+ "charizard": {
+  "ability": "solarpower",
+  "display": "Charizard",
+  "item": "choicescarf",
+  "moves": [
+   "heatwave",
+   "solarbeam",
+   "weatherball",
+   "protect"
+  ],
+  "spread": "Modest:0/0/2/32/0/32"
+ },
+ "charizardmegax": {
+  "ability": "toughclaws",
+  "display": "Charizard-Mega-X",
+  "item": "charizarditex",
+  "moves": [
+   "protect",
+   "dragonclaw",
+   "dragondance",
+   "flareblitz"
+  ],
+  "spread": "Jolly:10/32/1/0/1/22"
+ },
+ "charizardmegay": {
+  "ability": "drought",
+  "display": "Charizard-Mega-Y",
+  "item": "charizarditey",
+  "moves": [
+   "protect",
+   "heatwave",
+   "weatherball",
+   "solarbeam"
+  ],
+  "spread": "Modest:30/0/30/1/0/5"
+ },
+ "chesnaught": {
+  "ability": "bulletproof",
+  "display": "Chesnaught",
+  "item": "leftovers",
+  "moves": [
+   "spikyshield",
+   "bodypress",
+   "wideguard",
+   "woodhammer"
+  ],
+  "spread": "Relaxed:18/16/32/0/0/0"
+ },
+ "chesnaughtmega": {
+  "ability": "bulletproof",
+  "display": "Chesnaught-Mega",
+  "item": "chesnaughtite",
+  "moves": [
+   "bodypress",
+   "spikyshield",
+   "woodhammer",
+   "wideguard"
+  ],
+  "spread": "Careful:32/0/2/0/32/0"
+ },
+ "chimechomega": {
+  "ability": "levitate",
+  "display": "Chimecho-Mega",
+  "item": "chimechite",
+  "moves": [
+   "trickroom",
+   "flashcannon",
+   "protect",
+   "psychic"
+  ],
+  "spread": "Quiet:12/0/16/32/6/0"
+ },
+ "clawitzer": {
+  "ability": "megalauncher",
+  "display": "Clawitzer",
+  "item": "lifeorb",
+  "moves": [
+   "waterpulse",
+   "aurasphere",
+   "darkpulse",
+   "protect"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "clefable": {
+  "ability": "unaware",
+  "display": "Clefable",
+  "item": "sitrusberry",
+  "moves": [
+   "followme",
+   "moonblast",
+   "protect",
+   "helpinghand"
+  ],
+  "spread": "Calm:32/0/0/2/32/0"
+ },
+ "clefablemega": {
+  "ability": "magicbounce",
+  "display": "Clefable-Mega",
+  "item": "clefablite",
+  "moves": [
+   "followme",
+   "moonblast",
+   "protect",
+   "dazzlinggleam"
+  ],
+  "spread": "Calm:32/0/12/0/22/0"
+ },
+ "cofagrigus": {
+  "ability": "mummy",
+  "display": "Cofagrigus",
+  "item": "leftovers",
+  "moves": [
+   "trickroom",
+   "bodypress",
+   "shadowball",
+   "irondefense"
+  ],
+  "spread": "Relaxed:27/0/32/0/7/0"
+ },
+ "conkeldurr": {
+  "ability": "ironfist",
+  "display": "Conkeldurr",
+  "item": "lifeorb",
+  "moves": [
+   "machpunch",
+   "drainpunch",
+   "icepunch",
+   "knockoff"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "corviknight": {
+  "ability": "mirrorarmor",
+  "display": "Corviknight",
+  "item": "leftovers",
+  "moves": [
+   "bravebird",
+   "tailwind",
+   "ironhead",
+   "protect"
+  ],
+  "spread": "Adamant:22/32/1/0/0/11"
+ },
+ "crabominable": {
+  "ability": "hypercutter",
+  "display": "Crabominable",
+  "item": "lifeorb",
+  "moves": [
+   "icehammer",
+   "protect",
+   "closecombat",
+   "rockslide"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "crabominablemega": {
+  "ability": "ironfist",
+  "display": "Crabominable-Mega",
+  "item": "crabominite",
+  "moves": [
+   "icehammer",
+   "protect",
+   "drainpunch",
+   "machpunch"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "decidueyehisui": {
+  "ability": "scrappy",
+  "display": "Decidueye-Hisui",
+  "item": "scopelens",
+  "moves": [
+   "leafblade",
+   "protect",
+   "triplearrows",
+   "suckerpunch"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "dedenne": {
+  "ability": "plus",
+  "display": "Dedenne",
+  "item": "focussash",
+  "moves": [
+   "dazzlinggleam",
+   "thunderbolt",
+   "entrainment",
+   "protect"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "delphox": {
+  "ability": "blaze",
+  "display": "Delphox",
+  "item": "focussash",
+  "moves": [
+   "heatwave",
+   "protect",
+   "psychic",
+   "trickroom"
+  ],
+  "spread": "Quiet:32/0/2/32/0/0"
+ },
+ "delphoxmega": {
+  "ability": "levitate",
+  "display": "Delphox-Mega",
+  "item": "delphoxite",
+  "moves": [
+   "heatwave",
+   "protect",
+   "nastyplot",
+   "psychic"
+  ],
+  "spread": "Modest:23/0/11/1/0/31"
+ },
+ "diggersby": {
+  "ability": "hugepower",
+  "display": "Diggersby",
+  "item": "lifeorb",
+  "moves": [
+   "highhorsepower",
+   "earthquake",
+   "protect",
+   "rockslide"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "ditto": {
+  "ability": "imposter",
+  "display": "Ditto",
+  "item": "choicescarf",
+  "moves": [
+   "nothing",
+   "transform"
+  ],
+  "spread": "Bold:32/0/32/0/2/0"
+ },
+ "dragalge": {
+  "ability": "adaptability",
+  "display": "Dragalge",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "sludgebomb",
+   "dracometeor",
+   "focusblast"
+  ],
+  "spread": "Modest:32/0/0/32/0/2"
+ },
+ "dragalgemega": {
+  "ability": "regenerator",
+  "display": "Dragalge-Mega",
+  "item": "dragalgite",
+  "moves": [
+   "protect",
+   "sludgebomb",
+   "dracometeor",
+   "flipturn"
+  ],
+  "spread": "Modest:32/0/2/32/0/0"
+ },
+ "dragapult": {
+  "ability": "clearbody",
+  "display": "Dragapult",
+  "item": "focussash",
+  "moves": [
+   "protect",
+   "willowisp",
+   "dracometeor",
+   "dragondarts"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "dragonite": {
+  "ability": "innerfocus",
+  "display": "Dragonite",
+  "item": "lifeorb",
+  "moves": [
+   "extremespeed",
+   "protect",
+   "dragonclaw",
+   "lowkick"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "dragonitemega": {
+  "ability": "multiscale",
+  "display": "Dragonite-Mega",
+  "item": "dragoninite",
+  "moves": [
+   "protect",
+   "dragonpulse",
+   "tailwind",
+   "heatwave"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "drampa": {
+  "ability": "cloudnine",
+  "display": "Drampa",
+  "item": "lifeorb",
+  "moves": [
+   "hypervoice",
+   "protect",
+   "earthpower",
+   "dracometeor"
+  ],
+  "spread": "Quiet:32/0/2/32/0/0"
+ },
+ "drampamega": {
+  "ability": "berserk",
+  "display": "Drampa-Mega",
+  "item": "drampanite",
+  "moves": [
+   "protect",
+   "hypervoice",
+   "earthpower",
+   "dragonpulse"
+  ],
+  "spread": "Quiet:32/0/2/32/0/0"
+ },
+ "eelektross": {
+  "ability": "levitate",
+  "display": "Eelektross",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "flamethrower",
+   "voltswitch",
+   "thunderbolt"
+  ],
+  "spread": "Mild:2/0/12/18/0/32"
+ },
+ "eelektrossmega": {
+  "ability": "eelevate",
+  "display": "Eelektross-Mega",
+  "item": "eelektrossite",
+  "moves": [
+   "protect",
+   "thunderbolt",
+   "gigadrain",
+   "flamethrower"
+  ],
+  "spread": "Modest:32/0/2/32/0/0"
+ },
+ "emboarmega": {
+  "ability": "moldbreaker",
+  "display": "Emboar-Mega",
+  "item": "emboarite",
+  "moves": [
+   "protect",
+   "closecombat",
+   "flareblitz",
+   "helpinghand"
+  ],
+  "spread": "Adamant:32/12/11/0/0/11"
+ },
+ "emolga": {
+  "ability": "motordrive",
+  "display": "Emolga",
+  "item": "focussash",
+  "moves": [
+   "nuzzle",
+   "electroweb",
+   "speedswap",
+   "helpinghand"
+  ],
+  "spread": "Timid:32/0/1/0/1/32"
+ },
+ "empoleon": {
+  "ability": "competitive",
+  "display": "Empoleon",
+  "item": "leftovers",
+  "moves": [
+   "protect",
+   "flashcannon",
+   "hydropump",
+   "icebeam"
+  ],
+  "spread": "Modest:32/0/0/32/2/0"
+ },
+ "espathra": {
+  "ability": "speedboost",
+  "display": "Espathra",
+  "item": "focussash",
+  "moves": [
+   "luminacrash",
+   "protect",
+   "calmmind",
+   "batonpass"
+  ],
+  "spread": "Timid:32/0/9/0/6/19"
+ },
+ "espeon": {
+  "ability": "magicbounce",
+  "display": "Espeon",
+  "item": "focussash",
+  "moves": [
+   "powergem",
+   "psychic",
+   "detect",
+   "expandingforce"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "excadrill": {
+  "ability": "sandrush",
+  "display": "Excadrill",
+  "item": "focussash",
+  "moves": [
+   "ironhead",
+   "protect",
+   "rockslide",
+   "highhorsepower"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "excadrillmega": {
+  "ability": "piercingdrill",
+  "display": "Excadrill-Mega",
+  "item": "excadrite",
+  "moves": [
+   "ironhead",
+   "protect",
+   "rockslide",
+   "highhorsepower"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "falinks": {
+  "ability": "defiant",
+  "display": "Falinks",
+  "item": "focussash",
+  "moves": [
+   "closecombat",
+   "noretreat",
+   "protect",
+   "doublehit"
+  ],
+  "spread": "Adamant:17/32/0/0/0/17"
+ },
+ "falinksmega": {
+  "ability": "defiant",
+  "display": "Falinks-Mega",
+  "item": "falinksite",
+  "moves": [
+   "closecombat",
+   "noretreat",
+   "protect",
+   "rockslide"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "farigiraf": {
+  "ability": "armortail",
+  "display": "Farigiraf",
+  "item": "sitrusberry",
+  "moves": [
+   "trickroom",
+   "thunderbolt",
+   "psychic",
+   "helpinghand"
+  ],
+  "spread": "Bold:27/0/21/0/18/0"
+ },
+ "feraligatr": {
+  "ability": "sheerforce",
+  "display": "Feraligatr",
+  "item": "lifeorb",
+  "moves": [
+   "liquidation",
+   "icepunch",
+   "aquajet",
+   "rockslide"
+  ],
+  "spread": "Adamant:31/15/0/0/20/0"
+ },
+ "feraligatrmega": {
+  "ability": "dragonize",
+  "display": "Feraligatr-Mega",
+  "item": "feraligite",
+  "moves": [
+   "protect",
+   "liquidation",
+   "doubleedge",
+   "aquajet"
+  ],
+  "spread": "Brave:32/30/0/0/4/0"
+ },
+ "flapple": {
+  "ability": "hustle",
+  "display": "Flapple",
+  "item": "focussash",
+  "moves": [
+   "gravapple",
+   "protect",
+   "dragonrush",
+   "suckerpunch"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "flareon": {
+  "ability": "flashfire",
+  "display": "Flareon",
+  "item": "whiteherb",
+  "moves": [
+   "flareblitz",
+   "superpower",
+   "protect",
+   "quickattack"
+  ],
+  "spread": "Brave:31/32/0/0/3/0"
+ },
+ "floetteeternal": {
+  "ability": "flowerveil",
+  "display": "Floette-Eternal",
+  "item": "choicescarf",
+  "moves": [
+   "lightofruin",
+   "moonblast",
+   "dazzlinggleam",
+   "charm"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "floettemega": {
+  "ability": "fairyaura",
+  "display": "Floette-Mega",
+  "item": "floettite",
+  "moves": [
+   "protect",
+   "dazzlinggleam",
+   "moonblast",
+   "lightofruin"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "florges": {
+  "ability": "flowerveil",
+  "display": "Florges",
+  "item": "choicescarf",
+  "moves": [
+   "moonblast",
+   "dazzlinggleam",
+   "energyball",
+   "trick"
+  ],
+  "spread": "Timid:22/0/1/11/0/32"
+ },
+ "froslass": {
+  "ability": "cursedbody",
+  "display": "Froslass",
+  "item": "widelens",
+  "moves": [
+   "frostbreath",
+   "icywind",
+   "destinybond",
+   "protect"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "froslassmega": {
+  "ability": "snowwarning",
+  "display": "Froslass-Mega",
+  "item": "froslassite",
+  "moves": [
+   "blizzard",
+   "protect",
+   "shadowball",
+   "auroraveil"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "gallade": {
+  "ability": "sharpness",
+  "display": "Gallade",
+  "item": "expertbelt",
+  "moves": [
+   "sacredsword",
+   "psychocut",
+   "leafblade",
+   "protect"
+  ],
+  "spread": "Brave:21/32/13/0/0/0"
+ },
+ "gallademega": {
+  "ability": "innerfocus",
+  "display": "Gallade-Mega",
+  "item": "galladite",
+  "moves": [
+   "protect",
+   "psychocut",
+   "closecombat",
+   "sacredsword"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "garbodor": {
+  "ability": "aftermath",
+  "display": "Garbodor",
+  "item": "leftovers",
+  "moves": [
+   "protect",
+   "gunkshot",
+   "drainpunch",
+   "stompingtantrum"
+  ],
+  "spread": "Adamant:17/32/0/0/0/17"
+ },
+ "garchomp": {
+  "ability": "roughskin",
+  "display": "Garchomp",
+  "item": "lifeorb",
+  "moves": [
+   "dragonclaw",
+   "earthquake",
+   "protect",
+   "rockslide"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "garchompmega": {
+  "ability": "sandforce",
+  "display": "Garchomp-Mega",
+  "item": "garchompite",
+  "moves": [
+   "protect",
+   "earthpower",
+   "powergem",
+   "earthquake"
+  ],
+  "spread": "Modest:10/0/0/30/0/26"
+ },
+ "gardevoir": {
+  "ability": "telepathy",
+  "display": "Gardevoir",
+  "item": "focussash",
+  "moves": [
+   "dazzlinggleam",
+   "protect",
+   "vacuumwave",
+   "encore"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "gardevoirmega": {
+  "ability": "pixilate",
+  "display": "Gardevoir-Mega",
+  "item": "gardevoirite",
+  "moves": [
+   "hypervoice",
+   "protect",
+   "psychic",
+   "trickroom"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "garganacl": {
+  "ability": "purifyingsalt",
+  "display": "Garganacl",
+  "item": "leftovers",
+  "moves": [
+   "saltcure",
+   "recover",
+   "protect",
+   "wideguard"
+  ],
+  "spread": "Relaxed:32/0/32/0/2/0"
+ },
+ "gengar": {
+  "ability": "cursedbody",
+  "display": "Gengar",
+  "item": "focussash",
+  "moves": [
+   "shadowball",
+   "sludgebomb",
+   "icywind",
+   "trickroom"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "gengarmega": {
+  "ability": "shadowtag",
+  "display": "Gengar-Mega",
+  "item": "gengarite",
+  "moves": [
+   "protect",
+   "shadowball",
+   "perishsong",
+   "sludgebomb"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "gholdengo": {
+  "ability": "goodasgold",
+  "display": "Gholdengo",
+  "item": "lifeorb",
+  "moves": [
+   "makeitrain",
+   "shadowball",
+   "protect",
+   "nastyplot"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "glaceon": {
+  "ability": "snowcloak",
+  "display": "Glaceon",
+  "item": "brightpowder",
+  "moves": [
+   "blizzard",
+   "protect",
+   "freezedry",
+   "calmmind"
+  ],
+  "spread": "Bold:32/0/20/0/14/0"
+ },
+ "glalie": {
+  "ability": "innerfocus",
+  "display": "Glalie",
+  "item": "silkscarf",
+  "moves": [
+   "sheercold",
+   "explosion",
+   "taunt",
+   "lightscreen"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "glaliemega": {
+  "ability": "refrigerate",
+  "display": "Glalie-Mega",
+  "item": "glalitite",
+  "moves": [
+   "protect",
+   "explosion",
+   "iceshard",
+   "bodyslam"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "glimmora": {
+  "ability": "toxicdebris",
+  "display": "Glimmora",
+  "item": "focussash",
+  "moves": [
+   "powergem",
+   "sludgebomb",
+   "spikyshield",
+   "earthpower"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "glimmoramega": {
+  "ability": "adaptability",
+  "display": "Glimmora-Mega",
+  "item": "glimmoranite",
+  "moves": [
+   "powergem",
+   "earthpower",
+   "sludgebomb",
+   "spikyshield"
+  ],
+  "spread": "Timid:1/0/0/32/1/32"
+ },
+ "gliscor": {
+  "ability": "hypercutter",
+  "display": "Gliscor",
+  "item": "lifeorb",
+  "moves": [
+   "tailwind",
+   "protect",
+   "dualwingbeat",
+   "earthquake"
+  ],
+  "spread": "Jolly:1/32/0/0/1/32"
+ },
+ "golurk": {
+  "ability": "noguard",
+  "display": "Golurk",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "poltergeist",
+   "stoneedge",
+   "headlongrush"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "golurkmega": {
+  "ability": "unseenfist",
+  "display": "Golurk-Mega",
+  "item": "golurkite",
+  "moves": [
+   "poltergeist",
+   "headlongrush",
+   "protect",
+   "icepunch"
+  ],
+  "spread": "Brave:31/21/13/0/1/0"
+ },
+ "goodra": {
+  "ability": "sapsipper",
+  "display": "Goodra",
+  "item": "leftovers",
+  "moves": [
+   "lifedew",
+   "dracometeor",
+   "flamethrower",
+   "dragontail"
+  ],
+  "spread": "Modest:27/0/32/7/0/0"
+ },
+ "goodrahisui": {
+  "ability": "shellarmor",
+  "display": "Goodra-Hisui",
+  "item": "leftovers",
+  "moves": [
+   "bodypress",
+   "lifedew",
+   "shelter",
+   "heavyslam"
+  ],
+  "spread": "Brave:31/11/24/0/0/0"
+ },
+ "gourgeistlarge": {
+  "ability": "frisk",
+  "display": "Gourgeist-Large",
+  "item": "focussash",
+  "moves": [
+   "protect",
+   "trickroom",
+   "explosion",
+   "imprison"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "gourgeistsuper": {
+  "ability": "frisk",
+  "display": "Gourgeist-Super",
+  "item": "occaberry",
+  "moves": [
+   "trickroom",
+   "trickortreat",
+   "poltergeist",
+   "destinybond"
+  ],
+  "spread": "Relaxed:32/0/8/0/26/0"
+ },
+ "greninja": {
+  "ability": "protean",
+  "display": "Greninja",
+  "item": "lifeorb",
+  "moves": [
+   "darkpulse",
+   "icebeam",
+   "protect",
+   "hydropump"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "greninjamega": {
+  "ability": "protean",
+  "display": "Greninja-Mega",
+  "item": "greninjite",
+  "moves": [
+   "protect",
+   "darkpulse",
+   "icebeam",
+   "blizzard"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "grimmsnarl": {
+  "ability": "prankster",
+  "display": "Grimmsnarl",
+  "item": "lightclay",
+  "moves": [
+   "partingshot",
+   "reflect",
+   "lightscreen",
+   "spiritbreak"
+  ],
+  "spread": "Careful:32/0/19/0/15/0"
+ },
+ "gyarados": {
+  "ability": "intimidate",
+  "display": "Gyarados",
+  "item": "sitrusberry",
+  "moves": [
+   "waterfall",
+   "protect",
+   "thunderwave",
+   "taunt"
+  ],
+  "spread": "Careful:32/0/2/0/32/0"
+ },
+ "gyaradosmega": {
+  "ability": "moldbreaker",
+  "display": "Gyarados-Mega",
+  "item": "gyaradosite",
+  "moves": [
+   "waterfall",
+   "dragondance",
+   "protect",
+   "crunch"
+  ],
+  "spread": "Adamant:31/5/2/0/0/28"
+ },
+ "hatterene": {
+  "ability": "magicbounce",
+  "display": "Hatterene",
+  "item": "lifeorb",
+  "moves": [
+   "dazzlinggleam",
+   "trickroom",
+   "protect",
+   "psychic"
+  ],
+  "spread": "Quiet:32/0/0/32/2/0"
+ },
+ "hawlucha": {
+  "ability": "unburden",
+  "display": "Hawlucha",
+  "item": "focussash",
+  "moves": [
+   "coaching",
+   "bravebird",
+   "encore",
+   "quickguard"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "hawluchamega": {
+  "ability": "noguard",
+  "display": "Hawlucha-Mega",
+  "item": "hawluchanite",
+  "moves": [
+   "entrainment",
+   "detect",
+   "protect",
+   "bravebird"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "heliolisk": {
+  "ability": "dryskin",
+  "display": "Heliolisk",
+  "item": "lifeorb",
+  "moves": [
+   "thunderbolt",
+   "protect",
+   "hypervoice",
+   "grassknot"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "heracrossmega": {
+  "ability": "skilllink",
+  "display": "Heracross-Mega",
+  "item": "heracronite",
+  "moves": [
+   "closecombat",
+   "rockblast",
+   "protect",
+   "pinmissile"
+  ],
+  "spread": "Adamant:32/5/0/0/0/29"
+ },
+ "hippowdon": {
+  "ability": "sandstream",
+  "display": "Hippowdon",
+  "item": "leftovers",
+  "moves": [
+   "yawn",
+   "highhorsepower",
+   "protect",
+   "slackoff"
+  ],
+  "spread": "Impish:25/0/12/0/23/6"
+ },
+ "houndoom": {
+  "ability": "flashfire",
+  "display": "Houndoom",
+  "item": "focussash",
+  "moves": [
+   "heatwave",
+   "protect",
+   "suckerpunch",
+   "snarl"
+  ],
+  "spread": "Hasty:1/1/0/32/0/32"
+ },
+ "houndoommega": {
+  "ability": "solarpower",
+  "display": "Houndoom-Mega",
+  "item": "houndoominite",
+  "moves": [
+   "heatwave",
+   "darkpulse",
+   "protect",
+   "overheat"
+  ],
+  "spread": "Timid:1/0/0/32/1/32"
+ },
+ "houndstone": {
+  "ability": "sandrush",
+  "display": "Houndstone",
+  "item": "sitrusberry",
+  "moves": [
+   "lastrespects",
+   "protect",
+   "willowisp",
+   "allyswitch"
+  ],
+  "spread": "Adamant:28/9/9/0/0/20"
+ },
+ "hydrapple": {
+  "ability": "supersweetsyrup",
+  "display": "Hydrapple",
+  "item": "lifeorb",
+  "moves": [
+   "ficklebeam",
+   "earthpower",
+   "protect",
+   "gigadrain"
+  ],
+  "spread": "Bold:31/0/3/0/32/0"
+ },
+ "hydreigon": {
+  "ability": "levitate",
+  "display": "Hydreigon",
+  "item": "choicescarf",
+  "moves": [
+   "dracometeor",
+   "darkpulse",
+   "snarl",
+   "earthpower"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "incineroar": {
+  "ability": "intimidate",
+  "display": "Incineroar",
+  "item": "sitrusberry",
+  "moves": [
+   "fakeout",
+   "partingshot",
+   "flareblitz",
+   "throatchop"
+  ],
+  "spread": "Impish:32/0/21/0/11/2"
+ },
+ "infernape": {
+  "ability": "blaze",
+  "display": "Infernape",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "coaching",
+   "closecombat",
+   "aurasphere"
+  ],
+  "spread": "Timid:0/0/0/32/2/32"
+ },
+ "jolteon": {
+  "ability": "voltabsorb",
+  "display": "Jolteon",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "risingvoltage",
+   "weatherball",
+   "voltswitch"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "kangaskhan": {
+  "ability": "scrappy",
+  "display": "Kangaskhan",
+  "item": "silkscarf",
+  "moves": [
+   "nothing",
+   "fakeout",
+   "lastresort",
+   "doubleedge"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "kangaskhanmega": {
+  "ability": "parentalbond",
+  "display": "Kangaskhan-Mega",
+  "item": "kangaskhanite",
+  "moves": [
+   "fakeout",
+   "doubleedge",
+   "suckerpunch",
+   "brickbreak"
+  ],
+  "spread": "Brave:32/32/2/0/0/0"
+ },
+ "kingambit": {
+  "ability": "defiant",
+  "display": "Kingambit",
+  "item": "blackglasses",
+  "moves": [
+   "suckerpunch",
+   "kowtowcleave",
+   "ironhead",
+   "protect"
+  ],
+  "spread": "Adamant:32/32/0/0/2/0"
+ },
+ "kleavor": {
+  "ability": "sharpness",
+  "display": "Kleavor",
+  "item": "choicescarf",
+  "moves": [
+   "stoneaxe",
+   "xscissor",
+   "closecombat",
+   "protect"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "klefki": {
+  "ability": "prankster",
+  "display": "Klefki",
+  "item": "sitrusberry",
+  "moves": [
+   "drainingkiss",
+   "psychup",
+   "calmmind",
+   "substitute"
+  ],
+  "spread": "Bold:32/0/29/0/5/0"
+ },
+ "kommoo": {
+  "ability": "soundproof",
+  "display": "Kommo-o",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "clangingscales",
+   "aurasphere",
+   "clangoroussoul"
+  ],
+  "spread": "Quiet:29/0/0/32/5/0"
+ },
+ "krookodile": {
+  "ability": "intimidate",
+  "display": "Krookodile",
+  "item": "choicescarf",
+  "moves": [
+   "knockoff",
+   "earthquake",
+   "highhorsepower",
+   "rockslide"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "leafeon": {
+  "ability": "chlorophyll",
+  "display": "Leafeon",
+  "item": "lifeorb",
+  "moves": [
+   "solarblade",
+   "knockoff",
+   "leafblade",
+   "detect"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "liepard": {
+  "ability": "prankster",
+  "display": "Liepard",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "encore",
+   "faketears",
+   "knockoff"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "lopunny": {
+  "ability": "klutz",
+  "display": "Lopunny",
+  "item": "choicescarf",
+  "moves": [
+   "fakeout",
+   "encore",
+   "closecombat",
+   "switcheroo"
+  ],
+  "spread": "Jolly:32/2/0/0/0/32"
+ },
+ "lopunnymega": {
+  "ability": "scrappy",
+  "display": "Lopunny-Mega",
+  "item": "lopunnite",
+  "moves": [
+   "fakeout",
+   "closecombat",
+   "encore",
+   "uturn"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "lucario": {
+  "ability": "innerfocus",
+  "display": "Lucario",
+  "item": "choicescarf",
+  "moves": [
+   "closecombat",
+   "meteormash",
+   "finalgambit",
+   "protect"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "lucariomega": {
+  "ability": "adaptability",
+  "display": "Lucario-Mega",
+  "item": "lucarionite",
+  "moves": [
+   "protect",
+   "closecombat",
+   "meteormash",
+   "bulletpunch"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "luxray": {
+  "ability": "intimidate",
+  "display": "Luxray",
+  "item": "sitrusberry",
+  "moves": [
+   "wildcharge",
+   "protect",
+   "voltswitch",
+   "superpower"
+  ],
+  "spread": "Adamant:28/20/10/0/5/3"
+ },
+ "lycanroc": {
+  "ability": "sandrush",
+  "display": "Lycanroc",
+  "item": "focussash",
+  "moves": [
+   "closecombat",
+   "rockslide",
+   "protect",
+   "psychicfangs"
+  ],
+  "spread": "Jolly:1/32/0/0/1/32"
+ },
+ "lycanrocdusk": {
+  "ability": "toughclaws",
+  "display": "Lycanroc-Dusk",
+  "item": "focussash",
+  "moves": [
+   "accelerock",
+   "closecombat",
+   "protect",
+   "rockslide"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "lycanrocmidnight": {
+  "ability": "noguard",
+  "display": "Lycanroc-Midnight",
+  "item": "choicescarf",
+  "moves": [
+   "rockslide",
+   "stoneedge",
+   "closecombat",
+   "protect"
+  ],
+  "spread": "Jolly:1/32/0/0/1/32"
+ },
+ "machamp": {
+  "ability": "noguard",
+  "display": "Machamp",
+  "item": "lifeorb",
+  "moves": [
+   "dynamicpunch",
+   "wideguard",
+   "stoneedge",
+   "protect"
+  ],
+  "spread": "Adamant:32/32/0/0/2/0"
+ },
+ "malamar": {
+  "ability": "contrary",
+  "display": "Malamar",
+  "item": "sitrusberry",
+  "moves": [
+   "superpower",
+   "knockoff",
+   "trickroom",
+   "protect"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "malamarmega": {
+  "ability": "contrary",
+  "display": "Malamar-Mega",
+  "item": "malamarite",
+  "moves": [
+   "superpower",
+   "protect",
+   "knockoff",
+   "trickroom"
+  ],
+  "spread": "Adamant:30/28/4/0/4/0"
+ },
+ "mamoswine": {
+  "ability": "oblivious",
+  "display": "Mamoswine",
+  "item": "focussash",
+  "moves": [
+   "iceshard",
+   "protect",
+   "highhorsepower",
+   "iciclecrash"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "manectric": {
+  "ability": "lightningrod",
+  "display": "Manectric",
+  "item": "choicescarf",
+  "moves": [
+   "voltswitch",
+   "flamethrower",
+   "discharge",
+   "risingvoltage"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "manectricmega": {
+  "ability": "intimidate",
+  "display": "Manectric-Mega",
+  "item": "manectite",
+  "moves": [
+   "protect",
+   "voltswitch",
+   "thunderbolt",
+   "eerieimpulse"
+  ],
+  "spread": "Timid:32/0/15/1/0/18"
+ },
+ "maushold": {
+  "ability": "friendguard",
+  "display": "Maushold",
+  "item": "widelens",
+  "moves": [
+   "followme",
+   "protect",
+   "superfang",
+   "populationbomb"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "mawilemega": {
+  "ability": "hugepower",
+  "display": "Mawile-Mega",
+  "item": "mawilite",
+  "moves": [
+   "playrough",
+   "suckerpunch",
+   "protect",
+   "ironhead"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "medicham": {
+  "ability": "purepower",
+  "display": "Medicham",
+  "item": "focussash",
+  "moves": [
+   "closecombat",
+   "fakeout",
+   "skillswap",
+   "zenheadbutt"
+  ],
+  "spread": "Brave:32/32/1/0/1/0"
+ },
+ "medichammega": {
+  "ability": "purepower",
+  "display": "Medicham-Mega",
+  "item": "medichamite",
+  "moves": [
+   "fakeout",
+   "closecombat",
+   "poisonjab",
+   "rockslide"
+  ],
+  "spread": "Brave:20/32/4/0/10/0"
+ },
+ "meganiummega": {
+  "ability": "megasol",
+  "display": "Meganium-Mega",
+  "item": "meganiumite",
+  "moves": [
+   "solarbeam",
+   "weatherball",
+   "dazzlinggleam",
+   "protect"
+  ],
+  "spread": "Modest:32/0/0/32/0/2"
+ },
+ "meowscarada": {
+  "ability": "overgrow",
+  "display": "Meowscarada",
+  "item": "focussash",
+  "moves": [
+   "flowertrick",
+   "knockoff",
+   "protect",
+   "suckerpunch"
+  ],
+  "spread": "Adamant:0/32/2/0/0/32"
+ },
+ "meowstic": {
+  "ability": "prankster",
+  "display": "Meowstic",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "psychicterrain",
+   "expandingforce",
+   "skillswap"
+  ],
+  "spread": "Impish:32/0/24/0/10/0"
+ },
+ "meowsticfmega": {
+  "ability": "trace",
+  "display": "Meowstic-F-Mega",
+  "item": "meowsticite",
+  "moves": [
+   "protect",
+   "expandingforce",
+   "fakeout",
+   "darkpulse"
+  ],
+  "spread": "Hasty:2/0/0/32/0/32"
+ },
+ "meowsticmmega": {
+  "ability": "trace",
+  "display": "Meowstic-M-Mega",
+  "item": "meowsticite",
+  "moves": [
+   "fakeout",
+   "expandingforce",
+   "psychicterrain",
+   "sunnyday"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "metagross": {
+  "ability": "clearbody",
+  "display": "Metagross",
+  "item": "lifeorb",
+  "moves": [
+   "psychicfangs",
+   "protect",
+   "bulletpunch",
+   "meteormash"
+  ],
+  "spread": "Adamant:32/25/0/0/7/2"
+ },
+ "metagrossmega": {
+  "ability": "toughclaws",
+  "display": "Metagross-Mega",
+  "item": "metagrossite",
+  "moves": [
+   "protect",
+   "psychicfangs",
+   "ironhead",
+   "bodypress"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "milotic": {
+  "ability": "competitive",
+  "display": "Milotic",
+  "item": "leftovers",
+  "moves": [
+   "protect",
+   "scald",
+   "muddywater",
+   "coil"
+  ],
+  "spread": "Calm:32/0/27/0/5/2"
+ },
+ "mimikyu": {
+  "ability": "disguise",
+  "display": "Mimikyu",
+  "item": "lifeorb",
+  "moves": [
+   "playrough",
+   "shadowsneak",
+   "trickroom",
+   "phantomforce"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "morpeko": {
+  "ability": "hungerswitch",
+  "display": "Morpeko",
+  "item": "focussash",
+  "moves": [
+   "aurawheel",
+   "fakeout",
+   "partingshot",
+   "taunt"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "mrrime": {
+  "ability": "screencleaner",
+  "display": "Mr. Rime",
+  "item": "focussash",
+  "moves": [
+   "freezedry",
+   "protect",
+   "fakeout",
+   "sheercold"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "mudsdale": {
+  "ability": "innerfocus",
+  "display": "Mudsdale",
+  "item": "sitrusberry",
+  "moves": [
+   "protect",
+   "heavyslam",
+   "earthquake",
+   "curse"
+  ],
+  "spread": "Brave:31/32/0/0/3/0"
+ },
+ "musharna": {
+  "ability": "telepathy",
+  "display": "Musharna",
+  "item": "colburberry",
+  "moves": [
+   "trickroom",
+   "psychic",
+   "helpinghand",
+   "protect"
+  ],
+  "spread": "Sassy:32/0/0/2/32/0"
+ },
+ "ninetales": {
+  "ability": "drought",
+  "display": "Ninetales",
+  "item": "choicescarf",
+  "moves": [
+   "heatwave",
+   "solarbeam",
+   "overheat",
+   "faketears"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "ninetalesalola": {
+  "ability": "snowwarning",
+  "display": "Ninetales-Alola",
+  "item": "nevermeltice",
+  "moves": [
+   "blizzard",
+   "freezedry",
+   "protect",
+   "encore"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "noivern": {
+  "ability": "frisk",
+  "display": "Noivern",
+  "item": "focussash",
+  "moves": [
+   "tailwind",
+   "dracometeor",
+   "hurricane",
+   "protect"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "oranguru": {
+  "ability": "innerfocus",
+  "display": "Oranguru",
+  "item": "mentalherb",
+  "moves": [
+   "instruct",
+   "trickroom",
+   "psychic",
+   "protect"
+  ],
+  "spread": "Relaxed:32/0/32/0/2/0"
+ },
+ "orthworm": {
+  "ability": "eartheater",
+  "display": "Orthworm",
+  "item": "sitrusberry",
+  "moves": [
+   "bodypress",
+   "shedtail",
+   "protect",
+   "heavyslam"
+  ],
+  "spread": "Relaxed:32/0/32/0/2/0"
+ },
+ "overqwil": {
+  "ability": "intimidate",
+  "display": "Overqwil",
+  "item": "leftovers",
+  "moves": [
+   "minimize",
+   "stockpile",
+   "protect",
+   "barbbarrage"
+  ],
+  "spread": "Careful:32/1/5/0/15/13"
+ },
+ "palafin": {
+  "ability": "zerotohero",
+  "display": "Palafin",
+  "item": "mysticwater",
+  "moves": [
+   "jetpunch",
+   "wavecrash",
+   "protect",
+   "flipturn"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "pangoro": {
+  "ability": "scrappy",
+  "display": "Pangoro",
+  "item": "focussash",
+  "moves": [
+   "protect",
+   "closecombat",
+   "rockslide",
+   "poisonjab"
+  ],
+  "spread": "Brave:4/32/20/0/10/0"
+ },
+ "passimian": {
+  "ability": "defiant",
+  "display": "Passimian",
+  "item": "choicescarf",
+  "moves": [
+   "closecombat",
+   "protect",
+   "knockoff",
+   "rockslide"
+  ],
+  "spread": "Jolly:32/2/0/0/0/32"
+ },
+ "pelipper": {
+  "ability": "drizzle",
+  "display": "Pelipper",
+  "item": "sitrusberry",
+  "moves": [
+   "hurricane",
+   "weatherball",
+   "tailwind",
+   "wideguard"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "pidgeotmega": {
+  "ability": "noguard",
+  "display": "Pidgeot-Mega",
+  "item": "pidgeotite",
+  "moves": [
+   "hurricane",
+   "heatwave",
+   "protect",
+   "tailwind"
+  ],
+  "spread": "Timid:1/0/0/32/1/32"
+ },
+ "pikachu": {
+  "ability": "lightningrod",
+  "display": "Pikachu",
+  "item": "lightball",
+  "moves": [
+   "fakeout",
+   "protect",
+   "voltswitch",
+   "volttackle"
+  ],
+  "spread": "Timid:0/0/2/32/0/32"
+ },
+ "pinsirmega": {
+  "ability": "aerilate",
+  "display": "Pinsir-Mega",
+  "item": "pinsirite",
+  "moves": [
+   "bodyslam",
+   "feint",
+   "stormthrow",
+   "gigaimpact"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "politoed": {
+  "ability": "drizzle",
+  "display": "Politoed",
+  "item": "sitrusberry",
+  "moves": [
+   "protect",
+   "weatherball",
+   "perishsong",
+   "encore"
+  ],
+  "spread": "Calm:31/0/23/0/12/0"
+ },
+ "polteageist": {
+  "ability": "weakarmor",
+  "display": "Polteageist",
+  "item": "focussash",
+  "moves": [
+   "shadowball",
+   "shellsmash",
+   "protect",
+   "batonpass"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "primarina": {
+  "ability": "liquidvoice",
+  "display": "Primarina",
+  "item": "leftovers",
+  "moves": [
+   "hypervoice",
+   "protect",
+   "moonblast",
+   "calmmind"
+  ],
+  "spread": "Quiet:32/0/2/32/0/0"
+ },
+ "pyroarmega": {
+  "ability": "firemane",
+  "display": "Pyroar-Mega",
+  "item": "pyroarite",
+  "moves": [
+   "heatwave",
+   "protect",
+   "overheat",
+   "solarbeam"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "quaquaval": {
+  "ability": "moxie",
+  "display": "Quaquaval",
+  "item": "lifeorb",
+  "moves": [
+   "aquastep",
+   "closecombat",
+   "protect",
+   "knockoff"
+  ],
+  "spread": "Jolly:1/32/0/0/1/32"
+ },
+ "qwilfish": {
+  "ability": "intimidate",
+  "display": "Qwilfish",
+  "item": "choicescarf",
+  "moves": [
+   "flipturn",
+   "liquidation",
+   "icywind",
+   "protect"
+  ],
+  "spread": "Jolly:8/32/0/0/0/26"
+ },
+ "raichu": {
+  "ability": "lightningrod",
+  "display": "Raichu",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "voltswitch",
+   "nuzzle",
+   "protect"
+  ],
+  "spread": "Timid:32/0/0/2/0/32"
+ },
+ "raichualola": {
+  "ability": "surgesurfer",
+  "display": "Raichu-Alola",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "psychic",
+   "voltswitch",
+   "nuzzle"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "raichumegax": {
+  "ability": "electricsurge",
+  "display": "Raichu-Mega-X",
+  "item": "raichunitex",
+  "moves": [
+   "fakeout",
+   "protect",
+   "voltswitch",
+   "volttackle"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "raichumegay": {
+  "ability": "noguard",
+  "display": "Raichu-Mega-Y",
+  "item": "raichunitey",
+  "moves": [
+   "zapcannon",
+   "focusblast",
+   "protect",
+   "fakeout"
+  ],
+  "spread": "Timid:30/0/13/0/0/23"
+ },
+ "rampardos": {
+  "ability": "sheerforce",
+  "display": "Rampardos",
+  "item": "lifeorb",
+  "moves": [
+   "rockslide",
+   "protect",
+   "hammerarm",
+   "icebeam"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "reuniclus": {
+  "ability": "magicguard",
+  "display": "Reuniclus",
+  "item": "lifeorb",
+  "moves": [
+   "trickroom",
+   "psychic",
+   "protect",
+   "energyball"
+  ],
+  "spread": "Quiet:12/0/22/32/0/0"
+ },
+ "rhyperior": {
+  "ability": "solidrock",
+  "display": "Rhyperior",
+  "item": "lifeorb",
+  "moves": [
+   "rockslide",
+   "protect",
+   "highhorsepower",
+   "icepunch"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "roserade": {
+  "ability": "naturalcure",
+  "display": "Roserade",
+  "item": "focussash",
+  "moves": [
+   "sludgebomb",
+   "gigadrain",
+   "protect",
+   "weatherball"
+  ],
+  "spread": "Timid:4/0/0/32/0/30"
+ },
+ "rotomfrost": {
+  "ability": "levitate",
+  "display": "Rotom-Frost",
+  "item": "choicescarf",
+  "moves": [
+   "blizzard",
+   "voltswitch",
+   "thunderbolt",
+   "electroweb"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "rotomheat": {
+  "ability": "levitate",
+  "display": "Rotom-Heat",
+  "item": "choicescarf",
+  "moves": [
+   "overheat",
+   "voltswitch",
+   "thunderbolt",
+   "discharge"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "rotommow": {
+  "ability": "levitate",
+  "display": "Rotom-Mow",
+  "item": "choicescarf",
+  "moves": [
+   "leafstorm",
+   "thunderbolt",
+   "voltswitch",
+   "electroweb"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "rotomwash": {
+  "ability": "levitate",
+  "display": "Rotom-Wash",
+  "item": "sitrusberry",
+  "moves": [
+   "hydropump",
+   "thunderbolt",
+   "willowisp",
+   "protect"
+  ],
+  "spread": "Modest:32/0/12/15/1/6"
+ },
+ "runerigus": {
+  "ability": "wanderingspirit",
+  "display": "Runerigus",
+  "item": "sitrusberry",
+  "moves": [
+   "trickroom",
+   "bodypress",
+   "willowisp",
+   "poltergeist"
+  ],
+  "spread": "Relaxed:32/0/32/0/2/0"
+ },
+ "sableye": {
+  "ability": "prankster",
+  "display": "Sableye",
+  "item": "lightclay",
+  "moves": [
+   "lightscreen",
+   "raindance",
+   "encore",
+   "reflect"
+  ],
+  "spread": "Sassy:32/0/9/0/25/0"
+ },
+ "sableyemega": {
+  "ability": "magicbounce",
+  "display": "Sableye-Mega",
+  "item": "sablenite",
+  "moves": [
+   "psychup",
+   "foulplay",
+   "painsplit",
+   "darkpulse"
+  ],
+  "spread": "Sassy:32/0/9/0/25/0"
+ },
+ "salazzle": {
+  "ability": "corrosion",
+  "display": "Salazzle",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "sludgebomb",
+   "dragoncheer",
+   "heatwave"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "samurotthisui": {
+  "ability": "sharpness",
+  "display": "Samurott-Hisui",
+  "item": "choicescarf",
+  "moves": [
+   "sacredsword",
+   "aquacutter",
+   "ceaselessedge",
+   "suckerpunch"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "sandaconda": {
+  "ability": "sandspit",
+  "display": "Sandaconda",
+  "item": "leftovers",
+  "moves": [
+   "bodypress",
+   "minimize",
+   "protect",
+   "irondefense"
+  ],
+  "spread": "Careful:32/0/2/0/32/0"
+ },
+ "sceptile": {
+  "ability": "unburden",
+  "display": "Sceptile",
+  "item": "whiteherb",
+  "moves": [
+   "leafstorm",
+   "quickguard",
+   "earthpower",
+   "rocktomb"
+  ],
+  "spread": "Timid:18/0/1/14/1/32"
+ },
+ "sceptilemega": {
+  "ability": "lightningrod",
+  "display": "Sceptile-Mega",
+  "item": "sceptilite",
+  "moves": [
+   "dragonpulse",
+   "earthpower",
+   "protect",
+   "energyball"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "scizor": {
+  "ability": "technician",
+  "display": "Scizor",
+  "item": "lifeorb",
+  "moves": [
+   "bulletpunch",
+   "protect",
+   "bugbite",
+   "swordsdance"
+  ],
+  "spread": "Adamant:32/32/0/0/2/0"
+ },
+ "scizormega": {
+  "ability": "technician",
+  "display": "Scizor-Mega",
+  "item": "scizorite",
+  "moves": [
+   "bulletpunch",
+   "protect",
+   "swordsdance",
+   "closecombat"
+  ],
+  "spread": "Adamant:17/32/1/0/1/15"
+ },
+ "scolipede": {
+  "ability": "speedboost",
+  "display": "Scolipede",
+  "item": "focussash",
+  "moves": [
+   "protect",
+   "megahorn",
+   "acidspray",
+   "poisonjab"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "scolipedemega": {
+  "ability": "shellarmor",
+  "display": "Scolipede-Mega",
+  "item": "scolipite",
+  "moves": [
+   "protect",
+   "leechlife",
+   "swordsdance",
+   "poisonjab"
+  ],
+  "spread": "Jolly:32/6/0/0/0/28"
+ },
+ "scovillain": {
+  "ability": "moody",
+  "display": "Scovillain",
+  "item": "sitrusberry",
+  "moves": [
+   "protect",
+   "ragepowder",
+   "overheat",
+   "gigadrain"
+  ],
+  "spread": "Bold:32/0/13/21/0/0"
+ },
+ "scovillainmega": {
+  "ability": "spicyspray",
+  "display": "Scovillain-Mega",
+  "item": "scovillainite",
+  "moves": [
+   "ragepowder",
+   "protect",
+   "overheat",
+   "gigadrain"
+  ],
+  "spread": "Bold:32/0/15/0/15/4"
+ },
+ "scrafty": {
+  "ability": "intimidate",
+  "display": "Scrafty",
+  "item": "chopleberry",
+  "moves": [
+   "fakeout",
+   "knockoff",
+   "closecombat",
+   "detect"
+  ],
+  "spread": "Careful:32/0/0/0/9/25"
+ },
+ "scraftymega": {
+  "ability": "intimidate",
+  "display": "Scrafty-Mega",
+  "item": "scraftinite",
+  "moves": [
+   "fakeout",
+   "knockoff",
+   "drainpunch",
+   "closecombat"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "serperior": {
+  "ability": "contrary",
+  "display": "Serperior",
+  "item": "sitrusberry",
+  "moves": [
+   "leafstorm",
+   "glare",
+   "protect",
+   "synthesis"
+  ],
+  "spread": "Timid:32/0/0/2/0/32"
+ },
+ "sharpedo": {
+  "ability": "speedboost",
+  "display": "Sharpedo",
+  "item": "focussash",
+  "moves": [
+   "protect",
+   "crunch",
+   "closecombat",
+   "psychicfangs"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "sharpedomega": {
+  "ability": "strongjaw",
+  "display": "Sharpedo-Mega",
+  "item": "sharpedonite",
+  "moves": [
+   "protect",
+   "crunch",
+   "liquidation",
+   "icefang"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "simipour": {
+  "ability": "torrent",
+  "display": "Simipour",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "scald",
+   "icebeam",
+   "flipturn"
+  ],
+  "spread": "Naive:1/0/1/32/0/32"
+ },
+ "sinistcha": {
+  "ability": "hospitality",
+  "display": "Sinistcha",
+  "item": "kasibberry",
+  "moves": [
+   "matchagotcha",
+   "ragepowder",
+   "protect",
+   "trickroom"
+  ],
+  "spread": "Bold:32/0/4/0/30/0"
+ },
+ "skarmory": {
+  "ability": "sturdy",
+  "display": "Skarmory",
+  "item": "leftovers",
+  "moves": [
+   "bodypress",
+   "roost",
+   "tailwind",
+   "irondefense"
+  ],
+  "spread": "Impish:32/0/30/0/4/0"
+ },
+ "skarmorymega": {
+  "ability": "stalwart",
+  "display": "Skarmory-Mega",
+  "item": "skarmorite",
+  "moves": [
+   "bravebird",
+   "ironhead",
+   "protect",
+   "rocktomb"
+  ],
+  "spread": "Adamant:7/32/0/0/0/27"
+ },
+ "skeledirge": {
+  "ability": "unaware",
+  "display": "Skeledirge",
+  "item": "sitrusberry",
+  "moves": [
+   "torchsong",
+   "shadowball",
+   "slackoff",
+   "protect"
+  ],
+  "spread": "Calm:32/0/0/2/32/0"
+ },
+ "slowbro": {
+  "ability": "regenerator",
+  "display": "Slowbro",
+  "item": "sitrusberry",
+  "moves": [
+   "scald",
+   "trickroom",
+   "psychic",
+   "icywind"
+  ],
+  "spread": "Quiet:29/0/0/32/5/0"
+ },
+ "slowbrogalar": {
+  "ability": "regenerator",
+  "display": "Slowbro-Galar",
+  "item": "quickclaw",
+  "moves": [
+   "shellsidearm",
+   "trickroom",
+   "protect",
+   "powergem"
+  ],
+  "spread": "Modest:32/0/0/10/24/0"
+ },
+ "slowbromega": {
+  "ability": "shellarmor",
+  "display": "Slowbro-Mega",
+  "item": "slowbronite",
+  "moves": [
+   "bodypress",
+   "slackoff",
+   "psychic",
+   "trickroom"
+  ],
+  "spread": "Relaxed:32/0/3/0/31/0"
+ },
+ "slowking": {
+  "ability": "regenerator",
+  "display": "Slowking",
+  "item": "colburberry",
+  "moves": [
+   "trickroom",
+   "chillyreception",
+   "scald",
+   "psychic"
+  ],
+  "spread": "Quiet:32/0/32/0/2/0"
+ },
+ "slowkinggalar": {
+  "ability": "regenerator",
+  "display": "Slowking-Galar",
+  "item": "mentalherb",
+  "moves": [
+   "trickroom",
+   "sludgebomb",
+   "psychic",
+   "icebeam"
+  ],
+  "spread": "Quiet:32/0/4/20/10/0"
+ },
+ "sneasler": {
+  "ability": "unburden",
+  "display": "Sneasler",
+  "item": "focussash",
+  "moves": [
+   "closecombat",
+   "fakeout",
+   "direclaw",
+   "protect"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "snorlax": {
+  "ability": "thickfat",
+  "display": "Snorlax",
+  "item": "leftovers",
+  "moves": [
+   "protect",
+   "yawn",
+   "fissure",
+   "highhorsepower"
+  ],
+  "spread": "Relaxed:21/0/30/0/15/0"
+ },
+ "spiritomb": {
+  "ability": "infiltrator",
+  "display": "Spiritomb",
+  "item": "roseliberry",
+  "moves": [
+   "trickroom",
+   "willowisp",
+   "snarl",
+   "foulplay"
+  ],
+  "spread": "Relaxed:32/0/14/0/20/0"
+ },
+ "staraptor": {
+  "ability": "intimidate",
+  "display": "Staraptor",
+  "item": "choicescarf",
+  "moves": [
+   "finalgambit",
+   "bravebird",
+   "closecombat",
+   "uturn"
+  ],
+  "spread": "Jolly:32/2/0/0/0/32"
+ },
+ "staraptormega": {
+  "ability": "contrary",
+  "display": "Staraptor-Mega",
+  "item": "staraptite",
+  "moves": [
+   "closecombat",
+   "protect",
+   "bravebird",
+   "roost"
+  ],
+  "spread": "Jolly:29/1/0/0/4/32"
+ },
+ "starmie": {
+  "ability": "naturalcure",
+  "display": "Starmie",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "icebeam",
+   "psychic",
+   "thunderbolt"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "starmiemega": {
+  "ability": "hugepower",
+  "display": "Starmie-Mega",
+  "item": "starminite",
+  "moves": [
+   "protect",
+   "liquidation",
+   "aquajet",
+   "zenheadbutt"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "steelix": {
+  "ability": "sheerforce",
+  "display": "Steelix",
+  "item": "lifeorb",
+  "moves": [
+   "wideguard",
+   "bodypress",
+   "heavyslam",
+   "rockslide"
+  ],
+  "spread": "Careful:32/1/0/0/32/1"
+ },
+ "steelixmega": {
+  "ability": "sandforce",
+  "display": "Steelix-Mega",
+  "item": "steelixite",
+  "moves": [
+   "heavyslam",
+   "highhorsepower",
+   "protect",
+   "wideguard"
+  ],
+  "spread": "Brave:32/32/0/0/2/0"
+ },
+ "swampert": {
+  "ability": "torrent",
+  "display": "Swampert",
+  "item": "leftovers",
+  "moves": [
+   "protect",
+   "wideguard",
+   "wavecrash",
+   "highhorsepower"
+  ],
+  "spread": "Impish:32/11/14/0/8/1"
+ },
+ "swampertmega": {
+  "ability": "swiftswim",
+  "display": "Swampert-Mega",
+  "item": "swampertite",
+  "moves": [
+   "protect",
+   "wavecrash",
+   "icepunch",
+   "earthquake"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "sylveon": {
+  "ability": "pixilate",
+  "display": "Sylveon",
+  "item": "fairyfeather",
+  "moves": [
+   "hypervoice",
+   "quickattack",
+   "hyperbeam",
+   "detect"
+  ],
+  "spread": "Modest:19/0/27/12/0/8"
+ },
+ "talonflame": {
+  "ability": "galewings",
+  "display": "Talonflame",
+  "item": "sharpbeak",
+  "moves": [
+   "tailwind",
+   "protect",
+   "flareblitz",
+   "dualwingbeat"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "tauros": {
+  "ability": "sheerforce",
+  "display": "Tauros",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "rockslide",
+   "closecombat",
+   "icebeam"
+  ],
+  "spread": "Jolly:1/32/0/0/1/32"
+ },
+ "taurospaldeaaqua": {
+  "ability": "intimidate",
+  "display": "Tauros-Paldea-Aqua",
+  "item": "shellbell",
+  "moves": [
+   "protect",
+   "aquajet",
+   "closecombat",
+   "rockslide"
+  ],
+  "spread": "Adamant:0/32/3/0/2/29"
+ },
+ "taurospaldeablaze": {
+  "ability": "intimidate",
+  "display": "Tauros-Paldea-Blaze",
+  "item": "lifeorb",
+  "moves": [
+   "closecombat",
+   "protect",
+   "rockslide",
+   "ragingbull"
+  ],
+  "spread": "Adamant:1/30/0/0/3/32"
+ },
+ "taurospaldeacombat": {
+  "ability": "intimidate",
+  "display": "Tauros-Paldea-Combat",
+  "item": "sitrusberry",
+  "moves": [
+   "protect",
+   "ragingbull",
+   "rockslide",
+   "earthquake"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "tinkaton": {
+  "ability": "moldbreaker",
+  "display": "Tinkaton",
+  "item": "shucaberry",
+  "moves": [
+   "gigatonhammer",
+   "fakeout",
+   "encore",
+   "protect"
+  ],
+  "spread": "Jolly:23/8/7/0/0/28"
+ },
+ "torkoal": {
+  "ability": "drought",
+  "display": "Torkoal",
+  "item": "charcoal",
+  "moves": [
+   "protect",
+   "eruption",
+   "weatherball",
+   "heatwave"
+  ],
+  "spread": "Quiet:32/0/0/32/2/0"
+ },
+ "torterra": {
+  "ability": "shellarmor",
+  "display": "Torterra",
+  "item": "whiteherb",
+  "moves": [
+   "shellsmash",
+   "protect",
+   "woodhammer",
+   "headlongrush"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "toucannon": {
+  "ability": "skilllink",
+  "display": "Toucannon",
+  "item": "kingsrock",
+  "moves": [
+   "bulletseed",
+   "rockblast",
+   "tailwind",
+   "beakblast"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "toxapex": {
+  "ability": "regenerator",
+  "display": "Toxapex",
+  "item": "leftovers",
+  "moves": [
+   "toxic",
+   "infestation",
+   "banefulbunker",
+   "wideguard"
+  ],
+  "spread": "Bold:32/0/18/0/16/0"
+ },
+ "toxicroak": {
+  "ability": "dryskin",
+  "display": "Toxicroak",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "closecombat",
+   "poisonjab",
+   "protect"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "trevenant": {
+  "ability": "harvest",
+  "display": "Trevenant",
+  "item": "sitrusberry",
+  "moves": [
+   "trickroom",
+   "woodhammer",
+   "allyswitch",
+   "hornleech"
+  ],
+  "spread": "Relaxed:31/0/14/0/21/0"
+ },
+ "tsareena": {
+  "ability": "queenlymajesty",
+  "display": "Tsareena",
+  "item": "widelens",
+  "moves": [
+   "tripleaxel",
+   "protect",
+   "powerwhip",
+   "lowkick"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "typhlosion": {
+  "ability": "flashfire",
+  "display": "Typhlosion",
+  "item": "charcoal",
+  "moves": [
+   "eruption",
+   "protect",
+   "scorchingsands",
+   "shadowball"
+  ],
+  "spread": "Modest:0/0/2/32/0/32"
+ },
+ "typhlosionhisui": {
+  "ability": "frisk",
+  "display": "Typhlosion-Hisui",
+  "item": "choicescarf",
+  "moves": [
+   "eruption",
+   "shadowball",
+   "heatwave",
+   "overheat"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "tyranitar": {
+  "ability": "sandstream",
+  "display": "Tyranitar",
+  "item": "choicescarf",
+  "moves": [
+   "rockslide",
+   "knockoff",
+   "lowkick",
+   "icepunch"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "tyranitarmega": {
+  "ability": "sandstream",
+  "display": "Tyranitar-Mega",
+  "item": "tyranitarite",
+  "moves": [
+   "rockslide",
+   "protect",
+   "knockoff",
+   "lowkick"
+  ],
+  "spread": "Jolly:17/18/0/0/0/31"
+ },
+ "tyrantrum": {
+  "ability": "strongjaw",
+  "display": "Tyrantrum",
+  "item": "choicescarf",
+  "moves": [
+   "rockslide",
+   "icefang",
+   "crunch",
+   "psychicfangs"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "umbreon": {
+  "ability": "innerfocus",
+  "display": "Umbreon",
+  "item": "leftovers",
+  "moves": [
+   "foulplay",
+   "snarl",
+   "yawn",
+   "moonlight"
+  ],
+  "spread": "Bold:31/0/20/0/15/0"
+ },
+ "vanilluxe": {
+  "ability": "snowwarning",
+  "display": "Vanilluxe",
+  "item": "nevermeltice",
+  "moves": [
+   "blizzard",
+   "freezedry",
+   "protect",
+   "iceshard"
+  ],
+  "spread": "Quiet:32/0/0/32/2/0"
+ },
+ "vaporeon": {
+  "ability": "waterabsorb",
+  "display": "Vaporeon",
+  "item": "leftovers",
+  "moves": [
+   "yawn",
+   "icebeam",
+   "detect",
+   "scald"
+  ],
+  "spread": "Relaxed:31/0/32/0/3/0"
+ },
+ "venusaur": {
+  "ability": "chlorophyll",
+  "display": "Venusaur",
+  "item": "lifeorb",
+  "moves": [
+   "sludgebomb",
+   "protect",
+   "earthpower",
+   "sleeppowder"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "venusaurmega": {
+  "ability": "thickfat",
+  "display": "Venusaur-Mega",
+  "item": "venusaurite",
+  "moves": [
+   "sludgebomb",
+   "earthpower",
+   "protect",
+   "gigadrain"
+  ],
+  "spread": "Modest:30/0/0/18/0/18"
+ },
+ "victreebel": {
+  "ability": "chlorophyll",
+  "display": "Victreebel",
+  "item": "focussash",
+  "moves": [
+   "sleeppowder",
+   "protect",
+   "sludgebomb",
+   "encore"
+  ],
+  "spread": "Timid:0/0/1/32/1/32"
+ },
+ "victreebelmega": {
+  "ability": "innardsout",
+  "display": "Victreebel-Mega",
+  "item": "victreebelite",
+  "moves": [
+   "strengthsap",
+   "suckerpunch",
+   "sludgebomb",
+   "gigadrain"
+  ],
+  "spread": "Rash:32/0/2/32/0/0"
+ },
+ "vileplume": {
+  "ability": "chlorophyll",
+  "display": "Vileplume",
+  "item": "focussash",
+  "moves": [
+   "sludgebomb",
+   "sleeppowder",
+   "afteryou",
+   "leafstorm"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "vivillon": {
+  "ability": "compoundeyes",
+  "display": "Vivillon",
+  "item": "focussash",
+  "moves": [
+   "sleeppowder",
+   "hurricane",
+   "ragepowder",
+   "protect"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "volcarona": {
+  "ability": "flamebody",
+  "display": "Volcarona",
+  "item": "sitrusberry",
+  "moves": [
+   "protect",
+   "ragepowder",
+   "heatwave",
+   "strugglebug"
+  ],
+  "spread": "Modest:32/0/12/7/0/15"
+ },
+ "watchog": {
+  "ability": "keeneye",
+  "display": "Watchog",
+  "item": "widelens",
+  "moves": [
+   "hypnosis",
+   "detect",
+   "gunkshot",
+   "lowkick"
+  ],
+  "spread": "Adamant:2/32/0/0/0/32"
+ },
+ "weavile": {
+  "ability": "pickpocket",
+  "display": "Weavile",
+  "item": "focussash",
+  "moves": [
+   "fakeout",
+   "knockoff",
+   "tripleaxel",
+   "lowkick"
+  ],
+  "spread": "Jolly:2/32/0/0/0/32"
+ },
+ "whimsicott": {
+  "ability": "prankster",
+  "display": "Whimsicott",
+  "item": "focussash",
+  "moves": [
+   "tailwind",
+   "moonblast",
+   "encore",
+   "protect"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ },
+ "wyrdeer": {
+  "ability": "intimidate",
+  "display": "Wyrdeer",
+  "item": "colburberry",
+  "moves": [
+   "trickroom",
+   "psyshieldbash",
+   "skillswap",
+   "gravity"
+  ],
+  "spread": "Adamant:2/0/32/0/26/6"
+ },
+ "zoroark": {
+  "ability": "illusion",
+  "display": "Zoroark",
+  "item": "lifeorb",
+  "moves": [
+   "protect",
+   "nothing",
+   "nightdaze",
+   "sunnyday"
+  ],
+  "spread": "Modest:2/0/0/32/0/32"
+ },
+ "zoroarkhisui": {
+  "ability": "illusion",
+  "display": "Zoroark-Hisui",
+  "item": "choicescarf",
+  "moves": [
+   "shadowball",
+   "icywind",
+   "hypervoice",
+   "taunt"
+  ],
+  "spread": "Timid:2/0/0/32/0/32"
+ }
+}

@@ -1,0 +1,62 @@
+__pycache__
+build/
+.venv/
+venv/
+env/
+*.egg-info
+profile.prof
+
+battle_logs/
+results*/
+!results_parity/
+!results_parity/live_exact_parity.json
+!results_parity/particle_coverage.json
+!results_parity/live_search_latency.json
+!results_parity/outcome_value_metrics.json
+trajs/
+debug*.log
+
+# --- added for this fork ---
+# Renamed variants of the upstream-ignored dirs (trajs_foundation/ alone is 25 GB)
+trajs*/
+battle_logs*/
+ladder_replays*/
+counterfactual_data*/
+outcome_data*/
+# Run logs
+*.out
+*.log
+
+# --- 2026-08 replan: keep the small, high-value evidence in git ---
+# (bulk stays local per fork convention: datasets, replays, epoch checkpoints)
+!results_analysis/
+!results_analysis/**
+!results_stage_c/
+results_stage_c/ko_off_replays/
+results_stage_c/ko_robust_replays/
+!results_stage_e/
+!results_stage_e/*.json
+!results_gate_battery/
+!results_gate_battery/**
+!results_outcome_v2h/
+results_outcome_v2h/*
+!results_outcome_v2h/outcome_value.zip
+!results_outcome_v2h/outcome_value.metrics.json
+!results_outcome_v2h/outcome_value.zip.metadata.json
+!results_outcome_v2h/ladder_calibration.txt
+!results_outcome_v2h/tactical_gate.txt
+!results_outcome_v2h/exact_preview_regate_hidden300.json
+# the parity whitelist's dir-negation would sweep in 11MB of per-turn search
+# audits; keep those local
+results_parity/search_audits/
+# exact-preview repair gates (JSON evidence only; logs and replays stay local)
+!results_preview_repair/
+results_preview_repair/*
+!results_preview_repair/*.json
+# counterfactual retry rounds (JSON evidence + metrics; checkpoints stay local)
+!results_counterfactual_v5h/
+results_counterfactual_v5h/*
+!results_counterfactual_v5h/*.json
+!results_counterfactual_v5h_r2/
+results_counterfactual_v5h_r2/*
+!results_counterfactual_v5h_r2/*.json

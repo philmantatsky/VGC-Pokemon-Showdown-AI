@@ -1,0 +1,212 @@
+{
+  "evaluation_schema": 3,
+  "hidden_sheets": true,
+  "opponent_checkpoint": null,
+  "seed": 20260828,
+  "n_battles": 10,
+  "arms": {
+    "live_exact_search": {
+      "checkpoint": "results_repaired/champion.zip",
+      "preview_model": "data/opponent_preview_top500_regmb.pt",
+      "preview_control": "champion_policy",
+      "move_search": {
+        "enabled": true,
+        "backend": "exact Pokemon Showdown snapshot backend",
+        "configuration": {
+          "normal_turn_budget_s": 9.0,
+          "screen_budget_s": 2.0,
+          "submission_reserve_s": 1.0,
+          "risk_weights": [
+            0.6,
+            0.3,
+            0.1
+          ],
+          "chance_samples": 4,
+          "maximum_determinizations": 8,
+          "selective_search": true,
+          "ponder": true,
+          "opponent_think_s": 1.0
+        },
+        "decisions": 55,
+        "fallbacks": 0,
+        "truncations": 49,
+        "audit": "results_parity/search_audits/selective_repro_index_hidden_live_exact_search.jsonl",
+        "latency_ms": {
+          "count": 60,
+          "p50": 8765.601332997903,
+          "p90": 9112.035166006535,
+          "max": 9390.43491682969
+        }
+      },
+      "residual_ranker": null,
+      "wins": 9,
+      "battles": 10,
+      "win_rate": 0.9,
+      "wilson_95": [
+        0.5958436145024278,
+        0.9821242504842788
+      ],
+      "elapsed_seconds": 258.15091333398595,
+      "telemetry": {
+        "guards_ran": 25,
+        "exact_search": 55,
+        "exact_search_nodes": 41621,
+        "exact_search_truncated": 49,
+        "exact_search_partial:partial_determinization_search": 38,
+        "exact_search_partial:partial_root_failure": 11,
+        "exact_search_skipped": 5,
+        "guaranteed_ko": 1,
+        "opponent_reranker_ran": 3,
+        "opponent_reranker_candidates": 12,
+        "tempo_reranker_ran": 3,
+        "combined_reranker": 1,
+        "opponent_reranker": 1,
+        "exact_search_reused_plan": 3,
+        "exact_search_complete": 6,
+        "exact_search_partial:reused_contingent_plan": 3,
+        "zero_damage:demoted": 6,
+        "redundant_side_condition": 1,
+        "status_immunity:demoted": 6,
+        "redundant_side_condition:demoted": 6,
+        "priority_block_prior:demoted": 12
+      },
+      "battle_results": [
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733938",
+          "won": true,
+          "lost": false,
+          "turns": 3,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "froslass",
+            "kommoo",
+            "sneasler",
+            "greninja"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733939",
+          "won": true,
+          "lost": false,
+          "turns": 4,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "charizard",
+            "whimsicott",
+            "basculegion",
+            "floetteeternal"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733940",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "basculegion",
+            "floetteeternal",
+            "charizard",
+            "kingambit"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733941",
+          "won": true,
+          "lost": false,
+          "turns": 4,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "basculegion",
+            "sylveon",
+            "charizard",
+            "whimsicott"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733942",
+          "won": true,
+          "lost": false,
+          "turns": 4,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "kingambit",
+            "sneasler",
+            "sinistcha",
+            "floetteeternal"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733943",
+          "won": false,
+          "lost": true,
+          "turns": 5,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "basculegion",
+            "gholdengo",
+            "mausholdfour"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733944",
+          "won": true,
+          "lost": false,
+          "turns": 5,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "basculegion",
+            "kingambit",
+            "garchomp",
+            "charizard"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733945",
+          "won": true,
+          "lost": false,
+          "turns": 6,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "garchomp",
+            "kingambit",
+            "charizard",
+            "farigiraf"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733946",
+          "won": true,
+          "lost": false,
+          "turns": 3,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "farigiraf",
+            "kangaskhan",
+            "sneasler",
+            "floetteeternal"
+          ]
+        },
+        {
+          "battle": "battle-gen9championsvgc2026regmb-733947",
+          "won": true,
+          "lost": false,
+          "turns": 7,
+          "opponent": "DelayedSimpleHeu 1",
+          "opponent_team": [
+            "charizard",
+            "farigiraf",
+            "kingambit",
+            "sylveon"
+          ]
+        }
+      ],
+      "replay_dir": null
+    }
+  },
+  "candidate_preview_trained": false,
+  "live_search_requested": true,
+  "search_every_turn_comparison": false,
+  "search_comparison_only": true,
+  "patch_report": "poke-env parse errors: none; revealed abilities repaired: 4565"
+}

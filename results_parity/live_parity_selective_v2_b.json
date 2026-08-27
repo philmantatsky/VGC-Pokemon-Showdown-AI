@@ -1,0 +1,3075 @@
+{
+  "schema": 1,
+  "snapshot_schema": 2,
+  "created_at": "2026-08-22T18:40:23-05:00",
+  "seed": 20260829,
+  "required_states": 1000,
+  "checked_states": 1000,
+  "mismatch_count": 2,
+  "mismatches": [
+    {
+      "game": 52,
+      "opponent": "MB147.txt",
+      "checked_state": 618,
+      "turn": 16,
+      "request_state": "move",
+      "error": "AssertionError: {'p1': {'missing': [], 'extra': []}, 'p2': {'missing': [], 'extra': ['move protect, move darkestlariat +1', 'move protect, move darkestlariat +2', 'move protect, move darkestlariat -1', 'move protect, move flareblitz +1', 'move protect, move flareblitz +2', 'move protect, move flareblitz -1', 'move protect, move partingshot +1', 'move protect, move partingshot +2', 'move protect, move partingshot -1']}}",
+      "source_requests": [
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Moonblast",
+                  "id": "moonblast",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Encore",
+                  "id": "encore",
+                  "pp": 6,
+                  "maxpp": 8,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Tailwind",
+                  "id": "tailwind",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "allySide",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Heat Wave",
+                  "id": "heatwave",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "allAdjacentFoes",
+                  "disabled": false
+                },
+                {
+                  "move": "Weather Ball",
+                  "id": "weatherball",
+                  "pp": 6,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Solar Beam",
+                  "id": "solarbeam",
+                  "pp": 10,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 5,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p1",
+            "id": "p1",
+            "pokemon": [
+              {
+                "ident": "p1: Whimsicott",
+                "details": "Whimsicott, L50, M",
+                "condition": "0 fnt",
+                "active": true,
+                "stats": {
+                  "atk": 78,
+                  "def": 107,
+                  "spa": 129,
+                  "spd": 95,
+                  "spe": 184
+                },
+                "moves": [
+                  "moonblast",
+                  "encore",
+                  "tailwind",
+                  "protect"
+                ],
+                "baseAbility": "prankster",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Charizard",
+                "details": "Charizard-Mega-Y, L50, M",
+                "condition": "20/185",
+                "active": true,
+                "stats": {
+                  "atk": 111,
+                  "def": 143,
+                  "spa": 181,
+                  "spd": 135,
+                  "spe": 120
+                },
+                "moves": [
+                  "heatwave",
+                  "weatherball",
+                  "solarbeam",
+                  "protect"
+                ],
+                "baseAbility": "drought",
+                "item": "charizarditey",
+                "pokeball": "pokeball",
+                "ability": "drought",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Basculegion",
+                "details": "Basculegion, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 180,
+                  "def": 99,
+                  "spa": 90,
+                  "spd": 97,
+                  "spe": 116
+                },
+                "moves": [
+                  "lastrespects",
+                  "wavecrash",
+                  "aquajet",
+                  "protect"
+                ],
+                "baseAbility": "adaptability",
+                "item": "lifeorb",
+                "pokeball": "pokeball",
+                "ability": "adaptability",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Kingambit",
+                "details": "Kingambit, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 205,
+                  "def": 142,
+                  "spa": 72,
+                  "spd": 105,
+                  "spe": 70
+                },
+                "moves": [
+                  "kowtowcleave",
+                  "suckerpunch",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "defiant",
+                "item": "chopleberry",
+                "pokeball": "pokeball",
+                "ability": "defiant",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        },
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Draining Kiss",
+                  "id": "drainingkiss",
+                  "pp": 10,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Dazzling Gleam",
+                  "id": "dazzlinggleam",
+                  "pp": 11,
+                  "maxpp": 12,
+                  "target": "allAdjacentFoes",
+                  "disabled": false
+                },
+                {
+                  "move": "Calm Mind",
+                  "id": "calmmind",
+                  "pp": 20,
+                  "maxpp": 20,
+                  "target": "self",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 0,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": true
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Parting Shot",
+                  "id": "partingshot",
+                  "pp": 14,
+                  "maxpp": 20,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Fake Out",
+                  "id": "fakeout",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": true
+                },
+                {
+                  "move": "Flare Blitz",
+                  "id": "flareblitz",
+                  "pp": 12,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Darkest Lariat",
+                  "id": "darkestlariat",
+                  "pp": 10,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p2",
+            "id": "p2",
+            "pokemon": [
+              {
+                "ident": "p2: Floette",
+                "details": "Floette-Eternal, L50, F",
+                "condition": "109/159",
+                "active": true,
+                "stats": {
+                  "atk": 76,
+                  "def": 106,
+                  "spa": 165,
+                  "spd": 148,
+                  "spe": 144
+                },
+                "moves": [
+                  "drainingkiss",
+                  "dazzlinggleam",
+                  "calmmind",
+                  "protect"
+                ],
+                "baseAbility": "flowerveil",
+                "item": "floettite",
+                "pokeball": "pokeball",
+                "ability": "flowerveil",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Incineroar",
+                "details": "Incineroar, L50, F",
+                "condition": "17/202",
+                "active": true,
+                "stats": {
+                  "atk": 135,
+                  "def": 124,
+                  "spa": 90,
+                  "spd": 137,
+                  "spe": 85
+                },
+                "moves": [
+                  "partingshot",
+                  "fakeout",
+                  "flareblitz",
+                  "darkestlariat"
+                ],
+                "baseAbility": "intimidate",
+                "item": "passhoberry",
+                "pokeball": "pokeball",
+                "ability": "intimidate",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Metagross",
+                "details": "Metagross-Mega, L50",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 192,
+                  "def": 173,
+                  "spa": 112,
+                  "spd": 130,
+                  "spe": 173
+                },
+                "moves": [
+                  "psychicfangs",
+                  "bodypress",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "toughclaws",
+                "item": "metagrossite",
+                "pokeball": "pokeball",
+                "ability": "toughclaws",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Aerodactyl",
+                "details": "Aerodactyl, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 157,
+                  "def": 85,
+                  "spa": 72,
+                  "spd": 95,
+                  "spe": 200
+                },
+                "moves": [
+                  "rockslide",
+                  "dualwingbeat",
+                  "tailwind",
+                  "wideguard"
+                ],
+                "baseAbility": "unnerve",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "unnerve",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        }
+      ],
+      "shadow_requests": [
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Moonblast",
+                  "id": "moonblast",
+                  "pp": 24,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Encore",
+                  "id": "encore",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Tailwind",
+                  "id": "tailwind",
+                  "pp": 24,
+                  "maxpp": 16,
+                  "target": "allySide",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 16,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Heat Wave",
+                  "id": "heatwave",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "allAdjacentFoes",
+                  "disabled": false
+                },
+                {
+                  "move": "Weather Ball",
+                  "id": "weatherball",
+                  "pp": 6,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Solar Beam",
+                  "id": "solarbeam",
+                  "pp": 10,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 5,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p1",
+            "id": "p1",
+            "pokemon": [
+              {
+                "ident": "p1: Whimsicott",
+                "details": "Whimsicott, L50, M",
+                "condition": "0 fnt",
+                "active": true,
+                "stats": {
+                  "atk": 78,
+                  "def": 107,
+                  "spa": 129,
+                  "spd": 95,
+                  "spe": 184
+                },
+                "moves": [
+                  "moonblast",
+                  "encore",
+                  "tailwind",
+                  "protect"
+                ],
+                "baseAbility": "prankster",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Charizard",
+                "details": "Charizard-Mega-Y, L50, M",
+                "condition": "20/185",
+                "active": true,
+                "stats": {
+                  "atk": 111,
+                  "def": 143,
+                  "spa": 181,
+                  "spd": 135,
+                  "spe": 120
+                },
+                "moves": [
+                  "heatwave",
+                  "weatherball",
+                  "solarbeam",
+                  "protect"
+                ],
+                "baseAbility": "drought",
+                "item": "charizarditey",
+                "pokeball": "pokeball",
+                "ability": "drought",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Basculegion",
+                "details": "Basculegion, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 180,
+                  "def": 99,
+                  "spa": 90,
+                  "spd": 97,
+                  "spe": 116
+                },
+                "moves": [
+                  "lastrespects",
+                  "wavecrash",
+                  "aquajet",
+                  "protect"
+                ],
+                "baseAbility": "adaptability",
+                "item": "lifeorb",
+                "pokeball": "pokeball",
+                "ability": "adaptability",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Kingambit",
+                "details": "Kingambit, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 205,
+                  "def": 142,
+                  "spa": 72,
+                  "spd": 105,
+                  "spe": 70
+                },
+                "moves": [
+                  "kowtowcleave",
+                  "suckerpunch",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "defiant",
+                "item": "chopleberry",
+                "pokeball": "pokeball",
+                "ability": "defiant",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        },
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Draining Kiss",
+                  "id": "drainingkiss",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Dazzling Gleam",
+                  "id": "dazzlinggleam",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "allAdjacentFoes",
+                  "disabled": false
+                },
+                {
+                  "move": "Calm Mind",
+                  "id": "calmmind",
+                  "pp": 32,
+                  "maxpp": 20,
+                  "target": "self",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 16,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Parting Shot",
+                  "id": "partingshot",
+                  "pp": 32,
+                  "maxpp": 20,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Fake Out",
+                  "id": "fakeout",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": true
+                },
+                {
+                  "move": "Flare Blitz",
+                  "id": "flareblitz",
+                  "pp": 24,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Darkest Lariat",
+                  "id": "darkestlariat",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p2",
+            "id": "p2",
+            "pokemon": [
+              {
+                "ident": "p2: Floette",
+                "details": "Floette-Eternal, L50, F",
+                "condition": "108/159",
+                "active": true,
+                "stats": {
+                  "atk": 76,
+                  "def": 106,
+                  "spa": 165,
+                  "spd": 148,
+                  "spe": 144
+                },
+                "moves": [
+                  "drainingkiss",
+                  "dazzlinggleam",
+                  "calmmind",
+                  "protect"
+                ],
+                "baseAbility": "flowerveil",
+                "item": "floettite",
+                "pokeball": "pokeball",
+                "ability": "flowerveil",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Incineroar",
+                "details": "Incineroar, L50, F",
+                "condition": "16/202",
+                "active": true,
+                "stats": {
+                  "atk": 135,
+                  "def": 124,
+                  "spa": 90,
+                  "spd": 137,
+                  "spe": 85
+                },
+                "moves": [
+                  "partingshot",
+                  "fakeout",
+                  "flareblitz",
+                  "darkestlariat"
+                ],
+                "baseAbility": "intimidate",
+                "item": "passhoberry",
+                "pokeball": "pokeball",
+                "ability": "intimidate",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Metagross",
+                "details": "Metagross-Mega, L50",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 192,
+                  "def": 173,
+                  "spa": 112,
+                  "spd": 130,
+                  "spe": 173
+                },
+                "moves": [
+                  "psychicfangs",
+                  "bodypress",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "toughclaws",
+                "item": "metagrossite",
+                "pokeball": "pokeball",
+                "ability": "clearbody",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Aerodactyl",
+                "details": "Aerodactyl, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 157,
+                  "def": 85,
+                  "spa": 72,
+                  "spd": 95,
+                  "spe": 200
+                },
+                "moves": [
+                  "rockslide",
+                  "dualwingbeat",
+                  "tailwind",
+                  "wideguard"
+                ],
+                "baseAbility": "unnerve",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "unnerve",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "schema": 2,
+        "turn": 16,
+        "request_state": "move",
+        "weather": "",
+        "terrain": "",
+        "pseudo_weather": {},
+        "sides": [
+          {
+            "pokemon": [
+              {
+                "nickname": "kingambit",
+                "species": "kingambit",
+                "base_species": "kingambit",
+                "active_slot": null,
+                "hp": 0,
+                "maxhp": 207,
+                "hp_fraction": 0.0,
+                "fainted": true,
+                "status": "fnt",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "defiant",
+                "item": "chopleberry",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "kowtowcleave",
+                "moves": [
+                  {
+                    "id": "kowtowcleave",
+                    "pp": 16
+                  },
+                  {
+                    "id": "suckerpunch",
+                    "pp": 8
+                  },
+                  {
+                    "id": "ironhead",
+                    "pp": 24
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "charizard",
+                "species": "charizardmegay",
+                "base_species": "charizard",
+                "active_slot": 1,
+                "hp": 20,
+                "maxhp": 185,
+                "hp_fraction": 0.10810810810810811,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": -4,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": -4,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "drought",
+                "item": "charizarditey",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "weatherball",
+                "moves": [
+                  {
+                    "id": "heatwave",
+                    "pp": 12,
+                    "disabled": false
+                  },
+                  {
+                    "id": "weatherball",
+                    "pp": 6,
+                    "disabled": false
+                  },
+                  {
+                    "id": "solarbeam",
+                    "pp": 10,
+                    "disabled": false
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 5,
+                    "disabled": false
+                  }
+                ],
+                "trapped": false
+              },
+              {
+                "nickname": "basculegion",
+                "species": "basculegion",
+                "base_species": "basculegion",
+                "active_slot": null,
+                "hp": 0,
+                "maxhp": 195,
+                "hp_fraction": 0.0,
+                "fainted": true,
+                "status": "fnt",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "adaptability",
+                "item": "lifeorb",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "wavecrash",
+                "moves": [
+                  {
+                    "id": "lastrespects",
+                    "pp": 16
+                  },
+                  {
+                    "id": "wavecrash",
+                    "pp": 16
+                  },
+                  {
+                    "id": "aquajet",
+                    "pp": 32
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "whimsicott",
+                "species": "whimsicott",
+                "base_species": "whimsicott",
+                "active_slot": null,
+                "hp": 0,
+                "maxhp": 135,
+                "hp_fraction": 0.0,
+                "fainted": true,
+                "status": "fnt",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "prankster",
+                "item": "focussash",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "encore",
+                "moves": [
+                  {
+                    "id": "moonblast",
+                    "pp": 24
+                  },
+                  {
+                    "id": "encore",
+                    "pp": 8
+                  },
+                  {
+                    "id": "tailwind",
+                    "pp": 24
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              }
+            ],
+            "side_conditions": {},
+            "force_switch": [],
+            "mechanic_usage": {
+              "mega_used": true,
+              "z_move_used": false,
+              "dynamax_used": false,
+              "tera_used": false
+            }
+          },
+          {
+            "pokemon": [
+              {
+                "nickname": "incineroar",
+                "species": "incineroar",
+                "base_species": "incineroar",
+                "active_slot": 1,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 0.08,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "intimidate",
+                "item": "passhoberry",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "flareblitz",
+                "moves": [
+                  {
+                    "id": "partingshot",
+                    "pp": 32
+                  },
+                  {
+                    "id": "fakeout",
+                    "pp": 16
+                  },
+                  {
+                    "id": "flareblitz",
+                    "pp": 24
+                  },
+                  {
+                    "id": "darkestlariat",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "metagross",
+                "species": "metagross",
+                "base_species": "metagross",
+                "active_slot": null,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 0.0,
+                "fainted": true,
+                "status": "fnt",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "clearbody",
+                "item": "metagrossite",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "ironhead",
+                "moves": [
+                  {
+                    "id": "psychicfangs",
+                    "pp": 16
+                  },
+                  {
+                    "id": "bodypress",
+                    "pp": 16
+                  },
+                  {
+                    "id": "ironhead",
+                    "pp": 24
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "aerodactyl",
+                "species": "aerodactyl",
+                "base_species": "aerodactyl",
+                "active_slot": null,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 0.0,
+                "fainted": true,
+                "status": "fnt",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "unnerve",
+                "item": "focussash",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "wideguard",
+                "moves": [
+                  {
+                    "id": "rockslide",
+                    "pp": 16
+                  },
+                  {
+                    "id": "dualwingbeat",
+                    "pp": 16
+                  },
+                  {
+                    "id": "tailwind",
+                    "pp": 24
+                  },
+                  {
+                    "id": "wideguard",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "floette",
+                "species": "floetteeternal",
+                "base_species": "floette",
+                "active_slot": 0,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 0.68,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": -1,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": -1,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "flowerveil",
+                "item": "floettite",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "protect",
+                "moves": [
+                  {
+                    "id": "drainingkiss",
+                    "pp": 16
+                  },
+                  {
+                    "id": "dazzlinggleam",
+                    "pp": 16
+                  },
+                  {
+                    "id": "calmmind",
+                    "pp": 32
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              }
+            ],
+            "side_conditions": {},
+            "force_switch": [],
+            "mechanic_usage": {
+              "mega_used": true,
+              "z_move_used": false,
+              "dynamax_used": false,
+              "tera_used": false
+            }
+          }
+        ]
+      },
+      "public_events": [
+        [
+          "",
+          "-unboost",
+          "p1b: Charizard",
+          "atk",
+          "1"
+        ],
+        [
+          "",
+          "-unboost",
+          "p1b: Charizard",
+          "spa",
+          "1"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "-weather",
+          "SunnyDay",
+          "[upkeep]"
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "10"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p2a: Floette",
+          "Protect",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "-singleturn",
+          "p2a: Floette",
+          "Protect"
+        ],
+        [
+          "",
+          "move",
+          "p1b: Charizard",
+          "Protect",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "-singleturn",
+          "p1b: Charizard",
+          "Protect"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Incineroar",
+          "Flare Blitz",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "-activate",
+          "p2a: Floette",
+          "move: Protect"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "-weather",
+          "none"
+        ],
+        [
+          "",
+          "-end",
+          "p2a: Floette",
+          "Encore"
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "11"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p2a: Floette",
+          "Protect",
+          "",
+          "[still]"
+        ],
+        [
+          "",
+          "-fail",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "move",
+          "p1b: Charizard",
+          "Weather Ball",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "-damage",
+          "p2a: Floette",
+          "73/100"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Incineroar",
+          "Flare Blitz",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "-resisted",
+          "p1b: Charizard",
+          "1"
+        ],
+        [
+          "",
+          "-damage",
+          "p1b: Charizard",
+          "98/185"
+        ],
+        [
+          "",
+          "-damage",
+          "p2b: Incineroar",
+          "19/100",
+          "[from] Recoil"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "12"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p2a: Floette",
+          "Protect",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "-singleturn",
+          "p2a: Floette",
+          "Protect"
+        ],
+        [
+          "",
+          "move",
+          "p1b: Charizard",
+          "Weather Ball",
+          "p2b: Incineroar"
+        ],
+        [
+          "",
+          "-damage",
+          "p2b: Incineroar",
+          "13/100"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Incineroar",
+          "Parting Shot",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "-unboost",
+          "p1b: Charizard",
+          "atk",
+          "1"
+        ],
+        [
+          "",
+          "-unboost",
+          "p1b: Charizard",
+          "spa",
+          "1"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "13"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p2a: Floette",
+          "Protect",
+          "",
+          "[still]"
+        ],
+        [
+          "",
+          "-fail",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "move",
+          "p1b: Charizard",
+          "Weather Ball",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "-damage",
+          "p2a: Floette",
+          "68/100"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Incineroar",
+          "Darkest Lariat",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "-damage",
+          "p1b: Charizard",
+          "52/185"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "14"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p1b: Charizard",
+          "Protect",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "-singleturn",
+          "p1b: Charizard",
+          "Protect"
+        ],
+        [
+          "",
+          "move",
+          "p2a: Floette",
+          "Draining Kiss",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "-activate",
+          "p1b: Charizard",
+          "move: Protect"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Incineroar",
+          "Parting Shot",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "-unboost",
+          "p2a: Floette",
+          "atk",
+          "1"
+        ],
+        [
+          "",
+          "-unboost",
+          "p2a: Floette",
+          "spa",
+          "1"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "15"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p2a: Floette",
+          "Protect",
+          "p2a: Floette"
+        ],
+        [
+          "",
+          "-singleturn",
+          "p2a: Floette",
+          "Protect"
+        ],
+        [
+          "",
+          "move",
+          "p1b: Charizard",
+          "Weather Ball",
+          "p1: Whimsicott",
+          "[notarget]"
+        ],
+        [
+          "",
+          "-fail",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Incineroar",
+          "Flare Blitz",
+          "p1b: Charizard"
+        ],
+        [
+          "",
+          "-resisted",
+          "p1b: Charizard",
+          "1"
+        ],
+        [
+          "",
+          "-damage",
+          "p1b: Charizard",
+          "20/185"
+        ],
+        [
+          "",
+          "-damage",
+          "p2b: Incineroar",
+          "8/100",
+          "[from] Recoil"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "16"
+        ]
+      ]
+    },
+    {
+      "game": 55,
+      "opponent": "MB15.txt",
+      "checked_state": 641,
+      "turn": 4,
+      "request_state": "move",
+      "error": "AssertionError: {'p1': {'missing': [], 'extra': []}, 'p2': {'missing': ['move bulletpunch +1, move electroshot +2', 'move bulletpunch +2, move electroshot +2', 'move bulletpunch -2, move electroshot +2', 'move ironhead +1, move electroshot +2', 'move ironhead +2, move electroshot +2', 'move ironhead -2, move electroshot +2', 'move protect, move electroshot +2', 'move stompingtantrum +1, move electroshot +2', 'move stompingtantrum +2, move electroshot +2', 'move stompingtantrum -2, move electroshot +2'], 'extra': ['move bulletpunch +1, move electroshot +1', 'move bulletpunch +2, move electroshot +1', 'move bulletpunch -2, move electroshot +1', 'move ironhead +1, move electroshot +1', 'move ironhead +2, move electroshot +1', 'move ironhead -2, move electroshot +1', 'move protect, move electroshot +1', 'move stompingtantrum +1, move electroshot +1', 'move stompingtantrum +2, move electroshot +1', 'move stompingtantrum -2, move electroshot +1']}}",
+      "source_requests": [
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Moonblast",
+                  "id": "moonblast",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Encore",
+                  "id": "encore",
+                  "pp": 7,
+                  "maxpp": 8,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Tailwind",
+                  "id": "tailwind",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "allySide",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Kowtow Cleave",
+                  "id": "kowtowcleave",
+                  "pp": 11,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Sucker Punch",
+                  "id": "suckerpunch",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Iron Head",
+                  "id": "ironhead",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p1",
+            "id": "p1",
+            "pokemon": [
+              {
+                "ident": "p1: Whimsicott",
+                "details": "Whimsicott, L50, M",
+                "condition": "83/135",
+                "active": true,
+                "stats": {
+                  "atk": 78,
+                  "def": 107,
+                  "spa": 129,
+                  "spd": 95,
+                  "spe": 184
+                },
+                "moves": [
+                  "moonblast",
+                  "encore",
+                  "tailwind",
+                  "protect"
+                ],
+                "baseAbility": "prankster",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Kingambit",
+                "details": "Kingambit, L50, M",
+                "condition": "181/207",
+                "active": true,
+                "stats": {
+                  "atk": 205,
+                  "def": 142,
+                  "spa": 72,
+                  "spd": 105,
+                  "spe": 70
+                },
+                "moves": [
+                  "kowtowcleave",
+                  "suckerpunch",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "defiant",
+                "item": "chopleberry",
+                "pokeball": "pokeball",
+                "ability": "defiant",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Floette",
+                "details": "Floette-Eternal, L50, F",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 76,
+                  "def": 87,
+                  "spa": 194,
+                  "spd": 148,
+                  "spe": 144
+                },
+                "moves": [
+                  "moonblast",
+                  "dazzlinggleam",
+                  "lightofruin",
+                  "protect"
+                ],
+                "baseAbility": "flowerveil",
+                "item": "floettite",
+                "pokeball": "pokeball",
+                "ability": "flowerveil",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Basculegion",
+                "details": "Basculegion, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 180,
+                  "def": 99,
+                  "spa": 90,
+                  "spd": 97,
+                  "spe": 116
+                },
+                "moves": [
+                  "lastrespects",
+                  "wavecrash",
+                  "aquajet",
+                  "protect"
+                ],
+                "baseAbility": "adaptability",
+                "item": "lifeorb",
+                "pokeball": "pokeball",
+                "ability": "adaptability",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        },
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Iron Head",
+                  "id": "ironhead",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Stomping Tantrum",
+                  "id": "stompingtantrum",
+                  "pp": 10,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                },
+                {
+                  "move": "Bullet Punch",
+                  "id": "bulletpunch",
+                  "pp": 19,
+                  "maxpp": 20,
+                  "target": "normal",
+                  "disabled": false
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Electro Shot",
+                  "id": "electroshot",
+                  "target": "normal"
+                }
+              ],
+              "trapped": true
+            }
+          ],
+          "side": {
+            "name": "p2",
+            "id": "p2",
+            "pokemon": [
+              {
+                "ident": "p2: Metagross",
+                "details": "Metagross-Mega, L50",
+                "condition": "187/187",
+                "active": true,
+                "stats": {
+                  "atk": 216,
+                  "def": 171,
+                  "spa": 112,
+                  "spd": 131,
+                  "spe": 130
+                },
+                "moves": [
+                  "ironhead",
+                  "stompingtantrum",
+                  "protect",
+                  "bulletpunch"
+                ],
+                "baseAbility": "toughclaws",
+                "item": "metagrossite",
+                "pokeball": "pokeball",
+                "ability": "toughclaws",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Archaludon",
+                "details": "Archaludon, L50, F",
+                "condition": "179/179",
+                "active": true,
+                "stats": {
+                  "atk": 112,
+                  "def": 154,
+                  "spa": 156,
+                  "spd": 90,
+                  "spe": 150
+                },
+                "moves": [
+                  "electroshot",
+                  "dracometeor",
+                  "protect",
+                  "flashcannon"
+                ],
+                "baseAbility": "stamina",
+                "item": "leftovers",
+                "pokeball": "pokeball",
+                "ability": "stamina",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Basculegion",
+                "details": "Basculegion, L50, M",
+                "condition": "197/197",
+                "active": false,
+                "stats": {
+                  "atk": 164,
+                  "def": 85,
+                  "spa": 90,
+                  "spd": 95,
+                  "spe": 143
+                },
+                "moves": [
+                  "wavecrash",
+                  "lastrespects",
+                  "flipturn",
+                  "aquajet"
+                ],
+                "baseAbility": "adaptability",
+                "item": "choicescarf",
+                "pokeball": "pokeball",
+                "ability": "adaptability",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Incineroar",
+                "details": "Incineroar, L50, M",
+                "condition": "201/201",
+                "active": false,
+                "stats": {
+                  "atk": 136,
+                  "def": 132,
+                  "spa": 90,
+                  "spd": 134,
+                  "spe": 80
+                },
+                "moves": [
+                  "flareblitz",
+                  "fakeout",
+                  "partingshot",
+                  "darkestlariat"
+                ],
+                "baseAbility": "intimidate",
+                "item": "passhoberry",
+                "pokeball": "pokeball",
+                "ability": "intimidate",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        }
+      ],
+      "shadow_requests": [
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Moonblast",
+                  "id": "moonblast",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Encore",
+                  "id": "encore",
+                  "pp": 7,
+                  "maxpp": 8,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Tailwind",
+                  "id": "tailwind",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "allySide",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Kowtow Cleave",
+                  "id": "kowtowcleave",
+                  "pp": 11,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Sucker Punch",
+                  "id": "suckerpunch",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Iron Head",
+                  "id": "ironhead",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p1",
+            "id": "p1",
+            "pokemon": [
+              {
+                "ident": "p1: Whimsicott",
+                "details": "Whimsicott, L50, M",
+                "condition": "83/135",
+                "active": true,
+                "stats": {
+                  "atk": 78,
+                  "def": 107,
+                  "spa": 129,
+                  "spd": 95,
+                  "spe": 184
+                },
+                "moves": [
+                  "moonblast",
+                  "encore",
+                  "tailwind",
+                  "protect"
+                ],
+                "baseAbility": "prankster",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Kingambit",
+                "details": "Kingambit, L50, M",
+                "condition": "181/207",
+                "active": true,
+                "stats": {
+                  "atk": 205,
+                  "def": 142,
+                  "spa": 72,
+                  "spd": 105,
+                  "spe": 70
+                },
+                "moves": [
+                  "kowtowcleave",
+                  "suckerpunch",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "defiant",
+                "item": "chopleberry",
+                "pokeball": "pokeball",
+                "ability": "defiant",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Floette",
+                "details": "Floette-Eternal, L50, F",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 76,
+                  "def": 87,
+                  "spa": 194,
+                  "spd": 148,
+                  "spe": 144
+                },
+                "moves": [
+                  "moonblast",
+                  "dazzlinggleam",
+                  "lightofruin",
+                  "protect"
+                ],
+                "baseAbility": "flowerveil",
+                "item": "floettite",
+                "pokeball": "pokeball",
+                "ability": "flowerveil",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Basculegion",
+                "details": "Basculegion, L50, M",
+                "condition": "0 fnt",
+                "active": false,
+                "stats": {
+                  "atk": 180,
+                  "def": 99,
+                  "spa": 90,
+                  "spd": 97,
+                  "spe": 116
+                },
+                "moves": [
+                  "lastrespects",
+                  "wavecrash",
+                  "aquajet",
+                  "protect"
+                ],
+                "baseAbility": "adaptability",
+                "item": "lifeorb",
+                "pokeball": "pokeball",
+                "ability": "adaptability",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        },
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Iron Head",
+                  "id": "ironhead",
+                  "pp": 24,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Stomping Tantrum",
+                  "id": "stompingtantrum",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 16,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                },
+                {
+                  "move": "Bullet Punch",
+                  "id": "bulletpunch",
+                  "pp": 48,
+                  "maxpp": 20,
+                  "target": "normal",
+                  "disabled": false
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Electro Shot",
+                  "id": "electroshot",
+                  "target": "normal"
+                }
+              ],
+              "trapped": true
+            }
+          ],
+          "side": {
+            "name": "p2",
+            "id": "p2",
+            "pokemon": [
+              {
+                "ident": "p2: Metagross",
+                "details": "Metagross-Mega, L50",
+                "condition": "187/187",
+                "active": true,
+                "stats": {
+                  "atk": 216,
+                  "def": 171,
+                  "spa": 112,
+                  "spd": 131,
+                  "spe": 130
+                },
+                "moves": [
+                  "ironhead",
+                  "stompingtantrum",
+                  "protect",
+                  "bulletpunch"
+                ],
+                "baseAbility": "toughclaws",
+                "item": "metagrossite",
+                "pokeball": "pokeball",
+                "ability": "clearbody",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Archaludon",
+                "details": "Archaludon, L50, F",
+                "condition": "179/179",
+                "active": true,
+                "stats": {
+                  "atk": 112,
+                  "def": 154,
+                  "spa": 156,
+                  "spd": 90,
+                  "spe": 150
+                },
+                "moves": [
+                  "electroshot",
+                  "dracometeor",
+                  "protect",
+                  "flashcannon"
+                ],
+                "baseAbility": "stamina",
+                "item": "leftovers",
+                "pokeball": "pokeball",
+                "ability": "stamina",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Basculegion",
+                "details": "Basculegion, L50, M",
+                "condition": "197/197",
+                "active": false,
+                "stats": {
+                  "atk": 164,
+                  "def": 85,
+                  "spa": 90,
+                  "spd": 95,
+                  "spe": 143
+                },
+                "moves": [
+                  "wavecrash",
+                  "lastrespects",
+                  "flipturn",
+                  "aquajet"
+                ],
+                "baseAbility": "adaptability",
+                "item": "choicescarf",
+                "pokeball": "pokeball",
+                "ability": "adaptability",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Incineroar",
+                "details": "Incineroar, L50, M",
+                "condition": "201/201",
+                "active": false,
+                "stats": {
+                  "atk": 136,
+                  "def": 132,
+                  "spa": 90,
+                  "spd": 134,
+                  "spe": 80
+                },
+                "moves": [
+                  "flareblitz",
+                  "fakeout",
+                  "partingshot",
+                  "darkestlariat"
+                ],
+                "baseAbility": "intimidate",
+                "item": "passhoberry",
+                "pokeball": "pokeball",
+                "ability": "intimidate",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "schema": 2,
+        "turn": 4,
+        "request_state": "move",
+        "weather": "",
+        "terrain": "",
+        "pseudo_weather": {},
+        "sides": [
+          {
+            "pokemon": [
+              {
+                "nickname": "whimsicott",
+                "species": "whimsicott",
+                "base_species": "whimsicott",
+                "active_slot": 0,
+                "hp": 83,
+                "maxhp": 135,
+                "hp_fraction": 0.6148148148148148,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "prankster",
+                "item": "focussash",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "encore",
+                "moves": [
+                  {
+                    "id": "moonblast",
+                    "pp": 16,
+                    "disabled": false
+                  },
+                  {
+                    "id": "encore",
+                    "pp": 7,
+                    "disabled": false
+                  },
+                  {
+                    "id": "tailwind",
+                    "pp": 16,
+                    "disabled": false
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 8,
+                    "disabled": false
+                  }
+                ],
+                "trapped": false
+              },
+              {
+                "nickname": "kingambit",
+                "species": "kingambit",
+                "base_species": "kingambit",
+                "active_slot": 1,
+                "hp": 181,
+                "maxhp": 207,
+                "hp_fraction": 0.8743961352657005,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "defiant",
+                "item": "chopleberry",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "kowtowcleave",
+                "moves": [
+                  {
+                    "id": "kowtowcleave",
+                    "pp": 11,
+                    "disabled": false
+                  },
+                  {
+                    "id": "suckerpunch",
+                    "pp": 8,
+                    "disabled": false
+                  },
+                  {
+                    "id": "ironhead",
+                    "pp": 16,
+                    "disabled": false
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 8,
+                    "disabled": false
+                  }
+                ],
+                "trapped": false
+              },
+              {
+                "nickname": "basculegion",
+                "species": "basculegion",
+                "base_species": "basculegion",
+                "active_slot": null,
+                "hp": 0,
+                "maxhp": 195,
+                "hp_fraction": 0.0,
+                "fainted": true,
+                "status": "fnt",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "adaptability",
+                "item": "lifeorb",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "aquajet",
+                "moves": [
+                  {
+                    "id": "lastrespects",
+                    "pp": 16
+                  },
+                  {
+                    "id": "wavecrash",
+                    "pp": 16
+                  },
+                  {
+                    "id": "aquajet",
+                    "pp": 32
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "floette",
+                "species": "floetteeternal",
+                "base_species": "floette",
+                "active_slot": null,
+                "hp": 0,
+                "maxhp": 151,
+                "hp_fraction": 0.0,
+                "fainted": true,
+                "status": "fnt",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "flowerveil",
+                "item": "floettite",
+                "effects": {},
+                "first_turn": false,
+                "last_move": null,
+                "moves": [
+                  {
+                    "id": "moonblast",
+                    "pp": 24
+                  },
+                  {
+                    "id": "dazzlinggleam",
+                    "pp": 16
+                  },
+                  {
+                    "id": "lightofruin",
+                    "pp": 8
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              }
+            ],
+            "side_conditions": {},
+            "force_switch": [],
+            "mechanic_usage": {
+              "mega_used": false,
+              "z_move_used": false,
+              "dynamax_used": false,
+              "tera_used": false
+            }
+          },
+          {
+            "pokemon": [
+              {
+                "nickname": "metagross",
+                "species": "metagross",
+                "base_species": "metagross",
+                "active_slot": 0,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "clearbody",
+                "item": "metagrossite",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "bulletpunch",
+                "moves": [
+                  {
+                    "id": "ironhead",
+                    "pp": 24
+                  },
+                  {
+                    "id": "stompingtantrum",
+                    "pp": 16
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  },
+                  {
+                    "id": "bulletpunch",
+                    "pp": 48
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "archaludon",
+                "species": "archaludon",
+                "base_species": "archaludon",
+                "active_slot": 1,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 2,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "stamina",
+                "item": "leftovers",
+                "effects": {
+                  "encore": {
+                    "duration": null,
+                    "move": "electroshot"
+                  },
+                  "twoturnmove": {
+                    "duration": 1,
+                    "move": "electroshot"
+                  }
+                },
+                "first_turn": false,
+                "last_move": "electroshot",
+                "moves": [
+                  {
+                    "id": "electroshot",
+                    "pp": 16
+                  },
+                  {
+                    "id": "dracometeor",
+                    "pp": 8
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  },
+                  {
+                    "id": "flashcannon",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              }
+            ],
+            "side_conditions": {},
+            "force_switch": [],
+            "mechanic_usage": {
+              "mega_used": true,
+              "z_move_used": false,
+              "dynamax_used": false,
+              "tera_used": false
+            }
+          }
+        ]
+      },
+      "public_events": [
+        [
+          "",
+          "gametype",
+          "doubles"
+        ],
+        [
+          "",
+          "player",
+          "p1",
+          "p1",
+          "",
+          ""
+        ],
+        [
+          "",
+          "player",
+          "p2",
+          "p2",
+          "",
+          ""
+        ],
+        [
+          "",
+          "gen",
+          "9"
+        ],
+        [
+          "",
+          "tier",
+          "[Gen 9 Champions] VGC 2026 Reg M-B"
+        ],
+        [
+          "",
+          "rule",
+          "Species Clause: Limit one of each Pok\u00e9mon"
+        ],
+        [
+          "",
+          "rule",
+          "Item Clause: Limit 1 of each item"
+        ],
+        [
+          "",
+          "clearpoke"
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Floette-Eternal, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Charizard, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Whimsicott, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Garchomp, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Basculegion, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Kingambit, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Incineroar, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Pelipper, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Metagross, L50",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Basculegion, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Klefki, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Archaludon, L50, F",
+          ""
+        ],
+        [
+          "",
+          "teampreview",
+          "4"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "teamsize",
+          "p1",
+          "4"
+        ],
+        [
+          "",
+          "teamsize",
+          "p2",
+          "4"
+        ],
+        [
+          "",
+          "start"
+        ],
+        [
+          "",
+          "switch",
+          "p1a: Whimsicott",
+          "Whimsicott, L50, M",
+          "135/135"
+        ],
+        [
+          "",
+          "switch",
+          "p1b: Kingambit",
+          "Kingambit, L50, M",
+          "207/207"
+        ],
+        [
+          "",
+          "switch",
+          "p2a: Metagross",
+          "Metagross, L50",
+          "100/100"
+        ],
+        [
+          "",
+          "switch",
+          "p2b: Archaludon",
+          "Archaludon, L50, F",
+          "100/100"
+        ],
+        [
+          "",
+          "turn",
+          "1"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "switch",
+          "p1a: Basculegion",
+          "Basculegion, L50, M",
+          "195/195"
+        ],
+        [
+          "",
+          "switch",
+          "p1b: Floette",
+          "Floette-Eternal, L50, F",
+          "151/151"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Archaludon",
+          "Electro Shot",
+          "",
+          "[still]"
+        ],
+        [
+          "",
+          "-prepare",
+          "p2b: Archaludon",
+          "Electro Shot"
+        ],
+        [
+          "",
+          "-boost",
+          "p2b: Archaludon",
+          "spa",
+          "1"
+        ],
+        [
+          "",
+          "move",
+          "p2a: Metagross",
+          "Stomping Tantrum",
+          "p1b: Floette"
+        ],
+        [
+          "",
+          "-damage",
+          "p1b: Floette",
+          "80/151"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "2"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "detailschange",
+          "p2a: Metagross",
+          "Metagross-Mega, L50"
+        ],
+        [
+          "",
+          "-mega",
+          "p2a: Metagross",
+          "Metagross",
+          "Metagrossite"
+        ],
+        [
+          "",
+          "move",
+          "p1a: Basculegion",
+          "Aqua Jet",
+          "p1b: Floette"
+        ],
+        [
+          "",
+          "-damage",
+          "p1b: Floette",
+          "0 fnt"
+        ],
+        [
+          "",
+          "faint",
+          "p1b: Floette"
+        ],
+        [
+          "",
+          "-damage",
+          "p1a: Basculegion",
+          "176/195",
+          "[from] item: Life Orb"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Archaludon",
+          "Electro Shot",
+          "p1a: Basculegion",
+          "[from] lockedmove"
+        ],
+        [
+          "",
+          "-supereffective",
+          "p1a: Basculegion",
+          "1"
+        ],
+        [
+          "",
+          "-damage",
+          "p1a: Basculegion",
+          "0 fnt"
+        ],
+        [
+          "",
+          "faint",
+          "p1a: Basculegion"
+        ],
+        [
+          "",
+          "move",
+          "p2a: Metagross",
+          "Stomping Tantrum",
+          "p1: Basculegion",
+          "[notarget]"
+        ],
+        [
+          "",
+          "-fail",
+          "p2a: Metagross"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "switch",
+          "p1b: Kingambit",
+          "Kingambit, L50, M",
+          "207/207"
+        ],
+        [
+          "",
+          "switch",
+          "p1a: Whimsicott",
+          "Whimsicott, L50, M",
+          "135/135"
+        ],
+        [
+          "",
+          "turn",
+          "3"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p1a: Whimsicott",
+          "Encore",
+          "p2b: Archaludon"
+        ],
+        [
+          "",
+          "-start",
+          "p2b: Archaludon",
+          "Encore"
+        ],
+        [
+          "",
+          "move",
+          "p2a: Metagross",
+          "Bullet Punch",
+          "p1b: Kingambit"
+        ],
+        [
+          "",
+          "-resisted",
+          "p1b: Kingambit",
+          "1"
+        ],
+        [
+          "",
+          "-damage",
+          "p1b: Kingambit",
+          "181/207"
+        ],
+        [
+          "",
+          "move",
+          "p2b: Archaludon",
+          "Electro Shot",
+          "",
+          "[still]"
+        ],
+        [
+          "",
+          "-prepare",
+          "p2b: Archaludon",
+          "Electro Shot"
+        ],
+        [
+          "",
+          "-boost",
+          "p2b: Archaludon",
+          "spa",
+          "1"
+        ],
+        [
+          "",
+          "move",
+          "p1b: Kingambit",
+          "Kowtow Cleave",
+          "p1a: Whimsicott"
+        ],
+        [
+          "",
+          "-resisted",
+          "p1a: Whimsicott",
+          "1"
+        ],
+        [
+          "",
+          "-damage",
+          "p1a: Whimsicott",
+          "83/135"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "4"
+        ]
+      ]
+    }
+  ],
+  "elapsed_seconds": 15.286352750146762,
+  "accepted": false,
+  "method": "different-RNG shadow reconciled only from poke-env-visible state"
+}

@@ -1,0 +1,16 @@
+{
+ "battles_joined": 97,
+ "preview_auc": 0.49150596877869607,
+ "move_auc": 0.4654124569349282,
+ "per_game_preview_auc": 0.48934356351236147,
+ "batches": [
+  "ladder_replays/chess_gate_20260822",
+  "ladder_replays_repairs_20260805_round1",
+  "ladder_replays_repairs_20260806_round2",
+  "ladder_replays_repairs_20260806_round3",
+  "ladder_replays_tempo_20260805_000638",
+  "ladder_replays_tempo_20260805_175315",
+  "ladder_replays_tempo_20260805_203104",
+  "ladder_replays_weather_fix_20260822"
+ ]
+}

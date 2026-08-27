@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "snapshot_schema": 2,
+  "created_at": "2026-08-22T18:45:09-05:00",
+  "seed": 20260828,
+  "required_states": 1000,
+  "checked_states": 1000,
+  "mismatch_count": 0,
+  "accepted_private_target_differences": 1,
+  "mismatches": [],
+  "elapsed_seconds": 14.746427417034283,
+  "accepted": true,
+  "method": "different-RNG shadow reconciled only from poke-env-visible state"
+}

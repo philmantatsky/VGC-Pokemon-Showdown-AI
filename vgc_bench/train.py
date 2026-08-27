@@ -1,0 +1,434 @@
+"""
+Training module for VGC-Bench.
+
+Implements reinforcement learning training for Pokemon VGC agents using PPO.
+Supports multiple training paradigms including self-play, fictitious play,
+double oracle, and exploiter training, optionally initialized with behavior
+cloning.
+"""
+
+import argparse
+import os
+from pathlib import Path
+
+from stable_baselines3 import PPO
+from stable_baselines3.common.vec_env import SubprocVecEnv
+
+from vgc_bench.src.callback import Callback
+from vgc_bench.src.env import ShowdownEnv
+from vgc_bench.src.policy import MaskedActorCriticPolicy
+from vgc_bench.src.utils import LearningStyle, set_global_seed
+
+
+def train(
+    reg: str | None,
+    run_id: int,
+    num_teams: int | None,
+    num_envs: int,
+    num_eval_workers: int,
+    log_level: int,
+    port: int,
+    device: str,
+    learning_style: LearningStyle,
+    behavior_clone: bool,
+    allow_mirror_match: bool,
+    choose_on_teampreview: bool,
+    team1: str | None,
+    team2: str | None,
+    our_team: str | None,
+    results_suffix: str,
+    total_steps: int,
+    evaluate: bool = True,
+    learning_rate: float = 1e-5,
+    n_epochs: int = 10,
+    target_kl: float | None = None,
+    hidden_sheet_prob: float = 0.0,
+    team_weights: str | None = None,
+):
+    """
+    Train a Pokemon VGC policy using reinforcement learning.
+
+    Creates the training environment, initializes PPO with the appropriate
+    policy architecture, and runs training with periodic evaluation and
+    checkpointing.
+
+    Args:
+        reg: VGC regulation identifier (e.g. 'ma', 'mb'), or None for all.
+        run_id: Training run identifier for saving/loading.
+        num_teams: Number of teams to train with.
+        num_envs: Number of parallel environments.
+        num_eval_workers: Number of workers for evaluation battles.
+        log_level: Logging verbosity for Showdown clients.
+        port: Port for the Pokemon Showdown server.
+        device: CUDA device for training.
+        learning_style: Training paradigm (self-play, fictitious play, etc.).
+        behavior_clone: Whether to initialize from a BC-pretrained policy.
+        allow_mirror_match: Whether to allow same-team matchups.
+        choose_on_teampreview: Whether policy makes teampreview decisions.
+        team1: Optional team string for matchup solving (requires team2).
+        team2: Optional team string for matchup solving (requires team1).
+        results_suffix: Suffix appended to results<run_id> for output paths.
+        total_steps: Total training timesteps. Defaults to 1000 * save_interval.
+        evaluate: Whether to run evaluations and save checkpoints.
+    """
+    save_interval = 983_040
+    suffix = f"_{results_suffix}" if results_suffix else ""
+    output_dir = Path(f"results{suffix}")
+    output_dir.mkdir(exist_ok=True)
+    team_paths = None
+    if team1 and team2:
+        team1_path = output_dir / "team1.txt"
+        team2_path = output_dir / "team2.txt"
+        team1_path.write_text(team1[1:])
+        team2_path.write_text(team2[1:])
+        team_paths = [team1_path, team2_path]
+    # Ladder objective: our side fixed, opponents varied. See ShowdownEnv.create_env.
+    our_team_paths = [Path(our_team)] if our_team else None
+    if our_team_paths:
+        assert our_team_paths[0].exists(), f"--our_team not found: {our_team}"
+    team_weights_path = Path(team_weights) if team_weights else None
+    if team_weights_path:
+        assert team_weights_path.exists(), f"--team_weights not found: {team_weights}"
+    env = (
+        ShowdownEnv.create_env(
+            reg,
+            run_id,
+            num_teams,
+            num_envs,
+            log_level,
+            port,
+            learning_style,
+            allow_mirror_match,
+            choose_on_teampreview,
+            team_paths,
+            our_team_paths,
+            hidden_sheet_prob,
+            team_weights_path,
+        )
+        if learning_style == LearningStyle.PURE_SELF_PLAY
+        else SubprocVecEnv(
+            [
+                lambda: ShowdownEnv.create_env(
+                    reg,
+                    run_id,
+                    num_teams,
+                    num_envs,
+                    log_level,
+                    port,
+                    learning_style,
+                    allow_mirror_match,
+                    choose_on_teampreview,
+                    team_paths,
+                    our_team_paths,
+                    hidden_sheet_prob,
+                    team_weights_path,
+                )
+                for _ in range(num_envs)
+            ]
+        )
+    )
+    method_tags = [
+        "bc" if behavior_clone else None,
+        learning_style.abbrev,
+        "xm" if not allow_mirror_match else None,
+        "xt" if not choose_on_teampreview else None,
+        "hs" if hidden_sheet_prob > 0 else None,
+        "wt" if team_weights_path else None,
+    ]
+    method = "_".join([p for p in method_tags if p is not None])
+    method_dir = output_dir / f"saves_{method}"
+    method_dir = method_dir / (f"reg_{reg}" if reg is not None else "reg_all")
+    if num_teams is not None:
+        method_dir = method_dir / f"{num_teams}_teams"
+    save_dir = method_dir / f"seed{run_id}"
+    # Report the RESOLVED flag from the process that actually builds observations.
+    # PURE_SELF_PLAY creates its envs here in the parent (see above) rather than
+    # spawning, so "--knowledge_obs was passed" is not evidence the features are live.
+    from vgc_bench.src.policy_player import PolicyPlayer
+
+    print(
+        f"knowledge observation resolved to: {PolicyPlayer.knowledge_obs_enabled()}",
+        flush=True,
+    )
+    print(
+        f"learning_rate={learning_rate}  n_epochs={n_epochs}  target_kl={target_kl}",
+        flush=True,
+    )
+    print(
+        f"hidden_sheet_prob={hidden_sheet_prob:.2f}  "
+        f"moveset_prior={PolicyPlayer.moveset_prior_enabled()}",
+        flush=True,
+    )
+    ppo = PPO(
+        MaskedActorCriticPolicy,
+        env,
+        learning_rate=learning_rate,
+        n_epochs=n_epochs,
+        target_kl=target_kl,
+        n_steps=(
+            3072 // (2 * num_envs)
+            if learning_style == LearningStyle.PURE_SELF_PLAY
+            else 3072 // num_envs
+        ),
+        batch_size=512,
+        gamma=1,
+        # ent_coef is set in callback.py based on training progress
+        tensorboard_log=str(output_dir / f"logs_{method}"),
+        policy_kwargs={"d_model": 256, "choose_on_teampreview": choose_on_teampreview},
+        device=device,
+    )
+    num_saved_timesteps = 0
+    if save_dir.exists() and any(save_dir.iterdir()):
+        saved_policy_timesteps = [
+            int(file.stem) for file in save_dir.iterdir() if int(file.stem) >= 0
+        ]
+        if saved_policy_timesteps:
+            num_saved_timesteps = max(saved_policy_timesteps)
+            ppo.set_parameters(
+                str(save_dir / f"{num_saved_timesteps}.zip"), device=ppo.device
+            )
+            if num_saved_timesteps < save_interval:
+                num_saved_timesteps = 0
+            ppo.num_timesteps = num_saved_timesteps
+    ppo.learn(
+        total_steps - num_saved_timesteps,
+        callback=Callback(
+            run_id,
+            num_teams,
+            reg,
+            num_eval_workers,
+            log_level,
+            port,
+            learning_style,
+            behavior_clone,
+            allow_mirror_match,
+            choose_on_teampreview,
+            save_interval,
+            team_paths,
+            results_suffix,
+            total_steps,
+            evaluate,
+            our_team_paths,
+            team_weights_path,
+            hidden_sheet_prob,
+        ),
+        tb_log_name=str(save_dir.relative_to(output_dir / f"saves_{method}")),
+        reset_num_timesteps=False,
+    )
+    env.close()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description=(
+            "Train a policy using population-based reinforcement learning. Must choose"
+            " EXACTLY ONE of exploiter, self_play, fictitious_play, or double_oracle."
+        )
+    )
+    parser.add_argument(
+        "--exploiter",
+        action="store_true",
+        help=(
+            "train against fixed policy, requires fixed policy file in save folder as"
+            " -1.zip prior to training"
+        ),
+    )
+    parser.add_argument(
+        "--self_play",
+        action="store_true",
+        help="p1 and p2 are both controlled by same learning policy",
+    )
+    parser.add_argument(
+        "--fictitious_play",
+        action="store_true",
+        help="p1 controlled by learning policy, p2 controlled by a past saved policy",
+    )
+    parser.add_argument(
+        "--double_oracle",
+        action="store_true",
+        help=(
+            "p1 controlled by learning policy, p2 controlled by past saved policy with"
+            " selection weighted based on computed Nash equilibrium"
+        ),
+    )
+    parser.add_argument(
+        "--behavior_clone",
+        action="store_true",
+        help=(
+            "use bc model as initial policy; if save folder has no checkpoint,"
+            " downloads default BC checkpoint from Hugging Face"
+        ),
+    )
+    parser.add_argument(
+        "--no_mirror_match",
+        action="store_true",
+        help="disables same-team matchups during training, requires num_teams > 1",
+    )
+    parser.add_argument(
+        "--no_teampreview",
+        action="store_true",
+        help=(
+            "training agents will effectively start games after teampreview, with"
+            " teampreview decision selected randomly"
+        ),
+    )
+    parser.add_argument(
+        "--reg",
+        type=str,
+        default=None,
+        help="VGC regulation to train on (e.g. MA). Omit to train on all regulations",
+    )
+    parser.add_argument(
+        "--run_id", type=int, default=1, help="run ID for the training session"
+    )
+    parser.add_argument(
+        "--team1", type=str, default="", help="team 1 string for matchup solving"
+    )
+    parser.add_argument(
+        "--team2", type=str, default="", help="team 2 string for matchup solving"
+    )
+    parser.add_argument(
+        "--knowledge_obs",
+        action="store_true",
+        help=(
+            "populate the 24 knowledge floats per Pokemon token (damage, KO flags,"
+            " type multiplier, incoming threat). Requires a checkpoint converted by"
+            " convert_checkpoint.py; costs ~22%% throughput"
+        ),
+    )
+    parser.add_argument(
+        "--hidden_sheet_prob",
+        type=float,
+        default=0.0,
+        help=(
+            "fraction of self-play battles where the opponent denies Open Team "
+            "Sheets; enables evidence-conditioned moveset priors in workers"
+        ),
+    )
+    parser.add_argument(
+        "--team_weights",
+        default="",
+        help=(
+            "JSON mapping opponent team filenames to ladder-derived sampling weights; "
+            "omit for uniform sampling"
+        ),
+    )
+    parser.add_argument(
+        "--our_team",
+        type=str,
+        default="",
+        help=(
+            "path to the team file our side always brings (ladder objective: one fixed"
+            " team vs many opponent teams). Opponents draw from the --num_teams pool"
+        ),
+    )
+    parser.add_argument(
+        "--results_suffix",
+        type=str,
+        default="",
+        help="suffix appended to results<run_id> for output paths",
+    )
+    parser.add_argument(
+        "--num_teams",
+        type=int,
+        default=None,
+        help="number of teams to train with (default: all available teams)",
+    )
+    parser.add_argument(
+        "--num_envs", type=int, default=1, help="number of parallel envs to run"
+    )
+    parser.add_argument(
+        "--num_eval_workers", type=int, default=1, help="number of eval workers to run"
+    )
+    parser.add_argument(
+        "--log_level", type=int, default=40, help="log level for showdown clients"
+    )
+    parser.add_argument(
+        "--port", type=int, default=8000, help="port to run showdown server on"
+    )
+    parser.add_argument(
+        "--device", type=str, default="cuda:0", help="device to use for training"
+    )
+    parser.add_argument(
+        "--total_steps", type=int, required=True, help="total training timesteps"
+    )
+    # Upstream hardcoded 1e-5 with SB3's default n_epochs=10. That combination left
+    # approx_kl at 0.05-0.11 (5-10x the usual PPO target) with clip_fraction pinned
+    # near 0.21 -- ten passes over each rollout, most of them clipped -- while the
+    # zero-initialised knowledge columns crawled to 13x smaller than the converged
+    # base features after 4M steps. Exposed so both can be tuned.
+    parser.add_argument(
+        "--learning_rate", type=float, default=1e-5, help="PPO learning rate"
+    )
+    parser.add_argument(
+        "--n_epochs", type=int, default=10, help="PPO passes per rollout"
+    )
+    # Safety valve for raising the learning rate: SB3 abandons the remaining epochs
+    # once approx_kl exceeds this, so a too-large step cannot wreck the policy.
+    parser.add_argument(
+        "--target_kl",
+        type=float,
+        default=None,
+        help="stop the update early once approx_kl exceeds this (default: no limit)",
+    )
+    args = parser.parse_args()
+    set_global_seed(args.run_id)
+    if args.knowledge_obs:
+        # Env var, not a class attribute: it has to survive process spawn into the
+        # parallel env workers.
+        os.environ["VGC_KNOWLEDGE_OBS"] = "1"
+        print("knowledge observation ENABLED", flush=True)
+    if not 0.0 <= args.hidden_sheet_prob <= 1.0:
+        parser.error("--hidden_sheet_prob must be between 0 and 1")
+    if args.hidden_sheet_prob > 0:
+        os.environ["VGC_MOVESET_PRIOR"] = "1"
+        print("hidden-sheet moveset priors ENABLED", flush=True)
+    reg = args.reg.lower() if args.reg is not None else None
+    assert (
+        int(args.exploiter)
+        + int(args.self_play)
+        + int(args.fictitious_play)
+        + int(args.double_oracle)
+        == 1
+    )
+    if args.exploiter:
+        style = LearningStyle.EXPLOITER
+    elif args.self_play:
+        style = LearningStyle.PURE_SELF_PLAY
+    elif args.fictitious_play:
+        style = LearningStyle.FICTITIOUS_PLAY
+    elif args.double_oracle:
+        style = LearningStyle.DOUBLE_ORACLE
+    else:
+        raise TypeError()
+    assert (args.team1 == "") == (args.team2 == ""), (
+        "must provide both or neither of --team1 and --team2"
+    )
+    if args.team1 != "":
+        assert args.results_suffix != "", (
+            "--results_suffix is required when using --team1 and --team2"
+        )
+    train(
+        reg,
+        args.run_id,
+        args.num_teams,
+        args.num_envs,
+        args.num_eval_workers,
+        args.log_level,
+        args.port,
+        args.device,
+        style,
+        args.behavior_clone,
+        not args.no_mirror_match,
+        not args.no_teampreview,
+        args.team1 or None,
+        args.team2 or None,
+        args.our_team or None,
+        args.results_suffix,
+        args.total_steps,
+        learning_rate=args.learning_rate,
+        n_epochs=args.n_epochs,
+        target_kl=args.target_kl,
+        hidden_sheet_prob=args.hidden_sheet_prob,
+        team_weights=args.team_weights or None,
+    )

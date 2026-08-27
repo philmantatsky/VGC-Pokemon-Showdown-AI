@@ -1,0 +1,12 @@
+scored 5459 states from 312 battles (failures: {'replay:KeyError': 6, 'replay:ValueError': 12})
+mean predicted P(win): 0.420   actual win rate: 0.430
+ladder Brier: 0.2037   (local test Brier was 0.1035)
+ladder ECE  : 0.1166   (local test ECE was 0.0222)
+
+--- by turn bucket ---
+preview/turn0  n= 1132 Brier=0.3323 mean p=0.082 win rate=0.390
+turns 1-3      n= 2083 Brier=0.2206 mean p=0.505 win rate=0.449
+turns 4-6      n= 1553 Brier=0.1337 mean p=0.513 win rate=0.457
+turns 7+       n=  691 Brier=0.0992 mean p=0.507 win rate=0.381
+
+wrote /Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_analysis/value_ladder_calibration.json

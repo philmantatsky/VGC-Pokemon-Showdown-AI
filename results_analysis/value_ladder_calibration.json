@@ -1,0 +1,13 @@
+{
+ "outcome_value": "results_outcome_v2h/outcome_value.zip",
+ "states": 5459,
+ "battles": 312,
+ "brier": 0.20367640934399817,
+ "ece": 0.11663419447906621,
+ "mean_p": 0.4197775286972454,
+ "base_rate": 0.43029858948525374,
+ "failures": {
+  "replay:KeyError": 6,
+  "replay:ValueError": 12
+ }
+}

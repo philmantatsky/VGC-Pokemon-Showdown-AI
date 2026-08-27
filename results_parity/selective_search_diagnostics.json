@@ -1,0 +1,142 @@
+{
+  "created_at": "2026-08-21T23:43:33-05:00",
+  "configuration": {
+    "budget_s": 9.0,
+    "screen_budget_s": 2.0,
+    "chance_samples": 1,
+    "decisions": 4,
+    "selective": true
+  },
+  "modes": {
+    "search": 4,
+    "reuse": 0,
+    "skip": 0
+  },
+  "p50_s": 8.531622604001313,
+  "p90_s": 8.597057320643216,
+  "max_s": 8.624500333098695,
+  "missed_submissions": 0,
+  "accepted": true,
+  "rows": [
+    {
+      "game": 0,
+      "turn": 1,
+      "open_sheet": true,
+      "elapsed_s": 8.607401292072609,
+      "end_to_end_s": 8.624500333098695,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "first_decision"
+        ],
+        "root_margin": 0.2896499864732134,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": false,
+          "root_margin": 0.0
+        }
+      },
+      "nodes": 1121,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 2,
+      "open_sheet": true,
+      "elapsed_s": 8.53022158308886,
+      "end_to_end_s": 8.53022158308886,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "major_mechanic",
+          "switch_or_new_pokemon"
+        ],
+        "root_margin": 0.6793394744311113,
+        "saved_continuations": 9,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.2896499864732134
+        }
+      },
+      "nodes": 1146,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 9,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 3,
+      "open_sheet": true,
+      "elapsed_s": 8.501914374995977,
+      "end_to_end_s": 8.501914374995977,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "planned_line_diverged"
+        ],
+        "root_margin": 0.02802878294234734,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "no_matching_successor",
+          "matching_mass": 0.0,
+          "eligible_mass": 0.0,
+          "saved_continuations": 9
+        }
+      },
+      "nodes": 1134,
+      "roots": 6,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 0
+    },
+    {
+      "game": 0,
+      "turn": 4,
+      "open_sheet": true,
+      "elapsed_s": 8.533023624913767,
+      "end_to_end_s": 8.533023624913767,
+      "mode": "search",
+      "schedule": {
+        "mode": "search",
+        "reasons": [
+          "switch_or_new_pokemon",
+          "weather_changed"
+        ],
+        "root_margin": 0.1538360387782749,
+        "saved_continuations": 0,
+        "reuse_rejection": {
+          "reason": "missing_plan_prerequisite",
+          "selective": true,
+          "continuations": 0,
+          "has_snapshot": true,
+          "has_executed_choice": true,
+          "root_margin": 0.02802878294234734
+        }
+      },
+      "nodes": 1175,
+      "roots": 3,
+      "truncated": true,
+      "fallback_reason": "partial_determinization_search",
+      "saved_continuations": 0,
+      "fallbacks": 3
+    }
+  ]
+}

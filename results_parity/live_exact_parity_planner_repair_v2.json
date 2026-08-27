@@ -1,0 +1,1350 @@
+{
+  "schema": 1,
+  "snapshot_schema": 2,
+  "created_at": "2026-08-22T15:57:39-05:00",
+  "seed": 20260822,
+  "required_states": 1000,
+  "checked_states": 1000,
+  "mismatch_count": 1,
+  "mismatches": [
+    {
+      "game": 59,
+      "opponent": "MB153.txt",
+      "checked_state": 758,
+      "turn": 2,
+      "request_state": "move",
+      "error": "AssertionError: {'p1': {'missing': ['move solarbeam -2, move dragonclaw +1', 'move solarbeam -2, move dragonclaw +2', 'move solarbeam -2, move dragonclaw -1', 'move solarbeam -2, move earthquake', 'move solarbeam -2, move protect', 'move solarbeam -2, move rocktomb +1', 'move solarbeam -2, move rocktomb +2', 'move solarbeam -2, move rocktomb -1', 'move solarbeam -2, switch 3', 'move solarbeam -2, switch 4'], 'extra': ['move solarbeam, move dragonclaw +1', 'move solarbeam, move dragonclaw +2', 'move solarbeam, move dragonclaw -1', 'move solarbeam, move earthquake', 'move solarbeam, move protect', 'move solarbeam, move rocktomb +1', 'move solarbeam, move rocktomb +2', 'move solarbeam, move rocktomb -1', 'move solarbeam, switch 3', 'move solarbeam, switch 4']}, 'p2': {'missing': [], 'extra': []}}",
+      "source_requests": [
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Solar Beam",
+                  "id": "solarbeam",
+                  "target": "normal"
+                }
+              ],
+              "trapped": true
+            },
+            {
+              "moves": [
+                {
+                  "move": "Earthquake",
+                  "id": "earthquake",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "allAdjacent",
+                  "disabled": false
+                },
+                {
+                  "move": "Dragon Claw",
+                  "id": "dragonclaw",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Rock Tomb",
+                  "id": "rocktomb",
+                  "pp": 15,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p1",
+            "id": "p1",
+            "pokemon": [
+              {
+                "ident": "p1: Charizard",
+                "details": "Charizard, L50, F",
+                "condition": "185/185",
+                "active": true,
+                "stats": {
+                  "atk": 93,
+                  "def": 143,
+                  "spa": 131,
+                  "spd": 105,
+                  "spe": 120
+                },
+                "moves": [
+                  "heatwave",
+                  "weatherball",
+                  "solarbeam",
+                  "protect"
+                ],
+                "baseAbility": "blaze",
+                "item": "charizarditey",
+                "pokeball": "pokeball",
+                "ability": "blaze",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Garchomp",
+                "details": "Garchomp, L50, M",
+                "condition": "191/191",
+                "active": true,
+                "stats": {
+                  "atk": 176,
+                  "def": 115,
+                  "spa": 90,
+                  "spd": 105,
+                  "spe": 169
+                },
+                "moves": [
+                  "earthquake",
+                  "dragonclaw",
+                  "rocktomb",
+                  "protect"
+                ],
+                "baseAbility": "roughskin",
+                "item": "sitrusberry",
+                "pokeball": "pokeball",
+                "ability": "roughskin",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Kingambit",
+                "details": "Kingambit, L50, M",
+                "condition": "207/207",
+                "active": false,
+                "stats": {
+                  "atk": 205,
+                  "def": 142,
+                  "spa": 72,
+                  "spd": 105,
+                  "spe": 70
+                },
+                "moves": [
+                  "kowtowcleave",
+                  "suckerpunch",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "defiant",
+                "item": "chopleberry",
+                "pokeball": "pokeball",
+                "ability": "defiant",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Whimsicott",
+                "details": "Whimsicott, L50, F",
+                "condition": "135/135",
+                "active": false,
+                "stats": {
+                  "atk": 78,
+                  "def": 107,
+                  "spa": 129,
+                  "spd": 95,
+                  "spe": 184
+                },
+                "moves": [
+                  "moonblast",
+                  "encore",
+                  "tailwind",
+                  "protect"
+                ],
+                "baseAbility": "prankster",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        },
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Dragon Claw",
+                  "id": "dragonclaw",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": true
+                },
+                {
+                  "move": "Earthquake",
+                  "id": "earthquake",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "allAdjacent",
+                  "disabled": true
+                },
+                {
+                  "move": "Stomping Tantrum",
+                  "id": "stompingtantrum",
+                  "pp": 11,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Rock Slide",
+                  "id": "rockslide",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "allAdjacentFoes",
+                  "disabled": true
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Wave Crash",
+                  "id": "wavecrash",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Earthquake",
+                  "id": "earthquake",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "allAdjacent",
+                  "disabled": false
+                },
+                {
+                  "move": "Ice Punch",
+                  "id": "icepunch",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ],
+              "canMegaEvo": true
+            }
+          ],
+          "side": {
+            "name": "p2",
+            "id": "p2",
+            "pokemon": [
+              {
+                "ident": "p2: Garchomp",
+                "details": "Garchomp, L50, F",
+                "condition": "165/183",
+                "active": true,
+                "stats": {
+                  "atk": 200,
+                  "def": 115,
+                  "spa": 90,
+                  "spd": 107,
+                  "spe": 154
+                },
+                "moves": [
+                  "dragonclaw",
+                  "earthquake",
+                  "stompingtantrum",
+                  "rockslide"
+                ],
+                "baseAbility": "roughskin",
+                "item": "choicescarf",
+                "pokeball": "pokeball",
+                "ability": "roughskin",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Swampert",
+                "details": "Swampert, L50, F",
+                "condition": "177/177",
+                "active": true,
+                "stats": {
+                  "atk": 178,
+                  "def": 110,
+                  "spa": 94,
+                  "spd": 110,
+                  "spe": 112
+                },
+                "moves": [
+                  "wavecrash",
+                  "earthquake",
+                  "icepunch",
+                  "protect"
+                ],
+                "baseAbility": "torrent",
+                "item": "swampertite",
+                "pokeball": "pokeball",
+                "ability": "torrent",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Grimmsnarl",
+                "details": "Grimmsnarl, L50, M",
+                "condition": "202/202",
+                "active": false,
+                "stats": {
+                  "atk": 140,
+                  "def": 112,
+                  "spa": 104,
+                  "spd": 110,
+                  "spe": 81
+                },
+                "moves": [
+                  "spiritbreak",
+                  "reflect",
+                  "lightscreen",
+                  "partingshot"
+                ],
+                "baseAbility": "prankster",
+                "item": "lightclay",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Staraptor",
+                "details": "Staraptor, L50, F",
+                "condition": "162/162",
+                "active": false,
+                "stats": {
+                  "atk": 172,
+                  "def": 90,
+                  "spa": 63,
+                  "spd": 80,
+                  "spe": 167
+                },
+                "moves": [
+                  "closecombat",
+                  "bravebird",
+                  "roost",
+                  "protect"
+                ],
+                "baseAbility": "intimidate",
+                "item": "staraptite",
+                "pokeball": "pokeball",
+                "ability": "intimidate",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        }
+      ],
+      "shadow_requests": [
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Solar Beam",
+                  "id": "solarbeam",
+                  "target": "normal"
+                }
+              ],
+              "trapped": true
+            },
+            {
+              "moves": [
+                {
+                  "move": "Earthquake",
+                  "id": "earthquake",
+                  "pp": 12,
+                  "maxpp": 12,
+                  "target": "allAdjacent",
+                  "disabled": false
+                },
+                {
+                  "move": "Dragon Claw",
+                  "id": "dragonclaw",
+                  "pp": 16,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Rock Tomb",
+                  "id": "rocktomb",
+                  "pp": 15,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 8,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ]
+            }
+          ],
+          "side": {
+            "name": "p1",
+            "id": "p1",
+            "pokemon": [
+              {
+                "ident": "p1: Charizard",
+                "details": "Charizard, L50, F",
+                "condition": "185/185",
+                "active": true,
+                "stats": {
+                  "atk": 93,
+                  "def": 143,
+                  "spa": 131,
+                  "spd": 105,
+                  "spe": 120
+                },
+                "moves": [
+                  "heatwave",
+                  "weatherball",
+                  "solarbeam",
+                  "protect"
+                ],
+                "baseAbility": "blaze",
+                "item": "charizarditey",
+                "pokeball": "pokeball",
+                "ability": "blaze",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Garchomp",
+                "details": "Garchomp, L50, M",
+                "condition": "191/191",
+                "active": true,
+                "stats": {
+                  "atk": 176,
+                  "def": 115,
+                  "spa": 90,
+                  "spd": 105,
+                  "spe": 169
+                },
+                "moves": [
+                  "earthquake",
+                  "dragonclaw",
+                  "rocktomb",
+                  "protect"
+                ],
+                "baseAbility": "roughskin",
+                "item": "sitrusberry",
+                "pokeball": "pokeball",
+                "ability": "roughskin",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Kingambit",
+                "details": "Kingambit, L50, M",
+                "condition": "207/207",
+                "active": false,
+                "stats": {
+                  "atk": 205,
+                  "def": 142,
+                  "spa": 72,
+                  "spd": 105,
+                  "spe": 70
+                },
+                "moves": [
+                  "kowtowcleave",
+                  "suckerpunch",
+                  "ironhead",
+                  "protect"
+                ],
+                "baseAbility": "defiant",
+                "item": "chopleberry",
+                "pokeball": "pokeball",
+                "ability": "defiant",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p1: Whimsicott",
+                "details": "Whimsicott, L50, F",
+                "condition": "135/135",
+                "active": false,
+                "stats": {
+                  "atk": 78,
+                  "def": 107,
+                  "spa": 129,
+                  "spd": 95,
+                  "spe": 184
+                },
+                "moves": [
+                  "moonblast",
+                  "encore",
+                  "tailwind",
+                  "protect"
+                ],
+                "baseAbility": "prankster",
+                "item": "focussash",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        },
+        {
+          "active": [
+            {
+              "moves": [
+                {
+                  "move": "Dragon Claw",
+                  "id": "dragonclaw",
+                  "pp": 24,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": true
+                },
+                {
+                  "move": "Earthquake",
+                  "id": "earthquake",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "allAdjacent",
+                  "disabled": true
+                },
+                {
+                  "move": "Stomping Tantrum",
+                  "id": "stompingtantrum",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Rock Slide",
+                  "id": "rockslide",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "allAdjacentFoes",
+                  "disabled": true
+                }
+              ]
+            },
+            {
+              "moves": [
+                {
+                  "move": "Wave Crash",
+                  "id": "wavecrash",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Earthquake",
+                  "id": "earthquake",
+                  "pp": 16,
+                  "maxpp": 12,
+                  "target": "allAdjacent",
+                  "disabled": false
+                },
+                {
+                  "move": "Ice Punch",
+                  "id": "icepunch",
+                  "pp": 24,
+                  "maxpp": 16,
+                  "target": "normal",
+                  "disabled": false
+                },
+                {
+                  "move": "Protect",
+                  "id": "protect",
+                  "pp": 16,
+                  "maxpp": 8,
+                  "target": "self",
+                  "disabled": false
+                }
+              ],
+              "canMegaEvo": true
+            }
+          ],
+          "side": {
+            "name": "p2",
+            "id": "p2",
+            "pokemon": [
+              {
+                "ident": "p2: Garchomp",
+                "details": "Garchomp, L50, F",
+                "condition": "165/183",
+                "active": true,
+                "stats": {
+                  "atk": 200,
+                  "def": 115,
+                  "spa": 90,
+                  "spd": 107,
+                  "spe": 154
+                },
+                "moves": [
+                  "dragonclaw",
+                  "earthquake",
+                  "stompingtantrum",
+                  "rockslide"
+                ],
+                "baseAbility": "roughskin",
+                "item": "choicescarf",
+                "pokeball": "pokeball",
+                "ability": "roughskin",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Swampert",
+                "details": "Swampert, L50, F",
+                "condition": "177/177",
+                "active": true,
+                "stats": {
+                  "atk": 178,
+                  "def": 110,
+                  "spa": 94,
+                  "spd": 110,
+                  "spe": 112
+                },
+                "moves": [
+                  "wavecrash",
+                  "earthquake",
+                  "icepunch",
+                  "protect"
+                ],
+                "baseAbility": "torrent",
+                "item": "swampertite",
+                "pokeball": "pokeball",
+                "ability": "torrent",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Grimmsnarl",
+                "details": "Grimmsnarl, L50, M",
+                "condition": "202/202",
+                "active": false,
+                "stats": {
+                  "atk": 140,
+                  "def": 112,
+                  "spa": 104,
+                  "spd": 110,
+                  "spe": 81
+                },
+                "moves": [
+                  "spiritbreak",
+                  "reflect",
+                  "lightscreen",
+                  "partingshot"
+                ],
+                "baseAbility": "prankster",
+                "item": "lightclay",
+                "pokeball": "pokeball",
+                "ability": "prankster",
+                "commanding": false,
+                "reviving": false
+              },
+              {
+                "ident": "p2: Staraptor",
+                "details": "Staraptor, L50, F",
+                "condition": "162/162",
+                "active": false,
+                "stats": {
+                  "atk": 172,
+                  "def": 90,
+                  "spa": 63,
+                  "spd": 80,
+                  "spe": 167
+                },
+                "moves": [
+                  "closecombat",
+                  "bravebird",
+                  "roost",
+                  "protect"
+                ],
+                "baseAbility": "intimidate",
+                "item": "staraptite",
+                "pokeball": "pokeball",
+                "ability": "intimidate",
+                "commanding": false,
+                "reviving": false
+              }
+            ]
+          }
+        }
+      ],
+      "snapshot": {
+        "schema": 2,
+        "turn": 2,
+        "request_state": "move",
+        "weather": "",
+        "terrain": "",
+        "pseudo_weather": {},
+        "sides": [
+          {
+            "pokemon": [
+              {
+                "nickname": "charizard",
+                "species": "charizard",
+                "base_species": "charizard",
+                "active_slot": 0,
+                "hp": 185,
+                "maxhp": 185,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": -1,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": -1,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "blaze",
+                "item": "charizarditey",
+                "effects": {
+                  "twoturnmove": {
+                    "duration": 1,
+                    "move": "solarbeam"
+                  }
+                },
+                "first_turn": false,
+                "last_move": "solarbeam",
+                "moves": [
+                  {
+                    "id": "solarbeam",
+                    "pp": null,
+                    "disabled": false
+                  }
+                ],
+                "trapped": true
+              },
+              {
+                "nickname": "garchomp",
+                "species": "garchomp",
+                "base_species": "garchomp",
+                "active_slot": 1,
+                "hp": 191,
+                "maxhp": 191,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "roughskin",
+                "item": "sitrusberry",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "rocktomb",
+                "moves": [
+                  {
+                    "id": "earthquake",
+                    "pp": 12,
+                    "disabled": false
+                  },
+                  {
+                    "id": "dragonclaw",
+                    "pp": 16,
+                    "disabled": false
+                  },
+                  {
+                    "id": "rocktomb",
+                    "pp": 15,
+                    "disabled": false
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 8,
+                    "disabled": false
+                  }
+                ],
+                "trapped": false
+              },
+              {
+                "nickname": "kingambit",
+                "species": "kingambit",
+                "base_species": "kingambit",
+                "active_slot": null,
+                "hp": 207,
+                "maxhp": 207,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "defiant",
+                "item": "chopleberry",
+                "effects": {},
+                "first_turn": false,
+                "last_move": null,
+                "moves": [
+                  {
+                    "id": "kowtowcleave",
+                    "pp": 16
+                  },
+                  {
+                    "id": "suckerpunch",
+                    "pp": 8
+                  },
+                  {
+                    "id": "ironhead",
+                    "pp": 24
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "whimsicott",
+                "species": "whimsicott",
+                "base_species": "whimsicott",
+                "active_slot": null,
+                "hp": 135,
+                "maxhp": 135,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "prankster",
+                "item": "focussash",
+                "effects": {},
+                "first_turn": false,
+                "last_move": null,
+                "moves": [
+                  {
+                    "id": "moonblast",
+                    "pp": 24
+                  },
+                  {
+                    "id": "encore",
+                    "pp": 8
+                  },
+                  {
+                    "id": "tailwind",
+                    "pp": 24
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              }
+            ],
+            "side_conditions": {},
+            "force_switch": [],
+            "mechanic_usage": {
+              "mega_used": false,
+              "z_move_used": false,
+              "dynamax_used": false,
+              "tera_used": false
+            }
+          },
+          {
+            "pokemon": [
+              {
+                "nickname": "garchomp",
+                "species": "garchomp",
+                "base_species": "garchomp",
+                "active_slot": 0,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 0.9,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": -1
+                },
+                "ability": "roughskin",
+                "item": "choicescarf",
+                "effects": {
+                  "choicelock": {
+                    "duration": null,
+                    "move": "stompingtantrum"
+                  }
+                },
+                "first_turn": false,
+                "last_move": "stompingtantrum",
+                "moves": [
+                  {
+                    "id": "dragonclaw",
+                    "pp": 24
+                  },
+                  {
+                    "id": "earthquake",
+                    "pp": 16
+                  },
+                  {
+                    "id": "stompingtantrum",
+                    "pp": 16
+                  },
+                  {
+                    "id": "rockslide",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "grimmsnarl",
+                "species": "grimmsnarl",
+                "base_species": "grimmsnarl",
+                "active_slot": null,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "prankster",
+                "item": "lightclay",
+                "effects": {},
+                "first_turn": false,
+                "last_move": "partingshot",
+                "moves": [
+                  {
+                    "id": "spiritbreak",
+                    "pp": 24
+                  },
+                  {
+                    "id": "reflect",
+                    "pp": 32
+                  },
+                  {
+                    "id": "lightscreen",
+                    "pp": 48
+                  },
+                  {
+                    "id": "partingshot",
+                    "pp": 32
+                  }
+                ],
+                "trapped": null
+              },
+              {
+                "nickname": "swampert",
+                "species": "swampert",
+                "base_species": "swampert",
+                "active_slot": 1,
+                "hp": null,
+                "maxhp": null,
+                "hp_fraction": 1.0,
+                "fainted": false,
+                "status": "",
+                "boosts": {
+                  "accuracy": 0,
+                  "atk": 0,
+                  "def": 0,
+                  "evasion": 0,
+                  "spa": 0,
+                  "spd": 0,
+                  "spe": 0
+                },
+                "ability": "torrent",
+                "item": "swampertite",
+                "effects": {},
+                "first_turn": true,
+                "last_move": null,
+                "moves": [
+                  {
+                    "id": "wavecrash",
+                    "pp": 16
+                  },
+                  {
+                    "id": "earthquake",
+                    "pp": 16
+                  },
+                  {
+                    "id": "icepunch",
+                    "pp": 24
+                  },
+                  {
+                    "id": "protect",
+                    "pp": 16
+                  }
+                ],
+                "trapped": null
+              }
+            ],
+            "side_conditions": {},
+            "force_switch": [],
+            "mechanic_usage": {
+              "mega_used": false,
+              "z_move_used": false,
+              "dynamax_used": false,
+              "tera_used": false
+            }
+          }
+        ]
+      },
+      "public_events": [
+        [
+          "",
+          "gametype",
+          "doubles"
+        ],
+        [
+          "",
+          "player",
+          "p1",
+          "p1",
+          "",
+          ""
+        ],
+        [
+          "",
+          "player",
+          "p2",
+          "p2",
+          "",
+          ""
+        ],
+        [
+          "",
+          "gen",
+          "9"
+        ],
+        [
+          "",
+          "tier",
+          "[Gen 9 Champions] VGC 2026 Reg M-B"
+        ],
+        [
+          "",
+          "rule",
+          "Species Clause: Limit one of each Pok\u00e9mon"
+        ],
+        [
+          "",
+          "rule",
+          "Item Clause: Limit 1 of each item"
+        ],
+        [
+          "",
+          "clearpoke"
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Floette-Eternal, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Charizard, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Whimsicott, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Garchomp, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Basculegion, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p1",
+          "Kingambit, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Grimmsnarl, L50, M",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Swampert, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Pelipper, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Archaludon, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Staraptor, L50, F",
+          ""
+        ],
+        [
+          "",
+          "poke",
+          "p2",
+          "Garchomp, L50, F",
+          ""
+        ],
+        [
+          "",
+          "teampreview",
+          "4"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "teamsize",
+          "p1",
+          "4"
+        ],
+        [
+          "",
+          "teamsize",
+          "p2",
+          "4"
+        ],
+        [
+          "",
+          "start"
+        ],
+        [
+          "",
+          "switch",
+          "p1a: Charizard",
+          "Charizard, L50, F",
+          "185/185"
+        ],
+        [
+          "",
+          "switch",
+          "p1b: Garchomp",
+          "Garchomp, L50, M",
+          "191/191"
+        ],
+        [
+          "",
+          "switch",
+          "p2a: Garchomp",
+          "Garchomp, L50, F",
+          "100/100"
+        ],
+        [
+          "",
+          "switch",
+          "p2b: Grimmsnarl",
+          "Grimmsnarl, L50, M",
+          "100/100"
+        ],
+        [
+          "",
+          "turn",
+          "1"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "move",
+          "p2b: Grimmsnarl",
+          "Parting Shot",
+          "p1a: Charizard"
+        ],
+        [
+          "",
+          "-unboost",
+          "p1a: Charizard",
+          "atk",
+          "1"
+        ],
+        [
+          "",
+          "-unboost",
+          "p1a: Charizard",
+          "spa",
+          "1"
+        ],
+        [
+          "",
+          "message",
+          "The battle's RNG was reset."
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "switch",
+          "p2b: Swampert",
+          "Swampert, L50, F",
+          "100/100",
+          "[from] Parting Shot"
+        ],
+        [
+          "",
+          "move",
+          "p2a: Garchomp",
+          "Stomping Tantrum",
+          "p1a: Charizard"
+        ],
+        [
+          "",
+          "-immune",
+          "p1a: Charizard"
+        ],
+        [
+          "",
+          "move",
+          "p1b: Garchomp",
+          "Rock Tomb",
+          "p2a: Garchomp"
+        ],
+        [
+          "",
+          "-resisted",
+          "p2a: Garchomp",
+          "1"
+        ],
+        [
+          "",
+          "-damage",
+          "p2a: Garchomp",
+          "90/100"
+        ],
+        [
+          "",
+          "-unboost",
+          "p2a: Garchomp",
+          "spe",
+          "1"
+        ],
+        [
+          "",
+          "move",
+          "p1a: Charizard",
+          "Solar Beam",
+          "",
+          "[still]"
+        ],
+        [
+          "",
+          "-prepare",
+          "p1a: Charizard",
+          "Solar Beam"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "upkeep"
+        ],
+        [
+          "",
+          "turn",
+          "2"
+        ]
+      ]
+    }
+  ],
+  "elapsed_seconds": 14.169775333022699,
+  "accepted": false,
+  "method": "different-RNG shadow reconciled only from poke-env-visible state"
+}

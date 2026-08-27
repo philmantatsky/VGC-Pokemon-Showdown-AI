@@ -1,0 +1,40 @@
+{
+  "status": "candidate_not_promoted",
+  "ladder_running": false,
+  "rejected_ladder_batch": {
+    "record": "7-16",
+    "reason": "live search was shallow, simulator mechanic resources diverged, and pondering almost never matched"
+  },
+  "repairs": {
+    "snapshot_schema": 2,
+    "spent_side_mechanics_reconciled": true,
+    "belief_determinizations": 8,
+    "foreground_search_determinizations": 2,
+    "deep_root_width": 4,
+    "minimum_weighted_depth_coverage": 0.5,
+    "production_chance_samples": 1,
+    "pondering_enabled": false,
+    "outcome_preview_enabled": false
+  },
+  "gates": {
+    "live_snapshot_parity": "1000/1000",
+    "repository_tests": "189 passed, 5 skipped",
+    "tactical_fixtures": "18/18",
+    "hidden_search_depth": "11/12 with one safe fallback",
+    "hidden_search_illegal_actions": 0,
+    "hidden_search_p50_seconds": 7.3667,
+    "hidden_search_p90_seconds": 8.6080,
+    "hidden_search_max_seconds": 8.8751,
+    "repaired_search_local_ab": "10/12 search, 10/12 champion",
+    "repaired_search_ab_p90_seconds": 7.8636,
+    "repaired_search_ab_max_seconds": 8.0816
+  },
+  "preview_candidate": {
+    "status": "rejected",
+    "familiar_learned_delta_points": 4.3,
+    "heuristic_delta_points": 2.0,
+    "independent_learned_population_delta_points": -7.4,
+    "deployment": "champion preview"
+  },
+  "next_gate": "ten serial ladder games with full audits only after explicit approval"
+}
