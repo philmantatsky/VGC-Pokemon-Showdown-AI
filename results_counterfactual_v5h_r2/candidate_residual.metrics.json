@@ -1,0 +1,207 @@
+{
+  "source_checkpoint": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_repaired/champion.zip",
+  "positions": 14633,
+  "train_positions": 11697,
+  "validation_positions": 2936,
+  "baseline_rank_accuracy": 0.24863760222043912,
+  "selected_epoch": 7,
+  "top_three": [
+    {
+      "epoch": 7,
+      "path": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch7.pt",
+      "key": [
+        0.2551089918256131,
+        0.23876021810545908,
+        -1.8134509351013142
+      ]
+    },
+    {
+      "epoch": 2,
+      "path": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch2.pt",
+      "key": [
+        0.24863760217983652,
+        0.25034059949564347,
+        -1.8466878414803696
+      ]
+    },
+    {
+      "epoch": 5,
+      "path": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch5.pt",
+      "key": [
+        0.24863760217983652,
+        0.24795640339156264,
+        -1.821852642443914
+      ]
+    }
+  ],
+  "history": [
+    {
+      "epoch": 1,
+      "validation_loss": 1.878707581709776,
+      "validation_rank_accuracy": 0.24863760217983652,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.0,
+      "changed_fraction": 0.0,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.24250681198910082,
+      "calibration": {
+        "threshold": 0.2570540772209167,
+        "deployed_rank_accuracy": 0.24863760217983652,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.24250681198910082,
+        "applied_fraction": 0.0,
+        "changed_fraction": 0.0,
+        "changed_count": 0,
+        "changed_champion_accuracy": 0.0,
+        "changed_residual_accuracy": 0.0
+      }
+    },
+    {
+      "epoch": 2,
+      "validation_loss": 1.8466878414803696,
+      "validation_rank_accuracy": 0.24863760217983652,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.0,
+      "changed_fraction": 0.0,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.25034059949564347,
+      "calibration": {
+        "threshold": 0.31084315641021726,
+        "deployed_rank_accuracy": 0.24863760217983652,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.2503405994550409,
+        "applied_fraction": 0.0,
+        "changed_fraction": 0.0,
+        "changed_count": 0,
+        "changed_champion_accuracy": 0.0,
+        "changed_residual_accuracy": 0.0
+      }
+    },
+    {
+      "epoch": 3,
+      "validation_loss": 1.825160498190316,
+      "validation_rank_accuracy": 0.24863760217983652,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.0,
+      "changed_fraction": 0.0,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.2244550406689215,
+      "calibration": {
+        "threshold": 0.336985246969223,
+        "deployed_rank_accuracy": 0.24863760217983652,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.2244550408719346,
+        "applied_fraction": 0.0,
+        "changed_fraction": 0.0,
+        "changed_count": 0,
+        "changed_champion_accuracy": 0.0,
+        "changed_residual_accuracy": 0.0
+      }
+    },
+    {
+      "epoch": 4,
+      "validation_loss": 1.8143861768031315,
+      "validation_rank_accuracy": 0.24863760217983652,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.0,
+      "changed_fraction": 0.0,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.2210490463215259,
+      "calibration": {
+        "threshold": 0.43351729376411435,
+        "deployed_rank_accuracy": 0.24863760217983652,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.2210490463215259,
+        "applied_fraction": 0.0,
+        "changed_fraction": 0.0,
+        "changed_count": 0,
+        "changed_champion_accuracy": 0.0,
+        "changed_residual_accuracy": 0.0
+      }
+    },
+    {
+      "epoch": 5,
+      "validation_loss": 1.821852642443914,
+      "validation_rank_accuracy": 0.24863760217983652,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.0,
+      "changed_fraction": 0.0,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.24795640339156264,
+      "calibration": {
+        "threshold": 0.4389027820358276,
+        "deployed_rank_accuracy": 0.24863760217983652,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.24795640326975477,
+        "applied_fraction": 0.0,
+        "changed_fraction": 0.0,
+        "changed_count": 0,
+        "changed_champion_accuracy": 0.0,
+        "changed_residual_accuracy": 0.0
+      }
+    },
+    {
+      "epoch": 6,
+      "validation_loss": 1.8289344807736556,
+      "validation_rank_accuracy": 0.24863760217983652,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.0,
+      "changed_fraction": 0.0,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.22990463186837024,
+      "calibration": {
+        "threshold": 0.48012904985046384,
+        "deployed_rank_accuracy": 0.24863760217983652,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.22990463215258855,
+        "applied_fraction": 0.0,
+        "changed_fraction": 0.0,
+        "changed_count": 0,
+        "changed_champion_accuracy": 0.0,
+        "changed_residual_accuracy": 0.0
+      }
+    },
+    {
+      "epoch": 7,
+      "validation_loss": 1.8134509351013142,
+      "validation_rank_accuracy": 0.2551089918256131,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.055177111716621256,
+      "changed_fraction": 0.0388283378746594,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.23876021810545908,
+      "calibration": {
+        "threshold": 0.30381569266319275,
+        "deployed_rank_accuracy": 0.2551089918256131,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.2387602179836512,
+        "applied_fraction": 0.055177111716621256,
+        "changed_fraction": 0.0388283378746594,
+        "changed_count": 114,
+        "changed_champion_accuracy": 0.14035087719298245,
+        "changed_residual_accuracy": 0.30701754385964913
+      }
+    },
+    {
+      "epoch": 8,
+      "validation_loss": 1.8204068176103223,
+      "validation_rank_accuracy": 0.24863760217983652,
+      "champion_rank_accuracy": 0.24863760222043912,
+      "applied_fraction": 0.0,
+      "changed_fraction": 0.0,
+      "mean_margin": 0.05800888683311946,
+      "validation_adjusted_rank_accuracy": 0.225136239497798,
+      "calibration": {
+        "threshold": 0.6017907725105286,
+        "deployed_rank_accuracy": 0.24863760217983652,
+        "champion_rank_accuracy": 0.24863760217983652,
+        "adjusted_rank_accuracy": 0.22513623978201636,
+        "applied_fraction": 0.0,
+        "changed_fraction": 0.0,
+        "changed_count": 0,
+        "changed_champion_accuracy": 0.0,
+        "changed_residual_accuracy": 0.0
+      }
+    }
+  ]
+}

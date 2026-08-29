@@ -1,0 +1,67 @@
+{
+  "created_at": "2026-08-29T04:28:24-05:00",
+  "dataset": {
+    "games_with_positions": 700,
+    "hidden_positions": 2423,
+    "positions": 4424,
+    "usable_positions": 4196
+  },
+  "evaluated_residuals": [
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch7.pt",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch2.pt",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch5.pt"
+  ],
+  "evaluation": {
+    "candidates": {
+      "distilled_policy": {
+        "deltas": {
+          "hidden": 0.0040000000000000036,
+          "open": -0.006000000000000005,
+          "population": -0.03399999999999992
+        },
+        "passes_regression_gate": false,
+        "rates": {
+          "hidden": 0.854,
+          "open": 0.872,
+          "population": 0.78
+        },
+        "score": 0.8215,
+        "score_delta": -0.01749999999999996
+      },
+      "preview_policy": {
+        "deltas": {
+          "hidden": -0.03200000000000003,
+          "open": -0.038000000000000034,
+          "population": -0.05799999999999994
+        },
+        "passes_regression_gate": false,
+        "rates": {
+          "hidden": 0.818,
+          "open": 0.84,
+          "population": 0.756
+        },
+        "score": 0.7925,
+        "score_delta": -0.046499999999999986
+      }
+    },
+    "champion": {
+      "rates": {
+        "hidden": 0.85,
+        "open": 0.878,
+        "population": 0.814
+      },
+      "score": 0.839
+    },
+    "weights": {
+      "hidden": 1.0,
+      "open": 1.0,
+      "population": 2.0
+    }
+  },
+  "passed": false,
+  "reason": "no candidate improved the weighted score by 2pp without a mode regressing more than 2pp",
+  "training_data": [
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/counterfactual_data_v5h",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/counterfactual_data_v5h_r2"
+  ]
+}

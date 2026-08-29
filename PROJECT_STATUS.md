@@ -1,5 +1,34 @@
 # VGC Bot Project Status
 
+## Round 2 REJECTED -- counterfactual track closed; league fine-tune pulled forward (August 29, 04:30)
+
+The resumed aggregation round ran clean end-to-end (700/700 games, zero
+failures, 4,424 new positions; combined dataset 11,697 train / 2,936
+validation; tactical gate 18/18) and **every candidate failed the per-mode
+regression gate**. Champion-paired n=500 results (epoch = validation rank):
+
+- epoch 7 (top pick): open 420v437 (**-3.4pp**), hidden 438v432 (+1.2pp),
+  population 390v384 (+1.2pp) -> weighted +0.05pp, dead on the open mode.
+- epoch 2: open -0.6pp, hidden +0.4pp, population 390v407 (**-3.4pp**) ->
+  weighted -1.75pp, dead.
+- epoch 5: open +0.6pp, hidden +1.2pp, population 377v409 (**-6.4pp**) ->
+  weighted -2.75pp, dead.
+
+Nothing came within the +/-1pp confirmation window of the bar, so the new
+n=1,500 confirmation tier never triggered. Reading both rounds together: six
+battle-evaluated candidates cluster within eval noise of zero (champion
+same-seed spread alone is 3.6-5pp at n=500); the only consistent sliver is
+hidden-mode +1.2-1.6pp, well below promotion. On-policy aggregation (half the
+round-2 rollouts steered by the round-1 residual) did not help and plausibly
+hurt the population mode. **Per the climb plan: the counterfactual track is
+closed** -- no round 3 unless the league changes the picture. The residual
+recipe's honest legacy: the v2h value net (still the promoted leaf evaluator)
+and the generation/validation hardening.
+
+With the machine free 12 hours early, the league fine-tune moved up: smoke
+run at ~04:35, real launch immediately after (5 intervals to 12,779,520,
+port 7700, kill criteria at first save per the plan).
+
 ## The climb plan: round-2 resumed, league fine-tune infrastructure built (August 29)
 
 A fresh strategic review (full plan approved by the user) started from the

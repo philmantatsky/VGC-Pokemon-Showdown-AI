@@ -1,64 +1,111 @@
 {
   "command": [
     "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/.venv/bin/python",
-    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/generate_counterfactuals.py",
-    "--checkpoint",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/eval_counterfactual.py",
+    "--baseline",
     "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_repaired/champion.zip",
-    "--preview-model",
+    "--candidate",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate.zip",
+    "--candidate-residual",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch5.pt",
+    "--baseline-preview",
     "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/data/opponent_preview_top500_regmb.pt",
-    "--move-model",
-    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/data/opponent_move_top500_regmb.pt",
-    "--switch-model",
-    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/data/opponent_switch_top500_regmb.pt",
-    "--opponent-model-weight",
-    "0.6",
-    "--open-sheet-model-weight",
-    "0.4",
-    "--trajectory-exploration",
-    "0.2",
-    "--output",
-    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/counterfactual_data_v5h_r2",
-    "--games",
-    "700",
-    "--max-seconds",
-    "21600.0",
-    "--max-turns",
-    "10",
-    "--depth",
-    "2",
-    "--root-width",
-    "8",
-    "--opponent-width",
-    "6",
-    "--continuation-width",
-    "3",
-    "--replacement-width",
-    "2",
-    "--chance-samples",
-    "1",
-    "--budget",
-    "20.0",
-    "--hidden-sheet-prob",
-    "0.5",
+    "--port",
+    "7600",
     "--device",
-    "cpu",
-    "--seed",
-    "20260826",
+    "mps",
+    "--n-battles",
+    "500",
     "--workers",
-    "6",
-    "--max-failed-games",
-    "7",
-    "--rollout-residual",
-    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h/candidate_residual.pt",
-    "--outcome-value",
-    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_outcome_v2h/outcome_value.zip",
-    "--opponent-base-checkpoint",
-    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_bc/mix_A/saves_bc/seed1/30.zip"
+    "8",
+    "--seed",
+    "20260863",
+    "--output",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/eval_residual3_population.json",
+    "--candidate-preview",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_preview.pt",
+    "--candidate-preview-trained",
+    "--opponent-checkpoint",
+    "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_repaired/opponents/64opp_3932160_v4.zip"
   ],
-  "log": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/logs/generate.log",
-  "message": "started",
-  "stage": "generate",
+  "dataset": {
+    "games_with_positions": 700,
+    "hidden_positions": 2423,
+    "positions": 4424,
+    "usable_positions": 4196
+  },
+  "finished_at": "2026-08-29T04:28:24-05:00",
+  "log": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/logs/evaluate_residual3_population.log",
+  "message": "no candidate improved the weighted score by 2pp without a mode regressing more than 2pp",
+  "promotion": {
+    "created_at": "2026-08-29T04:28:24-05:00",
+    "dataset": {
+      "games_with_positions": 700,
+      "hidden_positions": 2423,
+      "positions": 4424,
+      "usable_positions": 4196
+    },
+    "evaluated_residuals": [
+      "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch7.pt",
+      "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch2.pt",
+      "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_counterfactual_v5h_r2/candidate_residual_epoch5.pt"
+    ],
+    "evaluation": {
+      "candidates": {
+        "distilled_policy": {
+          "deltas": {
+            "hidden": 0.0040000000000000036,
+            "open": -0.006000000000000005,
+            "population": -0.03399999999999992
+          },
+          "passes_regression_gate": false,
+          "rates": {
+            "hidden": 0.854,
+            "open": 0.872,
+            "population": 0.78
+          },
+          "score": 0.8215,
+          "score_delta": -0.01749999999999996
+        },
+        "preview_policy": {
+          "deltas": {
+            "hidden": -0.03200000000000003,
+            "open": -0.038000000000000034,
+            "population": -0.05799999999999994
+          },
+          "passes_regression_gate": false,
+          "rates": {
+            "hidden": 0.818,
+            "open": 0.84,
+            "population": 0.756
+          },
+          "score": 0.7925,
+          "score_delta": -0.046499999999999986
+        }
+      },
+      "champion": {
+        "rates": {
+          "hidden": 0.85,
+          "open": 0.878,
+          "population": 0.814
+        },
+        "score": 0.839
+      },
+      "weights": {
+        "hidden": 1.0,
+        "open": 1.0,
+        "population": 2.0
+      }
+    },
+    "passed": false,
+    "reason": "no candidate improved the weighted score by 2pp without a mode regressing more than 2pp",
+    "training_data": [
+      "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/counterfactual_data_v5h",
+      "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/counterfactual_data_v5h_r2"
+    ]
+  },
+  "stage": "evaluate_residual3_population",
   "started_at": "2026-08-29T00:18:16-05:00",
-  "state": "running",
-  "updated_at": "2026-08-29T00:18:16-05:00"
+  "state": "rejected",
+  "updated_at": "2026-08-29T04:28:24-05:00"
 }

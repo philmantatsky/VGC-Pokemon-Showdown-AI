@@ -258,7 +258,13 @@ Measured August 22:
 - [x] Cumulative historical data and top-three checkpoint battle evaluation
 - [x] Preview remains unchanged below 1,500 genuine labels
 - [x] Two-point weighted promotion and two-point per-mode regression gates
-- [ ] A production aggregation round passes its ranking and battle gates
+- [x] ~~A production aggregation round passes its ranking and battle gates~~
+  **Track closed 2026-08-29 after round 2 REJECTED** (best round-1 candidate
+  +1.95pp vs the +2.0pp bar; every round-2 candidate breached the per-mode
+  regression gate — see PROJECT_STATUS). Six candidates over two
+  properly-powered rounds cluster within eval noise of zero; per the climb
+  plan, no further counterfactual rounds unless the league track changes the
+  picture.
 
 The first residual attempt in `results_iterative_v2/round_01` was rejected because it
 did not improve held-out action ranking. A later battle evaluation was paused at
