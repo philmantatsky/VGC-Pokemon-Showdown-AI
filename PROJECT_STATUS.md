@@ -1,5 +1,41 @@
 # VGC Bot Project Status
 
+## League fine-tune: BOTH candidates pass screening -- first gate passes in project history (August 29, evening)
+
+The overnight league run (champion weights continued for +4.9M steps vs a pool
+with bc_mix_A at 3/8 decaying share) completed cleanly: 5 checkpoints, 152-155
+steps/s throughout, first-save kill criteria all passed (eval/heuristic 0.82
+flag-band, eval/bc 0.82, ep_rew positive), four absorbed poke-env Zoroark
+parse crashes (known bug, one pool team; chip filed for the ladder-side fix
+since live play shares the parse path).
+
+Screening batteries (n=1,000/arm, paired seed 83, hidden sheets, champion
+baseline; every arm a population NEITHER policy trained against):
+
+| arm | 11796480 | 12779520 (final ckpt) |
+|---|---|---|
+| heuristic | +5.3pp (91.9 v 86.6) | +7.9pp (93.2 v 85.3) |
+| frozen 64opp | +9.4pp (86.9 v 77.5) | +6.8pp (84.3 v 77.5) |
+| rotation 8opp | -2.6pp (81.8 v 84.4) | +4.2pp (88.2 v 84.0) |
+| rotation tuned | +4.7pp (84.8 v 80.1) | +4.2pp (86.1 v 81.9) |
+| human_bc eval_B (stoch) | +4.4pp (85.9 v 81.5) | +3.5pp (84.7 v 81.2) |
+| promotion-weighted | +4.3pp | **+5.0pp** |
+
+Both pass the pre-registered screening bar (no arm < -4pp AND (delta-human_bc
+>= +4 OR weighted >= +3)). The mix_A memorization diagnostic is CLEAN on both:
+delta vs the actual sparring partner exceeds delta vs the held-out sibling by
+only 2.1pp / 2.2pp against a 10pp flag -- the gains generalize to human-style
+play rather than memorizing mix_A's quirks. Every prior artifact in this
+project gained only on populations it was fit to; this is the first to gain on
+four-to-five populations it never saw.
+
+**12779520 (clean sweep, highest weighted) advances to the promotion tier**
+(5,000/arm, ~8h20m, launched 17:14; bar: no arm -2pp, weighted >= +2pp, AND
+delta-human_bc >= +2pp standalone). 11796480 is held as backup. If promotion
+passes, next is the ladder rollout: 10 audited canary games -> review -> 25 ->
+~100-150 for a claim vs the 44.9%/321 baseline. The champion stays deployed
+and untouched throughout.
+
 ## Round 2 REJECTED -- counterfactual track closed; league fine-tune pulled forward (August 29, 04:30)
 
 The resumed aggregation round ran clean end-to-end (700/700 games, zero
