@@ -24,7 +24,7 @@ from stable_baselines3.common.callbacks import BaseCallback
 from vgc_bench.src.policy import MaskedActorCriticPolicy
 from vgc_bench.src.policy_player import BatchPolicyPlayer
 from vgc_bench.src.teams import RandomTeamBuilder, TeamToggle, get_available_regs
-from vgc_bench.src.utils import LearningStyle, format_map
+from vgc_bench.src.utils import LearningStyle, format_map, refuse_eval_only_checkpoint
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -327,10 +327,28 @@ class Callback(BaseCallback):
             LearningStyle.FICTITIOUS_PLAY,
             LearningStyle.DOUBLE_ORACLE,
         ]:
-            policy_files = sorted(self.save_dir.iterdir(), key=lambda p: int(p.stem))
+            # The pool is every checkpoint in save_dir; a stray non-checkpoint
+            # file (.DS_Store, a sidecar) would crash int(p.stem) mid-run.
+            policy_files = sorted(
+                (
+                    p
+                    for p in self.save_dir.iterdir()
+                    if p.suffix == ".zip" and p.stem.lstrip("-").isdigit()
+                ),
+                key=lambda p: int(p.stem),
+            )
             selected_files = random.choices(
                 policy_files, weights=self.prob_dist, k=self.model.env.num_envs
             )
+            for selected in set(selected_files):
+                refuse_eval_only_checkpoint(selected)
+            # Seeded league opponents (e.g. bc_mix_A copies) live at stems below
+            # the save interval; checkpoints from the training lineage sit at or
+            # above it. This makes the realized opponent mixture visible.
+            seed_share = sum(
+                int(p.stem) < self.save_interval for p in selected_files
+            ) / len(selected_files)
+            self.model.logger.record("train/bc_opp_frac", seed_share)
             for i in range(self.model.env.num_envs):
                 self.model.env.env_method(
                     "set_opp_policy",

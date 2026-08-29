@@ -1,5 +1,69 @@
 # VGC Bot Project Status
 
+## The climb plan: round-2 resumed, league fine-tune infrastructure built (August 29)
+
+A fresh strategic review (full plan approved by the user) started from the
+uncomfortable truth: deployed ladder behavior has not changed since the Aug-4
+champion weights -- every promotion since was measurement- or search-side, and
+search is not deployed. Ladder truth stands at 144-177 (44.9%) over 321 games,
+Elo median 1125, newest replay Aug 22. Three tracks now run:
+
+**Track 1 -- round 2 resumed (tonight).** The paused aggregation round
+restarted at 00:18; the 10 stale pre-fix failure records self-heal on resume
+(errored games re-play and overwrite -- verified in
+`generate_counterfactuals.py` before launch; error count was down to 3 within
+two minutes). New measurement rule to kill the 0.05pp absurdity: the n=500
+pipeline verdict is advisory; any candidate within +/-1pp of the +2.0pp bar
+gets a fresh-seed n=1,500/mode confirmation on that single candidate before
+accept/reject (champion same-config spread at n=500 was 3.6pp across the three
+v5h eval runs -- verdicts at that n are coin flips at the margin).
+
+**Track 2 -- league fine-tune of the champion (the never-pulled lever).** The
+diagnosis says the ~40pp sim-to-ladder gap is opponent distribution, and the
+policy has never trained against human-like play. Infrastructure landed today:
+
+- `build_league.py` seeds `results_league/saves_fp_hs_wt/reg_mb/seed1/` with
+  the champion at its own stem 7864320 (resume point), its four lineage
+  checkpoints, and **bc_mix_A at stems 100/200/300** -- a 3/8 human-BC share
+  decaying as self-saves join the FP pool. Stem 100 triggers callback.py's
+  per-interval `eval/bc*` telemetry by file presence (the `--behavior_clone`
+  flag must NOT be passed; it would change the method dir).
+- Role quarantine is now enforced by CONTENT, not filename: integer-stem
+  naming strips sidecars, so `league_manifest.json` (at the league root) pins
+  every seeded stem to a sha256 and bans every checkpoint under
+  `results_bc/eval_B/` by hash. `verify_league_dir()` (utils.py) runs inside
+  `vgc_bench.train` before every launch; `callback.py` opponent sampling now
+  filters to integer-stem zips (a stray .DS_Store previously crashed
+  `int(p.stem)` mid-run), calls `refuse_eval_only_checkpoint` on selections,
+  and logs `train/bc_opp_frac`. Negative test performed on the real pool: a
+  hand-copied eval_B checkpoint under an innocent stem is refused by hash.
+- `data/team_weights_regmb_league.json` zeroes `our_team.txt` (it is
+  byte-identical to MB430.txt and BOTH sat in the sampled pool, silently
+  double-weighting the mirror during training; explicit 0.0 because a missing
+  key defaults to weight 1.0). Eval batteries keep the old weights file for
+  baseline comparability.
+- `run_league_training.sh`: champion flags except the pool (single-variable
+  discipline), port 7700, `--total_steps 12779520` = +5 intervals (~9h
+  overnight, 5 candidates). All three frozen PPOs stay OUT of the league so
+  every gate-battery arm remains a never-trained-against population.
+- Gates pre-registered: screening (1,000/arm paired) advance iff no arm worse
+  than champion by >4pp AND (delta-human_bc >= +4pp OR weighted >= +3pp), plus
+  a non-gating mix_A-vs-eval_B divergence diagnostic (>10pp gap = learned
+  mix_A's quirks); promotion (5,000/arm) needs no arm -2pp, weighted >= +2pp,
+  AND delta-human_bc >= +2pp on its own; then the standard ladder rollout.
+  Kill criteria at first save: eval/heuristic < 0.80, eval/bc < 0.70,
+  ep_rew_mean <= 0, worker deaths, or throughput < ~120 steps/s.
+
+**Track 3 -- restart live evidence.** Zero ladder games exist since Aug 22 and
+none have ever flowed through the Stage-A instrumentation. A 25-50 game batch
+with the current champion config (user-run, any machine-free window) is the
+highest information-per-effort action open; calibrate_vs_ladder and the
+preview analyzer rerun after.
+
+Team question resolved with the user: MB430 stays frozen through this cycle;
+revisit with league results in hand. Suite 293 passed / 5 skipped; Ruff at the
+16-error baseline; Pyright at the 23-error baseline (both untouched).
+
 ## v5h verdict: rejected at +1.95pp vs the +2.0pp bar -- best counterfactual round ever (August 25)
 
 **The residual (epoch 6) improved every mode and missed promotion by half a

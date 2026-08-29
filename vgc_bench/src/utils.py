@@ -180,3 +180,87 @@ def refuse_eval_only_checkpoint(path: "str | os.PathLike") -> None:
             "It must never appear in training or data generation; use "
             "bc_mix_A or a frozen PPO opponent instead."
         )
+
+
+def _sha256_file(path: "os.PathLike | str") -> str:
+    import hashlib
+
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for block in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def find_league_manifest(save_dir: "os.PathLike | str"):
+    """Return the league_manifest.json governing ``save_dir``, or None.
+
+    The manifest cannot live inside the save dir itself (every filename there
+    must be an integer stem for the FP pool), so it sits at the results root;
+    walk a bounded number of parents to find it.
+    """
+    from pathlib import Path as _Path
+
+    directory = _Path(save_dir)
+    for candidate in [directory, *directory.parents[:4]]:
+        manifest = candidate / "league_manifest.json"
+        if manifest.exists():
+            return manifest
+    return None
+
+
+def verify_league_dir(save_dir: "os.PathLike | str") -> None:
+    """Verify a fictitious-play opponent pool against its league manifest.
+
+    ``save_dir`` doubles as the FP opponent pool: any file in it becomes a
+    training opponent, and filename sidecars cannot follow checkpoints in
+    (``int(p.stem)`` naming), so role quarantine must be enforced by content.
+    A ``league_manifest.json`` at the results root pins each seeded stem to a
+    sha256 and bans the eval-only holdout by hash. Checkpoints saved by the run
+    itself (stems above ``resume_stem``) are exempt so interrupted runs resume
+    without rebuilding. Directories with no manifest are left alone.
+    """
+    from pathlib import Path as _Path
+
+    directory = _Path(save_dir)
+    manifest_path = find_league_manifest(directory)
+    if manifest_path is None or not directory.exists():
+        return
+    manifest = json.loads(manifest_path.read_text())
+    resume_stem = int(manifest["resume_stem"])
+    banned = manifest.get("banned_sha256", {})
+    entries = manifest.get("entries", {})
+    for path in sorted(directory.iterdir()):
+        if path.suffix != ".zip" or not path.stem.lstrip("-").isdigit():
+            raise SystemExit(
+                f"league pool {directory} contains {path.name}; every file must "
+                "be an integer-stem .zip (a stray file crashes opponent "
+                "sampling mid-run). Remove it before training."
+            )
+        stem = int(path.stem)
+        digest = _sha256_file(path)
+        if digest in banned:
+            raise SystemExit(
+                f"{path} matches a banned checkpoint by content "
+                f"({banned[digest]}). It must never enter a training pool."
+            )
+        if stem > resume_stem:
+            continue
+        entry = entries.get(str(stem))
+        if entry is None:
+            raise SystemExit(
+                f"{path} (stem {stem} <= resume_stem {resume_stem}) is not "
+                f"listed in {manifest_path}; seeded league checkpoints must "
+                "be placed by build_league.py, not copied in by hand."
+            )
+        if entry.get("sha256") != digest:
+            raise SystemExit(
+                f"{path} does not match the sha256 recorded in "
+                f"{manifest_path} for stem {stem}; the league pool was "
+                "modified after it was built."
+            )
+        if entry.get("role") == "eval_only":
+            raise SystemExit(
+                f"{path} is recorded as role=eval_only in {manifest_path}; "
+                "a held-out evaluation arm must never enter training."
+            )

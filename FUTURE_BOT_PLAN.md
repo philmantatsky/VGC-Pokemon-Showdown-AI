@@ -63,6 +63,37 @@ against a population it was not fit on.
   cost reduction for k=3+ and powered n) parked BEHIND the counterfactual
   retry, per the no-polishing-nulls rule.
 
+## League fine-tune (August 29) — the climb plan's new lever
+
+Continue PPO from the champion's own weights against a pool that finally
+includes human-like play (bc_mix_A at a 3/8 decaying share). Single-variable
+discipline: champion flags unchanged except the opponent pool and the league
+team-weights file (our_team.txt zeroed — it double-counted the MB430 mirror).
+All three frozen PPOs stay out so every battery arm remains a
+never-trained-against population. Measurement reform now standing: any
+counterfactual candidate within ±1pp of its bar gets a fresh-seed
+n=1,500/mode confirmation before accept/reject.
+
+- [x] Safety layer: `verify_league_dir()` content-hash verification inside
+  `vgc_bench.train`; callback opponent sampling hardened (integer-stem filter,
+  eval-only refusal, `train/bc_opp_frac` telemetry); `build_league.py` with
+  sha/role manifest + eval_B banned by content (all 31 epochs); negative test
+  performed against the real pool; 13 unit tests.
+- [x] League built and verified: `results_league/saves_fp_hs_wt/reg_mb/seed1/`
+  (champion at 7864320 + 4 lineage + bc_mix_A ×3), `league_manifest.json`,
+  `data/team_weights_regmb_league.json`, `run_league_training.sh` (port 7700,
+  +5 intervals to 12,779,520 steps).
+- [ ] Live smoke (~10 min, throwaway suffix) proving the wiring end-to-end,
+  then the overnight run (5 candidates; kill criteria at first save:
+  eval/heuristic < 0.80, eval/bc < 0.70, ep_rew_mean ≤ 0, worker deaths).
+- [ ] Screening battery (1,000/arm paired, ≤2 candidates): no arm worse than
+  champion by >4pp AND (Δhuman_bc ≥ +4pp OR weighted ≥ +3pp); mix_A-vs-eval_B
+  divergence diagnostic (>10pp = memorized mix_A, not human play).
+- [ ] Promotion battery (5,000/arm, survivor only): no arm −2pp, weighted
+  ≥ +2pp, AND Δhuman_bc ≥ +2pp on its own.
+- [ ] Ladder rollout per the standing protocol: 10 audited canary games →
+  review → 25 more → extend toward ~100-150 for a claim vs 44.9%/321.
+
 
 The repaired champion is immutable. A candidate becomes deployable only after every
 gate below passes; a failed stage remains resumable and cannot start ladder play.

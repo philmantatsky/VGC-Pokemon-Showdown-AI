@@ -17,7 +17,7 @@ from stable_baselines3.common.vec_env import SubprocVecEnv
 from vgc_bench.src.callback import Callback
 from vgc_bench.src.env import ShowdownEnv
 from vgc_bench.src.policy import MaskedActorCriticPolicy
-from vgc_bench.src.utils import LearningStyle, set_global_seed
+from vgc_bench.src.utils import LearningStyle, set_global_seed, verify_league_dir
 
 
 def train(
@@ -178,6 +178,7 @@ def train(
         device=device,
     )
     num_saved_timesteps = 0
+    verify_league_dir(save_dir)
     if save_dir.exists() and any(save_dir.iterdir()):
         saved_policy_timesteps = [
             int(file.stem) for file in save_dir.iterdir() if int(file.stem) >= 0

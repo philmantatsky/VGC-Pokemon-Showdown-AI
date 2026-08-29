@@ -60,3 +60,7 @@ results_counterfactual_v5h/*
 !results_counterfactual_v5h_r2/
 results_counterfactual_v5h_r2/*
 !results_counterfactual_v5h_r2/*.json
+# league fine-tune: the manifest is the pool's integrity record; checkpoints stay local
+!results_league/
+results_league/*
+!results_league/league_manifest.json
