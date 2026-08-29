@@ -64,3 +64,11 @@ results_counterfactual_v5h_r2/*
 !results_league/
 results_league/*
 !results_league/league_manifest.json
+# league gate batteries: scorecards are the evidence; per-battle logs stay local
+!results_gate_battery_league/
+results_gate_battery_league/*
+!results_gate_battery_league/*/
+results_gate_battery_league/*/*
+!results_gate_battery_league/*/*/
+results_gate_battery_league/*/*/*
+!results_gate_battery_league/*/*/scorecard.json
