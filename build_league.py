@@ -103,19 +103,57 @@ def collect_banned_shas(eval_only_root: Path) -> dict[str, str]:
     return banned
 
 
-def write_league_team_weights(source: Path, dest: Path) -> None:
-    """Write the league copy of the team weights with our_team.txt zeroed.
+def _team_species(team_file: Path) -> list[str]:
+    """Species ids from a Showdown export team file (team-agnostic)."""
+    from poke_env.data import to_id_str
+
+    species = []
+    for block in team_file.read_text().strip().split("\n\n"):
+        first = block.strip().split("\n")[0]
+        name = first.split("@")[0].strip()
+        if "(" in name and ")" in name:
+            name = name[name.rindex("(") + 1 : name.rindex(")")]
+        species.append(to_id_str(name))
+    return species
+
+
+def write_league_team_weights(
+    source: Path,
+    dest: Path,
+    tr_boost: float = 1.0,
+    teams_dir: Path = Path("teams/reg_mb"),
+) -> int:
+    """Write the league copy of the team weights; returns boosted-team count.
 
     our_team.txt is byte-identical to MB430.txt and both sit in the sampled
     pool, silently double-weighting the mirror matchup during training. The
     weight must be an explicit 0.0 -- deleting the key would hand the file the
     sampler's default weight of 1.0.
+
+    ``tr_boost`` > 1 multiplies the weight of every team whose roster reads
+    P(TrickRoom) >= 0.6 from the joint sets -- a curriculum knob for a league
+    round that targets a measured TR weakness. Property-derived, no species
+    hardcoding.
     """
     weights = json.loads(source.read_text())
     if "our_team.txt" not in weights:
         raise SystemExit(f"{source} has no our_team.txt entry; wrong weights file?")
     weights["our_team.txt"] = 0.0
+    boosted = 0
+    if tr_boost != 1.0:
+        from vgc_bench.src.preview_rules import trick_room_probability
+
+        for name, value in weights.items():
+            if not value:
+                continue
+            team_file = teams_dir / name
+            if not team_file.exists():
+                continue
+            if trick_room_probability(_team_species(team_file)) >= 0.6:
+                weights[name] = value * tr_boost
+                boosted += 1
     dest.write_text(json.dumps(weights, indent=1, sort_keys=True) + "\n")
+    return boosted
 
 
 def build_league(
@@ -125,6 +163,7 @@ def build_league(
     eval_only_root: Path,
     weights_source: Path,
     weights_dest: Path,
+    tr_boost: float = 1.0,
 ) -> Path:
     """Seed the league pool and write its manifest; return the manifest path."""
     if dest.exists() and any(dest.iterdir()):
@@ -157,6 +196,7 @@ def build_league(
             "source": str(source_path),
             "role": role,
         }
+    boosted = write_league_team_weights(weights_source, weights_dest, tr_boost)
     manifest_path = _league_root(dest) / "league_manifest.json"
     manifest_path.write_text(
         json.dumps(
@@ -166,13 +206,15 @@ def build_league(
                 "resume_stem": resume_stem,
                 "banned_sha256": banned,
                 "entries": entries,
+                "team_weights": str(weights_dest),
+                "tr_boost": tr_boost,
+                "tr_boosted_teams": boosted,
             },
             indent=1,
             sort_keys=True,
         )
         + "\n"
     )
-    write_league_team_weights(weights_source, weights_dest)
     return manifest_path
 
 
@@ -188,36 +230,52 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         description="Build (and verify) the league fine-tune opponent pool."
     )
-    parser.add_argument("--dest", type=Path, default=DEFAULT_DEST)
+    parser.add_argument("--dest", type=Path, default=None)
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=None,
+        help=(
+            "JSON league description: {dest, resume_stem, sources: {stem: path}, "
+            "weights_source, weights_dest, tr_boost}. Omitted keys fall back to "
+            "the round-1 defaults."
+        ),
+    )
     parser.add_argument(
         "--verify-only",
         action="store_true",
         help="re-run every league check on an existing pool without copying",
     )
     args = parser.parse_args(argv)
+    config = json.loads(args.config.read_text()) if args.config else {}
+    dest = args.dest or Path(config.get("dest", DEFAULT_DEST))
+    sources = {int(k): v for k, v in config.get("sources", DEFAULT_SOURCES).items()}
+    resume_stem = int(config.get("resume_stem", RESUME_STEM))
+    weights_dest = Path(config.get("weights_dest", DEFAULT_WEIGHTS_DEST))
     if args.verify_only:
-        if not args.dest.exists() or not any(args.dest.iterdir()):
-            raise SystemExit(f"nothing to verify: {args.dest} is missing or empty")
-        verify_league_dir(args.dest)
-        if not DEFAULT_WEIGHTS_DEST.exists():
-            raise SystemExit(f"missing {DEFAULT_WEIGHTS_DEST}; rebuild the league")
-        league_weights = json.loads(DEFAULT_WEIGHTS_DEST.read_text())
+        if not dest.exists() or not any(dest.iterdir()):
+            raise SystemExit(f"nothing to verify: {dest} is missing or empty")
+        verify_league_dir(dest)
+        if not weights_dest.exists():
+            raise SystemExit(f"missing {weights_dest}; rebuild the league")
+        league_weights = json.loads(weights_dest.read_text())
         if league_weights.get("our_team.txt") != 0.0:
             raise SystemExit(
-                f"{DEFAULT_WEIGHTS_DEST} does not zero our_team.txt; rebuild it"
+                f"{weights_dest} does not zero our_team.txt; rebuild it"
             )
-        print(f"league pool verified: {args.dest}", flush=True)
+        print(f"league pool verified: {dest}", flush=True)
         return
     manifest_path = build_league(
-        dest=args.dest,
-        sources=DEFAULT_SOURCES,
-        resume_stem=RESUME_STEM,
-        eval_only_root=DEFAULT_EVAL_ONLY_ROOT,
-        weights_source=DEFAULT_WEIGHTS_SOURCE,
-        weights_dest=DEFAULT_WEIGHTS_DEST,
+        dest=dest,
+        sources=sources,
+        resume_stem=resume_stem,
+        eval_only_root=Path(config.get("eval_only_root", DEFAULT_EVAL_ONLY_ROOT)),
+        weights_source=Path(config.get("weights_source", DEFAULT_WEIGHTS_SOURCE)),
+        weights_dest=weights_dest,
+        tr_boost=float(config.get("tr_boost", 1.0)),
     )
-    verify_league_dir(args.dest)
-    print(f"league built: {args.dest}\nmanifest: {manifest_path}", flush=True)
+    verify_league_dir(dest)
+    print(f"league built: {dest}\nmanifest: {manifest_path}", flush=True)
 
 
 if __name__ == "__main__":

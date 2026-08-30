@@ -1,0 +1,18 @@
+{
+  "dest": "results_league2/saves_fp_hs_wt/reg_mb/seed1",
+  "resume_stem": 12779520,
+  "sources": {
+    "100": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "200": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "300": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "7864320": "results_repaired/champion.zip",
+    "8847360": "results_league/saves_fp_hs_wt/reg_mb/seed1/8847360.zip",
+    "9830400": "results_league/saves_fp_hs_wt/reg_mb/seed1/9830400.zip",
+    "10813440": "results_league/saves_fp_hs_wt/reg_mb/seed1/10813440.zip",
+    "11796480": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip",
+    "12779520": "results_league/league_champion.zip"
+  },
+  "weights_source": "data/team_weights_regmb.json",
+  "weights_dest": "data/team_weights_regmb_league2.json",
+  "tr_boost": 3.0
+}

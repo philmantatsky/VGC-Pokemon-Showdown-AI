@@ -1,13 +1,13 @@
 {
- "outcome_value": "results_outcome_v2h/outcome_value.zip",
- "states": 5459,
- "battles": 312,
- "brier": 0.20367640934399817,
- "ece": 0.11663419447906621,
- "mean_p": 0.4197775286972454,
- "base_rate": 0.43029858948525374,
+ "outcome_value": "results_outcome_v1/outcome_value.zip",
+ "states": 7159,
+ "battles": 409,
+ "brier": 0.22183762862604525,
+ "ece": 0.12962085824090808,
+ "mean_p": 0.3897393761474047,
+ "base_rate": 0.45104064813521444,
  "failures": {
   "replay:KeyError": 6,
-  "replay:ValueError": 12
+  "replay:ValueError": 18
  }
 }

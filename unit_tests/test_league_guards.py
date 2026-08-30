@@ -170,3 +170,23 @@ def test_write_league_team_weights_requires_our_team_entry(tmp_path: Path) -> No
     src.write_text(json.dumps({"MB1.txt": 1.0}))
     with pytest.raises(SystemExit, match="no our_team.txt"):
         write_league_team_weights(src, tmp_path / "out.json")
+
+
+def test_tr_boost_multiplies_only_tr_likely_teams(tmp_path: Path) -> None:
+    teams = tmp_path / "teams"
+    teams.mkdir()
+    # Property-derived from the real joint sets: Farigiraf is a dedicated
+    # setter (per-species TR rate ~0.97); Raichu is not.
+    (teams / "tr.txt").write_text("Farigiraf @ Leftovers\nAbility: Armor Tail\n")
+    (teams / "fast.txt").write_text("Raichu @ Focus Sash\nAbility: Static\n")
+    src = tmp_path / "weights.json"
+    src.write_text(
+        json.dumps({"our_team.txt": 35.0, "tr.txt": 10.0, "fast.txt": 10.0})
+    )
+    out = tmp_path / "out.json"
+    boosted = write_league_team_weights(src, out, tr_boost=3.0, teams_dir=teams)
+    weights = json.loads(out.read_text())
+    assert boosted == 1
+    assert weights["tr.txt"] == 30.0
+    assert weights["fast.txt"] == 10.0
+    assert weights["our_team.txt"] == 0.0

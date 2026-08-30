@@ -1,10 +1,11 @@
 {
- "battles_joined": 97,
- "preview_auc": 0.49150596877869607,
- "move_auc": 0.4654124569349282,
- "per_game_preview_auc": 0.48934356351236147,
+ "battles_joined": 178,
+ "preview_auc": 0.4538734476641041,
+ "move_auc": 0.4450218395039577,
+ "per_game_preview_auc": 0.43147656940760387,
  "batches": [
   "ladder_replays/chess_gate_20260822",
+  "ladder_replays_league_canary_20260830",
   "ladder_replays_repairs_20260805_round1",
   "ladder_replays_repairs_20260806_round2",
   "ladder_replays_repairs_20260806_round3",
