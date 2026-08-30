@@ -83,16 +83,23 @@ n=1,500/mode confirmation before accept/reject.
   (champion at 7864320 + 4 lineage + bc_mix_A ×3), `league_manifest.json`,
   `data/team_weights_regmb_league.json`, `run_league_training.sh` (port 7700,
   +5 intervals to 12,779,520 steps).
-- [ ] Live smoke (~10 min, throwaway suffix) proving the wiring end-to-end,
-  then the overnight run (5 candidates; kill criteria at first save:
-  eval/heuristic < 0.80, eval/bc < 0.70, ep_rew_mean ≤ 0, worker deaths).
-- [ ] Screening battery (1,000/arm paired, ≤2 candidates): no arm worse than
-  champion by >4pp AND (Δhuman_bc ≥ +4pp OR weighted ≥ +3pp); mix_A-vs-eval_B
-  divergence diagnostic (>10pp = memorized mix_A, not human play).
-- [ ] Promotion battery (5,000/arm, survivor only): no arm −2pp, weighted
-  ≥ +2pp, AND Δhuman_bc ≥ +2pp on its own.
-- [ ] Ladder rollout per the standing protocol: 10 audited canary games →
-  review → 25 more → extend toward ~100-150 for a claim vs 44.9%/321.
+- [x] Live smoke proved the wiring (155 steps/s, bc_opp_frac live), then the
+  run completed 2026-08-29: 5 checkpoints, first-save criteria passed, four
+  Zoroark parse crashes absorbed without a stall.
+- [x] Screening battery: BOTH candidates passed on five never-trained-against
+  arms (12779520 swept all five, weighted +5.0pp; 11796480 +4.3pp);
+  memorization divergence 2.2pp / 2.1pp vs the 10pp flag — clean.
+- [x] **Promotion battery PASSED (2026-08-30, 25,000 paired battles):**
+  12779520 vs champion — heuristic +4.6, frozen +6.8, rotation1 +4.3,
+  rotation2 +4.2, human holdout +2.5 (standalone bar +2.0). Zero regressing
+  arms; weighted +4.15pp vs the +2.0 bar. Every screening delta replicated at
+  5x the sample. Artifact: `results_league/league_champion.zip`
+  (sha 8cc54b2b…, role production_candidate). First promoted policy candidate
+  in project history; the deployed champion remains untouched.
+- [ ] Ladder rollout per the standing protocol: 10 audited canary games
+  (user-run) → review → 25 more → extend toward ~100-150 for a claim vs
+  44.9%/321. Local evidence has never been this strong, but ladder remains
+  the only arbiter.
 
 
 The repaired champion is immutable. A candidate becomes deployable only after every

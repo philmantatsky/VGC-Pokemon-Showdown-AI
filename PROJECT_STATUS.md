@@ -1,5 +1,35 @@
 # VGC Bot Project Status
 
+## PROMOTION: league candidate 12779520 passes the full battery (August 30, 00:09)
+
+**First promoted policy candidate in project history.** 25,000 paired battles
+(5,000/arm, seed 83, hidden sheets) against five populations neither policy
+ever trained on:
+
+| arm | champion | candidate | delta |
+|---|---|---|---|
+| heuristic | 86.4% | 91.0% | +4.6pp |
+| frozen 64opp | 78.8% | 85.5% | +6.8pp |
+| rotation 8opp | 82.6% | 86.9% | +4.3pp |
+| rotation tuned | 81.4% | 85.5% | +4.2pp |
+| human holdout eval_B | 81.4% | 83.9% | +2.5pp |
+
+All four pre-registered conditions pass: zero arms below champion (bar: none
+< -2pp), weighted +4.15pp (bar >= +2.0), delta-human_bc +2.5pp standalone
+(bar >= +2.0), memorization diagnostic clean (2.2pp divergence vs 10pp flag).
+Every screening delta replicated at 5x the sample -- the signature of a real
+effect, not selection noise. Artifact: `results_league/league_champion.zip`
+(copy of the 12779520 checkpoint; sha 8cc54b2b...; stamped
+role=production_candidate). `results_repaired/champion.zip` remains deployed
+and untouched.
+
+**Next per the standing rollout protocol: a 10-game audited ladder canary**
+(user-run, serial) with `--checkpoint results_league/league_champion.zip`,
+then loss review, then 25 more, then ~100-150 games for a real claim against
+the 44.9%/321 baseline. The 2026-08 diagnosis said the sim-to-ladder gap is
+opponent distribution; this candidate was built by closing exactly that gap
+in training, and the ladder canary is the hypothesis' first live test.
+
 ## League fine-tune: BOTH candidates pass screening -- first gate passes in project history (August 29, evening)
 
 The overnight league run (champion weights continued for +4.9M steps vs a pool
