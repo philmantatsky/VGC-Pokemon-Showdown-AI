@@ -1,5 +1,38 @@
 # VGC Bot Project Status
 
+## Post-promotion loss analysis -> Zoroark fix shipped + league round 2 (TR curriculum) launched (August 30, midday)
+
+Full-instrument pass over the new brain's 100 games:
+
+- **Mechanical blunders are gone.** Immunity-blocked moves: 15 across 55 wins
+  vs 18 across 45 losses -- near-even and rare; zero timer losses; guards and
+  rerankers in normal ranges. Nothing left to hand-patch at the move level.
+- **Zoroark parse crash FIXED** (`vgc_bench/src/pokeenv_patches.py`): the
+  shim now swallows exactly the Illusion team-overflow ValueError (counted,
+  reported); all other ValueErrors still propagate. Scope test extended
+  (`test_pokeenv_patches.py`). This was the last known battle-stalling bug.
+- **Config-split of the canary corpus:** TR-likely matchups are FIXED --
+  49% (23/47) vs the old bot's 36.6%, at human level (48.2%). The residual
+  strategic hole is games where TR actually gets set: 32% (6/19), vs humans'
+  ~42% in the same spot. The brain also reorganized its own preview: it now
+  leads charizard+garchomp half the time (57% WR) where the old bot favored
+  charizard+floetteeternal.
+- **Confidence is still anti-calibrated** (chosen-action probability HIGHER
+  in losses; AUC 0.445-0.454) -- unchanged pathology, still no free lunch
+  from confidence-gated interventions.
+- Value-net ladder Brier drifted to 0.2218 on the mixed-config corpus (it
+  models the old champion; not deployed; retrain before any future
+  search/counterfactual use).
+
+**League round 2 launched 12:10** from the promoted checkpoint with a
+property-derived TR curriculum: `build_league.py --config league2_config.json`
+boosts P(TR)>=0.6 team weights x3 (72% of training mass; no species
+hardcoding). Pool: promoted brain (resume at 12,779,520) + its round-1
+history + the OLD champion + bc_mix_A x3; +5 intervals to 17,694,720. Same
+battery gates; all five arms remain never-trained-against. Pre-registered
+expectation: the TR-pool diagnostic and TR-set ladder split improve without
+any arm regressing.
+
 ## PROMOTED ON LADDER: 55-45 over 100 audited games -- the first deployed-behavior improvement in project history (August 30)
 
 The league fine-tune candidate completed the pre-registered 100-game ladder
