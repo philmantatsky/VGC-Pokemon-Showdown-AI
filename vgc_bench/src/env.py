@@ -105,6 +105,13 @@ class ShowdownEnv(DoublesEnv):
         Returns:
             Wrapped Gymnasium environment ready for training.
         """
+        # Training workers parse the same battle stream as live play and hit the
+        # same unsurvivable poke-env gaps (observed: Zoroark Illusion overflow,
+        # 4x in league round 1, 2x in round 2). Install the parse shim in every
+        # worker; it is idempotent and counts what it swallows.
+        from vgc_bench.src import pokeenv_patches
+
+        pokeenv_patches.install()
         toggle = None if allow_mirror_match else TeamToggle()
         if reg is None:
             battle_format = format_map[get_available_regs()[0]]
