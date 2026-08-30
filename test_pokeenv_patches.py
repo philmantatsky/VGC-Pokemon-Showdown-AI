@@ -1,8 +1,10 @@
-"""The poke-env parse shim must swallow KeyError and nothing else.
+"""The poke-env parse shim must swallow exactly the two observed unsurvivable
+failures and nothing else.
 
 Scope is the whole point of this shim. Too narrow and the battle still stalls; too
 broad and it hides real breakage while quietly corrupting battle state. So: KeyError
-swallowed and counted, every other exception still propagates.
+and the Illusion team-overflow ValueError swallowed and counted; every other
+exception still propagates.
 """
 
 from poke_env.battle.abstract_battle import AbstractBattle
@@ -27,6 +29,11 @@ def fake_parse(self, split_message):
     kind = split_message[1]
     if kind == "boom-key":
         raise KeyError("round")  # the observed ladder failure
+    if kind == "boom-illusion":
+        raise ValueError(  # the observed league-training failure (Zoroark)
+            "p2's team already has 4 pokemons: cannot add p2: Zoroark to "
+            "p2: Audino, p2: Overqwil, p2: Malamar, p2: Zoroark-Hisui"
+        )
     if kind == "boom-other":
         raise ValueError("something genuinely broken")
     raised.append(kind)
@@ -65,15 +72,28 @@ check(
 )
 check("report names it", "boom-key:'round'" in P.report(), True)
 
-print("3. other exceptions must STILL propagate")
+print("3. the Illusion team-overflow ValueError is swallowed, not raised")
+try:
+    out = AbstractBattle.parse_message(Stub(), ["", "boom-illusion", "p1b: Y"])
+    check("returns None instead of raising", out, None)
+except ValueError:
+    check("returns None instead of raising", "raised ValueError", None)
+check("counted once", sum(P.PARSE_ERRORS.values()), 2)
+check(
+    "counted under the illusion label",
+    P.PARSE_ERRORS["boom-illusion:illusion_team_overflow"],
+    1,
+)
+
+print("4. other exceptions must STILL propagate")
 try:
     AbstractBattle.parse_message(Stub(), ["", "boom-other", "p1a: X"])
     check("ValueError propagates", "swallowed", "raised")
 except ValueError:
     check("ValueError propagates", "raised", "raised")
-check("and is not counted as a parse error", sum(P.PARSE_ERRORS.values()), 1)
+check("and is not counted as a parse error", sum(P.PARSE_ERRORS.values()), 2)
 
-print("4. abilities revealed by |cant| survive the upstream parser gap")
+print("5. abilities revealed by |cant| survive the upstream parser gap")
 
 
 class Mon:

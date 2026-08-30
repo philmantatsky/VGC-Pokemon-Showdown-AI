@@ -13,10 +13,22 @@ It happens when a move is used through an effect that overrides it (Sleep Talk,
 Copycat, Metronome, Dancer, Instruct) and the overridden move is not in the tracked
 moveset. Real Showdown sends this; poke-env assumes it cannot.
 
-Scope is deliberately narrow -- only KeyError, only around parse_message. Swallowing a
-message leaves that one update unapplied, which is a small, local inaccuracy; letting
-it raise loses the entire battle. Every swallow is counted so this stays visible
-rather than becoming silent damage: call `report()` at the end of a run.
+A second unsurvivable case surfaced during league training (2026-08-29), four times
+against one Zoroark-Hisui roster:
+
+    abstract_battle.py:306  get_pokemon("p2: Zoroark")
+    ValueError: p2's team already has 4 pokemons: cannot add p2: Zoroark to ...
+
+Illusion reveals a species name that was never registered at Team Preview, and
+poke-env's bring-4 bookkeeping refuses to add a "fifth" member mid-battle. The
+message reaching that path is minor bookkeeping (Pressure PP accounting on a target
+reference), but the raise kills the message-handler task and stalls the battle.
+
+Scope is deliberately narrow -- KeyError, plus ONLY the team-overflow ValueError
+signature, only around parse_message. Swallowing a message leaves that one update
+unapplied, which is a small, local inaccuracy; letting it raise loses the entire
+battle. Every swallow is counted so this stays visible rather than becoming silent
+damage: call `report()` at the end of a run.
 """
 
 from __future__ import annotations
@@ -45,6 +57,14 @@ def install() -> bool:
             # recurring parser gap from a one-off without logging battle contents.
             kind = split_message[1] if len(split_message) > 1 else "?"
             PARSE_ERRORS[f"{kind}:{exc}"] += 1
+            return None
+        except ValueError as exc:
+            # Only the Illusion signature: an unregistered revealed name makes
+            # get_pokemon refuse a "fifth" team member. Anything else propagates.
+            if "team already has" not in str(exc):
+                raise
+            kind = split_message[1] if len(split_message) > 1 else "?"
+            PARSE_ERRORS[f"{kind}:illusion_team_overflow"] += 1
             return None
         # poke-env treats every |cant| message as only "the actor could not move".
         # Showdown also uses it to reveal the defender's blocking ability:
