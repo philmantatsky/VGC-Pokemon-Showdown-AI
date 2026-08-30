@@ -284,9 +284,16 @@ did not improve held-out action ranking. A later battle evaluation was paused at
 - [x] Per-battle results/replays and per-turn exact audits
 - [x] Automatic loss, fallback, timeout, tactical, and latency review artifact
 - [x] New deployment manifest that never overwrites the repaired champion
-- [ ] Selected candidate passes 500 paired-seed battles in all three modes
+- [x] Selected candidate passes 500 paired-seed battles in all three modes
+  (superseded by the stronger 5-arm/25,000-battle league promotion battery,
+  2026-08-30)
 - [x] Ten serial ladder games with full audits
 - [x] Every ladder loss/fallback/timeout reviewed
-- [ ] Twenty-five additional serial ladder games
-- [ ] Fixed-team candidate promoted
+- [x] Twenty-five additional serial ladder games (extended to 90 more)
+- [x] **Fixed-team candidate PROMOTED (2026-08-30): 55-45 over 100 audited
+  ladder games** (Wilson95 [45.2, 64.4]; z=2.03 vs the 44.9%/321 baseline,
+  one-sided p=0.021; first-faint-ours 34% vs 52.5%; zero timer losses, zero
+  parse errors). Deployed ladder checkpoint:
+  `results_league/league_champion.zip` via explicit `--checkpoint`;
+  `results_repaired/champion.zip` remains the immutable prior champion.
 - [ ] Generalization beyond the fixed team begins

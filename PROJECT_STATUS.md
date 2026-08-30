@@ -1,5 +1,40 @@
 # VGC Bot Project Status
 
+## PROMOTED ON LADDER: 55-45 over 100 audited games -- the first deployed-behavior improvement in project history (August 30)
+
+The league fine-tune candidate completed the pre-registered 100-game ladder
+read: **55-45 (55.0%), Wilson95 [45.2, 64.4], z=2.03 vs the 44.9%/321
+baseline (one-sided p=0.021)**. Mechanically spotless across all 100: zero
+timer losses, zero poke-env parse errors, one Zoroark-roster game without
+incident. **First faint ours: 34/100 (34%) vs the historical 52.5%** -- the
+opening-exchange fix the whole diagnosis pointed at, confirmed at scale on
+real ladder.
+
+Honest calibration: the CI lower bound (45.2) sits just above the old point
+estimate, so this is a pass of the pre-registered bar, not an overwhelming
+one; continued accumulation tightens it and the corpus now feeds the
+calibration instruments (421 total audited games across both configs).
+
+**Deployment: `results_league/league_champion.zip` is now the ladder
+checkpoint** (explicit `--checkpoint` invocation; sha 8cc54b2b, stamped
+production_candidate -> production). `results_repaired/champion.zip` remains
+untouched as the immutable prior champion and local baseline arm.
+
+The arc that got here, in one paragraph: the 2026-08 diagnosis said the
+~40pp sim-to-ladder gap was opponent distribution -- the policy had never
+trained against human-like play. The fix was exactly that: fictitious-play
+fine-tune of the champion's own weights against a pool seeded 3/8 with the
+human-BC policy (bc_mix_A), gated by a 5-arm battery of never-trained-against
+populations (screening n=1,000, promotion n=5,000, memorization diagnostic),
+then the standard ladder rollout. Every stage passed on the first attempt.
+
+**Next:** keep accumulating ladder games (target 150+ for a tighter read and
+per-Elo-bin analysis); rerun `tools/analyze_ladder_previews.py` and
+`calibrate_vs_ladder.py` on the new corpus; fix the Zoroark parse
+vulnerability (chip open); then the last unchecked goal -- generalization
+beyond the fixed team -- and/or a second league round from the new
+checkpoint (the loop is now proven and repeatable).
+
 ## Ladder rollout at 35 games: 20-15 (57.1%), clean; running to the 100-game threshold (August 30, morning)
 
 Canary 5-5 plus extension 15-10 = **20-15 over 35 audited serial games**
