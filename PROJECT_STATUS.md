@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## Ladder rollout at 35 games: 20-15 (57.1%), clean; running to the 100-game threshold (August 30, morning)
+
+Canary 5-5 plus extension 15-10 = **20-15 over 35 audited serial games**
+(+12.2pp over the 44.9%/321 baseline; one-sided p ~= 0.07 -- suggestive, not
+yet a claim; the pre-registered threshold is ~100-150 games). Between-batch
+review clean again: zero parse errors, zero timer losses on our side, one
+Zoroark-roster game passed without incident (normal loss, no parse damage).
+**First faint ours: 11/35 (31%) vs the historical 52.5%** -- the
+opening-exchange transformation holds at the larger sample. A 65-game batch
+is running to land the corpus at exactly 100 games for the first
+claim-grade read.
+
 ## Ladder canary: 5-5, mechanically CLEAN, first-faint rate transformed; 25-game extension running (August 30, 00:51)
 
 The promoted league candidate played its first 10 real ladder games
