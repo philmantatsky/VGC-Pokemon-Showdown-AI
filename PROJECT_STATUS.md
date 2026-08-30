@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## Ladder canary: 5-5, mechanically CLEAN, first-faint rate transformed; 25-game extension running (August 30, 00:51)
+
+The promoted league candidate played its first 10 real ladder games
+(serial, audited, `ladder_replays_league_canary_20260830/`, run_config.json
+verified -- the Stage-A instrumentation's first live corpus). Record 5-5.
+
+**Mechanical review: clean on every check.** Zero poke-env parse errors
+(patch report), zero tracebacks, zero Zoroark encounters (the known parse
+bug remains live-untested; fix chip open), no timer losses (the two
+inactivity flags were OPPONENTS forfeiting -- both wins for us), normal
+guard/reranker activity (91 decisions, guaranteed_ko x7, rerankers engaged).
+
+**Loss shape moved exactly where the diagnosis predicted.** First faint was
+ours in only 2/10 games vs the historical 52.5% -- the opening exchange,
+identified in the 2026-08 diagnosis as where games are decided and where the
+stack was thinnest, is the thing the league fine-tune visibly changed.
+Conversion after taking the first KO matched history (5/8 = 62.5% vs 63.6%),
+and both first-faint-ours games were losses (historical 25.6%). n=10 decides
+nothing about win rate; the canary's job was "did anything break" and the
+answer is no.
+
+**Extension to 25 more games launched 00:51** (same config, same dir; 35
+total when done). Per the standing protocol the next read happens there;
+~100-150 games needed for any claim against the 44.9%/321 baseline.
+
 ## PROMOTION: league candidate 12779520 passes the full battery (August 30, 00:09)
 
 **First promoted policy candidate in project history.** 25,000 paired battles
