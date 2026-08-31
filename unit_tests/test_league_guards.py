@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pytest
 
-from build_league import (
+from training.build_league import (
     build_league,
     check_source,
     collect_banned_shas,

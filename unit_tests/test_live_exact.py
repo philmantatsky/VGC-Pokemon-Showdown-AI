@@ -6,6 +6,10 @@ from types import SimpleNamespace
 import pytest
 from poke_env.battle import SideCondition
 
+from evaluation.verify_live_parity import (
+    _canonical_private_targets,
+    _private_target_counter,
+)
 from vgc_bench.src.exact_observation import (
     _stale_branch_move_conflict,
     choice_to_actions,
@@ -29,18 +33,14 @@ from vgc_bench.src.live_exact import (
     observed_opponent_actions,
 )
 from vgc_bench.src.live_snapshot import (
-    apply_public_snapshot,
     _public_effect_move,
     _public_item,
     _public_move_state,
+    apply_public_snapshot,
     public_snapshot,
 )
 from vgc_bench.src.ponder import PonderOutcome
 from vgc_bench.src.set_particles import SetParticle, TeamSlot
-from verify_live_parity import (
-    _canonical_private_targets,
-    _private_target_counter,
-)
 
 ROOT = Path(__file__).resolve().parents[1]
 FORMAT = "gen9championsvgc2026regmb"

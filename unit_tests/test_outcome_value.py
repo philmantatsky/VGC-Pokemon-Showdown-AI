@@ -5,8 +5,8 @@ from types import SimpleNamespace as NS
 import numpy as np
 import pytest
 
-from generate_outcome_dataset import _sample_rows
-from train_outcome_value import _split
+from datagen.generate_outcome_dataset import _sample_rows
+from training.train_outcome_value import _split
 from vgc_bench.src.exact_planner import ExactNode
 from vgc_bench.src.outcome_value import (
     OutcomeValueEvaluator,

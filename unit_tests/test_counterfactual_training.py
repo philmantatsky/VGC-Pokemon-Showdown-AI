@@ -3,8 +3,8 @@ from types import SimpleNamespace as NS
 import pytest
 import torch
 
-from train_counterfactual import joint_log_prob, planner_confidence
-from train_residual_ranker import _select_gate_threshold
+from training.train_counterfactual import joint_log_prob, planner_confidence
+from training.train_residual_ranker import _select_gate_threshold
 
 
 def test_planner_confidence_ignores_ties_and_weights_clear_preferences():
@@ -106,8 +106,8 @@ def test_dataset_normalizes_candidate_width_across_chunks(tmp_path):
     import numpy as np
     from torch.utils.data import DataLoader
 
-    from generate_counterfactuals import _save_chunk
-    from train_counterfactual import CounterfactualDataset
+    from datagen.generate_counterfactuals import _save_chunk
+    from training.train_counterfactual import CounterfactualDataset
 
     def example(candidates: int) -> dict:
         return {

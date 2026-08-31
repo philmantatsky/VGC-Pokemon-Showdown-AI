@@ -31,6 +31,16 @@ include = ["vgc_bench"]
 line-length = 88
 extend-exclude = ["pokemon-showdown"]
 
+[tool.ruff.lint.per-file-ignores]
+# Folder scripts bootstrap the repo root onto sys.path before their project
+# imports (same pattern as tools/analyze_ladder_previews.py), so imports
+# legitimately follow code there.
+"training/*.py" = ["E402"]
+"evaluation/*.py" = ["E402"]
+"datagen/*.py" = ["E402"]
+"tools/*.py" = ["E402"]
+"checks/*.py" = ["E402"]
+
 [tool.ruff.format]
 skip-magic-trailing-comma = true
 

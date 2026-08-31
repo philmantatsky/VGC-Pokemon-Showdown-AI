@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 
-from run_rollout_gate import _audit_fallbacks, _valid_result
+from evaluation.run_rollout_gate import _audit_fallbacks, _valid_result
 
 
 def test_rollout_result_requires_schema_and_matching_residual(tmp_path):

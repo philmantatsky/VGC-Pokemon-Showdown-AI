@@ -24,8 +24,20 @@ The bot plays on the official Showdown server as
 - **Watch it play:** [recent replays](https://replay.pokemonshowdown.com/?user=antonius1)
   · [ladder profile & rating](https://pokemonshowdown.com/users/antonius1)
 
-(Owner: host a challenge session with
-`python ladder_ourteam.py --checkpoint results_league/league_champion.zip --challenges --n_games 5 --replay_dir ladder_replays_challenges`.)
+(Owner: `./exhibition_mode.sh` keeps the bot online accepting challenges
+whenever the machine is idle, yielding automatically to training and
+evaluation jobs.)
+
+## Repository layout
+
+- `ladder_ourteam.py` — the deployed agent's entry point (ladder + challenges)
+- `training/` — league construction, PPO fine-tune launchers, model trainers
+- `evaluation/` — gate batteries, paired battle evals, benchmarks
+- `datagen/` — dataset builders, replay scraping, counterfactual generation
+- `tools/` — ladder audits, calibration instruments, artifact stamping
+- `checks/` — manual verification scripts (parity, guards, observations)
+- `unit_tests/`, `integration_tests/` — the pytest suite
+- `vgc_bench/` — the core library (players, envs, search, policies)
 
 ## Built on VGC-Bench
 

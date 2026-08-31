@@ -7,7 +7,6 @@ from vgc_bench.src.opponent_preview import PreviewPlan
 from vgc_bench.src.policy_player import PolicyPlayer
 from vgc_bench.src.preview_outcome import PreviewOutcomeNet, PreviewOutcomePredictor
 
-
 OUR_TEAM = (
     "floetteeternal",
     "charizard",

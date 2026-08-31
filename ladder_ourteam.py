@@ -55,7 +55,7 @@ def resolve_knowledge_obs(explicit: bool | None, ckpt: Path, ckpt_sha: str) -> b
             f"{sidecar} was stamped for a different file "
             f"(sha256 {sidecar_meta['sha256'][:12]}... vs {ckpt_sha[:12]}...).\n"
             f"The checkpoint changed since stamping; restamp it:\n"
-            f"  .venv/bin/python stamp_checkpoint_metadata.py '{ckpt}'"
+            f"  .venv/bin/python tools/stamp_checkpoint_metadata.py '{ckpt}'"
         )
     sidecar_requires = sidecar_meta.get("requires_knowledge_obs")
     if explicit is None:
@@ -64,7 +64,7 @@ def resolve_knowledge_obs(explicit: bool | None, ckpt: Path, ckpt_sha: str) -> b
                 f"knowledge_obs is unresolved for {ckpt}.\n"
                 f"No {sidecar.name} sidecar exists and neither --knowledge_obs nor "
                 "--no_knowledge_obs was passed. Stamp the checkpoint once:\n"
-                f"  .venv/bin/python stamp_checkpoint_metadata.py '{ckpt}'\n"
+                f"  .venv/bin/python tools/stamp_checkpoint_metadata.py '{ckpt}'\n"
                 "or pass the flag explicitly."
             )
         return bool(sidecar_requires)

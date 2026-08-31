@@ -4,7 +4,10 @@ from types import SimpleNamespace as NS
 
 import pytest
 
-from generate_counterfactuals import _initialise_manifest, _preview_plan_or_fallback
+from datagen.generate_counterfactuals import (
+    _initialise_manifest,
+    _preview_plan_or_fallback,
+)
 from vgc_bench.src.exact_planner import DeterminizationBudgetExhausted
 
 
@@ -84,7 +87,7 @@ def test_save_chunk_survives_a_zero_candidate_example(tmp_path):
     """
     import numpy as np
 
-    from generate_counterfactuals import _save_chunk
+    from datagen.generate_counterfactuals import _save_chunk
 
     def example(candidates: int) -> dict:
         return {

@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from run_counterfactual_pipeline import _score_evaluations
+from training.run_counterfactual_pipeline import _score_evaluations
 
 
 def _write_mode(tmp_path, mode, champion, distilled, preview=None):
