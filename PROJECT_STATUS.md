@@ -1,5 +1,29 @@
 # VGC Bot Project Status
 
+## League round 2: NULL -- both candidates rejected at screening; deployed brain unchanged (August 31, 01:00)
+
+Verdict by the pre-registered bars, baseline = the deployed league champion:
+
+- 17694720 (final ckpt): general arms -2.0 / -0.4 / -1.2 / -0.6 / +0.9
+  (weighted -0.7), memorization clean (-1.9 vs mix_A), and the decisive
+  **TR-pool arm +0.9pp vs the +4.0 advance bar**. Fails.
+- 16711680: all arms negative, rotation-tuned -6.7pp breaches the -4
+  tolerance outright. Fails.
+
+Reading: the TR curriculum at x3 boost (72% of training mass) bought no
+measurable TR-pool gain and taxed general play slightly -- consistent with
+round 1 having harvested the big distribution-shift win and the marginal
+return now being small. One caveat recorded for future rounds: the TR-pool
+arm is a PPO opponent piloting TR teams, which sets and exploits the room
+far less than humans do, so it is a weak local proxy for the ladder TR-set
+split (6/19 = 32%); any future TR attempt should gate on a better instrument
+(e.g. a TR-executing scripted arm, or directly on ladder TR-set games).
+
+Cost of the null: one overnight of idle compute + one battery night. The
+deployed brain was never at risk. Per the user's standing order, a 25-game
+ladder batch launches on the deployed champion when the chain drains, and
+the full analysis digest follows.
+
 ## League 2 complete; screening running vs the DEPLOYED brain (August 30, 21:20)
 
 Run finished on schedule (5 checkpoints to 17,694,720; 8 absorbed known-class
