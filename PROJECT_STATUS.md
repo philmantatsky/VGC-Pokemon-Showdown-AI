@@ -1,5 +1,28 @@
 # VGC Bot Project Status
 
+## League 2 complete; screening running vs the DEPLOYED brain (August 30, 21:20)
+
+Run finished on schedule (5 checkpoints to 17,694,720; 8 absorbed known-class
+parse crashes, both classes now shim-fixed for future runs). The curriculum
+visibly bit: eval/heuristic on the TR-heavy slate rose 0.79 -> 0.90 (ckpt 3)
+and eval/bc finished at its best (0.82). Candidates: 17694720 (0.85/0.82) and
+16711680 (0.86/0.81).
+
+**Baseline for all round-2 gates is `results_league/league_champion.zip`**
+(the deployed brain), not the old champion. Screening chain launched 21:20:
+both candidates x 5 arms (n=1,000 paired), mix_A memorization diagnostic, and
+the pre-registered **TR-pool diagnostic** (64opp frozen opponent with the
+TR-boosted league-2 team weights -- the slice this round exists to improve).
+
+**Pre-registered bars (written before any result):**
+- Screening advance: no arm below baseline by >4pp AND (weighted >= +3pp OR
+  TR-pool delta >= +4pp).
+- Promotion (5,000/arm): no arm below baseline by >2pp, TR-pool delta >= +3pp,
+  weighted >= 0 -- a TR-specialist upgrade is acceptable ONLY if nothing else
+  pays for it.
+- Ladder confirmation focus: the TR-set split (was 6/19 = 32%) plus overall
+  non-regression vs 55/100.
+
 ## Post-promotion loss analysis -> Zoroark fix shipped + league round 2 (TR curriculum) launched (August 30, midday)
 
 Full-instrument pass over the new brain's 100 games:
