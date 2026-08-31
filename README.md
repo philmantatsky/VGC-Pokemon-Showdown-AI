@@ -1,17 +1,45 @@
-# VGC-Bench
+# VGC Pokémon Showdown AI
 
-[![CI](https://github.com/cameronangliss/vgc-bench/actions/workflows/tests.yml/badge.svg)](https://github.com/cameronangliss/vgc-bench/actions/workflows/tests.yml)
-[![Python 3.10‒3.14](https://img.shields.io/badge/python-3.10%E2%80%933.14-blue)](https://github.com/cameronangliss/vgc-bench)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![arXiv](https://img.shields.io/badge/arXiv-2506.10326-b31b1b)](https://arxiv.org/abs/2506.10326)
+A reinforcement-learning agent that plays competitive VGC doubles (Regulation
+M-B) on the real Pokémon Showdown ladder. The policy is a PPO transformer
+fine-tuned with fictitious play against a league that includes a
+human-imitation model cloned from ~14,000 top-player games; candidates earn
+deployment by surviving 25,000-battle gate batteries against opponent
+populations they never trained on, a memorization check against a held-out
+human model, and audited live-ladder rollouts. Its first 100 ranked games:
+**55-45, peaking at 1365 Elo** — beating the previous generation's lifetime
+peak within its first session.
 
-This is the official code for [VGC-Bench: Towards Mastering Diverse Team Strategies in Competitive Pokémon](https://arxiv.org/abs/2506.10326).
+## ⚔️ Face the bot
 
-This benchmark includes:
-- multi-agent reinforcement learning (RL) with 4 Policy Space Response Oracle (PSRO) algorithms to fine-tune an agent initialized either randomly or with the output of the BC pipeline
-- a behavior cloning (BC) pipeline to gather human demonstrations, process them into state-action pairs, and train a model to imitate human play
-- a basic Large Language Model (LLM) player that any LLM can easily be plugged into
-- 3 heuristic players from [poke-env](https://github.com/hsahovic/poke-env)
+The bot plays on the official Showdown server as
+[**antonius1**](https://pokemonshowdown.com/users/antonius1), format
+**[Gen 9] Champions VGC 2026 Reg M-B**.
+
+- **Challenge it:** open [play.pokemonshowdown.com](https://play.pokemonshowdown.com),
+  click *Find a user*, type `antonius1`, and send a challenge in the Reg M-B
+  format. It accepts automatically whenever a session is live — it runs on a
+  laptop, not a server farm, so if it's offline, try again later or watch a
+  replay instead.
+- **Watch it play:** [recent replays](https://replay.pokemonshowdown.com/?user=antonius1)
+  · [ladder profile & rating](https://pokemonshowdown.com/users/antonius1)
+
+(Owner: host a challenge session with
+`python ladder_ourteam.py --checkpoint results_league/league_champion.zip --challenges --n_games 5 --replay_dir ladder_replays_challenges`.)
+
+## Built on VGC-Bench
+
+The training and evaluation framework underneath is
+[VGC-Bench](https://github.com/cameronangliss/vgc-bench)
+([paper](https://arxiv.org/abs/2506.10326)) by Cameron Angliss, extended here
+with the league fine-tuning pipeline, content-verified opponent pools, exact
+game-tree search over the bundled simulator, opponent/tempo rerankers, a
+calibrated outcome value net, ladder audit instrumentation, and the gate
+battery that decides what ships. Framework capabilities include PSRO-style
+multi-agent RL, a behavior-cloning pipeline over human demonstrations, an LLM
+player, and heuristic baselines from
+[poke-env](https://github.com/hsahovic/poke-env). Setup instructions below
+are the framework's.
 
 # 🛠️ Setup
 Prerequisites:
