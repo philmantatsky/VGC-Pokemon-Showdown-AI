@@ -1,5 +1,23 @@
 # VGC Bot Project Status
 
+## Ladder corpus at 125 games: 66-59 (52.8%), new Elo peak 1407 (August 31, ~05:45)
+
+The standing-order 25-game batch (deployed champion) ran 11-14 -- a cold
+batch after a 7-3 start (last 15: 4-11). Cumulative: **66-59 = 52.8%,
+Wilson95 [44.1, 61.3], one-sided p=0.038 vs the 44.9%/321 baseline** --
+still above, softened from the n=100 read (55.0%); the true rate is
+plausibly low-50s. **New all-time Elo peak: 1407** (mid-batch; prior peak
+1365, old-bot lifetime 1318); ended the batch ~1281 after the cold stretch.
+
+Mechanical: zero timer losses, zero parse errors (the Zoroark shim's first
+live outing -- nothing to swallow this batch). First-faint-ours crept to
+39% cumulative (34% at n=100; still far below the old 52.5%). TR-set split
+now 7/20 = 35% -- the hole round 2 failed to fix locally persists on
+ladder, at ~16% incidence.
+
+Next: repo reorganization + exhibition (challenge-listener) mode per user
+requests, both queued for this idle window.
+
 ## League round 2: NULL -- both candidates rejected at screening; deployed brain unchanged (August 31, 01:00)
 
 Verdict by the pre-registered bars, baseline = the deployed league champion:
