@@ -299,6 +299,15 @@ if __name__ == "__main__":
         "--team2", type=str, default="", help="team 2 string for matchup solving"
     )
     parser.add_argument(
+        "--opponent_team",
+        type=str,
+        default="",
+        help=(
+            "lock the OPPONENT side (agent2) to this team file; used by exploiter"
+            " probes so the fixed target plays its deployment roster"
+        ),
+    )
+    parser.add_argument(
         "--knowledge_obs",
         action="store_true",
         help=(
