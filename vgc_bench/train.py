@@ -44,6 +44,7 @@ def train(
     target_kl: float | None = None,
     hidden_sheet_prob: float = 0.0,
     team_weights: str | None = None,
+    opponent_team: str | None = None,
 ):
     """
     Train a Pokemon VGC policy using reinforcement learning.
@@ -86,6 +87,13 @@ def train(
     our_team_paths = [Path(our_team)] if our_team else None
     if our_team_paths:
         assert our_team_paths[0].exists(), f"--our_team not found: {our_team}"
+    # Exploiter probes lock the TARGET's roster instead (agent2, the fixed -1
+    # opponent) so the champion gets attacked in its deployment seat.
+    opponent_team_paths = [Path(opponent_team)] if opponent_team else None
+    if opponent_team_paths:
+        assert opponent_team_paths[0].exists(), (
+            f"--opponent_team not found: {opponent_team}"
+        )
     team_weights_path = Path(team_weights) if team_weights else None
     if team_weights_path:
         assert team_weights_path.exists(), f"--team_weights not found: {team_weights}"
@@ -104,6 +112,7 @@ def train(
             our_team_paths,
             hidden_sheet_prob,
             team_weights_path,
+            opponent_team_paths,
         )
         if learning_style == LearningStyle.PURE_SELF_PLAY
         else SubprocVecEnv(
@@ -122,6 +131,7 @@ def train(
                     our_team_paths,
                     hidden_sheet_prob,
                     team_weights_path,
+                    opponent_team_paths,
                 )
                 for _ in range(num_envs)
             ]
@@ -432,4 +442,5 @@ if __name__ == "__main__":
         target_kl=args.target_kl,
         hidden_sheet_prob=args.hidden_sheet_prob,
         team_weights=args.team_weights or None,
+        opponent_team=args.opponent_team or None,
     )

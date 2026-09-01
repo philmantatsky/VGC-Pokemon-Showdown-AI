@@ -74,6 +74,7 @@ class ShowdownEnv(DoublesEnv):
         our_team_paths: list[Path] | None = None,
         hidden_sheet_prob: float = 0.0,
         team_weights_path: Path | None = None,
+        opponent_team_paths: list[Path] | None = None,
     ) -> Env:
         """
         Factory method to create a properly wrapped training environment.
@@ -117,8 +118,20 @@ class ShowdownEnv(DoublesEnv):
             battle_format = format_map[get_available_regs()[0]]
         else:
             battle_format = format_map[reg]
-        opp_builder = RandomTeamBuilder(
-            run_id, num_teams, reg, team_paths, toggle, weights_path=team_weights_path
+        opp_builder = (
+            # Lock agent2 to a fixed roster: an exploiter probe needs its target
+            # in the deployment seat (champion on our team), which our_team_paths
+            # alone cannot express (it locks agent1, the learner).
+            RandomTeamBuilder(run_id, 1, reg, opponent_team_paths, None)
+            if opponent_team_paths
+            else RandomTeamBuilder(
+                run_id,
+                num_teams,
+                reg,
+                team_paths,
+                toggle,
+                weights_path=team_weights_path,
+            )
         )
         our_builder = (
             RandomTeamBuilder(run_id, 1, reg, our_team_paths, None)
@@ -139,11 +152,20 @@ class ShowdownEnv(DoublesEnv):
             hidden_sheet_prob=hidden_sheet_prob,
             sheet_seed=run_id,
         )
-        if our_builder is not None:
+        if our_builder is not None or opponent_team_paths:
             # Stashed on the env so they survive pickling into subprocess workers;
             # __setstate__ below re-applies them, because poke-env's own __setstate__
             # rebuilds both agents from self._team and would silently drop this.
-            env._our_builder = our_builder
+            # When only agent2 is locked, agent1 gets its own pool builder instance
+            # (reset() asserts the two sides never share a builder).
+            env._our_builder = our_builder or RandomTeamBuilder(
+                run_id,
+                num_teams,
+                reg,
+                team_paths,
+                toggle,
+                weights_path=team_weights_path,
+            )
             env._opp_builder = opp_builder
             env._apply_per_agent_teams()
         if learning_style == LearningStyle.PURE_SELF_PLAY:
@@ -162,12 +184,11 @@ class ShowdownEnv(DoublesEnv):
             return env
 
     def _apply_per_agent_teams(self) -> None:
-        """Lock agent1 to our team and agent2 to the opponent pool."""
+        """Lock each agent to its stashed builder (either side may be fixed)."""
         our_builder = self._our_builder
         opp_builder = self._opp_builder
-        if our_builder is None:
+        if our_builder is None or opp_builder is None:
             return
-        assert opp_builder is not None
         self.agent1._team = our_builder
         self.agent2._team = opp_builder
 
