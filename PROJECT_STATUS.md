@@ -1,5 +1,22 @@
 # VGC Bot Project Status
 
+## Exploiter probe PAUSED by the user at 4/5 checkpoints (September 1, ~10:20)
+
+The corrected exploiter (target = champion locked to our roster via the new
+--opponent_team; learner from the pool) crossed from losing (-0.1..-0.2) to
+consistently beating the champion at home (ep_rew +0.06..+0.22, ~55-60% WR)
+by interval 4 -- **exploitable leaks confirmed in-training**. Checkpoints
+13762560..16711680 banked in results_exploiter/saves_ex_hs_wt/reg_mb/seed1/.
+Paused ~713k steps short of completion. Resume = relaunch
+training/run_exploiter_training.sh (resumes from 16711680, ~2h); the banked
+checkpoints are already measurable meanwhile. Do not resume without the
+user's word. Queued after resume/verdict: the n=1,000 exploit measurement,
+exploiter replay analysis, and the evaluator retrain.
+
+Also recorded from the aborted first attempt: with pool teams on BOTH sides
+the champion reads ~51% vs the heuristic (vs ~90% on its own team) -- the
+policy is far from team-general; relevant to the any-team end-goal.
+
 ## Ladder corpus at 125 games: 66-59 (52.8%), new Elo peak 1407 (August 31, ~05:45)
 
 The standing-order 25-game batch (deployed champion) ran 11-14 -- a cold
