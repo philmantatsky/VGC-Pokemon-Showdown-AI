@@ -76,3 +76,7 @@ results_gate_battery_league/*/*
 !results_gate_battery_league/*/*/
 results_gate_battery_league/*/*/*
 !results_gate_battery_league/*/*/scorecard.json
+# exploiter probe: the exploit measurement and the target-checkpoint stamp
+!results_exploiter/
+results_exploiter/*
+!results_exploiter/exploit_eval_1000.json

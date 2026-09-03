@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## Exploiter verdict: beats the deployed champion 60.2% -- and wins the way 1300+ humans do (September 3, 00:35)
+
+The corrected exploiter (target locked to our roster via --opponent_team;
+learner from the pool, initialized from the champion) finished 5 intervals
+with a monotonic climb (mean ep_rew per interval -0.11, -0.12, -0.02, +0.05,
++0.11). Measured at n=1,000 (hidden sheets, stochastic exploiter, seed 83):
+**champion 398/1000 = 39.8%** (`results_exploiter/exploit_eval_1000.json`).
+
+The exploit's shape matches the ladder loss analysis of the 1264-1407 band
+almost exactly: the exploiter takes the opening exchange in 58% of games
+(champion recovers only 21% of those) and drags 58% of games to turn 7+,
+where the champion wins 39%. An automated adversary independently
+rediscovered the two human-observed holes -- opening prediction and the
+endgame. Design brief for league 3: exploiter checkpoint(s) in the FP pool.
+
+Evaluator v3h chain launched 00:35 from `training/run_evaluator_v3h.sh`:
+20k-game outcome dataset on the promoted brain with the old champion AND the
+exploiter in the historical rotation (positions vs the exploiter are the
+leaky ones -- exactly what search needs to value correctly), then the
+holdout-style trainer, then the ladder-replay Brier instrument vs the v2h
+incumbent (0.2218 on the current 421-game corpus). Search re-gate
+(`evaluation/run_search_regate.sh`, pre-registered: beat no-search by >=3pp
+at n=300 with live decisions, p90 < 9s) follows a pass; the 25-game ladder
+test runs ONLY if search clears that gate (user's standing order).
+
 ## Exploiter probe PAUSED by the user at 4/5 checkpoints (September 1, ~10:20)
 
 The corrected exploiter (target = champion locked to our roster via the new
