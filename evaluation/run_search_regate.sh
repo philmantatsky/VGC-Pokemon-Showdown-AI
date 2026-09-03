@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+trap 'echo "GATE_FAILED at line $LINENO (exit $?)"' ERR
 
 # Search re-gate on the promoted brain with the v3h evaluator: paired n=300
 # hidden-sheet battles, no-search champion vs the same champion with selective

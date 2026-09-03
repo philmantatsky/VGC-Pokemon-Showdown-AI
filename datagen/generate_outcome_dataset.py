@@ -89,6 +89,36 @@ def _record(output: Path, game: int, summary: dict, *, failed: bool = False) -> 
         _write_json_atomic(path, manifest)
 
 
+def raise_if_generation_unusable(
+    completed: int,
+    failures: int,
+    games: int,
+    minimum_games: int,
+    max_failed_games: int | None = None,
+) -> None:
+    """Exit nonzero only when the dataset is short or failures exceed the budget.
+
+    Isolated exact-sim failures (a few per thousand games) are noise; exiting
+    on any of them silently killed a chained pipeline after a complete run.
+    The default budget is 1% of the requested games.
+    """
+    budget = max_failed_games if max_failed_games is not None else max(1, games // 100)
+    if failures > budget:
+        raise SystemExit(
+            f"outcome generation had {failures} failed games; the budget is "
+            f"{budget} (--max-failed-games)"
+        )
+    if completed < min(minimum_games, games):
+        raise SystemExit(
+            f"only {completed} completed games; minimum is {minimum_games}"
+        )
+    if failures:
+        print(
+            f"WARNING: {failures} isolated game failures tolerated (budget {budget})",
+            flush=True,
+        )
+
+
 def _run_workers(count: int) -> None:
     processes = [
         subprocess.Popen(
@@ -235,6 +265,17 @@ def main() -> None:
     parser.add_argument("--output", default="outcome_data_v1")
     parser.add_argument("--games", type=int, default=10_000)
     parser.add_argument("--minimum-games", type=int, default=5_000)
+    parser.add_argument(
+        "--max-failed-games",
+        type=int,
+        default=None,
+        help=(
+            "tolerate this many isolated game failures (default: 1%% of --games);"
+            " beyond it the run exits nonzero. Previously ANY failure exited"
+            " nonzero, which silently killed chained pipelines after a complete"
+            " dataset (98 failures in 19,902 games, 2026-09-03)"
+        ),
+    )
     parser.add_argument("--max-seconds", type=float, default=5_400.0)
     parser.add_argument("--max-turns", type=int, default=50)
     parser.add_argument("--states-per-game", type=int, default=8)
@@ -308,12 +349,9 @@ def main() -> None:
             f"states={states}; failures={failures}",
             flush=True,
         )
-        if failures:
-            raise SystemExit(f"outcome generation had {failures} failed games")
-        if completed < min(args.minimum_games, args.games):
-            raise SystemExit(
-                f"only {completed} completed games; minimum is {args.minimum_games}"
-            )
+        raise_if_generation_unusable(
+            completed, failures, args.games, args.minimum_games, args.max_failed_games
+        )
         return
 
     manifest = json.loads((output / "outcome_manifest.json").read_text())

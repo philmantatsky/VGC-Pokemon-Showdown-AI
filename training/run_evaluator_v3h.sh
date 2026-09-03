@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+trap 'echo "CHAIN_FAILED at line $LINENO (exit $?)"' ERR
 
 # Evaluator retrain for the new-brain era (v3h), chained after the exploiter:
 #   1. measure the exploit (champion vs the final exploiter checkpoint, n=1,000)
