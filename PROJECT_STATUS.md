@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## PAUSED by the user mid-calibration (September 3, ~10:25)
+
+v3h trained and saved (`results_outcome_v3h/outcome_value.zip`, selected
+epoch 1, temperature 1.118, data/style/holdout gates all TRUE). The
+incumbent's ladder-replay pass completed; the v3h pass was stopped by the
+pause. Resume = rerun `tools/calibrate_vs_ladder.py value --outcome-value
+results_outcome_v3h/outcome_value.zip` (~5 min), compare to the incumbent
+file, then `evaluation/run_search_regate.sh` on a pass. Do not resume
+without the user's word.
+
+## Overnight stall found and fixed; evaluator v3h training resumed (September 3, 10:15)
+
+The chain generated the full dataset (19,902 games / 149,271 states / 98
+failures = 0.5%) by ~01:15 and then died silently: generate_outcome_dataset
+exited nonzero on ANY failed game, `set -e` obeyed it, and the SystemExit
+printed no traceback for the watcher to catch. ~9 idle hours. Fixes shipped
+with tests: the generator now budgets isolated failures (--max-failed-games,
+default 1% of --games) and both chain launchers trap ERR and print
+CHAIN_FAILED / GATE_FAILED. Training restarted 10:15 on the finished dataset
+(holdout style historical: 29,348 rows removed from training, 36,907
+reserved for the style gate); calibration vs the v2h incumbent follows.
+
 ## Exploiter verdict: beats the deployed champion 60.2% -- and wins the way 1300+ humans do (September 3, 00:35)
 
 The corrected exploiter (target locked to our roster via --opponent_team;
