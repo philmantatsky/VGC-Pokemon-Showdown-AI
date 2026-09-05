@@ -1,5 +1,16 @@
 # VGC Bot Project Status
 
+## League 3 complete; verdict chain running (September 5, 18:53)
+
+Five checkpoints, zero errors. Probes (heuristic / bc, n=100): 0.71/0.67,
+**0.84/0.85**, 0.79/0.82, 0.84/0.77, 0.81/0.73. Finalists: 14745600 (best
+probes) and 17694720 (final, most adversary exposure).
+`evaluation/run_league3_verdict.sh` runs the exploit re-measure for both
+first (n=1,000 vs the final exploiter; qualify at >= 44.8%, i.e. +5pp over
+the deployed brain's 39.8%), then the 5-arm screening battery vs the
+DEPLOYED champion and the mix_A diagnostic for qualifiers only. Ladder 25
+only on a full pass.
+
 ## League 3 save 2: recovered -- run continues (September 5, 13:40)
 
 Save 2 (14,745,600): eval/heuristic 0.71 -> **0.84**, eval/bc 0.67 ->
