@@ -530,6 +530,34 @@ class PolicyPlayer(Player):
                 self.outcome_value_path, device=device, mechanics_weight=0.10
             )
 
+    _policy_type_reported = False
+
+    def _repair_policy(self) -> None:
+        """Make ``self.policy`` usable for per-decision inference, or count why not.
+
+        A bare ``assert isinstance(self.policy, MaskedActorCriticPolicy)`` in a
+        decision path stalls the battle forever -- poke-env swallows the exception
+        and never sends another order. Observed 2026-09-05 in the search re-gate
+        (learned opponent + live search) on a forced-switch request. If something
+        wrapped the policy, unwrap it in place; otherwise report the type once,
+        count the event, and let the caller play a safe default order.
+        """
+        if isinstance(self.policy, MaskedActorCriticPolicy):
+            return
+        inner = getattr(self.policy, "policy", None)
+        if isinstance(inner, MaskedActorCriticPolicy):
+            self.policy = inner
+            PolicyPlayer.guard_fire_counts["policy_unwrapped"] += 1
+            return
+        PolicyPlayer.guard_fire_counts["policy_unavailable"] += 1
+        if not PolicyPlayer._policy_type_reported:
+            PolicyPlayer._policy_type_reported = True
+            print(
+                f"WARNING: policy unavailable for decisions: {type(self.policy)!r} "
+                f"({getattr(self, 'username', '?')}); playing default orders",
+                flush=True,
+            )
+
     @staticmethod
     def _preview_roster(team: dict[str, Pokemon]) -> tuple[str, ...]:
         return tuple(to_id_str(mon.base_species) for mon in team.values())
@@ -1128,7 +1156,10 @@ class PolicyPlayer(Player):
             The chosen battle order.
         """
         assert isinstance(battle, DoubleBattle)
-        assert isinstance(self.policy, MaskedActorCriticPolicy)
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            self._repair_policy()
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            return DefaultBattleOrder()
         if battle._wait:
             return DefaultBattleOrder()
         self._update_battle_plan(battle)
@@ -1549,8 +1580,11 @@ class PolicyPlayer(Player):
         Returns:
             Team order string for Pokemon Showdown.
         """
-        assert isinstance(self.policy, MaskedActorCriticPolicy)
         assert isinstance(battle, DoubleBattle)
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            self._repair_policy()
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            return self.random_teampreview(battle)
         if self.exact_preview_search:
             # Multi-world preview budgets exceed the websocket keepalive window
             # (poke-env pings every 20s and waits 20s), so the planner must not
@@ -1567,7 +1601,10 @@ class PolicyPlayer(Player):
 
     def _fallback_teampreview(self, battle: DoubleBattle) -> str:
         """The promoted preview chain: outcome model, learned model, two-stage."""
-        assert isinstance(self.policy, MaskedActorCriticPolicy)
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            self._repair_policy()
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            return self.random_teampreview(battle)
         outcome = self._outcome_teampreview(battle)
         if outcome is not None:
             return outcome
@@ -2276,7 +2313,10 @@ class BatchPolicyPlayer(PolicyPlayer):
             # the shared batch loop cannot provide (it only returns sampled actions).
             # Batching is a throughput optimisation for training; eval and ladder can
             # afford one forward pass per decision.
-            assert isinstance(self.policy, MaskedActorCriticPolicy)
+            if not isinstance(self.policy, MaskedActorCriticPolicy):
+                self._repair_policy()
+            if not isinstance(self.policy, MaskedActorCriticPolicy):
+                return DefaultBattleOrder()
             with torch.no_grad():
                 obs_dict = {
                     "observation": torch.as_tensor(
@@ -2314,8 +2354,11 @@ class BatchPolicyPlayer(PolicyPlayer):
 
     async def _teampreview(self, battle: AbstractBattle) -> str:
         """Async teampreview implementation with random fallback when disabled."""
-        assert isinstance(self.policy, MaskedActorCriticPolicy)
         assert isinstance(battle, DoubleBattle)
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            self._repair_policy()
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            return self.random_teampreview(battle)
         # Off-loop for the same reason as the sync class: multi-world preview
         # budgets exceed the 20s websocket keepalive window.
         planned = await asyncio.to_thread(self._planned_teampreview, battle)
@@ -2353,7 +2396,8 @@ class BatchPolicyPlayer(PolicyPlayer):
 
     async def _inference_loop(self) -> None:
         """Background task that batches and processes inference requests."""
-        assert isinstance(self.policy, MaskedActorCriticPolicy)
+        if not isinstance(self.policy, MaskedActorCriticPolicy):
+            self._repair_policy()
         while True:
             # gather requests
             requests = [await self._q.get()]
@@ -2372,15 +2416,26 @@ class BatchPolicyPlayer(PolicyPlayer):
             # run inference
             obs = np.stack([r.obs for r in requests], axis=0)
             masks = np.stack([r.mask for r in requests], axis=0)
-            with torch.no_grad():
-                obs_dict = {
-                    "observation": torch.as_tensor(obs, device=self.policy.device),
-                    "action_mask": torch.as_tensor(masks, device=self.policy.device),
-                }
-                actions, _, _ = self.policy.forward(
-                    obs_dict, deterministic=self.deterministic
+            if isinstance(self.policy, MaskedActorCriticPolicy):
+                with torch.no_grad():
+                    obs_dict = {
+                        "observation": torch.as_tensor(obs, device=self.policy.device),
+                        "action_mask": torch.as_tensor(
+                            masks, device=self.policy.device
+                        ),
+                    }
+                    actions, _, _ = self.policy.forward(
+                        obs_dict, deterministic=self.deterministic
+                    )
+                actions = actions.cpu().numpy()
+            else:
+                # No usable policy (see _repair_policy): play the first legal
+                # action per slot so batched battles keep moving instead of
+                # stalling on a dead worker task. Counted, never silent.
+                PolicyPlayer.guard_fire_counts["policy_unavailable_batch"] += len(
+                    requests
                 )
-            actions = actions.cpu().numpy()
+                actions = np.argmax(masks, axis=-1)
 
             # dispatch
             for req, act in zip(requests, actions):
