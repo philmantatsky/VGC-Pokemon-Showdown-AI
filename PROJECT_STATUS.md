@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## League 3 first save: probes under the kill lines; continuing ONE interval under a written rule (September 5, 11:45)
+
+Save 1 (13,762,560): eval/heuristic **0.71** (kill line 0.80), eval/bc
+**0.67** (line 0.70); optimizer healthy (ep_rew +0.36..+0.60, approx_kl
+0.015-0.020, clip 0.08-0.10, 150 steps/s, zero errors, bc_opp_frac
+0.375-0.5 = the seeded 7/13 share). Reading: adaptation shock from a much
+harder pool (31% adversary) -- round 2 also opened under its lines and
+recovered by interval 3 -- and the probes are n=100 (SE ~4-5pp). Recorded
+deviation from the kill rule: continue exactly one interval. **Save-2 rule,
+written now:** eval/heuristic >= 0.78 AND eval/bc >= 0.70 (recovering), else
+kill and record "exploiter share too high; retry at 2/13". The final gates
+(exploit re-measure >= +5pp, non-regression battery, memorization) are
+untouched.
+
 ## League round 3 launched: the exploiter joins the pool (September 5)
 
 Pool (`training/league3_config.json`): deployed champion resumes at
