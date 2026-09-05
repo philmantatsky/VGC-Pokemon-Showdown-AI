@@ -513,6 +513,17 @@ class PolicyPlayer(Player):
             policy_file: Path to the saved PPO checkpoint.
             device: PyTorch device for model placement.
         """
+        # poke-env's listener already runs on its own thread by the time this is
+        # called, so battle requests can arrive while the checkpoint (and the
+        # outcome evaluator) are still loading. Decisions wait on this flag in
+        # _repair_policy instead of failing.
+        self._policy_loading = True
+        try:
+            self._set_policy_impl(policy_file, device)
+        finally:
+            self._policy_loading = False
+
+    def _set_policy_impl(self, policy_file: str | Path, device: torch.device):
         if self.policy is None:
             self.policy = PPO.load(policy_file, device=device).policy
         else:
@@ -531,6 +542,9 @@ class PolicyPlayer(Player):
             )
 
     _policy_type_reported = False
+    # Seconds a decision may wait for set_policy to finish loading. Ladder
+    # entry points should keep this under the 10s turn clock.
+    policy_wait_s: float = 30.0
 
     def _repair_policy(self) -> None:
         """Make ``self.policy`` usable for per-decision inference, or count why not.
@@ -544,6 +558,16 @@ class PolicyPlayer(Player):
         """
         if isinstance(self.policy, MaskedActorCriticPolicy):
             return
+        if self.policy is None and getattr(self, "_policy_loading", False):
+            # Construction-order race (observed 2026-09-05 in the search re-gate):
+            # the listener thread requested a decision while set_policy was still
+            # inside PPO.load. Wait briefly rather than play a default order.
+            deadline = time.monotonic() + PolicyPlayer.policy_wait_s
+            while self.policy is None and time.monotonic() < deadline:
+                time.sleep(0.05)
+            if isinstance(self.policy, MaskedActorCriticPolicy):
+                PolicyPlayer.guard_fire_counts["policy_waited"] += 1
+                return
         inner = getattr(self.policy, "policy", None)
         if isinstance(inner, MaskedActorCriticPolicy):
             self.policy = inner

@@ -39,3 +39,30 @@ def test_unusable_policy_is_counted_not_raised() -> None:
     PolicyPlayer._repair_policy(stub)  # must not raise
     assert stub.policy is None
     assert PolicyPlayer.guard_fire_counts["policy_unavailable"] == 1
+
+
+def test_decision_waits_for_a_loading_policy() -> None:
+    """The construction-order race: a decision arrives while set_policy is
+    still inside PPO.load. The decision must wait, not play a default order."""
+    import threading
+    import time
+
+    PolicyPlayer.guard_fire_counts.clear()
+    real = create_autospec(MaskedActorCriticPolicy, instance=True)
+    stub = _stub(None)
+    stub._policy_loading = True
+
+    def finish_loading() -> None:
+        time.sleep(0.2)
+        stub.policy = real
+
+    threading.Thread(target=finish_loading, daemon=True).start()
+    old = PolicyPlayer.policy_wait_s
+    PolicyPlayer.policy_wait_s = 5.0
+    try:
+        PolicyPlayer._repair_policy(stub)
+    finally:
+        PolicyPlayer.policy_wait_s = old
+    assert stub.policy is real
+    assert PolicyPlayer.guard_fire_counts["policy_waited"] == 1
+    assert PolicyPlayer.guard_fire_counts["policy_unavailable"] == 0
