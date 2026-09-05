@@ -2,8 +2,10 @@
 set -euo pipefail
 trap 'echo "GATE_FAILED at line $LINENO (exit $?)"' ERR
 
-# Search re-gate on the promoted brain with the v3h evaluator: paired n=300
-# hidden-sheet battles, no-search champion vs the same champion with selective
+# Search re-gate on the promoted brain: paired n=300 hidden-sheet battles vs
+# the HELD-OUT human-imitation opponent (bc_eval_B, stochastic; baseline ~84%
+# leaves headroom, unlike the heuristic where the champion sits at ~91%),
+# no-search champion vs the same champion with selective
 # exact search (the Aug-22 production configuration: 8s turn budget, 2s screen,
 # up to 8 determinizations, selective, no pondering). Search arms force serial
 # play, so expect ~6-8 hours.
@@ -19,6 +21,7 @@ mkdir -p results_search_v3h
 
 .venv/bin/python evaluation/eval_counterfactual.py \
   --baseline $CHAMP --candidate $CHAMP \
+  --opponent-checkpoint results_bc/eval_B/saves_bc/seed2/30.zip --opponent-stochastic \
   --include-live-search --search-comparison-only \
   --outcome-value "$VALUE" \
   --search-budget 8 --screen-budget 2 --chance-samples 1 \
