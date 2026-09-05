@@ -304,7 +304,14 @@ def _opponent(
     server,
     preview_ledger: PreviewLedger | None = None,
     replay_previews: bool = False,
+    max_concurrent_battles: int | None = None,
 ):
+    # Paired arms must share concurrency. A serial search arm (1 slot) facing a
+    # foe with 8 slots opened extra battle rooms on the foe's side; the
+    # open-team-sheet handshake then arrived after Team Preview on ours and
+    # poke-env stalled the battle (observed 2026-09-05, search re-gate).
+    if max_concurrent_battles is None:
+        max_concurrent_battles = args.workers
     team = RandomTeamBuilder(
         args.seed,
         None,
@@ -317,7 +324,7 @@ def _opponent(
             server_configuration=server,
             battle_format=format_map[args.reg],
             log_level=40,
-            max_concurrent_battles=args.workers,
+            max_concurrent_battles=max_concurrent_battles,
             accept_open_team_sheet=not args.hidden_sheets,
             open_timeout=None,
             team=team,
@@ -349,7 +356,7 @@ def _opponent(
         server_configuration=server,
         battle_format=format_map[args.reg],
         log_level=40,
-        max_concurrent_battles=args.workers,
+        max_concurrent_battles=max_concurrent_battles,
         accept_open_team_sheet=not args.hidden_sheets,
         open_timeout=None,
         team=team,
@@ -461,6 +468,9 @@ def _run_arm(
     foe = _opponent(
         args,
         server,
+        max_concurrent_battles=(
+            1 if (move_search or planned_preview) else args.workers
+        ),
         preview_ledger=opponent_preview_ledger,
         replay_previews=replay_opponent_previews,
     )
