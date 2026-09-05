@@ -89,3 +89,6 @@ results_outcome_v3h/*
 !results_search_v3h/
 results_search_v3h/*
 !results_search_v3h/*.json
+!results_league3/
+results_league3/*
+!results_league3/league_manifest.json

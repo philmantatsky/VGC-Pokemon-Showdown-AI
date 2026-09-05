@@ -1,0 +1,107 @@
+{
+ "banned_sha256": {
+  "03033b900ba0c9790ec0f3d0c33778c96fbbc0dff0d7ea4ddc3dd3414a352862": "results_bc/eval_B/saves_bc/seed2/8.zip (eval-only holdout)",
+  "18ef23dbc3186ee484cc272139c835ca4f22412c8a12d2cbf76087677fc75819": "results_bc/eval_B/saves_bc/seed2/12.zip (eval-only holdout)",
+  "1eaec8c09b25dd307ba817d915eb5421f36038a42c3ec116a3832fce4c210b87": "results_bc/eval_B/saves_bc/seed2/14.zip (eval-only holdout)",
+  "27891e7d6a81d957ca88443b6cee39d04467fc889cc49b662c39ed18c579484a": "results_bc/eval_B/saves_bc/seed2/24.zip (eval-only holdout)",
+  "2c9adc4e65e9ed0489d147b4a4013606db5635dd28afa45cfa80da900554b153": "results_bc/eval_B/saves_bc/seed2/30.zip (eval-only holdout)",
+  "2d0930d6c9a7e8d0d98af021afe94e8c5c7f436f442ab1e69f05cf450cd83b23": "results_bc/eval_B/saves_bc/seed2/6.zip (eval-only holdout)",
+  "32f1ffc6182fc7aa2b2a4e03a7a7dcd7569277cc9ecae78231f0e5950f658e7b": "results_bc/eval_B/saves_bc/seed2/10.zip (eval-only holdout)",
+  "37662f831c0581d561e88ec9f89456313d1a5f3942a9d5b51ae912e2d9e5e21c": "results_bc/eval_B/saves_bc/seed2/19.zip (eval-only holdout)",
+  "390c21483b3afa59305d220a25f87991450ff595cd41cb889897da455a163958": "results_bc/eval_B/saves_bc/seed2/28.zip (eval-only holdout)",
+  "3ff80c42d2892b02da0ab1f9b1d406d6a7baf5df5bdc3b31c41f06352768c441": "results_bc/eval_B/saves_bc/seed2/15.zip (eval-only holdout)",
+  "48f3c41511cd7349473d85fce44cf4862603cd015562efe90e13bcb2d221d264": "results_bc/eval_B/saves_bc/seed2/17.zip (eval-only holdout)",
+  "50818be67738286440054f6c21084be53cf64d6af244300f79142d4e42de8472": "results_bc/eval_B/saves_bc/seed2/29.zip (eval-only holdout)",
+  "55386f6574948be48f74ce1637d13b37c8f465a8ce2c26f7b6584d74a72892a6": "results_bc/eval_B/saves_bc/seed2/7.zip (eval-only holdout)",
+  "5e89b61892cb9aaf1ab0f99078334515dcc27fbd8317ef5f091c174c3ec44ddc": "results_bc/eval_B/saves_bc/seed2/26.zip (eval-only holdout)",
+  "68570597bc3908b699b63119a17e34a242a4f0691a50d2ea94d2bc62d6297c87": "results_bc/eval_B/saves_bc/seed2/22.zip (eval-only holdout)",
+  "69d3e22d333965ce16b8780d46044b6de75ad80ad1d6c1f247a3e305ef5f4558": "results_bc/eval_B/saves_bc/seed2/23.zip (eval-only holdout)",
+  "7144c1b272b0ddc0c815e0a127e4adf8598f318ce4a5d9e887798f7db874d9ed": "results_bc/eval_B/saves_bc/seed2/11.zip (eval-only holdout)",
+  "72cbbdd3db5615410bd17cf4ae170a213f9daac811a3ae21c72da557b4b3f702": "results_bc/eval_B/saves_bc/seed2/16.zip (eval-only holdout)",
+  "734417c2a0ff81a2036ebf549df6577bcdaa47fcbde3fd2f0c5c6e7d2b924df2": "results_bc/eval_B/saves_bc/seed2/25.zip (eval-only holdout)",
+  "77415ff0bf96a273de3835a1c5ff714bee803c911e1ac558794a1e722a5043fe": "results_bc/eval_B/saves_bc/seed2/20.zip (eval-only holdout)",
+  "7eef4ec13c73f3bff6f714710e82ffbdf01cc38e892d093ee82ac66683d41e9d": "results_bc/eval_B/saves_bc/seed2/3.zip (eval-only holdout)",
+  "b1fc7a5e961c85aef1c5df64f63909e6042267ecdf6f8852a8fe24912ab183fb": "results_bc/eval_B/saves_bc/seed2/21.zip (eval-only holdout)",
+  "be222fc61dde90dae19425bccd1944d5ea1f7e472bae43fbb838be1b25c7c035": "results_bc/eval_B/saves_bc/seed2/27.zip (eval-only holdout)",
+  "c10ecabe53fae3ac16ebd150afe45743fa8acb298d860106e0fee36ec8e93504": "results_bc/eval_B/saves_bc/seed2/4.zip (eval-only holdout)",
+  "c4c4646c37f661a498e47fc6f47be59fa1feb3e251acca4639e64c2e33d6ba1b": "results_bc/eval_B/saves_bc/seed2/2.zip (eval-only holdout)",
+  "c68b387513f8347a83f908b1451361e9abfcc38d2c68d5a7b887fab7e24fd22c": "results_bc/eval_B/saves_bc/seed2/5.zip (eval-only holdout)",
+  "dab5a145657b303953c2ec9dcc762203dab0e22c9cd36fc03fab194914901a58": "results_bc/eval_B/saves_bc/seed2/18.zip (eval-only holdout)",
+  "ee0084b70c9563dd27e4ab4123f8c4eeac738a138fe23dfb7bcde09c6563c145": "results_bc/eval_B/saves_bc/seed2/1.zip (eval-only holdout)",
+  "f55fec0510738b5803f2b31e49ac7cb871dad82e977a0c19eac7ecf7b659a609": "results_bc/eval_B/saves_bc/seed2/0.zip (eval-only holdout)",
+  "fdbae640a284f73c91937a01e1a5cc003d01f604e8e86f149df0fdae3eb02b3d": "results_bc/eval_B/saves_bc/seed2/13.zip (eval-only holdout)",
+  "fff46db16c617204eefa76932eb4e8f5cb4d12f54a2830d053f1e6a055533a64": "results_bc/eval_B/saves_bc/seed2/9.zip (eval-only holdout)"
+ },
+ "created_at": "2026-09-05T14:49:58+00:00",
+ "entries": {
+  "100": {
+   "role": "training_opponent",
+   "sha256": "fa1211ea8d73f0db325c767d2e5046e47af8417d382e2f4e1bb5bbd6999ffc9d",
+   "source": "results_bc/mix_A/saves_bc/seed1/30.zip"
+  },
+  "10813440": {
+   "role": "lineage",
+   "sha256": "fb2882aaa9820ae92bfbb90474ad4ee3582e615ebf2037723a46d406dc7f302f",
+   "source": "results_league/saves_fp_hs_wt/reg_mb/seed1/10813440.zip"
+  },
+  "11796480": {
+   "role": "lineage",
+   "sha256": "4b2bbac09ccdb803adcb09eb52ac5d33c6206e734f23fe73d6a42ebc6ee015da",
+   "source": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip"
+  },
+  "12779520": {
+   "role": "production",
+   "sha256": "8cc54b2b4fb1422999622fe613d85dccf027c7f0af0801044b455b34611c0815",
+   "source": "results_league/league_champion.zip"
+  },
+  "200": {
+   "role": "training_opponent",
+   "sha256": "fa1211ea8d73f0db325c767d2e5046e47af8417d382e2f4e1bb5bbd6999ffc9d",
+   "source": "results_bc/mix_A/saves_bc/seed1/30.zip"
+  },
+  "300": {
+   "role": "training_opponent",
+   "sha256": "fa1211ea8d73f0db325c767d2e5046e47af8417d382e2f4e1bb5bbd6999ffc9d",
+   "source": "results_bc/mix_A/saves_bc/seed1/30.zip"
+  },
+  "400": {
+   "role": "training_opponent",
+   "sha256": "9c4ee5819c6fa75be2f3db4b1f1caae395516bc01c428dabdd167345b457813c",
+   "source": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip"
+  },
+  "500": {
+   "role": "training_opponent",
+   "sha256": "9c4ee5819c6fa75be2f3db4b1f1caae395516bc01c428dabdd167345b457813c",
+   "source": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip"
+  },
+  "600": {
+   "role": "training_opponent",
+   "sha256": "9c4ee5819c6fa75be2f3db4b1f1caae395516bc01c428dabdd167345b457813c",
+   "source": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip"
+  },
+  "700": {
+   "role": "lineage",
+   "sha256": "b8227427d577b851657d82cc568c9efb01aa6cb9e4c183782b777cd31f66189f",
+   "source": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/16711680.zip"
+  },
+  "7864320": {
+   "role": "production",
+   "sha256": "8ce56e9dce5fe5784a4795621522b3f10e888423fcf91853eb806b9645e51f12",
+   "source": "results_repaired/champion.zip"
+  },
+  "8847360": {
+   "role": "lineage",
+   "sha256": "33fd53bfe062100892d3e0c688c897a7a10dc42b9f561907d323420b65f6df18",
+   "source": "results_league/saves_fp_hs_wt/reg_mb/seed1/8847360.zip"
+  },
+  "9830400": {
+   "role": "lineage",
+   "sha256": "572018b92e618a76196e8a4bc3e7f7b77a5d0b06f53b7d37a298d112f88b5cd4",
+   "source": "results_league/saves_fp_hs_wt/reg_mb/seed1/9830400.zip"
+  }
+ },
+ "resume_stem": 12779520,
+ "team_weights": "data/team_weights_regmb_league3.json",
+ "tr_boost": 1.0,
+ "tr_boosted_teams": 0
+}

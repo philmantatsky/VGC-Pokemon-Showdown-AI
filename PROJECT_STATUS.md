@@ -1,5 +1,25 @@
 # VGC Bot Project Status
 
+## League round 3 launched: the exploiter joins the pool (September 5)
+
+Pool (`training/league3_config.json`): deployed champion resumes at
+12,779,520; its league-1 history (4) + the old champion; bc_mix_A x3 (23%);
+**exploiter final checkpoint x3 + interval-4 x1 (31%)** at stems 400-700 so
+they can neither collide with new saves nor be mistaken for the resume point.
+Team weights: league v1 (our_team zeroed, no TR boost). +5 intervals to
+17,694,720, port 7700 (server restarted first), same hyperparameters.
+
+**Pre-registered bars (written before any result):**
+1. Exploit re-measure, n=1,000 stochastic exploiter (final ckpt) vs the
+   candidate: champion's 39.8% must rise by >= +5pp (the direct target).
+2. Standard 5-arm battery vs the DEPLOYED brain at screening n (1,000/arm):
+   no arm below baseline by >2pp, weighted >= 0 (non-regression), memorization
+   diagnostic clean (mix_A vs eval_B divergence <= 10pp). Promotion tier only
+   if screening also shows weighted >= +1pp or human holdout >= +2pp.
+3. First-save kill criteria as before (eval/heuristic < 0.80, eval/bc < 0.70,
+   ep_rew <= 0, worker deaths, throughput < 120 steps/s).
+4. Ladder: 25 games ONLY on a pass (the user's standing rule).
+
 ## Search re-gate VERDICT: a valid tie -- search FAILS the +3pp bar; no ladder test (September 5, 05:20)
 
 On the clean server the gate ran end to end in 4h with zero errors and
