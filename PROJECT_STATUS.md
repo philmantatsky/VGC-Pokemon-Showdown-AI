@@ -1,5 +1,13 @@
 # VGC Bot Project Status
 
+## League 3 save 2: recovered -- run continues (September 5, 13:40)
+
+Save 2 (14,745,600): eval/heuristic 0.71 -> **0.84**, eval/bc 0.67 ->
+**0.85** (rule was >= 0.78 / >= 0.70). The save-1 dip was adaptation shock
+from the adversary-heavy pool, as read; ep_rew +0.52..+0.70, 150 steps/s,
+zero errors. Original kill criteria back in force for saves 3-5; completion
+~19:00, then `evaluation/run_league3_gates.sh` on the triaged finalists.
+
 ## League 3 first save: probes under the kill lines; continuing ONE interval under a written rule (September 5, 11:45)
 
 Save 1 (13,762,560): eval/heuristic **0.71** (kill line 0.80), eval/bc
