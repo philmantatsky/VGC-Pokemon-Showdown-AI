@@ -1,5 +1,22 @@
 # VGC Bot Project Status
 
+## Search re-gate: two stall bugs found and fixed before it could run clean (September 5, 00:47)
+
+The gate was re-pointed at the held-out human opponent (the no-search
+champion sits at ~91% vs the heuristic, leaving no room for a +3pp effect;
+bc_eval_B baseline ~80-87% across runs). Its first serial search arm then
+stalled on a **bare `assert isinstance(self.policy, MaskedActorCriticPolicy)`
+in a decision path** -- six such asserts existed (choose_move, team preview,
+the batch inference loop); all now repair-and-count (`_repair_policy`) with
+regression tests. Diagnostics then showed the real trigger: a
+**construction-order race** -- poke-env's listener thread delivered battle
+requests to the search-arm player while `set_policy` was still inside
+`PPO.load` (+ the outcome-evaluator load on search arms), so the policy read
+None. Decisions now wait for a loading policy (`policy_wait_s`, 30s in eval,
+6s on ladder) and count `policy_waited`. Gate relaunched 00:47 with the fixes;
+pre-registered bar unchanged (beat no-search by >=3pp at n=300 paired, live
+decisions, p90 < 9s). Ladder test only on a pass, per the user's order.
+
 ## Evaluator v3h FAILS the ladder gate; search re-gate armed with the incumbent (September 5, 00:20)
 
 Resumed. First finding: the "incumbent calibration" from 09-03 was a

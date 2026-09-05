@@ -477,6 +477,9 @@ async def main():
     from vgc_bench.src import pokeenv_patches
 
     pokeenv_patches.install()
+    # A decision may wait for set_policy to finish loading; keep that well
+    # under the ladder's 10-second turn clock.
+    PolicyPlayer.policy_wait_s = 6.0
 
     username = os.environ.get("SHOWDOWN_USERNAME")
     password = os.environ.get("SHOWDOWN_PASSWORD")
