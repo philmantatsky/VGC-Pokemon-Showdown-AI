@@ -1,7 +1,5 @@
 from types import SimpleNamespace
 
-import pytest
-
 from evaluation.eval_counterfactual import (
     PreviewLedger,
     _apply_preview_choice,

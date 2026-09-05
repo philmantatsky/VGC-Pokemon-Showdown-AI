@@ -1,5 +1,18 @@
 # VGC Bot Project Status
 
+## Third stall class fixed: paired-preview ledger drift (September 5, 00:52)
+
+The relaunched search arm then froze seven battles on
+`RuntimeError: preview pairing mismatch` -- the PreviewLedger replays the
+control arm's opponent drafts by matchup fingerprint, and a serial search
+arm vs an 8-way control arm with a stochastic opponent does not reproduce
+the matchup order. Raising inside a battle handler is the same stall class
+as the asserts. The ledger now returns None (player's own preview) and
+reports `mismatched` per arm; tests updated. Gate relaunched 00:52 --
+three stall classes fixed tonight, all of the "exception in a poke-env
+handler = frozen battle" family; the shim, the policy repair, and the ledger
+fallback now cover every path that fired.
+
 ## Search re-gate: two stall bugs found and fixed before it could run clean (September 5, 00:47)
 
 The gate was re-pointed at the held-out human opponent (the no-search
