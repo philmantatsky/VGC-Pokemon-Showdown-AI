@@ -27,8 +27,10 @@ def test_preview_ledger_replays_repeated_team_occurrences_in_order():
 
     assert ledger.next(key) == "/team 1234"
     assert ledger.next(key) == "/team 2143"
-    with pytest.raises(RuntimeError, match="preview pairing mismatch"):
-        ledger.next(key)
+    # Exhausted pairing no longer raises inside a battle handler (which stalled
+    # the serial search arm): it returns None and counts the drift.
+    assert ledger.next(key) is None
+    assert ledger.mismatched == 1
 
 
 def test_paired_preview_marks_the_scripted_four_and_records_order():

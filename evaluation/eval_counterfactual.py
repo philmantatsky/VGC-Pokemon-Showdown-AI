@@ -96,6 +96,7 @@ class PreviewLedger:
         self._cursors: dict[tuple[str, ...], int] = {}
         self.recorded = 0
         self.replayed = 0
+        self.mismatched = 0
 
     def record(self, fingerprint: tuple[str, ...], choice: str) -> None:
         self._choices[fingerprint].append(choice)
@@ -104,11 +105,20 @@ class PreviewLedger:
     def begin_replay(self) -> None:
         self._cursors.clear()
 
-    def next(self, fingerprint: tuple[str, ...]) -> str:
+    def next(self, fingerprint: tuple[str, ...]) -> str | None:
+        """The recorded choice for this matchup, or None when pairing drifts.
+
+        Arms with different concurrency (a serial search arm vs an 8-way
+        control arm) or a stochastic opponent do not reproduce the control
+        arm's matchup order exactly. Raising here killed the battle (poke-env
+        swallows the exception) and stalled the whole serial arm; the caller
+        now falls back to the player's own preview and the drift is counted.
+        """
         cursor = self._cursors.get(fingerprint, 0)
         choices = self._choices.get(fingerprint, [])
         if cursor >= len(choices):
-            raise RuntimeError("preview pairing mismatch for " + ",".join(fingerprint))
+            self.mismatched += 1
+            return None
         self._cursors[fingerprint] = cursor + 1
         self.replayed += 1
         return choices[cursor]
@@ -165,6 +175,8 @@ def _scripted_preview(player, battle) -> str | None:
     if ledger is None or not getattr(player, "replay_previews", False):
         return None
     choice = ledger.next(_preview_fingerprint(battle))
+    if choice is None:
+        return None
     _apply_preview_choice(player, battle, choice)
     return choice
 
@@ -1081,12 +1093,14 @@ def main() -> None:
         "opponent_preview_pairing": {
             "recorded": opponent_preview_ledger.recorded,
             "replayed": opponent_preview_ledger.replayed,
+            "mismatched": opponent_preview_ledger.mismatched,
             "opponent_device": args.opponent_device,
         },
         "own_preview_pairing": {
             "enabled": args.search_comparison_only,
             "recorded": own_preview_ledger.recorded,
             "replayed": own_preview_ledger.replayed,
+            "mismatched": own_preview_ledger.mismatched,
         },
         "patch_report": pokeenv_patches.report(),
     }
