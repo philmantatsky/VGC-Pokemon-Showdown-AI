@@ -25,7 +25,7 @@ from vgc_bench.src.exact_observation import state_to_battle
 from vgc_bench.src.exact_sim import ExactShowdownBridge
 from vgc_bench.src.live_snapshot import public_snapshot
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 FORMAT = "gen9championsvgc2026regmb"
 
 

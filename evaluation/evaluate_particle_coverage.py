@@ -14,7 +14,7 @@ from pathlib import Path
 
 from vgc_bench.src.set_particles import ParticleDatabase, team_roster
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> None:

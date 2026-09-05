@@ -13876,6 +13876,1257 @@
    "trick_room_used": false
   },
   {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673199525",
+   "won": true,
+   "turns": 3,
+   "our_rating": 1350,
+   "opp_rating": 1351,
+   "opponent": "yosoyrenzo",
+   "our_leads": [
+    "basculegion",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.6253241017400875,
+    0.8640987840815235
+   ],
+   "opp_roster": [
+    "charizard",
+    "heliolisk",
+    "venusaur",
+    "kingambit",
+    "grimmsnarl",
+    "aerodactyl"
+   ],
+   "opp_leads": [
+    "aerodactyl",
+    "heliolisk"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.0,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673199951",
+   "won": false,
+   "turns": 10,
+   "our_rating": 1370,
+   "opp_rating": 1289,
+   "opponent": "hpzjbs",
+   "our_leads": [
+    "basculegion",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.9774861031140318,
+    0.5666463334833409
+   ],
+   "opp_roster": [
+    "floetteeternal",
+    "kingambit",
+    "basculegion",
+    "garchomp",
+    "charizard",
+    "whimsicott"
+   ],
+   "opp_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.006,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673200828",
+   "won": true,
+   "turns": 9,
+   "our_rating": 1345,
+   "opp_rating": 1266,
+   "opponent": "klooby",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "preview_probabilities": [
+    0.6183971820825036,
+    0.29733358753734507
+   ],
+   "opp_roster": [
+    "scovillain",
+    "basculegion",
+    "sneasler",
+    "sylveon",
+    "tyranitar",
+    "sinistcha"
+   ],
+   "opp_leads": [
+    "basculegion",
+    "sneasler"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.6422,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673201237",
+   "won": false,
+   "turns": 5,
+   "our_rating": 1361,
+   "opp_rating": 1309,
+   "opponent": "Zemas",
+   "our_leads": [
+    "basculegion",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.8488560754135506,
+    0.932698168797014
+   ],
+   "opp_roster": [
+    "floetteeternal",
+    "basculegion",
+    "dragonite",
+    "kingambit",
+    "garchomp",
+    "sneasler"
+   ],
+   "opp_leads": [
+    "dragonite",
+    "sneasler"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.0,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673201770",
+   "won": true,
+   "turns": 6,
+   "our_rating": 1338,
+   "opp_rating": 1223,
+   "opponent": "SilverDE",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.5596407261470873,
+    0.38771143517726614
+   ],
+   "opp_roster": [
+    "tyranitar",
+    "corviknight",
+    "venusaur",
+    "houndstone",
+    "rotomwash",
+    "excadrill"
+   ],
+   "opp_leads": [
+    "excadrill",
+    "tyranitar"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.0,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673202675",
+   "won": true,
+   "turns": 7,
+   "our_rating": 1352,
+   "opp_rating": 1425,
+   "opponent": "DracoShower94",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.792203085145065,
+    0.4875534751110706
+   ],
+   "opp_roster": [
+    "tyranitar",
+    "excadrill",
+    "gallade",
+    "volcarona",
+    "milotic",
+    "weavile"
+   ],
+   "opp_leads": [
+    "gallade",
+    "weavile"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.7397,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673203024",
+   "won": true,
+   "turns": 3,
+   "our_rating": 1376,
+   "opp_rating": 1343,
+   "opponent": "thinhle0707092025",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.8062227713107575,
+    0.33026180993619647
+   ],
+   "opp_roster": [
+    "pelipper",
+    "sinistcha",
+    "swampert",
+    "sableye",
+    "archaludon",
+    "sneasler"
+   ],
+   "opp_leads": [
+    "pelipper",
+    "sneasler"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.6422,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673203305",
+   "won": false,
+   "turns": 10,
+   "our_rating": 1394,
+   "opp_rating": 1306,
+   "opponent": "Red666999",
+   "our_leads": [
+    "charizard",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": null,
+   "preview_probabilities": null,
+   "opp_roster": [
+    "raichu",
+    "gholdengo",
+    "whimsicott",
+    "basculegion",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "opp_leads": [
+    "raichu",
+    "whimsicott"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.006,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673203752",
+   "won": true,
+   "turns": 6,
+   "our_rating": 1369,
+   "opp_rating": 1392,
+   "opponent": "Gumbunti",
+   "our_leads": [
+    "charizard",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.4643625826584703,
+    0.5979672208439091
+   ],
+   "opp_roster": [
+    "hippowdon",
+    "mimikyu",
+    "gholdengo",
+    "tyrantrum",
+    "glimmora",
+    "staraptor"
+   ],
+   "opp_leads": [
+    "hippowdon",
+    "tyrantrum"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.7742,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673204085",
+   "won": true,
+   "turns": 1,
+   "our_rating": 1390,
+   "opp_rating": 1344,
+   "opponent": "alchibiades",
+   "our_leads": [
+    "basculegion",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.6297912688655458,
+    0.6203591334667138
+   ],
+   "opp_roster": [
+    "milotic",
+    "incineroar",
+    "manectric",
+    "mamoswine",
+    "chandelure",
+    "tsareena"
+   ],
+   "opp_leads": [
+    "mamoswine",
+    "manectric"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.6145,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673204488",
+   "won": false,
+   "turns": 7,
+   "our_rating": 1407,
+   "opp_rating": 1319,
+   "opponent": "Knut.b",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "preview_probabilities": [
+    0.7699741572610037,
+    0.2739977690995481
+   ],
+   "opp_roster": [
+    "tyranitar",
+    "houndstone",
+    "sinistcha",
+    "camerupt",
+    "incineroar",
+    "meowscarada"
+   ],
+   "opp_leads": [
+    "houndstone",
+    "tyranitar"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.6422,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673205031",
+   "won": false,
+   "turns": 5,
+   "our_rating": 1382,
+   "opp_rating": 1331,
+   "opponent": "chingfan",
+   "our_leads": [
+    "basculegion",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.30874312394206527,
+    0.4570272220873406
+   ],
+   "opp_roster": [
+    "charizard",
+    "milotic",
+    "sinistcha",
+    "tyranitar",
+    "incineroar",
+    "sneasler"
+   ],
+   "opp_leads": [
+    "charizard",
+    "sneasler"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.6422,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673205585",
+   "won": false,
+   "turns": 5,
+   "our_rating": 1359,
+   "opp_rating": 1476,
+   "opponent": "21Duncan",
+   "our_leads": [
+    "charizard",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": null,
+   "preview_probabilities": null,
+   "opp_roster": [
+    "froslass",
+    "sneasler",
+    "basculegion",
+    "dragonite",
+    "garchomp",
+    "kingambit"
+   ],
+   "opp_leads": [
+    "dragonite",
+    "garchomp"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.0,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673205945",
+   "won": false,
+   "turns": 4,
+   "our_rating": 1345,
+   "opp_rating": 1305,
+   "opponent": "POCKETWHAT",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "preview_probabilities": [
+    0.7928476251346694,
+    0.6917607140329238
+   ],
+   "opp_roster": [
+    "sinistcha",
+    "kommoo",
+    "tinkaton",
+    "bellibolt",
+    "weavile",
+    "glimmora"
+   ],
+   "opp_leads": [
+    "kommoo",
+    "tinkaton"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.6422,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673206381",
+   "won": true,
+   "turns": 5,
+   "our_rating": 1323,
+   "opp_rating": 1394,
+   "opponent": "turtle100000000",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.5506712442738717,
+    0.3479459083833678
+   ],
+   "opp_roster": [
+    "gardevoir",
+    "grimmsnarl",
+    "sinistcha",
+    "gholdengo",
+    "staraptor",
+    "whimsicott"
+   ],
+   "opp_leads": [
+    "staraptor",
+    "whimsicott"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.7473,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673206857",
+   "won": true,
+   "turns": 3,
+   "our_rating": 1347,
+   "opp_rating": 1267,
+   "opponent": "Light 1503",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.749981129211772,
+    0.3548242966860844
+   ],
+   "opp_roster": [
+    "whimsicott",
+    "staraptor",
+    "milotic",
+    "farigiraf",
+    "arcaninehisui",
+    "raichu"
+   ],
+   "opp_leads": [
+    "staraptor",
+    "whimsicott"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.971,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673207526",
+   "won": false,
+   "turns": 6,
+   "our_rating": 1362,
+   "opp_rating": 1451,
+   "opponent": "BkCheese",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "preview_probabilities": [
+    0.571892361191999,
+    0.35838050839007707
+   ],
+   "opp_roster": [
+    "pelipper",
+    "archaludon",
+    "annihilape",
+    "greninja",
+    "scizor",
+    "espathra"
+   ],
+   "opp_leads": [
+    "annihilape",
+    "greninja"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.0,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673208200",
+   "won": true,
+   "turns": 7,
+   "our_rating": 1347,
+   "opp_rating": 1371,
+   "opponent": "canadaisneat",
+   "our_leads": [
+    "charizard",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": null,
+   "preview_probabilities": null,
+   "opp_roster": [
+    "dragonite",
+    "annihilape",
+    "scizor",
+    "maushold",
+    "pelipper",
+    "meganium"
+   ],
+   "opp_leads": [
+    "dragonite",
+    "scizor"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.0,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673208668",
+   "won": false,
+   "turns": 5,
+   "our_rating": 1368,
+   "opp_rating": 1446,
+   "opponent": "Dylwerm",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "floetteeternal",
+    "garchomp"
+   ],
+   "preview_probabilities": [
+    0.7559462622228637,
+    0.32154544951090713
+   ],
+   "opp_roster": [
+    "feraligatr",
+    "sneasler",
+    "gardevoir",
+    "sinistcha",
+    "talonflame",
+    "kingambit"
+   ],
+   "opp_leads": [
+    "gardevoir",
+    "talonflame"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.7458,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673209015",
+   "won": false,
+   "turns": 7,
+   "our_rating": 1352,
+   "opp_rating": 1350,
+   "opponent": "bottlecap69",
+   "our_leads": [
+    "basculegion",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": null,
+   "preview_probabilities": null,
+   "opp_roster": [
+    "whimsicott",
+    "basculegion",
+    "garchomp",
+    "charizard",
+    "sneasler",
+    "floetteeternal"
+   ],
+   "opp_leads": [
+    "floetteeternal",
+    "sneasler"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.006,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673209836",
+   "won": false,
+   "turns": 5,
+   "our_rating": 1332,
+   "opp_rating": 1288,
+   "opponent": "Schwebz",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": null,
+   "preview_probabilities": null,
+   "opp_roster": [
+    "garchomp",
+    "tyranitar",
+    "sneasler",
+    "talonflame",
+    "kingambit",
+    "sinistchamasterpiece"
+   ],
+   "opp_leads": [
+    "sneasler",
+    "talonflame"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.6499,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673210428",
+   "won": false,
+   "turns": 5,
+   "our_rating": 1309,
+   "opp_rating": 1257,
+   "opponent": "Daleperchaun",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.38812751145759705,
+    0.23149452849100527
+   ],
+   "opp_roster": [
+    "blaziken",
+    "meowscarada",
+    "sylveon",
+    "dragonite",
+    "mudsdale",
+    "ariados"
+   ],
+   "opp_leads": [
+    "blaziken",
+    "sylveon"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.0,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673211053",
+   "won": false,
+   "turns": 5,
+   "our_rating": 1286,
+   "opp_rating": 1328,
+   "opponent": "desertstorm868",
+   "our_leads": [
+    "charizard",
+    "garchomp"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "kingambit"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "kingambit"
+   ],
+   "preview_probabilities": [
+    0.6777060330393603,
+    0.3025877149551768
+   ],
+   "opp_roster": [
+    "tyranitar",
+    "excadrill",
+    "staraptor",
+    "milotic",
+    "gholdengo",
+    "sinistchamasterpiece"
+   ],
+   "opp_leads": [
+    "excadrill",
+    "tyranitar"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.6499,
+   "trick_room_used": false
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673211644",
+   "won": true,
+   "turns": 6,
+   "our_rating": 1264,
+   "opp_rating": 1147,
+   "opponent": "BiCyn",
+   "our_leads": [
+    "charizard",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "charizard",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.41342738266633816,
+    0.6652583667289633
+   ],
+   "opp_roster": [
+    "sableye",
+    "araquanid",
+    "lucario",
+    "victreebel",
+    "ninetales",
+    "hatterene"
+   ],
+   "opp_leads": [
+    "hatterene",
+    "lucario"
+   ],
+   "first_faint": "theirs",
+   "opp_tr_probability": 0.9545,
+   "trick_room_used": true
+  },
+  {
+   "batch": "ladder_replays_league_canary_20260830",
+   "battle": "battle-gen9championsvgc2026regmb-2673212323",
+   "won": false,
+   "turns": 9,
+   "our_rating": 1281,
+   "opp_rating": 1274,
+   "opponent": "J_hawk3s",
+   "our_leads": [
+    "basculegion",
+    "whimsicott"
+   ],
+   "our_appeared": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "our_roster": [
+    "floetteeternal",
+    "charizard",
+    "whimsicott",
+    "garchomp",
+    "basculegion",
+    "kingambit"
+   ],
+   "our_bring_logged": [
+    "basculegion",
+    "charizard",
+    "garchomp",
+    "whimsicott"
+   ],
+   "preview_probabilities": [
+    0.9973191513476607,
+    0.6522155665149043
+   ],
+   "opp_roster": [
+    "kleavor",
+    "delphox",
+    "whimsicott",
+    "kingambit",
+    "garchomp",
+    "blastoise"
+   ],
+   "opp_leads": [
+    "kleavor",
+    "whimsicott"
+   ],
+   "first_faint": "ours",
+   "opp_tr_probability": 0.006,
+   "trick_room_used": false
+  },
+  {
    "batch": "ladder_replays_opponent_aware",
    "battle": "battle-gen9championsvgc2026regmb-2660034196",
    "won": true,

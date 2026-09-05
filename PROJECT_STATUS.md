@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Evaluator v3h FAILS the ladder gate; search re-gate armed with the incumbent (September 5, 00:20)
+
+Resumed. First finding: the "incumbent calibration" from 09-03 was a
+traceback -- the 08-31 reorg left six scripts anchoring ROOT to their own
+folder (`Path(__file__).resolve().parent`), so calibrate_vs_ladder looked for
+`tools/results_analysis/...`. All six repointed to `parents[1]` (including
+evaluate_tactical_gate, whose fixture paths were silently broken too).
+
+Calibration duel on the refreshed 446-game audit (7,571 scored states from
+434 battles, identical corpus for both nets):
+
+| net | ladder Brier | ECE | preview | turns 1-3 | 4-6 | 7+ |
+|---|---|---|---|---|---|---|
+| v2h incumbent | **0.2087** | 0.1029 | 0.3466 | 0.2207 | 0.1339 | 0.1132 |
+| v3h candidate | 0.2145 | 0.1124 | 0.3608 | 0.2242 | 0.1342 | 0.1243 |
+
+**v3h loses in every bucket** despite passing the data, per-style and
+historical-holdout gates -- the sim-to-ladder gap once more; plausibly the
+exploiter-heavy historical rotation pulled the label distribution away from
+human play. Standing gate holds: the v2h net remains the evaluator. Both nets
+stay preview-blind (mean p 0.06-0.08 vs 41% actual), the known open problem.
+
+The search question is untouched by this: the promoted brain has never been
+searched with ANY evaluator. `evaluation/run_search_regate.sh` is armed with
+the v2h net (pre-registered bar unchanged: beat no-search by >=3pp at n=300
+paired, live decisions, p90 < 9s), gated on AC power (machine was on
+battery). Per the user's order, the 25-game ladder test runs ONLY on a pass.
+
 ## PAUSED by the user mid-calibration (September 3, ~10:25)
 
 v3h trained and saved (`results_outcome_v3h/outcome_value.zip`, selected

@@ -16,7 +16,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 
 FIXTURES = (
     "unit_tests/test_tempo_reranker.py::test_tailwind_changes_speed_before_trick_room_inverts_order",

@@ -9,7 +9,7 @@ from pathlib import Path
 
 from vgc_bench.src.exact_sim import ExactShowdownBridge
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def first_legal_pair(request) -> str:

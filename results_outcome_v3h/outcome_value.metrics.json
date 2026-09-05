@@ -1,0 +1,156 @@
+{
+  "source_checkpoint": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_league/league_champion.zip",
+  "data": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/outcome_data_v3h",
+  "states": 149271,
+  "games": 19902,
+  "selected_epoch": 1,
+  "opponent_split": {
+    "train": 436,
+    "validation": 54,
+    "test": 55
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_log_loss": 0.4456683867510377,
+      "validation_log_loss": 0.4511195719242096
+    },
+    {
+      "epoch": 2,
+      "train_log_loss": 0.4209210571551143,
+      "validation_log_loss": 0.45364245772361755
+    },
+    {
+      "epoch": 3,
+      "train_log_loss": 0.4089287573502692,
+      "validation_log_loss": 0.45189061760902405
+    },
+    {
+      "epoch": 4,
+      "train_log_loss": 0.3967587167629251,
+      "validation_log_loss": 0.4556388556957245
+    },
+    {
+      "epoch": 5,
+      "train_log_loss": 0.3838615243298725,
+      "validation_log_loss": 0.46613484621047974
+    },
+    {
+      "epoch": 6,
+      "train_log_loss": 0.3714416506682389,
+      "validation_log_loss": 0.47421473264694214
+    },
+    {
+      "epoch": 7,
+      "train_log_loss": 0.35778279987645023,
+      "validation_log_loss": 0.4989001750946045
+    },
+    {
+      "epoch": 8,
+      "train_log_loss": 0.34280806953295745,
+      "validation_log_loss": 0.5082361698150635
+    }
+  ],
+  "calibration": {
+    "temperature": 1.117588525608285
+  },
+  "test": {
+    "outcome_model": {
+      "brier": 0.1536234414168752,
+      "log_loss": 0.46269785520339124,
+      "calibration_error": 0.01322362798725502,
+      "accuracy": 0.7697513904710849,
+      "mean_probability": 0.6094106463051095,
+      "mean_target": 0.6138175969979227
+    },
+    "champion_critic": {
+      "brier": 0.2325071433338153,
+      "log_loss": 1.1210526811108823,
+      "calibration_error": 0.14400478100516229,
+      "accuracy": 0.6907458285867453,
+      "mean_probability": 0.6064406250703601,
+      "mean_target": 0.6138175969979227
+    },
+    "hybrid_evaluator": {
+      "brier": 0.1892174969437484,
+      "log_loss": 0.5593588345577414,
+      "calibration_error": 0.055368044113878,
+      "accuracy": 0.7117201635059974,
+      "mean_probability": 0.5748420686821816,
+      "mean_target": 0.6138175969979227
+    }
+  },
+  "test_by_style": {
+    "historical": {
+      "states": 3758,
+      "outcome_model": 0.15574473209007939,
+      "champion_critic": 0.22999025595846903,
+      "hybrid_evaluator": 0.19040411015530606
+    },
+    "human_bc": {
+      "states": 3587,
+      "outcome_model": 0.15093217486532404,
+      "champion_critic": 0.2283522040157482,
+      "hybrid_evaluator": 0.18481028499631005
+    },
+    "human_prior": {
+      "states": 5261,
+      "outcome_model": 0.1560635614302454,
+      "champion_critic": 0.23954800725712422,
+      "hybrid_evaluator": 0.19375509935092355
+    },
+    "model": {
+      "states": 2317,
+      "outcome_model": 0.1488087202504543,
+      "champion_critic": 0.2270346551982649,
+      "hybrid_evaluator": 0.1838126849205629
+    }
+  },
+  "test_preview_states": {
+    "states": 1996,
+    "brier": 0.21996541865183236,
+    "log_loss": 0.6284439643458362,
+    "calibration_error": 0.06146472016487547,
+    "accuracy": 0.624248496993988,
+    "mean_probability": 0.572728541326935,
+    "mean_target": 0.6077154308617234
+  },
+  "test_move_states": {
+    "states": 12927,
+    "brier": 0.14337987473002023,
+    "log_loss": 0.437105743046795,
+    "calibration_error": 0.011307693334938859,
+    "accuracy": 0.79221783863232,
+    "mean_probability": 0.615074565353337,
+    "mean_target": 0.6147598050591785
+  },
+  "holdout_style": "historical",
+  "holdout_metrics": {
+    "states": 36907,
+    "outcome_model": {
+      "brier": 0.14700004668839634,
+      "log_loss": 0.4453191530008251,
+      "calibration_error": 0.00901143305490866,
+      "accuracy": 0.7803939632048121,
+      "mean_probability": 0.6529249304388837,
+      "mean_target": 0.6462188744682581
+    },
+    "champion_critic": {
+      "brier": 0.21451102167906042,
+      "log_loss": 1.014087227123279,
+      "calibration_error": 0.12729022013201963,
+      "accuracy": 0.7143360338147235,
+      "mean_probability": 0.6456091897823876,
+      "mean_target": 0.6462188744682581
+    }
+  },
+  "acceptance": {
+    "data_metrics_passed": true,
+    "per_style_passed": true,
+    "holdout_style_passed": true,
+    "required_relative_improvement": 0.05,
+    "maximum_calibration_error": 0.05,
+    "tactical_gate_pending": true,
+    "ladder_brier_gate_pending": true
+  }
+}

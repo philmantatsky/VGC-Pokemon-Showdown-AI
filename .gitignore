@@ -80,3 +80,8 @@ results_gate_battery_league/*/*/*
 !results_exploiter/
 results_exploiter/*
 !results_exploiter/exploit_eval_1000.json
+# evaluator v3h: calibration evidence and metrics; checkpoints stay local
+!results_outcome_v3h/
+results_outcome_v3h/*
+!results_outcome_v3h/*.txt
+!results_outcome_v3h/*.metrics.json

@@ -25,7 +25,7 @@ from vgc_bench.src.opponent_tactics import MovePredictor, SwitchPredictor
 from vgc_bench.src.outcome_value import OutcomeValueEvaluator
 from vgc_bench.src.ponder import PonderConfig
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 FORMAT = "gen9championsvgc2026regmb"
 
 
