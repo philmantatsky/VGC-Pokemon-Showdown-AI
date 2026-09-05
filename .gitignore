@@ -92,3 +92,11 @@ results_search_v3h/*
 !results_league3/
 results_league3/*
 !results_league3/league_manifest.json
+!results_gate_battery_league3/
+results_gate_battery_league3/*
+!results_gate_battery_league3/*/
+results_gate_battery_league3/*/*
+!results_gate_battery_league3/*/*/
+results_gate_battery_league3/*/*/*
+!results_gate_battery_league3/*/*/scorecard.json
+!results_gate_battery_league3/*/exploit_remeasure_1000.json
