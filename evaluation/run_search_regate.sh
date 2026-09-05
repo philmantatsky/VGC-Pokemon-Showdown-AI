@@ -16,6 +16,19 @@ trap 'echo "GATE_FAILED at line $LINENO (exit $?)"' ERR
 # order: the 25-game ladder test runs ONLY if this gate passes.
 
 VALUE=${1:-results_outcome_v3h/outcome_value.zip}
+PORT=7600
+
+# Pre-flight: a fresh eval server. A server still holding a killed run's
+# half-finished rooms hands the next run stale mid-battle messages under the
+# same player names (sheet-handshake errors, embed crashes, silent stalls --
+# observed repeatedly on 2026-09-05). The eval port is dedicated, so restart it.
+if pids=$(lsof -nP -t -iTCP:$PORT -sTCP:LISTEN 2>/dev/null); then
+  kill $pids 2>/dev/null || true
+  sleep 3
+fi
+(cd pokemon-showdown && node pokemon-showdown start $PORT --no-security > /dev/null 2>&1 &)
+for _ in $(seq 1 30); do lsof -nP -iTCP:$PORT -sTCP:LISTEN >/dev/null 2>&1 && break; sleep 1; done
+lsof -nP -iTCP:$PORT -sTCP:LISTEN >/dev/null 2>&1 || { echo "GATE_FAILED: eval server on $PORT did not start"; exit 2; }
 CHAMP=results_league/league_champion.zip
 mkdir -p results_search_v3h
 
@@ -26,6 +39,6 @@ mkdir -p results_search_v3h
   --outcome-value "$VALUE" \
   --search-budget 8 --screen-budget 2 --chance-samples 1 \
   --determinizations 8 --selective-search \
-  --n-battles 300 --hidden-sheets --seed 303 --port 7600 --workers 8 \
+  --n-battles 300 --hidden-sheets --seed 303 --port $PORT --workers 8 \
   --output results_search_v3h/search_regate_hidden300.json
 echo "SEARCH_REGATE_COMPLETE"

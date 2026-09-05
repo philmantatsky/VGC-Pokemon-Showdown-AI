@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Fourth stall source: stale server rooms after a killed run; gate relaunched clean (September 5, 01:13)
+
+After the ledger fix the serial search arm still froze silently at its second
+decision, on a poke-env CRITICAL "You cannot reject open team sheets after
+Team Preview" (unknown server errors are logged, never retried). Two causes
+addressed: (1) paired arms now share concurrency -- a 1-slot search player
+vs an 8-slot opponent opened extra rooms on the foe's side; (2) the decisive
+one: every relaunch tonight followed a mid-battle kill on the same eval
+server, which kept the dead run's rooms and fed the next run's identically
+named players stale mid-battle messages (the champion arm itself broke at
+startup once this way). `run_search_regate.sh` now restarts the eval server
+before launching. Relaunched 01:13 on a clean server: champion arm started
+with zero errors.
+
 ## Third stall class fixed: paired-preview ledger drift (September 5, 00:52)
 
 The relaunched search arm then froze seven battles on
