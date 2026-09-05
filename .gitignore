@@ -85,3 +85,7 @@ results_exploiter/*
 results_outcome_v3h/*
 !results_outcome_v3h/*.txt
 !results_outcome_v3h/*.metrics.json
+# search re-gate evidence (JSON only; audits stay local)
+!results_search_v3h/
+results_search_v3h/*
+!results_search_v3h/*.json

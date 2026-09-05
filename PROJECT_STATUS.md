@@ -1,5 +1,36 @@
 # VGC Bot Project Status
 
+## Search re-gate VERDICT: a valid tie -- search FAILS the +3pp bar; no ladder test (September 5, 05:20)
+
+On the clean server the gate ran end to end in 4h with zero errors and
+perfect pairing (300/300 opponent previews replayed, 0 mismatches; no policy
+repairs fired -- the earlier "policy None before load" and ledger-drift
+symptoms were stale-room artifacts too). Paired n=300, hidden sheets,
+held-out human opponent (bc_eval_B stochastic), v2h evaluator:
+
+| arm | wins | search decisions | fallbacks | truncations | p50 / p90 / max |
+|---|---|---|---|---|---|
+| champion (no search) | 252/300 = 84.0% | -- | -- | -- | -- |
+| live exact search | 254/300 = 84.7% | 1,415 | 951 | 850 | 7.4 / 7.6 / 7.9 s |
+
+**+0.7pp vs the pre-registered +3.0pp bar: FAIL.** Mechanically sound
+(in-budget, serial, no stalls) but no strength: search reaches a decision on
+only ~1/3 of its turns inside 8s (the rest fall back to the policy+guards)
+and those decisions are a wash. This matches the Aug-22 ties on the old
+champion. With v3h rejected, the evaluator remains the bottleneck (v2h is
+preview-blind and trained on the old bot's games). Per the user's standing
+order the 25-game ladder test does NOT run.
+
+`results_search_v3h/search_regate_hidden300.json` is the record. What the
+night actually bought: four stall classes fixed for good (asserts, load
+race, ledger drift, stale server rooms) -- the eval harness is now robust to
+serial search arms and learned opponents, which it never was.
+
+Next lever, from the exploiter's leak map (60.2% vs the champion, via the
+opening exchange and long games): **league round 3 with the exploiter in the
+FP pool** -- the proven training loop, aimed at the measured leaks -- rather
+than more search work until an evaluator beats 0.2087 on ladder replays.
+
 ## Fourth stall source: stale server rooms after a killed run; gate relaunched clean (September 5, 01:13)
 
 After the ledger fix the serial search arm still froze silently at its second

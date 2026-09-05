@@ -296,4 +296,9 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   parse errors). Deployed ladder checkpoint:
   `results_league/league_champion.zip` via explicit `--checkpoint`;
   `results_repaired/champion.zip` remains the immutable prior champion.
+- [x] ~~Search on the promoted brain~~ **re-gated 2026-09-05: valid tie
+  (+0.7pp vs +3.0 bar, 1,415 in-budget decisions, 2/3 of searches truncated)
+  -- not deployed; ladder test skipped per the user's rule.** Evaluator v3h
+  also rejected (ladder Brier 0.2145 vs 0.2087). Exploiter probe: 60.2% vs
+  the champion via opening exchange + long games -> league 3 input.
 - [ ] Generalization beyond the fixed team begins
