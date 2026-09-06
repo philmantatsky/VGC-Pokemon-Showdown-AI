@@ -32,6 +32,7 @@ import datetime
 import json
 import shutil
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 
 from vgc_bench.src.utils import (
@@ -90,21 +91,29 @@ def check_source(path: Path) -> tuple[str, str]:
     return digest, role
 
 
-def collect_banned_shas(eval_only_root: Path) -> dict[str, str]:
-    """Hash every checkpoint under the eval-only tree into a content ban list.
+def collect_banned_shas(eval_only_root: Path | Sequence[Path]) -> dict[str, str]:
+    """Hash every checkpoint under the eval-only tree(s) into a content ban list.
 
     Banning only the stamped epoch would leave 30 sibling epochs admissible;
     the holdout property belongs to the whole training run, so every .zip
-    under the tree is banned by content.
+    under each tree is banned by content. Several trees (eval_B from the Aug
+    corpus, eval_D from the 2026-09-06 scrape) are merged; every tree must
+    contain at least one checkpoint, or the ban list is silently incomplete.
     """
+    roots = (
+        [eval_only_root] if isinstance(eval_only_root, Path) else list(eval_only_root)
+    )
     banned: dict[str, str] = {}
-    for path in sorted(eval_only_root.rglob("*.zip")):
-        banned[_sha256_file(path)] = f"{path} (eval-only holdout)"
-    if not banned:
-        raise SystemExit(
-            f"no checkpoints found under {eval_only_root}; refusing to build a "
-            "league without a content ban list for the holdout arm."
-        )
+    for root in roots:
+        found = 0
+        for path in sorted(Path(root).rglob("*.zip")):
+            banned[_sha256_file(path)] = f"{path} (eval-only holdout)"
+            found += 1
+        if not found:
+            raise SystemExit(
+                f"no checkpoints found under {root}; refusing to build a "
+                "league without a content ban list for the holdout arm."
+            )
     return banned
 
 
@@ -165,7 +174,7 @@ def build_league(
     dest: Path,
     sources: dict[int, str],
     resume_stem: int,
-    eval_only_root: Path,
+    eval_only_root: Path | Sequence[Path],
     weights_source: Path,
     weights_dest: Path,
     tr_boost: float = 1.0,
@@ -206,8 +215,9 @@ def build_league(
     manifest_path.write_text(
         json.dumps(
             {
-                "created_at": datetime.datetime.now(datetime.timezone.utc)
-                .isoformat(timespec="seconds"),
+                "created_at": datetime.datetime.now(datetime.timezone.utc).isoformat(
+                    timespec="seconds"
+                ),
                 "resume_stem": resume_stem,
                 "banned_sha256": banned,
                 "entries": entries,
@@ -265,16 +275,20 @@ def main(argv: list[str] | None = None) -> None:
             raise SystemExit(f"missing {weights_dest}; rebuild the league")
         league_weights = json.loads(weights_dest.read_text())
         if league_weights.get("our_team.txt") != 0.0:
-            raise SystemExit(
-                f"{weights_dest} does not zero our_team.txt; rebuild it"
-            )
+            raise SystemExit(f"{weights_dest} does not zero our_team.txt; rebuild it")
         print(f"league pool verified: {dest}", flush=True)
         return
     manifest_path = build_league(
         dest=dest,
         sources=sources,
         resume_stem=resume_stem,
-        eval_only_root=Path(config.get("eval_only_root", DEFAULT_EVAL_ONLY_ROOT)),
+        eval_only_root=[
+            Path(root)
+            for root in config.get(
+                "eval_only_roots",
+                [config.get("eval_only_root", DEFAULT_EVAL_ONLY_ROOT)],
+            )
+        ],
         weights_source=Path(config.get("weights_source", DEFAULT_WEIGHTS_SOURCE)),
         weights_dest=weights_dest,
         tr_boost=float(config.get("tr_boost", 1.0)),

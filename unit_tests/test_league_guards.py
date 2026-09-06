@@ -44,11 +44,7 @@ def _seed_sources(tmp_path: Path) -> tuple[dict[int, str], Path]:
     _stamp(champion, _ckpt(champion, b"champion-weights"), "production")
     eval_root = tmp_path / "eval_B"
     _ckpt(eval_root / "seed2" / "30.zip", b"holdout-weights")
-    sources = {
-        100: str(bc),
-        3932160: str(lineage),
-        7864320: str(champion),
-    }
+    sources = {100: str(bc), 3932160: str(lineage), 7864320: str(champion)}
     return sources, eval_root
 
 
@@ -180,9 +176,7 @@ def test_tr_boost_multiplies_only_tr_likely_teams(tmp_path: Path) -> None:
     (teams / "tr.txt").write_text("Farigiraf @ Leftovers\nAbility: Armor Tail\n")
     (teams / "fast.txt").write_text("Raichu @ Focus Sash\nAbility: Static\n")
     src = tmp_path / "weights.json"
-    src.write_text(
-        json.dumps({"our_team.txt": 35.0, "tr.txt": 10.0, "fast.txt": 10.0})
-    )
+    src.write_text(json.dumps({"our_team.txt": 35.0, "tr.txt": 10.0, "fast.txt": 10.0}))
     out = tmp_path / "out.json"
     boosted = write_league_team_weights(src, out, tr_boost=3.0, teams_dir=teams)
     weights = json.loads(out.read_text())
@@ -190,3 +184,21 @@ def test_tr_boost_multiplies_only_tr_likely_teams(tmp_path: Path) -> None:
     assert weights["tr.txt"] == 30.0
     assert weights["fast.txt"] == 10.0
     assert weights["our_team.txt"] == 0.0
+
+
+def test_collect_banned_shas_merges_several_eval_only_roots(tmp_path: Path) -> None:
+    """eval_B (Aug corpus) and eval_D (2026-09-06 scrape) are both holdouts; a
+    pool must refuse either by content, and an empty root must not silently
+    shrink the ban list."""
+    root_b, root_d = tmp_path / "eval_B", tmp_path / "eval_D"
+    shas = set()
+    for root, payloads in ((root_b, (b"b0", b"b1")), (root_d, (b"d0",))):
+        (root / "saves").mkdir(parents=True)
+        for i, payload in enumerate(payloads):
+            path = root / "saves" / f"{i}.zip"
+            path.write_bytes(payload)
+            shas.add(hashlib.sha256(payload).hexdigest())
+    assert set(collect_banned_shas([root_b, root_d])) == shas
+    assert set(collect_banned_shas(root_b)) < shas
+    with pytest.raises(SystemExit):
+        collect_banned_shas([root_b, tmp_path / "empty"])
