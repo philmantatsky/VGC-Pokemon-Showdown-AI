@@ -1,5 +1,12 @@
 # VGC Bot Project Status
 
+## League 3b save 1: clean, no adaptation shock (September 6, 02:40)
+
+Save 1 (13,762,560): eval/heuristic **0.84**, eval/bc **0.81** (round 3 opened
+at 0.71/0.67 under the same probes); ep_rew +0.56..+0.78, approx_kl ~0.02,
+clip 0.08-0.09, 156 steps/s, zero errors. Continue under the original kill
+criteria; completion ~09:45.
+
 ## League 3b launched: adversary dose cut to one copy (September 6, 00:45)
 
 Pool (`training/league3b_config.json`): deployed champion at resume
