@@ -1,5 +1,37 @@
 # VGC Bot Project Status
 
+## League 3b finalist 2 at four of five arms; confirmation rule written BEFORE the human holdout reads (September 6, 13:00)
+
+17694720 vs the DEPLOYED champion (n=1,000 paired, hidden sheets):
+heuristic **-2.7** (88.2 v 90.9), frozen -0.1, rotation 8opp **+2.2**,
+rotation tuned **+3.4**; human holdout and mix_A pending (~13:15 / ~13:30).
+Exploit re-measure +27.4. Finalist 1 (14745600) completed and FAILS:
+heuristic -0.4, frozen **-3.0**, rotation1 **-2.6**, rotation2 -0.4, human
+-0.1 (weighted -1.1, equal -1.3; mix_A +3.8 vs eval_B -0.1 = 3.9pp
+divergence, clean). Zero preview-pairing mismatches on every arm.
+
+By the letter of the 3b bars (no arm below the deployed brain by >2pp),
+finalist 2 already fails on the heuristic arm whatever the human holdout
+says. Recorded now, before that arm lands, so it cannot be a post-hoc
+move: the heuristic reading is one arm at about two standard errors
+(n=1,000 paired) and inside 1pp of the bar -- the zone where the
+counterfactual track's pre-registered rule (FUTURE_BOT_PLAN: within +/-1pp
+of its bar -> fresh-seed n=1,500 confirmation before accept/reject)
+refuses to call a verdict at n=1,000. That rule was written for the +2.0pp
+promotion bar; applying it to a regression bar is an EXTENSION and is
+labelled as such. Plan, fixed now: after the chain completes, one
+fresh-seed (seed 8301) n=1,500 heuristic-arm re-run of finalist 2 vs the
+deployed champion on a restarted eval server. Decision rule: the fresh
+reading decides the arm (the screening reading stays in the record);
+>= -2.0pp = non-breach, and the candidate becomes a CONDITIONAL pass for
+the user's decision (with the weighted delta, the human holdout and the
+mix_A divergence as they read); < -2.0pp = breach confirmed, verdict FAIL,
+no further re-measurement. No ladder game is played on this candidate
+without the user's word in either case: a pass here would rest on a rule
+extension the user has not reviewed. Round-3 precedent is consistent with
+this: every earlier breaching finalist had two or more breaching arms,
+where a single-arm confirmation could not have changed the verdict.
+
 ## League 3b: both finalists qualify on the exploit re-measure (September 6, 10:15)
 
 n=1,000 paired vs the final exploiter (stochastic): 14745600 **55.6% vs
