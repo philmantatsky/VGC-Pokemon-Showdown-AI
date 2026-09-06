@@ -1,5 +1,22 @@
 # VGC Bot Project Status
 
+## Every-turn mixing is worse even against the exploiter; mixing lever closed; ladder batch running (2026-September 6, 18:06)
+
+The one pre-registered secondary variant (`always`, top-3, T=1) on the
+exploit meter, n=1,000 paired: **39.1% vs 41.3% = -2.2pp**
+(mixing_ran 10,410, changed picks 3,769, zero mismatches). Dose-response:
+opening-only +2.6, every-turn -2.2 -- more sampling hurts, against the one
+opponent it was meant to confuse. The policy's argmax beats its own
+sampled play essentially everywhere; unpredictability at the action level
+is not where the brain's exploitability lives. The mixing code stays
+(default off, tested, useful for future A/Bs), the lever is closed, and
+the answer to the poker question is now measured rather than argued: the
+equilibrium has to be found in training (step 2), not applied at decision
+time on top of a fixed policy. `results_mixing_probe/always_k3_t1.0_l2/
+exploit_1000.json`. Ladder batch started 18:06: deployed brain, 25 serial
+games into the 125-game corpus dir; exhibition mode follows, then the
+round-4 meta-game overnight.
+
 ## Mixing probe VERDICT: opening mixing PARKED -- small exploit gain, real local cost (2026-September 6, 17:47)
 
 Deployed + opening mixing (top-3, T=1, preview + turns 1-2) vs the deployed
