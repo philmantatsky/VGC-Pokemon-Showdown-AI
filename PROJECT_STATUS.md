@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## League 3b launched: adversary dose cut to one copy (September 6, 00:45)
+
+Pool (`training/league3b_config.json`): deployed champion at resume
+(12,779,520) + league-1 history (4) + old champion + bc_mix_A x3 + ONE copy
+of the final exploiter (stem 400; ~10% initial, decaying). League v1 team
+weights, same hyperparameters, +5 intervals to 17,694,720 on a fresh 7700
+server. Bars unchanged from round 3 (pre-registered): exploit re-measure
+>= +5pp over the deployed brain's ~39%; 5-arm screening vs the deployed
+brain with no arm below by >2pp and weighted >= 0; mix_A divergence <= 10pp;
+first-save kill criteria; ladder 25 only on a full pass. Hypothesis: a
+lighter dose keeps most of the exploit fix without the 2-6pp PPO-arm tax.
+
 ## League 3 VERDICT: exploit closed, general bar failed by both finalists; round 3b prepared (September 5, 23:05)
 
 Full cards vs the DEPLOYED champion (n=1,000 paired, hidden sheets):
