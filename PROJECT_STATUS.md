@@ -1,5 +1,42 @@
 # VGC Bot Project Status
 
+## Mixing probe VERDICT: opening mixing PARKED -- small exploit gain, real local cost (2026-September 6, 17:47)
+
+Deployed + opening mixing (top-3, T=1, preview + turns 1-2) vs the deployed
+brain, n=1,000 paired per arm, hidden sheets, seed 83
+(`results_mixing_probe/opening_k3_t1.0_l2/`):
+
+| arm | mixed vs deployed |
+|---|---|
+| adversary (exploiter, stochastic) | **+2.6** (43.3 v 40.7) -- bar was +5 |
+| human holdout eval_B | 0.0 (85.7 v 85.7) |
+| heuristic | -2.2 (89.8 v 92.0) |
+| frozen 64opp | -1.1 (83.1 v 84.2) |
+| rotation 8opp | **-3.1** (85.0 v 88.1) -- breach |
+| rotation tuned | -1.2 (84.0 v 85.2) |
+| weighted (human x2) / equal | -1.3 / -1.5 |
+
+Mechanism verified on every arm (mixing_ran ~4,700 per arm, ~1,530 changed
+picks, zero pairing mismatches). The marker tells the story: first faint
+ours rises on EVERY arm for the mixed brain (rotation 8opp 25% vs 20%,
+human 29% vs 25%, frozen 28% vs 25%) -- a sampled opening loses the first
+mon more often than the argmax opening. Verdict by the pre-registered
+rules: primary bar missed (+2.6 < +5) and the cost side breached
+(rotation1 -3.1, beyond the confirmation window), so no confirmation runs
+are spent; **the opening-mixing lever is PARKED**, deployed brain
+unchanged.
+
+What it teaches, cheaply: the exploiter's 60% is not about predicting which
+of three near-equivalent picks the brain makes at the opening. Against
+non-adaptive opponents the policy's argmax is simply its best action and
+sampling is noise (-1 to -3pp); against the adversary the unpredictability
+buys only a third of the bar. The holes are in WHAT the policy values, so
+the fix has to reach the weights -- step 2 (Nash-weighted league round 4
+against the new human clones and the exploiter). The every-turn variant's
+exploit meter is running now as the one pre-registered follow-up
+(`always_k3_t1.0_l2/`); its battery runs only on a +5pp pass. Then the
+25-game deployed-brain ladder batch and exhibition mode.
+
 ## eval_D: an eval-only human clone of the CURRENT meta; ban list covers both holdouts (2026-September 6, 16:57)
 
 `results_bc/eval_D/saves_bc/seed2/4.zip` (sha 99ffe1b5, role eval_only)

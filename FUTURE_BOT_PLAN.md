@@ -320,7 +320,10 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   rule fails a neutral candidate ~1 time in 3 across five arms (0.5% at
   n=5,000). ADOPTED 2026-09-06 with the user's go: hard non-regression at
   the promotion tier only; screening gets the +/-1pp confirmation clause.**
-- [ ] **Mixed-strategy play (the poker lever), probe launched 2026-09-06:**
+- [x] ~~Mixed-strategy play (the poker lever)~~ **PARKED 2026-09-06: opening
+  mixing +2.6 vs the exploiter (bar +5) and -1..-3pp on every non-adaptive arm
+  (rotation 8opp -3.1 breach); first-faint-ours up on every arm. The holes are
+  in what the policy values, not in which near-tie it picks.** Original entry:
   the deployed brain never mixes (top pick after guards; preview = two
   argmax calls), the most exploitable shape in a simultaneous-move game.
   `--mixing opening` (top-3, T=1, preview + turns 1-2; guard-demoted pairs
