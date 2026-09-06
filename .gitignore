@@ -122,3 +122,7 @@ results_mixing_probe/*/*
 results_mixing_probe/*/*/*
 !results_mixing_probe/*/*/scorecard.json
 !results_mixing_probe/*/*/verdict.json
+# current-meta human arm baseline (2026-09-06)
+!results_gate_battery_evalD/
+results_gate_battery_evalD/*
+!results_gate_battery_evalD/*.json
