@@ -899,6 +899,14 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=83)
     parser.add_argument("--hidden-sheets", action="store_true")
     parser.add_argument(
+        "--baseline-only",
+        action="store_true",
+        help=(
+            "run only the baseline arm against the opponent (meta-game payoff "
+            "cells); --candidate is still required but unused"
+        ),
+    )
+    parser.add_argument(
         "--candidate-mixing",
         choices=("off", "opening", "always"),
         default="off",
@@ -983,7 +991,19 @@ def main() -> None:
     arms = {}
     opponent_preview_ledger = PreviewLedger()
     own_preview_ledger = PreviewLedger()
-    if args.preview_comparison_only:
+    if args.baseline_only:
+        # One policy against one opponent (meta-game payoff cells): the baseline
+        # arm alone, no paired candidate, half the cost of a normal run.
+        arms["champion_policy"] = _run_arm(
+            args,
+            server,
+            "champion policy",
+            baseline,
+            baseline_preview,
+            False,
+            opponent_preview_ledger=opponent_preview_ledger,
+        )
+    elif args.preview_comparison_only:
         arms["champion_policy"] = _run_arm(
             args,
             server,
