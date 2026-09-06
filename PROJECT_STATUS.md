@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## League 3 finalist 17694720: 71.4% vs the exploiter; both finalists qualify (September 5, 19:35)
+
+Final checkpoint, same paired protocol: deployed **391/1000 = 39.1%**,
+finalist **714/1000 = 71.4%** (+32.3pp); first faint ours 58% -> 30%; 7+
+turn games won 39% -> 69%. Both finalists now face the 5-arm screening
+battery vs the DEPLOYED champion (14745600 first, then 17694720) and the
+mix_A diagnostic. **Tiebreak, written before any battery result:** among
+finalists that pass (no arm below the deployed brain by >2pp, weighted >= 0,
+mix_A divergence <= 10pp), promote the one with the higher weighted battery
+delta; exploit margin breaks a tie within 1pp. Promotion tier (5,000/arm)
+runs only if the screening weighted delta is >= +1pp or the human holdout
+is >= +2pp; otherwise the candidate is a "specialist" and goes straight to
+the 25-game ladder test as a non-regression check with the exploit fix as
+the claim.
+
 ## League 3 finalist 14745600: exploit flipped -- 67.0% vs the exploiter (September 5, 19:12)
 
 Exploit re-measure (n=1,000, stochastic final exploiter, paired seed 83):
