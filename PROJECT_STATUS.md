@@ -1,5 +1,16 @@
 # VGC Bot Project Status
 
+## League 3b: both finalists qualify on the exploit re-measure (September 6, 10:15)
+
+n=1,000 paired vs the final exploiter (stochastic): 14745600 **55.6% vs
+deployed 40.2% (+15.4)**, first faint ours 59->36%, long games 40->56%;
+17694720 **67.4% vs 40.0% (+27.4)**, first faint 57->30%, long games 39->62%.
+Round-3-level closure at the lighter dose for the final checkpoint. The
+decisive test is the 5-arm non-regression battery vs the deployed champion
+(14745600 first, then 17694720) + mix_A diagnostics; tiebreak rule as
+pre-registered on 09-05 (higher weighted delta among passers; exploit margin
+breaks ties within 1pp).
+
 ## League 3b complete; verdict chain running (September 6, 09:35)
 
 Five checkpoints, zero errors. Probes (heuristic / bc): 0.84/0.81,
