@@ -1,5 +1,61 @@
 # VGC Bot Project Status
 
+## Mixed-strategy play: built, gated, probe launched (2026-September 6, 16:02)
+
+The user chose the program "make the brain unexploitable, then change the
+team" (options and recommendation given 14:30). Step 1 = stop being
+deterministic at the mind-game decisions. The finding that prompted it: the
+production stack always plays `cands[0]` after guards and rerankers
+(`_guarded_action`), and preview is two argmax calls -- the deployed brain
+never mixes. In a simultaneous-move game that is the most exploitable policy
+shape; the exploiter's 60% and the 1300+ opening punishes are its symptom.
+
+Built (default off, counted, audited): `PolicyPlayer(mixing_mode=off|opening|
+always, mixing_top_k=3, mixing_temperature=1.0, mixing_last_turn=2,
+mixing_seed)`. At an active decision (opening = team preview + turns <= 2)
+the stack samples the played pair among the top-k eligible candidates with
+weights = policy probability^(1/T), renormalised; guard-demoted and
+strategic-only pairs are never sampled, so mixing cannot reintroduce a known
+blunder; the chosen pair rotates to the front so audit, counters and caller
+agree; any internal error counts and leaves the ranking untouched. Counters
+`mixing_ran`, `mixing_changed_pick`, `mixing_skipped:*`, `mixing_error:*`;
+the decision JSONL gains a `mixing` block. Flags: `eval_counterfactual.py
+--candidate-mixing` (candidate arm only, sampler seeded from --seed),
+`run_gate_battery.py --candidate-mixing` (forwarded to every arm, recorded in
+the scorecard), `ladder_ourteam.py --mixing` (recorded in run_config.json).
+Smoke test, 8 local battles with a replay dir: mixed arm mixing_ran 40,
+changed_pick 11, audit blocks on turns 0/1/2 with weights; baseline arm
+untouched. 7 unit tests.
+
+Gate fix (the 13:55 finding, adopted with the user's go):
+`evaluation/scorecard_verdict.py` reads a battery directory, computes each
+arm's paired SE from the per-battle records, and applies the tier's rule --
+screening ADVISORY (an arm within +/-1pp of the -2pp bar is CONFIRM -> a
+fresh-seed n=1,500 re-run of that arm decides; a --confirm reading replaces
+the screening reading and is judged hard), promotion HARD. It reproduces the
+3b verdict (FAIL after confirmation; neutral false-fail 31% at those SEs).
+7 unit tests. FUTURE_BOT_PLAN's measurement rule updated.
+
+**Pre-registered probe** (`evaluation/run_mixing_probe.sh opening 3 1.0 2`,
+evidence in `results_mixing_probe/opening_k3_t1.0_l2/`): deployed + mixing
+vs deployed, paired, hidden sheets, seed 83, restarted eval server. Step 1,
+the exploitability meter: n=1,000 vs the final exploiter (stochastic);
+deployed reads ~40%; **success = mixed arm >= deployed + 5pp**. Step 2, the
+cost: the 5-arm screening battery, judged by scorecard_verdict (advisory +
+confirmation clause); **acceptable = no confirmed breach and weighted >= 0**.
+Both must hold to take mixing to a 25-game ladder read; the deployed brain is
+not touched either way. Before reading any number: the mixed arm's telemetry
+must show mixing_ran > 0 and mixing_changed_pick > 0. Expected: the exploiter
+loses part of its edge (it was trained against a deterministic target); the
+non-adaptive arms (heuristic, frozen PPOs) may pay a little -- the price of
+unpredictability, and the reason the human holdout and the adversary carry
+the decision. Secondary variants (always; k=2/5; T=0.7) only if the primary
+shows signal, one at a time. After the probe the machine runs a 25-game
+ladder batch of the DEPLOYED brain (corpus 125 -> 150; no mixing), then
+exhibition mode.
+
+Suite 318 passed, 5 skipped; Ruff 14 (baseline), Pyright 23 (baseline).
+
 ## League 3b VERDICT: both finalists fail; the heuristic breach confirmed at n=1,500 (-4.1pp) (September 6, 13:55)
 
 Full cards vs the DEPLOYED champion (n=1,000 paired, hidden sheets, zero

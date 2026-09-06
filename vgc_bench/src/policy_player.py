@@ -162,6 +162,11 @@ class PolicyPlayer(Player):
         exact_enable_ponder: bool = False,
         exact_ponder_config: Any | None = None,
         enable_search: bool | None = None,
+        mixing_mode: str = "off",
+        mixing_top_k: int = 3,
+        mixing_temperature: float = 1.0,
+        mixing_last_turn: int = 2,
+        mixing_seed: int | None = None,
         *args: Any,
         **kwargs: Any,
     ):
@@ -174,6 +179,12 @@ class PolicyPlayer(Player):
                 VGC format instead of only ``battle_format``. Requires the
                 team builder to be in multi-reg mode (``reg=None``) so the
                 correct regulation's teams are yielded.
+            mixing_mode: Mixed-strategy play (default ``"off"``): ``"opening"``
+                samples the played pair among the top-k eligible candidates at
+                team preview and turns <= ``mixing_last_turn``; ``"always"`` does
+                so every turn. Guard-demoted and strategic-only candidates are
+                never sampled. Weights are the policy's own probabilities raised
+                to ``1/mixing_temperature``. ``mixing_seed`` seeds the sampler.
             deterministic: If True, always pick the highest-probability action
                 instead of sampling from the distribution.
             preview_model_path: Optional learned bring/lead predictor used to track
@@ -226,6 +237,8 @@ class PolicyPlayer(Player):
             *args: Additional arguments for Player base class.
             **kwargs: Additional keyword arguments for Player base class.
         """
+        if mixing_mode not in ("off", "opening", "always"):
+            raise ValueError(f"unknown mixing_mode {mixing_mode!r}")
         super().__init__(*args, **kwargs)
         self.policy = policy
         # SB3's MultiCategoricalDistribution is stateful. Local exact searches run
@@ -233,6 +246,18 @@ class PolicyPlayer(Player):
         self._exact_policy_lock = threading.RLock()
         self._accept_all_formats = accept_all_formats
         self.deterministic = deterministic
+        # Mixed-strategy play (2026-09-06, default off): at "mind-game" decisions
+        # the stack samples among its top candidates instead of always playing
+        # the top pick. A player that never mixes is maximally predictable in a
+        # simultaneous-move game; the exploiter's 60% and the 1300+ opening
+        # punishes are the symptom. Guard-demoted and strategic-only candidates
+        # are never sampled, so mixing cannot reintroduce a known blunder.
+        self.mixing_mode = mixing_mode
+        self.mixing_top_k = max(1, int(mixing_top_k))
+        self.mixing_temperature = float(mixing_temperature)
+        self.mixing_last_turn = int(mixing_last_turn)
+        self._mixing_rng = np.random.default_rng(mixing_seed)
+        self._mixing_lock = threading.Lock()
         self.invitee = invitee
         self.preview_model_path = (
             Path(preview_model_path) if preview_model_path is not None else None
@@ -1466,7 +1491,12 @@ class PolicyPlayer(Player):
             cands = legal_cands
             if not cands:
                 raise ValueError("no live-legal candidate pair")
-            self._audit_decision(battle, cands, opponent_report, guard_report)
+            mixing_report = None
+            if getattr(self, "mixing_mode", "off") != "off":
+                cands, mixing_report = self._apply_mixing(battle, cands)
+            self._audit_decision(
+                battle, cands, opponent_report, guard_report, mixing_report
+            )
             self._maybe_report_guards()
             action = np.array(cands[0].actions, dtype=np.int64)
             self._record_exact_fallback(battle, action)
@@ -1492,6 +1522,77 @@ class PolicyPlayer(Player):
                 )
             self._record_exact_fallback(battle, result)
             return result
+
+    def _mixing_active(self, battle: DoubleBattle) -> bool:
+        """Whether this decision is one the mixed strategy applies to."""
+        mode = getattr(self, "mixing_mode", "off")
+        if mode == "always":
+            return True
+        if mode == "opening":
+            if getattr(battle, "teampreview", False):
+                return True
+            return int(getattr(battle, "turn", 0) or 0) <= int(
+                getattr(self, "mixing_last_turn", 2)
+            )
+        return False
+
+    def _apply_mixing(
+        self, battle: DoubleBattle, cands: list
+    ) -> tuple[list, dict[str, Any] | None]:
+        """Sample the played pair among the top-k eligible candidates.
+
+        Weights are the policy's own probabilities (tempered), renormalised over
+        the eligible prefix, so a confident policy still plays its top pick
+        almost always and a genuine near-tie is played as a mixture. The chosen
+        candidate is rotated to the front so the audit, the counters and the
+        caller all see the same pick. Never raises: any problem counts and
+        leaves the ranking untouched.
+        """
+        counts = PolicyPlayer.guard_fire_counts
+        if not PolicyPlayer._mixing_active(self, battle):
+            return cands, None
+        try:
+            k = max(1, int(getattr(self, "mixing_top_k", 3)))
+            eligible = [
+                c
+                for c in cands[:k]
+                if getattr(c, "demoted_by", None) is None
+                and not getattr(c, "strategic_only", False)
+            ]
+            if len(eligible) < 2:
+                counts["mixing_skipped:single_candidate"] += 1
+                return cands, None
+            temperature = float(getattr(self, "mixing_temperature", 1.0))
+            if not temperature > 0:
+                counts["mixing_skipped:bad_temperature"] += 1
+                return cands, None
+            probs = np.asarray([max(float(c.prob), 0.0) for c in eligible])
+            weights = np.power(probs, 1.0 / temperature)
+            total = float(weights.sum())
+            if not np.isfinite(total) or total <= 0:
+                counts["mixing_skipped:degenerate"] += 1
+                return cands, None
+            weights = weights / total
+            with self._mixing_lock:
+                index = int(self._mixing_rng.choice(len(eligible), p=weights))
+            chosen = eligible[index]
+            counts["mixing_ran"] += 1
+            changed = chosen is not cands[0]
+            if changed:
+                counts["mixing_changed_pick"] += 1
+            reordered = [chosen] + [c for c in cands if c is not chosen]
+            report = {
+                "mode": getattr(self, "mixing_mode", "off"),
+                "eligible": len(eligible),
+                "temperature": temperature,
+                "chosen_rank": next(i for i, c in enumerate(cands) if c is chosen),
+                "weights": [round(float(w), 4) for w in weights],
+                "changed": changed,
+            }
+            return reordered, report
+        except Exception as exc:
+            counts[f"mixing_error:{type(exc).__name__}"] += 1
+            return cands, None
 
     @staticmethod
     def _action_pair_is_legal(battle: DoubleBattle, actions: Any) -> bool:
@@ -1524,7 +1625,9 @@ class PolicyPlayer(Player):
             return {"kind": "switch", "species": to_id_str(selected.base_species)}
         return {"kind": "pass"}
 
-    def _audit_decision(self, battle, candidates, report, guard_report=None) -> None:
+    def _audit_decision(
+        self, battle, candidates, report, guard_report=None, mixing_report=None
+    ) -> None:
         """Append the chosen pair and its tactical evidence to a JSONL audit.
 
         Replays show what happened but not why the policy preferred it. This record
@@ -1562,6 +1665,8 @@ class PolicyPlayer(Player):
                         list(actions) for actions in sorted(guard_report.vetoed)
                     ],
                 }
+            if mixing_report is not None:
+                payload["mixing"] = mixing_report
             if report is not None:
                 payload["reranker"] = {
                     "before": list(report.before),

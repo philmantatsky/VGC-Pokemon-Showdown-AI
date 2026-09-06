@@ -262,6 +262,20 @@ async def main():
             "(bring-selection experiment; stands down if the roster lacks them)"
         ),
     )
+    mixing_group = ap.add_argument_group("mixed-strategy play")
+    mixing_group.add_argument(
+        "--mixing",
+        choices=("off", "opening", "always"),
+        default="off",
+        help=(
+            "sample the played pair among the top-k eligible candidates instead "
+            "of always playing the top pick: at team preview and turns <= "
+            "--mixing-last-turn (opening) or on every turn (always); default off"
+        ),
+    )
+    mixing_group.add_argument("--mixing-top-k", type=int, default=3)
+    mixing_group.add_argument("--mixing-temperature", type=float, default=1.0)
+    mixing_group.add_argument("--mixing-last-turn", type=int, default=2)
     ap.add_argument(
         "--challenges",
         action="store_true",
@@ -639,6 +653,10 @@ async def main():
         else None,
         use_opponent_reranker=args.opponent_aware,
         use_tempo_reranker=args.tempo_aware,
+        mixing_mode=args.mixing,
+        mixing_top_k=args.mixing_top_k,
+        mixing_temperature=args.mixing_temperature,
+        mixing_last_turn=args.mixing_last_turn,
         team_sheet_wait_timeout=args.opening_wait,
         decision_log_path=(
             Path(args.decision_log)

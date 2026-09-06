@@ -73,6 +73,12 @@ All three frozen PPOs stay out so every battery arm remains a
 never-trained-against population. Measurement reform now standing: any
 counterfactual candidate within ±1pp of its bar gets a fresh-seed
 n=1,500/mode confirmation before accept/reject.
+**Extended 2026-09-06 to every gate battery** (`evaluation/scorecard_verdict.py`):
+the screening tier's non-regression rule is ADVISORY -- an arm within ±1pp of
+the −2pp bar goes to a fresh-seed n=1,500 confirmation of that arm, and the
+fresh reading decides; the hard rule lives at the promotion tier (n=5,000),
+where a neutral candidate's false-fail rate is ~0.5% instead of ~33% at
+n=1,000 (paired SE 1.2-1.6pp per arm).
 
 - [x] Safety layer: `verify_league_dir()` content-hash verification inside
   `vgc_bench.train`; callback opponent sampling hardened (integer-stem filter,
@@ -312,6 +318,15 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   fresh-seed n=1,500). Both finalists fail; not promoted; no ladder.
   Gate finding: at n=1,000 (paired SE 1.2-1.6pp/arm) the "no arm < -2pp"
   rule fails a neutral candidate ~1 time in 3 across five arms (0.5% at
-  n=5,000). PROPOSAL pending the user's decision: hard non-regression at
+  n=5,000). ADOPTED 2026-09-06 with the user's go: hard non-regression at
   the promotion tier only; screening gets the +/-1pp confirmation clause.**
+- [ ] **Mixed-strategy play (the poker lever), probe launched 2026-09-06:**
+  the deployed brain never mixes (top pick after guards; preview = two
+  argmax calls), the most exploitable shape in a simultaneous-move game.
+  `--mixing opening` (top-3, T=1, preview + turns 1-2; guard-demoted pairs
+  never sampled). Pre-registered bars: exploit meter (n=1,000 vs the final
+  exploiter) >= deployed + 5pp AND screening battery with no confirmed
+  breach and weighted >= 0 -> 25-game ladder read. Program agreed with the
+  user: make the brain unexploitable (mixing, then a Nash-weighted league
+  round with a new human-like opponent), then revisit the team.
 - [ ] Generalization beyond the fixed team begins

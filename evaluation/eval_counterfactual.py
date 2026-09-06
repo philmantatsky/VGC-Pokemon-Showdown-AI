@@ -202,6 +202,19 @@ def _interval(wins: int, total: int) -> tuple[float, float]:
     return center - radius, center + radius
 
 
+def _mixing_config(args) -> dict | None:
+    """Mixed-strategy settings for the candidate arm, or None when off."""
+    mode = getattr(args, "candidate_mixing", "off")
+    if mode == "off":
+        return None
+    return {
+        "mode": mode,
+        "top_k": args.mixing_top_k,
+        "temperature": args.mixing_temperature,
+        "last_turn": args.mixing_last_turn,
+    }
+
+
 def _seed_everything(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -222,6 +235,7 @@ def _player(
     enable_ponder: bool | None = None,
     planned_preview: bool = False,
     outcome_preview: bool = False,
+    mixing: dict | None = None,
 ):
     if replay_dir is not None:
         replay_dir.mkdir(parents=True, exist_ok=True)
@@ -293,6 +307,11 @@ def _player(
         and (args.ponder if enable_ponder is None else enable_ponder),
         exact_ponder_config=ponder_config,
         enable_search=move_search,
+        mixing_mode=(mixing or {}).get("mode", "off"),
+        mixing_top_k=int((mixing or {}).get("top_k", 3)),
+        mixing_temperature=float((mixing or {}).get("temperature", 1.0)),
+        mixing_last_turn=int((mixing or {}).get("last_turn", 2)),
+        mixing_seed=args.seed,
         save_replays=str(replay_dir) if replay_dir is not None else False,
     )
     agent.set_policy(checkpoint, device(args.device))
@@ -389,6 +408,7 @@ def _run_arm(
     replay_own_previews: bool = False,
     reliability_floor: float | None = None,
     bench_species: tuple[str, ...] | None = None,
+    mixing: dict | None = None,
 ) -> dict:
     _seed_everything(args.seed)
     PolicyPlayer.guard_fire_counts.clear()
@@ -438,6 +458,7 @@ def _run_arm(
         enable_ponder=enable_ponder,
         planned_preview=planned_preview,
         outcome_preview=outcome_preview,
+        mixing=mixing,
     )
     if reliability_floor is not None:
         # per-arm turn-1/2 reliability floor (Stage C.1 A/B); production uses
@@ -701,6 +722,12 @@ def _run_arm(
             "mask_immunities": bool(PolicyPlayer.mask_immunities),
             "use_knowledge_guards": bool(PolicyPlayer.use_knowledge_guards),
             "use_moveset_prior": bool(PolicyPlayer.use_moveset_prior),
+            "mixing": {
+                "mode": getattr(ours, "mixing_mode", "off"),
+                "top_k": getattr(ours, "mixing_top_k", None),
+                "temperature": getattr(ours, "mixing_temperature", None),
+                "last_turn": getattr(ours, "mixing_last_turn", None),
+            },
         },
         "battle_results": battle_results,
         "opponent_preview_pairing": {
@@ -871,6 +898,19 @@ def main() -> None:
     )
     parser.add_argument("--seed", type=int, default=83)
     parser.add_argument("--hidden-sheets", action="store_true")
+    parser.add_argument(
+        "--candidate-mixing",
+        choices=("off", "opening", "always"),
+        default="off",
+        help=(
+            "mixed-strategy play for the CANDIDATE arm only: sample the played "
+            "pair among the top-k eligible candidates at team preview and turns "
+            "<= --mixing-last-turn (opening) or on every turn (always)"
+        ),
+    )
+    parser.add_argument("--mixing-top-k", type=int, default=3)
+    parser.add_argument("--mixing-temperature", type=float, default=1.0)
+    parser.add_argument("--mixing-last-turn", type=int, default=2)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
         "--replay-dir",
@@ -987,6 +1027,7 @@ def main() -> None:
                     opponent_preview_ledger=opponent_preview_ledger,
                     replay_opponent_previews=True,
                     reliability_floor=args.candidate_reliability_floor,
+                    mixing=_mixing_config(args),
                     bench_species=(
                         tuple(
                             name.strip()

@@ -63,6 +63,20 @@ def run_arm(
         "--output",
         str(output),
         *(["--hidden-sheets"] if args.hidden_sheets else []),
+        *(
+            [
+                "--candidate-mixing",
+                args.candidate_mixing,
+                "--mixing-top-k",
+                str(args.mixing_top_k),
+                "--mixing-temperature",
+                str(args.mixing_temperature),
+                "--mixing-last-turn",
+                str(args.mixing_last_turn),
+            ]
+            if getattr(args, "candidate_mixing", "off") != "off"
+            else []
+        ),
         *extra,
     ]
     print(f"\n=== arm: {name} ({n_battles} battles) ===", flush=True)
@@ -98,6 +112,15 @@ def main() -> None:
         default="heuristic,frozen,rotation,human_bc",
         help="comma-separated subset of arms to run",
     )
+    ap.add_argument(
+        "--candidate-mixing",
+        choices=("off", "opening", "always"),
+        default="off",
+        help="forwarded to every arm: mixed-strategy play for the candidate only",
+    )
+    ap.add_argument("--mixing-top-k", type=int, default=3)
+    ap.add_argument("--mixing-temperature", type=float, default=1.0)
+    ap.add_argument("--mixing-last-turn", type=int, default=2)
     args = ap.parse_args()
 
     n_battles = TIER_BATTLES[args.tier]
@@ -154,6 +177,12 @@ def main() -> None:
                 "baseline": args.baseline,
                 "tier": args.tier,
                 "n_battles_per_arm": n_battles,
+                "candidate_mixing": {
+                    "mode": args.candidate_mixing,
+                    "top_k": args.mixing_top_k,
+                    "temperature": args.mixing_temperature,
+                    "last_turn": args.mixing_last_turn,
+                },
                 "hidden_sheets": args.hidden_sheets,
                 "arms": scorecard,
             },
