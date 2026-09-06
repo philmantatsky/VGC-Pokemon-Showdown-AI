@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## Two new human-BC opponents; the Aug clone is 5pp behind the current meta (2026-September 6, 16:54)
+
+Both behavior clones trained in minutes from the foundation checkpoint
+(30 epochs, `--div_frac 0.1`), scored by held-out human-action agreement
+(800 trajectories, per-slot top-1 / top-3), epochs swept:
+
+| policy | data | best epoch | on holdout B (Aug meta) | on holdout D (Sep meta) |
+|---|---|---|---|---|
+| mix_A (reference) | Aug corpus, buckets 0-4 | 30 (as shipped) | 39.0 / 54.1 | **37.0 / 50.8** |
+| **mix_C** | 2026-09-06 scrape only, 3,604 trajs | 3 (peak 2-4) | 40.1 / 57.2 | 41.5-42.2 / 58-59 |
+| **mix_AC** | union of every Reg M-B log, 8,990 trajs | 5 (peak 1-5) | **41.2 / 57.8** | 41.6-41.8 / 58.7-59.0 |
+
+Both peak within the first five epochs (the foundation init already knows
+the game; small corpora overfit past that) and beat mix_A on the Aug
+holdout by 1-2pp top-1 and 3-4pp top-3. The finding that matters: on the
+NEW holdout (buckets 5-9 of the fresh scrape, 3,748 trajectories, players
+1675-1923) mix_A drops to 37.0% while mix_C/mix_AC hold 41.5-42.2% -- the
+meta moved in five weeks and the Aug clone no longer represents current
+human play as well. Stamped `training_opponent`: `results_bc/mix_C/saves_bc/
+seed1/3.zip` (sha c94edf52) and `results_bc/mix_AC/saves_bc/seed1/5.zip`
+(sha d933847f); `obs_len` in the sidecar is null for pretrain.py zips (no
+launcher reads it). Added as stochastic columns to
+`training/meta_game_config.json` (now 5x10 cells, 15,000 battles). A
+third clone, `eval_D`, is training from holdout D for an eval-only current-
+meta human arm (to be banned from every pool by content, like eval_B).
+
 ## Mixing probe step 1: +2.6pp on the exploit meter, below the +5pp bar (2026-September 6, 16:23)
 
 Deployed + opening mixing (top-3, T=1, preview + turns 1-2) vs deployed,

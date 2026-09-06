@@ -1,5 +1,5 @@
 {
-  "comment": "Round-4 meta-game (2026-09-06): rows pilot MB430, columns pilot the pool teams. n=300/cell, 5x8 cells = 12,000 battles (~3h at 8 workers). bc_mix_A is sampled (stochastic). Frozen eval PPOs stay OUT so every battery arm remains an unfit population.",
+  "comment": "Round-4 meta-game (2026-09-06): rows pilot MB430, columns pilot the pool teams. n=300/cell, 5x10 cells = 15,000 battles (~3.75h at 8 workers). The three BCs are sampled (stochastic). Frozen eval PPOs stay OUT so every battery arm remains an unfit population. mix_C = 2026-09-06 scrape only (epoch 3, 40.1% held-out top-1); mix_AC = union corpus (epoch 5, 41.2%).",
   "rows": {
     "deployed": "results_league/league_champion.zip",
     "r3_final": "results_league3/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
@@ -9,6 +9,8 @@
   },
   "cols": {
     "bc_mix_A": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "bc_mix_C": "results_bc/mix_C/saves_bc/seed1/3.zip",
+    "bc_mix_AC": "results_bc/mix_AC/saves_bc/seed1/5.zip",
     "exploiter_final": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip",
     "deployed": "results_league/league_champion.zip",
     "r3_final": "results_league3/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
@@ -17,7 +19,11 @@
     "league1_8847360": "results_league/saves_fp_hs_wt/reg_mb/seed1/8847360.zip",
     "league1_11796480": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip"
   },
-  "stochastic_cols": ["bc_mix_A"],
+  "stochastic_cols": [
+    "bc_mix_A",
+    "bc_mix_C",
+    "bc_mix_AC"
+  ],
   "n": 300,
   "seed": 83,
   "out": "results_meta_game/round4",
