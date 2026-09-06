@@ -1,5 +1,15 @@
 # VGC Bot Project Status
 
+## League 3 finalist 14745600: exploit flipped -- 67.0% vs the exploiter (September 5, 19:12)
+
+Exploit re-measure (n=1,000, stochastic final exploiter, paired seed 83):
+deployed brain **393/1000 = 39.3%**, finalist **670/1000 = 67.0%** (+27.7pp
+vs the +5pp qualifying bar). Mechanism markers moved as designed: first
+faint ours 56% -> 38%; 7+ turn games (598 of 1,000) won 38% -> 63%. The two
+adversary-verified holes are closed against the adversary. Screening battery
+vs the deployed champion + mix_A diagnostic follow (the generalization
+question); second finalist 17694720 re-measuring now.
+
 ## League 3 complete; verdict chain running (September 5, 18:53)
 
 Five checkpoints, zero errors. Probes (heuristic / bc, n=100): 0.71/0.67,
