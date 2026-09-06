@@ -77,10 +77,22 @@ def main():
     ap.add_argument("--top", type=int, default=500, help="how many ladder players")
     ap.add_argument("--measure", action="store_true", help="count only, write nothing")
     ap.add_argument("--workers", type=int, default=6, help="concurrent requests")
+    ap.add_argument(
+        "--out-dir",
+        default=str(OUT_DIR),
+        help="where logs_<format>.json files go (use a NEW dir: files are overwritten)",
+    )
+    ap.add_argument(
+        "--formats",
+        default=",".join(FORMATS),
+        help="comma-separated formats to scrape (default: all four Reg M-A/M-B)",
+    )
     args = ap.parse_args()
+    out_dir = Path(args.out_dir)
+    formats = [f.strip() for f in args.formats.split(",") if f.strip()]
 
     grand_ids, grand_elo = {}, {}
-    for fmt in FORMATS:
+    for fmt in formats:
         players = ladder_top(fmt, args.top)
         if not players:
             print(f"{fmt}: no ladder (format may be inactive)")
@@ -106,7 +118,7 @@ def main():
         print("(measure only - nothing written)")
         return
 
-    OUT_DIR.mkdir(exist_ok=True)
+    out_dir.mkdir(exist_ok=True)
     for fmt, ids in grand_ids.items():
         if not ids:
             continue
@@ -122,7 +134,7 @@ def main():
         for ident, d in fetched:
             if d and d.get("log"):
                 logs[ident] = (d.get("uploadtime", 0), d["log"])
-        path = OUT_DIR / f"logs_{fmt}.json"
+        path = out_dir / f"logs_{fmt}.json"
         with path.open("w") as f:
             json.dump(logs, f)
         print(f"wrote {len(logs):,} logs -> {path}")
