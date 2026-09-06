@@ -13,7 +13,7 @@ trap 'echo "CHAIN_FAILED at line $LINENO (exit $?)"' ERR
 BASE=results_league/league_champion.zip
 EXP=results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip
 PORT=7600
-ROOT=results_gate_battery_league3
+ROOT=${VERDICT_ROOT:-results_gate_battery_league3}
 mkdir -p "$ROOT"
 
 if pids=$(lsof -nP -t -iTCP:$PORT -sTCP:LISTEN 2>/dev/null); then kill $pids 2>/dev/null || true; sleep 3; fi

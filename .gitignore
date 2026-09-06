@@ -103,3 +103,11 @@ results_gate_battery_league3/*/*/*
 !results_league3b/
 results_league3b/*
 !results_league3b/league_manifest.json
+!results_gate_battery_league3b/
+results_gate_battery_league3b/*
+!results_gate_battery_league3b/*/
+results_gate_battery_league3b/*/*
+!results_gate_battery_league3b/*/*/
+results_gate_battery_league3b/*/*/*
+!results_gate_battery_league3b/*/*/scorecard.json
+!results_gate_battery_league3b/*/exploit_remeasure_1000.json
