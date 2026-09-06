@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Step 2 tooling: meta-game payoff matrix + Nash opponent weights (2026-September 6, 16:11)
+
+Upstream vgc-bench already carries a double-oracle mode (`LearningStyle.
+DOUBLE_ORACLE`: `update_payoff_matrix` plays each new checkpoint vs every
+pool file at n=100 and samples opponents from `nashpy.Game(...).linear_program()[0]`)
+but it assumes a symmetric self-play population and a matrix that starts
+at 1x1 -- unusable for a league resumed from a seeded pool. So the
+PSRO-style weighting is done OFFLINE and auditable instead:
+`training/meta_game.py` (6 tests) runs every row-vs-column cell through
+`eval_counterfactual.py --baseline-only` (new flag: one policy vs one
+opponent, half the cost of a paired run), assembles the payoff matrix (rows
+pilot MB430, columns pilot the pool teams, BC columns sampled), solves the
+zero-sum game with two HiGHS linear programs, and prints the COLUMN
+equilibrium y* -- the opponent mixture that is hardest for the whole row
+population, i.e. the meta-strategy the next best response should train
+against -- plus integer copy counts for an FP league (uniform file
+sampling, so multiplicity = weight). Cells resume from disk; `--solve-only`
+re-solves.
+
+`training/meta_game_config.json` (round 4): rows = deployed, r3 final, r3b
+final, old champion, league-1 mid; columns = bc_mix_A (stochastic),
+exploiter final, deployed, r3/r3b finals, old champion, league-1 history
+(8847360, 11796480); n=300/cell, 40 cells = 12,000 battles (~3h). The
+frozen eval PPOs stay out so every battery arm remains an unfit
+population. Runs after tonight's ladder batch. Then: a fresh top-player
+scrape for a second human-BC (`scrape_top_players.py --measure` sizing it
+now), and league round 4 with the y*-derived copy table.
+
 ## Mixed-strategy play: built, gated, probe launched (2026-September 6, 16:02)
 
 The user chose the program "make the brain unexploitable, then change the

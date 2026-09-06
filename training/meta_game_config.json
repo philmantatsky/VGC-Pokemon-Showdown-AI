@@ -1,0 +1,25 @@
+{
+  "comment": "Round-4 meta-game (2026-09-06): rows pilot MB430, columns pilot the pool teams. n=300/cell, 5x8 cells = 12,000 battles (~3h at 8 workers). bc_mix_A is sampled (stochastic). Frozen eval PPOs stay OUT so every battery arm remains an unfit population.",
+  "rows": {
+    "deployed": "results_league/league_champion.zip",
+    "r3_final": "results_league3/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
+    "r3b_final": "results_league3b/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
+    "old_champion": "results_repaired/champion.zip",
+    "league1_mid": "results_league/saves_fp_hs_wt/reg_mb/seed1/10813440.zip"
+  },
+  "cols": {
+    "bc_mix_A": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "exploiter_final": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip",
+    "deployed": "results_league/league_champion.zip",
+    "r3_final": "results_league3/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
+    "r3b_final": "results_league3b/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
+    "old_champion": "results_repaired/champion.zip",
+    "league1_8847360": "results_league/saves_fp_hs_wt/reg_mb/seed1/8847360.zip",
+    "league1_11796480": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip"
+  },
+  "stochastic_cols": ["bc_mix_A"],
+  "n": 300,
+  "seed": 83,
+  "out": "results_meta_game/round4",
+  "copies": 12
+}

@@ -329,4 +329,9 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   breach and weighted >= 0 -> 25-game ladder read. Program agreed with the
   user: make the brain unexploitable (mixing, then a Nash-weighted league
   round with a new human-like opponent), then revisit the team.
+- [ ] **Step 2, Nash-weighted league round 4:** `training/meta_game.py` +
+  `meta_game_config.json` (5 rows x 8 columns, n=300) -> column equilibrium
+  y* -> copy table for `build_league.py`; second human-BC from a fresh
+  top-player scrape (A-bucket only; eval_B untouched). Gate at the promotion
+  tier per the adopted rule.
 - [ ] Generalization beyond the fixed team begins
