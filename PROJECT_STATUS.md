@@ -1,5 +1,21 @@
 # VGC Bot Project Status
 
+## eval_D: an eval-only human clone of the CURRENT meta; ban list covers both holdouts (2026-September 6, 16:57)
+
+`results_bc/eval_D/saves_bc/seed2/4.zip` (sha 99ffe1b5, role eval_only)
+trained from holdout D (buckets 5-9 of the 2026-09-06 scrape), 8 epochs,
+scored on its opposite bucket set C: epoch 4 = 41.1% top-1 / 56.5% top-3
+(epochs 1-5: 39.7-41.1). It is to the September meta what eval_B is to the
+August one: a human-style population no training pool may contain.
+`training/build_league.py` now bans SEVERAL eval-only roots by content
+(`eval_only_roots: ["results_bc/eval_B", "results_bc/eval_D"]` in a league
+config; every .zip under each root; an empty root refuses to build) --
+15 league-guard tests, the 3b pool re-verifies. Use as a diagnostic arm via
+`run_gate_battery.py --arms human_bc --human-bc results_bc/eval_D/saves_bc/
+seed2/4.zip`; the pre-registered battery weighting is unchanged (eval_B x2)
+until a round is pre-registered with the new arm. Queued after tonight's
+meta-game: the deployed brain vs eval_D, n=1,000, as that arm's baseline.
+
 ## Two new human-BC opponents; the Aug clone is 5pp behind the current meta (2026-September 6, 16:54)
 
 Both behavior clones trained in minutes from the foundation checkpoint
