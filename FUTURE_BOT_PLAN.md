@@ -301,4 +301,9 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   -- not deployed; ladder test skipped per the user's rule.** Evaluator v3h
   also rejected (ladder Brier 0.2145 vs 0.2087). Exploiter probe: 60.2% vs
   the champion via opening exchange + long games -> league 3 input.
+- [x] ~~League 3 (exploiter in the pool)~~ **2026-09-05: exploit closed
+  (+28 / +32pp vs the adversary; finalist 2 also +3.8 on the human holdout)
+  but both finalists breach the non-regression rule on PPO arms (-3.5..-5.6)
+  -- overfit to a 31% adversary share. Not promoted; round 3b (one exploiter
+  copy) prepared, awaiting the user's go.**
 - [ ] Generalization beyond the fixed team begins

@@ -1,0 +1,35 @@
+{
+ "candidate": "results_league3/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
+ "baseline": "results_league/league_champion.zip",
+ "tier": "screening",
+ "n_battles_per_arm": 1000,
+ "hidden_sheets": true,
+ "arms": {
+  "human_bc": {
+   "champion_policy": {
+    "wins": 847,
+    "battles": 1000,
+    "win_rate": 0.847,
+    "wilson_95": [
+     0.8233629868076504,
+     0.8679811455733946
+    ],
+    "first_faint_ours": 228,
+    "tr_wins": 276,
+    "tr_battles": 310
+   },
+   "distilled_policy": {
+    "wins": 857,
+    "battles": 1000,
+    "win_rate": 0.857,
+    "wilson_95": [
+     0.833934563145855,
+     0.8773330312634622
+    ],
+    "first_faint_ours": 280,
+    "tr_wins": 282,
+    "tr_battles": 311
+   }
+  }
+ }
+}

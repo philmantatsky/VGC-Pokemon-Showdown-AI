@@ -1,5 +1,38 @@
 # VGC Bot Project Status
 
+## League 3 VERDICT: exploit closed, general bar failed by both finalists; round 3b prepared (September 5, 23:05)
+
+Full cards vs the DEPLOYED champion (n=1,000 paired, hidden sheets):
+
+| arm | 14745600 | 17694720 (final) |
+|---|---|---|
+| adversary (exploiter, stochastic) | **+27.7** (67.0 v 39.3) | **+32.3** (71.4 v 39.1) |
+| human holdout eval_B | -2.3 | **+3.8** (87.5 v 83.7) |
+| heuristic | -3.2 | +0.4 |
+| frozen 64opp | -1.1 | -3.5 |
+| rotation 8opp | 0.0 | -5.6 |
+| rotation tuned | -2.0 | -4.6 |
+| weighted (human x2) | -1.8 | -0.95 |
+| mix_A diagnostic (vs eval_B) | +0.3 (-2.3) clean | +1.0 (+3.8) clean |
+
+**Both fail the pre-registered non-regression rule** (no arm below the
+deployed brain by >2pp): 14745600 breaches on the heuristic and the human
+holdout; 17694720 breaches on all three PPO arms. No promotion, no ladder
+test (rule as written). Memorization checks are clean for both -- the costs
+are real style shifts, not clone-memorization.
+
+Two readings, both recorded: (1) the adversary at 31% of the pool
+overfits the sparring partner -- the classic PSRO failure mode -- so the
+next experiment is dose, not direction: **round 3b** (one exploiter copy,
+~10% initial) is prepared in `training/league3b_config.json` +
+`run_league3b_training.sh`, NOT launched. (2) 17694720's shape -- better vs
+human-like play (+3.8 holdout) and the adversary, worse vs the old PPO
+lineage -- is the direction the ladder rewards, and a 25-game ladder read
+would be informative; that override is the user's call, not the pipeline's.
+
+Corpus of round-3 evidence: `results_gate_battery_league3/*/screening/
+scorecard.json` and `*/exploit_remeasure_1000.json`.
+
 ## League 3 finalist 14745600 FAILS screening: a specialist trade (September 5, 21:00)
 
 5-arm screening vs the DEPLOYED champion (n=1,000 paired): heuristic
