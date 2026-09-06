@@ -1,5 +1,37 @@
 # VGC Bot Project Status
 
+## Mixing probe step 1: +2.6pp on the exploit meter, below the +5pp bar (2026-September 6, 16:23)
+
+Deployed + opening mixing (top-3, T=1, preview + turns 1-2) vs deployed,
+n=1,000 paired vs the final exploiter: **43.3% vs 40.7% = +2.6pp** (paired
+SE ~1.5pp). The mechanism fired as designed -- mixing_ran 4,609 (4.6 per
+battle), changed the played pair 1,524 times (33% of mixed decisions), zero
+pairing mismatches -- so the reading is real, and small. Sampling among the
+policy's own top-3 at the opening moves the exploiter only a third of the
+way to the bar: the adversary's edge is mostly WHAT the brain does in the
+exchange, not WHICH of three near-equivalent picks it makes. The cost
+battery (five arms) is running for the record.
+
+Pre-registered follow-up, written before its data: exactly ONE secondary
+variant -- mixing on every turn (`always`, k=3, T=1) -- exploit meter only,
+`results_mixing_probe/always_k3_t1.0_l2/`. Rule: >= +5pp -> its screening
+battery; otherwise the mixing lever is PARKED (recorded as a small positive,
+not deployed) and step 2 proceeds. Then the 25-game deployed-brain ladder
+batch and exhibition mode, as planned.
+
+Step-2 data, in parallel: the fresh top-500 scrape wrote 7,716 bo1 + 3,138
+bo3 Reg M-B logs (players 1675-1923, median 1714) to
+`battle_logs_top_20260906/`. The Aug corpus split is reconstructed as
+crc32(tag)%10 buckets 0-4 = train (A), 5-9 = eval-only (B) -- matched by the
+per-bucket game counts -- so the new data uses the same split:
+`trajs_regmb_human_C` (buckets 0-4, 3,604 trajectories; bo1 top games are
+92% sheet-less, as before) and `trajs_regmb_human_D` (5-9, 3,748, eval-only).
+Two BCs from the foundation checkpoint, 30 epochs each: mix_C (new games
+only) and mix_AC (deduplicated union of every Reg M-B log, buckets 0-4),
+scored by held-out agreement on B against mix_A's 38.7%. `pretrain.py`'s
+default `--div_frac 0.01` crashes on corpora this size (chunks of ~313
+transitions < the 1,024 BC batch); 0.1 used.
+
 ## Step 2 tooling: meta-game payoff matrix + Nash opponent weights (2026-September 6, 16:11)
 
 Upstream vgc-bench already carries a double-oracle mode (`LearningStyle.
