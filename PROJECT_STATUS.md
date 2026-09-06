@@ -1,5 +1,75 @@
 # VGC Bot Project Status
 
+## League 3b VERDICT: both finalists fail; the heuristic breach confirmed at n=1,500 (-4.1pp) (September 6, 13:55)
+
+Full cards vs the DEPLOYED champion (n=1,000 paired, hidden sheets, zero
+preview-pairing mismatches on every arm):
+
+| arm | 14745600 | 17694720 (final) |
+|---|---|---|
+| adversary (exploiter, stochastic) | **+15.4 (55.6 v 40.2)** | **+27.4 (67.4 v 40.0)** |
+| human holdout eval_B | -0.1 (84.9 v 85.0) | +0.9 (86.5 v 85.6) |
+| heuristic | -0.4 (91.3 v 91.7) | **-2.7 (88.2 v 90.9)** |
+| frozen 64opp | **-3.0 (83.3 v 86.3)** | -0.1 (86.5 v 86.6) |
+| rotation 8opp | **-2.6 (84.8 v 87.4)** | **+2.2 (87.2 v 85.0)** |
+| rotation tuned | -0.4 (85.3 v 85.7) | **+3.4 (89.5 v 86.1)** |
+| weighted (human x2) / equal | -1.1 / -1.3 | +0.8 / +0.7 |
+| mix_A diagnostic (vs eval_B) | +3.8 (-0.1) -> 3.9pp, clean | +2.9 (+0.9) -> 2.0pp, clean |
+
+**14745600 fails** as pre-registered: two PPO arms below the deployed brain
+by more than 2pp (frozen -3.0, rotation 8opp -2.6), weighted -1.1. Its
+exploit closure (+15.4) is also the weakest of the four adversary-trained
+finalists across rounds 3 and 3b.
+
+**17694720 (final checkpoint):** the lighter dose did what round 3b was run
+to test. Against the same final checkpoint in round 3 (31% adversary share)
+the three PPO arms read -3.5 / -5.6 / -4.6; at ~10% they read -0.1 / +2.2 /
++3.4, the exploit fix held (+27.4 vs +32.3), the human holdout stayed
+positive (+0.9 vs +3.8) and the memorization check is clean (mix_A +2.9 vs
+eval_B +0.9). The one arm below the line is the heuristic at -2.7 (88.2 v
+90.9). The 13:00 pre-registered confirmation ran on a fresh seed (8301,
+n=1,500 paired, restarted server, zero mismatches): candidate **87.8%**
+(1317/1500) vs deployed **91.9%** (1379/1500) = **-4.1pp**, paired SE 1.1pp
+(about four standard errors below zero); pooled with screening (n=2,500)
+-3.6pp. Rule as written: breach CONFIRMED, **17694720 FAILS**, no further
+re-measurement. The mechanism replicates: first faint ours vs the heuristic
+35% for the candidate vs 25% for the deployed brain on both seeds, while
+vs the adversary it fell 57% -> 30%. The candidate's opening is tuned
+toward PPO/human-style openers and away from the heuristic's max-damage
+play -- a real style shift, not noise. The confirmation clause hardened
+the verdict rather than rescuing the candidate, which is what it is for.
+
+**Gate-design finding (recorded for the checklist; this round's verdict
+does not depend on it):** from the per-battle records, the paired standard
+error per arm at n=1,000 is 1.2-1.6pp. Under the screening rule "no arm
+below the deployed brain by >2pp" a truly NEUTRAL candidate fails on at
+least one of five arms 33-35% of the time; a candidate truly -1pp on every
+arm fails ~75% of the time; at the promotion tier's n=5,000 the neutral
+false-fail rate is 0.4-0.6%. Proposal (user's call, changes the checklist):
+screening non-regression becomes advisory with the +/-1pp fresh-seed
+confirmation clause; the hard "no arm < -2pp" rule lives at 5,000/arm.
+
+Neither finalist passes, so no ladder game (rule, and the user's standing
+instruction). Deployed brain unchanged: `results_league/league_champion.zip`
+(55-45 over 100; 52.8% over 125). Reading across rounds 3 and 3b (four
+adversary-trained finalists): the exploit closes robustly at any dose
+(+15..+32) but every candidate pays 2-6pp on some local arm, and WHICH arm
+moves with the pool -- a narrow adversary teaches a narrow fix with a
+diffuse cost. The one lever that ever transferred to ladder was a broadly
+human-like opponent (league 1: every arm up, 44.9% -> 55%). Open decisions
+for the user: (1) next round direction -- recommended: a fresh
+human-imitation opponent from a different slice of the mined human games
+(pipeline check first), with the exploiter at <= 10% as a regularizer,
+gated at the promotion tier; (2) the gate proposal above; (3) a ladder-read
+override for a specialist -- not recommended (a confirmed -3.6pp arm, and
+25 games cannot resolve a 3pp question; the deployed brain keeps its slot);
+(4) the PC port (WSL2 + CUDA) as a second training node; (5) the team
+question, now that the league-1 cycle is complete.
+
+Corpus: `results_gate_battery_league3b/*/screening/scorecard.json`,
+`*/exploit_remeasure_1000.json`,
+`17694720/confirm_heuristic_1500_seed8301.json`.
+
 ## League 3b finalist 2 at four of five arms; confirmation rule written BEFORE the human holdout reads (September 6, 13:00)
 
 17694720 vs the DEPLOYED champion (n=1,000 paired, hidden sheets):

@@ -305,5 +305,13 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   (+28 / +32pp vs the adversary; finalist 2 also +3.8 on the human holdout)
   but both finalists breach the non-regression rule on PPO arms (-3.5..-5.6)
   -- overfit to a 31% adversary share. Not promoted; round 3b (one exploiter
-  copy) prepared, awaiting the user's go.**
+  copy) run 2026-09-06, next item.**
+- [x] ~~League 3b (one exploiter copy, ~10%)~~ **2026-09-06: PPO-arm tax
+  gone (-0.1 / +2.2 / +3.4), exploit held (+27.4), human holdout +0.9 --
+  but the heuristic arm breached (-2.7 screening, CONFIRMED -4.1 on a
+  fresh-seed n=1,500). Both finalists fail; not promoted; no ladder.
+  Gate finding: at n=1,000 (paired SE 1.2-1.6pp/arm) the "no arm < -2pp"
+  rule fails a neutral candidate ~1 time in 3 across five arms (0.5% at
+  n=5,000). PROPOSAL pending the user's decision: hard non-regression at
+  the promotion tier only; screening gets the +/-1pp confirmation clause.**
 - [ ] Generalization beyond the fixed team begins
