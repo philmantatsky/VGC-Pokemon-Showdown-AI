@@ -1,5 +1,14 @@
 # VGC Bot Project Status
 
+## League 3b complete; verdict chain running (September 6, 09:35)
+
+Five checkpoints, zero errors. Probes (heuristic / bc): 0.84/0.81,
+**0.89/0.82**, 0.87/0.80, 0.76/0.77, 0.83/0.83 -- no round-3-style shock,
+band stable. Finalists: 14745600 (best probes) and 17694720 (final).
+Verdict chain (VERDICT_ROOT=results_gate_battery_league3b): exploit
+re-measure for both, then the 5-arm screening vs the deployed champion and
+the mix_A diagnostic for qualifiers; same pre-registered bars.
+
 ## League 3b save 1: clean, no adaptation shock (September 6, 02:40)
 
 Save 1 (13,762,560): eval/heuristic **0.84**, eval/bc **0.81** (round 3 opened
