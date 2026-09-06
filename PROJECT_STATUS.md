@@ -1,5 +1,18 @@
 # VGC Bot Project Status
 
+## League 3 finalist 14745600 FAILS screening: a specialist trade (September 5, 21:00)
+
+5-arm screening vs the DEPLOYED champion (n=1,000 paired): heuristic
+**-3.2**, frozen -1.1, rotation 8opp 0.0, rotation tuned -2.0, human holdout
+**-2.3** -> weighted -1.8pp (promotion weighting) / -1.7 (equal). Two arms
+breach the pre-registered "no arm below by >2pp"; four of five point down.
+Read: the 31% adversary share bought +27.7pp against the exploiter at a
+~2pp general cost -- PSRO-style overfitting to the sparring partner.
+Candidate NOT promotable as-is. mix_A diagnostic running for the record;
+finalist 17694720's battery follows. If it shows the same shape, round 3's
+lesson is "lighter exploiter share (1-2 copies) + keep the human/self mix",
+i.e. a round 3b, not a verdict against the approach.
+
 ## League 3 finalist 17694720: 71.4% vs the exploiter; both finalists qualify (September 5, 19:35)
 
 Final checkpoint, same paired protocol: deployed **391/1000 = 39.1%**,
