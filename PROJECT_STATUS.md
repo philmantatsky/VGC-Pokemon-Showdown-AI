@@ -10,6 +10,9 @@ Recorded deviation, same form as round 3's: continue; **kill if save 3
 also reads below 0.78 on the heuristic probe or below 0.70 on bc.** The
 battery, not the probes, decides anything that matters.
 
+Save 3 (15,728,640, 09:55): eval/heuristic **0.85** (recovered), eval/bc
+**0.70** (at the line, not below it); fps 156, ep_rew +0.62. Continue.
+
 ## Round 4 save 1: clean, continue (2026-September 7, 06:23)
 
 Save 1 (13,762,560): eval/heuristic **0.82**, eval/bc **0.77** (kill lines
