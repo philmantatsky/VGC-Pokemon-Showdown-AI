@@ -1,9 +1,11 @@
 {
-  "comment": "Round-4 meta-game (2026-09-06, trimmed 22:40 after the ladder collapse): rows = deployed, r3b_final, old_champion piloting MB430; columns pilot the pool teams; n=300/cell, 3x10 = 9,000 battles (~2h). The three BCs are sampled. Frozen eval PPOs stay OUT. mix_C epoch 3 / mix_AC epoch 5 = the September human clones.",
+  "comment": "Round-4 meta-game (2026-09-06): rows pilot MB430, columns pilot the pool teams. n=300/cell, 5x10 cells = 15,000 battles (~3.75h at 8 workers). The three BCs are sampled (stochastic). Frozen eval PPOs stay OUT so every battery arm remains an unfit population. mix_C = 2026-09-06 scrape only (epoch 3, 40.1% held-out top-1); mix_AC = union corpus (epoch 5, 41.2%).",
   "rows": {
     "deployed": "results_league/league_champion.zip",
+    "r3_final": "results_league3/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
     "r3b_final": "results_league3b/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
-    "old_champion": "results_repaired/champion.zip"
+    "old_champion": "results_repaired/champion.zip",
+    "league1_mid": "results_league/saves_fp_hs_wt/reg_mb/seed1/10813440.zip"
   },
   "cols": {
     "bc_mix_A": "results_bc/mix_A/saves_bc/seed1/30.zip",

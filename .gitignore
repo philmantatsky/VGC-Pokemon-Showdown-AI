@@ -138,3 +138,12 @@ results_guard_probe/*/*/*
 !results_guard_probe/*/*/verdict.json
 !results_guard_probe/*/confirm_*.json
 !results_guard_probe/*/exploit_1000_v1_noKOexception.json
+!results_league4/
+results_league4/*
+!results_league4/league_manifest.json
+!results_meta_game/
+results_meta_game/*
+!results_meta_game/*/
+results_meta_game/*/*
+!results_meta_game/*/meta_game.json
+!results_meta_game/*/config.json

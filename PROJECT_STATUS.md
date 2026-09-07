@@ -1,5 +1,44 @@
 # VGC Bot Project Status
 
+## Ladder stopped at the user's order ("it's bleeding rating, fix it"); diagnosis; round 4 auto-launches tonight (2026-September 6, 22:37)
+
+The v3 read went 0-4 (the first file in its dir is the v2 game the login
+rejoined mid-battle and lost on the timer -- excluded) and the user stopped
+it at 22:33; the bot is offline and stays offline until something passes.
+The guard never fired in those games: 0 of our 16 single-target attacks hit
+a resisted foe with a second foe up, so the situation did not arise; zero
+errors.
+
+Diagnosis over all 34 of today's games (`tools/analyze_ladder_previews.py
+ladder`, `results_analysis/ladder_preview_analysis.json`) vs the August 125:
+
+| | August (125) | today (34) |
+|---|---|---|
+| win rate | 53% | 32% |
+| opponent set Trick Room | 16% of games, won 35% | 26%, won 22% |
+| no Trick Room | won 56% | won 36% |
+| first faint ours | 39% | 47% |
+
+Not one blunder class: the ordinary games are lost too, and the field has
+shifted (Raichu 7 of 34 rosters; Kingambit, Whimsicott, Basculegion,
+Sneasler everywhere; more Trick Room). The brain is the August brain
+against a September field; the September human clones scored the August
+clone 5pp less faithful. The targeting guards are real but small; the fix
+has to reach the weights.
+
+Program tonight, all local, chained and monitored: (1) battery for the
+bundle overkill_split + dominated_weather_ball_weather, then the
+resisted_target v3 re-measure (each with the confirmation clause); (2) the
+payoff matrix, trimmed to three rows (deployed, r3b final, old champion) x
+10 columns so it finishes in ~2h; (3) **round 4 auto-launch**:
+`training/make_league4_config.py` turns the column equilibrium y* into 12
+seeded copies (floors: each September clone >= 1; cap: exploiter <= 2 --
+rounds 3/3b's dose lesson), `tr_boost` 1.5 on the opponent team pool, eval_B
+AND eval_D banned by content, deployed brain at the resume stem; then
+`build_league.py`, verify, fresh 7700 server, `run_league4_training.sh`
+(+5 intervals, ~9h). First-save kill criteria as before. Then the battery;
+ladder only on a pass and with the user's word.
+
 ## Two more findings from the live read: the reranker was undoing the guard; Ice Weather Ball; ladder read restarted on v3 (2026-September 6, 22:14)
 
 Game 3 of the read (loss vs H4irashi), from the audit. **Turn 2:** the guard
