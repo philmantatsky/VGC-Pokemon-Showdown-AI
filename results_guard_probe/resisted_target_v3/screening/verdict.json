@@ -1,0 +1,64 @@
+{
+  "arms": {
+    "frozen": {
+      "candidate_rate": 0.869,
+      "delta_pp": 1.3000000000000012,
+      "deployed_rate": 0.856,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.2838652577276166,
+      "source": "screening",
+      "status": "clear"
+    },
+    "heuristic": {
+      "candidate_rate": 0.922,
+      "delta_pp": 1.100000000000001,
+      "deployed_rate": 0.911,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.0434510050788202,
+      "source": "screening",
+      "status": "clear"
+    },
+    "human_bc": {
+      "candidate_rate": 0.861,
+      "delta_pp": 1.200000000000001,
+      "deployed_rate": 0.849,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.377882433301187,
+      "source": "screening",
+      "status": "clear"
+    },
+    "rotation1": {
+      "candidate_rate": 0.885,
+      "delta_pp": 2.0000000000000018,
+      "deployed_rate": 0.865,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.2790621564255584,
+      "source": "screening",
+      "status": "clear"
+    },
+    "rotation2": {
+      "candidate_rate": 0.849,
+      "delta_pp": 0.10000000000000009,
+      "deployed_rate": 0.848,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.3076658594610473,
+      "source": "screening",
+      "status": "clear"
+    }
+  },
+  "bar_pp": -2.0,
+  "battery_dir": "results_guard_probe/resisted_target_v3/screening",
+  "breaches": [],
+  "confirm_needed": [],
+  "confirm_window_pp": 1.0,
+  "equal_delta_pp": 1.140000000000001,
+  "neutral_false_fail": 0.2529180308102149,
+  "outcome": "PASS",
+  "tier": "screening",
+  "weighted_delta_pp": 1.150000000000001
+}

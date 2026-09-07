@@ -336,9 +336,11 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   single-target attack to the foe it hits harder (facts only; KO exception;
   twin verified by decoding; opt-in, per-player overrides). Screening PASS:
   human +1.9, heuristic +0.8, rotations -0.1/+1.8, frozen -0.5 on a fresh-seed
-  n=1,500 confirmation; weighted +0.96. Ladder read (25, `--guards-extra
-  resisted_target`) pending the user's word; promotion into HARD_GUARDS only
-  after it.**
+  n=1,500 confirmation; weighted +0.96 -- measured with the reranker reverting
+  most promotions. v3 (promoted twins inherit the corrected pair's prob):
+  every arm up (human +1.2, rotations +2.0/+0.1, frozen +1.3, heuristic +1.1;
+  weighted +1.15), no confirmation needed. Combined ladder read with all three
+  opt-in guards pending the user's word; HARD_GUARDS promotion after it.**
 - [x] **`overkill_split` + `dominated_weather_ball_weather` (2026-09-06/07):
   split two attacks off a foe one of them already KOs; Weather Ball vs Heat
   Wave under non-sun weather. Screening PASS after fresh-seed confirmations

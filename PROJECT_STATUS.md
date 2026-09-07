@@ -1,5 +1,37 @@
 # VGC Bot Project Status
 
+## `resisted_target` v3 (reranker revert fixed) PASSES clean: every arm up, no confirmation needed (2026-September 7, 03:23)
+
+Deployed + `resisted_target` v3 vs deployed, screening n=1,000 per arm,
+seed 83 (`results_guard_probe/resisted_target_v3/`):
+
+| arm | delta |
+|---|---|
+| adversary (informative) | 0.0 (41.7 v 41.7) |
+| human holdout eval_B | **+1.2** (86.1 v 84.9) |
+| heuristic | +1.1 (92.2 v 91.1) |
+| frozen 64opp | +1.3 (86.9 v 85.6) |
+| rotation 8opp | **+2.0** (88.5 v 86.5) |
+| rotation tuned | +0.1 (84.9 v 84.8) |
+| weighted (human x2) / equal | **+1.15 / +1.14** |
+
+PASS with every arm non-negative and nothing inside the confirmation
+window -- the cleanest card of any inference-time rule in the project. With
+promotions no longer reverted the guard fires 430-700 times per 1,000 games
+(0.4-0.7 per game; ~93% promotions of a pair the policy had ranked, ~7%
+injected), stands down ~100 times per 1,000 games because the resisted hit
+already KOs, and 1-10 times because the calculator disagrees; zero errors.
+Note the v2 card (+0.96 weighted, one confirmation) was measured with most
+corrections silently undone by the reranker; v3 is the real effect.
+
+Three opt-in guards now hold screening passes: `resisted_target` (v3),
+`overkill_split`, `dominated_weather_ball_weather`. They were measured as
+two separate candidates; the combined set is what a ladder read would carry
+(`--guards-extra resisted_target,overkill_split,dominated_weather_ball_weather`).
+They enter HARD_GUARDS (the deployed profile) only after such a read, with
+the user's word. Chain continues: payoff matrix (cell 5 of 30 at 03:20),
+eval_D baseline, round 4.
+
 ## Bundle `overkill_split` + `dominated_weather_ball_weather` PASSES after three fresh-seed confirmations (2026-September 7, 01:40)
 
 Deployed + both guards vs deployed, screening n=1,000 then the adopted

@@ -1,0 +1,146 @@
+{
+ "candidate": "results_league/league_champion.zip",
+ "baseline": "results_league/league_champion.zip",
+ "tier": "screening",
+ "n_battles_per_arm": 1000,
+ "candidate_guards": "resisted_target",
+ "candidate_mixing": {
+  "mode": "off",
+  "top_k": 3,
+  "temperature": 1.0,
+  "last_turn": 2
+ },
+ "hidden_sheets": true,
+ "arms": {
+  "heuristic": {
+   "champion_policy": {
+    "wins": 911,
+    "battles": 1000,
+    "win_rate": 0.911,
+    "wilson_95": [
+     0.891742264575647,
+     0.9271120247863402
+    ],
+    "first_faint_ours": 244,
+    "tr_wins": 310,
+    "tr_battles": 337
+   },
+   "distilled_policy": {
+    "wins": 922,
+    "battles": 1000,
+    "win_rate": 0.922,
+    "wilson_95": [
+     0.9037170163353195,
+     0.937053081257767
+    ],
+    "first_faint_ours": 255,
+    "tr_wins": 313,
+    "tr_battles": 338
+   }
+  },
+  "frozen": {
+   "champion_policy": {
+    "wins": 856,
+    "battles": 1000,
+    "win_rate": 0.856,
+    "wilson_95": [
+     0.8328758480857206,
+     0.8763994001207693
+    ],
+    "first_faint_ours": 237,
+    "tr_wins": 283,
+    "tr_battles": 328
+   },
+   "distilled_policy": {
+    "wins": 869,
+    "battles": 1000,
+    "win_rate": 0.869,
+    "wilson_95": [
+     0.8466679220596967,
+     0.8885078267835471
+    ],
+    "first_faint_ours": 236,
+    "tr_wins": 291,
+    "tr_battles": 330
+   }
+  },
+  "rotation1": {
+   "champion_policy": {
+    "wins": 865,
+    "battles": 1000,
+    "win_rate": 0.865,
+    "wilson_95": [
+     0.842417404170765,
+     0.88478895986117
+    ],
+    "first_faint_ours": 205,
+    "tr_wins": 337,
+    "tr_battles": 370
+   },
+   "distilled_policy": {
+    "wins": 885,
+    "battles": 1000,
+    "win_rate": 0.885,
+    "wilson_95": [
+     0.8637364095483508,
+     0.9033168785401287
+    ],
+    "first_faint_ours": 203,
+    "tr_wins": 342,
+    "tr_battles": 370
+   }
+  },
+  "rotation2": {
+   "champion_policy": {
+    "wins": 848,
+    "battles": 1000,
+    "win_rate": 0.848,
+    "wilson_95": [
+     0.8244186211654393,
+     0.868917857418433
+    ],
+    "first_faint_ours": 218,
+    "tr_wins": 287,
+    "tr_battles": 324
+   },
+   "distilled_policy": {
+    "wins": 849,
+    "battles": 1000,
+    "win_rate": 0.849,
+    "wilson_95": [
+     0.8254745866587543,
+     0.8698542381279453
+    ],
+    "first_faint_ours": 222,
+    "tr_wins": 287,
+    "tr_battles": 332
+   }
+  },
+  "human_bc": {
+   "champion_policy": {
+    "wins": 849,
+    "battles": 1000,
+    "win_rate": 0.849,
+    "wilson_95": [
+     0.8254745866587543,
+     0.8698542381279453
+    ],
+    "first_faint_ours": 256,
+    "tr_wins": 282,
+    "tr_battles": 317
+   },
+   "distilled_policy": {
+    "wins": 861,
+    "battles": 1000,
+    "win_rate": 0.861,
+    "wilson_95": [
+     0.8381730246613444,
+     0.8810639545592818
+    ],
+    "first_faint_ours": 242,
+    "tr_wins": 286,
+    "tr_battles": 316
+   }
+  }
+ }
+}
