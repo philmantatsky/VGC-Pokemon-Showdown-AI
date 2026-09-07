@@ -7,7 +7,7 @@ firing budget of the `resisted_target` guard (2026-09-06: 15% of our
 single-target attacks, both in today's 23 games and the August 125).
 
 Usage (from the repo root):
-  .venv/bin/python tools/hit_effectiveness.py ladder_replays_league_20260906 [more dirs...]
+  .venv/bin/python tools/hit_effectiveness.py <replay_dir> [more dirs...]
 """
 
 from __future__ import annotations
@@ -96,6 +96,7 @@ def render(result: dict) -> str:
         return f"{100 * counter.get(key, 0) / max(counter.get('attacks', 0), 1):.0f}%"
 
     ours, opp = result["ours"], result["opponents"]
+    hits, singles = result["resisted_with_second_foe"], result["single_target_attacks"]
     return (
         f"{result['dir']} ({result['games']} games)\n"
         f"  our attacks {ours.get('attacks', 0)}: super {rate(ours, 'super')} "
@@ -103,8 +104,7 @@ def render(result: dict) -> str:
         f"  opp attacks {opp.get('attacks', 0)}: super {rate(opp, 'super')} "
         f"resisted {rate(opp, 'resisted')}\n"
         f"  our single-target resisted hits with a second foe on the field: "
-        f"{result['resisted_with_second_foe']}/{result['single_target_attacks']} "
-        f"({100 * result['resisted_with_second_foe'] / max(result['single_target_attacks'], 1):.1f}%)"
+        f"{hits}/{singles} ({100 * hits / max(singles, 1):.1f}%)"
     )
 
 
