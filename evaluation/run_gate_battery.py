@@ -82,6 +82,11 @@ def run_arm(
             if getattr(args, "candidate_guards", "")
             else []
         ),
+        *(
+            ["--team-weights", args.team_weights]
+            if getattr(args, "team_weights", "")
+            else []
+        ),
         *extra,
     ]
     print(f"\n=== arm: {name} ({n_battles} battles) ===", flush=True)
@@ -130,6 +135,14 @@ def main() -> None:
         "--candidate-guards",
         default="",
         help="forwarded to every arm: opt-in guards for the candidate only",
+    )
+    ap.add_argument(
+        "--team-weights",
+        default="",
+        help=(
+            "opponent-team weights file forwarded to every arm (both arms, paired); "
+            "default keeps the August-anchored data/team_weights_regmb.json"
+        ),
     )
     args = ap.parse_args()
 
@@ -188,6 +201,7 @@ def main() -> None:
                 "tier": args.tier,
                 "n_battles_per_arm": n_battles,
                 "candidate_guards": args.candidate_guards,
+                "team_weights": args.team_weights or "data/team_weights_regmb.json",
                 "candidate_mixing": {
                     "mode": args.candidate_mixing,
                     "top_k": args.mixing_top_k,
