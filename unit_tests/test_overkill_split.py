@@ -116,3 +116,10 @@ def test_attacks_on_different_foes_or_spread_moves_are_ignored(position):
 def test_registered_but_opt_in():
     assert "overkill_split" in G.GUARDS and "overkill_split" in G.GUARD_ORDER
     assert "overkill_split" not in G.HARD_GUARDS
+
+
+def test_promoted_split_inherits_the_top_probability(position):
+    top = G.Candidate((_action(0, "rocktomb", 1), _action(1, "lastrespects", 1)), 0.183)
+    split = G.Candidate((_action(0, "rocktomb", 1), _action(1, "wavecrash", 2)), 0.117)
+    out, _ = _run(position, [top, split])
+    assert out[0] is split and split.prob == 0.183

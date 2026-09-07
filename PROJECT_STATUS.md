@@ -1,5 +1,35 @@
 # VGC Bot Project Status
 
+## Two more findings from the live read: the reranker was undoing the guard; Ice Weather Ball; ladder read restarted on v3 (2026-September 6, 22:14)
+
+Game 3 of the read (loss vs H4irashi), from the audit. **Turn 2:** the guard
+FIRED (sun still up at decision time: Fire Weather Ball and Moonblast both
+resisted by Talonflame, neutral on Oranguru) and promoted the re-aimed pair
+-- then the opponent reranker, which runs after the guards, put the original
+pair back. Its score is log(prob / top prob) + tactical terms, and a
+promoted twin kept its own 7% policy probability against the original's
+28%, so the probability term alone reverted it. 93% of the guard's firings
+in the battery were promotions, so the battery's +0.96 was measured with
+most corrections silently undone. Fix: a promoted twin now inherits the
+probability of the pair it corrects (`match.prob = max(match.prob,
+top.prob)`), so tactical evidence can still outrank it but the policy's
+preference for the resisted target cannot. Same fix in `overkill_split`.
+**Turn 4:** Ice Weather Ball (snow) into Abomasnow, neutral, while Heat Wave
+was 4x. G12 (`dominated_weather_ball`) returns early under ANY active
+weather by design (it targets the 50 BP no-weather case). New opt-in guard
+`dominated_weather_ball_weather`: under active non-sun weather, demote
+Weather Ball when Heat Wave's calculator-expected damage on the same target
+is >= 1.5x (Wide Guard stand-down kept; sun left to G12's mirror rule).
+Tests: 67 across the guard files; suite green.
+
+Consequence: the 22:02 ladder read (v2: promotions reverted) was stopped at
+1-2 and restarted as v3 with `--guards-extra resisted_target` only -- the
+rule the user approved, now actually taking effect -- in a fresh dir
+`ladder_replays_guard_v3_20260906`. The two newer guards go through the
+battery first (queued after the read as one bundle, then a v3 re-measure of
+`resisted_target`), and reach ladder only on a pass and with the user's
+word. Payoff matrix resumes after those.
+
 ## Ladder read with `resisted_target` running (user's go, 22:02); `overkill_split` guard built for the next A/B (2026-September 6, 22:10)
 
 The user gave the go at 22:01: 25 serial games, deployed brain +

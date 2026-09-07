@@ -191,3 +191,18 @@ def test_a_resisted_hit_that_finishes_the_foe_is_left_alone(monkeypatch):
     out, report = _run(battle, [top])
     assert out[0] is top and not report.stages
     assert report.demotions["resisted_target:current_ko"] == 1
+
+
+def test_promoted_twin_inherits_the_corrected_pairs_probability():
+    """The reranker scores log(prob / top prob): a promoted twin with its own
+    4% would lose that term to the 28% original and be put back (ladder
+    2026-09-06 turn 2). It must carry the confidence of the pair it corrects."""
+    rotom, meganium = (
+        Pokemon(gen=9, species="rotomwash"),
+        Pokemon(gen=9, species="meganium"),
+    )
+    battle = _battle([meganium, rotom], weather={Weather.SUNNYDAY: 1})
+    top = G.Candidate((_action(0, "rocktomb", 2), _action(1, "weatherball", 2)), 0.28)
+    twin = G.Candidate((_action(0, "rocktomb", 2), _action(1, "weatherball", 1)), 0.04)
+    out, _ = _run(battle, [top, twin])
+    assert out[0] is twin and twin.prob == 0.28

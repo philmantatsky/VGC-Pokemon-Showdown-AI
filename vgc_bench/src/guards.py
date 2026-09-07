@@ -2156,6 +2156,12 @@ def guard_resisted_target(battle, cands, report) -> list[Candidate]:
         report.demotions["resisted_target:injected"] += 1
         report.note("resisted_target")
         return [match] + list(cands)
+    # The opponent reranker runs after the guards and scores pairs by
+    # log(prob / top prob) plus tactical terms: a twin promoted with its own
+    # small policy probability lost that term and was put back (ladder
+    # 2026-09-06, turn 2 vs Talonflame). The corrected pair inherits the
+    # confidence of the pair it corrects; tactical evidence can still outrank it.
+    match.prob = max(match.prob, top.prob)
     report.demotions["resisted_target:promoted"] += 1
     return _promote_candidate(cands, match, "resisted_target", report)
 
@@ -2224,6 +2230,7 @@ def guard_overkill_split(battle, cands, report) -> list[Candidate]:
             or K.deals_no_damage(battle, attacker, other, move)
         ):
             continue
+        candidate.prob = max(candidate.prob, top.prob)  # see resisted_target
         report.demotions["overkill_split:promoted"] += 1
         return _promote_candidate(cands, candidate, "overkill_split", report)
     # 2) The same move re-aimed at the other foe, when it does anything there.
@@ -2246,11 +2253,69 @@ def guard_overkill_split(battle, cands, report) -> list[Candidate]:
     actions[move_pos] = twin
     match = next((c for c in live if tuple(c.actions) == tuple(actions)), None)
     if match is not None:
+        match.prob = max(match.prob, top.prob)
         report.demotions["overkill_split:promoted"] += 1
         return _promote_candidate(cands, match, "overkill_split", report)
     report.demotions["overkill_split:injected"] += 1
     report.note("overkill_split")
     return [Candidate(actions=tuple(actions), prob=top.prob)] + list(cands)
+
+
+def candidate_uses_dominated_weather_ball_in_weather(
+    battle: DoubleBattle, candidate: Candidate
+) -> bool:
+    """True for Weather Ball under active NON-SUN weather when Heat Wave clearly
+    beats it into the same foe.
+
+    G12 deliberately covers only the no-weather 50 BP case. Ladder 2026-09-06
+    (turn 4 vs Abomasnow, snow): Ice Weather Ball into Grass/Ice for a neutral
+    hit while Fire Heat Wave was 4x. The comparison is the calculator's
+    expected damage on the Weather Ball's own target (Heat Wave's spread chip
+    on the other foe is not even counted), with the same 1.5x margin and Wide
+    Guard stand-down as G12. Sun is excluded: there Weather Ball is the
+    boosted STAB move and G12's mirror rule already prefers it.
+    """
+    weather = set(getattr(battle, "weather", {}) or {})
+    if not weather or weather & {Weather.SUNNYDAY, Weather.DESOLATELAND}:
+        return False
+    if any(
+        foe is not None and _known_move(foe, "wideguard") is not None
+        for foe in getattr(battle, "opponent_active_pokemon", ())
+    ):
+        return False
+    for pos, action in enumerate(candidate.actions):
+        attacker = battle.active_pokemon[pos]
+        if attacker is None or attacker.fainted:
+            continue
+        order = _decode(battle, action, pos)
+        move = getattr(order, "order", None)
+        if not isinstance(move, Move) or move.id != "weatherball":
+            continue
+        targets = resolved_foe_targets(battle, order, move)
+        heat_wave = _available_move(battle, attacker, pos, "heatwave")
+        if len(targets) != 1 or heat_wave is None:
+            continue
+        weather_ball_value = _expected_damage_value(battle, attacker, targets[0], move)
+        heat_wave_value = _expected_damage_value(
+            battle, attacker, targets[0], heat_wave
+        )
+        if weather_ball_value is None or heat_wave_value is None:
+            continue
+        if heat_wave_value > 0 and (
+            weather_ball_value <= 0 or heat_wave_value >= weather_ball_value * 1.50
+        ):
+            return True
+    return False
+
+
+def guard_dominated_weather_ball_weather(battle, cands, report) -> list[Candidate]:
+    """Opt-in: demote Weather Ball under non-sun weather when Heat Wave dominates."""
+    dead = {
+        i
+        for i, candidate in enumerate(cands)
+        if candidate_uses_dominated_weather_ball_in_weather(battle, candidate)
+    }
+    return _demote(cands, dead, "dominated_weather_ball_weather", report)
 
 
 GUARDS = {
@@ -2268,6 +2333,7 @@ GUARDS = {
     "single_target_weather_ball": guard_single_target_weather_ball,
     "resisted_target": guard_resisted_target,
     "overkill_split": guard_overkill_split,
+    "dominated_weather_ball_weather": guard_dominated_weather_ball_weather,
     "protect_spam": guard_protect_spam,
     "guaranteed_ko": guard_guaranteed_ko,
     "reserve_weather_mega": guard_reserve_weather_mega,
@@ -2331,6 +2397,7 @@ GUARD_ORDER = (
     "single_target_weather_ball",
     "resisted_target",
     "overkill_split",
+    "dominated_weather_ball_weather",
     "protect_spam",
     "guaranteed_ko",
     "reserve_weather_mega",
