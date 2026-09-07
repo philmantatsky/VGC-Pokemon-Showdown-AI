@@ -147,3 +147,11 @@ results_meta_game/*
 results_meta_game/*/*
 !results_meta_game/*/meta_game.json
 !results_meta_game/*/config.json
+!results_gate_battery_league4/
+results_gate_battery_league4/*
+!results_gate_battery_league4/*/
+results_gate_battery_league4/*/*
+!results_gate_battery_league4/*/*/
+results_gate_battery_league4/*/*/*
+!results_gate_battery_league4/*/*/scorecard.json
+!results_gate_battery_league4/*/exploit_remeasure_1000.json
