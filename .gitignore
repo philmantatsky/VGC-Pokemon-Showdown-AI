@@ -136,3 +136,5 @@ results_guard_probe/*/*
 results_guard_probe/*/*/*
 !results_guard_probe/*/*/scorecard.json
 !results_guard_probe/*/*/verdict.json
+!results_guard_probe/*/confirm_*.json
+!results_guard_probe/*/exploit_1000_v1_noKOexception.json
