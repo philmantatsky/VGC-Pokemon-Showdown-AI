@@ -13,6 +13,10 @@ battery, not the probes, decides anything that matters.
 Save 3 (15,728,640, 09:55): eval/heuristic **0.85** (recovered), eval/bc
 **0.70** (at the line, not below it); fps 156, ep_rew +0.62. Continue.
 
+Save 4 (16,711,680, 11:40): eval/heuristic **0.77**, eval/bc **0.74**. Four
+saves: 0.82 / 0.78 / 0.85 / 0.77 -- noise around the 0.80 line, no trend;
+continue to save 5 (~13:25); the battery decides.
+
 ## Round 4 save 1: clean, continue (2026-September 7, 06:23)
 
 Save 1 (13,762,560): eval/heuristic **0.82**, eval/bc **0.77** (kill lines
