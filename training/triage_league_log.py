@@ -69,7 +69,7 @@ def main() -> None:
         "--results-dir",
         type=Path,
         default=None,
-        help="results root holding the tensorboard events (fallback when the log has no tables)",
+        help="results root with the tensorboard events (log fallback)",
     )
     args = ap.parse_args()
     probes = parse_probes(args.log.read_text(errors="ignore"))
