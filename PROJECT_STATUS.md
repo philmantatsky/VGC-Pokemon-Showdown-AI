@@ -28,6 +28,13 @@ and it trained ~2 minutes on the degenerate 5-file pool (04:36); killed,
 pool wiped and rebuilt; the eval_D baseline (n=1,000) runs alongside the
 first interval.
 
+eval_D baseline (05:00, n=1,000 stochastic, seed 83): the deployed brain
+beats the September human clone **80.9%** vs 85.6% against the August clone
+(eval_B) -- the current-meta imitation is ~5pp harder for the deployed
+brain, the same direction as the ladder collapse. `results_gate_battery_
+evalD/deployed_vs_evalD_1000.json`; this is the reference for the round-4
+finalists' eval_D diagnostic arm.
+
 ## `resisted_target` v3 (reranker revert fixed) PASSES clean: every arm up, no confirmation needed (2026-September 7, 03:23)
 
 Deployed + `resisted_target` v3 vs deployed, screening n=1,000 per arm,
