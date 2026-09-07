@@ -1,5 +1,42 @@
 # VGC Bot Project Status
 
+## `resisted_target` PASSES the screening battery; ladder read awaits the user's word (2026-September 6, 21:49)
+
+Deployed + `resisted_target` vs the deployed brain, paired, hidden sheets,
+seed 83 (`results_guard_probe/resisted_target/`):
+
+| arm | delta |
+|---|---|
+| adversary (exploiter, stochastic; informative) | +2.4 (40.3 v 37.9); v1 read -1.5 |
+| human holdout eval_B | **+1.9** (86.4 v 84.5) |
+| heuristic | +0.8 (92.1 v 91.3) |
+| frozen 64opp | screening -2.3 -> fresh-seed n=1,500 (seed 8302): **-0.5** (85.8 v 86.3) |
+| rotation 8opp | -0.1 (87.8 v 87.9) |
+| rotation tuned | +1.8 (86.2 v 84.4) |
+| weighted (human x2) / equal | **+0.96 / +0.77** |
+
+Verdict under the adopted tier rule: **PASS** -- no confirmed breach,
+weighted >= 0, human holdout +1.9. The confirmation clause worked in the
+candidate's favour this time: the frozen arm's -2.3 at n=1,000 read -0.5 on
+a fresh seed (exactly the ~1-in-4 false-flag rate the SEs predict). The
+guard fired ~1,000 times per 1,000 games vs the exploiter and ~400 vs the
+heuristic (fewer resisted-target situations), 6-8% of firings injected a
+pair the policy had not ranked, the KO exception stood down 57 times per
+1,000 heuristic games, zero errors, zero pairing mismatches. First-faint
+markers unchanged on every arm: this is a mid-game targeting fix, not an
+opening fix -- the 61% first-faint collapse on ladder is a separate problem.
+
+Reading: the first gate pass of an inference-time rule since the guard era,
+and a modest one (+0.4..+1.0 weighted) against local populations that play
+the type chart far less sharply than humans do (opponents on ladder land
+super-effective hits 40% of the time). The rule's value is expected to be
+larger on ladder than locally, and only a ladder read can show it. Next per
+the plan: 25 serial ladder games, deployed brain + `--guards-extra
+resisted_target`, fresh replay dir `ladder_replays_guard_20260906`, same
+instrumentation -- **not launched**: the ladder is stopped at the user's
+request and restarts only on their word. Deployed configuration unchanged
+(the guard stays opt-in until a ladder read backs it).
+
 ## Ladder batch stopped at 7-16; the resisted-target blunder class; `resisted_target` guard built and its A/B pre-registered (2026-September 6, 19:19)
 
 The 25-game deployed-brain batch was stopped by the user after 23 games:

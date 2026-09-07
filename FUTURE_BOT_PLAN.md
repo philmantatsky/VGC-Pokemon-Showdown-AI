@@ -332,6 +332,15 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   breach and weighted >= 0 -> 25-game ladder read. Program agreed with the
   user: make the brain unexploitable (mixing, then a Nash-weighted league
   round with a new human-like opponent), then revisit the team.
+- [x] **`resisted_target` guard (2026-09-06): retarget a known-resisted
+  single-target attack to the foe it hits harder (facts only; KO exception;
+  twin verified by decoding; opt-in, per-player overrides). Screening PASS:
+  human +1.9, heuristic +0.8, rotations -0.1/+1.8, frozen -0.5 on a fresh-seed
+  n=1,500 confirmation; weighted +0.96. Ladder read (25, `--guards-extra
+  resisted_target`) pending the user's word; promotion into HARD_GUARDS only
+  after it.**
+- [ ] Neutral-to-super-effective target preference: the follow-up candidate if
+  the ladder read backs the factual rule (opponents 40% SE hits vs our 19-26%).
 - [ ] **Step 2, Nash-weighted league round 4:** `training/meta_game.py` +
   `meta_game_config.json` (5 rows x 8 columns, n=300) -> column equilibrium
   y* -> copy table for `build_league.py`; second human-BC from a fresh
