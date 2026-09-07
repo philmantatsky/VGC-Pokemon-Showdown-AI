@@ -1,5 +1,15 @@
 # VGC Bot Project Status
 
+## Round 4 save 1: clean, continue (2026-September 7, 06:23)
+
+Save 1 (13,762,560): eval/heuristic **0.82**, eval/bc **0.77** (kill lines
+0.80 / 0.70), 156-157 steps/s, ep_rew +0.38..+0.72, approx_kl ~0.022, clip
+~0.11, bc_opp_frac 0.875 (12 seeded files of 13), zero errors. No adaptation
+shock at the 15% adversary / 38% human-clone mix (round 3's 31% dose opened
+at 0.71/0.67). Original kill criteria stay in force for saves 2-5;
+completion ~14:00, then `after_round4.sh` triages finalists from the probes
+and runs `run_league4_verdict.sh`.
+
 ## Payoff matrix done: the pure equilibrium is 100% exploiter; round 4 launched 04:38 on a hardness-weighted pool (2026-September 7, 04:39)
 
 The 3x10 matrix (`results_meta_game/round4/meta_game.json`, n=300/cell):
