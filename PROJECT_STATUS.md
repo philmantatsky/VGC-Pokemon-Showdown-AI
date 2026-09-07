@@ -1,5 +1,16 @@
 # VGC Bot Project Status
 
+## Round 4: both finalists qualify on the exploit re-measure (2026-September 7, 14:07)
+
+n=1,000 paired vs the final exploiter (stochastic), seed 83: **13762560
+63.4% vs deployed 40.9% (+22.5)**, first faint ours 34% vs 58%; **17694720
+64.8% vs 41.8% (+23.0)**, first faint ours 28% vs 57%. The 15% adversary
+dose closes the exploit like the 31% and 10% doses did. Both go to the
+5-arm screening battery vs the DEPLOYED champion + mix_A diagnostic
+(13762560 first, from 14:06), then the eval_D (September clone) arms;
+verdict ~19:00. Same pre-registered bars; tiebreak as written 09-05 (higher
+weighted delta among passers; exploit margin breaks ties within 1pp).
+
 ## Round 4 complete; verdict chain running on two finalists (2026-September 7, 13:28)
 
 Five checkpoints, zero errors, 155-157 steps/s throughout. Probes
