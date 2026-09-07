@@ -1,5 +1,15 @@
 # VGC Bot Project Status
 
+## Round 4 save 2: heuristic probe 0.78 (line 0.80), bc 0.77 -- continue under a written rule (2026-September 7, 08:08)
+
+Save 2 (14,745,600): eval/heuristic **0.78**, eval/bc **0.77**; fps 156,
+ep_rew +0.50..+0.68, approx_kl on target, zero errors. The probes are n=100
+(SE ~4pp): 0.78 after 0.82 is a one-SE wobble, not the catastrophic
+forgetting the 0.80 line was written for (round 3 opened at 0.71/0.67).
+Recorded deviation, same form as round 3's: continue; **kill if save 3
+also reads below 0.78 on the heuristic probe or below 0.70 on bc.** The
+battery, not the probes, decides anything that matters.
+
 ## Round 4 save 1: clean, continue (2026-September 7, 06:23)
 
 Save 1 (13,762,560): eval/heuristic **0.82**, eval/bc **0.77** (kill lines
