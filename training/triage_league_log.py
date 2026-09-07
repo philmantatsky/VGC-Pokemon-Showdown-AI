@@ -46,9 +46,8 @@ def main() -> None:
     args = ap.parse_args()
     probes = parse_probes(args.log.read_text(errors="ignore"))
     for i, (h, b) in enumerate(probes):
-        print(
-            f"save {i + 1} ({args.resume + (i + 1) * SAVE_INTERVAL}): heuristic {h:.2f} bc {b:.2f}"
-        )
+        stem = args.resume + (i + 1) * SAVE_INTERVAL
+        print(f"save {i + 1} ({stem}): heuristic {h:.2f} bc {b:.2f}")
     for p in finalists(probes, args.resume, args.save_dir):
         print(p)
 
