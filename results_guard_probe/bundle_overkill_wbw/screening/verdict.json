@@ -1,0 +1,68 @@
+{
+  "arms": {
+    "frozen": {
+      "candidate_rate": 0.85,
+      "delta_pp": 0.40000000000000036,
+      "deployed_rate": 0.846,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.3341064425299805,
+      "source": "screening",
+      "status": "clear"
+    },
+    "heuristic": {
+      "candidate_rate": 0.927,
+      "delta_pp": 1.0000000000000009,
+      "deployed_rate": 0.917,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.0765686229869418,
+      "source": "screening",
+      "status": "clear"
+    },
+    "human_bc": {
+      "candidate_rate": 0.843,
+      "delta_pp": -1.6000000000000014,
+      "deployed_rate": 0.859,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.3628793050009969,
+      "source": "screening",
+      "status": "confirm"
+    },
+    "rotation1": {
+      "candidate_rate": 0.864,
+      "delta_pp": -1.100000000000001,
+      "deployed_rate": 0.875,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.3523276230263137,
+      "source": "screening",
+      "status": "confirm"
+    },
+    "rotation2": {
+      "candidate_rate": 0.857,
+      "delta_pp": -2.100000000000002,
+      "deployed_rate": 0.878,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.2512353895250885,
+      "source": "screening",
+      "status": "confirm"
+    }
+  },
+  "bar_pp": -2.0,
+  "battery_dir": "results_guard_probe/bundle_overkill_wbw/screening",
+  "breaches": [],
+  "confirm_needed": [
+    "rotation1",
+    "rotation2",
+    "human_bc"
+  ],
+  "confirm_window_pp": 1.0,
+  "equal_delta_pp": -0.6800000000000006,
+  "neutral_false_fail": 0.2620039483272625,
+  "outcome": "CONFIRM",
+  "tier": "screening",
+  "weighted_delta_pp": -0.833333333333334
+}

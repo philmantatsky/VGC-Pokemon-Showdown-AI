@@ -1,5 +1,32 @@
 # VGC Bot Project Status
 
+## Bundle `overkill_split` + `dominated_weather_ball_weather` PASSES after three fresh-seed confirmations (2026-September 7, 01:40)
+
+Deployed + both guards vs deployed, screening n=1,000 then the adopted
+confirmation clause (seed 8302, n=1,500) on every arm inside the window
+(`results_guard_probe/bundle_overkill_wbw/`):
+
+| arm | screening | confirmation |
+|---|---|---|
+| adversary (informative) | 0.0 (40.5 v 40.5) | -- |
+| heuristic | +1.0 | clear |
+| frozen 64opp | +0.4 | clear |
+| rotation 8opp | -1.1 | **+0.3** |
+| rotation tuned | -2.1 | **+1.7** |
+| human holdout eval_B | -1.6 | **+1.9** |
+| weighted (human x2) / equal | -0.8 | **+1.2 / +1.1** |
+
+Verdict PASS under the rule as written (the fresh reading decides). Honest
+pooled picture across both seeds: about neutral to slightly positive on
+every arm -- three screening dips all flipped on fresh seeds, which is what
+noise around zero looks like. `overkill_split` fires ~0.5 times per game
+(455-522 per 1,000; nearly all promotions of a split pair the policy had
+ranked), `dominated_weather_ball_weather` changes the pick 3-11 times per
+1,000 games. Neither costs anything measurable locally; their value is the
+specific ladder blunders they remove. Both stay opt-in until a ladder read;
+next in the chain: the `resisted_target` v3 re-measure (started 01:39), the
+payoff matrix, round 4.
+
 ## Ladder stopped at the user's order ("it's bleeding rating, fix it"); diagnosis; round 4 auto-launches tonight (2026-September 6, 22:37)
 
 The v3 read went 0-4 (the first file in its dir is the v2 game the login

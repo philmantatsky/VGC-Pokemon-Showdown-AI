@@ -339,6 +339,11 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   n=1,500 confirmation; weighted +0.96. Ladder read (25, `--guards-extra
   resisted_target`) pending the user's word; promotion into HARD_GUARDS only
   after it.**
+- [x] **`overkill_split` + `dominated_weather_ball_weather` (2026-09-06/07):
+  split two attacks off a foe one of them already KOs; Weather Ball vs Heat
+  Wave under non-sun weather. Screening PASS after fresh-seed confirmations
+  (human +1.9, rotations +0.3/+1.7, heuristic +1.0, frozen +0.4; weighted
+  +1.2; pooled ~neutral). Opt-in until a ladder read.**
 - [ ] Neutral-to-super-effective target preference: the follow-up candidate if
   the ladder read backs the factual rule (opponents 40% SE hits vs our 19-26%).
 - [ ] **Step 2, Nash-weighted league round 4:** `training/meta_game.py` +
