@@ -1,5 +1,44 @@
 # VGC Bot Project Status
 
+## Round 4 VERDICT on the pre-registered battery: both finalists FAIL (2026-September 7, 17:16)
+
+Full cards vs the DEPLOYED champion (n=1,000 paired, hidden sheets):
+
+| arm | 13762560 (save 1) | 17694720 (final) |
+|---|---|---|
+| adversary (exploiter, stochastic) | **+22.5** (63.4 v 40.9) | **+23.0** (64.8 v 41.8) |
+| human holdout eval_B (Aug clone) | **-5.0** (80.1 v 85.1) | -2.4 (84.3 v 86.7) |
+| heuristic | **-3.8** (88.4 v 92.2) | **-6.5** (84.6 v 91.1) |
+| frozen 64opp | +0.5 | -2.0 |
+| rotation 8opp | **-3.9** | -2.3 |
+| rotation tuned | **-7.9** | -1.5 |
+| weighted (human x2) | -4.2 | -2.9 |
+| mix_A diagnostic | -3.1 (vs eval_B -5.0: 1.9pp, clean) | pending |
+
+Both breach the rule (13762560 on four arms; 17694720 on the heuristic,
+-6.5, with the other four inside the confirmation window and all
+negative). No promotion; no ladder. Mechanism marker: first faint ours vs
+the heuristic 31-33% for the candidates vs 23-24% for the deployed brain --
+the adversary-hardened opening is more committal and the scripted
+max-damage opponent punishes it; vs the human clone the final checkpoint
+loses its first mon LESS often (23% vs 25%) yet still loses more games.
+
+Cross-round pattern, now four rounds deep (3, 3b, 4 with two finalists
+each): every pool that contains the adversary closes the exploit (+15..+32)
+and pays on the August-anchored arms. Round 4 -- the September clones at
+38%, the exploiter capped at 15%, Trick Room rosters boosted -- paid the
+MOST on the heuristic and the August human clone. Two readings: (a) the
+candidates are simply worse; (b) the battery is anchored to August -- its
+PPO arms and the heuristic pilot AUGUST-weighted opponent teams
+(`data/team_weights_regmb.json`, built from the Aug-1 scrape) and its human
+arm is the August clone -- so a brain adapted to the September field is
+measured against the field it was moved away from. The two eval_D arms
+(September clone; deployed baseline 80.9%) running now are the first
+current-meta reading; a September-anchored diagnostic battery (opponent
+team weights rebuilt from the 2026-09-06 scrape, eval_D as the human arm)
+is being prepared as a DIAGNOSTIC, not a replacement for the pre-registered
+gate -- changing the gate is the user's decision.
+
 ## Round 4 finalist 13762560 (save 1) FAILS broadly (2026-September 7, 15:32)
 
 5-arm screening vs the DEPLOYED champion (n=1,000 paired): heuristic
