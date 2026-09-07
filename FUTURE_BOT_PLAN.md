@@ -348,6 +348,14 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   +1.2; pooled ~neutral). Opt-in until a ladder read.**
 - [ ] Neutral-to-super-effective target preference: the follow-up candidate if
   the ladder read backs the factual rule (opponents 40% SE hits vs our 19-26%).
+- [x] ~~Round 4 (September clones + capped exploiter, hardness-weighted, TR
+  boost)~~ **2026-09-07: exploit closed (+22.5 / +23.0) but both finalists
+  fail the August-anchored battery (final: heuristic -6.5, every arm
+  negative; save 1: human -5.0, rotation tuned -7.9). Fourth adversary
+  round with the same shape. Open question for the user: the battery's
+  opponents pilot August-weighted teams and its human arm is the August
+  clone -- a September-anchored diagnostic (Sep team weights + eval_D) is
+  running to tell adaptation from degradation. Not promoted; no ladder.**
 - [ ] **Step 2, Nash-weighted league round 4:** `training/meta_game.py` +
   `meta_game_config.json` (5 rows x 8 columns, n=300) -> column equilibrium
   y* -> copy table for `build_league.py`; second human-BC from a fresh
