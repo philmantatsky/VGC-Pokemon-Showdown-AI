@@ -2070,7 +2070,8 @@ def guard_resisted_target(battle, cands, report) -> list[Candidate]:
     the played pair sends a single-target damaging move into a foe that resists
     it while the other live foe takes strictly more (neutral or better), is not
     known to be immune, and -- when the calculator can evaluate both -- takes
-    more damage. The twin pair (same actions, other target) is promoted if the
+    more damage; a resisted hit that already KOs its target is left alone. The
+    twin pair (same actions, other target) is promoted if the
     policy already ranked it, otherwise injected with the top pair's weight.
     Opt-in: not in HARD_GUARDS until it passes its A/B.
     """
@@ -2116,6 +2117,11 @@ def guard_resisted_target(battle, cands, report) -> list[Candidate]:
             continue
         if K.deals_no_damage(battle, attacker, other, move):
             report.demotions["resisted_target:other_immune"] += 1
+            continue
+        if K.guaranteed_ko(battle, attacker, current, move):
+            # A resisted hit that still removes the foe beats a bigger hit that
+            # does not: the policy is finishing, not misjudging the matchup.
+            report.demotions["resisted_target:current_ko"] += 1
             continue
         current_fraction = K.damage_fraction(battle, attacker, current, move)
         other_fraction = K.damage_fraction(battle, attacker, other, move)

@@ -177,3 +177,16 @@ def test_twin_action_arithmetic_matches_poke_env_bands():
 def test_guard_is_registered_but_opt_in():
     assert "resisted_target" in G.GUARDS and "resisted_target" in G.GUARD_ORDER
     assert "resisted_target" not in G.HARD_GUARDS
+
+
+def test_a_resisted_hit_that_finishes_the_foe_is_left_alone(monkeypatch):
+    rotom, meganium = (
+        Pokemon(gen=9, species="rotomwash"),
+        Pokemon(gen=9, species="meganium"),
+    )
+    battle = _battle([meganium, rotom], weather={Weather.SUNNYDAY: 1})
+    monkeypatch.setattr(G.K, "guaranteed_ko", lambda b, a, d, m: d is rotom)
+    top = G.Candidate((_action(0, "rocktomb", 2), _action(1, "weatherball", 2)), 0.3)
+    out, report = _run(battle, [top])
+    assert out[0] is top and not report.stages
+    assert report.demotions["resisted_target:current_ko"] == 1
