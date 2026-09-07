@@ -151,6 +151,7 @@ def test_calculator_disagreement_blocks_the_retarget(monkeypatch):
         Pokemon(gen=9, species="meganium"),
     )
     battle = _battle([meganium, rotom], weather={Weather.SUNNYDAY: 1})
+    rotom._current_hp, rotom._max_hp = 100, 100  # healthy: a 0.6 roll is no KO
     monkeypatch.setattr(
         G.K,
         "damage_fraction",

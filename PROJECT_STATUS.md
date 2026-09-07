@@ -48,6 +48,23 @@ read with `--guards-extra resisted_target` -- with the user's word, since
 the ladder is stopped at their request. The deployed configuration is
 unchanged until then.
 
+Firing budget, measured (`tools/hit_effectiveness.py`): 15% of our
+single-target attacks go into a foe that resists them while a second foe is
+on the field -- 13/85 in today's 23 games, 69/444 in the August 125 -- and
+opponents land super-effective hits on 40% of their attacks vs our 19%
+(today) / 26% (August). A rule that fires ~5 times a game can be judged by
+win rate; a neutral-to-super-effective preference is the obvious follow-up
+if this factual version passes.
+
+v1 exploit reading (kept as `exploit_1000_v1_noKOexception.json`): -1.5pp
+(38.9 v 40.4), 1,088 firings in 1,000 games, 81 injected / 1,007 promoted,
+zero errors -- the policy usually RANKS the better target and still prefers
+the resisted one. Before any battery data a defect was found in the rule: it
+ignored whether the resisted hit finishes a low-HP foe (a resisted KO beats
+a bigger non-KO). v2 adds the `guaranteed_ko` exception (`:current_ko`
+counted; 11th test) and the probe was relaunched from the exploit step at
+19:39 (`guard_probe_v2.log`).
+
 ## Every-turn mixing is worse even against the exploiter; mixing lever closed; ladder batch running (2026-September 6, 18:06)
 
 The one pre-registered secondary variant (`always`, top-3, T=1) on the
