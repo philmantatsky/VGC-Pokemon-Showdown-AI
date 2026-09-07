@@ -2160,6 +2160,99 @@ def guard_resisted_target(battle, cands, report) -> list[Candidate]:
     return _promote_candidate(cands, match, "resisted_target", report)
 
 
+def guard_overkill_split(battle, cands, report) -> list[Candidate]:
+    """Split two attacks off one foe when either alone is a guaranteed KO.
+
+    Ladder 2026-09-06 (a won game, turn 7): Rock Tomb and Last Respects both
+    aimed at a 1%-HP Whimsicott; it fainted to Rough Skin before either moved,
+    both redirected to Oranguru, and Last Respects did nothing (Normal type).
+    A pair that stacks two single-target attacks on a foe that one of them
+    already KOs (minimum roll, calculator-verified) wastes the second attack
+    and hands the redirect to whatever the other foe is immune to. Keeps the
+    finishing action and sends the other slot's damage into the other live
+    foe: the best-ranked such pair the policy already considered, else the
+    same move re-aimed when it is not immune there, else stands down.
+    Opt-in: not in HARD_GUARDS until it passes its A/B.
+    """
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if not live:
+        return cands
+    foes = list(battle.opponent_active_pokemon)
+    if len(foes) != 2 or any(foe is None or foe.fainted for foe in foes):
+        return cands
+    top = live[0]
+    decoded: list[tuple[Pokemon, Move, Pokemon]] = []
+    for pos, action in enumerate(top.actions):
+        attacker = battle.active_pokemon[pos]
+        order = _decode(battle, action, pos)
+        move, targets = _move_and_targets(battle, order, pos)
+        if (
+            move is None
+            or attacker is None
+            or move.category == MoveCategory.STATUS
+            or float(move.base_power or 0) <= 0
+            or len(targets) != 1
+            or targets[0] not in foes
+        ):
+            return cands
+        decoded.append((attacker, move, targets[0]))
+    if decoded[0][2] is not decoded[1][2]:
+        return cands
+    target = decoded[0][2]
+    other = foes[1] if foes[0] is target else foes[0]
+    other_slot = foes.index(other) + 1
+    kos = [
+        K.guaranteed_ko(battle, attacker, target, move) for attacker, move, _ in decoded
+    ]
+    if not any(kos):
+        return cands
+    keep = 0 if kos[0] else 1
+    move_pos = 1 - keep
+    attacker = battle.active_pokemon[move_pos]
+    # 1) A ranked pair that keeps the finishing action and puts the other
+    #    slot's damage on the other foe (single-target or spread, not immune).
+    for candidate in live[1:]:
+        if candidate.actions[keep] != top.actions[keep]:
+            continue
+        order = _decode(battle, candidate.actions[move_pos], move_pos)
+        move, targets = _move_and_targets(battle, order, move_pos)
+        if (
+            move is None
+            or move.category == MoveCategory.STATUS
+            or float(move.base_power or 0) <= 0
+            or other not in targets
+            or K.deals_no_damage(battle, attacker, other, move)
+        ):
+            continue
+        report.demotions["overkill_split:promoted"] += 1
+        return _promote_candidate(cands, candidate, "overkill_split", report)
+    # 2) The same move re-aimed at the other foe, when it does anything there.
+    _, move, _ = decoded[move_pos]
+    if K.deals_no_damage(battle, attacker, other, move):
+        report.demotions["overkill_split:no_alternative"] += 1
+        return cands
+    twin = twin_target_action(top.actions[move_pos], other_slot)
+    decoded_twin = _decode(battle, twin, move_pos) if twin is not None else None
+    twin_move = getattr(decoded_twin, "order", None)
+    if (
+        twin is None
+        or not isinstance(twin_move, Move)
+        or twin_move.id != move.id
+        or int(getattr(decoded_twin, "move_target", 0) or 0) != other_slot
+    ):
+        report.demotions["overkill_split:twin_mismatch"] += 1
+        return cands
+    actions = list(top.actions)
+    actions[move_pos] = twin
+    match = next((c for c in live if tuple(c.actions) == tuple(actions)), None)
+    if match is not None:
+        report.demotions["overkill_split:promoted"] += 1
+        return _promote_candidate(cands, match, "overkill_split", report)
+    report.demotions["overkill_split:injected"] += 1
+    report.note("overkill_split")
+    return [Candidate(actions=tuple(actions), prob=top.prob)] + list(cands)
+
+
 GUARDS = {
     "zero_damage": guard_zero_damage,
     "first_turn": guard_first_turn,
@@ -2174,6 +2267,7 @@ GUARDS = {
     "dominated_weather_ball": guard_dominated_weather_ball,
     "single_target_weather_ball": guard_single_target_weather_ball,
     "resisted_target": guard_resisted_target,
+    "overkill_split": guard_overkill_split,
     "protect_spam": guard_protect_spam,
     "guaranteed_ko": guard_guaranteed_ko,
     "reserve_weather_mega": guard_reserve_weather_mega,
@@ -2236,6 +2330,7 @@ GUARD_ORDER = (
     "dominated_weather_ball",
     "single_target_weather_ball",
     "resisted_target",
+    "overkill_split",
     "protect_spam",
     "guaranteed_ko",
     "reserve_weather_mega",

@@ -1,5 +1,35 @@
 # VGC Bot Project Status
 
+## Ladder read with `resisted_target` running (user's go, 22:02); `overkill_split` guard built for the next A/B (2026-September 6, 22:10)
+
+The user gave the go at 22:01: 25 serial games, deployed brain +
+`--guards-extra resisted_target`, fresh dir `ladder_replays_guard_20260906`
+(run_config records guards_extra=resisted_target, profile hard, knowledge
+obs on, mixing off). The payoff matrix was paused (4 cells on disk, resumes
+after the ladder). First game won (rating 1026 -> 1064); the guard fired
+once in the first two games.
+
+The user then spotted the next blunder class in that won game (turn 7):
+Rock Tomb AND Last Respects both aimed at a 1%-HP Whimsicott (policy 18%);
+it fainted to Rough Skin before either moved, both redirected to Oranguru,
+and Last Respects (Ghost) did nothing into a Normal type. The split -- Rock
+Tomb finishing Whimsicott, Wave Crash into Oranguru -- was ranked fourth at
+12%. Frequency: both our single-target attacks aim at the same foe about
+once per game (128 of 161 double-attack turns in the August 125; 21 of 29
+today), the KO-guaranteed subset is smaller.
+
+**`overkill_split`** (opt-in, not in HARD_GUARDS; 6 tests incl. the exact
+position): when the played pair stacks two single-target attacks on one foe
+and either alone is a calculator-verified guaranteed KO (min roll), keep the
+finishing action and send the other slot's damage into the other live foe --
+the best-ranked such pair the policy considered (single-target or spread,
+not immune), else the same move re-aimed when it does damage there, else
+stand down (`:no_alternative`). Counted `:promoted` / `:injected` /
+`:twin_mismatch`. Its A/B (same launcher, `run_guard_probe.sh
+overkill_split` + the confirmation clause) is queued right after the ladder
+read, before the payoff matrix resumes. Suite 341 passed; Ruff/Pyright at
+baseline.
+
 ## `resisted_target` PASSES the screening battery; ladder read awaits the user's word (2026-September 6, 21:49)
 
 Deployed + `resisted_target` vs the deployed brain, paired, hidden sheets,
