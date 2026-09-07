@@ -1,0 +1,89 @@
+{
+  "rows": [
+    "deployed",
+    "r3b_final",
+    "old_champion"
+  ],
+  "cols": [
+    "bc_mix_A",
+    "bc_mix_C",
+    "bc_mix_AC",
+    "exploiter_final",
+    "deployed",
+    "r3_final",
+    "r3b_final",
+    "old_champion",
+    "league1_8847360",
+    "league1_11796480"
+  ],
+  "n_per_cell": 300,
+  "payoff_row_win_rate": [
+    [
+      0.85,
+      0.8533333333333334,
+      0.81,
+      0.4,
+      0.8766666666666667,
+      0.84,
+      0.8333333333333334,
+      0.8533333333333334,
+      0.8766666666666667,
+      0.85
+    ],
+    [
+      0.8633333333333333,
+      0.8333333333333334,
+      0.8566666666666667,
+      0.6633333333333333,
+      0.88,
+      0.8833333333333333,
+      0.86,
+      0.8233333333333334,
+      0.8733333333333333,
+      0.8866666666666667
+    ],
+    [
+      0.76,
+      0.69,
+      0.75,
+      0.53,
+      0.7333333333333333,
+      0.8233333333333334,
+      0.83,
+      0.7933333333333333,
+      0.85,
+      0.8066666666666666
+    ]
+  ],
+  "row_equilibrium": {
+    "deployed": 0.0,
+    "r3b_final": 1.0,
+    "old_champion": 0.0
+  },
+  "col_equilibrium": {
+    "bc_mix_A": 0.0,
+    "bc_mix_C": 0.0,
+    "bc_mix_AC": 0.0,
+    "exploiter_final": 1.0,
+    "deployed": 0.0,
+    "r3_final": 0.0,
+    "r3b_final": 0.0,
+    "old_champion": 0.0,
+    "league1_8847360": 0.0,
+    "league1_11796480": 0.0
+  },
+  "value_row_win_rate": 0.6633333333333333,
+  "copies": 12,
+  "suggested_multiplicity": {
+    "bc_mix_A": 0,
+    "bc_mix_C": 0,
+    "bc_mix_AC": 0,
+    "exploiter_final": 12,
+    "deployed": 0,
+    "r3_final": 0,
+    "r3b_final": 0,
+    "old_champion": 0,
+    "league1_8847360": 0,
+    "league1_11796480": 0
+  }
+}

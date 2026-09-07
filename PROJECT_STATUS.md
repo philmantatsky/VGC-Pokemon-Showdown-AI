@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Payoff matrix done: the pure equilibrium is 100% exploiter; round 4 launched 04:38 on a hardness-weighted pool (2026-September 7, 04:39)
+
+The 3x10 matrix (`results_meta_game/round4/meta_game.json`, n=300/cell):
+the final exploiter beats every one of our rows harder than anything else
+(deployed 40%, r3b final 66%, old champion 53%), so the zero-sum
+equilibrium is degenerate -- y* = 100% exploiter, the sparring-partner-only
+mixture rounds 3 and 3b already showed overfits. After it, the hardest
+columns for the deployed brain are mix_AC (81%), the r3/r3b finals (83-84%)
+and everything else at 85-88%. Interesting aside: the ROW equilibrium is
+100% r3b final -- the exploit-hardened checkpoint is the most robust of our
+three against this population.
+
+`make_league4_config.py` therefore uses a **hardness mixture** (weight =
+1 - deployed win rate per column, every member kept), then the documented
+overrides with mass redistributed: exploiter capped at 2 of 12 (its raw
+weight was 31%), each September clone floored at 2. Final seeded pool (+
+the deployed brain at the resume stem): exploiter 2, mix_C 2, mix_AC 2,
+mix_A 1, deployed 1, r3 final 1, r3b final 1, old champion 1, league-1
+11796480 1 -- 13 files: adversary 15%, human clones 38%, self-lineage 46%;
+`tr_boost` 1.5 on the opponent team pool; eval_B and eval_D banned by
+content. Verified; training launched **04:38** (`league4_043806.log`, +5
+intervals to 17,694,720, ~9h). Kill criteria at save 1 as in round 3b
+(eval/heuristic >= 0.80, eval/bc >= 0.70, no worker deaths). Recorded
+incident: the auto-launcher's wait condition passed before the fix landed
+and it trained ~2 minutes on the degenerate 5-file pool (04:36); killed,
+pool wiped and rebuilt; the eval_D baseline (n=1,000) runs alongside the
+first interval.
+
 ## `resisted_target` v3 (reranker revert fixed) PASSES clean: every arm up, no confirmation needed (2026-September 7, 03:23)
 
 Deployed + `resisted_target` v3 vs deployed, screening n=1,000 per arm,

@@ -1,0 +1,68 @@
+{
+  "comment": "Round 4 (2026-09-07): pool copies from the meta-game (results_meta_game/round4), mixture=hardness, 12 seeded copies; overrides: {'exploiter_final': 'cap 2 copies (weight was 31%)', 'bc_mix_C': 'floor 2 copies (weight was 7%)', 'bc_mix_AC': 'floor 2 copies (weight was 10%)'}; TR rosters x1.5 in the opponent team pool; eval_B and eval_D banned by content.",
+  "dest": "results_league4/saves_fp_hs_wt/reg_mb/seed1",
+  "resume_stem": 12779520,
+  "sources": {
+    "100": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "200": "results_bc/mix_C/saves_bc/seed1/3.zip",
+    "300": "results_bc/mix_C/saves_bc/seed1/3.zip",
+    "400": "results_bc/mix_AC/saves_bc/seed1/5.zip",
+    "500": "results_bc/mix_AC/saves_bc/seed1/5.zip",
+    "600": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip",
+    "700": "results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip",
+    "800": "results_league3/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
+    "900": "results_league3b/saves_fp_hs_wt/reg_mb/seed1/17694720.zip",
+    "1000": "results_repaired/champion.zip",
+    "1100": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip",
+    "12779520": "results_league/league_champion.zip"
+  },
+  "copies": {
+    "bc_mix_A": 1,
+    "bc_mix_C": 2,
+    "bc_mix_AC": 2,
+    "exploiter_final": 2,
+    "deployed": 1,
+    "r3_final": 1,
+    "r3b_final": 1,
+    "old_champion": 1,
+    "league1_8847360": 0,
+    "league1_11796480": 1
+  },
+  "mixture": "hardness",
+  "mixture_weights": {
+    "bc_mix_A": 0.07666098807495743,
+    "bc_mix_C": 0.07495741056218055,
+    "bc_mix_AC": 0.09710391822827937,
+    "exploiter_final": 0.30664395229982966,
+    "deployed": 0.06303236797274274,
+    "r3_final": 0.08177172061328793,
+    "r3b_final": 0.08517887563884155,
+    "old_champion": 0.07495741056218055,
+    "league1_8847360": 0.06303236797274274,
+    "league1_11796480": 0.07666098807495743
+  },
+  "equilibrium": {
+    "bc_mix_A": 0.0,
+    "bc_mix_C": 0.0,
+    "bc_mix_AC": 0.0,
+    "exploiter_final": 1.0,
+    "deployed": 0.0,
+    "r3_final": 0.0,
+    "r3b_final": 0.0,
+    "old_champion": 0.0,
+    "league1_8847360": 0.0,
+    "league1_11796480": 0.0
+  },
+  "overrides": {
+    "exploiter_final": "cap 2 copies (weight was 31%)",
+    "bc_mix_C": "floor 2 copies (weight was 7%)",
+    "bc_mix_AC": "floor 2 copies (weight was 10%)"
+  },
+  "weights_source": "data/team_weights_regmb.json",
+  "weights_dest": "data/team_weights_regmb_league4.json",
+  "tr_boost": 1.5,
+  "eval_only_roots": [
+    "results_bc/eval_B",
+    "results_bc/eval_D"
+  ]
+}
