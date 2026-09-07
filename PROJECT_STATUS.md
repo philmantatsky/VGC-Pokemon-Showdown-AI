@@ -1,5 +1,15 @@
 # VGC Bot Project Status
 
+## Round 4 finalist 13762560 (save 1) FAILS broadly (2026-September 7, 15:32)
+
+5-arm screening vs the DEPLOYED champion (n=1,000 paired): heuristic
+**-3.8**, frozen +0.5, rotation 8opp **-3.9**, rotation tuned **-7.9**,
+human holdout **-5.0** (80.1 v 85.1) -> weighted -4.2. Four breaches beyond
+the confirmation window; the worst human-holdout reading of any finalist in
+rounds 3-4, despite +22.5 vs the exploiter. mix_A diagnostic running for
+the record; the final checkpoint 17694720's battery follows (~15:50-17:30)
+and decides the round.
+
 ## Round 4: both finalists qualify on the exploit re-measure (2026-September 7, 14:07)
 
 n=1,000 paired vs the final exploiter (stochastic), seed 83: **13762560
