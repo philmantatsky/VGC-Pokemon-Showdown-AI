@@ -167,6 +167,7 @@ class PolicyPlayer(Player):
         mixing_temperature: float = 1.0,
         mixing_last_turn: int = 2,
         mixing_seed: int | None = None,
+        guard_overrides: dict[str, bool] | None = None,
         *args: Any,
         **kwargs: Any,
     ):
@@ -258,6 +259,9 @@ class PolicyPlayer(Player):
         self.mixing_last_turn = int(mixing_last_turn)
         self._mixing_rng = np.random.default_rng(mixing_seed)
         self._mixing_lock = threading.Lock()
+        # Per-player guard switches merged over the class-wide profile, so an
+        # A/B can enable an opt-in guard (e.g. resisted_target) on one arm only.
+        self.guard_overrides: dict[str, bool] = dict(guard_overrides or {})
         self.invitee = invitee
         self.preview_model_path = (
             Path(preview_model_path) if preview_model_path is not None else None
@@ -1427,8 +1431,12 @@ class PolicyPlayer(Player):
                     PolicyPlayer.guard_fire_counts["residual_changed_pick"] += 1
             guard_report = None
             if PolicyPlayer.use_knowledge_guards:
+                guard_flags = PolicyPlayer.guard_flags
+                overrides = getattr(self, "guard_overrides", None)
+                if overrides:
+                    guard_flags = {**(guard_flags or {}), **overrides}
                 cands, guard_report = _guards.apply_guards(
-                    battle, cands, PolicyPlayer.guard_flags
+                    battle, cands, guard_flags
                 )
                 PolicyPlayer.guard_fire_counts["guards_ran"] += 1
                 if guard_report.stages:

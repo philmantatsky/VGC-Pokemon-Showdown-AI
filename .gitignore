@@ -126,3 +126,13 @@ results_mixing_probe/*/*/*
 !results_gate_battery_evalD/
 results_gate_battery_evalD/*
 !results_gate_battery_evalD/*.json
+# opt-in guard probes (2026-09-06): exploit meter + battery scorecards + verdicts
+!results_guard_probe/
+results_guard_probe/*
+!results_guard_probe/*/
+results_guard_probe/*/*
+!results_guard_probe/*/exploit_1000.json
+!results_guard_probe/*/*/
+results_guard_probe/*/*/*
+!results_guard_probe/*/*/scorecard.json
+!results_guard_probe/*/*/verdict.json

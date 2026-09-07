@@ -77,6 +77,11 @@ def run_arm(
             if getattr(args, "candidate_mixing", "off") != "off"
             else []
         ),
+        *(
+            ["--candidate-guards", args.candidate_guards]
+            if getattr(args, "candidate_guards", "")
+            else []
+        ),
         *extra,
     ]
     print(f"\n=== arm: {name} ({n_battles} battles) ===", flush=True)
@@ -121,6 +126,11 @@ def main() -> None:
     ap.add_argument("--mixing-top-k", type=int, default=3)
     ap.add_argument("--mixing-temperature", type=float, default=1.0)
     ap.add_argument("--mixing-last-turn", type=int, default=2)
+    ap.add_argument(
+        "--candidate-guards",
+        default="",
+        help="forwarded to every arm: opt-in guards for the candidate only",
+    )
     args = ap.parse_args()
 
     n_battles = TIER_BATTLES[args.tier]
@@ -177,6 +187,7 @@ def main() -> None:
                 "baseline": args.baseline,
                 "tier": args.tier,
                 "n_battles_per_arm": n_battles,
+                "candidate_guards": args.candidate_guards,
                 "candidate_mixing": {
                     "mode": args.candidate_mixing,
                     "top_k": args.mixing_top_k,

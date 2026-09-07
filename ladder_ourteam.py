@@ -277,6 +277,14 @@ async def main():
     mixing_group.add_argument("--mixing-temperature", type=float, default=1.0)
     mixing_group.add_argument("--mixing-last-turn", type=int, default=2)
     ap.add_argument(
+        "--guards-extra",
+        default="",
+        help=(
+            "comma-separated opt-in guards enabled on top of --guard_profile "
+            "(e.g. resisted_target); recorded in run_config.json"
+        ),
+    )
+    ap.add_argument(
         "--challenges",
         action="store_true",
         help="accept challenges instead of laddering (for testing)",
@@ -657,6 +665,11 @@ async def main():
         mixing_top_k=args.mixing_top_k,
         mixing_temperature=args.mixing_temperature,
         mixing_last_turn=args.mixing_last_turn,
+        guard_overrides={
+            name.strip(): True
+            for name in args.guards_extra.split(",")
+            if name.strip()
+        },
         team_sheet_wait_timeout=args.opening_wait,
         decision_log_path=(
             Path(args.decision_log)

@@ -202,6 +202,14 @@ def _interval(wins: int, total: int) -> tuple[float, float]:
     return center - radius, center + radius
 
 
+def _guard_overrides(args) -> dict[str, bool] | None:
+    """Opt-in guards enabled on the candidate arm only (comma-separated names)."""
+    raw = getattr(args, "candidate_guards", "") or ""
+    names = [n.strip() for n in raw.split(",")]
+    names = [n for n in names if n]
+    return {name: True for name in names} or None
+
+
 def _mixing_config(args) -> dict | None:
     """Mixed-strategy settings for the candidate arm, or None when off."""
     mode = getattr(args, "candidate_mixing", "off")
@@ -236,6 +244,7 @@ def _player(
     planned_preview: bool = False,
     outcome_preview: bool = False,
     mixing: dict | None = None,
+    guard_overrides: dict[str, bool] | None = None,
 ):
     if replay_dir is not None:
         replay_dir.mkdir(parents=True, exist_ok=True)
@@ -312,6 +321,7 @@ def _player(
         mixing_temperature=float((mixing or {}).get("temperature", 1.0)),
         mixing_last_turn=int((mixing or {}).get("last_turn", 2)),
         mixing_seed=args.seed,
+        guard_overrides=guard_overrides,
         save_replays=str(replay_dir) if replay_dir is not None else False,
     )
     agent.set_policy(checkpoint, device(args.device))
@@ -409,6 +419,7 @@ def _run_arm(
     reliability_floor: float | None = None,
     bench_species: tuple[str, ...] | None = None,
     mixing: dict | None = None,
+    guard_overrides: dict[str, bool] | None = None,
 ) -> dict:
     _seed_everything(args.seed)
     PolicyPlayer.guard_fire_counts.clear()
@@ -459,6 +470,7 @@ def _run_arm(
         planned_preview=planned_preview,
         outcome_preview=outcome_preview,
         mixing=mixing,
+        guard_overrides=guard_overrides,
     )
     if reliability_floor is not None:
         # per-arm turn-1/2 reliability floor (Stage C.1 A/B); production uses
@@ -722,6 +734,7 @@ def _run_arm(
             "mask_immunities": bool(PolicyPlayer.mask_immunities),
             "use_knowledge_guards": bool(PolicyPlayer.use_knowledge_guards),
             "use_moveset_prior": bool(PolicyPlayer.use_moveset_prior),
+            "guard_overrides": dict(getattr(ours, "guard_overrides", {}) or {}),
             "mixing": {
                 "mode": getattr(ours, "mixing_mode", "off"),
                 "top_k": getattr(ours, "mixing_top_k", None),
@@ -919,6 +932,14 @@ def main() -> None:
     parser.add_argument("--mixing-top-k", type=int, default=3)
     parser.add_argument("--mixing-temperature", type=float, default=1.0)
     parser.add_argument("--mixing-last-turn", type=int, default=2)
+    parser.add_argument(
+        "--candidate-guards",
+        default="",
+        help=(
+            "comma-separated opt-in guards enabled on the CANDIDATE arm only "
+            "(e.g. resisted_target); the baseline keeps the class-wide profile"
+        ),
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
         "--replay-dir",
@@ -1048,6 +1069,7 @@ def main() -> None:
                     replay_opponent_previews=True,
                     reliability_floor=args.candidate_reliability_floor,
                     mixing=_mixing_config(args),
+                    guard_overrides=_guard_overrides(args),
                     bench_species=(
                         tuple(
                             name.strip()

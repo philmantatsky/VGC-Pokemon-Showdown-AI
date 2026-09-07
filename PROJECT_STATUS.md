@@ -1,5 +1,53 @@
 # VGC Bot Project Status
 
+## Ladder batch stopped at 7-16; the resisted-target blunder class; `resisted_target` guard built and its A/B pre-registered (2026-September 6, 19:19)
+
+The 25-game deployed-brain batch was stopped by the user after 23 games:
+**7-16 (30%)**, first faint ours **14/23 (61%)** vs 34% in the August
+100-game run, the account sliding from ~1250 toward ~1090 against
+1000-1130 opponents. Far below the 55/100 record; the opening exchange is
+collapsing. Replays are in `ladder_replays_league_20260906/` (a fresh
+single-config dir: the run_config guard refused the 125-game dir because
+the mixing flags -- even at their off defaults -- changed the recorded
+configuration; the interrupted 24th game counts as a timer loss).
+
+The blunder the user watched (game vs underwaterficus, turn 5): Charizard-
+Mega-Y in sun sent Weather Ball into Rotom-Wash (resisted) beside a Mega
+Meganium (super-effective, likely a KO). The audit: the policy ranked the
+Rotom target first at 28% and the Meganium target fifth at 4%; no guard or
+reranker considered the matchup. Same game, turns 1-2: Basculegion's Wave
+Crash into Altaria (resisted, twice) beside Sneasler (neutral, frail, and the
+mon that then took the game). This is the August finding -- our super-
+effective hit rate 10.4% vs humans' 21.9% -- with a face.
+
+**`resisted_target` guard** (`vgc_bench/src/guards.py`, registered, opt-in,
+NOT in HARD_GUARDS): when the played pair sends a single-target damaging
+move into a foe whose current typing resists it while the other live foe
+takes strictly more (neutral or better), is not known immune
+(`deals_no_damage`), and -- when the calculator can evaluate both -- takes
+more damage, the twin pair (same actions, other target) is promoted if the
+policy ranked it or injected with the top pair's weight. Weather Ball
+follows the weather; Tera Blast is skipped; the twin is verified by decoding
+it back through poke-env before use; every stand-down is counted
+(`:other_immune`, `:calc_disagrees`, `:twin_mismatch`). Per-player
+`guard_overrides` (new) let an A/B enable it on one arm only:
+`eval_counterfactual.py --candidate-guards resisted_target`,
+`run_gate_battery.py --candidate-guards`, `ladder_ourteam.py --guards-extra`
+(recorded in run_config). 10 unit tests including the exact Rotom/Meganium
+and Altaria/Sneasler positions; suite 335 passed. Smoke test, 12 local games
+vs the exploiter: fired 5 times in 134 decisions (2 injected, 3 promoted),
+zero errors, baseline arm untouched.
+
+**Pre-registered A/B** (`evaluation/run_guard_probe.sh resisted_target`,
+`results_guard_probe/resisted_target/`): deployed + guard vs deployed, paired,
+seed 83. Exploit meter n=1,000 (informative). The decision is the 5-arm
+screening battery under the adopted tier rule: **advance = verdict PASS (no
+confirmed breach, weighted >= 0) with the human holdout >= 0**; first-faint-
+ours is the mechanism marker. On a pass, the next step is a 25-game ladder
+read with `--guards-extra resisted_target` -- with the user's word, since
+the ladder is stopped at their request. The deployed configuration is
+unchanged until then.
+
 ## Every-turn mixing is worse even against the exploiter; mixing lever closed; ladder batch running (2026-September 6, 18:06)
 
 The one pre-registered secondary variant (`always`, top-3, T=1) on the

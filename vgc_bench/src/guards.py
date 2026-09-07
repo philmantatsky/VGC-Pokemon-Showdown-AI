@@ -2017,6 +2017,143 @@ def guard_protect_spam(battle, cands, report) -> list[Candidate]:
     return _demote(cands, dead, "protect_spam", report)
 
 
+def effective_move_type(battle, attacker, move: Move):
+    """The type a damaging move will actually carry this turn.
+
+    Weather Ball follows the weather (Utility Umbrella excepted); Tera Blast is
+    skipped because its type depends on a Tera the state may not expose. Every
+    other move keeps its listed type.
+    """
+    if move.id == "terablast":
+        return None
+    if move.id != "weatherball":
+        return move.type
+    weather = set(getattr(battle, "weather", {}) or {})
+    if (
+        attacker is not None
+        and _norm(getattr(attacker, "item", None)) == "utilityumbrella"
+    ):
+        return move.type
+    if weather & {Weather.SUNNYDAY, Weather.DESOLATELAND}:
+        return PokemonType.FIRE
+    if weather & {Weather.RAINDANCE, Weather.PRIMORDIALSEA}:
+        return PokemonType.WATER
+    if Weather.SANDSTORM in weather:
+        return PokemonType.ROCK
+    if weather & {Weather.HAIL, Weather.SNOWSCAPE}:
+        return PokemonType.ICE
+    return move.type
+
+
+def twin_target_action(action: int, new_target: int) -> int | None:
+    """The same move (and the same Mega/Z/Dmax/Tera band) aimed at another slot.
+
+    poke-env's doubles encoding gives every move five consecutive actions, one
+    per target in (-2, -1, 0, 1, 2); switches occupy 1..6. The caller must still
+    decode the result and check it names the same move at the wanted target.
+    """
+    action = int(action)
+    if action < 7 or not -2 <= int(new_target) <= 2:
+        return None
+    offset = (action - 7) % 5
+    return action - offset + (int(new_target) + 2)
+
+
+def guard_resisted_target(battle, cands, report) -> list[Candidate]:
+    """Retarget a known-resisted single-target attack to the foe it hits harder.
+
+    Ladder 2026-09-06: Weather Ball (Fire, sun) into Rotom-Wash beside a Mega
+    Meganium; Wave Crash into Altaria beside Sneasler, twice. The policy aimed
+    at the resisted foe with ~30% confidence and nothing in the stack checked
+    the matchup. Facts only: the defenders' current typing as poke-env tracks
+    it (species, Mega, revealed Tera) and the move's effective type. Fires when
+    the played pair sends a single-target damaging move into a foe that resists
+    it while the other live foe takes strictly more (neutral or better), is not
+    known to be immune, and -- when the calculator can evaluate both -- takes
+    more damage. The twin pair (same actions, other target) is promoted if the
+    policy already ranked it, otherwise injected with the top pair's weight.
+    Opt-in: not in HARD_GUARDS until it passes its A/B.
+    """
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if not live:
+        return cands
+    foes = list(battle.opponent_active_pokemon)
+    if len(foes) != 2 or any(foe is None or foe.fainted for foe in foes):
+        return cands
+    top = live[0]
+    new_actions = list(top.actions)
+    changed = False
+    for pos, action in enumerate(top.actions):
+        attacker = battle.active_pokemon[pos]
+        order = _decode(battle, action, pos)
+        move, targets = _move_and_targets(battle, order, pos)
+        if (
+            move is None
+            or attacker is None
+            or move.category == MoveCategory.STATUS
+            or float(move.base_power or 0) <= 0
+            or len(targets) != 1
+            or targets[0] not in foes
+        ):
+            continue
+        current = targets[0]
+        current_slot = foes.index(current) + 1
+        other_slot = 3 - current_slot
+        other = foes[other_slot - 1]
+        move_type = effective_move_type(battle, attacker, move)
+        if move_type is None:
+            continue
+        try:
+            current_mult = current.damage_multiplier(move_type)
+            other_mult = other.damage_multiplier(move_type)
+        except Exception:
+            continue
+        if current_mult is None or other_mult is None:
+            continue
+        if not (
+            0.0 < current_mult < 1.0 and other_mult >= 1.0 and other_mult > current_mult
+        ):
+            continue
+        if K.deals_no_damage(battle, attacker, other, move):
+            report.demotions["resisted_target:other_immune"] += 1
+            continue
+        current_fraction = K.damage_fraction(battle, attacker, current, move)
+        other_fraction = K.damage_fraction(battle, attacker, other, move)
+        if (
+            current_fraction is not None
+            and other_fraction is not None
+            and not sum(other_fraction) > sum(current_fraction)
+        ):
+            report.demotions["resisted_target:calc_disagrees"] += 1
+            continue
+        twin = twin_target_action(action, other_slot)
+        if twin is None:
+            report.demotions["resisted_target:twin_mismatch"] += 1
+            continue
+        decoded = _decode(battle, twin, pos)
+        decoded_move = getattr(decoded, "order", None)
+        if (
+            not isinstance(decoded_move, Move)
+            or decoded_move.id != move.id
+            or int(getattr(decoded, "move_target", 0) or 0) != other_slot
+        ):
+            report.demotions["resisted_target:twin_mismatch"] += 1
+            continue
+        new_actions[pos] = twin
+        changed = True
+    if not changed:
+        return cands
+    twin_actions = tuple(new_actions)
+    match = next((c for c in live if tuple(c.actions) == twin_actions), None)
+    if match is None:
+        match = Candidate(actions=twin_actions, prob=top.prob)
+        report.demotions["resisted_target:injected"] += 1
+        report.note("resisted_target")
+        return [match] + list(cands)
+    report.demotions["resisted_target:promoted"] += 1
+    return _promote_candidate(cands, match, "resisted_target", report)
+
+
 GUARDS = {
     "zero_damage": guard_zero_damage,
     "first_turn": guard_first_turn,
@@ -2030,6 +2167,7 @@ GUARDS = {
     "encore_exposure": guard_encore_exposure,
     "dominated_weather_ball": guard_dominated_weather_ball,
     "single_target_weather_ball": guard_single_target_weather_ball,
+    "resisted_target": guard_resisted_target,
     "protect_spam": guard_protect_spam,
     "guaranteed_ko": guard_guaranteed_ko,
     "reserve_weather_mega": guard_reserve_weather_mega,
@@ -2091,6 +2229,7 @@ GUARD_ORDER = (
     "encore_exposure",
     "dominated_weather_ball",
     "single_target_weather_ball",
+    "resisted_target",
     "protect_spam",
     "guaranteed_ko",
     "reserve_weather_mega",
