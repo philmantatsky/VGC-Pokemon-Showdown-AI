@@ -1,5 +1,23 @@
 # VGC Bot Project Status
 
+## Round 4 complete; verdict chain running on two finalists (2026-September 7, 13:28)
+
+Five checkpoints, zero errors, 155-157 steps/s throughout. Probes
+(heuristic / bc, n=100): 0.82/0.77, 0.78/0.77, 0.85/0.70, 0.77/0.74,
+0.78/0.75 -- flat, noisy around the 0.80 line, no shock and no trend.
+Finalists: **13762560** (save 1, best probe sum) and **17694720** (final,
+most exposure to the new pool). Incident: the training log is
+stdout-buffered under nohup, so the SB3 tables never reached it and the
+log-only triage found no finalists; the probes were taken from tensorboard
+and the chain launched by hand at 13:28 (`triage_league_log.py` now falls
+back to tensorboard, `--results-dir`). `run_league4_verdict.sh`: exploit
+re-measure for both (qualify at >= 44.8%), then for qualifiers the 5-arm
+screening vs the DEPLOYED champion + the mix_A memorization diagnostic +
+the eval_D (September clone) diagnostic arm, baseline 80.9%. Same
+pre-registered bars as rounds 3/3b (no arm below the deployed brain by
+>2pp after the confirmation clause, weighted >= 0, mix_A divergence <=
+10pp); ladder only on a pass and with the user's word.
+
 ## Round 4 save 2: heuristic probe 0.78 (line 0.80), bc 0.77 -- continue under a written rule (2026-September 7, 08:08)
 
 Save 2 (14,745,600): eval/heuristic **0.78**, eval/bc **0.77**; fps 156,

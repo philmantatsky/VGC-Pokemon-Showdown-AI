@@ -23,6 +23,28 @@ def parse_probes(text: str) -> list[tuple[float, float]]:
     return list(zip(heur, bc))
 
 
+def probes_from_tensorboard(results_dir: Path) -> list[tuple[float, float]]:
+    """The probes straight from the run's events file.
+
+    2026-09-07: the training log is stdout-buffered under nohup, so the SB3
+    tables never reached it before exit and the log-only triage found no
+    finalists. Tensorboard has them from the first save on.
+    """
+    files = sorted(results_dir.glob("**/events.out.tfevents*"))
+    if not files:
+        return []
+    from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
+
+    ea = EventAccumulator(str(files[-1]), size_guidance={"scalars": 0})
+    ea.Reload()
+    tags = ea.Tags()["scalars"]
+    if "eval/heuristic" not in tags or "eval/bc" not in tags:
+        return []
+    heur = [e.value for e in ea.Scalars("eval/heuristic")]
+    bc = [e.value for e in ea.Scalars("eval/bc")]
+    return list(zip(heur, bc))
+
+
 def finalists(
     probes: list[tuple[float, float]], resume: int, save_dir: Path
 ) -> list[Path]:
@@ -43,8 +65,16 @@ def main() -> None:
     ap.add_argument("log", type=Path)
     ap.add_argument("--save-dir", type=Path, required=True)
     ap.add_argument("--resume", type=int, default=12779520)
+    ap.add_argument(
+        "--results-dir",
+        type=Path,
+        default=None,
+        help="results root holding the tensorboard events (fallback when the log has no tables)",
+    )
     args = ap.parse_args()
     probes = parse_probes(args.log.read_text(errors="ignore"))
+    if not probes and args.results_dir is not None:
+        probes = probes_from_tensorboard(args.results_dir)
     for i, (h, b) in enumerate(probes):
         stem = args.resume + (i + 1) * SAVE_INTERVAL
         print(f"save {i + 1} ({stem}): heuristic {h:.2f} bc {b:.2f}")
