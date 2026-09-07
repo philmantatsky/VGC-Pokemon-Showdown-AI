@@ -11,11 +11,11 @@ trap 'echo "CHAIN_FAILED at line $LINENO (exit $?)"' ERR
 #   firing (guard_fire_counts[<guard>] > 0) and no <guard>_error counts.
 # Usage: ./evaluation/run_guard_probe.sh <guard_name>
 
-GUARD=${1:?guard name}
+GUARD=${1:?guard name or comma-separated bundle}
 BASE=results_league/league_champion.zip
 EXP=results_exploiter/saves_ex_hs_wt/reg_mb/seed1/17694720.zip
 PORT=7600
-ROOT=results_guard_probe/$GUARD
+ROOT=results_guard_probe/${2:-${GUARD//,/+}}   # optional 2nd arg: output dir name
 mkdir -p "$ROOT"
 
 if pids=$(lsof -nP -t -iTCP:$PORT -sTCP:LISTEN 2>/dev/null); then kill $pids 2>/dev/null || true; sleep 3; fi
@@ -34,10 +34,11 @@ import json, sys
 d = json.load(open(sys.argv[1])); g = sys.argv[2]
 c, b = d["arms"]["distilled_policy"], d["arms"]["champion_policy"]
 t = c.get("telemetry", {})
+fired = {name: t.get(name, 0) for name in g.split(",")}
+errors = {name: t.get(name + "_error", 0) for name in g.split(",")}
 print(f"EXPLOIT_GUARD guard={g} candidate={c['win_rate']:.4f} deployed={b['win_rate']:.4f} "
-      f"delta={100*(c['win_rate']-b['win_rate']):+.1f}pp fired={t.get(g, 0)} "
-      f"injected={t.get(g + ':injected:demoted', 0)} promoted={t.get(g + ':promoted:demoted', 0)} "
-      f"errors={t.get(g + '_error', 0)} mismatched={d.get('opponent_preview_pairing', {}).get('mismatched')}")
+      f"delta={100*(c['win_rate']-b['win_rate']):+.1f}pp fired={fired} errors={errors} "
+      f"mismatched={d.get('opponent_preview_pairing', {}).get('mismatched')}")
 PY
 
 echo "[$(date '+%H:%M')] step 2: screening battery (candidate = deployed + $GUARD)"
