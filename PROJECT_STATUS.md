@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## PAUSED at the user's order (10:14); the round-5 verdict chain had stalled silently (2026-September 8, 10:16)
+
+Everything stopped: no training, evals, ladder or exhibition running. The
+chain's state at the stop: the deployed arm of finalist 15728640's exploit
+re-measure completed normally (406/1000 = 40.6%, 708 s), then the candidate
+arm made ~4,000 decisions (~180 games' worth) and produced nothing further
+for ~2 hours -- no error, warning or traceback in the log. That is the
+frozen-battle stall class (a handler exception swallowed by poke-env; with
+8 concurrent battles the arm freezes once all 8 are stuck). Cause unknown
+until a single-worker diagnostic with full counters runs on that checkpoint;
+NOT run while paused. Round-5 checkpoints are intact on disk. Resume plan
+when the user says so: diagnostic (~10 games, 1 worker) -> fix or work
+around -> relaunch `run_league5_verdict.sh` (with the exploit gate treated
+as informative).
+
 ## Round 5 complete; verdict chain running on save 3 + final (2026-September 8, 07:40)
 
 Five checkpoints, zero errors, 154-157 steps/s. Probes (heuristic / bc,
