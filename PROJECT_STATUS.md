@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Round 5 complete; verdict chain running on save 3 + final (2026-September 8, 07:40)
+
+Five checkpoints, zero errors, 154-157 steps/s. Probes (heuristic / bc,
+n=100): 0.89/0.78, 0.83/0.79, 0.78/0.90, 0.83/0.82, 0.77/0.75 -- no
+adversary in the pool and the scripted-opponent probe never dropped the
+way rounds 3-4 did; the human-clone probe reached 0.90 at save 3.
+Finalists (tensorboard triage): **15728640** (save 3, best probe sum) and
+**17694720** (final). `run_league5_verdict.sh` from 07:39: exploit
+re-measure (informative here -- the pool held no adversary), then the
+5-arm screening vs the DEPLOYED champion + mix_A diagnostic + eval_D arm.
+Because the league-3 chain gates the battery on the exploit bar, a
+fallback (`round5_fallback.sh`) runs the battery, mix_A and eval_D arms for
+any finalist the chain skips. Verdict ~11:30-12:30. Bot offline.
+
 ## Round 5 save 1: clean, continue (2026-September 8, 00:31)
 
 Save 1 (13,762,560): eval/heuristic **0.89** (kill line 0.80; the best

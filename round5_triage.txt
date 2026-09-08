@@ -1,0 +1,7 @@
+save 1 (13762560): heuristic 0.89 bc 0.78
+save 2 (14745600): heuristic 0.83 bc 0.79
+save 3 (15728640): heuristic 0.78 bc 0.90
+save 4 (16711680): heuristic 0.83 bc 0.82
+save 5 (17694720): heuristic 0.77 bc 0.75
+results_league5/saves_fp_hs_wt/reg_mb/seed1/15728640.zip
+results_league5/saves_fp_hs_wt/reg_mb/seed1/17694720.zip
