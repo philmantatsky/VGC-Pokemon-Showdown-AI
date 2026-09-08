@@ -16,6 +16,13 @@ checkpoint and, queued after it, for save 1. If those show non-regression
 on September populations, the gate itself is the thing that is stale, and
 re-anchoring it is the user's decision.
 
+Final checkpoint 17694720 vs eval_D (19:50): **81.0 vs 80.0 = +1.0pp**
+(first faint ours 22% vs 23%) against -2.4 on the August clone -- the same
+direction, a third of the size. Save 1 is the stronger September-human
+candidate (86.1%) despite the worse August card. Verdict chain complete
+(L4_VERDICT_COMPLETE 19:50); September-anchored batteries next: final
+checkpoint first, then save 1.
+
 ## Round 4 VERDICT on the pre-registered battery: both finalists FAIL (2026-September 7, 17:16)
 
 Full cards vs the DEPLOYED champion (n=1,000 paired, hidden sheets):
