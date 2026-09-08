@@ -12,6 +12,10 @@ criteria in force for saves 2-5; completion ~07:45, then `after_round5.sh`.
 Save 2 (14,745,600, 02:15): eval/heuristic **0.83**, eval/bc **0.79**; fps 155.
 Continue.
 
+Save 3 (15,728,640, 04:00): eval/heuristic **0.78** (one-SE wobble after 0.89 /
+0.83), eval/bc **0.90** (highest of any round); fps 155, ep_rew +0.80.
+Written rule as in round 4: continue; kill only if save 4 also reads < 0.78.
+
 ## Round 4 closed: both finalists fail on August AND September anchoring; round 5 launched -- the league-1 recipe on September data (2026-September 7, 22:45)
 
 September-anchored diagnostic cards (opponents on September-weighted
