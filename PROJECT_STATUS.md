@@ -1,5 +1,29 @@
 # VGC Bot Project Status
 
+## September-anchored diagnostic, final checkpoint: still a FAIL -- real regression, no human gain (2026-September 7, 21:15)
+
+17694720 vs the deployed brain with opponents on SEPTEMBER-weighted teams
+(`data/team_weights_regmb_sep.json`, 259 of 546 bundled teams matched
+against 6,529 September previews) and eval_D as the human arm, n=1,000
+paired (`results_gate_battery_league4/17694720_sep/`):
+
+| arm | August-anchored | September-anchored |
+|---|---|---|
+| heuristic | -6.5 | **-6.4** |
+| frozen 64opp | -2.0 | -0.6 |
+| rotation 8opp | -2.3 | **-3.8** |
+| rotation tuned | -1.5 | -1.9 |
+| human (eval_B / eval_D) | -2.4 | **-0.2** (81.5 v 81.7) |
+| weighted | -2.9 | -2.2 |
+
+The team re-weighting changes almost nothing: the heuristic and PPO-arm
+regressions are properties of the brain, not of the opponents' teams, and
+against September human play the final checkpoint is level with the
+deployed brain (-0.2 here, +1.0 on August teams). Verdict on either
+anchoring: FAIL. 17694720 is out. Save 1 (13762560: +4.7 on eval_D, -5.0
+on eval_B) is the only candidate with a real September-human gain; its
+September-anchored battery runs next (~21:15-23:00).
+
 ## First current-meta reading: round-4 save 1 is +4.7 on the September clone while -5.0 on the August clone (2026-September 7, 19:31)
 
 eval_D arm (September human clone, stochastic, n=1,000 paired):
