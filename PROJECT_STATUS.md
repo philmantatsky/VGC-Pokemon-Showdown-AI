@@ -1,5 +1,14 @@
 # VGC Bot Project Status
 
+## Round 5 save 1: clean, continue (2026-September 8, 00:31)
+
+Save 1 (13,762,560): eval/heuristic **0.89** (kill line 0.80; the best
+first-save heuristic probe of any round -- rounds 3/3b/4 opened at 0.71,
+0.84, 0.82), eval/bc **0.78** (line 0.70); 157 steps/s, ep_rew +0.64..+0.66,
+zero errors. Consistent with the round-5 hypothesis: without an adversary
+in the pool the scripted-opponent probe does not drop. Original kill
+criteria in force for saves 2-5; completion ~07:45, then `after_round5.sh`.
+
 ## Round 4 closed: both finalists fail on August AND September anchoring; round 5 launched -- the league-1 recipe on September data (2026-September 7, 22:45)
 
 September-anchored diagnostic cards (opponents on September-weighted
