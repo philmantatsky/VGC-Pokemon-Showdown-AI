@@ -1,0 +1,24 @@
+{
+  "comment": "Round 5 (2026-09-07 23:00): the league-1 recipe on September data -- NO adversary in the pool (four adversary rounds all closed the exploit and all regressed the scripted/PPO arms), human clones as the backbone (mix_C x2, mix_AC x2, mix_A x2 = 46%), self-lineage (old champion, league-1 history x3, deployed x2 + resume), SEPTEMBER opponent team weights (data/team_weights_regmb_sep.json) with TR rosters x1.5, eval_B and eval_D banned by content.",
+  "dest": "results_league5/saves_fp_hs_wt/reg_mb/seed1",
+  "resume_stem": 12779520,
+  "sources": {
+    "100": "results_bc/mix_C/saves_bc/seed1/3.zip",
+    "200": "results_bc/mix_C/saves_bc/seed1/3.zip",
+    "300": "results_bc/mix_AC/saves_bc/seed1/5.zip",
+    "400": "results_bc/mix_AC/saves_bc/seed1/5.zip",
+    "500": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "600": "results_bc/mix_A/saves_bc/seed1/30.zip",
+    "700": "results_repaired/champion.zip",
+    "800": "results_league/saves_fp_hs_wt/reg_mb/seed1/8847360.zip",
+    "900": "results_league/saves_fp_hs_wt/reg_mb/seed1/10813440.zip",
+    "1000": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip",
+    "1100": "results_league/league_champion.zip",
+    "1200": "results_league/league_champion.zip",
+    "12779520": "results_league/league_champion.zip"
+  },
+  "weights_source": "data/team_weights_regmb_sep.json",
+  "weights_dest": "data/team_weights_regmb_league5.json",
+  "tr_boost": 1.5,
+  "eval_only_roots": ["results_bc/eval_B", "results_bc/eval_D"]
+}

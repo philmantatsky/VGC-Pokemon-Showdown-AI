@@ -1,5 +1,45 @@
 # VGC Bot Project Status
 
+## Round 4 closed: both finalists fail on August AND September anchoring; round 5 launched -- the league-1 recipe on September data (2026-September 7, 22:45)
+
+September-anchored diagnostic cards (opponents on September-weighted
+teams, eval_D as the human arm; n=1,000 paired) beside the August ones:
+
+| arm | 13762560 Aug / Sep | 17694720 Aug / Sep |
+|---|---|---|
+| heuristic | -3.8 / **-3.4** | -6.5 / **-6.4** |
+| frozen 64opp | +0.5 / +0.7 | -2.0 / -0.6 |
+| rotation 8opp | -3.9 / **-3.4** | -2.3 / **-3.8** |
+| rotation tuned | -7.9 / **-3.7** | -1.5 / -1.9 |
+| human (eval_B / eval_D) | -5.0 / **+1.6** (+4.7 on Aug teams) | -2.4 / -0.2 (+1.0 on Aug teams) |
+| weighted | -4.2 / -1.1 | -2.9 / -2.2 |
+
+Reading: the team re-weighting moves nothing; the scripted and PPO-arm
+regressions are properties of the brains. Save 1 does carry a real gain
+against September human play (+1.6 on September teams, +4.7 on August
+teams) -- the adaptation is real but small, and it comes with -3.4 to -3.7
+against three non-adaptive populations. Verdict: FAIL on both anchorings,
+no promotion, no ladder. Save 1 is stamped `candidate` (sha e99ea7eb) and a
+25-game ladder-read script exists for it (not launched; a user override).
+
+Four adversary rounds (3, 3b, 4 x2) now say the same thing: the exploiter
+in the pool closes its own exploit and costs 2-7pp against the scripted and
+PPO populations, whatever the dose, whatever the anchoring. The one recipe
+that ever transferred to ladder had no adversary: league 1 (human-BC at
+37.5% + self-lineage). **Round 5 launched 23:0x** (`league5_*.log`,
+`training/league5_config.json`): the league-1 recipe on September data --
+mix_C x2, mix_AC x2, mix_A x2 (human 46%), old champion + league-1 history
+x3 + deployed x2 (+ resume), NO exploiter, SEPTEMBER opponent team weights
+with TR rosters x1.5, eval_B and eval_D banned. +5 intervals, ~9h; save-1
+kill lines as before; `after_round5.sh` (tensorboard triage) ->
+`run_league5_verdict.sh` (league-3 bars + eval_D arms). Bot offline.
+
+Decision brief for the user: (1) ladder read of the DEPLOYED brain + the
+three passed guards (25 games) is the lowest-risk ladder action available
+now; (2) a ladder override for round-4 save 1 is possible but not
+recommended (real -3.4..-3.7 arms, small human gain); (3) round 5's verdict
+lands ~11:30 tomorrow.
+
 ## September-anchored diagnostic, final checkpoint: still a FAIL -- real regression, no human gain (2026-September 7, 21:15)
 
 17694720 vs the deployed brain with opponents on SEPTEMBER-weighted teams

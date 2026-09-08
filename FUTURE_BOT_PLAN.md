@@ -356,6 +356,10 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   opponents pilot August-weighted teams and its human arm is the August
   clone -- a September-anchored diagnostic (Sep team weights + eval_D) is
   running to tell adaptation from degradation. Not promoted; no ladder.**
+- [ ] **Round 5 (launched 2026-09-07 23:00): league-1 recipe on September data
+  -- human clones 46%, self-lineage, NO adversary, September team weights, TR
+  x1.5. Verdict ~2026-09-08 11:30 (August bars + eval_D arms), then a
+  September-anchored diagnostic if needed.**
 - [ ] **Step 2, Nash-weighted league round 4:** `training/meta_game.py` +
   `meta_game_config.json` (5 rows x 8 columns, n=300) -> column equilibrium
   y* -> copy table for `build_league.py`; second human-BC from a fresh
