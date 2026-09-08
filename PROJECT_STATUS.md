@@ -1,5 +1,21 @@
 # VGC Bot Project Status
 
+## First current-meta reading: round-4 save 1 is +4.7 on the September clone while -5.0 on the August clone (2026-September 7, 19:31)
+
+eval_D arm (September human clone, stochastic, n=1,000 paired):
+**13762560 86.1% vs deployed 81.4% = +4.7pp** (first faint ours 23% vs
+24%). The same checkpoint read **-5.0** against eval_B, the August clone --
+a 9.7pp swing between two human-imitation arms that differ only in which
+month's top-500 games they were cloned from. That is the adaptation
+signature the August-anchored battery cannot see: the brain moved toward
+September human play and away from August human play. Memorization checks
+are clean for both finalists (mix_A divergence 1.9 / 0.4pp). The final
+checkpoint's eval_D arm is running; then the September-anchored batteries
+(September team weights + eval_D as the human arm) for the final
+checkpoint and, queued after it, for save 1. If those show non-regression
+on September populations, the gate itself is the thing that is stale, and
+re-anchoring it is the user's decision.
+
 ## Round 4 VERDICT on the pre-registered battery: both finalists FAIL (2026-September 7, 17:16)
 
 Full cards vs the DEPLOYED champion (n=1,000 paired, hidden sheets):
