@@ -9,6 +9,9 @@ zero errors. Consistent with the round-5 hypothesis: without an adversary
 in the pool the scripted-opponent probe does not drop. Original kill
 criteria in force for saves 2-5; completion ~07:45, then `after_round5.sh`.
 
+Save 2 (14,745,600, 02:15): eval/heuristic **0.83**, eval/bc **0.79**; fps 155.
+Continue.
+
 ## Round 4 closed: both finalists fail on August AND September anchoring; round 5 launched -- the league-1 recipe on September data (2026-September 7, 22:45)
 
 September-anchored diagnostic cards (opponents on September-weighted
