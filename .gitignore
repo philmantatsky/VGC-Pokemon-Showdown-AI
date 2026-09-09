@@ -166,3 +166,5 @@ results_gate_battery_league5/*/*
 results_gate_battery_league5/*/*/*
 !results_gate_battery_league5/*/*/scorecard.json
 !results_gate_battery_league5/*/exploit_remeasure_1000.json
+!results_gate_battery_league5/*/confirm_*.json
+!results_gate_battery_league5/*/*/verdict*.json
