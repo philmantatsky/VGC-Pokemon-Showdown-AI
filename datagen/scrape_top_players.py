@@ -26,6 +26,8 @@ FORMATS = [
     "gen9championsvgc2026regmabo3",
     "gen9championsvgc2026regmb",
     "gen9championsvgc2026regmbbo3",
+    "gen9championsvgc2026regmc",
+    "gen9championsvgc2026regmcbo3",
 ]
 UA = {"User-Agent": "vgc-bench-research/0.1"}
 OUT_DIR = Path("battle_logs_top")

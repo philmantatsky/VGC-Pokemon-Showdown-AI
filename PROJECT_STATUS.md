@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Reg M-C, what it is and what it takes (2026-September 9, 10:08)
+
+Upstream definitions: Reg M-C = `mod: champions` (current data), ruleset
+Flat Rules / VGC Timer / Open Team Sheets; Reg M-B is now `mod:
+championsregmb`, a frozen snapshot, `searchShow: false`. Diff of the two
+mods' `formats-data.ts`: **35 entries unlock in M-C, none removed** --
+Wigglytuff, Persian(-Alola), Perrserker, Farfetch'd/Sirfetch'd, Mr. Mime,
+Swalot, Gogoat, Golisopod (+Mega), Rillaboom, Cinderace, Inteleon,
+Thievul, Toxtricity, Grapploct, Pincurchin, Indeedee(-F), Arboliva,
+Baxcalibur (+Mega), Pawmot, Squawkabilly, Mabosstiff, Salamence (+Mega),
+and Mega Z forms of Garchomp, Lucario, Absol. Our six species are unchanged
+(same tiers) -- MB430 is legal. poke-env's data knows every new species, so
+observations and parsing hold; the brain has simply never met them.
+
+Groundwork: (1) the bundled simulator (fork branch 2026-06-20, 194 commits
+behind smogon master, 47 fork-only commits: room upkeep, batch validation,
+legacy VGC formats) is being merged with upstream on a new branch
+`vgc-bench-mc` (conflicts: formats.ts, package-lock) -- needed before any
+M-C training or local gate; then rebuild, test suite, and a local
+validation of MB430 in M-C. (2) The scraper knows M-C; the top-500 M-C
+corpus is 560 replays today (players 1045-1423, median ~1150; the format is
+days old) -- scraped into `battle_logs_top_mc_20260909/`, too small for a
+clone yet, enough for rough team weights; re-scrape daily. (3) VGCPastes has
+no Champions M-C sheet yet, so an M-C team pool has to come from open-team-
+sheet replays (a new extractor) until one appears. The team question is now
+forced by the format, not chosen. Decision pending with the user: a first
+M-C ladder read with the deployed brain + guards.
+
 ## FORMAT ROTATION: the Reg M-B ladder is closed; Reg M-C is live (found 2026-September 9, 10:04)
 
 Ladder read A (deployed + three guards) queued for 78 minutes across two
