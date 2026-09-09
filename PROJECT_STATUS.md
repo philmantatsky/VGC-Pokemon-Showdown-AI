@@ -25,6 +25,16 @@ commit (branch `vgc-bench-mc`) exists only locally -- the submodule URL is
 cameronangliss's fork. Publishing it needs a fork under the user's GitHub
 and a `.gitmodules` URL change; flagged to the user.
 
+Sanity eval on the merged simulator (10:14, `--reg mc`, M-C team weights,
+200 battles, 8 workers): the deployed brain beats the scripted opponent
+**86.5%** on M-C teams (vs ~90-92% on M-B teams), zero parse errors, no
+odd counters, 64 s; opponents faced were led by Sneasler, Rillaboom,
+Basculegion, Salamence, Kingambit, Incineroar, Indeedee-F. The whole
+stack -- simulator, poke-env data, observations, guards -- works in Reg
+M-C; the brain is merely a few points weaker against Pokémon it has never
+seen. A first M-C ladder read (deployed + three guards, `--reg mc`,
+M-B priors as-is) is prepared, not launched.
+
 ## Simulator updated for Reg M-C; MB430 validated locally; suite green (2026-September 9, 10:10)
 
 `pokemon-showdown/` now sits on branch **`vgc-bench-mc`**: smogon master
