@@ -1,0 +1,59 @@
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Beam
+- Calm Mind
+- Quick Attack
+- Protect
+
+Tyranitar (M) @ ChopleBerry
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Dragon Dance
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Earthquake
+- Iron Head
+- Protect
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Sucker Punch
+- Kowtow Cleave
+- Swords Dance
+- Protect
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Leech Life
+- Swords Dance
+- Aqua Jet
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Roar
+- Twin Beam
+- Helping Hand

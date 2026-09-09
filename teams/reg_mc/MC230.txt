@@ -1,0 +1,59 @@
+Zoroark-Hisui (M) @ BlackGlasses
+Ability: Illusion
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Icy Wind
+- Bitter Malice
+- Protect
+- Snarl
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Draining Kiss
+- Icy Wind
+- Scald
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Parting Shot
+- Spirit Break
+- Drain Punch
+- Light Screen
+
+Espathra (M) @ FocusSash
+Ability: SpeedBoost
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Calm Mind
+- Stored Power
+- Protect
+- Dazzling Gleam
+
+Annihilape (M) @ ExpertBelt
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Coaching
+- Drain Punch
+- Ice Punch
+- Rage Fist
+
+Araquanid (M) @ QuickClaw
+Ability: WaterBubble
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Leech Life
+- Crunch
+- Liquidation
+- Trailblaze

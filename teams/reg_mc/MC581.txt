@@ -1,0 +1,59 @@
+Weavile (F) @ NeverMeltIce
+Ability: Pickpocket
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Triple Axel
+- Ice Shard
+- Knock Off
+- Low Kick
+
+Charizard (M) @ CharizarditeY
+Ability: SolarPower
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Hasty Nature
+- Air Slash
+- Earthquake
+- Dragon Pulse
+- Weather Ball
+
+Swampert (F) @ Leftovers
+Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flip Turn
+- Stealth Rock
+- Body Press
+- Earthquake
+
+Kingambit (M) @ BlackGlasses
+Ability: SupremeOverlord
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
+- Iron Head
+- Kowtow Cleave
+- Swords Dance
+
+Rotom-Wash @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Discharge
+- Trick
+- Shadow Ball
+- Hydro Pump
+
+Victreebel (M) @ LifeOrb
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Solar Beam
+- Weather Ball
+- Sludge Wave
+- Sunny Day

@@ -1,0 +1,59 @@
+Raichu (M) @ RaichuniteY
+Ability: Static
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Thunder
+- Fake Out
+- Nasty Plot
+- Discharge
+
+Pelipper (M) @ ZoomLens
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hurricane
+- Weather Ball
+- Protect
+- Helping Hand
+
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Baneful Bunker
+- Gunk Shot
+- Liquidation
+- Toxic
+
+Dragonite (F) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hurricane
+- Protect
+- Thunder
+- Dragon Pulse
+
+Rotom-Wash @ LifeOrb
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Discharge
+- Hydro Pump
+- Rest
+- Sleep Talk
+
+Garchomp (F) @ SitrusBerry
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earth Power
+- Dragon Cheer
+- Helping Hand
+- Protect

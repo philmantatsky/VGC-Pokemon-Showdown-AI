@@ -1,0 +1,59 @@
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Follow Me
+- Protect
+- Psychic
+- Trick Room
+
+Gardevoir (F) @ Gardevoirite
+Ability: Telepathy
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Protect
+- Trick Room
+- Expanding Force
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Coaching
+- Dire Claw
+- Protect
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Tailwind
+- Protect
+- Encore
+- Moonblast
+
+Rotom-Wash @ SitrusBerry
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Volt Switch
+- Protect
+- Hydro Pump
+- Will-O-Wisp
+
+Incineroar (F) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Parting Shot
+- Flare Blitz
+- Throat Chop

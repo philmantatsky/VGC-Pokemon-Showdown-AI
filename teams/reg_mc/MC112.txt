@@ -1,0 +1,59 @@
+Delphox (M) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Psychic
+- Heat Wave
+- Nasty Plot
+- Protect
+
+Dragonite (M) @ Dragoninite
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Hurricane
+- Protect
+- Tailwind
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Matcha Gotcha
+- Rage Powder
+- Protect
+- Trick Room
+
+Kingambit (F) @ FocusSash
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Low Kick
+- Iron Head
+- Kowtow Cleave
+- Sucker Punch
+
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Earthquake
+- Protect
+- Dragon Claw
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Will-O-Wisp
+- Flare Blitz
+- Parting Shot

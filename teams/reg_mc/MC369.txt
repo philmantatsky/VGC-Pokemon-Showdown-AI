@@ -1,0 +1,59 @@
+Sneasler (F) @ MentalHerb
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Poison Jab
+- Close Combat
+- Protect
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- Protect
+
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Baneful Bunker
+- Infestation
+- Wide Guard
+- Toxic
+
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Dragon Claw
+- Stomping Tantrum
+- Rock Slide
+
+Charizard (F) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Heat Wave
+- Weather Ball
+- Ancient Power
+
+Aerodactyl (F) @ FocusSash
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Tailwind
+- Dual Wingbeat
+- Wide Guard

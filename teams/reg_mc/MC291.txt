@@ -1,0 +1,59 @@
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Tailwind
+- Trick Room
+- Moonblast
+- Taunt
+
+Garchomp (F) @ GarchompiteZ
+Ability: SandVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Draco Meteor
+- Earth Power
+- Flamethrower
+- Power Gem
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Cheer
+- Life Dew
+- Icy Wind
+- Muddy Water
+
+Typhlosion-Hisui (M) @ ChoiceScarf
+Ability: Frisk
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Eruption
+- Shadow Ball
+- Heat Wave
+- Infernal Parade
+
+Araquanid (F) @ SitrusBerry
+Ability: WaterBubble
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Entrainment
+- Wide Guard
+- Surf
+- Lunge
+
+Scizor (F) @ Scizorite
+Ability: Swarm
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Swords Dance
+- Bullet Punch
+- Struggle Bug
+- Dual Wingbeat

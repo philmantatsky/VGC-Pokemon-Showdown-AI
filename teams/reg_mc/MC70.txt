@@ -1,0 +1,59 @@
+Blaziken (M) @ Blazikenite
+Ability: SpeedBoost
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Detect
+- Flare Blitz
+- Rock Slide
+
+Primarina (F) @ LifeOrb
+Ability: LiquidVoice
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Voice
+- Aqua Jet
+- Moonblast
+- Protect
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Trick Room
+- Psychic
+- Thunderbolt
+- Protect
+
+Venusaur (F) @ OccaBerry
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Sleep Powder
+- Leaf Storm
+- Sludge Bomb
+- Protect
+
+Kingambit (M) @ FocusSash
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Helping Hand
+- Protect

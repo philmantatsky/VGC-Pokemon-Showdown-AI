@@ -71,6 +71,8 @@ class TestConstants:
         assert get_reg_from_format("gen9championsvgc2026regma") == "ma"
         assert get_reg_from_format("gen9championsvgc2026regmabo3") == "ma"
         assert get_reg_from_format("gen9championsvgc2026regmb") == "mb"
+        assert get_reg_from_format("gen9championsvgc2026regmc") == "mc"
+        assert get_reg_from_format("gen9championsvgc2026regmcbo3") == "mc"
 
 
 class TestSetGlobalSeed:

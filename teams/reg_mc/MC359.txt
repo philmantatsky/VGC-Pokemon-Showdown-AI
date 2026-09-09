@@ -1,0 +1,59 @@
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Zap Cannon
+- Focus Blast
+- Fake Out
+- Protect
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Roost
+- Protect
+
+Sinistcha-Masterpiece @ CobaBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Strength Sap
+- Psych Up
+- Life Dew
+- Curse
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Psychic
+- Helping Hand
+- Trick Room
+- Protect
+
+Gholdengo @ MetalCoat
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
+- Protect
+- Nasty Plot
+- Metal Sound
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Parting Shot
+- Light Screen
+- Reflect
+- Spirit Break

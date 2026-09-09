@@ -1,0 +1,59 @@
+Beedrill (F) @ Beedrillite
+Ability: Sniper
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- U-turn
+- Poison Jab
+- Knock Off
+- Drill Run
+
+Umbreon (M) @ Leftovers
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Foul Play
+- Toxic
+- Wish
+- Protect
+
+Bellibolt (M) @ SitrusBerry
+Ability: Electromorphosis
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Volt Switch
+- Slack Off
+- Toxic
+- Substitute
+
+Raichu (M) @ RaichuniteY
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Zap Cannon
+- Grass Knot
+- Focus Blast
+- Dazzling Gleam
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flip Turn
+- Ice Fang
+- Phantom Force
+- Waterfall
+
+Dragonite (M) @ ChoiceScarf
+Ability: Multiscale
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Hasty Nature
+- Draco Meteor
+- Fire Blast
+- Ice Beam
+- Extreme Speed

@@ -1,0 +1,59 @@
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Leech Life
+- Iron Head
+- Protect
+- Liquidation
+
+Pelipper (M) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Muddy Water
+- Hurricane
+- U-turn
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Fake Out
+- Dire Claw
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Flip Turn
+- Last Respects
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Hyper Voice
+- Protect
+- Helping Hand
+
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- Fake Out
+- U-turn

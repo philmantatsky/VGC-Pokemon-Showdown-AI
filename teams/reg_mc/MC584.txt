@@ -1,0 +1,59 @@
+Houndoom (F) @ Houndoominite
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Dark Pulse
+- Heat Wave
+- Solar Beam
+- Nasty Plot
+
+Torkoal (M) @ Leftovers
+Ability: Drought
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Helping Hand
+- Eruption
+- Body Press
+- Protect
+
+Gallade (M) @ ChoiceScarf
+Ability: Sharpness
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Leaf Blade
+- Psycho Cut
+- Night Slash
+- Aqua Cutter
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Light Screen
+- Reflect
+- Taunt
+- Spirit Break
+
+Farigiraf (F) @ MentalHerb
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hyper Voice
+- Baton Pass
+- Ally Switch
+- Nasty Plot
+
+Gardevoir (M) @ Gardevoirite
+Ability: Trace
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Psyshock
+- Thunderbolt
+- Will-O-Wisp

@@ -1,0 +1,59 @@
+Tinkaton (F) @ AirBalloon
+Ability: MoldBreaker
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Gigaton Hammer
+- Rock Slide
+- Protect
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Reflect
+- Light Screen
+- Spirit Break
+- Fake Out
+
+Clefable (M) @ SitrusBerry
+Ability: Unaware
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Moonblast
+- Protect
+- Helping Hand
+
+Gallade (M) @ LifeOrb
+Ability: Sharpness
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Leaf Blade
+- Psycho Cut
+- Sacred Sword
+- Protect
+
+Dragonite (F) @ Leftovers
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Extreme Speed
+- Iron Head
+- Dragon Claw
+- Protect
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Calm Mind
+- Expanding Force
+- Protect

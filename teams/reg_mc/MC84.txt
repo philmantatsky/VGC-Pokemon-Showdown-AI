@@ -1,0 +1,59 @@
+Gengar (F) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shadow Ball
+- Sludge Bomb
+- Perish Song
+- Protect
+
+Incineroar (M) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Throat Chop
+- Fake Out
+- Parting Shot
+- Protect
+
+Politoed (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Weather Ball
+- Hypnosis
+- Perish Song
+- Protect
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flash Cannon
+- Dragon Pulse
+- Electro Shot
+- Protect
+
+Vivillon (F) @ FocusSash
+Ability: CompoundEyes
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hurricane
+- Sleep Powder
+- Rage Powder
+- Protect
+
+Swampert (M) @ Swampertite
+Ability: Damp
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- High Horsepower
+- Ice Punch
+- Protect

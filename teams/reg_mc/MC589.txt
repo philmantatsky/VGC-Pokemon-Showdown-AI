@@ -1,0 +1,59 @@
+Steelix (M) @ Steelixite
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Heavy Slam
+- High Horsepower
+- Protect
+- Rock Slide
+
+Tyranitar (F) @ ChopleBerry
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Knock Off
+- Rock Slide
+- Low Kick
+- Protect
+
+Sneasler (F) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Acrobatics
+
+Talonflame (M) @ LifeOrb
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Tailwind
+- Brave Bird
+- Flare Blitz
+- Feather Dance
+
+Rillaboom (F) @ SitrusBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- High Horsepower
+- Fake Out
+- Wood Hammer
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- First Impression
+- Protect
+- Liquidation
+- Iron Head

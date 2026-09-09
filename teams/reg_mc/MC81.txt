@@ -1,0 +1,59 @@
+Dragalge (M) @ Dragalgite
+Ability: Adaptability
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Draco Meteor
+- Sludge Bomb
+- Protect
+- Haze
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Parting Shot
+- Flare Blitz
+- Throat Chop
+
+Gyarados (M) @ Gyaradosite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Waterfall
+- Lash Out
+- Protect
+- Dragon Dance
+
+Ninetales-Alola (M) @ FocusSash
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Moonblast
+- Encore
+- Protect
+
+Gholdengo @ Leftovers
+Ability: GoodasGold
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Nasty Plot
+- Make It Rain
+- Protect
+- Shadow Ball

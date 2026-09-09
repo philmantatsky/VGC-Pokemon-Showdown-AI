@@ -1,0 +1,59 @@
+Pelipper (F) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- U-turn
+- Hurricane
+- Wide Guard
+
+Incineroar (F) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Parting Shot
+- Taunt
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Electro Shot
+- Protect
+- Dragon Pulse
+- Flash Cannon
+
+Sinistcha-Masterpiece @ SitrusBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Matcha Gotcha
+- Rage Powder
+- Trick Room
+- Imprison
+
+Swampert (M) @ Swampertite
+Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Earthquake
+- Rock Slide
+- Protect
+
+Rotom-Wash @ LifeOrb
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Thunder
+- Hydro Pump
+- Volt Switch
+- Thunder Wave

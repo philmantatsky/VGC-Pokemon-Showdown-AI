@@ -1,0 +1,59 @@
+Palafin (F) @ MysticWater
+Ability: ZerotoHero
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flip Turn
+- Jet Punch
+- Wave Crash
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Dire Claw
+- Close Combat
+- Protect
+
+Absol (M) @ AbsoliteZ
+Ability: Pressure
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Shadow Claw
+- Night Slash
+- Substitute
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Trick Room
+- Thunderbolt
+- Protect
+- Psychic
+
+Pelipper (F) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hurricane
+- Tailwind
+- Wide Guard
+- Hydro Pump
+
+Dragonite (F) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Dragon Pulse
+- Heat Wave
+- Hurricane

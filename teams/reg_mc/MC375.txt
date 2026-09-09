@@ -1,0 +1,59 @@
+Araquanid (F) @ SitrusBerry
+Ability: WaterBubble
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Wide Guard
+- Entrainment
+- Protect
+- Liquidation
+
+Abomasnow (M) @ Abomasite
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Aurora Veil
+- Ice Hammer
+- Wood Hammer
+- Protect
+
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Psyshock
+- Protect
+- Hyper Voice
+
+Sinistcha-Masterpiece @ FocusSash
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Matcha Gotcha
+- Rage Powder
+- Strength Sap
+- Shadow Ball
+
+Raichu (F) @ RaichuniteY
+Ability: Static
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Fake Out
+- Zap Cannon
+- Grass Knot
+- Surf
+
+Weavile (F) @ LifeOrb
+Ability: Pickpocket
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Foul Play
+- Icicle Crash
+- Low Kick

@@ -1,0 +1,59 @@
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Naive Nature
+- Hyper Voice
+- Double-Edge
+- Protect
+- Draco Meteor
+
+Palafin (M) @ LifeOrb
+Ability: ZerotoHero
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Jet Punch
+- Protect
+- Close Combat
+
+Hydreigon (F) @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dark Pulse
+- Snarl
+- Earth Power
+- Draco Meteor
+
+Hippowdon (F) @ Leftovers
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Earthquake
+- Rock Slide
+- Protect
+- Yawn
+
+Sneasler (F) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Protect
+- Coaching
+
+Corviknight (F) @ OccaBerry
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Brave Bird
+- Iron Head
+- Protect
+- Tailwind

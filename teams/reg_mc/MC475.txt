@@ -1,0 +1,59 @@
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Earth Power
+- Weather Ball
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick Room
+- Psychic
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Helping Hand
+- Trick Room
+- Follow Me
+- Psychic
+
+Golurk @ Golurkite
+Ability: IronFist
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Headlong Rush
+- Poltergeist
+- Ice Punch
+- Close Combat
+
+Maushold-Four @ FocusSash
+Ability: FriendGuard
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Super Fang
+- Taunt
+- Follow Me
+- Helping Hand
+
+Gallade (M) @ WhiteHerb
+Ability: Sharpness
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Psycho Cut
+- Wide Guard
+- Sacred Sword
+- Trick Room

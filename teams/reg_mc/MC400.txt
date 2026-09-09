@@ -1,0 +1,59 @@
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Dragon Pulse
+- Flash Cannon
+- Electro Shot
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naughty Nature
+- Last Respects
+- Flip Turn
+- Wave Crash
+- Aqua Jet
+
+Politoed (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Weather Ball
+- Encore
+- Ice Beam
+- Protect
+
+Incineroar (M) @ LumBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Throat Chop
+- Flare Blitz
+- Protect
+- Fake Out
+
+Aerodactyl (F) @ Aerodactylite
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Dragon Claw
+- Rain Dance
+- Tailwind
+
+Sableye (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Disable
+- Encore
+- Fake Out
+- Knock Off

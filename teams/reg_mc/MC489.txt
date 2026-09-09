@@ -1,0 +1,59 @@
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Leech Life
+- Iron Head
+- First Impression
+- Liquidation
+
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Hurricane
+- Weather Ball
+- Tailwind
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Rash Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect
+
+Glimmora (F) @ LifeOrb
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Power Gem
+- Earth Power
+- Sludge Bomb
+- Protect
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- Moonblast
+- Encore
+- Protect

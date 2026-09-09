@@ -1,0 +1,59 @@
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Weather Ball
+- Protect
+- Ancient Power
+
+Venusaur (M) @ LifeOrb
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Leaf Storm
+- Earth Power
+- Protect
+- Sludge Bomb
+
+Aegislash (M) @ FocusSash
+Ability: StanceChange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Poltergeist
+- Shadow Sneak
+- Wide Guard
+- Close Combat
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Darkest Lariat
+- Parting Shot
+- Flare Blitz
+
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Quick Attack
+- Detect
+- Yawn
+
+Garchomp (M) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Stomping Tantrum
+- Rock Slide
+- Dragon Claw

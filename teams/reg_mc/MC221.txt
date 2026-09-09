@@ -1,0 +1,59 @@
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Protect
+- Tailwind
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flip Turn
+- Wave Crash
+- Aqua Jet
+- Last Respects
+
+Mamoswine (F) @ LifeOrb
+Ability: Oblivious
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Ice Shard
+- Earthquake
+- Icicle Crash
+- Protect

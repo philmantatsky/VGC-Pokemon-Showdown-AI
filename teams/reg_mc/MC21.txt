@@ -1,0 +1,59 @@
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Knock Off
+- Ice Punch
+- Protect
+- Rock Slide
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Iron Head
+- Protect
+- Swords Dance
+
+Corviknight (M) @ Leftovers
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Brave Bird
+- Iron Head
+- Tailwind
+- Roost
+
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Follow Me
+- Helping Hand
+- Protect
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Coaching
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Moonblast
+- Protect
+- Quick Attack

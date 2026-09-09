@@ -1,0 +1,59 @@
+Staraptor (M) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Protect
+- Roost
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- Protect
+- Charm
+- Taunt
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
+- Protect
+- Sleep Talk
+- Nasty Plot
+
+Garchomp (F) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dragon Claw
+- Earthquake
+- Rock Slide
+- Shadow Claw
+
+Sneasler (M) @ WhiteHerb
+Ability: Pressure
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Fake Out
+- Dire Claw
+- Protect
+
+Basculegion (M) @ WacanBerry
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Aqua Jet
+- Protect
+- Last Respects

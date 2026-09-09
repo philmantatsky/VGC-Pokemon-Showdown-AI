@@ -1,0 +1,59 @@
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+- Fake Out
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Throat Chop
+- Parting Shot
+- Fake Out
+
+Gholdengo @ Leftovers
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Calm Mind
+- Draining Kiss
+- Moonblast
+- Protect
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Close Combat
+- Dire Claw
+- Protect

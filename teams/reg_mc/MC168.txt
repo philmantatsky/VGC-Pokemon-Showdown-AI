@@ -1,0 +1,59 @@
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Expanding Force
+- Trick
+- Shadow Ball
+- Psychic
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Throat Chop
+- Close Combat
+- Dire Claw
+- Rock Slide
+
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hurricane
+- Weather Ball
+- Wide Guard
+- Tailwind
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Dragon Pulse
+- Electro Shot
+- Flash Cannon
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Hurricane
+- Weather Ball
+- Protect
+
+Venusaur (F) @ FocusSash
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Leaf Storm
+- Sludge Bomb
+- Sleep Powder
+- Protect

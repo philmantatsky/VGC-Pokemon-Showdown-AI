@@ -1,0 +1,59 @@
+Farigiraf (M) @ MentalHerb
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Trick Room
+- Psychic
+- Rain Dance
+
+Incineroar (F) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Blastoise (F) @ Blastoisinite
+Ability: Torrent
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Aura Sphere
+- Dark Pulse
+- Water Spout
+- Fake Out
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- High Horsepower
+- Rock Slide
+- Knock Off
+- Protect
+
+Meganium (M) @ Meganiumite
+Ability: LeafGuard
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Weather Ball
+- Solar Beam
+- Dazzling Gleam
+- Protect
+
+Aegislash (M) @ ShucaBerry
+Ability: StanceChange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Swords Dance
+- Sacred Sword
+- Iron Head
+- King's Shield

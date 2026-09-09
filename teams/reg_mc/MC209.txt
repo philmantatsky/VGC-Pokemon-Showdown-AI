@@ -1,0 +1,59 @@
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
+- Protect
+
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Trick Room
+- Expanding Force
+- Armor Cannon
+- Protect
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
+- Trick Room
+- Psychic
+- Helping Hand
+
+Rillaboom (M) @ Leftovers
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Grassy Glide
+- High Horsepower
+- Protect
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Throat Chop
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Aqua Jet
+- Wave Crash
+- Last Respects
+- Flip Turn

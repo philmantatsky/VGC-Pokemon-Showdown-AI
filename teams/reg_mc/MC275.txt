@@ -1,0 +1,59 @@
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Rock Slide
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn

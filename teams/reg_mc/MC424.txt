@@ -1,0 +1,59 @@
+Staraptor (M) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Dual Wingbeat
+- Roost
+- Protect
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Charm
+- Encore
+- Safeguard
+- Protect
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Parting Shot
+- Flare Blitz
+- Snarl
+- Fake Out
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Light Screen
+- Reflect
+- Parting Shot
+- Spirit Break
+
+Clefable (F) @ Leftovers
+Ability: Unaware
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Moonlight
+- Charm
+- Cosmic Power
+
+Raichu (M) @ ShucaBerry
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Charm
+- Encore
+- Protect
+- Volt Switch

@@ -1,0 +1,59 @@
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
+
+Rillaboom (M) @ LifeOrb
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- Protect
+
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Ice Shard
+- Glaive Rush
+- Swords Dance
+- Protect
+
+Raichu (M) @ RaichuniteY
+Ability: Static
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Fake Out
+- Zap Cannon
+- Focus Blast
+- Protect
+
+Gholdengo @ GrassySeed
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Rotom-Wash @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hydro Pump
+- Electroweb
+- Will-O-Wisp
+- Trick

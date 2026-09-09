@@ -1,0 +1,59 @@
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- First Impression
+- U-turn
+- Iron Head
+- Protect
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- U-turn
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dazzling Gleam
+- Moonblast
+- Calm Mind
+- Protect
+
+Gholdengo @ ChoiceScarf
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
+- Shadow Ball
+- Power Gem
+- Psyshock

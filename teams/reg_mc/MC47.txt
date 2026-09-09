@@ -1,0 +1,59 @@
+Sableye (F) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Reflect
+- Quash
+- Rain Dance
+- Light Screen
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Protect
+- Aqua Jet
+- Last Respects
+
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Weather Ball
+- Hurricane
+- Tailwind
+
+Sinistcha @ CobaBerry
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Matcha Gotcha
+- Life Dew
+- Trick Room
+- Rage Powder
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Iron Head
+- Leech Life
+- Liquidation

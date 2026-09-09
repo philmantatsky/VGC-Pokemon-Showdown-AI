@@ -1,0 +1,59 @@
+Gyarados (F) @ Gyaradosite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Waterfall
+- Lash Out
+- Dragon Dance
+
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Detect
+- Aura Sphere
+- Flash Cannon
+- Calm Mind
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Parting Shot
+- Flare Blitz
+- Throat Chop
+- Fake Out
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+- Fake Out
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Hyper Voice
+- Hyper Beam
+- Quick Attack
+
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Dragon Claw
+- Stomping Tantrum
+- Rock Slide

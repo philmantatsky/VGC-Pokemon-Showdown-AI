@@ -1,0 +1,59 @@
+Maushold-Four @ WideLens
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- Bullet Seed
+- Bite
+- Tidy Up
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Scald
+- Ice Beam
+- Mirror Coat
+- Recover
+
+Raichu-Alola (F) @ FocusSash
+Ability: SurgeSurfer
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Thunderbolt
+- Volt Switch
+- Quick Attack
+- Fake Out
+
+Charizard (F) @ CharizarditeX
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Dance
+- Dragon Claw
+- Flare Blitz
+- Earthquake
+
+Sinistcha-Masterpiece @ SitrusBerry
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Matcha Gotcha
+- Shadow Ball
+- Trick Room
+- Curse
+
+Sylveon (M) @ QuickClaw
+Ability: Pixilate
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Quick Attack
+- Hyper Beam
+- Hyper Voice
+- Wish

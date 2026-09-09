@@ -1,0 +1,59 @@
+Camerupt (M) @ Cameruptite
+Ability: SolidRock
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Ancient Power
+- Earth Power
+- Heat Wave
+- Protect
+
+Lucario (M) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aura Sphere
+- Steel Beam
+- Flash Cannon
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Protect
+- Helping Hand
+- Twin Beam
+- Trick Room
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Flare Blitz
+- Parting Shot
+- Darkest Lariat
+- Fake Out
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- Low Kick
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Ice Beam
+- Life Dew
+- Protect
+- Scald

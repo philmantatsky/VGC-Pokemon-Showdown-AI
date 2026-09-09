@@ -1,0 +1,59 @@
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Fake Out
+- Zap Cannon
+- Focus Blast
+- Protect
+
+Baxcalibur (F) @ Baxcalibrite
+Ability: IceBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Glaive Rush
+- Ice Shard
+- High Horsepower
+- Protect
+
+Ninetales-Alola (F) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Moonblast
+- Aurora Veil
+- Protect
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- High Horsepower
+- Grassy Glide
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect

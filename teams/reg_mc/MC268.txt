@@ -1,0 +1,59 @@
+Swampert (F) @ Leftovers
+Ability: Torrent
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Flip Turn
+- High Horsepower
+- Protect
+- Yawn
+
+Gengar (F) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Sludge Bomb
+- Shadow Ball
+- Protect
+- Substitute
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Throat Chop
+
+Ninetales-Alola (M) @ ChoiceScarf
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Icy Wind
+- Encore
+- Freeze-Dry
+
+Sneasler (F) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Rock Slide
+- Protect
+- Dire Claw
+
+Dragonite (F) @ LifeOrb
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Superpower
+- Protect
+- Extreme Speed

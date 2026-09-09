@@ -1,0 +1,59 @@
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- Iron Head
+- U-turn
+- Protect
+
+Slowking-Galar (M) @ Leftovers
+Ability: CuriousMedicine
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Protect
+- Sludge Wave
+- Taunt
+
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Draco Meteor
+- Earth Power
+- Power Gem
+- Protect
+
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Extreme Speed
+- Will-O-Wisp
+- Flare Blitz
+- Head Smash
+
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Focus Blast
+- Volt Switch
+- Zap Cannon
+- Protect
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Knock Off
+- Fire Punch
+- Stone Edge
+- Dragon Dance

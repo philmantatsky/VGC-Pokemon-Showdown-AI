@@ -1,0 +1,59 @@
+Excadrill (F) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Iron Head
+- Drill Run
+- Rock Slide
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Indeedee-F (F) @ MentalHerb
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Trick Room
+- Psychic
+- Protect
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Expanding Force
+- Dazzling Gleam
+- Calm Mind
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Dire Claw
+- Close Combat
+- Rock Slide
+
+Mawile (F) @ Mawilite
+Ability: HyperCutter
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Protect
+- Iron Head
+- Play Rough
+- Rock Slide

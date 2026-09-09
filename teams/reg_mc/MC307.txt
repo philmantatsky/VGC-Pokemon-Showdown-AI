@@ -1,0 +1,59 @@
+Gardevoir (F) @ Gardevoirite
+Ability: Telepathy
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Protect
+- Expanding Force
+- Moonblast
+- Trick Room
+
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Psychic
+- Follow Me
+- Trick Room
+- Helping Hand
+
+Corviknight (M) @ PsychicSeed
+Ability: MirrorArmor
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Body Press
+- Power Trip
+- Curse
+- Roost
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Lava Plume
+- Heat Wave
+- Helping Hand
+
+Pyroar (M) @ Pyroarite
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Overheat
+- Heat Wave
+- Solar Beam
+
+Vileplume (M) @ FocusSash
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Sludge Bomb
+- After You
+- Sleep Powder

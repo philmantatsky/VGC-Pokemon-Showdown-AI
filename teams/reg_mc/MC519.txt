@@ -1,0 +1,59 @@
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Glaive Rush
+- Icicle Crash
+- Ice Shard
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Protect
+
+Ninetales-Alola (M) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Freeze-Dry
+- Aurora Veil
+- Protect
+
+Annihilape (F) @ Leftovers
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Drain Punch
+- Rage Fist
+- Bulk Up
+- Protect
+
+Maushold @ ChopleBerry
+Ability: FriendGuard
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- Follow Me
+- Beat Up
+- Protect
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Nasty Plot
+- Psychic
+- Protect

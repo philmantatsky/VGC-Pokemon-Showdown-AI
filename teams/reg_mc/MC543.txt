@@ -1,0 +1,59 @@
+Gyarados (F) @ Gyaradosite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Crunch
+- Waterfall
+- Dragon Dance
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Dire Claw
+- Close Combat
+- Protect
+
+Talonflame (F)
+Ability: GaleWings
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Tailwind
+- Acrobatics
+- Flare Blitz
+- Protect
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Helping Hand
+- Psychic
+- Protect
+
+Scizor (M) @ Scizorite
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Bug Bite
+- Swords Dance
+- Bullet Punch
+- Protect
+
+Ninetales-Alola (F) @ FocusSash
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Moonblast
+- Aurora Veil
+- Protect

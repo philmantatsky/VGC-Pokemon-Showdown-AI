@@ -1,0 +1,59 @@
+Blastoise (M) @ Blastoisinite
+Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Dark Pulse
+- Water Spout
+- Shell Smash
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Psychic
+- Thunderbolt
+- Helping Hand
+
+Sneasler (M) @ FocusSash
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Close Combat
+- Fake Out
+- Dire Claw
+
+Incineroar (F) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Protect
+- Darkest Lariat
+- Flare Blitz
+
+Maushold-Four @ WideLens
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Follow Me
+- Population Bomb
+- Protect
+- Encore
+
+Sinistcha @ BrightPowder
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Rage Powder
+- Matcha Gotcha
+- Trick Room
+- Protect

@@ -1,0 +1,59 @@
+Pelipper (M) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Serious Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Rain Dance
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Draco Meteor
+- Flash Cannon
+- Electro Shot
+
+Blastoise (F) @ Blastoisinite
+Ability: RainDish
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Water Spout
+- Dark Pulse
+- Shell Smash
+
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Psychic
+- Trick Room
+- Follow Me
+- Helping Hand
+
+Sableye (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Foul Play
+- Rain Dance
+- Reflect
+- Light Screen
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Dire Claw
+- Close Combat
+- Rock Slide

@@ -1,0 +1,59 @@
+Raichu (M) @ FocusSash
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Endeavor
+- Fake Out
+- Thunder
+- Quick Attack
+
+Kleavor (M) @ ChoiceScarf
+Ability: Sharpness
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Stone Axe
+- Aerial Ace
+- U-turn
+- Close Combat
+
+Starmie @ Starminite
+Ability: Illuminate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Skill Swap
+- Zen Headbutt
+- Flip Turn
+- Ice Spinner
+
+Gholdengo @ WhiteHerb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
+- Dazzling Gleam
+- Shadow Ball
+- Nasty Plot
+
+Tsareena (F) @ ExpertBelt
+Ability: QueenlyMajesty
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Triple Axel
+- Power Whip
+- Knock Off
+- High Jump Kick
+
+Infernape (F) @ BigRoot
+Ability: IronFist
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Mach Punch
+- Drain Punch
+- Flare Blitz
+- Swords Dance

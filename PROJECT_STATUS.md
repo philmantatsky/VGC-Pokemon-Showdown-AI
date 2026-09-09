@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## Reg M-C wired in: regulation id, a 625-team pool from open team sheets, opponent weights (2026-September 9, 10:14)
+
+`format_map["mc"] = gen9championsvgc2026regmc` (`vgc_bench/src/utils.py`,
+tests). `datagen/extract_ots_teams.py` turns the `|showteam|` lines of
+open-team-sheet replays (every Bo3 game, opt-in Bo1) into Showdown export
+teams -- species/item/ability/moves/nature/gender/level from the sheet,
+spreads by a nature rule in Champions units (boosted offense + Speed at 32,
+HP for Speed-lowering natures, leftover 2 to HP or Def; cap 32, budget 66)
+-- and keeps only teams the merged simulator validates. From today's 565
+M-C replays: 625 unique sheets, **625 valid M-C teams** in `teams/reg_mc/`
+(+ `our_team.txt` = MB430). `data/team_weights_regmc.json` built from the
+same replays' previews (uniform mix 50%). Early M-C meta by preview count
+(bo1): Sneasler, Kingambit, Incineroar, **Rillaboom**, **Salamence**,
+Basculegion, **Indeedee-F**, Farigiraf, Floette-Eternal, Garchomp,
+**Golisopod**, Pelipper, Whimsicott, Archaludon, Gardevoir, Charizard --
+three of the newly unlocked Pokémon are already top-11. Re-scrape and
+rebuild as the format matures. Still M-B-only: the opponent priors
+(preview/move/switch models), the human clones, the exploiter, and all
+gate batteries.
+
+Reproducibility note: `pokemon-showdown` is a submodule whose recorded
+commit (branch `vgc-bench-mc`) exists only locally -- the submodule URL is
+cameronangliss's fork. Publishing it needs a fork under the user's GitHub
+and a `.gitmodules` URL change; flagged to the user.
+
 ## Simulator updated for Reg M-C; MB430 validated locally; suite green (2026-September 9, 10:10)
 
 `pokemon-showdown/` now sits on branch **`vgc-bench-mc`**: smogon master

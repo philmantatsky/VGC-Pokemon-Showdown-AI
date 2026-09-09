@@ -1,0 +1,59 @@
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- Hyper Voice
+- Double-Edge
+- Dragon Pulse
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Incineroar (F) @ Leftovers
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Darkest Lariat
+- Parting Shot
+- Fake Out
+- Flare Blitz
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Thunderbolt
+- Trick Room
+- Psychic Noise
+- Helping Hand
+
+Mawile (F) @ Mawilite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Iron Head
+- Play Rough
+- Sucker Punch
+
+Basculegion (M) @ MysticWater
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Last Respects
+- Wave Crash
+- Aqua Jet

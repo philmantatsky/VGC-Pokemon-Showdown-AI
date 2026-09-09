@@ -1,0 +1,59 @@
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Iron Head
+- Psychic Fangs
+- Ice Punch
+
+Kleavor (M) @ FocusSash
+Ability: Sharpness
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Stone Axe
+- X-Scissor
+- Feint
+
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Moonblast
+- Tailwind
+- Encore
+
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Kowtow Cleave
+- Sucker Punch
+- Low Kick
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Wave Crash
+- Last Respects
+- Aqua Jet
+
+Ninetales-Alola (M) @ NeverMeltIce
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Freeze-Dry
+- Encore
+- Protect

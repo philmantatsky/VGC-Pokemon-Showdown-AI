@@ -1,0 +1,59 @@
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Tailwind
+- Hurricane
+- Weather Ball
+- Wide Guard
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Bulk Up
+- Leech Life
+- Iron Head
+- Protect
+
+Archaludon (F) @ ChoiceScarf
+Ability: Stalwart
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Electro Shot
+- Draco Meteor
+- Snarl
+- Aura Sphere
+
+Sableye (F) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Fake Out
+- Light Screen
+- Reflect
+- Rain Dance
+
+Rillaboom (F) @ GrassySeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Drum Beating
+- Grassy Glide
+- U-turn
+
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Stomping Tantrum
+- Rock Slide
+- Protect

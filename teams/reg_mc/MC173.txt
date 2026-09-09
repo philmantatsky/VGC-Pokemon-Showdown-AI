@@ -1,0 +1,59 @@
+Alakazam (M) @ Alakazite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Expanding Force
+- Shadow Ball
+- Disable
+- Protect
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Psychic
+- Trick Room
+- Protect
+
+Mawile (M) @ Mawilite
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Play Rough
+- Sucker Punch
+- Rock Slide
+- Protect
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Eruption
+- Heat Wave
+- Earth Power
+- Protect
+
+Staraptor (M) @ ChoiceScarf
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Final Gambit
+- Brave Bird
+- Close Combat
+- U-turn
+
+Typhlosion-Hisui (M) @ FocusSash
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Eruption
+- Shadow Ball
+- Hex
+- Will-O-Wisp

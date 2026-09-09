@@ -139,7 +139,11 @@ chunk_obs_len = (
 )
 
 # pokemon data
-format_map = {"ma": "gen9championsvgc2026regma", "mb": "gen9championsvgc2026regmb"}
+format_map = {
+    "ma": "gen9championsvgc2026regma",
+    "mb": "gen9championsvgc2026regmb",
+    "mc": "gen9championsvgc2026regmc",
+}
 
 
 def get_reg_from_format(fmt: str) -> str:

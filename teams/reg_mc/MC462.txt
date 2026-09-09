@@ -1,0 +1,59 @@
+Banette (F) @ Banettite
+Ability: Insomnia
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Destiny Bond
+- Poltergeist
+- Protect
+- Encore
+
+Typhlosion-Hisui (M) @ FocusSash
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shadow Ball
+- Protect
+- Eruption
+- Flamethrower
+
+Aerodactyl (M) @ BrightPowder
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Wide Guard
+- Taunt
+- Tailwind
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Weather Ball
+- Protect
+- Ancient Power
+
+Venusaur (M) @ WideLens
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Sleep Powder
+- Leech Seed
+- Protect
+- Sludge Bomb
+
+Kingambit (F) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Sucker Punch
+- Kowtow Cleave
+- Protect

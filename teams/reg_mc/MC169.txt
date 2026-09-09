@@ -1,0 +1,59 @@
+Umbreon (M) @ Leftovers
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Taunt
+- Helping Hand
+- Snarl
+- Moonlight
+
+Blaziken (M) @ Blazikenite
+Ability: SpeedBoost
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flare Blitz
+- Close Combat
+- Rock Slide
+- Detect
+
+Gyarados (F) @ MysticWater
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Icy Wind
+- Waterfall
+- Helping Hand
+- Protect
+
+Meowscarada (M) @ LifeOrb
+Ability: Protean
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flower Trick
+- Sucker Punch
+- Triple Axel
+- Protect
+
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shadow Ball
+- Blizzard
+- Thunderbolt
+- Protect
+
+Weavile (F) @ FocusSash
+Ability: Pickpocket
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Feint
+- Knock Off
+- Ice Spinner
+- Fake Out

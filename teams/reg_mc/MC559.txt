@@ -1,0 +1,59 @@
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Glaive Rush
+- Ice Shard
+- High Horsepower
+
+Ninetales-Alola (M) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aurora Veil
+- Protect
+- Blizzard
+- Moonblast
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Power Gem
+- Shadow Ball
+- Protect
+
+Talonflame (F) @ SharpBeak
+Ability: GaleWings
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Brave Bird
+- Protect
+- Tailwind
+- U-turn
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Aqua Jet
+- Snowscape
+- Wave Crash
+- Last Respects
+
+Rillaboom (M) @ RockyHelmet
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out

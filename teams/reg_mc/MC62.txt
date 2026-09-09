@@ -1,0 +1,59 @@
+Scovillain (M) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Giga Drain
+- Overheat
+- Rage Powder
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Protect
+- Fake Out
+
+Lycanroc-Dusk (F) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Accelerock
+- Rock Slide
+- Protect
+
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect

@@ -1,0 +1,59 @@
+Lucario (F) @ LucarioniteZ
+Ability: Steadfast
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flash Cannon
+- Vacuum Wave
+- Aura Sphere
+- Protect
+
+Glimmora (F) @ FocusSash
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Earth Power
+- Power Gem
+- Spiky Shield
+- Sludge Bomb
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Farigiraf (F) @ LifeOrb
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Nasty Plot
+- Trick Room
+- Hyper Voice
+- Psychic
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Substitute
+- Heat Wave
+- Psychic
+- Protect
+
+Ninetales-Alola (M) @ NeverMeltIce
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Aurora Veil
+- Protect
+- Disable

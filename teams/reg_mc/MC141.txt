@@ -1,0 +1,59 @@
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- First Impression
+- Iron Head
+- Close Combat
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Mild Nature
+- Double-Edge
+- Hyper Voice
+- Protect
+- Tailwind
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Coaching
+- Protect
+- Dire Claw
+- Close Combat
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- U-turn
+- Fake Out
+
+Ninetales-Alola (M) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aurora Veil
+- Encore
+- Blizzard
+- Moonblast
+
+Volcarona (M) @ Leftovers
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Will-O-Wisp
+- Quiver Dance
+- Bug Buzz
+- Heat Wave
