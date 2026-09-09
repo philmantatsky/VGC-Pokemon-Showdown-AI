@@ -1,5 +1,23 @@
 # VGC Bot Project Status
 
+## FORMAT ROTATION: the Reg M-B ladder is closed; Reg M-C is live (found 2026-September 9, 10:04)
+
+Ladder read A (deployed + three guards) queued for 78 minutes across two
+sessions with zero games and two dead sockets. A search diagnostic with
+full server messages (`search_test.py`, secrets filtered) returned the
+cause: **`|popup|Error: Your format gen9championsvgc2026regmb is not
+ladderable.`** The server's format list now flags Reg M-B `5c`
+(challenge/tournament only) and **VGC 2026 Reg M-C `5e` (ladderable)**.
+Sunday's 34 games were still Reg M-B; the rotation happened between Sept 6
+and Sept 9. The keepalive deaths were idle connections with no search
+running; login itself takes 1 s. The bundled Showdown copy (branch from
+2026-06-20) predates Reg M-C, so the local sim cannot validate or train the
+new format until it is updated. Consequences: no Reg M-B ladder read is
+possible (Reg M-B remains playable by challenge, e.g. exhibition mode);
+every pipeline asset is Reg M-B (team pool, priors, human clones,
+exploiter, team weights); the account's Reg M-C rating starts fresh.
+Bot offline; nothing queued.
+
 ## Ladder read A launched on the user's go: deployed brain + the three guards (2026-September 9, 08:44)
 
 08:42: `ladder_ourteam.py --checkpoint results_league/league_champion.zip
