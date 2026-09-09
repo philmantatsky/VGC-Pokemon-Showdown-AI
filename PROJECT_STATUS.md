@@ -1,5 +1,22 @@
 # VGC Bot Project Status
 
+## Simulator updated for Reg M-C; MB430 validated locally; suite green (2026-September 9, 10:10)
+
+`pokemon-showdown/` now sits on branch **`vgc-bench-mc`**: smogon master
+as of 2026-09-09 (194 commits) merged into the fork branch (47 fork-only
+commits kept: room-upkeep timeouts, batch validation, the champions
+randomNormal fix, legacy VGC formats); conflicts were `config/formats.ts`
+(took upstream, re-applied the fork's legacy entries, dropped the one
+upstream now ships itself, VGC 2024 Reg G) and `package-lock.json` (took
+upstream, `npm install`). `node build` ok. Local validator: **MB430 valid
+in gen9championsvgc2026regmc and regmb** (control: Rillaboom rejected in
+M-B, legal in M-C). A server from the new build on 7610 runs the whole
+suite: **351 passed, 5 skipped**. The server logs three harmless REPL
+socket "listen EINVAL" lines (unix-socket path too long under this
+directory; battles unaffected -- same as before). The previous branch
+(`vgc-bench`, 2026-06-20) remains for reproducing M-B artifacts. The M-C
+corpus (565 replays) is in `battle_logs_top_mc_20260909/`.
+
 ## Reg M-C, what it is and what it takes (2026-September 9, 10:08)
 
 Upstream definitions: Reg M-C = `mod: champions` (current data), ruleset
