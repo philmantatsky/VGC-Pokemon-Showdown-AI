@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Round 5 finalist 15728640 (save 3): FAIL -- heuristic tax gone, PPO-arm tax not; no September-human gain (2026-September 9, 02:10)
+
+Supervised chain, every arm completed on the first attempt (no stall).
+vs the DEPLOYED champion, n=1,000 paired: adversary **+11.6** (52.2 v 40.6;
+informative -- no adversary was in the pool), heuristic **-0.2** (the first
+candidate since league 1 with a clean scripted arm), frozen -1.6, rotation
+8opp **-5.5** (breach), rotation tuned -2.1, human holdout eval_B -0.7 ->
+weighted -1.8, FAIL. Diagnostics: mix_A +1.1 (divergence 1.8pp, clean);
+**eval_D -1.6** (80.7 v 82.3) -- no gain against September human play
+either. Reading: removing the adversary removed the heuristic tax, as
+predicted, but the round did not buy anything on the human arms and paid
+on a PPO arm. Final checkpoint 17694720's chain started 02:10; fresh-seed
+confirmations for the flagged arms follow.
+
 ## Resumed (23:44): stall not reproducible; round-5 verdict relaunched under a stall watchdog (2026-September 8, 23:46)
 
 Single-worker diagnostic of the stalled checkpoint (15728640 vs the
