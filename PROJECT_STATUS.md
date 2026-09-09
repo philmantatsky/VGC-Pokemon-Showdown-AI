@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Ladder read A launched on the user's go: deployed brain + the three guards (2026-September 9, 08:44)
+
+08:42: `ladder_ourteam.py --checkpoint results_league/league_champion.zip
+--guards-extra resisted_target,overkill_split,dominated_weather_ball_weather
+--n_games 25 --replay_dir ladder_replays_guards3_20260909` (run_config:
+guards_extra recorded, profile hard, sha 8cc54b2b, mixing off, knowledge obs
+on). Serial, credentials sourced in the launching shell. The read is a
+non-regression check plus a look at whether the three targeting fixes show
+up against real people; the account sits around 1000-1100 after Sunday's
+collapse, so opponents are weaker than in August. Analysis after: record,
+first-faint rate, `tools/hit_effectiveness.py`, per-guard firing counts
+from decisions.jsonl. Promotion of the guards into HARD_GUARDS (the deployed
+profile) only on a clean read and with the user's word.
+
 ## Round 5 VERDICT: both finalists FAIL; five fine-tuning rounds since league 1, zero passes -- the synthesis (2026-September 9, 04:34)
 
 Supervised chain complete, every arm on its first attempt (no stall).
