@@ -356,7 +356,14 @@ did not improve held-out action ranking. A later battle evaluation was paused at
   opponents pilot August-weighted teams and its human arm is the August
   clone -- a September-anchored diagnostic (Sep team weights + eval_D) is
   running to tell adaptation from degradation. Not promoted; no ladder.**
-- [ ] **Round 5 (launched 2026-09-07 23:00): league-1 recipe on September data
+- [x] ~~Round 5 (league-1 recipe on September data, no adversary)~~
+  **2026-09-09: both finalists FAIL (rotation 8opp -5.5 each; heuristic tax
+  gone for save 3 at -0.2; eval_D -1.6 / -2.1: no September-human gain).
+  Five rounds since league 1, zero passes -- fine-tuning from the deployed
+  weights is plateaued. Deployable now: the three opt-in guards. Decisions:
+  ladder read of deployed + guards; the team; a from-scratch September
+  league (needs compute).**
+- [ ] ~~Round 5 (launched 2026-09-07 23:00): league-1 recipe on September data
   -- human clones 46%, self-lineage, NO adversary, September team weights, TR
   x1.5. Verdict ~2026-09-08 11:30 (August bars + eval_D arms), then a
   September-anchored diagnostic if needed.**

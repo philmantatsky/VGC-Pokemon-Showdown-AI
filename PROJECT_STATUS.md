@@ -1,5 +1,55 @@
 # VGC Bot Project Status
 
+## Round 5 VERDICT: both finalists FAIL; five fine-tuning rounds since league 1, zero passes -- the synthesis (2026-September 9, 04:34)
+
+Supervised chain complete, every arm on its first attempt (no stall).
+Cards vs the DEPLOYED champion, n=1,000 paired:
+
+| arm | 15728640 (save 3) | 17694720 (final) |
+|---|---|---|
+| adversary (informative; no adversary in the pool) | +11.6 (52.2 v 40.6) | +14.6 (54.7 v 40.1) |
+| human holdout eval_B (Aug clone) | -0.7 | -0.5 |
+| heuristic | **-0.2** (clean) | -2.7 |
+| frozen 64opp | -1.6 | **-3.3** |
+| rotation 8opp | **-5.5** | **-5.5** |
+| rotation tuned | -2.1 | -1.2 |
+| weighted (human x2) | -1.8 | -2.3 |
+| mix_A diagnostic | +1.1 (clean) | -0.7 (clean) |
+| eval_D (Sep clone) diagnostic | **-1.6** | **-2.1** |
+
+Both breach on the rotation 8opp arm beyond the confirmation window (the
+final also on frozen); the fresh-seed confirmations were cancelled as
+decision-irrelevant. No promotion, no ladder. The no-adversary hypothesis
+was half right: the heuristic tax vanished for save 3 (-0.2) and softened
+for the final (-2.7 vs -6.5 in round 4), but the PPO-arm tax stayed (-5.5)
+and, decisively, neither finalist gained anything against September human
+play (eval_D -1.6 / -2.1) despite training on September clones and
+September teams. Both still beat the exploiter by +12..+15 without ever
+seeing it -- generalization from the human clones, and a reminder that the
+exploit meter is not a ladder proxy.
+
+**Synthesis of the five rounds since the league-1 promotion** (2, 3, 3b,
+4, 5; nine finalists): none passed. Every fine-tune from the deployed
+weights at this learning rate moves the policy toward its pool and costs
+2-7pp on some August population; the September-anchored diagnostics (round
+4) showed those costs are real on September teams too; the only candidate
+with a real September-human gain (round-4 save 1, +1.6..+4.7) paid -3.4 to
+-3.7 on three arms. The deployed brain itself went 11-34 (32%) on the
+September ladder. What IS measured and deployable: the three targeting
+guards (`resisted_target` v3 every arm up, weighted +1.15; the bundle
+weighted +1.2), all opt-in, zero regressions.
+
+Decision brief for the user (nothing runs without their word):
+(1) **Ladder read A -- deployed brain + the three guards, 25 games**: the
+safe, measured change; script prepared. (2) Ladder read B -- round-4 save 1
++ guards, 25 games: the only "adapted" candidate; real local costs; an
+experiment, not a promotion. (3) The strategic fork: fine-tuning from the
+deployed weights looks plateaued; the remaining levers are the TEAM (cycle
+complete, MB430 frozen since Aug 29; the analysis file shows Trick Room
+rosters and mirror pieces dominating September), a from-scratch league on
+September data (expensive; the PC port would make it feasible), or
+accepting the current brain with the guards. Bot offline.
+
 ## Round 5 finalist 15728640 (save 3): FAIL -- heuristic tax gone, PPO-arm tax not; no September-human gain (2026-September 9, 02:10)
 
 Supervised chain, every arm completed on the first attempt (no stall).

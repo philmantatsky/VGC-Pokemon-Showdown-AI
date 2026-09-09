@@ -1,0 +1,70 @@
+{
+  "arms": {
+    "frozen": {
+      "candidate_rate": 0.815,
+      "delta_pp": -3.300000000000003,
+      "deployed_rate": 0.848,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.5808573623195739,
+      "source": "screening",
+      "status": "breach"
+    },
+    "heuristic": {
+      "candidate_rate": 0.878,
+      "delta_pp": -2.7000000000000024,
+      "deployed_rate": 0.905,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.273856349829132,
+      "source": "screening",
+      "status": "confirm"
+    },
+    "human_bc": {
+      "candidate_rate": 0.843,
+      "delta_pp": -0.5000000000000004,
+      "deployed_rate": 0.848,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.596793662312072,
+      "source": "screening",
+      "status": "clear"
+    },
+    "rotation1": {
+      "candidate_rate": 0.815,
+      "delta_pp": -5.500000000000005,
+      "deployed_rate": 0.87,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.5164926640112704,
+      "source": "screening",
+      "status": "breach"
+    },
+    "rotation2": {
+      "candidate_rate": 0.828,
+      "delta_pp": -1.200000000000001,
+      "deployed_rate": 0.84,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.580683396509244,
+      "source": "screening",
+      "status": "confirm"
+    }
+  },
+  "bar_pp": -2.0,
+  "battery_dir": "results_gate_battery_league5/17694720/screening",
+  "breaches": [
+    "frozen",
+    "rotation1"
+  ],
+  "confirm_needed": [
+    "heuristic",
+    "rotation2"
+  ],
+  "confirm_window_pp": 1.0,
+  "equal_delta_pp": -2.6400000000000023,
+  "neutral_false_fail": 0.3852709268916038,
+  "outcome": "FAIL",
+  "tier": "screening",
+  "weighted_delta_pp": -2.2833333333333354
+}
