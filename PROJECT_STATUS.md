@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## Resumed (23:44): stall not reproducible; round-5 verdict relaunched under a stall watchdog (2026-September 8, 23:46)
+
+Single-worker diagnostic of the stalled checkpoint (15728640 vs the
+exploiter, 12 games per arm, seed 91, fresh server): no stall, no odd
+counters, zero errors; candidate 9/12 vs deployed 3/12 (informative only).
+The freeze is rare or concurrency-related, so the fix is structural rather
+than a hunt: `evaluation/supervised_eval.sh` runs one eval under a
+watchdog (kill + fresh server + retry when its log stops growing for 20
+min, up to 2 retries; skips outputs that exist), and
+`run_league5_verdict_supervised.sh` runs every arm that way -- exploit
+re-measure (INFORMATIVE: the pool held no adversary), the five screening
+arms, mix_A and eval_D -- for both finalists, printing the verdict per
+finalist. Launched 23:45 (`league5_verdict_supervised.log`); ~2h15m per
+finalist, done ~04:20. Bot offline.
+
 ## PAUSED at the user's order (10:14); the round-5 verdict chain had stalled silently (2026-September 8, 10:16)
 
 Everything stopped: no training, evals, ladder or exhibition running. The
