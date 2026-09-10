@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## Paused at the user's word; clone tournament read; venv repaired; exhibition mode online in Reg M-C (2026-September 10, 17:55)
+
+- **01:20 pause** ("pause it rn"): the data layer had finished (scrape
+  +1,392 replays -> merged corpus 1,615; pool 1,689 teams; M-C priors:
+  preview lead top-3 52.5%, move repertoire top-3 72.5%, switch AUC 0.60;
+  trajectories A=928 / B=998; clones `mc_A` epoch 4 (39.6% agreement on B)
+  and `eval_mcB` epoch 3 (40.4% on A, role eval_only). **Round 6 never
+  started**: the chain's battery smoke (not under the stall watchdog) sat
+  25 min with an empty log; killed with the rest. On resume the smoke runs
+  under `supervised_eval.sh`, then the round-6 build and launch.
+- **Clone tournament complete** (`results_team_tournament/clone_mcA/`,
+  `mc_A` piloting each candidate vs the weighted M-C pool played by itself,
+  300 games/team): T1 consensus six 64.3% [58.8, 69.5]; T0 MB430 62.7%
+  [57.1, 67.9]; T2 TR/Psychic Terrain 52.3%; T3 Psychic-terrain offence
+  46.3%; T4 sun 42.3%; T5 rain 28.3%. T1 and T0 are inside each other's
+  interval; the brain tournament decides. Pilot proxy only.
+- **17:50 venv dead**: Homebrew's `python@3.13` had been removed during the
+  day (3.12 and 3.14 remained), so `.venv/bin/python` was a dead symlink and
+  every script failed. `brew install python@3.13` (3.13.15) restored it in
+  place; torch/poke-env/SB3 import. Recorded in the runbook memory.
+- **17:54 exhibition mode online** (`exhibition_mode.sh`, now Reg M-C with
+  the three opt-in guards, unbuffered, yields to clone/tournament jobs):
+  logged in as antonius1, format gen9championsvgc2026regmc, awaiting
+  challenges; the M-C priors were picked up automatically through
+  `utils.prior_path`. Replays -> `ladder_replays_exhibition_mc/`.
+
 ## First Reg M-C ladder read: 13-12 (52.0%), deployed brain + three guards, Reg M-B priors (2026-September 10, 00:50)
 
 25 games 23:43-00:46 (`ladder_replays_mc_guards3_20260909/`, one session,
