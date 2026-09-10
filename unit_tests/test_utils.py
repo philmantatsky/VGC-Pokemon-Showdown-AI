@@ -17,6 +17,7 @@ from vgc_bench.src.utils import (
     presence_obs_len,
     set_global_seed,
     side_obs_len,
+    threat_obs_len,
 )
 
 
@@ -58,6 +59,7 @@ class TestConstants:
             + presence_obs_len
             + global_presence_obs_len
             + correct_accuracy_obs_len
+            + threat_obs_len
         )
 
     def test_format_map_keys(self):

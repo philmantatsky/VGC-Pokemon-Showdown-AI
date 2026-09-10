@@ -70,9 +70,11 @@ from vgc_bench.src.utils import (
     move_obs_len,
     moves,
     pokemon_obs_len,
+    threat_obs_len,
 )
 
 _ZERO_KNOWLEDGE = np.zeros(knowledge_obs_len, dtype=np.float32)
+_ZERO_THREAT = np.zeros(threat_obs_len, dtype=np.float32)
 _ZERO_MOVE_SEM = np.zeros(MOVE_SEM_LEN, dtype=np.float32)
 
 
@@ -554,7 +556,7 @@ class PolicyPlayer(Player):
 
     def _set_policy_impl(self, policy_file: str | Path, device: torch.device):
         if self.policy is None:
-            self.policy = PPO.load(policy_file, device=device).policy
+            self.policy = self._upgraded(PPO.load(policy_file, device=device).policy)
         else:
             # Bypass SB3's leaky set_parameters - load state dict directly from zip
             with zipfile.ZipFile(policy_file, "r") as zf:
@@ -562,13 +564,44 @@ class PolicyPlayer(Player):
                     state_dict = torch.load(
                         io.BytesIO(f.read()), map_location=device, weights_only=True
                     )
-            self.policy.load_state_dict(state_dict)
+            current = self.policy.state_dict()
+            same_arch = set(state_dict) == set(current) and all(
+                tuple(state_dict[k].shape) == tuple(current[k].shape)
+                for k in state_dict
+            )
+            if same_arch:
+                self.policy.load_state_dict(state_dict)
+            else:
+                # A league pool can mix architectures (joint head, longer
+                # observation). Loading such a checkpoint into the wrong module
+                # would raise inside the listener and freeze the battle; rebuild.
+                self.policy = self._upgraded(
+                    PPO.load(policy_file, device=device).policy
+                )
+                PolicyPlayer.guard_fire_counts["policy_rebuilt_new_arch"] += 1
         if self.outcome_value_path is not None and self._outcome_evaluator is None:
             from vgc_bench.src.outcome_value import OutcomeValueEvaluator
 
             self._outcome_evaluator = OutcomeValueEvaluator.load(
                 self.outcome_value_path, device=device, mechanics_weight=0.10
             )
+
+    @staticmethod
+    def _upgraded(policy):
+        """Bring a loaded policy to the current observation length, counting it.
+
+        Every stored checkpoint (the deployed brain, the clones, the lineage) was
+        trained on a shorter token; zero-extending pokemon_proj keeps their play
+        bit-identical while the new tail features exist for newer policies.
+        """
+        if not isinstance(policy, MaskedActorCriticPolicy):
+            return policy
+        from vgc_bench.src.policy import upgrade_policy
+
+        upgraded, changed = upgrade_policy(policy)
+        if changed:
+            PolicyPlayer.guard_fire_counts["policy_upgraded_obs_len"] += 1
+        return upgraded
 
     _policy_type_reported = False
     # Seconds a decision may wait for set_policy to finish loading. Ladder
@@ -1838,14 +1871,19 @@ class PolicyPlayer(Player):
         pres = PolicyPlayer.embed_side_presence(battle)
         opp_pres = PolicyPlayer.embed_side_presence(battle, opp=True)
         global_pres = PolicyPlayer.embed_global_presence(battle)
+        threats = PolicyPlayer._threat_for(battle)
+        our_threats = [threats.get(id(p), _ZERO_THREAT) for p in our_mons]
+        our_threats += [_ZERO_THREAT] * (6 - len(our_threats))
+        opp_threats = [threats.get(id(p), _ZERO_THREAT) for p in opp_mons]
+        opp_threats += [_ZERO_THREAT] * (6 - len(opp_threats))
         return np.concatenate(
             [
-                np.concatenate([glob, side, p, pres, global_pres, acc])
-                for p, acc in zip(pokemons, accuracies)
+                np.concatenate([glob, side, p, pres, global_pres, acc, threat])
+                for p, acc, threat in zip(pokemons, accuracies, our_threats)
             ]
             + [
-                np.concatenate([glob, opp_side, p, opp_pres, global_pres, acc])
-                for p, acc in zip(opp_pokemons, opp_accuracies)
+                np.concatenate([glob, opp_side, p, opp_pres, global_pres, acc, threat])
+                for p, acc, threat in zip(opp_pokemons, opp_accuracies, opp_threats)
             ],
             dtype=np.float32,
         )
@@ -2114,6 +2152,85 @@ class PolicyPlayer(Player):
         if len(PolicyPlayer._knowledge_cache) > 256:
             PolicyPlayer._knowledge_cache.clear()
         PolicyPlayer._knowledge_cache[fingerprint] = out
+        return out
+
+    _threat_cache: dict[tuple, dict[int, npt.NDArray[np.float32]]] = {}
+
+    @staticmethod
+    def _threat_for(battle: DoubleBattle) -> dict[int, npt.NDArray[np.float32]]:
+        """Threat vectors for all four actives (both sides), memoised per state.
+
+        Same gate and cache discipline as _knowledge_for: nothing when knowledge
+        observations are off (the block reads zeros), fainted slots skipped, and
+        the fingerprint covers what the block depends on beyond HP -- speed
+        stages, first-turn flags, weather/field/Tailwind -- so a mid-turn change
+        never serves a stale speed-order bit.
+        """
+        if not PolicyPlayer.knowledge_obs_enabled():
+            return {}
+        ours = [p for p in battle.active_pokemon if p is not None and not p.fainted]
+        theirs = [
+            p for p in battle.opponent_active_pokemon if p is not None and not p.fainted
+        ]
+        if not ours or not theirs:
+            return {}
+        fingerprint = (
+            battle.battle_tag,
+            battle.turn,
+            tuple(
+                (
+                    p.species,
+                    p.current_hp_fraction,
+                    p.boosts.get("spe", 0),
+                    bool(getattr(p, "first_turn", False)),
+                    p.status,
+                )
+                for p in ours + theirs
+            ),
+            tuple(sorted(str(w) for w in battle.weather)),
+            tuple(sorted(str(f) for f in battle.fields)),
+            SideCondition.TAILWIND in battle.side_conditions,
+            SideCondition.TAILWIND in battle.opponent_side_conditions,
+        )
+        cached = PolicyPlayer._threat_cache.get(fingerprint)
+        if cached is not None:
+            return cached
+
+        from vgc_bench.src import vgc_knowledge as _vk
+
+        our_moves = {id(p): PolicyPlayer._resolved_moves(p, False) for p in ours}
+        their_moves = {id(p): PolicyPlayer._resolved_moves(p, True) for p in theirs}
+        out: dict[int, npt.NDArray[np.float32]] = {}
+        for p in ours:
+            out[id(p)] = np.array(
+                _vk.threat_knowledge(
+                    battle,
+                    p,
+                    our_moves[id(p)],
+                    theirs,
+                    [their_moves[id(f)] for f in theirs],
+                    ours=True,
+                ),
+                dtype=np.float32,
+            )
+        for p in theirs:
+            out[id(p)] = np.array(
+                _vk.threat_knowledge(
+                    battle,
+                    p,
+                    their_moves[id(p)],
+                    ours,
+                    [our_moves[id(f)] for f in ours],
+                    ours=False,
+                ),
+                dtype=np.float32,
+            )
+        if len(PolicyPlayer._threat_cache) > 256:
+            PolicyPlayer._threat_cache.clear()
+        PolicyPlayer._threat_cache[fingerprint] = out
+        PolicyPlayer.guard_fire_counts["threat_obs_computed"] += 1
+        if any(float(v.max()) > 0 for v in out.values()):
+            PolicyPlayer.guard_fire_counts["threat_obs_nonzero"] += 1
         return out
 
     @staticmethod

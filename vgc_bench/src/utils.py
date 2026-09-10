@@ -119,6 +119,12 @@ presence_obs_len = len(SideCondition)
 global_presence_obs_len = len(Weather) + len(Field)
 correct_accuracy_obs_len = 4
 
+# Threat block (2026-09-10, brain v1): what the two enemies across the field can
+# do to THIS active Pokemon and who moves first. The knowledge block above is
+# one-sided (our attacks only); this one is filled for BOTH sides' actives. Last
+# block of the token so every older checkpoint zero-extends (convert_checkpoint).
+threat_obs_len = 8
+
 pokemon_obs_len = (
     4 * move_obs_len
     + len(Effect)
@@ -136,6 +142,7 @@ chunk_obs_len = (
     + presence_obs_len
     + global_presence_obs_len
     + correct_accuracy_obs_len
+    + threat_obs_len
 )
 
 def prior_path(kind: str, reg: str) -> str:

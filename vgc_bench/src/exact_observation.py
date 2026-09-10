@@ -539,7 +539,13 @@ class ExactPolicyAdapter:
             return []
         with self.inference_lock:
             with torch.no_grad():
-                logits, _value = self.policy.get_logits(obs_dict, actor_grad=False)
+                if hasattr(self.policy, "logits_with_latent"):
+                    logits, _value, latent = self.policy.logits_with_latent(
+                        obs_dict, actor_grad=False
+                    )
+                else:  # test stubs and older policy objects
+                    logits, _value = self.policy.get_logits(obs_dict, actor_grad=False)
+                    latent = None
                 first = (
                     self.policy.get_dist_from_logits(logits, obs_dict["action_mask"])
                     .distribution[0]
@@ -553,6 +559,9 @@ class ExactPolicyAdapter:
                     device=self.policy.device,
                 )
                 repeated_logits = logits.repeat(len(encoded), 1)
+                repeated_latent = (
+                    latent.repeat(len(encoded), 1) if latent is not None else None
+                )
                 repeated_mask = obs_dict["action_mask"].repeat(len(encoded), 1)
                 non_pass_second = [
                     index
@@ -571,11 +580,17 @@ class ExactPolicyAdapter:
                     selected = torch.as_tensor(
                         non_pass_second, dtype=torch.long, device=self.policy.device
                     )
+                    latent_args = (
+                        (repeated_latent[selected],)
+                        if repeated_latent is not None
+                        else ()
+                    )
                     second = (
                         self.policy.get_dist_from_logits(
                             repeated_logits[selected],
                             repeated_mask[selected],
                             first_actions[selected],
+                            *latent_args,
                         )
                         .distribution[1]
                         .probs

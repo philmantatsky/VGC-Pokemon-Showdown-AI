@@ -187,6 +187,37 @@ per step by ~2.3x. Not in v1: every item above preserves the deployed
 weights as the starting point, which is worth more than capacity while the
 opponent distribution is still moving.
 
+### Implementation status (2026-09-10, branch `brain-v1`)
+
+Built behind flags, unit-tested (30 tests), converted checkpoint verified
+bit-identical, live smoke on M-C teams clean (guards and rerankers unchanged):
+
+- **3.1 joint-action head**: `MaskedActorCriticPolicy(joint_head=True)`;
+  `logits_with_latent` / `conditioned_logits`; `build_candidates` and the
+  search path use the conditional; `train.py --joint_head`;
+  `convert_checkpoint.py --joint-head` adds the zero-ended head.
+- **3.2 threat block**: `threat_obs_len = 8` at the token tail for BOTH
+  sides' actives (`vgc_knowledge.threat_knowledge`, memoised in
+  `PolicyPlayer._threat_for`, counters `threat_obs_computed/nonzero`);
+  observation 1197 -> 1205 floats per token; every older checkpoint converts.
+- **3.4 shaping**: `train.py --shaping_faint W --shaping_hp W`
+  (potential-based, telescopes to the terminal +-1; both 0 = unchanged).
+  Auxiliary heads and the critic warm start are NOT built yet.
+- **3.3 memory tokens**: not built (changes the token count; v1.1).
+- **Upgrade on load** (`policy.upgrade_policy`, `load_state_dict_upgraded`):
+  every consumer -- the live player, `PPO.load` paths, training resume, BC
+  init -- brings an older checkpoint to the current token length in memory
+  (zero-extended tail columns, zero-ended head), counted as
+  `policy_upgraded_obs_len`. The deployed brain, the clones and the lineage
+  keep loading unchanged and play bit-identically; nothing on disk is
+  rewritten.
+
+Merging this branch changes the observation length for every process that
+imports the package, so it merges only between runs (never under a training
+or evaluation chain). BC trajectories on disk carry the old token and must be
+regenerated before the next clone build; the pool checkpoints need no
+conversion.
+
 ## 4. The team
 
 MB430 is legal in M-C and still played (Basculegion is on 33% of M-C teams,

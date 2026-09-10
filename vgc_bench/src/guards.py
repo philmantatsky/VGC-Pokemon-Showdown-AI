@@ -785,7 +785,13 @@ def build_candidates(
     softmaxes over the already-computed logits.
     """
     with torch.no_grad():
-        action_logits, value = policy.get_logits(obs_dict, actor_grad=False)
+        if hasattr(policy, "logits_with_latent"):
+            action_logits, value, latent = policy.logits_with_latent(
+                obs_dict, actor_grad=False
+            )
+        else:  # test stubs and older policy objects
+            action_logits, value = policy.get_logits(obs_dict, actor_grad=False)
+            latent = None
         dist0 = policy.get_dist_from_logits(action_logits, mask)
         probs0 = dist0.distribution[0].probs[0]
         top0 = _candidate_action_prefix(probs0, top_k)
@@ -793,7 +799,9 @@ def build_candidates(
         cands: list[Candidate] = []
         for p0, a0, strategic0 in top0:
             prev = torch.tensor([[a0]], device=action_logits.device)
-            dist1 = policy.get_dist_from_logits(action_logits, mask, prev)
+            # p(slot1 | slot0): with the joint head this is a genuine conditional
+            latent_args = (latent,) if latent is not None else ()
+            dist1 = policy.get_dist_from_logits(action_logits, mask, prev, *latent_args)
             probs1 = dist1.distribution[1].probs[0]
             top1 = _candidate_action_prefix(probs1, top_k)
             if not top1:

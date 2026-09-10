@@ -30,9 +30,9 @@ Three facts this module is built on, all verified against replayed battles:
 from __future__ import annotations
 
 from copy import copy
-from typing import Iterable
+from typing import Iterable, Sequence
 
-from poke_env.battle import DoubleBattle, Move, MoveCategory, Pokemon
+from poke_env.battle import DoubleBattle, Field, Move, MoveCategory, Pokemon
 from poke_env.calc import calculate_damage
 from poke_env.data import GenData
 
@@ -437,3 +437,89 @@ def best_damage(
         expected = (frac[0] + frac[1]) / 2 * (move.accuracy or 1.0)
         best = max(best, expected)
     return best
+
+
+THREAT_LEN = 8
+
+
+def threat_knowledge(
+    battle: DoubleBattle,
+    mon: Pokemon,
+    mon_moves: list[Move],
+    enemies: Sequence[Pokemon | None],
+    enemy_moves: Sequence[list[Move]],
+    ours: bool,
+) -> list[float]:
+    """The 8-float threat block for one ACTIVE Pokemon token, either side.
+
+    Layout (stable -- trailing columns of pokemon_proj):
+      [0..1] best expected incoming damage fraction from enemy 0 / enemy 1
+             (accuracy-weighted, over that enemy's known-or-likely moves, cap 1.5)
+      [2..3] KO flag: enemy 0 / enemy 1 has a move whose MAX roll removes this
+             Pokemon's remaining HP
+      [4..5] moves-first flag vs enemy 0 / enemy 1: 1 = this Pokemon acts first,
+             0 = the enemy does, 0.5 = unknown or tie; Trick Room and Tailwind aware
+      [6]    Fake Out available now: first turn on the field and Fake Out known
+      [7]    a damaging priority move is available (Sucker Punch, Aqua Jet, Ice
+             Shard, Grassy Glide under Grassy Terrain, ...)
+
+    ``enemy_moves[i]`` are the moves attributed to ``enemies[i]`` (revealed set or
+    the moveset prior); the caller resolves them because the prior lives in the
+    policy layer. Benched or fainted Pokemon get zeros.
+    """
+    out = [0.0] * THREAT_LEN
+    if mon.fainted:
+        return out
+    live = [
+        (enemy, moves)
+        for enemy, moves in zip(enemies, enemy_moves)
+        if enemy is not None and not enemy.fainted
+    ][:2]
+    hp = mon.current_hp_fraction or 0.0
+    for i, (enemy, moves) in enumerate(live):
+        best = 0.0
+        ko = False
+        for move in moves[:4]:
+            if move.category == MoveCategory.STATUS:
+                continue
+            frac = damage_fraction(battle, enemy, mon, move)
+            if frac is None:
+                continue
+            best = max(best, (frac[0] + frac[1]) / 2 * (move.accuracy or 1.0))
+            if hp > 0 and frac[1] >= hp:
+                ko = True
+        out[i] = min(best, 1.5)
+        out[2 + i] = float(ko)
+
+    from vgc_bench.src import tempo_reranker as _tempo
+
+    try:
+        mine = _tempo.effective_speed(battle, mon, ours)
+        trick_room = _tempo.trick_room_turns(battle) > 0
+    except Exception:
+        mine, trick_room = None, False
+    for i, (enemy, _moves) in enumerate(live):
+        try:
+            theirs = _tempo.effective_speed(battle, enemy, not ours)
+        except Exception:
+            theirs = None
+        if mine is None or theirs is None or mine == theirs:
+            out[4 + i] = 0.5
+        else:
+            first = mine > theirs
+            if trick_room:
+                first = not first
+            out[4 + i] = 1.0 if first else 0.0
+
+    own = [m for m in mon_moves[:4] if m is not None]
+    fresh = bool(getattr(mon, "first_turn", False))
+    out[6] = float(fresh and any(m.id == "fakeout" for m in own))
+    grassy = Field.GRASSY_TERRAIN in battle.fields
+    out[7] = float(
+        any(
+            m.category != MoveCategory.STATUS
+            and (m.priority > 0 or (m.id == "grassyglide" and grassy))
+            for m in own
+        )
+    )
+    return out
