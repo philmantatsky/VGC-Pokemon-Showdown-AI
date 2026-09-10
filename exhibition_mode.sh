@@ -9,11 +9,13 @@ set -uo pipefail
 # finishes its games first -- and note a ladder batch started on the same
 # account will kick the exhibition login, which is the intended priority.
 #
-# Dead-socket watchdog (2026-09-10): after a network hiccup the Showdown
-# websocket dies while the Python process stays alive and deaf ("Can't assign
-# requested address" / ConnectionClosedError / keepalive ping timeout). Each
-# session writes its own log; when that signature appears the session is
-# killed and a fresh one logs in, with a marker line in this script's output.
+# Watchdog (2026-09-10): after a network hiccup the Showdown websocket dies
+# while the Python process stays alive and deaf (keepalive ping timeout,
+# ConnectionClosedError, "Can't assign requested address"), and a DNS failure
+# at login ("nodename nor servname provided") leaves it waiting for a login
+# that never comes. Each session writes its own log; when a failure signature
+# appears, or the session has not reached "awaiting" within LOGIN_GRACE
+# seconds, the session is killed and a fresh one logs in (marker lines below).
 #
 # Run it (credentials are sourced locally, per house rules):
 #   nohup ./exhibition_mode.sh > exhibition_mode.log 2>&1 &
@@ -28,8 +30,9 @@ cd "$(dirname "$0")"
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 REG=${REG:-mc}
 GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
+LOGIN_GRACE=${LOGIN_GRACE:-120}
 HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament'
-DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60'
+DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60|Errno 8\]|nodename nor servname|gaierror|ConnectionRefusedError'
 mkdir -p exhibition_logs
 
 echo "exhibition mode: accepting challenges in reg $REG (pkill -f exhibition_mode.sh to stop)"
@@ -51,10 +54,15 @@ while true; do
     --challenges --n_games 3 \
     --replay_dir "ladder_replays_exhibition_$REG" > "$LOG" 2>&1 &
   PID=$!
+  started=$(date +%s)
   while kill -0 $PID 2>/dev/null; do
-    sleep 30
+    sleep 15
     if grep -qE "$DEAD" "$LOG"; then
       echo "SOCKET_DEAD session=$session [$(date '+%H:%M:%S')]; restarting"
+      kill $PID 2>/dev/null; sleep 5; kill -9 $PID 2>/dev/null; break
+    fi
+    if ! grep -q "awaiting" "$LOG" && [ $(( $(date +%s) - started )) -gt "$LOGIN_GRACE" ]; then
+      echo "LOGIN_STALLED session=$session [$(date '+%H:%M:%S')]; restarting"
       kill $PID 2>/dev/null; sleep 5; kill -9 $PID 2>/dev/null; break
     fi
   done
