@@ -1,5 +1,32 @@
 # VGC Bot Project Status
 
+## First Reg M-C ladder read: 13-12 (52.0%), deployed brain + three guards, Reg M-B priors (2026-September 10, 00:50)
+
+25 games 23:43-00:46 (`ladder_replays_mc_guards3_20260909/`, one session,
+no dead sockets; the M-C queue matched in under a minute all night). Record
+**13-12**, six of the wins by opponent forfeit; opponents averaged ~1110 Elo
+(the M-C ladder is a day old; ours started at 1000, 1128 at the end). Not a
+climb claim -- 25 games is a non-regression read -- but the bot is not
+collapsing on a format it never trained on: loss profile
+(`results_analysis/loss_profile_mc_read_20260910.*`) reads like the M-B one
+in miniature: first faint ours -> 12.5% (1/8) vs 70.6%; >= 2 super-effective
+hits -> 77.8% vs 37.5%; we set Tailwind by turn 2 -> 69.2% vs 33.3%;
+opponents bringing Salamence 1/5, Indeedee-F 2/6, Sneasler 4/10, Rillaboom
+5/11; losses average 4.0 faints for us vs 1.75 for them. Hit effectiveness:
+our attacks 18% super-effective / 16% resisted vs opponents' 35% / 15% --
+the coverage gap is the meta's, the resisted share is now the guards'.
+
+**The guards fired for real.** 232 decisions: `resisted_target` promoted a
+re-aimed twin 21 times (9% of decisions), `overkill_split` 11 times,
+`dominated_weather_ball_weather` 2; our single-target attacks into a
+resisting foe with a second foe on the field fell to **5/79 (6.3%)** from
+15% in the August/September reads. No traceback, no stall, no illegal order.
+
+Chain `after_ladder_mc.sh` took over at 00:47 (tally done; scrape running):
+M-C data layer -> clones -> battery smoke -> round 6. The clone tournament
+waits for the clone (`team_tournament_clone.log`); the round-6 first-save
+watch is armed (`round6_watch.log`).
+
 ## Reg M-C program opened: the first M-C ladder read is running; design doc, loss profile, data-layer chain (2026-September 10, 00:05)
 
 User decision (2026-09-09 evening): the bot becomes a Reg M-C bot -- train on
