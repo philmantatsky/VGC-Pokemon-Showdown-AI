@@ -1,0 +1,31 @@
+{
+ "T0": {
+  "source": "teams/reg_mc/our_team.txt",
+  "exact": true
+ },
+ "T1": {
+  "source": "teams/reg_mc/MC558.txt",
+  "exact": true,
+  "note": "exact"
+ },
+ "T2": {
+  "source": "teams/reg_mc/MC588.txt",
+  "exact": false,
+  "note": "partial (5/6 species)"
+ },
+ "T3": {
+  "source": "teams/reg_mc/MC274.txt",
+  "exact": false,
+  "note": "partial (5/6 species)"
+ },
+ "T4": {
+  "source": "teams/reg_mc/MC302.txt",
+  "exact": false,
+  "note": "partial (5/6 species)"
+ },
+ "T5": {
+  "source": "teams/reg_mc/MC343.txt",
+  "exact": false,
+  "note": "partial (5/6 species)"
+ }
+}
