@@ -1,5 +1,57 @@
 # VGC Bot Project Status
 
+## Reg M-C program opened: the first M-C ladder read is running; design doc, loss profile, data-layer chain (2026-September 10, 00:05)
+
+User decision (2026-09-09 evening): the bot becomes a Reg M-C bot -- train on
+M-C battles only from here, build a new M-C team, and design a new brain from
+the ladder losses without assuming the current team survives. Tonight:
+
+- **M-C ladder read launched 23:43** (deployed brain + resisted_target /
+  overkill_split / dominated_weather_ball_weather, `--reg mc`, MB430, Reg M-B
+  priors as-is; `ladder_replays_mc_guards3_20260909/`, queue-resilient loop,
+  25 games). Game 1 lost to a Rillaboom / Incineroar / Lucario / Kingambit /
+  Palafin / Farigiraf team. Tally appended below when the read ends.
+- **`NEW_BRAIN_PLAN.md`** -- the program: evidence, what the current brain
+  cannot represent (slot 2 blind to slot 1's choice; one-sided knowledge; no
+  memory; terminal-only reward; single-team training; M-B-only priors),
+  ranked new-brain ideas (joint-action head, threat-symmetric knowledge,
+  memory tokens, shaping + auxiliary heads + critic warm start, team-agnostic
+  training, M-C clones; preview specialist and search-as-teacher parked),
+  team candidates T0-T5 with a measured selection protocol, pipeline M0-M5.
+- **`tools/ladder_loss_profile.py`** over all 159 deployed-brain ladder games
+  (`results_analysis/loss_profile_deployed_mb.json`): 48.4% overall; we lose
+  the opening exchange -- first faint ours 26.2% vs 63.8%; first KO on turn
+  1-2 in 82% of games; behind on faints after turn 2 -> 24%; >= 2
+  super-effective hits 61.1% vs 29.7%; opponent Trick Room 31.0%; opponent
+  turn-1 Fake Out 33%; Basculegion + Whimsicott lead 35.3% (Charizard +
+  Whimsicott 57.7%); Basculegion first faint 9.1%; losses average 4.0 vs 1.8
+  faints (5 of 82 losses were close).
+- **M-C meta** (`results_analysis/mc_meta_stats_20260909.json`, 565 games):
+  Sneasler on 48% of teams, Rillaboom 40%, Basculegion 33%, Incineroar /
+  Salamence / Kingambit 31%; consensus six Floette / Incineroar / Kingambit /
+  Rillaboom / Salamence / Sneasler (14/22 as an exact roster); Trick Room in
+  26% of games, setter side wins 60%. MB430's problems in M-C: Grassy Terrain
+  halves Earthquake, Grassy Glide priority, Fake Out on three of the top four
+  species, double Intimidate, Close Combat everywhere.
+- **Regulation-aware priors**: `utils.prior_path(kind, reg)` picks
+  `data/opponent_*_top500_reg<reg>.pt` when it exists (M-B fallback, path
+  recorded); `ladder_ourteam.py` and `eval_counterfactual.py` default through
+  it; `run_gate_battery.py` gained `--reg` / `--our-team` passthrough (both
+  recorded in the scorecard). `top_500_rating_floor` now knows the M-C
+  formats (floors 1140 bo1 / 1045 bo3 from the 09-09 snapshot) -- before this
+  every M-C replay would have been dropped by the stale 1655 Reg M-B floor
+  with no warning. `datagen/merge_battle_logs.py` de-duplicates dated
+  scrapes. Tests: `unit_tests/test_regulation_priors.py` (+3, suite subset
+  green).
+- **Automatic chain after the read** (`after_ladder_mc.sh`): tally
+  (record, loss profile, hit effectiveness, guard fire counts) -> re-scrape ->
+  merged corpus -> team pool + weights -> three M-C priors -> trajectories
+  A/B -> clones mc_A (epoch by agreement on B) and eval_mcB (eval_only) ->
+  M-C battery smoke -> `training/league6_config.json` -> **round 6** (first
+  M-C league round, `run_league6_training.sh`, +5 intervals) -> triage ->
+  `run_league6_verdict_supervised.sh` (M-C-anchored arms + mc_A / eval_D
+  diagnostics). Markers in `after_ladder_mc.log`.
+
 ## Reg M-C wired in: regulation id, a 625-team pool from open team sheets, opponent weights (2026-September 9, 10:14)
 
 `format_map["mc"] = gen9championsvgc2026regmc` (`vgc_bench/src/utils.py`,

@@ -168,3 +168,19 @@ results_gate_battery_league5/*/*/*
 !results_gate_battery_league5/*/exploit_remeasure_1000.json
 !results_gate_battery_league5/*/confirm_*.json
 !results_gate_battery_league5/*/*/verdict*.json
+# Reg M-C program (2026-09-10): manifests, scorecards, verdicts stay in git
+!results_league6/
+results_league6/*
+!results_league6/league_manifest.json
+!results_gate_battery_league6/
+results_gate_battery_league6/*
+!results_gate_battery_league6/*/
+results_gate_battery_league6/*/*
+!results_gate_battery_league6/*/*/
+results_gate_battery_league6/*/*/*
+!results_gate_battery_league6/*/*/scorecard.json
+!results_gate_battery_league6/*/*/verdict*.json
+!results_gate_battery_league6/*/confirm_*.json
+!results_gate_battery_mc_smoke/
+results_gate_battery_mc_smoke/*
+!results_gate_battery_mc_smoke/*.json

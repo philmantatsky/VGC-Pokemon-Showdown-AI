@@ -28,7 +28,7 @@ from torch import device
 from vgc_bench.src.policy import MaskedActorCriticPolicy
 from vgc_bench.src.policy_player import PolicyPlayer
 from vgc_bench.src.teams import RandomTeamBuilder
-from vgc_bench.src.utils import format_map
+from vgc_bench.src.utils import format_map, prior_path
 
 # Arguments that may differ between runs sharing one replay directory; everything
 # else is "material" and must stay identical so each directory is single-config.
@@ -570,12 +570,10 @@ async def main():
     ):
         raise SystemExit("choose only one Team Preview controller")
     if args.opponent_aware or args.outcome_preview or args.planned_preview:
-        args.preview_model = (
-            args.preview_model or "data/opponent_preview_top500_regmb.pt"
-        )
+        args.preview_model = args.preview_model or prior_path("preview", args.reg)
     if args.opponent_aware:
-        args.switch_model = args.switch_model or "data/opponent_switch_top500_regmb.pt"
-        args.move_model = args.move_model or "data/opponent_move_top500_regmb.pt"
+        args.switch_model = args.switch_model or prior_path("switch", args.reg)
+        args.move_model = args.move_model or prior_path("move", args.reg)
     preview_model = Path(args.preview_model) if args.preview_model else None
     if preview_model is not None:
         assert preview_model.exists(), f"preview model not found: {preview_model}"

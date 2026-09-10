@@ -34,7 +34,7 @@ from torch import device
 from evaluation.eval_openings import ShapeAwareBatchPolicyPlayer
 from vgc_bench.src.policy_player import BatchPolicyPlayer, PolicyPlayer
 from vgc_bench.src.teams import RandomTeamBuilder
-from vgc_bench.src.utils import format_map
+from vgc_bench.src.utils import format_map, prior_path
 
 
 class DelayedSimpleHeuristicsPlayer(SimpleHeuristicsPlayer):
@@ -778,7 +778,9 @@ def main() -> None:
         help="confidence-gated residual that defines the distilled-policy arm",
     )
     parser.add_argument(
-        "--baseline-preview", default="data/opponent_preview_top500_regmb.pt"
+        "--baseline-preview",
+        default="",
+        help="opponent preview prior; default: the --reg prior (M-B fallback)",
     )
     parser.add_argument("--candidate-preview", default="")
     parser.add_argument(
@@ -804,10 +806,8 @@ def main() -> None:
     parser.add_argument(
         "--preview-outcome-model", default="data/preview_outcome_regmb.pt"
     )
-    parser.add_argument(
-        "--switch-model", default="data/opponent_switch_top500_regmb.pt"
-    )
-    parser.add_argument("--move-model", default="data/opponent_move_top500_regmb.pt")
+    parser.add_argument("--switch-model", default="", help="default: by --reg")
+    parser.add_argument("--move-model", default="", help="default: by --reg")
     parser.add_argument("--opponent-checkpoint", default="")
     parser.add_argument(
         "--candidate-bench-species",
@@ -947,6 +947,11 @@ def main() -> None:
         help="optional root directory for per-arm local replay files",
     )
     args = parser.parse_args()
+    # Opponent priors follow the regulation unless given explicitly; the resolved
+    # paths land in the output's resolved_flags either way.
+    args.baseline_preview = args.baseline_preview or prior_path("preview", args.reg)
+    args.switch_model = args.switch_model or prior_path("switch", args.reg)
+    args.move_model = args.move_model or prior_path("move", args.reg)
 
     from vgc_bench.src import pokeenv_patches
     from vgc_bench.src.guards import GUARDS, HARD_GUARDS

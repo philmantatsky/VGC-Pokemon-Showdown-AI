@@ -87,6 +87,8 @@ def run_arm(
             if getattr(args, "team_weights", "")
             else []
         ),
+        *(["--reg", args.reg] if getattr(args, "reg", "") else []),
+        *(["--our-team", args.our_team] if getattr(args, "our_team", "") else []),
         *extra,
     ]
     print(f"\n=== arm: {name} ({n_battles} battles) ===", flush=True)
@@ -143,6 +145,16 @@ def main() -> None:
             "opponent-team weights file forwarded to every arm (both arms, paired); "
             "default keeps the August-anchored data/team_weights_regmb.json"
         ),
+    )
+    ap.add_argument(
+        "--reg",
+        default="",
+        help="regulation forwarded to every arm (e.g. mc); default keeps Reg M-B",
+    )
+    ap.add_argument(
+        "--our-team",
+        default="",
+        help="our team file forwarded to every arm (default teams/reg_mb/our_team.txt)",
     )
     args = ap.parse_args()
 
@@ -202,6 +214,8 @@ def main() -> None:
                 "n_battles_per_arm": n_battles,
                 "candidate_guards": args.candidate_guards,
                 "team_weights": args.team_weights or "data/team_weights_regmb.json",
+                "reg": args.reg or "mb",
+                "our_team": args.our_team or "teams/reg_mb/our_team.txt",
                 "candidate_mixing": {
                     "mode": args.candidate_mixing,
                     "top_k": args.mixing_top_k,

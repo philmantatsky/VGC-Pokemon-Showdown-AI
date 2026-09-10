@@ -138,6 +138,20 @@ chunk_obs_len = (
     + correct_accuracy_obs_len
 )
 
+def prior_path(kind: str, reg: str) -> str:
+    """Opponent prior file (``preview``/``move``/``switch``) for regulation ``reg``.
+
+    Priors are trained per regulation from that ladder's replays. A regulation whose
+    prior has not been trained yet falls back to the Reg M-B file, which still
+    encodes the species both formats share; every caller records the resolved path
+    in its run configuration, so the fallback is never silent.
+    """
+    specific = f"data/opponent_{kind}_top500_reg{reg}.pt"
+    if os.path.exists(specific):
+        return specific
+    return f"data/opponent_{kind}_top500_regmb.pt"
+
+
 # pokemon data
 format_map = {
     "ma": "gen9championsvgc2026regma",

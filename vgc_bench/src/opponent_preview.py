@@ -38,7 +38,15 @@ _PLAYER_RE = re.compile(r"^\|player\|(p[12])\|[^|]*\|[^|]*\|(\d+)$", re.MULTILIN
 # Floors printed by the top-500 scrape that produced battle_logs_top. They are kept
 # with the dataset logic so "top-player training" cannot silently include both the
 # ranked player and a 1000-Elo opponent from the same replay again.
-TOP_500_ELO_FLOORS = {"regmb": 1655, "regmbbo3": 1432}
+# Lowest Elo among the top 500 of each ladder when its corpus was scraped
+# (Reg M-B: 2026-08; Reg M-C: 2026-09-09, a one-day-old ladder, hence the low
+# floors). Longest key wins the match so "regmbbo3" is never read as "regmb".
+TOP_500_ELO_FLOORS = {
+    "regmb": 1655,
+    "regmbbo3": 1432,
+    "regmc": 1140,
+    "regmcbo3": 1045,
+}
 
 
 def species_id(details: str) -> str:
@@ -120,12 +128,16 @@ def parse_preview_examples(battle_id: str, log: str) -> list[PreviewExample]:
 
 
 def top_500_rating_floor(battle_id: str) -> int:
-    """Elo floor from the source ladder snapshot for this replay's format."""
-    return (
-        TOP_500_ELO_FLOORS["regmbbo3"]
-        if "regmbbo3" in battle_id
-        else TOP_500_ELO_FLOORS["regmb"]
-    )
+    """Elo floor from the source ladder snapshot for this replay's format.
+
+    An unknown format gets the loosest floor: a new regulation's replays must never
+    be dropped wholesale by a stale Reg M-B threshold (that would have silently
+    emptied every Reg M-C prior).
+    """
+    for key in sorted(TOP_500_ELO_FLOORS, key=len, reverse=True):
+        if key in battle_id:
+            return TOP_500_ELO_FLOORS[key]
+    return min(TOP_500_ELO_FLOORS.values())
 
 
 def load_replay_examples(

@@ -63,6 +63,42 @@ against a population it was not fit on.
   cost reduction for k=3+ and powered n) parked BEHIND the counterfactual
   retry, per the no-polishing-nulls rule.
 
+## Reg M-C program (September 10) — active track
+
+Decision 2026-09-09: the bot is a Reg M-C bot from here on. Design and the
+evidence behind it: `NEW_BRAIN_PLAN.md` (loss profile of 159 ladder games,
+the six things the current brain cannot represent, ranked new-brain ideas,
+the team candidates and how the team is chosen). Standing rules unchanged:
+team-agnostic components, powered gates, learned artifacts validated on a
+population they were not fit on, ladder only with the user's word.
+
+- [x] **M0 — first M-C ladder read** launched 2026-09-09 23:43 (deployed
+  brain + three targeting guards, `--reg mc`, MB430, M-B priors as-is;
+  `ladder_replays_mc_guards3_20260909/`). Tally in PROJECT_STATUS when done.
+- [ ] **M1 — M-C data layer** (`after_ladder_mc.sh`, automatic after M0):
+  re-scrape both M-C formats → `battle_logs_top_mc_merged/`
+  (`datagen/merge_battle_logs.py`); rebuild `teams/reg_mc/` and
+  `data/team_weights_regmc.json`; M-C opponent priors
+  `data/opponent_{preview,move,switch}_top500_regmc.pt` (Elo floors per
+  format, `utils.prior_path` resolves by `--reg`); trajectories A (buckets
+  0-4) / B (5-9); clones `results_bc/mc_A` (training_opponent) and
+  `results_bc/eval_mcB` (eval_only, banned by content); battery smoke on M-C
+  arms (`run_gate_battery.py --reg/--our-team`).
+- [ ] **M2 — round 6, the M-C baseline**: league fine-tune of the deployed
+  weights with M-C data only (`training/league6_config.json`,
+  `run_league6_training.sh`, verdict `run_league6_verdict_supervised.sh` on
+  M-C-anchored arms + mc_A / eval_D diagnostics). Answers "does the plateau
+  lift when the data changes?".
+- [ ] **M3 — brain v1** (NEW_BRAIN_PLAN §3): joint-action head, threat-
+  symmetric knowledge, memory tokens, dense signal (shaping + auxiliary
+  heads + critic warm start), behind flags with checkpoint conversion;
+  trained team-agnostic on the candidate pool.
+- [ ] **M4 — team tournament**: clone tournament on T0-T5 (n=300/team), then
+  the brain tournament on the survivors (n=500), then specialise on the
+  winner.
+- [ ] **M5 — gates and ladder**: screening → promotion → 25 audited games
+  with the user's word.
+
 ## League fine-tune (August 29) — the climb plan's new lever
 
 Continue PPO from the champion's own weights against a pool that finally
