@@ -92,9 +92,17 @@ def train(
         team2_path.write_text(team2[1:])
         team_paths = [team1_path, team2_path]
     # Ladder objective: our side fixed, opponents varied. See ShowdownEnv.create_env.
-    our_team_paths = [Path(our_team)] if our_team else None
+    # One path = the classic fixed-team objective; a comma-separated list = the
+    # team-agnostic objective (brain v1): our side is drawn uniformly from the
+    # list each battle, opponents still draw from the weighted pool.
+    our_team_paths = (
+        [Path(p.strip()) for p in our_team.split(",") if p.strip()]
+        if our_team
+        else None
+    )
     if our_team_paths:
-        assert our_team_paths[0].exists(), f"--our_team not found: {our_team}"
+        for path in our_team_paths:
+            assert path.exists(), f"--our_team not found: {path}"
     # Exploiter probes lock the TARGET's roster instead (agent2, the fixed -1
     # opponent) so the champion gets attacked in its deployment seat.
     opponent_team_paths = [Path(opponent_team)] if opponent_team else None
@@ -369,8 +377,9 @@ if __name__ == "__main__":
         type=str,
         default="",
         help=(
-            "path to the team file our side always brings (ladder objective: one fixed"
-            " team vs many opponent teams). Opponents draw from the --num_teams pool"
+            "team file our side brings (ladder objective: one fixed team vs many"
+            " opponent teams), or a comma-separated list our side is drawn from"
+            " uniformly (team-agnostic training). Opponents draw from the pool"
         ),
     )
     parser.add_argument(

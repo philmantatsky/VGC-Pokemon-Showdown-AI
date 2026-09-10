@@ -1,5 +1,53 @@
 # VGC Bot Project Status
 
+## Brain v1 built on branch `brain-v1`: joint-action head, threat block, reward shaping, upgrade-on-load (2026-September 10, 00:40)
+
+NEW_BRAIN_PLAN §3 items 3.1, 3.2 and the shaping half of 3.4, behind flags
+and with the deployed weights as the starting point:
+
+- **Joint-action head** (`MaskedActorCriticPolicy(joint_head=True)`): slot
+  2's logits = base logits + a zero-ended MLP of (actor latent, embedding of
+  slot 1's chosen action). `forward`/`evaluate_actions` sample and score the
+  genuine conditional; `guards.build_candidates` and the exact-search path
+  enumerate p(slot1 | slot0) through it; asking a joint-head policy for a
+  conditioned distribution without the latent raises instead of silently
+  using the marginal. `train.py --joint_head`; `convert_checkpoint.py
+  --joint-head` adds the head (drift 0 verified on the deployed weights).
+- **Threat block** (`utils.threat_obs_len = 8`, token 1197 -> 1205 floats):
+  for every ACTIVE Pokemon on both sides -- best expected incoming damage
+  and KO flag from each enemy across the field, moves-first flags (Trick
+  Room / Tailwind aware via `tempo_reranker.effective_speed`), Fake Out
+  available now, damaging priority available (Grassy Glide only under the
+  terrain). `vgc_knowledge.threat_knowledge`, memoised in
+  `PolicyPlayer._threat_for` (fingerprint includes speed stages, first-turn
+  flags, weather/field/Tailwind), counters `threat_obs_computed/nonzero`.
+- **Potential-based shaping** (`train.py --shaping_faint W --shaping_hp W`,
+  `ShowdownEnv.material_potential`): reward += Phi(s') - Phi(s), Phi := 0 at
+  the terminal state, so the episode sum is exactly the terminal +-1; both
+  weights 0 (default) leave the reward bit-identical.
+- **Upgrade on load** (`policy.upgrade_policy`, `load_state_dict_upgraded`,
+  `read_policy_state`): the live player, training resume and BC init bring
+  any older checkpoint to the current token length in memory (tail columns
+  zeroed, head zero-ended; counter `policy_upgraded_obs_len`); the deployed
+  brain, clones and lineage keep loading unchanged and play bit-identically.
+  The converter script now uses the same helpers.
+- **Team-agnostic our side**: `train.py --our_team a.txt,b.txt,...` draws our
+  team uniformly per battle; `training/run_brainv1_training.sh` +
+  `make_brainv1_config.py` (pool from the round-6 finalist, M-C clone x4,
+  self-lineage; no adversary).
+- Tests: `test_joint_head.py` (9), `test_threat_obs.py` (8),
+  `test_reward_shaping.py` (5), composition test updated; worktree suite 330
+  passed, the 5 remaining failures are the exact-simulator tests that need
+  the submodule build (absent in the worktree; re-run after merge). Live
+  smoke: the converted deployed brain played 12 M-C battles with the block
+  on (21/21 states non-zero), guards and rerankers unchanged.
+- NOT built: auxiliary heads, critic warm start, memory tokens (v1.1).
+
+Merge rule: the branch changes the observation length for every process that
+imports the package, so it merges only between runs, never under the round-6
+chain; BC trajectories on disk must be regenerated before the next clone
+build (the M-C corpus is small, minutes).
+
 ## Reg M-C program opened: the first M-C ladder read is running; design doc, loss profile, data-layer chain (2026-September 10, 00:05)
 
 User decision (2026-09-09 evening): the bot becomes a Reg M-C bot -- train on
