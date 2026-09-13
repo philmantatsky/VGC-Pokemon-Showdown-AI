@@ -1,59 +1,59 @@
-Scovillain (M) @ Scovillainite
-Ability: Moody
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Expanding Force
+- Shadow Ball
+- Protect
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Giga Drain
-- Overheat
-- Rage Powder
+- Psychic
+- Follow Me
+- Helping Hand
 - Protect
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
-
-Sneasler (F) @ WhiteHerb
+Sneasler (F) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Close Combat
 - Dire Claw
+- Rock Tomb
 - Protect
-- Fake Out
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
+Talonflame (F) @ Charcoal
+Ability: GaleWings
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Accelerock
-- Rock Slide
+Jolly Nature
+- Flare Blitz
+- Brave Bird
+- Tailwind
 - Protect
 
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Annihilape (M) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Gunk Shot
+- Drain Punch
+- Shadow Claw
+- Protect
+
+Gholdengo @ FocusSash
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
+- Make It Rain
 - Shadow Ball
-- Aurora Veil
+- Nasty Plot
 - Protect

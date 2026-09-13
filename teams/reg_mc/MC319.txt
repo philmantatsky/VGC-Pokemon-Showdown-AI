@@ -1,59 +1,59 @@
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Charizard (F) @ CharizarditeY
+Ability: Blaze
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Beam
-- Calm Mind
-- Quick Attack
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
+- Solar Beam
+- Heat Wave
+- Air Slash
 
-Tyranitar (M) @ ChopleBerry
+Venusaur (M) @ WideLens
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Giga Drain
+- Earth Power
+- Sleep Powder
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Moonblast
+- Tailwind
+- Encore
+
+Basculegion (M) @ MysticWater
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Aqua Jet
+- Wave Crash
+- Last Respects
+
+Tyranitar (F) @ Tyranitarite
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Dragon Dance
+Adamant Nature
+- Protect
 - Rock Slide
 - Knock Off
 - Low Kick
 
-Excadrill (M) @ FocusSash
-Ability: SandRush
+Mamoswine (M) @ LifeOrb
+Ability: Oblivious
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Protect
+- High Horsepower
 - Rock Slide
-- Earthquake
-- Iron Head
-- Protect
-
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Sucker Punch
-- Kowtow Cleave
-- Swords Dance
-- Protect
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Leech Life
-- Swords Dance
-- Aqua Jet
-- Protect
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Trick Room
-- Roar
-- Twin Beam
-- Helping Hand
+- Ice Shard

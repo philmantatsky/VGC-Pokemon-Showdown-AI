@@ -1,0 +1,59 @@
+Mawile (F) @ Mawilite
+Ability: HyperCutter
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Play Rough
+- Sucker Punch
+- Rock Slide
+- Protect
+
+Incineroar (M) @ LifeOrb
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+- Fake Out
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Psychic
+- Imprison
+- Trick Room
+- Protect
+
+Milotic (F) @ RockyHelmet
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Muddy Water
+- Ice Beam
+- Life Dew
+- Coil
+
+Mamoswine (M) @ FocusSash
+Ability: Oblivious
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Icicle Crash
+- Earthquake
+- Haze
+- Protect
+
+Charizard (M) @ CharizarditeY
+Ability: SolarPower
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Weather Ball
+- Solar Beam
+- Protect

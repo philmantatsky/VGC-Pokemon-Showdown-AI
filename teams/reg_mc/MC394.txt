@@ -1,59 +1,59 @@
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Zap Cannon
-- Focus Blast
-- Fake Out
+Modest Nature
 - Protect
+- Solar Beam
+- Heat Wave
+- Air Slash
 
-Staraptor (F) @ Staraptite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
-- Protect
-
-Sinistcha-Masterpiece @ CobaBerry
-Ability: Hospitality
+Venusaur (M) @ WideLens
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Strength Sap
-- Psych Up
-- Life Dew
-- Curse
-
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Helping Hand
-- Trick Room
+Modest Nature
 - Protect
+- Giga Drain
+- Earth Power
+- Sleep Powder
 
-Gholdengo @ MetalCoat
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Protect
-- Nasty Plot
-- Metal Sound
-
-Grimmsnarl (M) @ LightClay
+Whimsicott (M) @ FocusSash
 Ability: Prankster
 Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Moonblast
+- Tailwind
+- Encore
+
+Basculegion (M) @ MysticWater
+Ability: Adaptability
+Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Parting Shot
-- Light Screen
-- Reflect
-- Spirit Break
+Adamant Nature
+- Protect
+- Aqua Jet
+- Wave Crash
+- Last Respects
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Mamoswine (M) @ LifeOrb
+Ability: Oblivious
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- High Horsepower
+- Rock Slide
+- Ice Shard

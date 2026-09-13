@@ -1,59 +1,59 @@
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Trick Room
-- Psychic
-- Helping Hand
-- Protect
-
 Golisopod (M) @ Golisopite
 Ability: EmergencyExit
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- First Impression
-- Liquidation
-- Iron Head
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Protect
+- Leech Life
+- Aqua Jet
+- Swords Dance
 
-Torkoal (M) @ Charcoal
-Ability: Drought
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 SpA / 32 Spe
+Mild Nature
+- Double-Edge
+- Hyper Voice
 - Protect
+- Tailwind
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Coaching
+- Protect
+- Dire Claw
+- Close Combat
 
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
 - Grassy Glide
 - Wood Hammer
 - U-turn
+- Fake Out
 
-Sneasler (F) @ GrassySeed
-Ability: Unburden
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Close Combat
-- Dire Claw
-- Protect
+Careful Nature
+- Light Screen
+- Reflect
+- Parting Shot
+- Spirit Break
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Aqua Jet
+- Wave Crash
+- Flip Turn

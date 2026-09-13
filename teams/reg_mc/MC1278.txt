@@ -1,59 +1,59 @@
-Rillaboom (F) @ SitrusBerry
-Ability: GrassySurge
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Fake Out
-- High Horsepower
-- Grassy Glide
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Dazzling Gleam
 
-Salamence (F) @ Salamencite
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Heat Wave
+- Wide Guard
+- Trick Room
+
+Staraptor (M) @ Staraptite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Hyper Voice
-- Double-Edge
+Jolly Nature
+- Close Combat
+- Brave Bird
 - Tailwind
 - Protect
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+- Earthquake
+- Iron Head
 - Swords Dance
-- Sucker Punch
-- Kowtow Cleave
 - Protect
 
-Sneasler (F) @ GrassySeed
-Ability: Unburden
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
-- Close Combat
 - Rock Slide
+- Knock Off
+- Low Kick
 - Protect
 
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Rotom-Wash @ ChoiceScarf
+Ability: Levitate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Extreme Speed
-- Protect
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Volt Switch
+- Thunderbolt
+- Will-O-Wisp
+- Hydro Pump

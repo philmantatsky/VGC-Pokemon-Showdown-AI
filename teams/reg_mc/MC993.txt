@@ -1,59 +1,59 @@
-Incineroar (M) @ WhiteHerb
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
-- Fake Out
-
-Farigiraf (M) @ Leftovers
-Ability: ArmorTail
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Psychic
+Bold Nature
+- Follow Me
 - Helping Hand
+- Terrain Pulse
 - Trick Room
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Rock Slide
 - Protect
 
-Garchomp (F) @ GarchompiteZ
-Ability: SandVeil
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Draco Meteor
-- Earth Power
-- Power Gem
+- Hyper Voice
+- Expanding Force
+- Encore
 - Protect
 
-Maushold-Four @ WideLens
-Ability: Technician
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
-- Protect
+- Aqua Jet
+- Last Respects
+- Wave Crash
+- Flip Turn
 
-Torkoal (M) @ Charcoal
-Ability: Drought
+Aerodactyl (F) @ FocusSash
+Ability: Unnerve
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Tailwind
+- Dual Wingbeat
 - Protect
 
-Hydreigon (F) @ ChoiceScarf
-Ability: Levitate
+Volcarona (F) @ SitrusBerry
+Ability: FlameBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+Bold Nature
+- Struggle Bug
+- Overheat
+- Rage Powder
+- Protect

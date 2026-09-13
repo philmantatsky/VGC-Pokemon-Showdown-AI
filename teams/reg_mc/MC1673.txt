@@ -8,7 +8,7 @@ Calm Nature
 - Helping Hand
 - Dazzling Gleam
 
-Armarouge (M) @ LifeOrb
+Armarouge (F) @ LifeOrb
 Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
@@ -18,15 +18,15 @@ Modest Nature
 - Wide Guard
 - Trick Room
 
-Rotom-Wash @ ChoiceScarf
-Ability: Levitate
+Staraptor (F) @ Staraptite
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Volt Switch
-- Thunderbolt
-- Will-O-Wisp
-- Hydro Pump
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Tailwind
+- Protect
 
 Excadrill (F) @ FocusSash
 Ability: SandRush

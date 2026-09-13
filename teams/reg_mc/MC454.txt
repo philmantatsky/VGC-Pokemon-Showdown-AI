@@ -1,59 +1,59 @@
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Trick
-- Dazzling Gleam
-- Mystical Fire
-
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
-- Close Combat
-- Throat Chop
-- Fake Out
+- Protect
+- Iron Head
+- Drill Run
+- Rock Slide
 
-Tyranitar (F) @ Tyranitarite
+Tyranitar (M) @ Tyranitarite
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Knock Off
+- Protect
 - Rock Slide
+- Knock Off
 - Low Kick
+
+Indeedee-F (F) @ MentalHerb
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Trick Room
+- Psychic
 - Protect
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Expanding Force
+- Dazzling Gleam
+- Calm Mind
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- High Horsepower
-- Earthquake
+Adamant Nature
+- Protect
+- Dire Claw
+- Close Combat
+- Rock Slide
+
+Mawile (M) @ Mawilite
+Ability: HyperCutter
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Protect
 - Iron Head
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
-
-Rotom-Wash @ SitrusBerry
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Thunderbolt
-- Hydro Pump
-- Electroweb
-- Volt Switch
+- Play Rough
+- Rock Slide

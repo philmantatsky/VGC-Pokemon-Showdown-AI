@@ -1,0 +1,59 @@
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Dragon Pulse
+- Flamethrower
+- Protect
+
+Whimsicott (M) @ LifeOrb
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Grass Knot
+- Tailwind
+- Protect
+
+Basculegion (M) @ MysticWater
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
+- Psychic
+- Trick Room
+- Protect
+
+Tyranitar (F) @ WhiteHerb
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- High Horsepower
+- Protect
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Leech Life
+- Iron Head
+- Close Combat
+- Protect

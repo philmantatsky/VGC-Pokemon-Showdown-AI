@@ -1,59 +1,59 @@
-Ninetales-Alola (F) @ LightClay
-Ability: SnowWarning
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Naive Nature
+- Double-Edge
+- Hyper Voice
+- Fire Blast
+- Protect
+
+Froslass (F) @ Froslassite
+Ability: SnowCloak
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Blizzard
-- Moonblast
+- Shadow Ball
 - Aurora Veil
 - Protect
 
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
+Kleavor (F) @ FocusSash
+Ability: Sharpness
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Stone Axe
+- X-Scissor
+- Tailwind
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Scale Shot
-- Icicle Crash
-- High Horsepower
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Rillaboom (F) @ MiracleSeed
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dire Claw
+- Close Combat
+- Upper Hand
+- Fake Out
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Fake Out
 - Wood Hammer
 - Grassy Glide
-- U-turn
-- Fake Out
-
-Delphox (F) @ Delphoxite
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Psychic
-- Nasty Plot
-- Protect
-
-Sneasler (M) @ FocusSash
-Ability: PoisonTouch
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Coaching
-- Poison Jab
-- Protect
-
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
 - Protect

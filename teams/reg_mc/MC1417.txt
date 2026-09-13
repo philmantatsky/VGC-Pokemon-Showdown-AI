@@ -1,59 +1,59 @@
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Double-Edge
+- Hyper Voice
+- Tailwind
+- Protect
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
 - Protect
-- Grassy Glide
-- Wood Hammer
-- U-turn
 
-Farigiraf (F) @ GrassySeed
-Ability: ArmorTail
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Iron Head
+- High Horsepower
+- Rock Slide
+- Protect
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Rage Powder
 - Trick Room
-- Helping Hand
-- Beat Up
-- Protect
+- Shadow Ball
 
-Torkoal (F) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Protect
-- Eruption
-- Heat Wave
-- Helping Hand
-
-Scovillain (M) @ LifeOrb
-Ability: Chlorophyll
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Rage Powder
-- Overheat
-- Solar Beam
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
 - Protect
 
-Absol (F) @ AbsoliteZ
-Ability: Justified
+Milotic (F) @ Leftovers
+Ability: Competitive
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Scald
+- Ice Beam
+- Recover
 - Protect
-- Night Slash
-- Shadow Sneak
-- Close Combat
-
-Kleavor (M) @ HardStone
-Ability: Sharpness
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Protect
-- Stone Axe
-- Rock Slide
-- U-turn

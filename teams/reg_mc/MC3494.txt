@@ -1,0 +1,59 @@
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Toxic
+- Baneful Bunker
+- Infestation
+- Wide Guard
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Leech Life
+- Iron Head
+- Bulk Up
+- Protect
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Psychic
+- Trick Room
+- Helping Hand
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Last Respects
+- Wave Crash
+- Flip Turn
+- Aqua Jet
+
+Politoed (M) @ LifeOrb
+Ability: Drizzle
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Weather Ball
+- Muddy Water
+- Ice Beam
+- Protect
+
+Pawmot (F) @ FocusSash
+Ability: IronFist
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Double Shock
+- Close Combat
+- Revival Blessing
+- Protect

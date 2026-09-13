@@ -1,59 +1,59 @@
-Absol (M) @ AbsoliteZ
-Ability: Pressure
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Sucker Punch
-- Night Slash
-- Close Combat
-- Protect
-
-Farigiraf (M) @ Leftovers
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Helping Hand
-- Psychic
-- Trick Room
-- Protect
-
-Rillaboom (F) @ GrassySeed
-Ability: GrassySurge
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
+- Close Combat
+- Dire Claw
+- Rock Slide
 - Throat Chop
 
-Gholdengo @ AirBalloon
-Ability: GoodasGold
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
-- Protect
+- Expanding Force
+- Psychic
+- Trick Room
+- Imprison
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Expanding Force
 - Hyper Voice
+- Thunderbolt
+- Protect
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Weather Ball
+- Solar Beam
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Moonblast
-- Quick Attack
+- Tailwind
+- Encore
 - Protect

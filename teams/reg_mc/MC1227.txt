@@ -1,59 +1,59 @@
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Head Smash
-- Flare Blitz
+Adamant Nature
+- Icicle Crash
+- Ice Shard
+- Glaive Rush
 - Protect
-- Extreme Speed
 
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
-
-Kingambit (M) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Sucker Punch
-- Kowtow Cleave
-- Low Kick
-- Iron Head
-
-Garchomp (M) @ GarchompiteZ
-Ability: SandVeil
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
-- Dragon Pulse
-- Earth Power
-- Power Gem
+- Armor Cannon
+- Expanding Force
+- Trick Room
+- Wide Guard
 
-Whimsicott (M) @ FairyFeather
-Ability: Prankster
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
+- Dazzling Gleam
+- Trick Room
+- Helping Hand
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Protect
+- Solar Beam
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Modest Nature
+- Draining Kiss
+- Calm Mind
+- Dazzling Gleam
 - Protect
-- Moonblast
-- Tailwind
-- Encore
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Milotic (F) @ PsychicSeed
+Ability: Competitive
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Muddy Water
+- Coil
+- Hypnosis
+- Recover

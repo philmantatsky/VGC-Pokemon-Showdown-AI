@@ -1,0 +1,59 @@
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Glaive Rush
+- Icicle Crash
+- Ice Shard
+- Protect
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
+
+Volcarona (F) @ GrassySeed
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Rage Powder
+- Quiver Dance
+- Heat Wave
+- Giga Drain
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Wave Crash
+- Aqua Jet
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect
+
+Sneasler (F) @ FocusSash
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Poison Jab
+- Close Combat
+- Coaching

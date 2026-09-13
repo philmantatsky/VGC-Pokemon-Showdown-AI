@@ -2,58 +2,58 @@ Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Naive Nature
+- Hyper Voice
+- Protect
 - Double-Edge
-- Roost
-- Dragon Dance
-- Protect
+- Tailwind
 
-Ninetales-Alola (M) @ NeverMeltIce
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Icy Wind
-- Aurora Veil
-- Protect
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
-- Protect
-
-Arcanine-Hisui (M) @ FocusSash
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
+Careful Nature
+- Fake Out
 - Flare Blitz
-- Extreme Speed
-- Protect
+- Throat Chop
+- Parting Shot
 
-Rillaboom (M) @ OccaBerry
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Draining Kiss
+- Protect
+- Dazzling Gleam
+- Calm Mind
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Drum Beating
+Adamant Nature
+- U-turn
+- Wood Hammer
 - Grassy Glide
 - Fake Out
-- U-turn
 
 Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Fake Out
 - Close Combat
 - Dire Claw
-- Coaching
+- Rock Slide
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
+- Shadow Ball
+- Make It Rain
+- Power Gem

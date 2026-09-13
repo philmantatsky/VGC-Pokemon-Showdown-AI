@@ -1,59 +1,59 @@
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Trick Room
-- Follow Me
+Modest Nature
 - Protect
+- Solar Beam
+- Heat Wave
+- Air Slash
 
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Dazzling Gleam
-- Expanding Force
-- Trick Room
-- Protect
-
-Farigiraf (F) @ MentalHerb
-Ability: ArmorTail
+Venusaur (F) @ WideLens
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Trick Room
+Modest Nature
 - Protect
-- Helping Hand
-
-Torkoal (F) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Weather Ball
+- Giga Drain
 - Earth Power
-- Protect
+- Sleep Powder
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Sucker Punch
-- Leech Life
-- Iron Head
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Protect
+- Moonblast
+- Tailwind
+- Encore
 
-Drampa (F) @ Drampanite
-Ability: CloudNine
+Basculegion (M) @ MysticWater
+Ability: Adaptability
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Dragon Pulse
-- Hyper Voice
-- Earth Power
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Protect
+- Aqua Jet
+- Wave Crash
+- Last Respects
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Mamoswine (M) @ LifeOrb
+Ability: Oblivious
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- High Horsepower
+- Rock Slide
+- Ice Shard

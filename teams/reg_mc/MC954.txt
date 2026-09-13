@@ -8,7 +8,7 @@ Adamant Nature
 - Low Kick
 - Protect
 
-Excadrill (M) @ FocusSash
+Excadrill (F) @ FocusSash
 Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -28,7 +28,7 @@ Modest Nature
 - Trick
 - Trick Room
 
-Corviknight (F) @ SitrusBerry
+Corviknight (M) @ SitrusBerry
 Ability: MirrorArmor
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
@@ -38,7 +38,7 @@ Bold Nature
 - Tailwind
 - Roost
 
-Sneasler (F) @ PsychicSeed
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -48,12 +48,12 @@ Adamant Nature
 - Coaching
 - Protect
 
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
+- Draining Kiss
+- Dazzling Gleam
+- Calm Mind
 - Protect

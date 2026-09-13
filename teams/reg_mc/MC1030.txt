@@ -1,59 +1,59 @@
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Relaxed Nature
-- Psychic
 - Trick Room
+- Follow Me
 - Helping Hand
-- Protect
+- Psychic
 
-Kangaskhan (F) @ Kangaskhanite
-Ability: Scrappy
+Armarouge (M) @ FocusSash
+Ability: FlashFire
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Double-Edge
-- Ice Punch
-- Drain Punch
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Armor Cannon
+- Wide Guard
+- Trick Room
 
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Torkoal (M) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
 - Heat Wave
-- Weather Ball
+- Earth Power
 - Protect
-- Solar Beam
 
-Salamence (F) @ LifeOrb
-Ability: Intimidate
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Expanding Force
+- Hyper Voice
+- Protect
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Tailwind
-- Dual Wingbeat
-- Dragon Claw
-- Rock Slide
+- Throat Chop
+- Close Combat
+- Dire Claw
+- Protect
 
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
+Kingambit (M) @ BlackGlasses
+Ability: SupremeOverlord
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
+Serious Nature
 - Kowtow Cleave
+- Iron Head
 - Sucker Punch
 - Protect
-
-Pawmot (F) @ FocusSash
-Ability: IronFist
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Double Shock
-- Close Combat
-- Revival Blessing

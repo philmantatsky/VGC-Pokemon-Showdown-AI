@@ -1,0 +1,59 @@
+Gengar (M) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Shadow Ball
+- Disable
+- Perish Song
+- Protect
+
+Rillaboom (F) @ LifeOrb
+Ability: GrassySurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Grassy Glide
+- Wood Hammer
+- Fake Out
+- Protect
+
+Incineroar (M) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Flare Blitz
+- Fake Out
+- Parting Shot
+- Protect
+
+Tinkaton (F) @ EjectButton
+Ability: MoldBreaker
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Gigaton Hammer
+- Encore
+- Fake Out
+- Protect
+
+Pawmot (F) @ FocusSash
+Ability: VoltAbsorb
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Double-Edge
+- Close Combat
+- Revival Blessing
+- Protect
+
+Ninetales-Alola (F) @ NeverMeltIce
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Freeze-Dry
+- Disable
+- Encore
+- Protect

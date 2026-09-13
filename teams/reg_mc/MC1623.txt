@@ -1,59 +1,59 @@
-Staraptor (M) @ Staraptite
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dazzling Gleam
+- Draining Kiss
+- Calm Mind
+- Protect
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
+- Fake Out
+
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
-- Protect
+Careful Nature
+- Flare Blitz
+- Throat Chop
+- Parting Shot
+- Fake Out
 
-Kingambit (M) @ FocusSash
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Flip Turn
+- Aqua Jet
+
+Kingambit (M) @ ChopleBerry
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Kowtow Cleave
-- Iron Head
-- Low Kick
 - Sucker Punch
-
-Armarouge (M) @ LifeOrb
-Ability: FlashFire
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Armor Cannon
-- Expanding Force
-- Trick Room
-- Wide Guard
-
-Torkoal (F) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Weather Ball
-- Helping Hand
+- Iron Head
 - Protect
 
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Relaxed Nature
-- Follow Me
-- Trick Room
-- Helping Hand
-- Healing Wish
-
-Vanilluxe (F) @ ChoiceScarf
-Ability: SnowWarning
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Blizzard
-- Freeze-Dry
-- Weather Ball
-- Ice Beam
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
+- Protect

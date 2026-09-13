@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Dazzling Gleam
-- Draining Kiss
-- Calm Mind
-
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Flare Blitz
-- Head Smash
-- Rock Slide
-
-Kingambit (M) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-
-Rillaboom (M) @ MiracleSeed
+Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Grassy Glide
 - Wood Hammer
+- Grassy Glide
 - Fake Out
-- High Horsepower
+- U-turn
 
-Farigiraf (F) @ GrassySeed
-Ability: ArmorTail
+Milotic (F) @ Leftovers
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Helping Hand
-- Trick Room
-- Twin Beam
-- Hyper Voice
+Bold Nature
+- Muddy Water
+- Hypnosis
+- Coil
+- Protect
 
-Raichu (M) @ RaichuniteY
-Ability: Static
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
+- Kowtow Cleave
+- Swords Dance
+- Protect
+
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Stomping Tantrum
+- Dragon Claw
+- Rock Slide
+- Protect
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Hyper Beam
+- Quick Attack
+- Detect
+
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Protect
 - Zap Cannon
 - Focus Blast
 - Fake Out
+- Protect

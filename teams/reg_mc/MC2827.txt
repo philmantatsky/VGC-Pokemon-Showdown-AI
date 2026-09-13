@@ -1,0 +1,59 @@
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Hyper Beam
+- Protect
+- Quick Attack
+
+Kingambit (F) @ FocusSash
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Low Kick
+- Sucker Punch
+- Kowtow Cleave
+- Iron Head
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Thunderbolt
+- Twin Beam
+- Trick Room
+- Roar
+
+Aerodactyl (M) @ Aerodactylite
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Dual Wingbeat
+- Ice Fang
+- Tailwind
+
+Garchomp (F) @ GarchompiteZ
+Ability: SandVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Earth Power
+- Power Gem
+- Draco Meteor
+- Protect
+
+Volcarona (F) @ PasshoBerry
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Rage Powder
+- Struggle Bug
+- Overheat
+- Protect

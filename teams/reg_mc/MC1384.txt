@@ -1,59 +1,59 @@
-Gengar (M) @ Gengarite
-Ability: CursedBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Shadow Ball
-- Perish Song
-- Sludge Bomb
-- Protect
-
-Incineroar (F) @ PasshoBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Darkest Lariat
-- Parting Shot
-- Fake Out
-- Protect
-
-Politoed (F) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Weather Ball
-- Perish Song
-- Encore
-- Protect
-
-Rillaboom (M) @ MiracleSeed
+Rillaboom (F) @ SitrusBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
-- U-turn
-- Grassy Glide
+- Wood Hammer
 - Fake Out
+- High Horsepower
+- Grassy Glide
 
-Kingambit (M) @ LifeOrb
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Kingambit (F) @ BlackGlasses
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
-- Kowtow Cleave
-- Sucker Punch
 - Swords Dance
+- Sucker Punch
+- Kowtow Cleave
+- Protect
 
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Rock Slide
 - Protect
-- Double-Edge
-- Hyper Voice
-- Tailwind
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect

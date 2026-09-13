@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Liquidation
-- Leech Life
-- Protect
-
-Pelipper (F) @ FocusSash
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Weather Ball
-- Hurricane
+Naive Nature
+- Draco Meteor
+- Double-Edge
 - Tailwind
 - Protect
 
-Kingambit (M) @ ChopleBerry
-Ability: Defiant
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
-- Kowtow Cleave
+- High Horsepower
+- Iron Head
+- Rock Slide
 - Protect
-- Swords Dance
 
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Fake Out
-- Close Combat
-- Dire Claw
-- Coaching
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Protect
+- Grassy Glide
+- Fake Out
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Thunderbolt
-- Trick Room
-- Psychic
-- Helping Hand
+- Make It Rain
+- Shadow Ball
+- Protect
+- Nasty Plot
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Tauros-Paldea-Aqua (M) @ MysticWater
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
+Adamant Nature
+- Close Combat
+- Raging Bull
 - Aqua Jet
-- Last Respects
 - Protect

@@ -1,59 +1,59 @@
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
+Araquanid (M) @ SitrusBerry
+Ability: WaterBubble
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Wide Guard
+- Entrainment
+- Protect
+- Liquidation
+
+Abomasnow (M) @ Abomasite
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Aurora Veil
+- Ice Hammer
+- Wood Hammer
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Psyshock
+- Protect
+- Hyper Voice
+
+Sinistcha-Masterpiece @ FocusSash
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Matcha Gotcha
+- Rage Powder
+- Strength Sap
+- Shadow Ball
+
+Raichu (M) @ RaichuniteY
+Ability: Static
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Fake Out
+- Zap Cannon
+- Grass Knot
+- Surf
+
+Weavile (F) @ LifeOrb
+Ability: Pickpocket
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Fake Out
-- Close Combat
-- Dire Claw
-- Feint
-
-Kingambit (M) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
+- Foul Play
+- Icicle Crash
 - Low Kick
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Light Screen
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Hyper Voice
-- Heat Wave
-- Protect

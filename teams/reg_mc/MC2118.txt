@@ -1,0 +1,59 @@
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Trick Room
+- Psychic
+- Thunderbolt
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Protect
+- Bulk Up
+- Leech Life
+- Iron Head
+
+Volcarona (F) @ GrassySeed
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Quiver Dance
+- Heat Wave
+- Bug Buzz
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- U-turn
+- Wood Hammer
+- Grassy Glide
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
+- Protect
+
+Arcanine-Hisui (F) @ LifeOrb
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Flare Blitz
+- Extreme Speed
+- Protect

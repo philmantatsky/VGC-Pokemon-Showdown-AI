@@ -1,59 +1,59 @@
-Baxcalibur (M) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Glaive Rush
-- Icicle Crash
-- Ice Shard
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
 
-Sneasler (F) @ PsychicSeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
 - Close Combat
-- Coaching
+- Dire Claw
+- Rock Tomb
 - Protect
 
-Whimsicott (F) @ FocusSash
-Ability: Prankster
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Tailwind
-- Moonblast
-- Encore
+- Dazzling Gleam
+- Draining Kiss
+- Protect
+- Calm Mind
+
+Blastoise (M) @ Blastoisinite
+Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shell Smash
+- Terrain Pulse
+- Water Spout
 - Protect
 
-Indeedee-F (F) @ SitrusBerry
+Indeedee-F (F) @ RockyHelmet
 Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
 - Follow Me
+- Psychic
 - Helping Hand
 - Trick Room
-
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect

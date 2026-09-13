@@ -1,59 +1,59 @@
-Gengar (M) @ Gengarite
-Ability: CursedBody
+Glimmora (F) @ Glimmoranite
+Ability: ToxicDebris
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Power Gem
 - Sludge Bomb
-- Shadow Ball
-- Perish Song
-- Protect
+- Earth Power
+- Spiky Shield
 
-Dragonite (M) @ LifeOrb
-Ability: InnerFocus
+Staraptor (F) @ Staraptite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dragon Claw
-- Superpower
-- Extreme Speed
-- Protect
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Relaxed Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
-- Protect
-
-Rillaboom (M) @ EjectButton
-Ability: GrassySurge
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Fake Out
-- Grassy Glide
-- U-turn
-- Protect
-
-Scrafty (M) @ FocusSash
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
+- Brave Bird
 - Close Combat
-- Knock Off
-- Detect
+- Roost
+- Protect
 
-Snorlax (M) @ Leftovers
-Ability: ThickFat
+Hydreigon (M) @ LifeOrb
+Ability: Levitate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Relaxed Nature
-- Fissure
-- Yawn
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Dark Pulse
+- Earth Power
+- Protect
+
+Gholdengo @ WiseGlasses
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Flash Cannon
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Scald
+- Ice Beam
+- Recover
+- Protect
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
 - Encore
 - Protect

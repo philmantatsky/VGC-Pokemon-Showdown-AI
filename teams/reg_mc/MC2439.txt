@@ -1,0 +1,59 @@
+Lucario (M) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aura Sphere
+- Flash Cannon
+- Calm Mind
+- Detect
+
+Ninetales-Alola (M) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aurora Veil
+- Blizzard
+- Moonblast
+- Protect
+
+Sinistcha @ OccaBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Rage Powder
+- Protect
+- Matcha Gotcha
+- Life Dew
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Throat Chop
+- Flare Blitz
+- Parting Shot
+
+Volcarona (F) @ ChartiBerry
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Fiery Dance
+- Struggle Bug
+- Rage Powder
+- Tailwind
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Protect

@@ -1,59 +1,59 @@
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Dazzling Gleam
-- Protect
-- Trick Room
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Weather Ball
-- Heat Wave
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
 
-Indeedee-F (F) @ Leftovers
-Ability: PsychicSurge
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Rock Slide
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Follow Me
+- Matcha Gotcha
 - Trick Room
-- Psychic
+- Rage Powder
 - Protect
 
-Crabominable (M) @ Crabominite
-Ability: IronFist
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Rock Slide
-- Drain Punch
-- Ice Hammer
-- Protect
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Trick Room
-- Psychic
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
 - Protect
-- Helping Hand
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Delphox (M) @ Delphoxite
+Ability: Blaze
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Iron Head
-- Swords Dance
-- Close Combat
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
 - Protect

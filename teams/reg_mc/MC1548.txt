@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Lonely Nature
-- Protect
-- Double-Edge
-- Draco Meteor
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Hyper Voice
+- Draco Meteor
+- Tailwind
+- Protect
 
-Kingambit (M) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Sucker Punch
-- Kowtow Cleave
-- Low Kick
-
-Arcanine-Hisui (M) @ FocusSash
+Arcanine-Hisui (F) @ FocusSash
 Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Protect
-- Head Smash
 - Flare Blitz
+- Rock Slide
 - Extreme Speed
+- Protect
 
-Sneasler (M) @ WhiteHerb
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Coaching
+Adamant Nature
 - Close Combat
 - Dire Claw
+- Fake Out
+- Protect
 
-Rillaboom (M) @ MiracleSeed
+Rillaboom (F) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
 - Grassy Glide
-- High Horsepower
 - Fake Out
+- U-turn
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Detect
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect

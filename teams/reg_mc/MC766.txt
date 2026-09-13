@@ -1,59 +1,59 @@
-Palafin (F) @ WhiteHerb
-Ability: ZerotoHero
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flip Turn
-- Acrobatics
-- Ice Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
+- Dazzling Gleam
+- Draining Kiss
+- Calm Mind
 
-Garchomp (M) @ GarchompiteZ
-Ability: RoughSkin
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Dragon Claw
-- Rock Slide
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Moxie
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Earthquake
-- Hyper Voice
-- Dragon Claw
-- Protect
-
-Corviknight (M) @ FocusSash
-Ability: MirrorArmor
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Tailwind
-- Roost
-- Body Press
-- U-turn
-
-Grimmsnarl (M) @ BabiriBerry
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Spirit Break
-- Parting Shot
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
 - Fake Out
-- Protect
 
-Gyarados (M) @ LifeOrb
+Incineroar (F) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+- Fake Out
+
+Sneasler (F) @ FocusSash
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Earthquake
-- Iron Head
-- Temper Flare
+- Close Combat
+- Dire Claw
+- Quick Guard
+- Fake Out
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Flip Turn
+- Last Respects
+- Aqua Jet
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Protect
+- Heat Wave
+- Psychic
+- Nasty Plot

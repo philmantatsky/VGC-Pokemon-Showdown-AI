@@ -1,31 +1,41 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Glimmora (F) @ Glimmoranite
+Ability: ToxicDebris
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
-- Protect
+- Power Gem
+- Sludge Bomb
+- Earth Power
+- Spiky Shield
 
-Delphox (M) @ Delphoxite
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Psychic
-- Nasty Plot
-- Protect
-
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
+Staraptor (F) @ Staraptite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+- Brave Bird
+- Close Combat
+- Roost
+- Protect
+
+Hydreigon (F) @ LifeOrb
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Dark Pulse
+- Earth Power
+- Protect
+
+Gholdengo @ WiseGlasses
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Flash Cannon
+- Shadow Ball
+- Nasty Plot
 - Protect
 
 Milotic (F) @ Leftovers
@@ -33,27 +43,17 @@ Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Ice Beam
 - Scald
-- Icy Wind
+- Ice Beam
+- Recover
 - Protect
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Throat Chop
-- Fake Out
-- Parting Shot
-
-Sinistcha @ ColburBerry
-Ability: Hospitality
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Matcha Gotcha
-- Rage Powder
-- Trick Room
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
 - Protect

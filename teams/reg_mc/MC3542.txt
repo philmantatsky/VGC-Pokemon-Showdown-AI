@@ -1,0 +1,59 @@
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Psychic
+
+Archaludon (F) @ PsychicSeed
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Electro Shot
+- Protect
+- Dragon Pulse
+- Flash Cannon
+
+Pelipper (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hurricane
+- Weather Ball
+- Tailwind
+- Protect
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Leech Life
+- Iron Head
+- Protect
+- Swords Dance
+
+Swampert (F) @ Swampertite
+Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flip Turn
+- Wave Crash
+- High Horsepower
+- Protect
+
+Pawmot (M) @ FocusSash
+Ability: IronFist
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Double Shock
+- Revival Blessing
+- Ice Punch
+- Close Combat

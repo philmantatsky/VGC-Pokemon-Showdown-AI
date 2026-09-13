@@ -1,59 +1,59 @@
-Camerupt (F) @ Cameruptite
-Ability: SolidRock
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Ancient Power
-- Earth Power
-- Heat Wave
-- Protect
-
-Lucario (F) @ LucarioniteZ
-Ability: InnerFocus
+Raichu (M) @ RaichuniteY
+Ability: LightningRod
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Aura Sphere
-- Steel Beam
-- Flash Cannon
-- Protect
+Hasty Nature
+- Zap Cannon
+- Focus Blast
+- Fake Out
+- Volt Switch
 
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
+Weavile (M) @ ChopleBerry
+Ability: Pickpocket
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Ice Spinner
+- Taunt
 - Protect
-- Helping Hand
-- Twin Beam
-- Trick Room
+- Knock Off
 
-Incineroar (F) @ SitrusBerry
+Ceruledge (F) @ ExpertBelt
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Bitter Blade
+- Ally Switch
+- Shadow Sneak
+- Throat Chop
+
+Staraptor (M) @ Staraptite
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Parting Shot
-- Darkest Lariat
-- Fake Out
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Close Combat
+- Protect
+- Brave Bird
+- Dual Wingbeat
 
-Rillaboom (M) @ GrassySeed
-Ability: GrassySurge
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- Low Kick
-
-Milotic (M) @ Leftovers
-Ability: Competitive
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Ice Beam
-- Life Dew
-- Protect
-- Scald
+Bold Nature
+- Encore
+- Tailwind
+- Moonblast
+- Charm
+
+Gliscor (F) @ PoisonBarb
+Ability: HyperCutter
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Poison Jab
+- Ice Fang
+- Earthquake
+- Psychic Fangs

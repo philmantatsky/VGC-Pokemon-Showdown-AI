@@ -1,4 +1,4 @@
-Rillaboom (F) @ MiracleSeed
+Rillaboom (M) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -8,24 +8,24 @@ Adamant Nature
 - Grassy Glide
 - High Horsepower
 
-Sneasler (M) @ GrassySeed
+Sneasler (F) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Close Combat
 - Dire Claw
 - Rock Tomb
-- Fake Out
+- Protect
 
-Incineroar (F) @ SitrusBerry
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Careful Nature
 - Fake Out
 - Flare Blitz
-- Darkest Lariat
+- Throat Chop
 - Parting Shot
 
 Floette-Eternal (F) @ Floettite

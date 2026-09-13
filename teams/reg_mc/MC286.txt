@@ -1,59 +1,59 @@
-Staraptor (M) @ Staraptite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
-- Protect
-
-Kingambit (M) @ ChopleBerry
-Ability: Defiant
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Iron Head
-- Low Kick
-- Sucker Punch
+- Protect
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
-Glimmora (M) @ FocusSash
-Ability: ToxicDebris
+Farigiraf (M) @ GrassySeed
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Trick Room
+- Helping Hand
+- Beat Up
+- Protect
+
+Sneasler (F) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Protect
+- Close Combat
+- Dire Claw
+- Feint
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Eruption
+- Heat Wave
+- Earth Power
+
+Scovillain (F) @ LifeOrb
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Sludge Bomb
-- Power Gem
-- Earth Power
-- Spiky Shield
+- Rage Powder
+- Overheat
+- Solar Beam
+- Will-O-Wisp
 
-Dragapult (F) @ LifeOrb
-Ability: ClearBody
+Absol (M) @ AbsoliteZ
+Ability: Justified
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dragon Darts
-- Phantom Force
-- Will-O-Wisp
+Adamant Nature
 - Protect
-
-Whimsicott (F) @ OccaBerry
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Charm
-- Encore
-
-Delphox (F) @ Delphoxite
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Psychic
-- Substitute
-- Protect
+- Night Slash
+- Shadow Sneak
+- Close Combat

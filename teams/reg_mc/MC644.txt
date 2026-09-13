@@ -1,59 +1,59 @@
-Absol (M) @ AbsoliteZ
-Ability: Justified
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Night Slash
-- Psycho Cut
-- Focus Energy
-- Protect
-
-Sneasler (F) @ PsychicSeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Coaching
-- Close Combat
-- Dire Claw
-- Protect
-
-Indeedee-F (F) @ EjectButton
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Follow Me
-- Helping Hand
-- Hyper Voice
-- Psychic
-
-Torkoal (M) @ Leftovers
-Ability: Drought
+Pelipper (M) @ DampRock
+Ability: Drizzle
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Heat Wave
-- Burning Jealousy
-- Yawn
-- Protect
-
-Aerodactyl (F) @ FocusSash
-Ability: Unnerve
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Relaxed Nature
+- Weather Ball
+- Hurricane
+- Wide Guard
 - Tailwind
-- Rock Slide
-- Ice Fang
-- Dual Wingbeat
 
-Venusaur (M) @ LifeOrb
-Ability: Chlorophyll
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Energy Ball
-- Earth Power
-- Sludge Bomb
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- Protect
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Iron Head
+- Leech Life
+- Liquidation
+- Protect
+
+Farigiraf (M) @ GrassySeed
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Twin Beam
+- Thunderbolt
+- Trick Room
 - Protect

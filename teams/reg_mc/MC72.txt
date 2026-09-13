@@ -1,59 +1,59 @@
-Gengar (F) @ Gengarite
-Ability: CursedBody
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Shadow Ball
-- Will-O-Wisp
-- Perish Song
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
 - Protect
 
-Incineroar (M) @ ChopleBerry
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Double-Edge
+- Hyper Voice
+- Tailwind
 - Protect
 
-Politoed (M) @ SitrusBerry
-Ability: Drizzle
+Rillaboom (F) @ SitrusBerry
+Ability: GrassySurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Weather Ball
-- Encore
-- Perish Song
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+- Fake Out
 
-Sinistcha @ CobaBerry
-Ability: Hospitality
+Sylveon (M) @ GrassySeed
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Matcha Gotcha
-- Rage Powder
-- Trick Room
+- Calm Mind
+- Hyper Beam
+- Hyper Voice
 - Protect
 
-Swampert (F) @ Swampertite
-Ability: Damp
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- High Horsepower
-- Ice Punch
+- Close Combat
+- Dire Claw
 - Protect
+- Fake Out
 
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
 - Protect

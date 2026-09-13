@@ -1,59 +1,59 @@
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Rock Slide
+- Knock Off
 - Low Kick
-- Sucker Punch
-- Kowtow Cleave
-- Iron Head
+- Protect
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- High Horsepower
+- Rock Slide
+- Iron Head
 - Protect
-- Wave Crash
-- Last Respects
-- Aqua Jet
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
-- Light of Ruin
+- Expanding Force
 - Dazzling Gleam
-- Moonblast
+- Trick
+- Trick Room
 
-Salamence (M) @ Salamencite
+Corviknight (F) @ SitrusBerry
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Brave Bird
+- Bulk Up
+- Tailwind
+- Roost
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Coaching
+- Protect
+
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
-- Tailwind
 - Hyper Voice
 - Draco Meteor
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Throat Chop
-
-Rillaboom (F) @ OccaBerry
-Ability: Overgrow
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
+- Tailwind
+- Protect

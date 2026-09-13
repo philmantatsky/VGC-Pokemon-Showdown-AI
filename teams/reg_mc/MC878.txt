@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naughty Nature
-- Double-Edge
-- Draco Meteor
-- Heat Wave
-- Protect
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- Iron Head
+- Sucker Punch
+- Swords Dance
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Slowking-Galar (M) @ Leftovers
+Ability: Regenerator
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
-- Protect
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Sludge Wave
+- Toxic
+- Focus Blast
 
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
+- Draco Meteor
+- Earth Power
+- Power Gem
+- Protect
+
+Scrafty (M) @ Scraftinite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Encore
-- Tailwind
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Kingambit (M) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Low Kick
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dire Claw
-- Close Combat
-- Rock Slide
 - Fake Out
+- Close Combat
+- Taunt
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Knock Off
+- Fire Punch
+- Stone Edge
+- Dragon Dance
+
+Talonflame (F) @ FocusSash
+Ability: GaleWings
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Defog
+- Acrobatics
+- Tailwind
+- Heat Wave

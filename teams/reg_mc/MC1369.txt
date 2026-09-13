@@ -1,59 +1,59 @@
-Milotic (M) @ SitrusBerry
-Ability: Competitive
+Pelipper (M) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Hurricane
+- Weather Ball
+- Tailwind
+- Roost
+
+Dragonite (M) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dragon Pulse
+- Hurricane
+- Tailwind
+- Thunder
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Scald
-- Ice Beam
-- Icy Wind
+- Draco Meteor
+- Electro Shot
+- Flash Cannon
 - Protect
 
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Dragon Dance
-- Double-Edge
-- Roost
-- Protect
-
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Fake Out
-- Close Combat
-- Dire Claw
-- Coaching
-
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Basculegion (M) @ MysticWater
+Ability: SwiftSwim
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
+- Aqua Jet
+- Wave Crash
+- Last Respects
+- Flip Turn
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Rotom-Heat @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Thunder
+- Trick
+- Overheat
+- Volt Switch
+
+Sneasler (F) @ WhiteHerb
+Ability: PoisonTouch
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Iron Head
-- Rock Slide
-- High Horsepower
+- Fake Out
+- Close Combat
+- Dire Claw
 - Protect

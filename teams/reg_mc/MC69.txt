@@ -1,59 +1,59 @@
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Head Smash
-- Flare Blitz
+Adamant Nature
+- Crunch
 - Rock Slide
+- High Horsepower
 - Protect
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- High Horsepower
+- Rock Slide
+- Iron Head
+- Protect
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
 - Psychic
-- Helping Hand
+- Imprison
 - Trick Room
-- Thunderbolt
 
-Whimsicott (M) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
-- Charm
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Dazzling Gleam
-- Moonblast
-- Light of Ruin
+- Expanding Force
+- Heat Wave
+- Wide Guard
 - Protect
 
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Close Combat
-- Brave Bird
-- Roost
+- Dire Claw
+- Swords Dance
 - Protect
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
-- Protect
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Yawn
+- Moonblast
+- Detect

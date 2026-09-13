@@ -1,59 +1,59 @@
-Charizard (M) @ CharizarditeY
+Lucario (F) @ LucarioniteZ
+Ability: Steadfast
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flash Cannon
+- Vacuum Wave
+- Aura Sphere
+- Protect
+
+Glimmora (F) @ FocusSash
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Earth Power
+- Power Gem
+- Spiky Shield
+- Sludge Bomb
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Farigiraf (F) @ LifeOrb
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Nasty Plot
+- Trick Room
+- Hyper Voice
+- Psychic
+
+Delphox (F) @ Delphoxite
 Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Protect
-- Solar Beam
-- Weather Ball
+- Substitute
 - Heat Wave
+- Psychic
+- Protect
 
-Dragonite (F) @ YacheBerry
-Ability: InnerFocus
+Ninetales-Alola (M) @ NeverMeltIce
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Dragon Pulse
-- Heat Wave
-- Ice Beam
+- Blizzard
+- Aurora Veil
 - Protect
-
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Tailwind
-- Dazzling Gleam
-- Encore
-- Protect
-
-Kingambit (F) @ Leftovers
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Sucker Punch
-- Protect
-- Brick Break
-- Iron Head
-
-Raichu (M) @ RaichuniteY
-Ability: Static
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Volt Tackle
-- Drain Punch
-- Protect
-- Fake Out
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Aqua Jet
-- Protect
-- Liquidation
-- Last Respects
+- Disable

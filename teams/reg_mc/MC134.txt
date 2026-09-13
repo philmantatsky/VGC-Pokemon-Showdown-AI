@@ -1,12 +1,52 @@
+Salamence (M) @ Salamencite
+Ability: Moxie
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Dragon Pulse
+- Tailwind
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dazzling Gleam
+- Moonblast
+- Calm Mind
+- Protect
+
 Basculegion (M) @ LifeOrb
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
 - Last Respects
+- Wave Crash
 - Aqua Jet
 - Protect
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- U-turn
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Throat Chop
+- Parting Shot
 
 Kingambit (F) @ BlackGlasses
 Ability: Defiant
@@ -15,45 +55,5 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Kowtow Cleave
 - Sucker Punch
-- Swords Dance
+- Iron Head
 - Protect
-
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Protect
-- Fake Out
-
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Accelerock
-- Rock Slide
-- Protect
-
-Froslass (F) @ Froslassite
-Ability: CursedBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
-- Protect
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn

@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Protect
-- Tailwind
-- Flamethrower
+Bold Nature
+- Follow Me
+- Helping Hand
+- Terrain Pulse
+- Trick Room
 
-Sneasler (F) @ GrassySeed
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Tomb
-- Dire Claw
+Adamant Nature
 - Close Combat
-- Fake Out
-
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- Wood Hammer
-- Fake Out
-- High Horsepower
-
-Kingambit (F) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+- Dire Claw
+- Rock Slide
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Draining Kiss
-- Calm Mind
+Modest Nature
+- Hyper Voice
+- Expanding Force
+- Encore
 - Protect
 
-Basculegion (M) @ FocusSash
+Basculegion (M) @ ChoiceScarf
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Liquidation
+Jolly Nature
 - Aqua Jet
 - Last Respects
+- Wave Crash
+- Flip Turn
+
+Aerodactyl (M) @ FocusSash
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Tailwind
+- Dual Wingbeat
+- Protect
+
+Volcarona (M) @ SitrusBerry
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Struggle Bug
+- Overheat
+- Rage Powder
 - Protect

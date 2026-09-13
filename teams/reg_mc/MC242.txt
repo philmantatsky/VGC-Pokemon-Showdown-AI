@@ -1,59 +1,59 @@
-Mawile (F) @ Mawilite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Play Rough
-- Sucker Punch
-- Protect
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Trick Room
-- Protect
-- Helping Hand
-- Psychic
-
-Blastoise (M) @ Blastoisinite
-Ability: Torrent
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Shell Smash
-- Water Spout
-- Dark Pulse
-- Protect
-
-Rillaboom (F) @ SitrusBerry
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
-- Grassy Glide
-- U-turn
 - Wood Hammer
+- Grassy Glide
+- High Horsepower
 
-Typhlosion-Hisui (M) @ ChoiceScarf
-Ability: Blaze
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Acrobatics
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Eruption
-- Heat Wave
-- Shadow Ball
-- Blast Burn
-
-Kommo-o (F) @ LifeOrb
-Ability: Soundproof
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Clangorous Soul
-- Aura Sphere
-- Clanging Scales
+Mild Nature
+- Tailwind
+- Double-Edge
+- Hyper Voice
 - Protect
+
+Gengar (F) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Shadow Ball
+- Sludge Bomb
+- Disable
+
+Kingambit (F) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
+- Kowtow Cleave
+- Low Kick
+- Protect
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Icy Wind
+- Ice Beam
+- Scald
+- Recover

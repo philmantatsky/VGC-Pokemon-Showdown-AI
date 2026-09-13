@@ -1,59 +1,59 @@
-Swampert (M) @ Swampertite
-Ability: Damp
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Liquidation
-- Protect
-- Ice Punch
-
-Archaludon (F) @ Leftovers
-Ability: Stamina
+Raichu (M) @ RaichuniteY
+Ability: Static
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
 - Protect
-- Electro Shot
-- Flash Cannon
-- Draco Meteor
-
-Pelipper (F) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Protect
-- Tailwind
-- Weather Ball
-- Hurricane
-
-Kangaskhan (F) @ Kangaskhanite
-Ability: Scrappy
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
 - Fake Out
-- Facade
-- Protect
+- Zap Cannon
+- Focus Blast
 
-Whimsicott (F) @ MentalHerb
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Tailwind
-- Encore
-- Taunt
-- Moonblast
-
-Incineroar (M) @ PasshoBerry
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+Hasty Nature
+- Protect
+- Hyper Voice
+- Double-Edge
+- Tailwind
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Fake Out
-- Darkest Lariat
-- Parting Shot
-- Will-O-Wisp
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Flare Blitz
+- Head Smash
+- Rock Slide
+
+Ninetales-Alola (F) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Blizzard
+- Encore
+- Aurora Veil
+
+Gholdengo @ GrassySeed
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Nasty Plot
+- Make It Rain
+- Shadow Ball

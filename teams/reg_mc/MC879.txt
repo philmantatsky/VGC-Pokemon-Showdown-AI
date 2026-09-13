@@ -1,59 +1,59 @@
-Absol (M) @ AbsoliteZ
-Ability: Pressure
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Psycho Cut
-- Night Slash
-- Shadow Claw
-- Swords Dance
-
-Gallade (M) @ Galladite
-Ability: Justified
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Swords Dance
-- Protect
-- Psycho Cut
-
-Maushold-Four @ SitrusBerry
-Ability: FriendGuard
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Beat Up
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
 - Follow Me
-- Population Bomb
-- Super Fang
+- Trick Room
+- Psychic
+- Protect
 
-Rillaboom (M) @ GrassySeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Fake Out
-- Grassy Glide
-- Snarl
-- U-turn
-
-Whimsicott (F) @ OccaBerry
-Ability: Prankster
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Leech Seed
-- Tailwind
-- Moonblast
-- Taunt
+Modest Nature
+- Expanding Force
+- Armor Cannon
+- Calm Mind
+- Endure
 
-Garchomp (M) @ LifeOrb
-Ability: RoughSkin
+Hatterene (F) @ Leftovers
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Expanding Force
+- Draining Kiss
+- Calm Mind
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Overheat
+- Protect
+
+Alakazam (M) @ Alakazite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Nasty Plot
+- Shadow Ball
+- Protect
+
+Gallade (M) @ SitrusBerry
+Ability: Sharpness
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Rock Slide
-- Dragon Claw
-- Protect
+Adamant Nature
+- Psycho Cut
+- Sacred Sword
+- Knock Off
+- Wide Guard

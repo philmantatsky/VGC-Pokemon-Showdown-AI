@@ -1,59 +1,59 @@
-Aerodactyl (F) @ FocusSash
-Ability: Unnerve
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Dual Wingbeat
-- Tailwind
-- Protect
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Expanding Force
-- Hyper Voice
-- Trick Room
+- Aura Sphere
+- Flash Cannon
+- Dark Pulse
 - Protect
 
-Indeedee-F (F) @ ColburBerry
-Ability: PsychicSurge
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Double-Edge
+- Hyper Voice
+- Tailwind
+- Protect
+
+Rillaboom (M) @ LifeOrb
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- Taunt
+- Fake Out
+
+Ninetales-Alola (M) @ NeverMeltIce
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Follow Me
-- Helping Hand
-- Trick Room
+Timid Nature
+- Blizzard
+- Icy Wind
+- Protect
+- Aurora Veil
 
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
+Gholdengo @ GrassySeed
+Ability: GoodasGold
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
 - Protect
 
-Sneasler (F) @ PsychicSeed
-Ability: Unburden
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
-- Dire Claw
-- Throat Chop
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+- Flare Blitz
+- Head Smash
+- Extreme Speed
 - Protect

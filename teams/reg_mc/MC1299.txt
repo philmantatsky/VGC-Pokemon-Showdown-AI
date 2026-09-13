@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- U-turn
+- Iron Head
+- First Impression
+
+Grapploct (F) @ BlackBelt
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Detect
+- Topsy-Turvy
+- Mach Punch
+- Storm Throw
+
+Vaporeon (M) @ Leftovers
+Ability: WaterAbsorb
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Draco Meteor
-- Hyper Voice
-- Tailwind
-- Protect
+Modest Nature
+- Detect
+- Calm Mind
+- Ice Beam
+- Scald
 
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Last Respects
-- Wave Crash
-- Aqua Jet
-- Protect
-
-Sneasler (F) @ FocusSash
-Ability: Unburden
+Talonflame (F) @ RockyHelmet
+Ability: FlameBody
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Fake Out
-- Feint
-- Close Combat
-- Dire Claw
+- Protect
+- Tailwind
+- Will-O-Wisp
+- Whirlwind
 
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Low Kick
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Gengar (M) @ FocusSash
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Calm Mind
-- Moonblast
-- Dazzling Gleam
 - Protect
+- Sludge Bomb
+- Sludge Wave
+- Shadow Ball
+
+Tyrantrum (M) @ ChoiceScarf
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Psychic Fangs
+- Dragon Claw
+- Head Smash

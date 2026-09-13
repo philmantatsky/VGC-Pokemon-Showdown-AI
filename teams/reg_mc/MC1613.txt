@@ -1,59 +1,59 @@
-Staraptor (M) @ Staraptite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
-- Protect
-
-Kingambit (F) @ FocusSash
-Ability: Defiant
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Iron Head
-- Low Kick
-- Sucker Punch
+- Protect
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
-Armarouge (M) @ LifeOrb
-Ability: FlashFire
+Farigiraf (M) @ GrassySeed
+Ability: ArmorTail
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Armor Cannon
-- Expanding Force
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
 - Trick Room
-- Wide Guard
+- Helping Hand
+- Beat Up
+- Psychic Noise
 
 Torkoal (F) @ Charcoal
 Ability: Drought
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Quiet Nature
-- Eruption
-- Weather Ball
-- Helping Hand
 - Protect
-
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Relaxed Nature
-- Follow Me
-- Trick Room
+- Eruption
+- Heat Wave
 - Helping Hand
-- Healing Wish
 
-Vanilluxe (M) @ ChoiceScarf
-Ability: SnowWarning
+Scovillain (F) @ LifeOrb
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Blizzard
-- Freeze-Dry
-- Weather Ball
-- Ice Beam
+- Protect
+- Rage Powder
+- Solar Beam
+- Overheat
+
+Absol (M) @ AbsoliteZ
+Ability: Justified
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Night Slash
+- Shadow Sneak
+- Close Combat
+
+Garchomp (M) @ GarchompiteZ
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Dragon Pulse
+- Earth Power
+- Flamethrower

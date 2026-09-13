@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Trick
+- Helping Hand
 - Hyper Voice
-- Double-Edge
-- Tailwind
-- Protect
 
-Sneasler (F) @ GrassySeed
+Sneasler (F) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Dire Claw
+Jolly Nature
 - Close Combat
-- Swords Dance
+- Dire Claw
+- Coaching
+- Protect
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-
-Metagross @ Metagrossite
-Ability: ClearBody
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Iron Head
-- Psychic Fangs
-- Ice Punch
+- Rock Slide
+- Knock Off
+- Low Kick
 - Protect
 
-Sylveon (F) @ FairyFeather
+Excadrill (F) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- High Horsepower
+- Iron Head
+- Protect
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Tailwind
+- Close Combat
+- Brave Bird
+- Protect
+
+Sylveon (M) @ FairyFeather
 Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Hyper Voice
-- Quick Attack
 - Hyper Beam
-- Detect
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Throat Chop
-- Parting Shot
+- Yawn
+- Protect

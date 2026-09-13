@@ -1,12 +1,22 @@
-Absol (F) @ AbsoliteZ
-Ability: Justified
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Rillaboom (M) @ SitrusBerry
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Night Slash
-- Close Combat
-- Substitute
-- Protect
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
 
 Sneasler (F) @ GrassySeed
 Ability: Unburden
@@ -15,44 +25,34 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Dire Claw
 - Close Combat
-- Coaching
+- Fake Out
 - Protect
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
+Jolly Nature
 - Flare Blitz
-- Taunt
-- Parting Shot
+- Head Smash
+- Rock Slide
+- Protect
 
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
-- Drum Beating
-- High Horsepower
-
-Milotic (M) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Scald
-- Ice Beam
-- Icy Wind
-- Protect
+- Kowtow Cleave
+- Iron Head
+- Low Kick
+- Sucker Punch
 
 Gholdengo @ LifeOrb
 Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Timid Nature
 - Make It Rain
 - Shadow Ball
 - Nasty Plot

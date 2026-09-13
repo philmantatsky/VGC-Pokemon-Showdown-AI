@@ -1,59 +1,59 @@
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Heat Wave
+- Protect
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Knock Off
-- Rock Slide
-- Dragon Dance
-- Protect
+- First Impression
+- Sucker Punch
+- Liquidation
+- Leech Life
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
-- Protect
-
-Rillaboom (F) @ MiracleSeed
+Rillaboom (M) @ GrassySeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
+- Fake Out
 - Grassy Glide
-- U-turn
-- Fake Out
+- High Horsepower
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Throat Chop
-
-Milotic (F) @ Leftovers
-Ability: Competitive
+Pelipper (M) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Ice Beam
-- Scald
+Timid Nature
+- Hurricane
 - Weather Ball
+- Tailwind
 - Protect
 
-Corviknight (F) @ RockyHelmet
-Ability: MirrorArmor
+Basculegion (M) @ LifeOrb
+Ability: SwiftSwim
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Brave Bird
-- Iron Head
-- Tailwind
-- Roost
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Parting Shot
+- Light Screen
+- Taunt
+- Spirit Break

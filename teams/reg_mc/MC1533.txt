@@ -1,59 +1,59 @@
-Armarouge (F) @ LifeOrb
-Ability: FlashFire
+Absol (M) @ AbsoliteZ
+Ability: Justified
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Armor Cannon
-- Expanding Force
-- Trick Room
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Night Slash
+- Close Combat
+- Substitute
 - Protect
 
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- First Impression
-- Leech Life
-- Iron Head
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Coaching
 - Protect
 
-Incineroar (F) @ ChopleBerry
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Careful Nature
-- Parting Shot
-- Flare Blitz
 - Fake Out
-- Darkest Lariat
+- Flare Blitz
+- Taunt
+- Parting Shot
 
-Rillaboom (F) @ SitrusBerry
+Rillaboom (F) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
-- Wood Hammer
 - Grassy Glide
-- U-turn
+- Drum Beating
+- High Horsepower
 
-Sneasler (M) @ FocusSash
-Ability: Unburden
+Milotic (F) @ Leftovers
+Ability: Competitive
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Fake Out
-- Dire Claw
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Scald
+- Ice Beam
+- Icy Wind
 - Protect
 
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Trick Room
-- Dazzling Gleam
-- Helping Hand
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect

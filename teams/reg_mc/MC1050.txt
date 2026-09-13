@@ -1,59 +1,59 @@
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Psychic
-- Trick Room
-- Helping Hand
-- Protect
-
-Kangaskhan (F) @ Kangaskhanite
-Ability: Scrappy
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Double-Edge
-- Ice Punch
-- Drain Punch
-
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Protect
-- Solar Beam
-
-Salamence (M) @ LifeOrb
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Dual Wingbeat
-- Dragon Claw
-- Rock Slide
-
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Iron Head
-- Kowtow Cleave
-- Sucker Punch
+- Leech Life
+- Liquidation
 - Protect
 
-Pawmot (M) @ FocusSash
-Ability: IronFist
+Pelipper (M) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Protect
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Electro Shot
+- Flash Cannon
+- Protect
+- Dragon Pulse
+
+Swampert (F) @ Swampertite
+Ability: Damp
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Double Shock
-- Close Combat
-- Revival Blessing
+Adamant Nature
+- Wave Crash
+- High Horsepower
+- Ice Punch
+- Protect
+
+Sinistcha @ SitrusBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Shadow Ball
+- Rage Powder
+- Trick Room
+
+Gholdengo @ ChoiceScarf
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
+- Shadow Ball
+- Thunderbolt
+- Trick

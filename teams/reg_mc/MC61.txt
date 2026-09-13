@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Double-Edge
-- Dragon Dance
-- Roost
-- Protect
-
-Blaziken (M) @ Blazikenite
-Ability: SpeedBoost
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Flare Blitz
-- Close Combat
-- Rock Slide
-- Detect
-
-Kingambit (M) @ FocusSash
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Low Kick
-- Protect
-
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Spirit Break
-- Parting Shot
-- Reflect
-- Light Screen
-
-Sinistcha @ ColburBerry
-Ability: Hospitality
+Raichu (M) @ RaichuniteY
+Ability: Static
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Matcha Gotcha
-- Rage Powder
-- Trick Room
-- Life Dew
+Timid Nature
+- Zap Cannon
+- Focus Blast
+- Surf
+- Alluring Voice
 
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
+Palafin (F) @ LifeOrb
+Ability: ZerotoHero
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
+Jolly Nature
+- Flip Turn
+- Jet Punch
+- Wave Crash
+- Ice Punch
+
+Archaludon (F) @ SitrusBerry
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Serious Nature
+- Electro Shot
+- Flash Cannon
+- Draco Meteor
+- Aura Sphere
+
+Pelipper (M) @ ChoiceScarf
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Surf
+- Hurricane
+- Weather Ball
+- Ice Beam
+
+Aegislash (M) @ Leftovers
+Ability: StanceChange
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Iron Head
+- Shadow Ball
+- King's Shield
+- Wide Guard
+
+Sneasler (M) @ MuscleBand
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
 - Dire Claw
+- Close Combat
 - Fake Out
-- Rock Tomb
+- Protect

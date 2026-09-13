@@ -1,59 +1,59 @@
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
 - Protect
-
-Excadrill (M) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+- Leech Life
 - Iron Head
-- High Horsepower
-- Earthquake
-- Protect
+- First Impression
 
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Protect
+- Hyper Voice
+- Double-Edge
+- Tailwind
+
+Pelipper (M) @ ChoiceScarf
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Follow Me
-- Helping Hand
-- Trick Room
-- Psychic
+Timid Nature
+- Muddy Water
+- Weather Ball
+- Hurricane
+- Rain Dance
 
-Corviknight (F) @ SitrusBerry
-Ability: MirrorArmor
+Archaludon (M) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Electro Shot
+- Draco Meteor
+- Aura Sphere
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Brave Bird
-- Tailwind
-- Roost
-- Bulk Up
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
-Sneasler (M) @ PsychicSeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
+- Fake Out
+- Low Kick
 - Dire Claw
-- Swords Dance
-- Protect
-
-Gardevoir (M) @ Gardevoirite
-Ability: Telepathy
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Calm Mind
 - Protect

@@ -1,59 +1,59 @@
-Charizard (M) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Solar Beam
-- Heat Wave
-- Air Slash
-
-Venusaur (M) @ WideLens
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Giga Drain
-- Earth Power
-- Sleep Powder
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Moonblast
-- Tailwind
-- Encore
-
-Basculegion (M) @ MysticWater
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Aqua Jet
-- Wave Crash
-- Last Respects
-
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Rock Slide
-- Knock Off
-- Low Kick
-
-Mamoswine (M) @ LifeOrb
+Mamoswine (F) @ ChoiceScarf
 Ability: Oblivious
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
+- Earthquake
 - High Horsepower
+- Icicle Crash
 - Rock Slide
-- Ice Shard
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Rage Powder
+- Trick Room
+- Protect
+
+Delphox (M) @ Delphoxite
+Ability: Magician
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
+- Protect
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- Hyper Voice
+- Draco Meteor
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
+- Kowtow Cleave
+- Swords Dance
+- Protect
+
+Sneasler (M) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Quick Guard
+- Fake Out

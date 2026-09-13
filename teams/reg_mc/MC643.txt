@@ -1,3 +1,33 @@
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
+- Protect
+
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Protect
+
 Froslass (F) @ Froslassite
 Ability: CursedBody
 Level: 50
@@ -5,38 +35,18 @@ EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
 - Blizzard
 - Shadow Ball
-- Protect
 - Aurora Veil
+- Protect
 
-Pawmot (F) @ FocusSash
-Ability: IronFist
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Close Combat
-- Double Shock
-- Revival Blessing
+- Gunk Shot
 - Fake Out
-
-Indeedee (M) @ LifeOrb
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Shadow Ball
-- Protect
-- Encore
-
-Scovillain (M) @ Scovillainite
-Ability: Moody
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Overheat
-- Rage Powder
-- Protect
-- Leech Seed
+- Quick Guard
 
 Kingambit (F) @ BlackGlasses
 Ability: Defiant
@@ -44,16 +54,6 @@ Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Kowtow Cleave
-- Iron Head
-- Protect
 - Sucker Punch
-
-Basculegion (M) @ SitrusBerry
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
+- Swords Dance
 - Protect
-- Aqua Jet

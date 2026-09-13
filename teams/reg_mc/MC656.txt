@@ -1,59 +1,59 @@
-Incineroar (F) @ WhiteHerb
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
-- Fake Out
-
-Farigiraf (F) @ Leftovers
-Ability: ArmorTail
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Psychic
-- Helping Hand
-- Trick Room
 - Protect
+- Solar Beam
+- Heat Wave
+- Air Slash
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Venusaur (F) @ WideLens
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Protect
+- Giga Drain
+- Earth Power
+- Sleep Powder
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
 - Moonblast
-- Dazzling Gleam
-- Light of Ruin
-- Protect
+- Tailwind
+- Encore
 
-Maushold-Four @ WideLens
-Ability: Technician
+Basculegion (M) @ MysticWater
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
+Adamant Nature
 - Protect
+- Aqua Jet
+- Wave Crash
+- Last Respects
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Protect
+- Rock Slide
+- Knock Off
+- Low Kick
 
-Hydreigon (F) @ ChoiceScarf
-Ability: Levitate
+Mamoswine (M) @ LifeOrb
+Ability: Oblivious
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- High Horsepower
+- Rock Slide
+- Ice Shard

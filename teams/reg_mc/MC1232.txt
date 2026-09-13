@@ -1,59 +1,59 @@
-Metagross @ Metagrossite
-Ability: ClearBody
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Psychic Fangs
-- Stomping Tantrum
+- Icicle Crash
+- Ice Shard
+- Glaive Rush
 - Protect
-- Meteor Mash
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
+Modest Nature
+- Armor Cannon
+- Expanding Force
+- Trick Room
+- Wide Guard
+
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
+- Dazzling Gleam
+- Trick Room
+- Helping Hand
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
 - Heat Wave
 - Protect
-- Draco Meteor
+- Solar Beam
 
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- High Horsepower
-- Wood Hammer
-- Fake Out
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Dire Claw
-- Close Combat
-- Swords Dance
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
+Modest Nature
+- Draining Kiss
+- Calm Mind
+- Dazzling Gleam
 - Protect
+
+Milotic (F) @ PsychicSeed
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Muddy Water
+- Coil
+- Hypnosis
+- Recover

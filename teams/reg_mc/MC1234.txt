@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Double-Edge
-- Roost
-- Dragon Dance
-- Protect
-
-Farigiraf (F) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Expanding Force
-- Hyper Voice
-- Imprison
-- Trick Room
-
-Kingambit (F) @ LifeOrb
-Ability: Defiant
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
+- Glaive Rush
+- Ice Shard
 - Protect
+- Swords Dance
 
-Arcanine-Hisui (M) @ FocusSash
-Ability: Intimidate
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Flare Blitz
-- Extreme Speed
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Zap Cannon
+- Focus Blast
 - Protect
+- Fake Out
 
-Rillaboom (M) @ OccaBerry
+Volcarona (F) @ SitrusBerry
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Giga Drain
+- Protect
+- Rage Powder
+
+Rillaboom (M) @ CobaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Drum Beating
+Adamant Nature
+- Wood Hammer
 - Grassy Glide
 - Fake Out
-- U-turn
+- High Horsepower
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Protect
+- Nasty Plot
+
+Hawlucha (M) @ FocusSash
+Ability: MoldBreaker
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Jolly Nature
+- Dual Wingbeat
 - Close Combat
-- Dire Claw
-- Coaching
-- Protect
+- Detect
+- Helping Hand

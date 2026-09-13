@@ -1,59 +1,59 @@
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
+Ninetales-Alola (F) @ FocusSash
+Ability: SnowWarning
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Trick Room
-- Helping Hand
-- Psychic
-- Follow Me
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aurora Veil
+- Blizzard
+- Icy Wind
+- Encore
 
-Armarouge (M) @ Charcoal
-Ability: FlashFire
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Heat Wave
-- Trick Room
-- Expanding Force
-- Armor Cannon
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Leech Life
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Dragon Dance
+- Glaive Rush
+- Icicle Crash
 - Protect
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
 - Iron Head
-- Rock Slide
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Trick Room
-- Expanding Force
-- Nasty Plot
-- Hyper Voice
-
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
+- Bullet Punch
+- Psychic Fangs
 - Protect
-- Dazzling Gleam
-- Expanding Force
-- Trick Room
 
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Rock Slide
+- Dragon Claw
+- Stomping Tantrum
 - Protect
-- Knock Off
-- Low Kick

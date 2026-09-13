@@ -1,59 +1,59 @@
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Rock Slide
-- Acrobatics
-
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Hyper Voice
-- Trick Room
-- Imprison
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
+Raichu (M) @ RaichuniteY
+Ability: Static
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Expanding Force
-- Hyper Voice
-- Thunderbolt
-- Protect
+- Thunder
+- Fake Out
+- Nasty Plot
+- Discharge
 
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Pelipper (M) @ ZoomLens
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
+Bold Nature
+- Hurricane
 - Weather Ball
-- Solar Beam
 - Protect
+- Helping Hand
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Baneful Bunker
+- Gunk Shot
+- Liquidation
+- Toxic
+
+Dragonite (F) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hurricane
+- Protect
+- Thunder
+- Dragon Pulse
+
+Rotom-Wash @ LifeOrb
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Discharge
+- Hydro Pump
+- Rest
+- Sleep Talk
+
+Garchomp (F) @ SitrusBerry
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
+- Earth Power
+- Dragon Cheer
+- Helping Hand
 - Protect

@@ -1,59 +1,59 @@
-Incineroar (M) @ WhiteHerb
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
-- Fake Out
-
-Farigiraf (M) @ Leftovers
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Psychic
-- Trick Room
-- Protect
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Trick Room
-- Protect
-
-Maushold-Four @ WideLens
-Ability: Technician
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect
 
-Hydreigon (M) @ ChoiceScarf
-Ability: Levitate
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Protect
+- Fake Out
+
+Lycanroc-Dusk (F) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Accelerock
+- Rock Slide
+- Protect
+
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- Taunt

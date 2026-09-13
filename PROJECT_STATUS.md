@@ -1,5 +1,14 @@
 # VGC Bot Project Status
 
+## Paused for a machine restart (2026-September 13, 15:25)
+
+All compute stopped at the user's word during finalist 1's heuristic
+confirmation (n=1,500, seed 8302; not finished, reruns from scratch).
+Resume = `scratchpad/verdict6_reordered.sh` (also under `training/` after
+this commit): finalist-1 confirmation -> finalist-2 gate arms ->
+diagnostics. Servers die with the restart; the runner restarts 7600 itself.
+Pool from the 09-13 scrape (3,609 teams) committed here.
+
 ## Round 6b trained (five saves); finalist 1 screens CONFIRM with every PPO arm up; verdict reordered (2026-September 13, 15:20)
 
 Training 02:14-11:28 at 148 steps/s, callback reads (100 battles each):

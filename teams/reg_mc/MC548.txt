@@ -1,59 +1,59 @@
-Pelipper (M) @ DampRock
-Ability: Drizzle
+Incineroar (M) @ WhiteHerb
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Weather Ball
-- Hurricane
-- Wide Guard
-- Tailwind
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Flare Blitz
+- Darkest Lariat
+- Close Combat
+- Fake Out
 
-Archaludon (M) @ Leftovers
-Ability: Stamina
+Farigiraf (M) @ Leftovers
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Electro Shot
-- Dragon Pulse
-- Flash Cannon
-- Protect
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- Protect
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Leech Life
-- Liquidation
-- Protect
-
-Farigiraf (M) @ GrassySeed
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Twin Beam
-- Thunderbolt
+- Hyper Voice
+- Psychic
 - Trick Room
 - Protect
+
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Hyper Voice
+- Trick Room
+- Protect
+
+Maushold-Four @ WideLens
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- Follow Me
+- Taunt
+- Protect
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Weather Ball
+- Protect
+
+Hydreigon (M) @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Dark Pulse
+- Heat Wave
+- Snarl

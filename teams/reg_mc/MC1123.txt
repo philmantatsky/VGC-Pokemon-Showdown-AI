@@ -1,59 +1,59 @@
-Lucario (M) @ LucarioniteZ
-Ability: Steadfast
+Sableye (F) @ RoseliBerry
+Ability: Prankster
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Will-O-Wisp
+- Rain Dance
+- Encore
+- Disable
+
+Basculegion-F (F) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Flash Cannon
-- Aura Sphere
-- Dark Pulse
-- Protect
+- Muddy Water
+- Shadow Ball
+- Hex
+- Ice Beam
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Flare Blitz
-- Throat Chop
-- Fake Out
-- Parting Shot
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Lopunny (M) @ Lopunnite
+Ability: CuteCharm
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Close Combat
+- Triple Axel
 - Fake Out
-- Grassy Glide
-- Knock Off
-- Wood Hammer
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
 - Protect
-- Last Respects
-- Wave Crash
-- Aqua Jet
 
-Gholdengo @ MetalCoat
-Ability: GoodasGold
+Archaludon (M) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect
+
+Glimmora (F) @ FocusSash
+Ability: ToxicDebris
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+- Power Gem
+- Sludge Bomb
+- Earth Power
+- Spiky Shield
 
-Talonflame (M) @ SharpBeak
-Ability: GaleWings
+Meganium (F) @ Meganiumite
+Ability: Overgrow
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Solar Beam
+- Dazzling Gleam
+- Weather Ball
 - Protect
-- Tailwind
-- Dual Wingbeat
-- Flare Blitz

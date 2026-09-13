@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Charizard (F) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Dragon Pulse
-- Flamethrower
 - Protect
+- Weather Ball
+- Ancient Power
+- Heat Wave
 
-Sneasler (F) @ WhiteHerb
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- U-turn
+- Leech Life
+- Iron Head
+- Sucker Punch
+
+Farigiraf (F) @ LifeOrb
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Helping Hand
+- Psychic
+- Hyper Voice
+- Trick Room
+
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
+- Fake Out
 - Dire Claw
 - Close Combat
+- Rock Slide
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
 - Fake Out
-- Protect
+- Parting Shot
+- Throat Chop
+- Flare Blitz
 
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Protect
-
-Basculegion (M) @ MysticWater
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
+Primarina (F) @ Leftovers
+Ability: LiquidVoice
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
+Modest Nature
 - Protect
-
-Garchomp (M) @ ChoiceScarf
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Stomping Tantrum
-- Earthquake
-- Dragon Claw
-- Rock Slide
+- Calm Mind
+- Hyper Voice
+- Moonblast

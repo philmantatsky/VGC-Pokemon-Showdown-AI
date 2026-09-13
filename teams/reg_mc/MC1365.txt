@@ -1,59 +1,59 @@
-Lopunny (F) @ Lopunnite
-Ability: Limber
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Mach Punch
-- Swords Dance
-- Fake Out
-
-Farigiraf (F) @ LifeOrb
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Twin Beam
-- Hyper Voice
-- Gravity
-- Trick Room
-
-Snorlax (M) @ SitrusBerry
-Ability: ThickFat
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Body Slam
-- Rock Slide
-- Belly Drum
-- Recycle
-
-Maushold-Four @ WideLens
-Ability: FriendGuard
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Population Bomb
-- Encore
-- Follow Me
+- Double-Edge
+- Roost
+- Dragon Dance
 - Protect
 
-Kangaskhan (F) @ Kangaskhanite
-Ability: InnerFocus
+Ninetales-Alola (M) @ NeverMeltIce
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Icy Wind
+- Aurora Veil
+- Protect
+
+Kingambit (M) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Double-Edge
+- Kowtow Cleave
 - Sucker Punch
-- Earthquake
+- Iron Head
 - Protect
 
-Wigglytuff (F) @ FocusSash
-Ability: Competitive
+Arcanine-Hisui (M) @ FocusSash
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Moonblast
-- Hyper Beam
-- Sing
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Flare Blitz
+- Extreme Speed
+- Protect
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Drum Beating
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Coaching
 - Protect

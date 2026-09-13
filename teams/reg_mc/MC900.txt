@@ -1,59 +1,59 @@
-Staraptor (M) @ Staraptite
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- Iron Head
+- Rock Slide
+- Aqua Jet
+
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Follow Me
+- Psychic
+- Imprison
+
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Dual Wingbeat
+- Double-Edge
+- Hyper Voice
 - Tailwind
-- Protect
-
-Raichu (M) @ RaichuniteY
-Ability: LightningRod
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Zap Cannon
-- Focus Blast
-- Fake Out
-- Protect
-
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Extreme Speed
 - Protect
 
 Farigiraf (F) @ SitrusBerry
 Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Helping Hand
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Expanding Force
 - Trick Room
-- Protect
+- Imprison
+- Helping Hand
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Quick Attack
-- Hyper Beam
-- Detect
-
-Kingambit (F) @ LifeOrb
-Ability: Defiant
+Ceruledge (M) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+Careful Nature
+- Bulk Up
+- Shadow Sneak
+- Bitter Blade
+- Protect
+
+Rillaboom (F) @ Leftovers
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
 - Protect

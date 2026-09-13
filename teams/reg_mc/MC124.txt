@@ -1,59 +1,59 @@
-Sneasler (M) @ PsychicSeed
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Protect
+- Aurora Veil
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- U-turn
+- Grassy Glide
+- Wood Hammer
+
+Gholdengo @ GrassySeed
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Nasty Plot
+- Shadow Ball
+- Make It Rain
+- Protect
+
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Close Combat
+- Fake Out
 - Dire Claw
-- Rock Slide
-- Throat Chop
+- Rock Tomb
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Psychic
-- Trick Room
-- Imprison
-
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Thunderbolt
-- Protect
-
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+Jolly Nature
+- Extreme Speed
+- Head Smash
+- Flare Blitz
 - Protect
 
-Whimsicott (F) @ FocusSash
-Ability: Prankster
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
+- Draco Meteor
+- Hyper Voice
 - Tailwind
-- Encore
 - Protect

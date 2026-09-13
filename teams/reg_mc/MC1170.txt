@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Tailwind
+- Protect
+- Draco Meteor
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Tomb
+- Dire Claw
+- Close Combat
+- Fake Out
+
+Rillaboom (F) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Grassy Glide
-- Fake Out
-- U-turn
 - Wood Hammer
+- Fake Out
+- High Horsepower
 
-Kingambit (M) @ BlackGlasses
+Kingambit (F) @ LifeOrb
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
 - Kowtow Cleave
+- Sucker Punch
 - Swords Dance
 - Protect
-
-Arcanine-Hisui (M) @ ChoiceScarf
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Flare Blitz
-- Rock Slide
-- Head Smash
-- Extreme Speed
-
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Weather Ball
-- Heat Wave
-- Solar Beam
-- Protect
-
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Coaching
-- Fake Out
-- Dire Claw
-- Close Combat
 
 Floette-Eternal (F) @ Floettite
 Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Moonblast
+- Calm Mind
 - Dazzling Gleam
-- Light of Ruin
+- Moonblast
+- Protect
+
+Basculegion (M) @ FocusSash
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Liquidation
+- Aqua Jet
+- Last Respects
 - Protect

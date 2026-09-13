@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- U-turn
-- Grassy Glide
-- High Horsepower
-
-Incineroar (F) @ ChopleBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
-- Throat Chop
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Helping Hand
-- Hyper Voice
-- Protect
-- Trick Room
-
-Baxcalibur (M) @ Baxcalibrite
+Baxcalibur (M) @ LifeOrb
 Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dragon Dance
+Jolly Nature
 - Glaive Rush
-- Ice Shard
+- Icicle Crash
+- Dragon Dance
 - Protect
 
-Volcarona (F) @ RockyHelmet
-Ability: FlameBody
+Scovillain (F) @ Scovillainite
+Ability: Moody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Tailwind
 - Rage Powder
-- Heat Wave
-- Struggle Bug
+- Flamethrower
+- Giga Drain
+- Protect
 
-Empoleon (F) @ Leftovers
-Ability: Competitive
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Flash Cannon
-- Chilling Water
+Timid Nature
+- Hyper Voice
+- Dragon Pulse
+- Tailwind
 - Protect
-- Ice Beam
+
+Ninetales-Alola (F) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aurora Veil
+- Blizzard
+- Moonblast
+- Protect
+
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Close Combat
+- Accelerock
+- Protect
+
+Scizor (F) @ ExpertBelt
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Bullet Punch
+- Bug Bite
+- Close Combat
+- Protect

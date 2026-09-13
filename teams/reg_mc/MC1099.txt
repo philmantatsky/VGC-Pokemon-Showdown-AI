@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Incineroar (M) @ WhiteHerb
+Ability: Intimidate
 Level: 50
 EVs: 32 HP / 32 Atk / 2 Def
 Brave Nature
-- Sucker Punch
-- Leech Life
-- Iron Head
-- Liquidation
+- Flare Blitz
+- Darkest Lariat
+- Close Combat
+- Fake Out
 
-Kingambit (M) @ LifeOrb
-Ability: Defiant
+Farigiraf (M) @ Leftovers
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Iron Head
-- Sucker Punch
-- Protect
-
-Armarouge (M) @ SitrusBerry
-Ability: FlashFire
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Armor Cannon
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Psychic
+- Helping Hand
 - Trick Room
 - Protect
 
-Milotic (F) @ Leftovers
-Ability: Competitive
+Garchomp (F) @ GarchompiteZ
+Ability: SandVeil
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Scald
-- Ice Beam
-- Icy Wind
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Earth Power
+- Power Gem
 - Protect
 
-Greninja (M) @ ChoiceScarf
-Ability: Protean
+Maushold-Four @ WideLens
+Ability: Technician
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Rock Slide
-- Ice Punch
-- Waterfall
-- U-turn
+- Population Bomb
+- Follow Me
+- Taunt
+- Protect
 
-Sylveon (F) @ FairyFeather
-Ability: Pixilate
+Torkoal (M) @ Charcoal
+Ability: Drought
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
-- Detect
+Quiet Nature
+- Eruption
+- Heat Wave
+- Weather Ball
+- Protect
+
+Hydreigon (F) @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Dark Pulse
+- Heat Wave
+- Snarl

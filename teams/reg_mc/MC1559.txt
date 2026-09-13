@@ -1,59 +1,59 @@
-Hatterene (F) @ LifeOrb
-Ability: Healer
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Dazzling Gleam
-- Trick Room
-- Protect
-
-Indeedee-F (F) @ FocusSash
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Follow Me
-- Trick Room
-- Helping Hand
-- Psychic
-
-Torkoal (M) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
-- Earth Power
-
-Camerupt (M) @ Cameruptite
-Ability: MagmaArmor
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Heat Wave
-- Earth Power
-- Ancient Power
-- Protect
-
-Staraptor (F) @ ChoiceScarf
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Final Gambit
-- Close Combat
-- U-turn
-- Brave Bird
-
-Rillaboom (M) @ WhiteHerb
+Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Fake Out
 - Grassy Glide
 - Wood Hammer
 - High Horsepower
+
+Sneasler (F) @ FocusSash
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Poison Jab
+- Close Combat
+- Coaching
+
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Hard Press
+- Body Press
+- Thunder Punch
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Icy Wind
+- Scald
+- Recover
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Dragon Dance
+- Double-Edge
+- Roost
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Throat Chop

@@ -1,59 +1,59 @@
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
+Adamant Nature
+- Leech Life
+- Iron Head
+- Bulk Up
 - Protect
-- Roost
 
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Calm Nature
+- Hurricane
+- Weather Ball
 - Tailwind
 - Protect
-- Charm
-- Taunt
 
-Gholdengo @ LifeOrb
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Protect
-- Sleep Talk
-- Nasty Plot
-
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dragon Claw
-- Earthquake
-- Rock Slide
-- Shadow Claw
-
-Sneasler (M) @ WhiteHerb
-Ability: Pressure
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
+Adamant Nature
 - Fake Out
-- Dire Claw
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+
+Lycanroc-Dusk (F) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Howl
+- Rock Slide
+- Accelerock
 - Protect
 
-Basculegion (M) @ WacanBerry
+Basculegion (M) @ ChoiceScarf
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Wave Crash
-- Aqua Jet
-- Protect
 - Last Respects
+- Flip Turn
+- Aqua Jet
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Rash Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect

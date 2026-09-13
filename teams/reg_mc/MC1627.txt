@@ -1,59 +1,59 @@
-Froslass (F) @ Froslassite
-Ability: SnowCloak
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
-- Protect
-
-Baxcalibur (F) @ LifeOrb
-Ability: ThermalExchange
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Ice Shard
-- Glaive Rush
-- High Horsepower
+- Leech Life
+- Iron Head
+- Swords Dance
 - Protect
 
-Rillaboom (F) @ SitrusBerry
+Pelipper (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Wide Guard
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect
+
+Rillaboom (M) @ LifeOrb
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
 - Grassy Glide
-- Fake Out
 - High Horsepower
-
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
-
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
 - Fake Out
-- Protect
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
+Pawmot (M) @ FocusSash
+Ability: IronFist
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Accelerock
+Jolly Nature
+- Double Shock
 - Close Combat
-- Protect
+- Ice Punch
+- Fake Out
+
+Farigiraf (M) @ GrassySeed
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Psychic
+- Nasty Plot
+- Trick Room

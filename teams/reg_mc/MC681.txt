@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- First Impression
-- U-turn
+- Earthquake
+- Iron Head
+- Swords Dance
 - Protect
-- Sucker Punch
 
-Gengar (M) @ Gengarite
-Ability: CursedBody
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
+
+Staraptor (M) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Tailwind
+- Protect
+
+Rotom-Wash @ ChoiceScarf
+Ability: Levitate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Protect
-- Sludge Bomb
-- Perish Song
-- Shadow Ball
+Modest Nature
+- Volt Switch
+- Thunderbolt
+- Will-O-Wisp
+- Hydro Pump
 
-Rillaboom (F) @ GrassySeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- U-turn
-- Protect
-
-Skarmory (F) @ EjectButton
-Ability: Sturdy
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Protect
-- Iron Head
-- Fly
-- Body Press
-
-Politoed (M) @ SitrusBerry
-Ability: Drizzle
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Calm Nature
-- Protect
-- Encore
-- Perish Song
-- Weather Ball
+- Follow Me
+- Trick Room
+- Helping Hand
+- Dazzling Gleam
 
-Archaludon (F) @ Leftovers
-Ability: Stamina
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Protect
-- Electro Shot
-- Dragon Pulse
-- Flash Cannon
+Modest Nature
+- Expanding Force
+- Heat Wave
+- Wide Guard
+- Trick Room

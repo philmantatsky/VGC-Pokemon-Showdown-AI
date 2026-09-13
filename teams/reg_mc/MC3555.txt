@@ -1,0 +1,59 @@
+Gengar (F) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Bomb
+- Perish Song
+- Protect
+
+Incineroar (M) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Parting Shot
+- Protect
+- Darkest Lariat
+- Fake Out
+
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Grassy Glide
+- U-turn
+- Fake Out
+- Protect
+
+Sneasler (M) @ FocusSash
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Poison Jab
+- Fake Out
+- Protect
+
+Politoed (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Weather Ball
+- Perish Song
+- Hypnosis
+- Protect
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect

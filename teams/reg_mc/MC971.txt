@@ -1,59 +1,59 @@
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Fake Out
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Whimsicott (M) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dragon Pulse
-- Hyper Voice
-- Tailwind
+Timid Nature
 - Protect
+- Tailwind
+- Encore
+- Moonblast
 
-Kingambit (F) @ ChopleBerry
+Charizard (M) @ CharizarditeY
+Ability: SolarPower
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Solar Beam
+- Heat Wave
+- Protect
+- Weather Ball
+
+Kingambit (M) @ ChopleBerry
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
+- Protect
 - Sucker Punch
-- Iron Head
+- Kowtow Cleave
 - Low Kick
 
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Weather Ball
-- Heat Wave
-- Solar Beam
+- Light of Ruin
+- Moonblast
+- Dazzling Gleam
 - Protect
 
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- High Horsepower
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+Jolly Nature
+- Rock Slide
 - Protect
+- Dragon Claw
+- Stomping Tantrum
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Aqua Jet
+- Last Respects
+- Wave Crash
+- Flip Turn

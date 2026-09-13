@@ -1,59 +1,59 @@
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
+- First Impression
+- U-turn
+- Iron Head
+- Sucker Punch
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Rock Tomb
-- Protect
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Draining Kiss
-- Protect
-- Calm Mind
-
-Blastoise (M) @ Blastoisinite
+Swampert (F) @ Swampertite
 Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Earthquake
+- Ice Punch
+- Protect
+
+Pelipper (M) @ SitrusBerry
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Shell Smash
-- Terrain Pulse
-- Water Spout
+- Weather Ball
+- Hurricane
+- Tailwind
 - Protect
 
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Psychic
-- Helping Hand
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Flash Cannon
+- Electro Shot
+- Protect
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Matcha Gotcha
+- Rage Powder
 - Trick Room
+- Protect
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Spirit Break
+- Reflect
+- Light Screen
+- Parting Shot

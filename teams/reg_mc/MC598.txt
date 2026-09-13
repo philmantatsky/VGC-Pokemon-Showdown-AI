@@ -1,59 +1,59 @@
-Charizard (M) @ CharizarditeY
-Ability: Blaze
+Ninetales-Alola (M) @ FocusSash
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Protect
-- Solar Beam
-- Weather Ball
-- Heat Wave
-
-Dragonite (F) @ YacheBerry
-Ability: InnerFocus
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dragon Pulse
-- Heat Wave
-- Ice Beam
-- Protect
-
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Tailwind
-- Dazzling Gleam
+- Aurora Veil
+- Blizzard
+- Icy Wind
 - Encore
+
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Dragon Dance
+- Glaive Rush
+- Icicle Crash
 - Protect
 
-Kingambit (M) @ Leftovers
-Ability: Defiant
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
-- Protect
-- Brick Break
-- Iron Head
-
-Raichu (M) @ RaichuniteY
-Ability: Static
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Volt Tackle
-- Drain Punch
-- Protect
 - Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Metagross @ Metagrossite
+Ability: ClearBody
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Aqua Jet
+- Iron Head
+- Bullet Punch
+- Psychic Fangs
 - Protect
-- Liquidation
-- Last Respects
+
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Dragon Claw
+- Stomping Tantrum
+- Protect

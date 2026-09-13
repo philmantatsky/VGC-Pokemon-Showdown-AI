@@ -1,59 +1,59 @@
-Weavile (F) @ NeverMeltIce
-Ability: Pickpocket
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Earth Power
+- Weather Ball
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick Room
+- Psychic
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Helping Hand
+- Trick Room
+- Follow Me
+- Psychic
+
+Golurk @ Golurkite
+Ability: IronFist
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Headlong Rush
+- Poltergeist
+- Ice Punch
+- Close Combat
+
+Maushold-Four @ FocusSash
+Ability: FriendGuard
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Triple Axel
-- Ice Shard
-- Knock Off
-- Low Kick
+- Super Fang
+- Taunt
+- Follow Me
+- Helping Hand
 
-Charizard (M) @ CharizarditeY
-Ability: SolarPower
+Gallade (M) @ WhiteHerb
+Ability: Sharpness
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Hasty Nature
-- Air Slash
-- Earthquake
-- Dragon Pulse
-- Weather Ball
-
-Swampert (F) @ Leftovers
-Ability: Torrent
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Flip Turn
-- Stealth Rock
-- Body Press
-- Earthquake
-
-Kingambit (M) @ BlackGlasses
-Ability: SupremeOverlord
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Sucker Punch
-- Iron Head
-- Kowtow Cleave
-- Swords Dance
-
-Rotom-Wash @ ChoiceScarf
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Discharge
-- Trick
-- Shadow Ball
-- Hydro Pump
-
-Victreebel (M) @ LifeOrb
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Solar Beam
-- Weather Ball
-- Sludge Wave
-- Sunny Day
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Psycho Cut
+- Wide Guard
+- Sacred Sword
+- Trick Room

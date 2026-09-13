@@ -1,59 +1,59 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- First Impression
-- U-turn
-- Protect
-- Sucker Punch
-
-Gengar (F) @ Gengarite
-Ability: CursedBody
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect
-- Sludge Bomb
-- Perish Song
-- Shadow Ball
 
-Rillaboom (M) @ GrassySeed
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
+- Wood Hammer
 - Grassy Glide
 - U-turn
-- Protect
+- Fake Out
 
-Skarmory (F) @ EjectButton
-Ability: Sturdy
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Protect
-- Iron Head
-- Fly
-- Body Press
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Darkest Lariat
+- Parting Shot
 
-Politoed (F) @ SitrusBerry
-Ability: Drizzle
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
+Modest Nature
+- Make It Rain
+- Nasty Plot
+- Shadow Ball
 - Protect
-- Encore
-- Perish Song
-- Weather Ball
 
-Archaludon (F) @ Leftovers
-Ability: Stamina
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Swords Dance
 - Protect
-- Electro Shot
-- Dragon Pulse
-- Flash Cannon
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect

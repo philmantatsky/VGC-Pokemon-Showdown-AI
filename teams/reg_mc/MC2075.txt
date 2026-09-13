@@ -1,0 +1,56 @@
+Malamar (F) @ Malamarite
+Ability: Contrary
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Protect
+- Superpower
+- Knock Off
+- Rock Slide
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Protect
+- Light Screen
+- Parting Shot
+- Spirit Break
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Protect
+- Trick Room
+- Psychic
+- Hyper Voice
+
+Ditto @ Leftovers
+Ability: Limber
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Transform
+
+Reuniclus (M) @ LifeOrb
+Ability: MagicGuard
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Trick Room
+- Psychic
+- Shadow Ball
+
+Incineroar (F) @ QuickClaw
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Will-O-Wisp
+- Fake Out
+- Parting Shot
+- Acrobatics

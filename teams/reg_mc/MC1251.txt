@@ -1,59 +1,59 @@
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Pelipper (M) @ FocusSash
+Ability: Drizzle
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
-- Protect
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Double-Edge
-- Hyper Voice
-- Protect
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Hurricane
+- Weather Ball
 - Tailwind
+- Roost
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Dragonite (F) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dragon Pulse
+- Hurricane
+- Tailwind
+- Thunder
+
+Archaludon (M) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
-- Detect
+- Draco Meteor
+- Thunder
+- Flash Cannon
+- Protect
 
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
+Basculegion (M) @ MysticWater
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Aqua Jet
+- Wave Crash
+- Last Respects
+- Flip Turn
+
+Rotom-Heat @ ChoiceScarf
+Ability: Levitate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Protect
+Modest Nature
+- Thunderbolt
+- Trick
+- Overheat
+- Volt Switch
 
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Sneasler (F) @ WhiteHerb
+Ability: PoisonTouch
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Rock Slide
-- Protect
-
-Pawmot (M) @ WhiteHerb
-Ability: IronFist
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Fake Out
-- Double Shock
 - Close Combat
+- Dire Claw
 - Protect

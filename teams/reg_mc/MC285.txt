@@ -1,59 +1,59 @@
-Gardevoir (M) @ Gardevoirite
+Alakazam (M) @ Alakazite
 Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Imprison
 - Expanding Force
-- Hyper Voice
+- Focus Blast
+- Dazzling Gleam
 - Protect
 
-Indeedee-F (F) @ ColburBerry
+Indeedee-F (F) @ SitrusBerry
 Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
 - Follow Me
-- Trick Room
-- Psyshock
+- Psychic
 - Helping Hand
-
-Talonflame (M) @ SharpBeak
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Flare Blitz
-- Brave Bird
-- Protect
+- Trick Room
 
 Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
 - Close Combat
 - Dire Claw
 - Protect
+- Throat Chop
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Rash Nature
+- Double-Edge
+- Draco Meteor
+- Hyper Voice
+- Protect
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
+- Rock Slide
+- Flare Blitz
+- Head Smash
+- Protect
 
-Kingambit (F) @ FocusSash
-Ability: Defiant
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Kowtow Cleave
-- Low Kick
-- Iron Head
-- Sucker Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Nasty Plot
+- Make It Rain
+- Shadow Ball
+- Protect

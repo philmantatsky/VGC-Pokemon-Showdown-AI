@@ -1,59 +1,59 @@
-Baxcalibur (M) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Glaive Rush
-- Icicle Crash
-- Ice Shard
-- Protect
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Close Combat
-- Dire Claw
-- Protect
-
-Ninetales-Alola (M) @ LightClay
+Ninetales-Alola (F) @ FocusSash
 Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
 - Blizzard
-- Freeze-Dry
+- Moonblast
 - Aurora Veil
 - Protect
 
-Annihilape (F) @ Leftovers
-Ability: Defiant
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+
+Rillaboom (M) @ Leftovers
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Drain Punch
-- Rage Fist
-- Bulk Up
-- Protect
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
-Maushold @ ChopleBerry
-Ability: FriendGuard
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Population Bomb
-- Follow Me
-- Beat Up
-- Protect
+Adamant Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
 
-Delphox (M) @ Delphoxite
-Ability: Blaze
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Close Combat
+- Dire Claw
+- Swords Dance
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Nasty Plot
-- Psychic
+Modest Nature
 - Protect
+- Dazzling Gleam
+- Moonblast
+- Calm Mind

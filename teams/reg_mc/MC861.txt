@@ -1,59 +1,59 @@
-Whimsicott (M) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Tailwind
-- Encore
-- Moonblast
-
-Charizard (M) @ CharizarditeY
-Ability: SolarPower
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Solar Beam
-- Heat Wave
-- Protect
-- Weather Ball
-
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
+Swampert (M) @ Swampertite
+Ability: Torrent
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Wave Crash
+- High Horsepower
+- Ice Punch
 - Protect
-- Sucker Punch
-- Kowtow Cleave
-- Low Kick
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Leech Life
+- Iron Head
+- Liquidation
+- Protect
+
+Pelipper (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Wide Guard
+
+Archaludon (M) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Light of Ruin
-- Moonblast
-- Dazzling Gleam
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
 - Protect
 
-Garchomp (F) @ LifeOrb
-Ability: RoughSkin
+Sinistcha @ CobaBerry
+Ability: Hospitality
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Protect
-- Dragon Claw
-- Stomping Tantrum
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Life Dew
+- Rage Powder
+- Trick Room
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Aqua Jet
-- Last Respects
-- Wave Crash
-- Flip Turn
+Impish Nature
+- Light Screen
+- Reflect
+- Throat Chop
+- Parting Shot

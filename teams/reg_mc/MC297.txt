@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Gengar (M) @ Gengarite
+Ability: CursedBody
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
-- Draco Meteor
-- Tailwind
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Nasty Plot
+- Sludge Wave
+- Shadow Ball
 - Protect
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Swampert (F) @ Swampertite
+Ability: Torrent
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Earthquake
+- Ice Punch
+- Wave Crash
+- Protect
+
+Kingambit (M) @ ChopleBerry
+Ability: SupremeOverlord
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Low Kick
+- Sucker Punch
 - Iron Head
-- Rock Tomb
+
+Oranguru (F) @ MentalHerb
+Ability: Telepathy
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Extrasensory
+- Protect
+- Trick Room
+- Instruct
+
+Pelipper (F) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Weather Ball
+- Hurricane
+- Tailwind
 - Protect
 
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Knock Off
-- Protect
-- Low Kick
-
-Tsareena (F) @ ChoiceScarf
-Ability: QueenlyMajesty
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Trop Kick
-- Triple Axel
-- U-turn
-- Low Kick
-
-Gholdengo @ Leftovers
-Ability: GoodasGold
+Sinistcha @ Leftovers
+Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Shadow Ball
-- Make It Rain
-- Nasty Plot
+- Rage Powder
+- Matcha Gotcha
 - Protect
-
-Rotom-Wash @ SitrusBerry
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Hydro Pump
-- Thunderbolt
-- Will-O-Wisp
-- Protect
+- Trick Room

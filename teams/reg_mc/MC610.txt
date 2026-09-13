@@ -1,59 +1,59 @@
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Solar Beam
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
 - Heat Wave
-- Air Slash
-
-Venusaur (M) @ WideLens
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Giga Drain
 - Earth Power
-- Sleep Powder
+- Weather Ball
 
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Moonblast
-- Tailwind
-- Encore
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick Room
+- Psychic
 
-Basculegion (M) @ MysticWater
-Ability: Adaptability
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Helping Hand
+- Trick Room
+- Follow Me
+- Psychic
+
+Golurk @ Golurkite
+Ability: IronFist
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Headlong Rush
+- Poltergeist
+- Ice Punch
+- Close Combat
+
+Maushold-Four @ FocusSash
+Ability: FriendGuard
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Aqua Jet
-- Wave Crash
-- Last Respects
+Jolly Nature
+- Super Fang
+- Taunt
+- Follow Me
+- Helping Hand
 
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
+Gallade (M) @ WhiteHerb
+Ability: Sharpness
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Rock Slide
-- Knock Off
-- Low Kick
-
-Mamoswine (M) @ LifeOrb
-Ability: Oblivious
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- High Horsepower
-- Rock Slide
-- Ice Shard
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Psycho Cut
+- Wide Guard
+- Sacred Sword
+- Trick Room

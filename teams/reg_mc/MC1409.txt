@@ -1,44 +1,54 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
-- Tailwind
-- Hyper Voice
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
 - Protect
 
-Kingambit (M) @ LifeOrb
+Delphox (M) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
+- Protect
+
+Kingambit (M) @ BlackGlasses
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Kowtow Cleave
 - Sucker Punch
-- Low Kick
-- Iron Head
-
-Sylveon (F) @ FairyFeather
-Ability: Pixilate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
-- Detect
-
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Psychic
-- Thunderbolt
-- Trick Room
+- Swords Dance
 - Protect
 
-Sinistcha @ KasibBerry
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Ice Beam
+- Scald
+- Icy Wind
+- Protect
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Throat Chop
+- Fake Out
+- Parting Shot
+
+Sinistcha @ ColburBerry
 Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
@@ -46,14 +56,4 @@ Bold Nature
 - Matcha Gotcha
 - Rage Powder
 - Trick Room
-- Protect
-
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Flare Blitz
-- Rock Slide
-- Extreme Speed
 - Protect

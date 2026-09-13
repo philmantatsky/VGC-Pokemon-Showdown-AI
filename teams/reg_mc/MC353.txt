@@ -1,59 +1,59 @@
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
-- Iron Head
-- Drill Run
-- Rock Slide
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
 
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Rock Slide
-- Knock Off
-- Low Kick
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
 
-Indeedee-F (F) @ MentalHerb
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Follow Me
-- Trick Room
-- Psychic
-- Protect
-
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Protect
-- Expanding Force
-- Dazzling Gleam
-- Calm Mind
-
-Sneasler (F) @ PsychicSeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
 - Dire Claw
 - Close Combat
+- Fake Out
 - Rock Slide
 
-Mawile (M) @ Mawilite
-Ability: HyperCutter
+Sinistcha @ ColburBerry
+Ability: Hospitality
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Trick Room
+- Rage Powder
 - Protect
-- Iron Head
-- Play Rough
-- Rock Slide
+
+Delphox (M) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect

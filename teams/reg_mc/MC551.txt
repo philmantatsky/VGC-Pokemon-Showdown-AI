@@ -1,59 +1,59 @@
-Archaludon (F) @ Leftovers
-Ability: Stamina
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Flash Cannon
-- Dragon Pulse
-- Electro Shot
+Modest Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick
+- Energy Ball
+
+Gardevoir (F) @ Gardevoirite
+Ability: Telepathy
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Thunderbolt
+- Expanding Force
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Gunk Shot
+- Throat Chop
+- Rock Tomb
+
+Talonflame (F) @ SharpBeak
+Ability: GaleWings
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
-
-Pelipper (F) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Weather Ball
-- Hurricane
+- Quick Guard
+- Flare Blitz
 - Tailwind
-- Wide Guard
+- Brave Bird
 
-Venusaur (F) @ Venusaurite
-Ability: Chlorophyll
+Kommo-o (F) @ LifeOrb
+Ability: Soundproof
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Giga Drain
-- Sludge Bomb
-- Earth Power
-- Sleep Powder
-
-Charizard (M) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Weather Ball
-- Heat Wave
-- Ancient Power
+- Clanging Scales
+- Aura Sphere
+- Draco Meteor
 - Protect
 
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
+Lucario (F) @ LucarioniteZ
+Ability: Steadfast
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Spirit Break
-- Parting Shot
-- Reflect
-- Light Screen
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aura Sphere
+- Flash Cannon
+- Protect
+- Dark Pulse

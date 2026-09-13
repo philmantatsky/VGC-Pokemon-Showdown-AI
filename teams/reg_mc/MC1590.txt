@@ -1,59 +1,59 @@
-Baxcalibur (M) @ Baxcalibrite
-Ability: ThermalExchange
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Protect
 - Swords Dance
-- Ice Shard
-- Glaive Rush
+- Iron Head
+- Leech Life
 
-Sneasler (F) @ FocusSash
-Ability: PoisonTouch
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Coaching
-- Fake Out
-- Poison Jab
-- Close Combat
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- U-turn
-- Fake Out
-- Wood Hammer
-
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Swords Dance
-- Kowtow Cleave
-- Sucker Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
+- Expanding Force
+- Hyper Voice
+- Trick Room
 
-Ninetales-Alola (M) @ ChoiceScarf
-Ability: SnowWarning
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Wave Crash
+- Flip Turn
+- Aqua Jet
+
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Psychic
+- Helping Hand
+- Trick Room
+
+Pelipper (M) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Dazzling Gleam
-- Ice Beam
-- Moonblast
+- Protect
+- Tailwind
+- Weather Ball
+- Hurricane
 
-Aerodactyl (F) @ Aerodactylite
-Ability: RockHead
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dual Wingbeat
-- Tailwind
+Adamant Nature
 - Protect
+- Close Combat
 - Rock Slide
+- Dire Claw

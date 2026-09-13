@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Pelipper (M) @ DampRock
+Ability: Drizzle
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Hyper Voice
-- Double-Edge
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Weather Ball
+- Hurricane
+- Wide Guard
 - Tailwind
+
+Archaludon (M) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
 - Protect
 
-Ceruledge (F) @ ColburBerry
-Ability: FlashFire
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Bitter Blade
-- Shadow Sneak
-- Bulk Up
-- Protect
-
-Toxapex (F) @ Leftovers
-Ability: Regenerator
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Infestation
-- Toxic
-- Wide Guard
-- Baneful Bunker
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn
 
 Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Fake Out
 - Grassy Glide
 - Wood Hammer
-- High Horsepower
-- Fake Out
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dazzling Gleam
-- Draining Kiss
-- Calm Mind
 - Protect
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Poison Jab
-- Close Combat
-- Throat Chop
+- Iron Head
+- Leech Life
+- Liquidation
+- Protect
+
+Farigiraf (M) @ GrassySeed
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Twin Beam
+- Thunderbolt
+- Trick Room
 - Protect

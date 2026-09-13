@@ -2,58 +2,58 @@ Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dragon Dance
+Hasty Nature
 - Double-Edge
-- Dragon Claw
+- Protect
+- Draco Meteor
+- Tailwind
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Knock Off
+- Dragon Dance
 - Protect
 
-Sneasler (M) @ FocusSash
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- High Horsepower
+- Protect
+- Iron Head
+- Rock Slide
+
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Feint
-- Dire Claw
 - Close Combat
+- Protect
+- Swords Dance
+- Dire Claw
 
-Clefable (F) @ RockyHelmet
-Ability: Unaware
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Moonblast
-- Follow Me
-- Protect
-- Helping Hand
+Timid Nature
+- Trick
+- Expanding Force
+- Trick Room
+- Dazzling Gleam
 
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
-- Stomping Tantrum
-- Dragon Claw
-- Rock Slide
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
+Milotic (M) @ Leftovers
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Aura Sphere
-- Flash Cannon
+Bold Nature
+- Muddy Water
+- Coil
+- Hypnosis
 - Protect
-- Vacuum Wave
-
-Talonflame (F) @ LifeOrb
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Protect
-- Flare Blitz
-- Brave Bird

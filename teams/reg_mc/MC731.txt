@@ -1,23 +1,3 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Hyper Voice
-- Double-Edge
-- Tailwind
-- Protect
-
-Metagross @ Metagrossite
-Ability: ClearBody
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Iron Head
-- Psychic Fangs
-- Ice Punch
-- Protect
-
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
@@ -28,32 +8,52 @@ Adamant Nature
 - Grassy Glide
 - High Horsepower
 
-Sneasler (F) @ GrassySeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Dire Claw
+Jolly Nature
 - Close Combat
-- Coaching
+- Dire Claw
+- Rock Tomb
+- Fake Out
 
-Ceruledge (F) @ ColburBerry
-Ability: FlashFire
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Bulk Up
-- Bitter Blade
-- Shadow Sneak
-- Protect
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Muddy Water
-- Hypnosis
-- Coil
+Timid Nature
+- Dazzling Gleam
+- Draining Kiss
 - Protect
+- Calm Mind
+
+Blastoise (M) @ Blastoisinite
+Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shell Smash
+- Terrain Pulse
+- Water Spout
+- Protect
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
+- Psychic
+- Helping Hand
+- Trick Room

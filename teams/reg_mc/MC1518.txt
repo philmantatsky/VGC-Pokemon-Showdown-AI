@@ -1,59 +1,59 @@
-Ninetales-Alola (M) @ FocusSash
-Ability: SnowWarning
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Icy Wind
-- Blizzard
-- Freeze-Dry
-- Moonblast
-
-Glimmora (M) @ Glimmoranite
-Ability: ToxicDebris
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Spiky Shield
-- Sludge Bomb
-- Power Gem
-- Earth Power
-
-Farigiraf (F) @ Leftovers
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Trick Room
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
 - Protect
-- Helping Hand
-- Psychic
 
-Incineroar (F) @ SitrusBerry
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Darkest Lariat
+Hasty Nature
+- Double-Edge
+- Hyper Voice
+- Protect
+- Tailwind
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Hyper Beam
+- Quick Attack
+- Detect
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Psychic
+- Helping Hand
+- Trick Room
+- Protect
+
+Pawmot (F) @ WhiteHerb
+Ability: IronFist
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- High Horsepower
-- Wood Hammer
 - Fake Out
-- Grassy Glide
+- Double Shock
+- Close Combat
+- Protect
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Rock Slide
 - Protect
-- Acrobatics

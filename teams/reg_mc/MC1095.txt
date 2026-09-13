@@ -1,59 +1,59 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Blastoise (M) @ Blastoisinite
+Ability: Torrent
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Sucker Punch
-- Leech Life
-- Iron Head
-- Liquidation
-
-Kingambit (M) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Iron Head
-- Sucker Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
+- Dark Pulse
+- Water Spout
+- Shell Smash
 
-Armarouge (M) @ SitrusBerry
-Ability: FlashFire
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Armor Cannon
-- Psychic
-- Trick Room
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Helping Hand
 - Protect
+- Follow Me
+- Dazzling Gleam
 
-Milotic (F) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Scald
-- Ice Beam
-- Icy Wind
-- Protect
-
-Greninja (M) @ ChoiceScarf
-Ability: Protean
+Sneasler (F) @ FocusSash
+Ability: PoisonTouch
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Rock Slide
-- Ice Punch
-- Waterfall
-- U-turn
+- Close Combat
+- Dire Claw
+- Fake Out
+- Protect
 
-Sylveon (F) @ FairyFeather
-Ability: Pixilate
+Incineroar (F) @ ChopleBerry
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
-- Detect
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Protect
+- Darkest Lariat
+- Flare Blitz
+
+Sinistcha @ BrightPowder
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Matcha Gotcha
+- Rage Powder
+- Shadow Ball
+
+Maushold-Four @ WideLens
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- Follow Me
+- Protect
+- Helping Hand

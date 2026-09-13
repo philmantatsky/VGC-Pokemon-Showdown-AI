@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Hyper Voice
-- Double-Edge
-- Tailwind
-- Protect
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
+Meowstic-F (F) @ Meowsticite
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Flash Cannon
-- Aura Sphere
+Timid Nature
 - Nasty Plot
+- Expanding Force
+- Alluring Voice
 - Protect
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Baton Pass
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- U-turn
+- Close Combat
+- Acrobatics
+- Dire Claw
+- Protect
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Throat Chop
-- Fake Out
-- Parting Shot
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Baxcalibur (F) @ LifeOrb
+Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+- Icicle Crash
+- Dragon Dance
+- Glaive Rush
 - Protect
 
-Kleavor (F) @ FocusSash
-Ability: Sharpness
+Arcanine-Hisui (M) @ ChoiceScarf
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Stone Axe
-- Close Combat
-- X-Scissor
-- Protect
+- Flare Blitz
+- Head Smash
+- Wild Charge
+- Crunch
+
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Infestation
+- Wide Guard
+- Toxic
+- Baneful Bunker

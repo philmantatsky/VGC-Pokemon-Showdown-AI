@@ -1,59 +1,59 @@
-Talonflame (M) @ SharpBeak
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Quick Guard
-- Tailwind
-- Dual Wingbeat
-- Will-O-Wisp
-
-Sylveon (F) @ FairyFeather
-Ability: Pixilate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Detect
-- Roar
-- Hyper Voice
-- Hyper Beam
-
-Blastoise (M) @ Blastoisinite
-Ability: RainDish
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Shell Smash
-- Water Spout
-- Dark Pulse
-
-Sinistcha @ SitrusBerry
-Ability: Hospitality
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Protect
-- Trick Room
-- Rage Powder
-- Matcha Gotcha
-
-Kingambit (M) @ LifeOrb
-Ability: Defiant
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Protect
+- Glaive Rush
+- Ice Shard
 - Swords Dance
-- Kowtow Cleave
-- Iron Head
 
-Raichu (M) @ RaichuniteY
-Ability: LightningRod
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
+
+Aerodactyl (F) @ Aerodactylite
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Wide Guard
+- Dual Wingbeat
+- Rock Slide
+- Tailwind
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Coaching
+- Fake Out
+- Close Combat
+- Dire Claw
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Power Gem
 - Protect
-- Fake Out
-- Zap Cannon
-- Focus Blast
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Coil
+- Muddy Water
+- Hypnosis

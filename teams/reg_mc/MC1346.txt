@@ -1,59 +1,59 @@
-Gengar (F) @ Gengarite
-Ability: CursedBody
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Sludge Bomb
-- Shadow Ball
-- Perish Song
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Double-Edge
+- Roost
+- Dragon Dance
 - Protect
 
-Dragonite (M) @ LifeOrb
-Ability: InnerFocus
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Expanding Force
+- Hyper Voice
+- Imprison
+- Trick Room
+
+Kingambit (F) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dragon Claw
-- Superpower
-- Extreme Speed
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
 - Protect
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Relaxed Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
-- Protect
-
-Rillaboom (M) @ EjectButton
-Ability: GrassySurge
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Fake Out
-- Grassy Glide
-- U-turn
-- Protect
-
-Scrafty (F) @ FocusSash
+Arcanine-Hisui (F) @ FocusSash
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Close Combat
-- Knock Off
-- Detect
+Jolly Nature
+- Rock Slide
+- Flare Blitz
+- Extreme Speed
+- Protect
 
-Snorlax (F) @ Leftovers
-Ability: ThickFat
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Relaxed Nature
-- Fissure
-- Yawn
-- Encore
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Drum Beating
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Coaching
 - Protect

@@ -1,0 +1,59 @@
+Charizard (F) @ CharizarditeY
+Ability: SolarPower
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Weather Ball
+- Scorching Sands
+- Protect
+
+Glimmora (M) @ Glimmoranite
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Power Gem
+- Sludge Bomb
+- Earth Power
+- Spiky Shield
+
+Meowscarada (F) @ WideLens
+Ability: Protean
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flower Trick
+- Triple Axel
+- Low Kick
+- Protect
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Tailwind
+- Fake Tears
+- Encore
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Twin Beam
+- Hyper Voice
+- Helping Hand
+- Roar
+
+Garchomp (M) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Stomping Tantrum
+- Earthquake
+- Rock Slide

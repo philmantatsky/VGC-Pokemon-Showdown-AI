@@ -1,0 +1,59 @@
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Follow Me
+- Helping Hand
+- Protect
+
+Dragapult (M) @ LifeOrb
+Ability: Infiltrator
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Shadow Ball
+- Draco Meteor
+- Protect
+
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Psychic Fangs
+- Body Press
+- Psych Up
+- Protect
+
+Milotic (M) @ PsychicSeed
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Muddy Water
+- Coil
+- Hypnosis
+- Recover
+
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Rock Slide
+- Protect
+
+Ninetales-Alola (F) @ ChoiceScarf
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Icy Wind
+- Freeze-Dry
+- Aurora Veil

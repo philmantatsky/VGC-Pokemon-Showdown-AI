@@ -1,59 +1,59 @@
-Archaludon (F) @ Leftovers
-Ability: Stamina
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Dragon Pulse
-- Flash Cannon
-- Electro Shot
-- Protect
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naughty Nature
-- Last Respects
-- Flip Turn
-- Wave Crash
-- Aqua Jet
-
-Politoed (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Weather Ball
-- Encore
-- Ice Beam
-- Protect
-
-Incineroar (M) @ LumBerry
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Throat Chop
-- Flare Blitz
-- Protect
-- Fake Out
-
-Aerodactyl (F) @ Aerodactylite
-Ability: Unnerve
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Dragon Claw
-- Rain Dance
+Naive Nature
+- Double-Edge
+- Draco Meteor
 - Tailwind
+- Protect
 
-Sableye (M) @ FocusSash
-Ability: Prankster
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Disable
-- Encore
-- Fake Out
+- Earthquake
+- Iron Head
+- Rock Tomb
+- Protect
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
 - Knock Off
+- Protect
+- Low Kick
+
+Tsareena (F) @ ChoiceScarf
+Ability: QueenlyMajesty
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Trop Kick
+- Triple Axel
+- U-turn
+- Low Kick
+
+Gholdengo @ Leftovers
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shadow Ball
+- Make It Rain
+- Nasty Plot
+- Protect
+
+Rotom-Wash @ SitrusBerry
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hydro Pump
+- Thunderbolt
+- Will-O-Wisp
+- Protect

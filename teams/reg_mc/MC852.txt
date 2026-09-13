@@ -1,59 +1,59 @@
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
-
-Excadrill (F) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Rock Slide
-- Iron Head
-- Protect
-
-Indeedee (M) @ ChoiceScarf
+Indeedee-F (F) @ MentalHerb
 Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
 - Dazzling Gleam
-- Trick
-- Trick Room
+- Follow Me
+- Light Screen
+- Protect
 
-Corviknight (F) @ SitrusBerry
-Ability: MirrorArmor
+Delphox (M) @ Delphoxite
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Brave Bird
-- Bulk Up
-- Tailwind
-- Roost
+Timid Nature
+- Heat Wave
+- Expanding Force
+- Mystical Fire
+- Protect
 
-Sneasler (F) @ PsychicSeed
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
+Jolly Nature
 - Dire Claw
-- Coaching
+- Close Combat
+- Fake Out
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Whimsicott (M) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draining Kiss
-- Dazzling Gleam
-- Calm Mind
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
+- Charm
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flare Blitz
+- Darkest Lariat
+- Fake Out
+- Parting Shot
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dual Wingbeat
+- Close Combat
+- Roost
 - Protect

@@ -1,59 +1,59 @@
-Sneasler (M) @ MentalHerb
-Ability: PoisonTouch
+Staraptor (M) @ Staraptite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Fake Out
-- Poison Jab
 - Close Combat
+- Brave Bird
+- Roost
 - Protect
 
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- Protect
+Adamant Nature
+- Kowtow Cleave
+- Iron Head
+- Low Kick
+- Sucker Punch
 
-Toxapex (M) @ Leftovers
-Ability: Regenerator
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Baneful Bunker
-- Infestation
-- Wide Guard
-- Toxic
-
-Garchomp (F) @ LifeOrb
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Dragon Claw
-- Stomping Tantrum
-- Rock Slide
-
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Glimmora (M) @ FocusSash
+Ability: ToxicDebris
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
-- Heat Wave
-- Weather Ball
-- Ancient Power
+- Sludge Bomb
+- Power Gem
+- Earth Power
+- Spiky Shield
 
-Aerodactyl (F) @ FocusSash
-Ability: Unnerve
+Dragapult (F) @ LifeOrb
+Ability: ClearBody
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Rock Slide
+- Dragon Darts
+- Phantom Force
+- Will-O-Wisp
+- Protect
+
+Whimsicott (F) @ OccaBerry
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
 - Tailwind
-- Dual Wingbeat
-- Wide Guard
+- Charm
+- Encore
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Substitute
+- Protect

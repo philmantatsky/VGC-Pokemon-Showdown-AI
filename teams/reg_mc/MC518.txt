@@ -1,59 +1,59 @@
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Head Smash
-- Flare Blitz
-- Extreme Speed
-- Protect
-
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
+- Double-Edge
+- Dragon Claw
 - Tailwind
-- Encore
 - Protect
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Sneasler (M) @ FocusSash
+Ability: PoisonTouch
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
-- Protect
-
-Froslass (F) @ Froslassite
-Ability: CursedBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
-- Protect
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Gunk Shot
 - Fake Out
+- Poison Jab
+- Close Combat
 - Quick Guard
 
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
+Tyranitar (F) @ ChopleBerry
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+- Rock Slide
+- Knock Off
+- Ice Punch
+- Protect
+
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Primarina (F) @ Leftovers
+Ability: LiquidVoice
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Moonblast
+- Calm Mind
+- Protect
+
+Delphox (F) @ Delphoxite
+Ability: Magician
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psyshock
+- Nasty Plot
 - Protect

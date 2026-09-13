@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Protect
-- Grassy Glide
-- Wood Hammer
-- U-turn
+- Swords Dance
+- Iron Head
+- Leech Life
 
-Farigiraf (M) @ GrassySeed
-Ability: ArmorTail
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Helping Hand
 - Trick Room
-- Helping Hand
-- Beat Up
-- Psychic Noise
+- Psychic
 
-Torkoal (M) @ Charcoal
-Ability: Drought
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Protect
-- Eruption
-- Heat Wave
-- Helping Hand
+- Close Combat
+- Dire Claw
+- Rock Slide
 
-Scovillain (F) @ LifeOrb
-Ability: Chlorophyll
+Pelipper (M) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Protect
-- Rage Powder
-- Solar Beam
-- Overheat
+- Tailwind
+- Weather Ball
+- Hurricane
 
-Absol (M) @ AbsoliteZ
-Ability: Justified
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Night Slash
-- Shadow Sneak
-- Close Combat
-
-Garchomp (F) @ GarchompiteZ
-Ability: RoughSkin
+Gardevoir (M) @ Gardevoirite
+Ability: Trace
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Modest Nature
 - Protect
-- Dragon Pulse
-- Earth Power
-- Flamethrower
+- Expanding Force
+- Hyper Voice
+- Trick Room
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flip Turn
+- Wave Crash
+- Last Respects
+- Aqua Jet

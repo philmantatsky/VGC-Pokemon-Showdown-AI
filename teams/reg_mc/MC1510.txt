@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Wood Hammer
+- Fake Out
+- U-turn
+- Grassy Glide
+
+Golisopod (F) @ Golisopite
 Ability: EmergencyExit
 Level: 50
 EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
+Brave Nature
+- First Impression
 - Iron Head
 - Leech Life
-- Protect
-- Bulk Up
+- Drill Run
 
-Politoed (F) @ MysticWater
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Perish Song
-- Hydro Pump
-- Ice Beam
-- Encore
-
-Sinistcha @ SitrusBerry
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Matcha Gotcha
-- Trick Room
-- Rage Powder
-- Life Dew
-
-Incineroar (F) @ PasshoBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Parting Shot
-- Fake Out
-- Throat Chop
-- Flare Blitz
-
-Farigiraf (F) @ ColburBerry
+Farigiraf (M) @ GrassySeed
 Ability: ArmorTail
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
+Sassy Nature
 - Trick Room
-- Hyper Voice
 - Twin Beam
-- Helping Hand
+- Protect
+- Thunderbolt
 
-Archaludon (M) @ ChopleBerry
-Ability: Stamina
+Primarina (M) @ LifeOrb
+Ability: LiquidVoice
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Voice
+- Ice Beam
+- Protect
+- Moonblast
+
+Baxcalibur (F) @ Leftovers
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Ice Shard
+- Glaive Rush
+- Protect
+- High Horsepower
+
+Gholdengo @ IronBall
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Draco Meteor
-- Flash Cannon
-- Electro Shot
+Modest Nature
+- Make It Rain
+- Nasty Plot
 - Protect
+- Shadow Ball

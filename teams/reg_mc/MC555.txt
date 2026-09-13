@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Naive Nature
-- Double-Edge
-- Hyper Voice
-- Fire Blast
-- Protect
+Bold Nature
+- Weather Ball
+- Wide Guard
+- Tailwind
+- Hurricane
 
-Froslass (F) @ Froslassite
-Ability: SnowCloak
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+- Dragon Pulse
+- Electro Shot
+- Flash Cannon
 - Protect
 
-Kleavor (F) @ FocusSash
-Ability: Sharpness
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Stone Axe
-- X-Scissor
-- Tailwind
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Scizor (M) @ LifeOrb
+Ability: Technician
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+- Bullet Punch
+- Bug Bite
+- Swords Dance
 - Protect
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dire Claw
-- Close Combat
-- Upper Hand
-- Fake Out
-
-Rillaboom (F) @ MiracleSeed
+Rillaboom (F) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
-- Wood Hammer
 - Grassy Glide
+- Wood Hammer
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Dazzling Gleam
+- Light of Ruin
+- Psychic
+- Protect
+
+Basculegion (M) @ FocusSash
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Liquidation
+- Aqua Jet
 - Protect

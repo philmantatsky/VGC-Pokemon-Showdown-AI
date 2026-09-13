@@ -1,0 +1,59 @@
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Eruption
+- Earth Power
+- Protect
+- Weather Ball
+
+Kangaskhan (F) @ LifeOrb
+Ability: Scrappy
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Fake Out
+- Double-Edge
+- Brick Break
+- Low Kick
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Last Respects
+- Wave Crash
+- Flip Turn
+- Aqua Jet
+
+Vileplume (M) @ FocusSash
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Sludge Bomb
+- After You
+- Sleep Powder
+- Leaf Storm
+
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Imprison
+- Expanding Force
+- Trick Room
+
+Mawile (M) @ Mawilite
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Sucker Punch
+- Play Rough
+- Protect
+- Rock Slide

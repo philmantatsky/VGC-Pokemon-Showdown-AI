@@ -1,3 +1,23 @@
+Rillaboom (M) @ FocusSash
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Grassy Glide
+- High Horsepower
+- Fake Out
+- Drum Beating
+
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Follow Me
+- Psychic
+- Trick Room
+- Helping Hand
+
 Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
@@ -5,55 +25,35 @@ EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Hyper Voice
 - Draco Meteor
-- Tailwind
 - Protect
+- Tailwind
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Grassy Glide
-- Wood Hammer
-- U-turn
-- Fake Out
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Armarouge (M) @ PsychicSeed
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Dazzling Gleam
-- Draining Kiss
+- Trick Room
+- Expanding Force
+- Heat Wave
 - Protect
-- Calm Mind
 
-Lycanroc-Dusk (F) @ FocusSash
-Ability: ToughClaws
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Nasty Plot
+- Flash Cannon
+- Focus Blast
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Accelerock
-- Rock Slide
-- Close Combat
+- Last Respects
+- Wave Crash
 - Protect
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hardy Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Kingambit (M) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Protect
+- Aqua Jet

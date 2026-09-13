@@ -1,0 +1,59 @@
+Blastoise (F) @ Blastoisinite
+Ability: RainDish
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Water Spout
+- Aura Sphere
+- Dark Pulse
+- Fake Out
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Leech Life
+- Swords Dance
+- Iron Head
+- Close Combat
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Eruption
+- Weather Ball
+- Ancient Power
+- Protect
+
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Twin Beam
+- Helping Hand
+- Thunderbolt
+- Trick Room
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Parting Shot
+- Fake Out
+- Flare Blitz
+- Throat Chop
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Quick Attack
+- Hyper Beam
+- Detect

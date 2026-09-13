@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Wood Hammer
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Fake Out
-- U-turn
 - Grassy Glide
+- Wood Hammer
+- U-turn
 
 Golisopod (F) @ Golisopite
 Ability: EmergencyExit
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- First Impression
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Iron Head
 - Leech Life
-- Drill Run
+- Swords Dance
+- Protect
 
-Farigiraf (M) @ GrassySeed
+Farigiraf (F) @ ColburBerry
 Ability: ArmorTail
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
+Quiet Nature
+- Nasty Plot
+- Hyper Voice
 - Trick Room
 - Twin Beam
-- Protect
-- Thunderbolt
 
-Primarina (M) @ LifeOrb
-Ability: LiquidVoice
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Voice
-- Ice Beam
-- Protect
-- Moonblast
-
-Baxcalibur (F) @ Leftovers
-Ability: ThermalExchange
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Ice Shard
-- Glaive Rush
+Jolly Nature
+- Dragon Claw
+- Stomping Tantrum
+- Rock Slide
 - Protect
-- High Horsepower
 
-Gholdengo @ IronBall
-Ability: GoodasGold
+Pelipper (M) @ Leftovers
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Nasty Plot
+Bold Nature
+- Weather Ball
+- Hurricane
+- Wide Guard
 - Protect
-- Shadow Ball

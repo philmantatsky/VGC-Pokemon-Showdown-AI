@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Draining Kiss
-- Dazzling Gleam
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Iron Head
+- First Impression
+- Leech Life
 - Protect
-- Calm Mind
 
-Sneasler (M) @ GrassySeed
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Dire Claw
 - Close Combat
-- Coaching
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+- Dire Claw
 - Fake Out
-- Flare Blitz
-- Throat Chop
-- Parting Shot
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Milotic (F) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Scald
-- Ice Beam
-- Icy Wind
 - Protect
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dragon Dance
-- Dragon Claw
-- Double-Edge
+- Rock Slide
+- Low Kick
+- Knock Off
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Trick Room
+- Imprison
+- Expanding Force
+- Protect
+
+Primarina (F) @ MysticWater
+Ability: LiquidVoice
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Voice
+- Moonblast
+- Ice Beam
+- Protect
+
+Sinistcha @ SitrusBerry
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Matcha Gotcha
+- Trick Room
+- Rage Powder
 - Protect

@@ -3,57 +3,57 @@ Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Nasty Plot
-- Sludge Wave
 - Shadow Ball
+- Will-O-Wisp
+- Perish Song
 - Protect
 
-Swampert (F) @ Swampertite
-Ability: Torrent
+Incineroar (F) @ ChopleBerry
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
-- Ice Punch
-- Wave Crash
-- Protect
-
-Kingambit (M) @ ChopleBerry
-Ability: SupremeOverlord
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Low Kick
-- Sucker Punch
-- Iron Head
-
-Oranguru (F) @ MentalHerb
-Ability: Telepathy
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
+EVs: 32 HP / 32 Atk / 2 Def
 Sassy Nature
-- Extrasensory
+- Fake Out
+- Flare Blitz
+- Parting Shot
 - Protect
-- Trick Room
-- Instruct
 
-Pelipper (F) @ FocusSash
+Politoed (F) @ SitrusBerry
 Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Calm Nature
 - Weather Ball
-- Hurricane
-- Tailwind
+- Encore
+- Perish Song
 - Protect
 
-Sinistcha @ Leftovers
+Sinistcha @ CobaBerry
 Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Rage Powder
 - Matcha Gotcha
-- Protect
+- Rage Powder
 - Trick Room
+- Protect
+
+Swampert (F) @ Swampertite
+Ability: Damp
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- High Horsepower
+- Ice Punch
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect

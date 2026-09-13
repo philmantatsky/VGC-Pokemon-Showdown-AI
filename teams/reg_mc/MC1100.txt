@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dragon Pulse
-- Protect
-- Tailwind
-- Hyper Voice
-
-Sneasler (M) @ FocusSash
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Fake Out
-- Protect
-
-Incineroar (M) @ ShucaBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Parting Shot
-- Throat Chop
-- Flare Blitz
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Gallade (M) @ ExpertBelt
+Ability: Justified
 Level: 50
 EVs: 32 HP / 32 Atk / 2 Def
 Brave Nature
-- Leech Life
-- Iron Head
-- Protect
-- Swords Dance
+- Psycho Cut
+- Sacred Sword
+- Trick Room
+- Wide Guard
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick Room
+- Protect
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Icy Wind
-- Scald
-- Life Dew
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Protect
+Calm Nature
+- Psychic
+- Follow Me
 - Trick Room
 - Helping Hand
-- Psychic
+
+Maushold-Four @ WideLens
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- After You
+- Follow Me
+- Protect
+
+Houndoom (M) @ Houndoominite
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Overheat
+- Dark Pulse
+- Protect
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Helping Hand
+- Protect

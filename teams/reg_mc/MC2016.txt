@@ -1,0 +1,59 @@
+Blastoise (F) @ Blastoisinite
+Ability: RainDish
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Water Spout
+- Terrain Pulse
+- Shell Smash
+- Protect
+
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Helping Hand
+- Heal Pulse
+- Psyshock
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Protect
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Leech Life
+- Iron Head
+- Swords Dance
+- Protect
+
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Armor Cannon
+- Expanding Force
+- Trick Room
+- Wide Guard
+
+Sinistcha @ CobaBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Rage Powder
+- Life Dew
+- Protect

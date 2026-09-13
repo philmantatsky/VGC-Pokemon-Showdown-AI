@@ -1,59 +1,59 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Charizard (F) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Solar Beam
+- Heat Wave
+- Air Slash
+
+Venusaur (M) @ WideLens
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Giga Drain
+- Earth Power
+- Sleep Powder
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Moonblast
+- Tailwind
+- Encore
+
+Basculegion (M) @ MysticWater
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- First Impression
-- U-turn
-- Iron Head
-- Sucker Punch
-
-Swampert (F) @ Swampertite
-Ability: Torrent
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+- Protect
+- Aqua Jet
 - Wave Crash
-- Earthquake
-- Ice Punch
-- Protect
+- Last Respects
 
-Pelipper (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Weather Ball
-- Hurricane
-- Tailwind
-- Protect
-
-Archaludon (F) @ Leftovers
-Ability: Stamina
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dragon Pulse
-- Flash Cannon
-- Electro Shot
-- Protect
-
-Sinistcha @ ColburBerry
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Matcha Gotcha
-- Rage Powder
-- Trick Room
-- Protect
-
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Spirit Break
-- Reflect
-- Light Screen
-- Parting Shot
+Adamant Nature
+- Protect
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Mamoswine (F) @ LifeOrb
+Ability: Oblivious
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- High Horsepower
+- Rock Slide
+- Ice Shard

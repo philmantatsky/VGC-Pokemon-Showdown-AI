@@ -1,59 +1,59 @@
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Maushold-Four @ WideLens
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- Bullet Seed
+- Bite
+- Tidy Up
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Scald
+- Ice Beam
+- Mirror Coat
+- Recover
+
+Raichu-Alola (F) @ FocusSash
+Ability: SurgeSurfer
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Thunderbolt
+- Volt Switch
+- Quick Attack
+- Fake Out
+
+Charizard (F) @ CharizarditeX
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-- Fake Out
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+- Dragon Dance
+- Dragon Claw
 - Flare Blitz
-- Throat Chop
-- Parting Shot
-- Fake Out
+- Earthquake
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Sinistcha-Masterpiece @ SitrusBerry
+Ability: Hospitality
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dazzling Gleam
-- Draining Kiss
-- Calm Mind
-- Protect
-
-Gholdengo @ Leftovers
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Matcha Gotcha
 - Shadow Ball
-- Nasty Plot
-- Protect
+- Trick Room
+- Curse
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Sylveon (M) @ QuickClaw
+Ability: Pixilate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Swords Dance
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Quick Attack
+- Hyper Beam
 - Hyper Voice
-- Tailwind
-- Protect
+- Wish

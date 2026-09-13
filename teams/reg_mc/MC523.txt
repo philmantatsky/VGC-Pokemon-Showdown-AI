@@ -1,59 +1,59 @@
-Indeedee (M) @ FocusSash
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Iron Head
+- High Horsepower
+- Earthquake
+- Protect
+
+Indeedee-F (F) @ RockyHelmet
 Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
+Bold Nature
+- Follow Me
+- Helping Hand
 - Trick Room
 - Imprison
-- Protect
+
+Corviknight (F) @ SitrusBerry
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Brave Bird
+- Tailwind
+- Roost
+- Bulk Up
 
 Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
 - Close Combat
+- Dire Claw
 - Swords Dance
 - Protect
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dragon Pulse
-- Hyper Voice
-- Heat Wave
-- Protect
-
-Whimsicott (M) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
 Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
+Ability: Telepathy
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
+Modest Nature
 - Expanding Force
-- Substitute
+- Hyper Voice
+- Calm Mind
 - Protect

@@ -1,59 +1,59 @@
-Archaludon (M) @ Leftovers
-Ability: Stamina
+Gengar (M) @ Gengarite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Snarl
-- Electro Shot
-- Flash Cannon
+Timid Nature
 - Protect
+- Shadow Ball
+- Substitute
+- Perish Song
 
-Pelipper (M) @ FocusSash
-Ability: Drizzle
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hurricane
-- Weather Ball
-- Tailwind
-- Protect
-
-Ninetales-Alola (M) @ ChoiceScarf
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Blizzard
-- Freeze-Dry
-- Encore
+Timid Nature
 - Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect
 
-Baxcalibur (F) @ Baxcalibrite
-Ability: IceBody
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Careful Nature
-- Swords Dance
-- Ice Shard
-- Glaive Rush
 - Protect
+- Throat Chop
+- Fake Out
+- Parting Shot
 
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Aqua Jet
-- First Impression
-- U-turn
-- Sucker Punch
-
-Rillaboom (F)
+Rillaboom (F) @ CobaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Grassy Glide
 - U-turn
+- Wood Hammer
+- Grassy Glide
 - Fake Out
-- Knock Off
+
+Politoed (M) @ Leftovers
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Weather Ball
+- Helping Hand
+- Perish Song
+
+Dragonite (M) @ LifeOrb
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Superpower
+- Extreme Speed
+- Protect

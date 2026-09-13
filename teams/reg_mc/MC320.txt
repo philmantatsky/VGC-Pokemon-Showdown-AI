@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Sneasler (M) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Leech Life
-- Iron Head
-- Bulk Up
 - Protect
+- Dire Claw
+- Close Combat
+- Acrobatics
 
-Pelipper (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Hurricane
-- Weather Ball
-- Tailwind
-- Protect
-
-Rillaboom (F) @ MiracleSeed
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
+Serious Nature
 - Grassy Glide
-- High Horsepower
+- Wood Hammer
+- U-turn
+- Fake Out
 
-Lycanroc-Dusk (F) @ FocusSash
-Ability: ToughClaws
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Howl
 - Rock Slide
-- Accelerock
+- Knock Off
+- Low Kick
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
+Jolly Nature
+- Rock Slide
+- High Horsepower
+- Iron Head
+- Protect
 
-Archaludon (F) @ Leftovers
-Ability: Stamina
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Rash Nature
-- Electro Shot
+Modest Nature
+- Shadow Ball
+- Make It Rain
+- Nasty Plot
+- Protect
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Dragon Pulse
-- Flash Cannon
+- Hyper Voice
+- Tailwind
 - Protect

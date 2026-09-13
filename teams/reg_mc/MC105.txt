@@ -1,59 +1,59 @@
-Blaziken (M) @ Blazikenite
-Ability: SpeedBoost
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Detect
-- Flare Blitz
-- Rock Slide
-
-Primarina (F) @ LifeOrb
-Ability: LiquidVoice
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Voice
-- Aqua Jet
-- Moonblast
-- Protect
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Archaludon (M) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Trick Room
-- Psychic
-- Thunderbolt
+Modest Nature
 - Protect
+- Electro Shot
+- Flash Cannon
+- Dragon Pulse
 
-Venusaur (F) @ OccaBerry
-Ability: Chlorophyll
+Pelipper (F) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Sleep Powder
-- Leaf Storm
-- Sludge Bomb
-- Protect
+- Wide Guard
+- Hurricane
+- Tailwind
+- Weather Ball
 
-Kingambit (M) @ FocusSash
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-
-Torkoal (M) @ Charcoal
-Ability: Drought
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Weather Ball
+Relaxed Nature
+- Trick Room
+- Psychic
+- Hyper Voice
 - Helping Hand
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
 - Protect
+- Leech Life
+- Liquidation
+- Iron Head
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Hasty Nature
+- Protect
+- Hyper Voice
+- Double-Edge
+- Draco Meteor
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Darkest Lariat
+- Flare Blitz
+- Parting Shot

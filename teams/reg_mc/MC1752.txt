@@ -1,0 +1,59 @@
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- U-turn
+- Grassy Glide
+- High Horsepower
+
+Incineroar (M) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Throat Chop
+
+Empoleon (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flash Cannon
+- Chilling Water
+- Protect
+- Ice Beam
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Helping Hand
+- Trick Room
+- Protect
+- Psychic
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Calm Mind
+- Dazzling Gleam
+- Draining Kiss
+- Protect
+
+Volcarona (M) @ RockyHelmet
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Rage Powder
+- Protect
+- Tailwind
+- Heat Wave

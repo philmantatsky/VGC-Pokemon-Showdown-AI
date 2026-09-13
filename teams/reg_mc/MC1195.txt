@@ -1,59 +1,59 @@
-Glimmora (F) @ Glimmoranite
-Ability: ToxicDebris
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Power Gem
-- Sludge Bomb
-- Earth Power
-- Spiky Shield
+Timid Nature
+- Weather Ball
+- Heat Wave
+- Protect
+- Ancient Power
 
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Rillaboom (M) @ LifeOrb
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Brave Bird
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Close Combat
-- Roost
+- Dire Claw
+- Rock Slide
 - Protect
 
-Hydreigon (F) @ LifeOrb
-Ability: Levitate
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Dragon Pulse
-- Dark Pulse
-- Earth Power
+- Hyper Voice
+- Quick Attack
+- Hyper Beam
+- Detect
+
+Basculegion (M) @ FocusSash
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Waterfall
+- Aqua Jet
+- Last Respects
 - Protect
 
-Gholdengo @ WiseGlasses
-Ability: GoodasGold
+Aerodactyl (F) @ Aerodactylite
+Ability: Unnerve
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Flash Cannon
-- Shadow Ball
-- Nasty Plot
-- Protect
-
-Milotic (F) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Scald
-- Ice Beam
-- Recover
-- Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Ice Fang
 - Tailwind
-- Encore
 - Protect

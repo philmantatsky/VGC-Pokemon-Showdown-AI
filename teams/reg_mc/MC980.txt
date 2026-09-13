@@ -1,59 +1,59 @@
-Maushold-Four @ ChopleBerry
-Ability: FriendGuard
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Super Fang
-- Follow Me
-- Beat Up
-- Taunt
+Timid Nature
+- Dazzling Gleam
+- Moonblast
+- Calm Mind
+- Protect
 
-Rillaboom (F) @ MiracleSeed
+Gholdengo @ ChoiceScarf
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
+- Shadow Ball
+- Power Gem
+- Trick
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Swords Dance
+- Protect
+
+Rillaboom (M) @ LifeOrb
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Knock Off
-- Grassy Glide
 - Wood Hammer
+- Grassy Glide
+- High Horsepower
+- Fake Out
 
-Gallade (M) @ Galladite
-Ability: Justified
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Throat Chop
+- Parting Shot
+- Fake Out
+
+Aerodactyl (F) @ Aerodactylite
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Drain Punch
+- Tailwind
 - Rock Slide
-- Shadow Sneak
-- Protect
-
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Spirit Break
-- Light Screen
-- Reflect
-- Parting Shot
-
-Empoleon (M) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Hydro Pump
-- Flash Cannon
-- Ice Beam
-- Protect
-
-Garchomp (M) @ GarchompiteZ
-Ability: SandVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Power Gem
-- Earth Power
+- Dual Wingbeat
 - Protect

@@ -1,59 +1,59 @@
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Weather Ball
-- Heat Wave
-- Ancient Power
-- Protect
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
+Calm Nature
+- Follow Me
+- Trick Room
 - Helping Hand
+- Dazzling Gleam
 
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Toxapex (M) @ Leftovers
-Ability: Regenerator
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Infestation
-- Toxic
-- Baneful Bunker
-- Wide Guard
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
-- Protect
+- Expanding Force
+- Heat Wave
+- Wide Guard
+- Trick Room
 
-Garchomp (F) @ LifeOrb
-Ability: RoughSkin
+Staraptor (F) @ Staraptite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Earthquake
-- Stomping Tantrum
-- Stone Edge
+- Close Combat
+- Brave Bird
+- Tailwind
 - Protect
+
+Excadrill (F) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Iron Head
+- Swords Dance
+- Protect
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
+
+Gardevoir (F) @ ChoiceScarf
+Ability: Telepathy
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Moonblast
+- Dazzling Gleam
+- Icy Wind

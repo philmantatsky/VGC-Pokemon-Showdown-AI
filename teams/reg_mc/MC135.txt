@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Leech Life
-- Iron Head
-- Liquidation
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Terrain Pulse
+- Follow Me
+- Trick Room
+- Helping Hand
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Heat Wave
+- Weather Ball
+- Helping Hand
 - Protect
 
-Pelipper (F) @ SitrusBerry
-Ability: Drizzle
+Scrafty (F) @ Scraftinite
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Fake Out
+- Knock Off
+- Close Combat
+- Helping Hand
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dazzling Gleam
+- Expanding Force
+- Trick Room
+- Protect
+
+Venusaur (M) @ FocusSash
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Weather Ball
-- Hurricane
-- Tailwind
+- Leaf Storm
+- Sludge Bomb
+- Sleep Powder
 - Protect
 
-Rillaboom (F) @ GrassySeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
-
-Garchomp (F) @ LifeOrb
-Ability: RoughSkin
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Dragon Claw
-- Stomping Tantrum
-- Rock Slide
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
-- Protect
-
-Pawmot (M) @ FocusSash
-Ability: IronFist
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Double Shock
-- Close Combat
-- Protect
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn

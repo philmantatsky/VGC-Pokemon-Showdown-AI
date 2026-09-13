@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Ninetales-Alola (M) @ FocusSash
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Dragon Pulse
-- Protect
-- Tailwind
-- Hyper Voice
-
-Sneasler (F) @ FocusSash
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Fake Out
+- Blizzard
+- Moonblast
+- Aurora Veil
 - Protect
 
-Incineroar (M) @ ShucaBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Parting Shot
-- Throat Chop
-- Flare Blitz
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Leech Life
-- Iron Head
-- Protect
-- Swords Dance
-
-Milotic (M) @ Leftovers
-Ability: Competitive
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Protect
-- Icy Wind
-- Scald
-- Life Dew
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
 
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
+Rillaboom (M) @ Leftovers
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Close Combat
+- Dire Claw
+- Swords Dance
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+Modest Nature
 - Protect
-- Trick Room
-- Helping Hand
-- Psychic
+- Dazzling Gleam
+- Moonblast
+- Calm Mind

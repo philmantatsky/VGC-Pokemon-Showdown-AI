@@ -1,59 +1,59 @@
-Baxcalibur (M) @ LifeOrb
-Ability: ThermalExchange
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Glaive Rush
-- Icicle Crash
-- Dragon Dance
+- Knock Off
+- Rock Slide
+- Low Kick
 - Protect
 
-Scovillain (M) @ Scovillainite
-Ability: Moody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Rage Powder
-- Flamethrower
-- Giga Drain
-- Protect
-
-Tauros-Paldea-Aqua (M) @ MysticWater
-Ability: Intimidate
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Close Combat
-- Aqua Jet
+- Iron Head
+- High Horsepower
+- Rock Slide
 - Protect
 
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Taunt
+- Protect
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Close Combat
-- Accelerock
-- Protect
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Expanding Force
+- Hyper Voice
+- Trick
+- Dazzling Gleam
 
-Scizor (F) @ ExpertBelt
-Ability: Technician
+Milotic (M) @ SitrusBerry
+Ability: Competitive
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Bullet Punch
-- Bug Bite
-- Close Combat
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Scald
+- Ice Beam
+- Life Dew
 - Protect

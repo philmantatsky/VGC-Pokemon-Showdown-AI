@@ -1,0 +1,59 @@
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Expanding Force
+- Hyper Voice
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draining Kiss
+- Calm Mind
+- Protect
+- Dazzling Gleam
+
+Swampert (F) @ Swampertite
+Ability: Torrent
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Wave Crash
+- Protect
+- Ice Punch
+
+Pelipper (M) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Tailwind
+- Hurricane
+- Weather Ball
+- Wide Guard
+
+Scolipede (F) @ ExpertBelt
+Ability: SpeedBoost
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Leech Life
+- Steel Roller
+- Poison Jab
+
+Archaludon (M) @ ChopleBerry
+Ability: Stamina
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Protect
+- Flash Cannon
+- Electro Shot
+- Dragon Pulse

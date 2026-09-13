@@ -1,59 +1,59 @@
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Follow Me
-- Trick Room
-- Helping Hand
-- Dazzling Gleam
-
-Armarouge (F) @ LifeOrb
-Ability: FlashFire
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Armor Cannon
-- Wide Guard
-- Trick Room
-
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Talonflame (M) @ SharpBeak
+Ability: GaleWings
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Brave Bird
+- Quick Guard
 - Tailwind
-- Protect
+- Dual Wingbeat
+- Will-O-Wisp
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Detect
+- Roar
+- Hyper Voice
+- Hyper Beam
+
+Blastoise (M) @ Blastoisinite
+Ability: RainDish
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Shell Smash
+- Water Spout
+- Dark Pulse
+
+Sinistcha @ SitrusBerry
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Protect
+- Trick Room
+- Rage Powder
+- Matcha Gotcha
+
+Kingambit (M) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Earthquake
-- Iron Head
+- Protect
 - Swords Dance
-- Protect
+- Sucker Punch
+- Iron Head
 
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Raichu (M) @ RaichuniteY
+Ability: LightningRod
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Protect
-
-Corviknight (F) @ SharpBeak
-Ability: MirrorArmor
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Brave Bird
-- Tailwind
-- Bulk Up
-- Roost
+- Fake Out
+- Zap Cannon
+- Focus Blast

@@ -1,3 +1,13 @@
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- U-turn
+- Wood Hammer
+- Grassy Glide
+
 Floette-Eternal (F) @ Floettite
 Ability: FlowerVeil
 Level: 50
@@ -5,55 +15,45 @@ EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Moonblast
 - Dazzling Gleam
-- Calm Mind
+- Light of Ruin
 - Protect
 
 Incineroar (F) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+Impish Nature
 - Fake Out
 - Flare Blitz
-- Darkest Lariat
+- Throat Chop
 - Parting Shot
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Gholdengo @ LifeOrb
+Ability: GoodasGold
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shadow Ball
+- Make It Rain
+- Nasty Plot
+- Protect
 
-Lucario (F) @ LucarioniteZ
-Ability: InnerFocus
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Calm Mind
+- Tailwind
+- Hyper Voice
+- Draco Meteor
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
-
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Jolly Nature
+- Fake Out
 - Close Combat
 - Rock Slide
-- Accelerock
-- Protect
+- Dire Claw

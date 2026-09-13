@@ -1,59 +1,59 @@
-Gengar (F) @ Gengarite
-Ability: CursedBody
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Swords Dance
+- Leech Life
+- Iron Head
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
+- Dragon Cheer
+- Hyper Voice
+- Draco Meteor
 - Protect
-- Substitute
-- Sludge Bomb
-- Shadow Ball
 
-Dragonite (F) @ LifeOrb
-Ability: InnerFocus
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Superpower
-- Dragon Claw
-- Extreme Speed
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Flare Blitz
-- Parting Shot
-- Throat Chop
-- Fake Out
-
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dragon Claw
-- Earthquake
-- Rock Slide
-- Stomping Tantrum
-
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Protect
-- Close Combat
-- Dire Claw
-
-Charizard (M) @ CharizarditeY
-Ability: Blaze
+Archaludon (F) @ ChopleBerry
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Calm Nature
+- Draco Meteor
+- Electro Shot
+- Flash Cannon
 - Protect
-- Heat Wave
+
+Pelipper (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Wide Guard
+- Hurricane
 - Weather Ball
-- Ancient Power
+- Tailwind
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Follow Me
+- Psychic
+- Skill Swap
+
+Sableye (M) @ RoseliBerry
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Light Screen
+- Reflect
+- Encore
+- Rain Dance

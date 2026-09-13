@@ -1,59 +1,59 @@
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
-
-Excadrill (M) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Rock Slide
-- High Horsepower
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Gengar (F) @ Gengarite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
+- Sludge Bomb
 - Shadow Ball
-- Nasty Plot
+- Perish Song
 - Protect
 
-Indeedee (M) @ ChoiceScarf
+Dragonite (F) @ LifeOrb
 Ability: InnerFocus
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Psychic
-- Dazzling Gleam
-- Trick
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Superpower
+- Extreme Speed
+- Protect
 
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Protect
+
+Rillaboom (M) @ EjectButton
+Ability: GrassySurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Fake Out
+- Grassy Glide
+- U-turn
+- Protect
+
+Scrafty (F) @ FocusSash
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Impish Nature
+- Fake Out
 - Close Combat
-- Dire Claw
+- Knock Off
+- Detect
+
+Snorlax (M) @ Leftovers
+Ability: ThickFat
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Fissure
+- Yawn
+- Encore
 - Protect
-- Swords Dance

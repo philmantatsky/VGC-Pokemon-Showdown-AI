@@ -1,11 +1,41 @@
-Archaludon (M) @ Leftovers
-Ability: Stamina
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aura Sphere
+- Flash Cannon
+- Calm Mind
+- Detect
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+- Fake Out
+
+Volcarona (F) @ GrassySeed
+Ability: FlameBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Flash Cannon
-- Dragon Pulse
-- Electro Shot
+- Heat Wave
+- Giga Drain
+- Quiver Dance
+- Rage Powder
+
+Salamence (F) @ LifeOrb
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Rock Slide
+- Draco Meteor
+- Tailwind
 - Protect
 
 Basculegion (M) @ ChoiceScarf
@@ -15,45 +45,15 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Wave Crash
 - Last Respects
-- Aqua Jet
 - Flip Turn
+- Soak
 
-Politoed (F) @ ZoomLens
-Ability: Drizzle
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Muddy Water
-- Hypnosis
-- Helping Hand
-- Protect
-
-Gardevoir (M) @ Gardevoirite
-Ability: Trace
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Hyper Voice
-- Moonblast
-- Protect
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
-
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Helping Hand
-- Psychic
-- Trick Room
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Spirit Break
+- Reflect
+- Light Screen
+- Fake Out

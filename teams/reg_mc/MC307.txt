@@ -1,59 +1,59 @@
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Beam
-- Calm Mind
-- Quick Attack
-- Protect
-
-Tyranitar (M) @ ChopleBerry
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Dragon Dance
-- Rock Slide
-- Knock Off
-- Low Kick
-
-Excadrill (M) @ FocusSash
-Ability: SandRush
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Close Combat
+- Dire Claw
 - Rock Slide
-- Earthquake
-- Iron Head
+- Throat Chop
+
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Expanding Force
+- Psychic
+- Trick Room
+- Imprison
+
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Hyper Voice
+- Thunderbolt
 - Protect
 
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Sucker Punch
-- Kowtow Cleave
-- Swords Dance
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Weather Ball
+- Solar Beam
 - Protect
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Leech Life
-- Swords Dance
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
 - Aqua Jet
 - Protect
 
-Farigiraf (F) @ ColburBerry
-Ability: ArmorTail
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Trick Room
-- Roar
-- Twin Beam
-- Helping Hand
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
+- Protect

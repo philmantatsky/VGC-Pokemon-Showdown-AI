@@ -1,31 +1,11 @@
-Salamence (M) @ Salamencite
+Salamence (F) @ Salamencite
 Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Double-Edge
-- Dragon Dance
-- Roost
-- Protect
-
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Fake Out
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect
 
 Rillaboom (F) @ MiracleSeed
@@ -35,25 +15,45 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
 - Grassy Glide
+- U-turn
 - Fake Out
-- High Horsepower
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Darkest Lariat
+- Parting Shot
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Nasty Plot
+- Shadow Ball
 - Protect
 
-Kingambit (M) @ ChopleBerry
-Ability: Defiant
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
+- Close Combat
+- Dire Claw
+- Swords Dance
+- Protect
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Knock Off
 - Low Kick
-- Sucker Punch
-- Iron Head
+- Protect

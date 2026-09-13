@@ -1,59 +1,59 @@
-Palafin (F) @ WhiteHerb
-Ability: ZerotoHero
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flip Turn
-- Acrobatics
-- Ice Punch
-- Protect
-
-Garchomp (F) @ GarchompiteZ
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Dragon Claw
-- Rock Slide
-- Protect
-
-Salamence (M) @ Salamencite
-Ability: Moxie
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Earthquake
-- Hyper Voice
-- Dragon Claw
-- Protect
-
-Corviknight (F) @ FocusSash
-Ability: MirrorArmor
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Tailwind
-- Roost
-- Body Press
-- U-turn
-
-Grimmsnarl (M) @ BabiriBerry
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Spirit Break
-- Parting Shot
-- Fake Out
-- Protect
-
-Gyarados (M) @ LifeOrb
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Protect
+- Tailwind
+- Draco Meteor
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Earthquake
-- Iron Head
-- Temper Flare
+- Rock Tomb
+- Dire Claw
+- Close Combat
+- Fake Out
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- Fake Out
+- High Horsepower
+
+Kingambit (M) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Dazzling Gleam
+- Draining Kiss
+- Calm Mind
+- Protect
+
+Basculegion (M) @ FocusSash
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Liquidation
+- Aqua Jet
+- Last Respects
 - Protect

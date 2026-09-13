@@ -1,0 +1,59 @@
+Primarina (F) @ Leftovers
+Ability: LiquidVoice
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Moonblast
+- Protect
+- Calm Mind
+
+Scovillain (F) @ Scovillainite
+Ability: Insomnia
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Overheat
+- Giga Drain
+- Protect
+- Rage Powder
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Protect
+- Nasty Plot
+
+Aerodactyl (M) @ Aerodactylite
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Dual Wingbeat
+- Protect
+- Tailwind
+
+Garchomp (F) @ SitrusBerry
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Stomping Tantrum
+- Protect
+- Dragon Claw
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Dire Claw
+- Protect
+- Close Combat

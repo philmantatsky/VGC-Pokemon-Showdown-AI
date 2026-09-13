@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
-- Protect
-
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
-
-Lucario (F) @ LucarioniteZ
-Ability: InnerFocus
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Calm Mind
+- Zap Cannon
+- Focus Blast
+- Fake Out
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
+- Protect
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Psychic
+- Helping Hand
+- Trick Room
+- Protect
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Quick Attack
+- Hyper Beam
+- Detect
+
+Kingambit (M) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
-- Rock Slide
-- Accelerock
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect

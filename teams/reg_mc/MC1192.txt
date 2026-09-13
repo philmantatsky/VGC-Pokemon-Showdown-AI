@@ -1,59 +1,59 @@
-Froslass (F) @ Froslassite
-Ability: CursedBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Nasty Plot
-- Protect
-
-Dragonite (F) @ DragonFang
-Ability: InnerFocus
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Scale Shot
-- Low Kick
-- Extreme Speed
+- Rock Slide
+- Knock Off
+- Dragon Dance
 - Protect
 
-Pawmot (M) @ LifeOrb
-Ability: IronFist
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Close Combat
-- Thunder Punch
+- High Horsepower
+- Iron Head
+- Rock Slide
 - Protect
 
-Gholdengo @ FocusSash
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Power Gem
-- Nasty Plot
-- Protect
-
-Whimsicott (F) @ OccaBerry
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Moonblast
-- Tailwind
-- Fake Tears
-- Encore
-
-Milotic (F) @ SitrusBerry
-Ability: Competitive
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Expanding Force
+- Hyper Voice
+- Trick
+- Trick Room
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Acrobatics
+- Protect
+
+Milotic (M) @ SitrusBerry
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
 - Scald
 - Icy Wind
-- Life Dew
+- Recover
+- Protect
+
+Scovillain (M) @ Scovillainite
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Overheat
+- Giga Drain
+- Rage Powder
 - Protect

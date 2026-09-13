@@ -1,24 +1,44 @@
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Calm Mind
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect
 
-Incineroar (M) @ WhiteHerb
-Ability: Intimidate
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
 - Flare Blitz
-- Darkest Lariat
-- Fake Out
-- Parting Shot
+- Rock Slide
+- Extreme Speed
+- Protect
 
-Rillaboom (M) @ FocusSash
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Fake Out
+- Protect
+
+Rillaboom (M) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -26,34 +46,14 @@ Adamant Nature
 - Wood Hammer
 - Grassy Glide
 - Fake Out
-- High Horsepower
+- U-turn
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
-
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Psychic
-- Hyper Voice
-- Helping Hand
-- Trick Room
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Tailwind
-- Draco Meteor
-- Hyper Voice
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect

@@ -1,59 +1,59 @@
-Baxcalibur (M) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Glaive Rush
-- Icicle Crash
-- Ice Shard
-- Protect
-
-Sneasler (F) @ FocusSash
-Ability: PoisonTouch
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Poison Jab
-- Coaching
-- Protect
-
-Scovillain (M) @ Scovillainite
-Ability: Moody
+Charizard (F) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Overheat
-- Leech Seed
-- Rage Powder
+Modest Nature
 - Protect
+- Solar Beam
+- Heat Wave
+- Air Slash
 
-Basculegion (M) @ LifeOrb
+Venusaur (F) @ WideLens
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Giga Drain
+- Earth Power
+- Sleep Powder
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Moonblast
+- Tailwind
+- Encore
+
+Basculegion (M) @ MysticWater
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Protect
+- Aqua Jet
 - Wave Crash
 - Last Respects
-- Aqua Jet
-- Protect
 
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
-- Kowtow Cleave
-- Swords Dance
 - Protect
+- Rock Slide
+- Knock Off
+- Low Kick
 
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
+Mamoswine (F) @ LifeOrb
+Ability: Oblivious
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
+- Protect
 - High Horsepower
+- Rock Slide
+- Ice Shard

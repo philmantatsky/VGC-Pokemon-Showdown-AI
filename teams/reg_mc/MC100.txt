@@ -1,59 +1,59 @@
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- First Impression
+- U-turn
+- Iron Head
+- Close Combat
+
+Incineroar (M) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flare Blitz
+- Darkest Lariat
+- Fake Out
+- Parting Shot
+
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+Calm Nature
 - Protect
+- Psychic
+- Trick Room
+- Follow Me
 
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
+Milotic (M) @ Leftovers
+Ability: Competitive
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Fake Out
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
 - Protect
+- Muddy Water
+- Ice Beam
+- Coil
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Close Combat
-- Accelerock
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
-
-Scovillain (M) @ Scovillainite
-Ability: Moody
+Sinistcha-Masterpiece @ KasibBerry
+Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Overheat
-- Giga Drain
-- Rage Powder
 - Protect
+- Matcha Gotcha
+- Trick Room
+- Rage Powder
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Expanding Force
+- Heat Wave
+- Nasty Plot

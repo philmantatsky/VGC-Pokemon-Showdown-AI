@@ -1,0 +1,59 @@
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Glaive Rush
+- Icicle Crash
+- Ice Shard
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Coaching
+- Close Combat
+- Dire Claw
+- Protect
+
+Rillaboom (M) @ OccaBerry
+Ability: Overgrow
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- High Horsepower
+- Grassy Glide
+- Fake Out
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Last Respects
+- Flip Turn
+- Aqua Jet
+- Wave Crash
+
+Talonflame (M) @ FocusSash
+Ability: GaleWings
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flame Charge
+- Tailwind
+- Dual Wingbeat
+- Protect
+
+Sableye (F) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Light Screen
+- Reflect
+- Quash
+- Foul Play

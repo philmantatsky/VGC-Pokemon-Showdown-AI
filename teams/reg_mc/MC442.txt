@@ -1,59 +1,59 @@
-Incineroar (M) @ WhiteHerb
+Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- Draco Meteor
+- Hyper Voice
+- Protect
+
+Gholdengo @ Leftovers
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Nasty Plot
+- Make It Rain
+- Shadow Ball
+- Protect
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
 - Fake Out
+- U-turn
+- Wood Hammer
 
-Farigiraf (M) @ Leftovers
-Ability: ArmorTail
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Psychic
-- Trick Room
+Timid Nature
+- Calm Mind
+- Draining Kiss
+- Moonblast
 - Protect
 
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Trick Room
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Wave Crash
+- Aqua Jet
 - Protect
 
-Maushold-Four @ WideLens
-Ability: Technician
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
+- Head Smash
+- Flare Blitz
+- Extreme Speed
 - Protect
-
-Torkoal (F) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
-- Protect
-
-Hydreigon (M) @ ChoiceScarf
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl

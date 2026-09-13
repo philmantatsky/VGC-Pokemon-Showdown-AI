@@ -1,59 +1,59 @@
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Will-O-Wisp
-- Parting Shot
-- Fake Out
-
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Close Combat
-- Fake Out
-- Rock Slide
-
-Sinistcha @ ColburBerry
-Ability: Hospitality
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Matcha Gotcha
-- Trick Room
-- Rage Powder
-- Protect
-
-Delphox (F) @ Delphoxite
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
 - Psychic
-- Nasty Plot
+- Trick Room
+- Follow Me
+- Healing Wish
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dazzling Gleam
+- Expanding Force
+- Trick Room
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Farigiraf (F) @ MentalHerb
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
+Bold Nature
+- Psychic
+- Trick Room
 - Protect
+- Helping Hand
+
+Torkoal (F) @ Charcoal
+Ability: WhiteSmoke
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Earth Power
+- Protect
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Rock Slide
+- Leech Life
+- Iron Head
+- Protect
+
+Abomasnow (F) @ Abomasite
+Ability: SnowWarning
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Blizzard
+- Energy Ball
+- Protect
+- Earth Power

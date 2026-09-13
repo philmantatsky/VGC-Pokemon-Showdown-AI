@@ -1,59 +1,59 @@
-Tyranitar (M) @ WideLens
-Ability: SandStream
+Incineroar (M) @ WhiteHerb
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Flare Blitz
+- Darkest Lariat
+- Close Combat
+- Fake Out
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Trick Room
+- Dazzling Gleam
 - Protect
 
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- First Impression
-- Close Combat
-- U-turn
-
-Farigiraf (M) @ SitrusBerry
+Farigiraf (F) @ SitrusBerry
 Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Thunderbolt
+- Expanding Force
 - Trick Room
-- Hyper Voice
-- Psychic
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
-- Draco Meteor
-- Tailwind
+- Thunderbolt
 - Protect
 
-Rillaboom (F) @ IronBall
-Ability: GrassySurge
+Torkoal (M) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- High Horsepower
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Earth Power
+- Protect
 
-Volcarona (M) @ Leftovers
-Ability: FlameBody
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Terrain Pulse
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Modest Nature
 - Heat Wave
-- Flamethrower
-- Rage Powder
+- Overheat
+- Solar Beam
 - Protect

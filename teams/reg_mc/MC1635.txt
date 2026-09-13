@@ -1,59 +1,59 @@
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
-
-Sneasler (M) @ GrassySeed
+Sneasler (F) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
 - Dire Claw
-- Swords Dance
+- Close Combat
+- Throat Chop
 - Protect
 
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Sucker Punch
-- Kowtow Cleave
-- Low Kick
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
-- Throat Chop
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Tailwind
-- Draco Meteor
-- Protect
-- Hyper Voice
-
-Indeedee (M) @ MistySeed
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Healing Wish
-- Encore
-- Trick Room
 - Expanding Force
+- Dazzling Gleam
+- Trick
+- Protect
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Ice Punch
+- Protect
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- High Horsepower
+- Iron Head
+- Rock Slide
+- Protect
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Brave Bird
+- Close Combat
+- Tailwind
+- Protect
+
+Milotic (F) @ SitrusBerry
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Scald
+- Ice Beam
+- Life Dew
+- Protect

@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Gengar (M) @ Gengarite
+Ability: CursedBody
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Leech Life
-- Iron Head
-- First Impression
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Protect
+- Substitute
+- Sludge Bomb
+- Shadow Ball
 
-Sneasler (F) @ WhiteHerb
+Dragonite (F) @ LifeOrb
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Superpower
+- Dragon Claw
+- Extreme Speed
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Flare Blitz
+- Parting Shot
+- Throat Chop
+- Fake Out
+
+Garchomp (F) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Earthquake
+- Rock Slide
+- Stomping Tantrum
+
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Fake Out
+- Protect
 - Close Combat
 - Dire Claw
-- Protect
-- Fake Out
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Garchomp (F) @ GarchompiteZ
-Ability: RoughSkin
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dragon Pulse
-- Earth Power
-- Flamethrower
+Modest Nature
 - Protect
-
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Twin Beam
-- Trick Room
-- Thunderbolt
-- Helping Hand
-
-Tyranitar (F) @ FocusSash
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
+- Heat Wave
+- Weather Ball
+- Ancient Power

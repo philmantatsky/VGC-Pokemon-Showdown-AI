@@ -1,59 +1,59 @@
-Lucario (F) @ LucarioniteZ
-Ability: Steadfast
+Excadrill (F) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- High Horsepower
+- Iron Head
+- Protect
+
+Tyranitar (M) @ ChopleBerry
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Scald
+- Icy Wind
+- Ice Beam
+- Protect
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Parting Shot
+- Helping Hand
+- Flare Blitz
+- Fake Out
+
+Venusaur (F) @ Venusaurite
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Flash Cannon
-- Vacuum Wave
-- Aura Sphere
+- Giga Drain
+- Sludge Bomb
+- Earth Power
 - Protect
 
-Glimmora (F) @ FocusSash
-Ability: ToxicDebris
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Earth Power
-- Power Gem
-- Spiky Shield
-- Sludge Bomb
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- U-turn
-
-Farigiraf (F) @ LifeOrb
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Nasty Plot
-- Trick Room
+Jolly Nature
+- Double-Edge
+- Tailwind
 - Hyper Voice
-- Psychic
-
-Delphox (F) @ Delphoxite
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Substitute
-- Heat Wave
-- Psychic
 - Protect
-
-Ninetales-Alola (M) @ NeverMeltIce
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Aurora Veil
-- Protect
-- Disable

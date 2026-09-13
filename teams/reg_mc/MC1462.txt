@@ -1,59 +1,59 @@
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
+Rillaboom (F) @ LifeOrb
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
-- Knock Off
-- Dragon Dance
-- Protect
-
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Ice Shard
-- Glaive Rush
+- Fake Out
+- Grassy Glide
+- Wood Hammer
 - High Horsepower
+
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Aurora Veil
+- Shadow Ball
 - Protect
 
-Sneasler (M) @ WhiteHerb
+Gholdengo @ GrassySeed
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Nasty Plot
+- Shadow Ball
+- Make It Rain
+- Protect
+
+Sneasler (F) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Fake Out
 - Close Combat
 - Dire Claw
-- Coaching
 - Protect
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Tri Attack
-- Terrain Pulse
-- Trick
-
-Corviknight (M) @ PsychicSeed
-Ability: MirrorArmor
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Brave Bird
-- Body Press
-- Bulk Up
-- Roost
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Iron Head
-- Rock Slide
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
 - Protect

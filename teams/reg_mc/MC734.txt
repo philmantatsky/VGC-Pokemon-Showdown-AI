@@ -1,3 +1,33 @@
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+- Fake Out
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Throat Chop
+- Parting Shot
+- Fake Out
+
+Gholdengo @ Leftovers
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
 Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
@@ -5,55 +35,25 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Hasty Nature
 - Hyper Voice
 - Double-Edge
-- Protect
 - Tailwind
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Knock Off
-- Dragon Dance
 - Protect
 
-Excadrill (M) @ FocusSash
-Ability: SandRush
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- High Horsepower
-- Rock Slide
-- Iron Head
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Calm Mind
+- Draining Kiss
+- Moonblast
 - Protect
 
-Sneasler (F) @ GrassySeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
-- Fake Out
+- Swords Dance
 - Close Combat
 - Dire Claw
-
-Milotic (M) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Scald
-- Icy Wind
-- Ice Beam
-- Recover
+- Protect

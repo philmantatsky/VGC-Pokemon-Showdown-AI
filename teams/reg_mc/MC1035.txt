@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Follow Me
+- Helping Hand
+- Psychic
 
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Armarouge (M) @ FocusSash
+Ability: FlashFire
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Armor Cannon
+- Wide Guard
+- Trick Room
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Earth Power
 - Protect
 
-Volcarona (M) @ GrassySeed
-Ability: FlameBody
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Fiery Dance
-- Rage Powder
-- Giga Drain
-- Protect
-
-Excadrill (M) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Iron Head
-- Rock Slide
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Protect
-- Double-Edge
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Expanding Force
 - Hyper Voice
-- Tailwind
+- Protect
 
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Knock Off
-- Rock Slide
-- High Horsepower
+- Throat Chop
+- Close Combat
+- Dire Claw
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: SupremeOverlord
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
 - Protect

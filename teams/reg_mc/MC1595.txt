@@ -1,59 +1,59 @@
-Cinderace (M) @ LifeOrb
-Ability: Libero
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Dazzling Gleam
+
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Armor Cannon
+- Wide Guard
+- Trick Room
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Pyro Ball
-- Sucker Punch
-- High Jump Kick
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Light of Ruin
-- Protect
-- Dazzling Gleam
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
+- Close Combat
+- Brave Bird
 - Tailwind
-- Encore
 - Protect
 
-Basculegion (M) @ MysticWater
-Ability: Adaptability
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
+- Earthquake
+- Iron Head
+- Swords Dance
 - Protect
-- Aqua Jet
 
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Psychic
-- Hyper Voice
-- Trick Room
-- Imprison
-
-Gholdengo @ MetalCoat
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Thunderbolt
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
 - Protect
+
+Corviknight (F) @ SharpBeak
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Brave Bird
+- Tailwind
+- Bulk Up
+- Roost

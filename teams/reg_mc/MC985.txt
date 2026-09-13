@@ -1,59 +1,59 @@
-Indeedee-F (F) @ ColburBerry
-Ability: PsychicSurge
+Absol (M) @ AbsoliteZ
+Ability: Pressure
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Follow Me
-- Helping Hand
-- Trick Room
-- Dazzling Gleam
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Psycho Cut
+- Night Slash
+- Shadow Claw
+- Swords Dance
 
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
+Gallade (M) @ Galladite
+Ability: Justified
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Trick Room
-- Dazzling Gleam
-- Psychic
-
-Camerupt (M) @ Cameruptite
-Ability: MagmaArmor
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Swords Dance
 - Protect
-- Earth Power
-- Heat Wave
-- Ancient Power
+- Psycho Cut
 
-Vivillon-Pokeball (M) @ FocusSash
-Ability: CompoundEyes
+Maushold-Four @ SitrusBerry
+Ability: FriendGuard
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Beat Up
+- Follow Me
+- Population Bomb
+- Super Fang
+
+Rillaboom (M) @ GrassySeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Fake Out
+- Grassy Glide
+- Snarl
+- U-turn
+
+Whimsicott (F) @ OccaBerry
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Rage Powder
-- Sleep Powder
-- Hurricane
-- Protect
+- Leech Seed
+- Tailwind
+- Moonblast
+- Taunt
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Leech Life
-- Close Combat
-- Iron Head
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Rock Slide
+- Dragon Claw
 - Protect
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Trick Room
-- Nasty Plot
-- Hyper Voice
-- Twin Beam

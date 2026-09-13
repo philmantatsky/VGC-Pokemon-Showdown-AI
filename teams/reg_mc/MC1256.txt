@@ -1,56 +1,59 @@
-Tyranitar (F) @ Tyranitarite
+Tyranitar (M) @ Tyranitarite
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Knock Off
+Jolly Nature
+- Protect
 - Rock Slide
+- Knock Off
 - Dragon Dance
-- Protect
 
-Excadrill (F) @ LifeOrb
-Ability: SandForce
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- High Horsepower
-- Earthquake
-- Protect
-
-Slowking (F) @ Leftovers
-Ability: Regenerator
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Scald
-- Psychic
-- Yawn
-- Protect
-
-Incineroar (F) @ SitrusBerry
+Incineroar (M) @ RockyHelmet
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Throat Chop
+Jolly Nature
 - Fake Out
 - Parting Shot
+- Flare Blitz
+- Close Combat
 
-Sinistcha @ KasibBerry
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Matcha Gotcha
-- Life Dew
-- Rage Powder
-- Protect
-
-Ditto @ FocusSash
-Ability: Imposter
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Transform
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
+
+Rotom-Wash @ Leftovers
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Hydro Pump
+- Volt Switch
+- Will-O-Wisp
+
+Tinkaton (F) @ LifeOrb
+Ability: OwnTempo
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Gigaton Hammer
+- Play Rough
+- Swords Dance
+
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Draco Meteor
+- Flamethrower
+- Tailwind

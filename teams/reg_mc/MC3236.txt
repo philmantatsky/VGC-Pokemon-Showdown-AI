@@ -1,0 +1,59 @@
+Indeedee (M) @ FocusSash
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Expanding Force
+- Imprison
+- Protect
+- Trick Room
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Acrobatics
+- Protect
+
+Talonflame (M) @ SharpBeak
+Ability: GaleWings
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Brave Bird
+- Flare Blitz
+- Tailwind
+- Quick Guard
+
+Dragapult (M) @ LifeOrb
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dragon Darts
+- Phantom Force
+- Protect
+- U-turn
+
+Glimmora (F) @ Glimmoranite
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Sludge Bomb
+- Power Gem
+- Spiky Shield
+- Earth Power
+
+Incineroar (F) @ Charcoal
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flare Blitz
+- Fake Out
+- Parting Shot
+- Helping Hand

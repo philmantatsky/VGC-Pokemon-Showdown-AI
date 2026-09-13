@@ -1,59 +1,59 @@
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Rock Tomb
-- Protect
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Draining Kiss
-- Protect
-- Calm Mind
-
-Blastoise (F) @ Blastoisinite
-Ability: Torrent
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Shell Smash
-- Terrain Pulse
-- Water Spout
-- Protect
-
-Indeedee-F (F) @ RockyHelmet
+Indeedee-F (F) @ SitrusBerry
 Ability: PsychicSurge
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Relaxed Nature
+- Trick Room
 - Follow Me
-- Psychic
 - Helping Hand
+- Psychic
+
+Armarouge (M) @ FocusSash
+Ability: FlashFire
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Armor Cannon
+- Wide Guard
 - Trick Room
 
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Earth Power
+- Protect
+
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Expanding Force
+- Hyper Voice
+- Protect
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- U-turn
-- Grassy Glide
-- Wood Hammer
+Jolly Nature
+- Throat Chop
+- Close Combat
+- Dire Claw
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: SupremeOverlord
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
+- Protect

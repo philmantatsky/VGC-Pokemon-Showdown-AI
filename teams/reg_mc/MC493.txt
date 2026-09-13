@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Rillaboom (F) @ LifeOrb
+Ability: GrassySurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Calm Mind
-- Dazzling Gleam
-- Draining Kiss
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
 - Protect
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Protect
+- Glaive Rush
+- Ice Shard
 
 Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Dire Claw
+Adamant Nature
 - Close Combat
-- Swords Dance
-
-Kingambit (M) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
 - Protect
+- Dire Claw
+- Coaching
 
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Ninetales-Alola (M) @ FocusSash
+Ability: SnowWarning
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Extreme Speed
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Icy Wind
 - Protect
+- Freeze-Dry
 
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Protect
+- Trick Room
+- Imprison
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Gholdengo @ Leftovers
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
+- Nasty Plot
+- Shadow Ball
 - Protect
+- Make It Rain

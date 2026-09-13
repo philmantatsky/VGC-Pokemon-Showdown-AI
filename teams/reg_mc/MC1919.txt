@@ -1,0 +1,59 @@
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dragon Dance
+- Rock Slide
+- Knock Off
+- Protect
+
+Milotic (F) @ GrassySeed
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Coil
+- Scald
+- Hypnosis
+- Recover
+
+Bastiodon (F) @ Leftovers
+Ability: Soundproof
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Iron Defense
+- Body Press
+- Metal Burst
+- Protect
+
+Garchomp (M) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Breaking Swipe
+- Stomping Tantrum
+- Rock Tomb
+- Dragon Claw
+
+Basculegion (M) @ FocusSash
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Last Respects
+- Wave Crash
+- Aqua Jet
+- Protect
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- Protect

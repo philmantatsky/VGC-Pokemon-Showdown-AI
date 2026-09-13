@@ -1,59 +1,59 @@
-Ninetales-Alola (M) @ FocusSash
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Moonblast
-- Aurora Veil
-- Protect
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Hyper Voice
+- Dragon Pulse
+- Flamethrower
 - Protect
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
 
-Rillaboom (M) @ Leftovers
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Sneasler (M) @ GrassySeed
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Close Combat
+Jolly Nature
 - Dire Claw
-- Swords Dance
+- Close Combat
+- Fake Out
+- Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Protect
+
+Basculegion (M) @ MysticWater
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Dazzling Gleam
+Timid Nature
 - Moonblast
-- Calm Mind
+- Tailwind
+- Encore
+- Protect
+
+Garchomp (M) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Stomping Tantrum
+- Earthquake
+- Dragon Claw
+- Rock Slide

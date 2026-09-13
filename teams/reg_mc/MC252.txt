@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Leech Life
-- Aqua Jet
-- Swords Dance
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Mild Nature
-- Double-Edge
-- Hyper Voice
-- Protect
-- Tailwind
-
-Sneasler (F) @ GrassySeed
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Coaching
-- Protect
-- Dire Claw
 - Close Combat
+- Dire Claw
+- Rock Slide
+- Acrobatics
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- Wood Hammer
-- U-turn
-- Fake Out
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Expanding Force
+- Hyper Voice
+- Trick Room
+- Imprison
 
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Light Screen
-- Reflect
-- Parting Shot
-- Spirit Break
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Hyper Voice
+- Thunderbolt
+- Protect
 
-Basculegion (M) @ ChoiceScarf
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Weather Ball
+- Solar Beam
+- Protect
+
+Basculegion (M) @ LifeOrb
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Wave Crash
 - Last Respects
 - Aqua Jet
-- Wave Crash
-- Flip Turn
+- Protect
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
+- Protect

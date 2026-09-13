@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Absol (F) @ AbsoliteZ
+Ability: Pressure
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-- Fake Out
+Hasty Nature
+- Psycho Cut
+- Night Slash
+- Shadow Claw
+- Swords Dance
 
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Draco Meteor
-- Tailwind
-- Hyper Voice
-- Protect
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
+Gallade (M) @ Galladite
+Ability: Justified
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Close Combat
-- Dire Claw
-- Fake Out
+- Swords Dance
 - Protect
+- Psycho Cut
 
-Excadrill (M) @ LifeOrb
-Ability: SandRush
+Maushold-Four @ SitrusBerry
+Ability: FriendGuard
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Iron Head
-- Rock Slide
-- Protect
+Jolly Nature
+- Beat Up
+- Follow Me
+- Population Bomb
+- Super Fang
 
-Gholdengo @ Leftovers
-Ability: GoodasGold
+Rillaboom (M) @ GrassySeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Fake Out
+- Grassy Glide
+- Snarl
+- U-turn
+
+Whimsicott (M) @ OccaBerry
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+Timid Nature
+- Leech Seed
+- Tailwind
+- Moonblast
+- Taunt
+
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Rock Slide
+- Dragon Claw
 - Protect

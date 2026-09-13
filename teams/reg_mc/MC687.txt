@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
+Rillaboom (M) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
 - Grassy Glide
-- Fake Out
 - U-turn
+- Fake Out
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Muddy Water
-- Hypnosis
-- Coil
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
 
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
-- Kowtow Cleave
+- Dire Claw
+- Close Combat
+- Fake Out
 - Swords Dance
-- Protect
-
-Garchomp (F) @ LifeOrb
-Ability: SandVeil
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Stomping Tantrum
-- Dragon Claw
-- Rock Slide
-- Protect
 
 Floette-Eternal (F) @ Floettite
 Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dazzling Gleam
+Timid Nature
 - Moonblast
+- Dazzling Gleam
 - Calm Mind
 - Protect
 
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Zap Cannon
-- Focus Blast
-- Fake Out
+- Hyper Voice
+- Double-Edge
+- Tailwind
 - Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn

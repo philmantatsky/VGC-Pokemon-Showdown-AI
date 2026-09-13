@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
-- Tailwind
-- Hyper Voice
+Jolly Nature
+- Rock Slide
+- Knock Off
+- Dragon Dance
 - Protect
 
-Kingambit (F) @ LifeOrb
-Ability: Defiant
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Low Kick
 - Iron Head
+- Earthquake
+- Drill Run
+- Protect
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
-- Detect
+- Expanding Force
+- Psyshock
+- Dazzling Gleam
+- Fake Out
 
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Psychic
-- Thunderbolt
-- Trick Room
-- Protect
-
-Sinistcha @ KasibBerry
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Matcha Gotcha
-- Rage Powder
-- Trick Room
-- Protect
-
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Flare Blitz
-- Rock Slide
-- Extreme Speed
+- Dire Claw
+- Close Combat
+- Throat Chop
+- Protect
+
+Corviknight (M) @ SharpBeak
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Tailwind
+- Brave Bird
+- Bulk Up
+- Body Press
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Light of Ruin
 - Protect

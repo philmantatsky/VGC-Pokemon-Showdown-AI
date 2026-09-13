@@ -1,59 +1,59 @@
-Ninetales-Alola (M) @ FocusSash
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Moonblast
-- Aurora Veil
-- Protect
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
-
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Close Combat
-- Dire Claw
-- Fake Out
+- Low Kick
+- Iron Head
+- Kowtow Cleave
+- Sucker Punch
 
 Floette-Eternal (F) @ Floettite
 Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Dazzling Gleam
+Timid Nature
 - Moonblast
-- Calm Mind
+- Dazzling Gleam
+- Light of Ruin
+- Protect
+
+Sneasler (F) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Protect
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Trick Room
+- Imprison
+- Psychic
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Protect
+- Aqua Jet
+- Last Respects
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Protect
+- Tailwind
+- Draco Meteor

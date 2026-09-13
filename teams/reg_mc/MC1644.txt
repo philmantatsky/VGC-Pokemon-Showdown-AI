@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
-- Dazzling Gleam
-- Draining Kiss
-- Calm Mind
+- Tailwind
+- Sunny Day
+- Moonblast
+- Encore
 
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Protect
-- Flare Blitz
-- Head Smash
+- Earthquake
 - Rock Slide
+- Dragon Claw
 
-Kingambit (F) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- Wood Hammer
-- Fake Out
-- High Horsepower
-
-Farigiraf (M) @ GrassySeed
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Helping Hand
-- Trick Room
-- Twin Beam
-- Hyper Voice
-
-Raichu (M) @ RaichuniteY
-Ability: Static
+Charizard (F) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
+- Solar Beam
+- Heat Wave
+- Weather Ball
 - Protect
-- Zap Cannon
-- Focus Blast
+
+Incineroar (M) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Fake Out
+- Parting Shot
+- Flare Blitz
+- Darkest Lariat
+
+Chimecho (M) @ Chimechite
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Flash Cannon
+- Psychic
+- Dazzling Gleam
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Coil
+- Protect
+- Muddy Water
+- Hypnosis

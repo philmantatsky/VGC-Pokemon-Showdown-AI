@@ -1,59 +1,59 @@
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
+Infernape (F) @ LifeOrb
+Ability: IronFist
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Dragon Dance
+Jolly Nature
+- Fake Out
+- Fire Punch
+- Focus Punch
 - Protect
 
-Excadrill (M) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Iron Head
-- Rock Slide
-- Protect
-
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Trick
-- Trick Room
-
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Acrobatics
-- Protect
-
-Milotic (F) @ SitrusBerry
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Scald
-- Icy Wind
-- Recover
-- Protect
-
-Scovillain (F) @ Scovillainite
+Victreebel (F) @ Victreebelite
 Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Stockpile
+- Spit Up
+- Energy Ball
+- Protect
+
+Slowking-Galar (M)
+Ability: Regenerator
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Expanding Force
+- Sludge Bomb
+- Protect
+
+Sinistcha-Masterpiece @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Overheat
-- Giga Drain
 - Rage Powder
+- Matcha Gotcha
+- Life Dew
+- Protect
+
+Abomasnow (M) @ Abomasite
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aurora Veil
+- Blizzard
+- Earth Power
+- Leaf Storm
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Nasty Plot
+- Hyper Voice
+- Dazzling Gleam
 - Protect

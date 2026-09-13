@@ -1,59 +1,59 @@
-Gengar (F) @ Gengarite
-Ability: CursedBody
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Psychic
+- Protect
+- Helping Hand
+
+Vivillon (M) @ ChoiceScarf
+Ability: CompoundEyes
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Nasty Plot
-- Sludge Wave
-- Shadow Ball
-- Protect
+- Hurricane
+- Sleep Powder
+- Rage Powder
+- Tailwind
 
-Swampert (F) @ Swampertite
+Blastoise (M) @ Blastoisinite
 Ability: Torrent
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
-- Ice Punch
-- Wave Crash
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Shell Smash
 - Protect
+- Ice Beam
+- Water Spout
 
-Kingambit (F) @ ChopleBerry
-Ability: SupremeOverlord
+Sneasler (F) @ PsychicSeed
+Ability: Pressure
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Low Kick
-- Sucker Punch
-- Iron Head
-
-Oranguru (M) @ MentalHerb
-Ability: Telepathy
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Extrasensory
+Jolly Nature
+- Fake Out
+- Dire Claw
+- Close Combat
 - Protect
-- Trick Room
-- Instruct
 
-Pelipper (M) @ FocusSash
-Ability: Drizzle
+Delphox (M) @ Delphoxite
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Weather Ball
-- Hurricane
-- Tailwind
+- Heat Wave
+- Psychic
 - Protect
+- Nasty Plot
 
-Sinistcha @ Leftovers
+Sinistcha @ OccaBerry
 Ability: Hospitality
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
 - Rage Powder
 - Matcha Gotcha
-- Protect
 - Trick Room
+- Protect

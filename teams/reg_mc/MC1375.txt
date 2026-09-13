@@ -1,59 +1,59 @@
-Gengar (M) @ Gengarite
-Ability: CursedBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Shadow Ball
-- Perish Song
-- Sludge Bomb
-- Protect
-
-Incineroar (M) @ PasshoBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Darkest Lariat
-- Parting Shot
-- Fake Out
-- Protect
-
-Politoed (F) @ SitrusBerry
+Pelipper (F) @ FocusSash
 Ability: Drizzle
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Hurricane
 - Weather Ball
-- Perish Song
-- Encore
-- Protect
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- U-turn
-- Grassy Glide
-- Fake Out
-
-Kingambit (M) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Protect
-- Double-Edge
-- Hyper Voice
 - Tailwind
+- Roost
+
+Dragonite (M) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dragon Pulse
+- Hurricane
+- Tailwind
+- Thunder
+
+Archaludon (M) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Electro Shot
+- Flash Cannon
+- Protect
+
+Basculegion (M) @ MysticWater
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Aqua Jet
+- Wave Crash
+- Last Respects
+- Flip Turn
+
+Rotom-Heat @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Thunder
+- Trick
+- Overheat
+- Volt Switch
+
+Sneasler (M) @ WhiteHerb
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Protect

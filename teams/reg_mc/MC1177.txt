@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Light of Ruin
-- Dazzling Gleam
-- Psychic
-- Protect
-
-Metagross @ Metagrossite
-Ability: ClearBody
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Psychic Fangs
-- Iron Head
-- Rock Slide
-- Protect
-
-Tauros-Paldea-Aqua (M) @ WhiteHerb
-Ability: Intimidate
+Kingambit (F) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Aqua Jet
-- Close Combat
-- Raging Bull
 - Protect
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
 
-Whimsicott (F) @ SitrusBerry
+Kleavor (F) @ FocusSash
+Ability: Sharpness
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Stone Axe
+- X-Scissor
+- Feint
+
+Whimsicott (F) @ FairyFeather
 Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Tailwind
-- Energy Ball
-- Encore
 - Protect
+- Moonblast
+- Tailwind
+- Encore
 
-Farigiraf (F) @ ChoiceScarf
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Naive Nature
-- Hyper Voice
-- Thunderbolt
-- Twin Beam
-- Low Kick
-
-Salazzle (F) @ FocusSash
-Ability: Corrosion
+Raichu (F) @ RaichuniteY
+Ability: Static
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Fake Out
-- Toxic
-- Heat Wave
 - Protect
+- Zap Cannon
+- Focus Blast
+- Fake Out
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Wave Crash
+- Last Respects
+- Aqua Jet
+
+Staraptor (M) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Brave Bird
+- Close Combat
+- Roost

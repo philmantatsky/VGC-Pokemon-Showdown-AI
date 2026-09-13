@@ -1,59 +1,59 @@
-Sneasler (M) @ PsychicSeed
+Rillaboom (F) @ SitrusBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- U-turn
+
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Trick Room
+- Helping Hand
+- Roar
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Scald
+- Ice Beam
+- Recover
+- Protect
+
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
+Jolly Nature
+- Fake Out
 - Dire Claw
-- Rock Slide
-- Throat Chop
+- Close Combat
+- Rock Tomb
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Psychic
-- Trick Room
-- Imprison
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Thunderbolt
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- Iron Head
+- Leech Life
 - Protect
 
-Charizard (M) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
+- Double-Edge
+- Dragon Dance
+- Roost
 - Protect

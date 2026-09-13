@@ -1,59 +1,59 @@
-Gardevoir (M) @ Gardevoirite
-Ability: Trace
+Rillaboom (F) @ RockyHelmet
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Fake Out
+- Grassy Glide
+- U-turn
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Timid Nature
+- Protect
 - Hyper Voice
-- Expanding Force
-- Thunderbolt
-- Protect
+- Draco Meteor
+- Tailwind
 
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Follow Me
-- Helping Hand
+Timid Nature
 - Protect
+- Calm Mind
+- Dazzling Gleam
+- Moonblast
 
-Sneasler (M) @ PsychicSeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Protect
 - Close Combat
+- Fake Out
 - Dire Claw
-- Rock Tomb
-- Protect
 
-Talonflame (F) @ Charcoal
-Ability: GaleWings
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dual Wingbeat
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Fake Out
+- Darkest Lariat
+- Parting Shot
 - Flare Blitz
-- Tailwind
-- Protect
 
-Hydreigon (F) @ LifeOrb
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dark Pulse
-- Draco Meteor
-- Heat Wave
-- Protect
-
-Annihilape (M) @ FocusSash
+Kingambit (F) @ ChopleBerry
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Rage Fist
-- Ice Punch
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
 - Protect

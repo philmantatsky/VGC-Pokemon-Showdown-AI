@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Leech Life
+- Iron Head
+- First Impression
+- Protect
+
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Close Combat
+- Dire Claw
+- Protect
 - Fake Out
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
 
-Kommo-o (M) @ Leftovers
-Ability: Overcoat
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Clanging Scales
-- Aura Sphere
-- Protect
-- Clangorous Soul
-
-Scovillain (F) @ Scovillainite
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Flamethrower
-- Giga Drain
-- Rage Powder
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Garchomp (F) @ GarchompiteZ
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+- Dragon Pulse
+- Earth Power
+- Flamethrower
 - Protect
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Accelerock
-- Rock Slide
-- Close Combat
-- Protect
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Twin Beam
+- Trick Room
+- Thunderbolt
+- Helping Hand
 
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
+Tyranitar (M) @ FocusSash
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
+- Rock Slide
+- Knock Off
+- Low Kick
 - Protect

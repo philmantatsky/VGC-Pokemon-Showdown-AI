@@ -1,34 +1,14 @@
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Knock Off
-- Rock Slide
-- Dragon Dance
-- Protect
-
 Floette-Eternal (F) @ Floettite
 Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
+Modest Nature
 - Protect
+- Calm Mind
+- Draining Kiss
+- Dazzling Gleam
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
-
-Incineroar (F) @ SitrusBerry
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -36,24 +16,44 @@ Impish Nature
 - Fake Out
 - Parting Shot
 - Flare Blitz
-- Throat Chop
-
-Milotic (M) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Ice Beam
-- Scald
-- Weather Ball
 - Protect
 
-Corviknight (F) @ RockyHelmet
-Ability: MirrorArmor
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Brave Bird
-- Iron Head
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Baneful Bunker
+- Infestation
+- Toxic
+- Wide Guard
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Protect
 - Tailwind
-- Roost
+- Draco Meteor
+- Double-Edge
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Protect
+- Nasty Plot

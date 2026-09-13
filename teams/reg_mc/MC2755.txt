@@ -1,0 +1,59 @@
+Toxapex (M) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Baneful Bunker
+- Infestation
+- Toxic
+- Wide Guard
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Protect
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- U-turn
+- Iron Head
+- Protect
+
+Politoed (M) @ EjectButton
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Perish Song
+- Encore
+- Weather Ball
+
+Gengar (F) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Sludge Bomb
+- Disable
+- Perish Song
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Rage Powder
+- Life Dew
+- Matcha Gotcha

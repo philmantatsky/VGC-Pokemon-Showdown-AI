@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- First Impression
-- Leech Life
-- Iron Head
 - Protect
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Farigiraf (M) @ GrassySeed
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Last Respects
-- Wave Crash
-- Aqua Jet
-- Protect
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Trick Room
+- Helping Hand
+- Beat Up
+- Psychic Noise
 
-Pelipper (M) @ SitrusBerry
-Ability: Drizzle
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Eruption
+- Heat Wave
+- Helping Hand
+
+Scovillain (F) @ LifeOrb
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Weather Ball
-- Hurricane
-- Tailwind
-- Wide Guard
+- Protect
+- Rage Powder
+- Solar Beam
+- Overheat
 
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Spirit Break
-- Parting Shot
-- Reflect
-- Light Screen
-
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
+Absol (M) @ AbsoliteZ
+Ability: Justified
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
+- Protect
+- Night Slash
+- Shadow Sneak
 - Close Combat
-- Coaching
-- Fake Out
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Garchomp (F) @ GarchompiteZ
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Hasty Nature
-- Draco Meteor
-- Double-Edge
-- Hyper Voice
+Timid Nature
 - Protect
+- Dragon Pulse
+- Earth Power
+- Power Gem

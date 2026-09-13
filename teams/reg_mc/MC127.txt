@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Voice
-- Dragon Pulse
-- Heat Wave
-- Protect
-
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Dazzling Gleam
-- Trick Room
-- Protect
-
-Incineroar (M) @ SitrusBerry
+Staraptor (M) @ Staraptite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Taunt
+- Close Combat
+- Brave Bird
+- Roost
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Wood Hammer
+- Grassy Glide
 - Fake Out
-- Flare Blitz
-- Parting Shot
+- High Horsepower
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Ninetales-Alola (M) @ LightClay
+Ability: SnowWarning
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Leech Life
-- Sucker Punch
-- Iron Head
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Aurora Veil
+- Freeze-Dry
 - Protect
 
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
 - Protect
 
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
+Milotic (M) @ Leftovers
+Ability: Competitive
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Trick Room
-- Dazzling Gleam
-- Follow Me
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hypnosis
+- Coil
 - Protect
+- Muddy Water
+
+Hydreigon (M) @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Snarl
+- Dark Pulse
+- Draco Meteor
+- Earth Power

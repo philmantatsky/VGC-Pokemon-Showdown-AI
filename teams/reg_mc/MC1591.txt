@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Calm Nature
+- Follow Me
+- Trick Room
+- Helping Hand
 - Dazzling Gleam
-- Moonblast
-- Calm Mind
-- Protect
 
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Armor Cannon
+- Wide Guard
+- Trick Room
 
-Incineroar (F) @ SitrusBerry
+Staraptor (F) @ Staraptite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Flare Blitz
-- Throat Chop
-- Parting Shot
-
-Palafin (F) @ ChoiceScarf
-Ability: ZerotoHero
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Jet Punch
-- Wave Crash
+Jolly Nature
 - Close Combat
-- Flip Turn
-
-Gholdengo @ FocusSash
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+- Brave Bird
+- Tailwind
 - Protect
 
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Hasty Nature
-- Hyper Voice
-- Double-Edge
-- Heat Wave
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Iron Head
+- Swords Dance
 - Protect
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
+
+Corviknight (M) @ SharpBeak
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Brave Bird
+- Tailwind
+- Bulk Up
+- Roost

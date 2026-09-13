@@ -1,22 +1,22 @@
-Incineroar (M) @ WhiteHerb
-Ability: Intimidate
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Close Combat
-- Fake Out
+- Dire Claw
+- Rock Slide
+- Acrobatics
 
-Farigiraf (F) @ Leftovers
-Ability: ArmorTail
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
+Bold Nature
 - Psychic
+- Follow Me
 - Trick Room
-- Protect
+- Helping Hand
 
 Gardevoir (F) @ Gardevoirite
 Ability: Synchronize
@@ -25,35 +25,35 @@ EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Expanding Force
 - Hyper Voice
-- Trick Room
+- Thunderbolt
 - Protect
 
-Maushold-Four @ WideLens
-Ability: Technician
+Cinderace (F) @ LifeOrb
+Ability: Libero
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
+- Pyro Ball
+- Sucker Punch
+- U-turn
 - Protect
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn
 
-Hydreigon (F) @ ChoiceScarf
-Ability: Levitate
+Whimsicott (M) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
+- Protect

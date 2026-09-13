@@ -1,0 +1,59 @@
+Snorlax (F) @ Leftovers
+Ability: ThickFat
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Body Slam
+- Yawn
+- Fissure
+- Protect
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- High Horsepower
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Coaching
+- Protect
+
+Scovillain (F) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Rage Powder
+- Overheat
+- Giga Drain
+- Protect
+
+Froslass (F) @ Froslassite
+Ability: SnowCloak
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
+
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Close Combat
+- Accelerock
+- Protect

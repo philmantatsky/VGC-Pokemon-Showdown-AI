@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Hyper Voice
-- Double-Edge
-- Tailwind
+Jolly Nature
+- Iron Head
+- High Horsepower
+- Rock Slide
 - Protect
 
-Rillaboom (M) @ SitrusBerry
-Ability: GrassySurge
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
 
-Sneasler (M) @ GrassySeed
+Farigiraf (M) @ PsychicSeed
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Nasty Plot
+- Expanding Force
+- Hyper Voice
+
+Salamence (M) @ Salamencite
+Ability: Moxie
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Hyper Voice
+- Dragon Pulse
+- Tailwind
+
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Trick Room
+- Dazzling Gleam
+- Psychic
+
+Sneasler (F) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
-- Close Combat
 - Fake Out
-- Protect
-
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Extreme Speed
-- Protect
-
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Low Kick
-- Iron Head
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
+- Close Combat
+- Dire Claw
+- Grass Knot

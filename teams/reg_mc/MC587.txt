@@ -1,59 +1,59 @@
-Camerupt (M) @ Cameruptite
-Ability: SolidRock
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Ancient Power
-- Earth Power
-- Heat Wave
-- Protect
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Aura Sphere
-- Steel Beam
-- Flash Cannon
-- Protect
+Timid Nature
+- Expanding Force
+- Trick
+- Dazzling Gleam
+- Mystical Fire
 
-Farigiraf (F) @ ColburBerry
-Ability: ArmorTail
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Protect
-- Helping Hand
-- Twin Beam
-- Trick Room
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Throat Chop
+- Fake Out
 
-Incineroar (F) @ SitrusBerry
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Knock Off
+- Rock Slide
+- Low Kick
+- Protect
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- High Horsepower
+- Earthquake
+- Iron Head
+- Protect
+
+Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Parting Shot
-- Darkest Lariat
-- Fake Out
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
+- Protect
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- Low Kick
-
-Milotic (M) @ Leftovers
-Ability: Competitive
+Rotom-Wash @ SitrusBerry
+Ability: Levitate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Ice Beam
-- Life Dew
-- Protect
-- Scald
+- Thunderbolt
+- Hydro Pump
+- Electroweb
+- Volt Switch

@@ -1,59 +1,59 @@
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Protect
-
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Accelerock
-- Close Combat
-- Protect
-
-Froslass (F) @ Froslassite
-Ability: SnowCloak
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+Modest Nature
+- Expanding Force
 - Protect
+- Hyper Voice
+- Thunderbolt
 
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Close Combat
-- Fake Out
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Last Respects
-- Aqua Jet
-- Wave Crash
-- Protect
-
-Scovillain (F) @ Scovillainite
-Ability: Moody
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Overheat
-- Giga Drain
-- Rage Powder
+- Trick Room
+- Helping Hand
+- Follow Me
+- Psychic
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
 - Protect
+- Expanding Force
+- Dazzling Gleam
+
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Baneful Bunker
+- Toxic
+- Recover
+- Infestation
+
+Annihilape (M) @ ExpertBelt
+Ability: VitalSpirit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Close Combat
+- Rage Fist
+- Rock Tomb
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Parting Shot
+- Flare Blitz
+- Protect
+- Darkest Lariat

@@ -1,59 +1,59 @@
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Gengar (M) @ Gengarite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
+- Sludge Bomb
 - Shadow Ball
-- Nasty Plot
+- Perish Song
 - Protect
 
-Salamence (F) @ Salamencite
+Dragonite (M) @ LifeOrb
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Superpower
+- Extreme Speed
+- Protect
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Protect
+
+Rillaboom (M) @ EjectButton
+Ability: GrassySurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Fake Out
+- Grassy Glide
+- U-turn
+- Protect
+
+Scrafty (M) @ FocusSash
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Double-Edge
-- Hyper Voice
-- Protect
-- Tailwind
-
-Sylveon (F) @ FairyFeather
-Ability: Pixilate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
+Impish Nature
+- Fake Out
+- Close Combat
+- Knock Off
 - Detect
 
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
+Snorlax (M) @ Leftovers
+Ability: ThickFat
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Protect
-
-Pawmot (F) @ WhiteHerb
-Ability: IronFist
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Double Shock
-- Close Combat
-- Protect
-
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Rock Slide
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Fissure
+- Yawn
+- Encore
 - Protect

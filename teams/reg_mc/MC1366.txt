@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Heat Wave
-- Tailwind
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Knock Off
+- Dragon Dance
 - Protect
 
-Sylveon (F) @ FairyFeather
-Ability: Pixilate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
-- Detect
-
-Kingambit (F) @ FocusSash
-Ability: Defiant
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
 - Iron Head
+- Earthquake
+- Drill Run
 - Protect
 
-Sneasler (M) @ WhiteHerb
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Psyshock
+- Dazzling Gleam
+- Fake Out
+
+Sneasler (F) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
 - Dire Claw
-- Fake Out
+- Close Combat
+- Throat Chop
 - Protect
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Corviknight (F) @ SharpBeak
+Ability: MirrorArmor
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
+Adamant Nature
+- Tailwind
+- Brave Bird
+- Bulk Up
+- Body Press
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Light of Ruin
+- Protect

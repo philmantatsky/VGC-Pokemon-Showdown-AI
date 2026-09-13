@@ -1,59 +1,59 @@
-Ninetales-Alola (F) @ FocusSash
-Ability: SnowWarning
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Moonblast
-- Aurora Veil
+- Tailwind
+- Draco Meteor
+- Hyper Voice
 - Protect
 
-Gholdengo @ LifeOrb
+Gholdengo @ Leftovers
 Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
+- Nasty Plot
 - Make It Rain
 - Shadow Ball
-- Nasty Plot
+- Protect
 
-Rillaboom (M) @ Leftovers
+Rillaboom (F) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
 - Grassy Glide
-- Wood Hammer
-- U-turn
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
 - Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Close Combat
-- Dire Claw
-- Swords Dance
+- U-turn
+- Wood Hammer
 
 Floette-Eternal (F) @ Floettite
 Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Dazzling Gleam
-- Moonblast
+Timid Nature
 - Calm Mind
+- Draining Kiss
+- Moonblast
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Wave Crash
+- Aqua Jet
+- Protect
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
+- Protect

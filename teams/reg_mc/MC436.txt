@@ -1,59 +1,59 @@
-Blaziken (M) @ Blazikenite
-Ability: SpeedBoost
+Dragonite (M) @ Dragoninite
+Ability: Multiscale
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Flare Blitz
-- Close Combat
-- Rock Slide
-- Detect
-
-Indeedee-F (F) @ ColburBerry
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Dazzling Gleam
-- Follow Me
-- Helping Hand
-- Trick Room
-
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Dazzling Gleam
-- Expanding Force
-- Trick Room
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Heat Wave
+- Thunderbolt
 - Protect
 
-Kingambit (M) @ BlackGlasses
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dire Claw
+- Close Combat
+- Rock Slide
+- Fake Out
+
+Kingambit (F) @ ChopleBerry
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Kowtow Cleave
-- Iron Head
 - Sucker Punch
+- Low Kick
+- Iron Head
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Whimsicott (M) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+- Moonblast
+- Tailwind
+- Encore
 - Protect
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Throat Chop
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Light of Ruin
+- Protect

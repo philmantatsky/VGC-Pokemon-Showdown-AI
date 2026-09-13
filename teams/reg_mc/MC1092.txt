@@ -1,59 +1,59 @@
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Gyarados (M) @ ExpertBelt
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Dragon Dance
-- Protect
+Hasty Nature
+- Temper Flare
+- Aqua Tail
+- Crunch
+- Thunder
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Sylveon (F) @ FairyFeather
+Ability: CuteCharm
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Iron Head
-- Rock Slide
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Dazzling Gleam
+- Light Screen
+- Helping Hand
 - Protect
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
+Politoed (M) @ Leftovers
+Ability: Drizzle
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Surf
+- Hyper Voice
+- Earthquake
+- Encore
+
+Blastoise (F) @ Blastoisinite
+Ability: RainDish
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Expanding Force
+- Surf
+- Dark Pulse
+- Shell Smash
+- Dragon Pulse
+
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Electro Ball
+- Thunder
+- Encore
+- Nasty Plot
+
+Umbreon (M) @ BlackGlasses
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Foul Play
 - Hyper Voice
-- Trick
-- Trick Room
-
-Sneasler (F) @ PsychicSeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Acrobatics
-- Protect
-
-Milotic (F) @ SitrusBerry
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Scald
-- Icy Wind
-- Recover
-- Protect
-
-Scovillain (F) @ Scovillainite
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Overheat
-- Giga Drain
-- Rage Powder
-- Protect
+- Light Screen

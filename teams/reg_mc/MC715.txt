@@ -1,59 +1,59 @@
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Swords Dance
+- Leech Life
+- Iron Head
+- Protect
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Protect
+- Trick Room
+- Helping Hand
+- Psychic
+
+Sylveon (F) @ RockyHelmet
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Weather Ball
-- Heat Wave
-- Hurricane
-- Protect
+- Detect
+- Hyper Voice
+- Hyper Beam
+- Quick Attack
 
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
-- Dragon Claw
-- Rock Slide
-- Iron Head
-
-Orthworm (F) @ ChestoBerry
-Ability: EarthEater
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Shed Tail
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
 - Protect
-- Iron Head
-- Rest
+- Kowtow Cleave
+- Sucker Punch
+- Low Kick
 
-Sinistcha @ OccaBerry
-Ability: Hospitality
+Drampa (F) @ Drampanite
+Ability: CloudNine
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Matcha Gotcha
-- Shadow Ball
-- Life Dew
+Quiet Nature
 - Protect
+- Calm Mind
+- Hyper Voice
+- Draco Meteor
 
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Brave Bird
-- Close Combat
-- Roost
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
 - Protect
-
-Sableye (M) @ SitrusBerry
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Encore
-- Disable
-- Will-O-Wisp
-- Fake Out
+- Weather Ball
+- Eruption
+- Earth Power

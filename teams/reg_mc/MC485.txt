@@ -1,59 +1,59 @@
-Raichu (M) @ RaichuniteY
-Ability: LightningRod
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Fake Out
-- Zap Cannon
-- Focus Blast
+Modest Nature
+- Weather Ball
+- Heat Wave
+- Ancient Power
 - Protect
 
-Baxcalibur (M) @ Baxcalibrite
-Ability: IceBody
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Quick Attack
+- Yawn
+- Detect
+
+Garchomp (F) @ ChoiceScarf
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Glaive Rush
-- Ice Shard
-- High Horsepower
-- Protect
+- Rock Slide
+- Dragon Claw
+- Earthquake
+- Stomping Tantrum
 
-Ninetales-Alola (M) @ LightClay
-Ability: SnowWarning
+Venusaur (F) @ LifeOrb
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Moonblast
-- Aurora Veil
+Modest Nature
+- Sludge Bomb
+- Leaf Storm
+- Earth Power
 - Protect
 
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Impish Nature
 - Flare Blitz
-- Head Smash
-- Extreme Speed
-- Protect
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
 - Fake Out
-- Wood Hammer
-- High Horsepower
-- Grassy Glide
+- Darkest Lariat
+- Parting Shot
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Toxapex (F) @ Leftovers
+Ability: Regenerator
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Infestation
+- Toxic
+- Wide Guard
+- Baneful Bunker

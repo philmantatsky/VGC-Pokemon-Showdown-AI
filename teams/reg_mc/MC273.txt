@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Voice
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Dragon Pulse
 - Heat Wave
+- Extreme Speed
 - Protect
 
-Sneasler (F) @ PsychicSeed
-Ability: Unburden
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Close Combat
-- Throat Chop
-- Fake Out
+Careful Nature
+- Spirit Break
+- Light Screen
+- Reflect
+- Parting Shot
 
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Dazzling Gleam
-- Trick Room
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Electro Shot
+- Flash Cannon
+- Snarl
 - Protect
 
-Mawile (M) @ Mawilite
-Ability: HyperCutter
+Pelipper (F) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Wide Guard
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Play Rough
-- Sucker Punch
-- Protect
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn
 
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
+Venusaur (F) @ Venusaurite
+Ability: Chlorophyll
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Protect
-
-Indeedee-F (F) @ SitrusBerry
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Trick Room
-- Dazzling Gleam
-- Follow Me
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Giga Drain
+- Sludge Bomb
+- Earth Power
 - Protect

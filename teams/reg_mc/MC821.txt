@@ -1,3 +1,43 @@
+Charizard (F) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
+- Heat Wave
+- Hurricane
+- Protect
+
+Garchomp (F) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Dragon Claw
+- Rock Slide
+- Iron Head
+
+Orthworm (F) @ ChestoBerry
+Ability: EarthEater
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Shed Tail
+- Protect
+- Iron Head
+- Rest
+
+Sinistcha @ OccaBerry
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Matcha Gotcha
+- Shadow Ball
+- Life Dew
+- Protect
+
 Staraptor (F) @ Staraptite
 Ability: Intimidate
 Level: 50
@@ -5,55 +45,15 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Brave Bird
 - Close Combat
-- Tailwind
+- Roost
 - Protect
 
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
+Sableye (M) @ SitrusBerry
+Ability: Prankster
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Hasty Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Encore
+- Disable
+- Will-O-Wisp
 - Fake Out
-- Charm
-- Zap Cannon
-- Volt Switch
-
-Garchomp (F) @ MuscleBand
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Stomping Tantrum
-- Dragon Claw
-- Rock Slide
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Last Respects
-- Wave Crash
-- Aqua Jet
-- Protect
-
-Kingambit (F) @ FocusSash
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Sucker Punch
-- Kowtow Cleave
-- Iron Head
-- Protect
-
-Indeedee-F (F) @ SitrusBerry
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Follow Me
-- Helping Hand
-- Hyper Voice
-- Trick Room

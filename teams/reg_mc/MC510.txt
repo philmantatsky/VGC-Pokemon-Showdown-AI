@@ -1,59 +1,59 @@
-Torkoal (M) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Earth Power
-- Weather Ball
-
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Dazzling Gleam
-- Trick Room
-- Psychic
-
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Helping Hand
-- Trick Room
-- Follow Me
-- Psychic
-
-Golurk @ Golurkite
-Ability: IronFist
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Headlong Rush
-- Poltergeist
-- Ice Punch
-- Close Combat
-
-Maushold-Four @ FocusSash
-Ability: FriendGuard
+Sneasler (F) @ MentalHerb
+Ability: PoisonTouch
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Super Fang
-- Taunt
-- Follow Me
-- Helping Hand
+- Fake Out
+- Poison Jab
+- Close Combat
+- Protect
 
-Gallade (M) @ WhiteHerb
-Ability: Sharpness
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Psycho Cut
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- Protect
+
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Baneful Bunker
+- Infestation
 - Wide Guard
-- Sacred Sword
-- Trick Room
+- Toxic
+
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Dragon Claw
+- Stomping Tantrum
+- Rock Slide
+
+Charizard (F) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Heat Wave
+- Weather Ball
+- Ancient Power
+
+Aerodactyl (F) @ FocusSash
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Tailwind
+- Dual Wingbeat
+- Wide Guard

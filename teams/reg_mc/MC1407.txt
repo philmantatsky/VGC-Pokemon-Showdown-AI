@@ -1,59 +1,59 @@
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Fake Out
-- Close Combat
-- Rock Slide
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Grassy Glide
-- Wood Hammer
-- U-turn
-- Fake Out
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Draco Meteor
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
 - Protect
-- Hyper Voice
-- Tailwind
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Delphox (M) @ Delphoxite
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Quick Attack
-- Yawn
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
 - Protect
 
-Kingambit (F) @ FocusSash
+Kingambit (F) @ BlackGlasses
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Iron Head
-- Sucker Punch
-- Low Kick
 - Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Ice Beam
+- Scald
+- Icy Wind
+- Protect
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Aqua Jet
+Careful Nature
+- Flare Blitz
+- Throat Chop
+- Fake Out
+- Parting Shot
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Rage Powder
+- Trick Room
 - Protect
-- Last Respects
-- Wave Crash

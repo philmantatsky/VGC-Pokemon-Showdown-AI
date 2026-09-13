@@ -1,59 +1,59 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Lucario (M) @ LucarioniteZ
+Ability: Steadfast
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- First Impression
-- U-turn
-- Iron Head
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flash Cannon
+- Vacuum Wave
+- Aura Sphere
 - Protect
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
+Glimmora (F) @ FocusSash
+Ability: ToxicDebris
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Earth Power
+- Power Gem
+- Spiky Shield
+- Sludge Bomb
 
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
+Serious Nature
 - Wood Hammer
 - Grassy Glide
+- Fake Out
 - U-turn
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Farigiraf (F) @ LifeOrb
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Nasty Plot
+- Trick Room
+- Hyper Voice
+- Psychic
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dazzling Gleam
-- Moonblast
-- Calm Mind
-- Protect
-
-Gholdengo @ ChoiceScarf
-Ability: GoodasGold
+Delphox (F) @ Delphoxite
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Make It Rain
-- Shadow Ball
-- Power Gem
-- Psyshock
+- Substitute
+- Heat Wave
+- Psychic
+- Protect
+
+Ninetales-Alola (F) @ NeverMeltIce
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Aurora Veil
+- Protect
+- Disable

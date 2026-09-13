@@ -1,59 +1,59 @@
+Lucario (M) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aura Sphere
+- Flash Cannon
+- Dark Pulse
+- Protect
+
 Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Hyper Voice
+Hasty Nature
 - Double-Edge
+- Hyper Voice
 - Tailwind
 - Protect
 
-Rillaboom (F) @ MiracleSeed
+Rillaboom (M) @ LifeOrb
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
 - Grassy Glide
+- Taunt
 - Fake Out
-- Protect
 
-Sneasler (F) @ GrassySeed
-Ability: Unburden
+Ninetales-Alola (F) @ NeverMeltIce
+Ability: SnowWarning
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Close Combat
-- Fake Out
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Icy Wind
+- Protect
+- Aurora Veil
+
+Gholdengo @ GrassySeed
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
 - Protect
 
 Arcanine-Hisui (M) @ FocusSash
 Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Flare Blitz
 - Head Smash
 - Extreme Speed
-- Protect
-
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Iron Head
-- Low Kick
-- Sucker Punch
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
 - Protect

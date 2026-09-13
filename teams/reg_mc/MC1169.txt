@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Double-Edge
-- Tailwind
-- Protect
-
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-- Fake Out
+- Protect
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Kleavor (F) @ FocusSash
+Ability: Sharpness
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
-- Dire Claw
-- Swords Dance
 - Protect
+- Stone Axe
+- X-Scissor
+- Feint
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Flare Blitz
-- Throat Chop
-- Parting Shot
-- Fake Out
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
 - Protect
+- Moonblast
+- Tailwind
+- Encore
+
+Raichu (M) @ RaichuniteY
+Ability: Static
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Zap Cannon
+- Focus Blast
+- Fake Out
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Wave Crash
+- Last Respects
+- Aqua Jet
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Brave Bird
+- Close Combat
+- Roost

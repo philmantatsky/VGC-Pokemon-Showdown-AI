@@ -1,59 +1,59 @@
-Houndoom (M) @ Houndoominite
-Ability: FlashFire
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dark Pulse
-- Heat Wave
-- Solar Beam
-- Nasty Plot
-
-Torkoal (F) @ Leftovers
-Ability: Drought
+Incineroar (F) @ WhiteHerb
+Ability: Intimidate
 Level: 50
 EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Helping Hand
-- Eruption
-- Body Press
-- Protect
+Brave Nature
+- Flare Blitz
+- Darkest Lariat
+- Close Combat
+- Fake Out
 
-Gallade (M) @ ChoiceScarf
-Ability: Sharpness
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Leaf Blade
-- Psycho Cut
-- Night Slash
-- Aqua Cutter
-
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Light Screen
-- Reflect
-- Taunt
-- Spirit Break
-
-Farigiraf (M) @ MentalHerb
+Farigiraf (F) @ Leftovers
 Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Hyper Voice
-- Baton Pass
-- Ally Switch
-- Nasty Plot
+Modest Nature
+- Psychic
+- Helping Hand
+- Trick Room
+- Protect
 
 Gardevoir (M) @ Gardevoirite
-Ability: Trace
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Expanding Force
 - Hyper Voice
-- Psyshock
-- Thunderbolt
-- Will-O-Wisp
+- Trick Room
+- Protect
+
+Maushold-Four @ WideLens
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- Follow Me
+- Taunt
+- Protect
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Weather Ball
+- Protect
+
+Hydreigon (M) @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Dark Pulse
+- Heat Wave
+- Snarl

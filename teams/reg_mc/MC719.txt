@@ -1,21 +1,11 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Calm Mind
-- Draining Kiss
-- Dazzling Gleam
-
-Incineroar (F) @ SitrusBerry
+Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect
 
 Rillaboom (F) @ MiracleSeed
@@ -23,30 +13,20 @@ Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
 - Wood Hammer
+- Grassy Glide
 - U-turn
+- Fake Out
 
-Toxapex (M) @ Leftovers
-Ability: Regenerator
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Baneful Bunker
-- Infestation
-- Toxic
-- Wide Guard
-
-Salamence (M) @ Salamencite
+Incineroar (F) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Protect
-- Tailwind
-- Draco Meteor
-- Double-Edge
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Darkest Lariat
+- Parting Shot
 
 Gholdengo @ LifeOrb
 Ability: GoodasGold
@@ -54,6 +34,26 @@ Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Make It Rain
+- Nasty Plot
 - Shadow Ball
 - Protect
-- Nasty Plot
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Swords Dance
+- Protect
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect

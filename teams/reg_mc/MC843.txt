@@ -1,14 +1,4 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
-- Protect
-
-Salamence (F) @ Salamencite
+Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -28,32 +18,42 @@ Adamant Nature
 - Grassy Glide
 - High Horsepower
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Flip Turn
-- Wave Crash
-- Aqua Jet
-- Last Respects
+- Rock Slide
+- Knock Off
+- Dragon Dance
+- Protect
+
+Excadrill (F) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- High Horsepower
+- Rock Slide
+- Iron Head
+- Protect
 
 Sneasler (F) @ GrassySeed
-Ability: Pressure
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Swords Dance
+Adamant Nature
+- Protect
+- Fake Out
 - Close Combat
 - Dire Claw
-- Protect
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Scald
+- Icy Wind
+- Ice Beam
+- Recover

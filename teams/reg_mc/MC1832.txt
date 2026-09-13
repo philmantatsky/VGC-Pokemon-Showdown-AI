@@ -1,0 +1,59 @@
+Rillaboom (F) @ RockyHelmet
+Ability: Overgrow
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- High Horsepower
+- Grassy Glide
+- Fake Out
+
+Politoed (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Weather Ball
+- Ice Beam
+- Encore
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Psychic
+- Thunderbolt
+- Trick Room
+- Protect
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- Leech Life
+- Iron Head
+- Liquidation
+
+Pawmot (F) @ FocusSash
+Ability: IronFist
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Double Shock
+- Close Combat
+- Fake Out
+- Revival Blessing
+
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aura Sphere
+- Flash Cannon
+- Vacuum Wave
+- Water Pulse

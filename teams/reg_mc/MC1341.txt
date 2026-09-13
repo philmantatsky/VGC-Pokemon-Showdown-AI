@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
 - Hyper Voice
-- Protect
+- Draco Meteor
 - Tailwind
-- Flamethrower
+- Protect
 
-Sneasler (F) @ GrassySeed
-Ability: Unburden
+Milotic (M) @ SitrusBerry
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Scald
+- Ice Beam
+- Haze
+- Protect
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Rock Tomb
+- Rock Slide
+- Knock Off
+- Superpower
+- Protect
+
+Excadrill (M) @ LifeOrb
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Iron Head
+- High Horsepower
+- Rock Slide
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Dire Claw
 - Close Combat
-- Fake Out
-
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- Wood Hammer
-- Fake Out
-- High Horsepower
-
-Kingambit (F) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+- Throat Chop
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Indeedee-F (F) @ EjectButton
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Draining Kiss
-- Calm Mind
-- Protect
-
-Basculegion (M) @ FocusSash
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Liquidation
-- Aqua Jet
-- Last Respects
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Follow Me
+- Helping Hand
+- Psychic
 - Protect

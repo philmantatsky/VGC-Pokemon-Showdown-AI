@@ -1,0 +1,59 @@
+Typhlosion-Hisui (M) @ ChoiceScarf
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Eruption
+- Shadow Ball
+- Solar Beam
+- Extrasensory
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Ancient Power
+- Heat Wave
+- Weather Ball
+
+Kingambit (M) @ FocusSash
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Low Kick
+- Iron Head
+- Kowtow Cleave
+- Sucker Punch
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Trick Room
+- Psychic
+- Thunderbolt
+
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Quick Attack
+- Hyper Voice
+- Hyper Beam
+
+Venusaur (F) @ LifeOrb
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Sleep Powder
+- Sludge Bomb
+- Earth Power

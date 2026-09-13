@@ -1,59 +1,59 @@
-Gardevoir (M) @ Gardevoirite
-Ability: Trace
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Expanding Force
-- Hyper Voice
-- Calm Mind
-
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Protect
-- Psychic
-- Helping Hand
-- Follow Me
-
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
-- Close Combat
-- Acrobatics
-- Swords Dance
+- First Impression
+- Iron Head
+- Aqua Jet
+- U-turn
 
-Sinistcha @ ColburBerry
-Ability: Hospitality
+Primarina (M) @ FairyFeather
+Ability: LiquidVoice
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Matcha Gotcha
-- Rage Powder
-- Life Dew
-- Trick Room
+Modest Nature
+- Hyper Voice
+- Moonblast
+- Psychic Noise
+- Chilling Water
 
-Blastoise (F) @ Blastoisinite
-Ability: RainDish
+Toxtricity-Low-Key (F) @ ChoiceScarf
+Ability: PunkRock
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Protect
-- Water Spout
-- Dark Pulse
-- Shell Smash
+- Boomburst
+- Overdrive
+- Sludge Wave
+- Volt Switch
 
-Incineroar (M) @ SitrusBerry
+Pawmot (F) @ AirBalloon
+Ability: VoltAbsorb
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Encore
+- Fake Out
+- Close Combat
+- Nuzzle
+
+Falinks @ Falinksite
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Iron Head
+- Knock Off
+- No Retreat
+
+Arcanine-Hisui (M) @ FocusSash
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+Jolly Nature
+- Extreme Speed
+- Head Smash
 - Flare Blitz
-- Throat Chop
-- Fake Out
-- Parting Shot
+- Rock Slide

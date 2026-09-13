@@ -1,59 +1,59 @@
-Baxcalibur (F) @ LifeOrb
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Glaive Rush
-- Icicle Crash
-- Dragon Dance
-- Protect
-
-Scovillain (F) @ Scovillainite
-Ability: Moody
+Pyroar (F) @ Pyroarite
+Ability: Unnerve
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Rage Powder
-- Flamethrower
-- Giga Drain
+Timid Nature
+- Heat Wave
+- Overheat
+- Solar Beam
 - Protect
 
-Tauros-Paldea-Aqua (M) @ MysticWater
-Ability: Intimidate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Light of Ruin
+- Dazzling Gleam
+- Protect
+
+Ninetales (F) @ ChoiceScarf
+Ability: Drought
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Overheat
+- Solar Beam
+- Hypnosis
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
+- Sunny Day
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wave Crash
-- Close Combat
+- Last Respects
 - Aqua Jet
 - Protect
 
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
-- Protect
-
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Close Combat
-- Accelerock
-- Protect
-
-Scizor (M) @ ExpertBelt
-Ability: Technician
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Bullet Punch
-- Bug Bite
-- Close Combat
-- Protect
+Bold Nature
+- Psychic
+- Thunderbolt
+- Trick Room
+- Helping Hand

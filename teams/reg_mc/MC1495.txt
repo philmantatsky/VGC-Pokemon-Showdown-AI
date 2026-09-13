@@ -1,59 +1,59 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Farigiraf (M) @ GrassySeed
+Ability: ArmorTail
 Level: 50
 EVs: 32 HP / 32 Atk / 2 Def
 Sassy Nature
-- Iron Head
-- Leech Life
-- Protect
-- Bulk Up
-
-Politoed (F) @ MysticWater
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Perish Song
-- Hydro Pump
-- Ice Beam
-- Encore
-
-Sinistcha @ SitrusBerry
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Matcha Gotcha
 - Trick Room
-- Rage Powder
-- Life Dew
+- Helping Hand
+- Beat Up
+- Protect
 
-Incineroar (F) @ PasshoBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Parting Shot
-- Fake Out
-- Throat Chop
-- Flare Blitz
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
+Torkoal (M) @ Charcoal
+Ability: Drought
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Quiet Nature
-- Trick Room
-- Hyper Voice
-- Twin Beam
+- Protect
+- Eruption
+- Heat Wave
 - Helping Hand
 
-Archaludon (M) @ ChopleBerry
-Ability: Stamina
+Scovillain (F) @ LifeOrb
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Draco Meteor
-- Flash Cannon
-- Electro Shot
+Modest Nature
+- Rage Powder
+- Overheat
+- Solar Beam
 - Protect
+
+Absol (M) @ AbsoliteZ
+Ability: Justified
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Night Slash
+- Shadow Sneak
+- Close Combat
+
+Kleavor (F) @ HardStone
+Ability: Sharpness
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Protect
+- Stone Axe
+- Rock Slide
+- U-turn

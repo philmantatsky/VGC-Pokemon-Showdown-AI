@@ -1,59 +1,59 @@
-Maushold-Four @ SitrusBerry
-Ability: FriendGuard
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Follow Me
-- Beat Up
+Timid Nature
+- Moonblast
+- Tailwind
 - Encore
 - Protect
 
-Absol (F) @ AbsoliteZ
-Ability: SuperLuck
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Night Slash
-- Shadow Claw
-- Focus Energy
-- Protect
-
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Yawn
-- Quick Attack
+- Moonblast
+- Dazzling Gleam
+- Light of Ruin
 - Protect
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Charizard (F) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Weather Ball
+- Heat Wave
+- Ancient Power
+- Protect
+
+Garchomp (M) @ SitrusBerry
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dragon Claw
+- Rock Slide
+- Earthquake
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Grassy Glide
-- Wood Hammer
-- U-turn
-- Fake Out
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Helping Hand
-- Trick Room
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Blastoise (M) @ Blastoisinite
-Ability: Torrent
+Kingambit (M) @ OccaBerry
+Ability: Defiant
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Water Spout
-- Aura Sphere
-- Fake Out
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Low Kick

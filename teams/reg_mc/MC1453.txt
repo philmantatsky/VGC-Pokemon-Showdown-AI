@@ -1,59 +1,59 @@
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Ceruledge (M) @ ColburBerry
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Bitter Blade
+- Shadow Sneak
+- Bulk Up
+- Protect
+
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Infestation
+- Toxic
+- Wide Guard
+- Baneful Bunker
+
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
 - Grassy Glide
 - Wood Hammer
 - High Horsepower
-
-Sneasler (F) @ FocusSash
-Ability: PoisonTouch
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
 - Fake Out
-- Poison Jab
-- Close Combat
-- Coaching
 
-Metagross @ Metagrossite
-Ability: ClearBody
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Hard Press
-- Body Press
-- Thunder Punch
-
-Milotic (F) @ Leftovers
-Ability: Competitive
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Dazzling Gleam
+- Draining Kiss
+- Calm Mind
 - Protect
-- Icy Wind
-- Scald
-- Recover
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Sneasler (M) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Dragon Dance
-- Double-Edge
-- Roost
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
+Adamant Nature
+- Poison Jab
+- Close Combat
 - Throat Chop
+- Protect

@@ -1,59 +1,59 @@
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Ice Shard
-- Swords Dance
-- Protect
-- Glaive Rush
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Mystical Fire
+- Dazzling Gleam
+- Trick
 
-Rillaboom (F) @ CobaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Grassy Glide
-- Knock Off
-- Protect
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Protect
-- Close Combat
-- Dire Claw
-- Coaching
-
-Ninetales-Alola (M) @ FocusSash
-Ability: SnowWarning
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Icy Wind
-- Blizzard
 - Protect
-- Aurora Veil
+- Hyper Voice
+- Tailwind
+- Draco Meteor
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Protect
-- Trick Room
-- Twin Beam
-- Helping Hand
-
-Aerodactyl (F) @ Aerodactylite
-Ability: Unnerve
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
+Adamant Nature
+- Iron Head
+- Leech Life
 - Protect
-- Rock Slide
-- Dual Wingbeat
+- Swords Dance
+
+Armarouge (F) @ FocusSash
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Armor Cannon
+- Wide Guard
+- Focus Blast
+
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Taunt
+- Close Combat
+- Dire Claw
+- Protect
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Scald
+- Ice Beam
+- Light Screen
+- Protect

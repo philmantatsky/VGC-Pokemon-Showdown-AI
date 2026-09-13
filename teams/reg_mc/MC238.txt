@@ -1,59 +1,59 @@
-Rillaboom (M) @ Leftovers
-Ability: GrassySurge
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Weather Ball
+- Protect
+- Ancient Power
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Venusaur (M) @ LifeOrb
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Calm Mind
-- Draining Kiss
-- Moonblast
+- Leaf Storm
+- Earth Power
 - Protect
+- Sludge Bomb
 
-Incineroar (F) @ RockyHelmet
+Aegislash (M) @ FocusSash
+Ability: StanceChange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Poltergeist
+- Shadow Sneak
+- Wide Guard
+- Close Combat
+
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Impish Nature
 - Fake Out
-- Flare Blitz
+- Darkest Lariat
 - Parting Shot
-- Helping Hand
+- Flare Blitz
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Trick Room
-- Helping Hand
-- Protect
+Modest Nature
+- Hyper Voice
+- Quick Attack
+- Detect
+- Yawn
 
-Sneasler (F) @ FocusSash
-Ability: Unburden
+Garchomp (M) @ ChoiceScarf
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Swords Dance
-- Close Combat
-- Dire Claw
-- Protect
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
+- Earthquake
+- Stomping Tantrum
+- Rock Slide
+- Dragon Claw

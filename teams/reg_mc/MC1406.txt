@@ -1,14 +1,44 @@
-Mawile (M) @ Mawilite
-Ability: HyperCutter
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Dazzling Gleam
+
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Heat Wave
+- Wide Guard
+- Trick Room
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Tailwind
+- Protect
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Play Rough
+- Earthquake
 - Iron Head
-- Sucker Punch
+- Swords Dance
 - Protect
 
-Tyranitar (F) @ Tyranitarite
+Tyranitar (M) @ Tyranitarite
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -18,42 +48,12 @@ Adamant Nature
 - Low Kick
 - Protect
 
-Farigiraf (F) @ ColburBerry
-Ability: ArmorTail
+Gardevoir (M) @ ChoiceScarf
+Ability: Telepathy
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Protect
-
-Talonflame (F) @ SharpBeak
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Brave Bird
-- Will-O-Wisp
-- Tailwind
-- Protect
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- U-turn
-
-Annihilape (M) @ Leftovers
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Drain Punch
-- Rage Fist
-- Bulk Up
-- Protect
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Moonblast
+- Dazzling Gleam
+- Icy Wind

@@ -1,59 +1,59 @@
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Staraptor (M) @ Staraptite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Close Combat
-- Dire Claw
-- Rock Slide
-- Throat Chop
-
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Psychic
-- Trick Room
-- Imprison
-
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Thunderbolt
+- Brave Bird
+- Roost
 - Protect
 
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
+Impish Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- High Horsepower
 
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Ninetales-Alola (F) @ LightClay
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
-- Tailwind
-- Encore
+- Blizzard
+- Aurora Veil
+- Freeze-Dry
 - Protect
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hypnosis
+- Coil
+- Protect
+- Muddy Water
+
+Hydreigon (M) @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Snarl
+- Dark Pulse
+- Draco Meteor
+- Earth Power

@@ -1,59 +1,59 @@
-Incineroar (F) @ WhiteHerb
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect
+
+Incineroar (F) @ SitrusBerry
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
 - Fake Out
+- Darkest Lariat
+- Flare Blitz
+- Parting Shot
 
-Farigiraf (F) @ Leftovers
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Protect
-
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Trick Room
-- Protect
-
-Maushold-Four @ WideLens
-Ability: Technician
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
-- Protect
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- U-turn
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Gholdengo @ Leftovers
+Ability: GoodasGold
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Nasty Plot
+- Shadow Ball
 - Protect
 
-Hydreigon (F) @ ChoiceScarf
+Rotom-Wash @ RockyHelmet
 Ability: Levitate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+Bold Nature
+- Volt Switch
+- Hydro Pump
+- Will-O-Wisp
+- Protect

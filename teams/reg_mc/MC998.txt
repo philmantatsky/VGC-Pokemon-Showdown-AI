@@ -1,59 +1,59 @@
-Incineroar (F) @ WhiteHerb
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
-- Fake Out
-
-Farigiraf (F) @ Leftovers
-Ability: ArmorTail
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Psychic
-- Helping Hand
-- Trick Room
+Bold Nature
+- Draining Kiss
+- Dazzling Gleam
 - Protect
+- Calm Mind
 
-Garchomp (F) @ GarchompiteZ
-Ability: SandVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Earth Power
-- Power Gem
-- Protect
-
-Maushold-Four @ WideLens
-Ability: Technician
+Aerodactyl (M) @ FocusSash
+Ability: Unnerve
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
-- Protect
+- Tailwind
+- Rock Slide
+- Dual Wingbeat
+- Wide Guard
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Throat Chop
+- Parting Shot
 
-Hydreigon (F) @ ChoiceScarf
-Ability: Levitate
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Farigiraf (F) @ GrassySeed
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+Bold Nature
+- Psychic
+- Protect
+- Thunderbolt
+- Trick Room
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Dance
+- Dragon Claw
+- Double-Edge
+- Protect

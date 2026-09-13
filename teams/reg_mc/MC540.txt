@@ -1,4 +1,4 @@
-Incineroar (F) @ WhiteHerb
+Incineroar (M) @ WhiteHerb
 Ability: Intimidate
 Level: 50
 EVs: 32 HP / 32 Atk / 2 Def
@@ -8,13 +8,13 @@ Brave Nature
 - Close Combat
 - Fake Out
 
-Farigiraf (M) @ Leftovers
+Farigiraf (F) @ Leftovers
 Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Hyper Voice
 - Psychic
-- Helping Hand
 - Trick Room
 - Protect
 
@@ -48,7 +48,7 @@ Quiet Nature
 - Weather Ball
 - Protect
 
-Hydreigon (M) @ ChoiceScarf
+Hydreigon (F) @ ChoiceScarf
 Ability: Levitate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe

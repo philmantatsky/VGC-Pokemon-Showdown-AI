@@ -1,0 +1,59 @@
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Glaive Rush
+- Dragon Dance
+- Ice Shard
+- Icicle Crash
+
+Aurorus (M) @ IcyRock
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aurora Veil
+- Blizzard
+- Calm Mind
+- Icy Wind
+
+Rillaboom (F) @ LifeOrb
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- U-turn
+- Wood Hammer
+- Fake Out
+- Grassy Glide
+
+Pawmot (M) @ FocusSash
+Ability: IronFist
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Revival Blessing
+- Close Combat
+- Fake Out
+- Mach Punch
+
+Sirfetch’d (M) @ Leek
+Ability: Scrappy
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- First Impression
+- Focus Energy
+- Dual Wingbeat
+- Leaf Blade
+
+Sinistcha @ GrassySeed
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Matcha Gotcha
+- Shadow Ball
+- Calm Mind
+- Life Dew

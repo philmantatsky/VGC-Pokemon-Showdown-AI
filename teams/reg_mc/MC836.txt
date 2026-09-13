@@ -1,59 +1,59 @@
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
+Jolly Nature
 - Protect
-
-Excadrill (M) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
+- Ice Shard
 - High Horsepower
-- Earthquake
+- Scale Shot
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Weather Ball
+- Ancient Power
 - Protect
 
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
+Kingambit (F) @ ChopleBerry
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
+- Low Kick
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Follow Me
-- Helping Hand
-- Trick Room
-- Psychic
+Modest Nature
+- Hyper Voice
+- Hyper Beam
+- Quick Attack
+- Protect
 
-Rotom-Heat @ ChoiceScarf
-Ability: Levitate
+Aerodactyl (M) @ FocusSash
+Ability: Unnerve
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Overheat
-- Electroweb
-- Volt Switch
-- Thunderbolt
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Rock Slide
+- Dual Wingbeat
+- Tailwind
 
-Sneasler (F) @ PsychicSeed
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Coaching
 - Close Combat
-- Dire Claw
-- Swords Dance
-- Protect
-
-Gardevoir (M) @ Gardevoirite
-Ability: Telepathy
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Calm Mind
-- Protect
+- Gunk Shot
+- Fake Out

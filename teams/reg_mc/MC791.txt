@@ -1,59 +1,59 @@
-Incineroar (M) @ SitrusBerry
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Taunt
-
-Gyarados (M) @ Gyaradosite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Waterfall
-- Ice Fang
-- Crunch
-- Protect
-
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- High Horsepower
-- Protect
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Shadow Ball
-- Make It Rain
-- Nasty Plot
-- Protect
-
-Staraptor (M) @ Staraptite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
+Serious Nature
+- Double-Edge
+- Hyper Voice
 - Tailwind
 - Protect
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- Protect
+
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dire Claw
+- Close Combat
+- Rock Slide
+- Fake Out
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Dazzling Gleam
+- Light of Ruin
+- Protect
+
+Ceruledge (F) @ GrassySeed
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Accelerock
-- Play Rough
-- Psychic Fangs
+- Bitter Blade
+- Shadow Sneak
+- Bulk Up
 - Protect
+
+Kingambit (F) @ ChopleBerry
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Low Kick
+- Iron Head

@@ -1,59 +1,59 @@
-Swampert (F) @ Swampertite
-Ability: Damp
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- High Horsepower
-- Liquidation
-- Protect
-- Ice Punch
-
-Archaludon (M) @ Leftovers
-Ability: Stamina
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Bold Nature
+- Psychic
+- Trick Room
+- Follow Me
 - Protect
-- Electro Shot
-- Flash Cannon
-- Draco Meteor
 
-Pelipper (M) @ SitrusBerry
-Ability: Drizzle
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dazzling Gleam
+- Expanding Force
+- Trick Room
+- Protect
+
+Farigiraf (F) @ MentalHerb
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
+Bold Nature
+- Psychic
+- Trick Room
 - Protect
-- Tailwind
+- Helping Hand
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
 - Weather Ball
-- Hurricane
-
-Kangaskhan (F) @ Kangaskhanite
-Ability: Scrappy
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Fake Out
-- Facade
+- Earth Power
 - Protect
 
-Whimsicott (F) @ MentalHerb
-Ability: Prankster
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Tailwind
-- Encore
-- Taunt
-- Moonblast
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Sucker Punch
+- Leech Life
+- Iron Head
+- Protect
 
-Incineroar (F) @ PasshoBerry
-Ability: Intimidate
+Drampa (M) @ Drampanite
+Ability: CloudNine
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Darkest Lariat
-- Parting Shot
-- Will-O-Wisp
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dragon Pulse
+- Hyper Voice
+- Earth Power
+- Protect

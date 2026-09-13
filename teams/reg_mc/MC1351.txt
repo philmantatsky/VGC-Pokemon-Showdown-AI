@@ -1,59 +1,59 @@
-Excadrill (F) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Iron Head
-- High Horsepower
-- Rock Slide
-- Protect
-
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
-
-Farigiraf (M) @ PsychicSeed
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Nasty Plot
-- Expanding Force
-- Hyper Voice
-
-Salamence (F) @ Salamencite
-Ability: Moxie
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Hyper Voice
-- Dragon Pulse
-- Tailwind
-
 Indeedee-F (F) @ SitrusBerry
 Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Terrain Pulse
+- Helping Hand
 - Follow Me
 - Trick Room
-- Dazzling Gleam
-- Psychic
 
-Sneasler (M) @ WhiteHerb
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Armor Cannon
+- Trick Room
+- Protect
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Helping Hand
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Sucker Punch
+- Kowtow Cleave
+- Low Kick
+- Swords Dance
+
+Gardevoir (F) @ Gardevoirite
+Ability: Trace
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Expanding Force
+- Trick Room
+- Protect
+
+Sneasler (F) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
 - Close Combat
 - Dire Claw
-- Grass Knot
+- Throat Chop
+- Protect

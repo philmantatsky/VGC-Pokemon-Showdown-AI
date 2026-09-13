@@ -1,59 +1,59 @@
-Pelipper (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Hurricane
-- Weather Ball
-- Tailwind
-- Wide Guard
-
-Baxcalibur (M) @ Baxcalibrite
-Ability: ThermalExchange
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Glaive Rush
-- Icicle Crash
-- Ice Shard
+- Dragon Dance
+- Double-Edge
+- Dragon Claw
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Sneasler (M) @ FocusSash
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
-- Flip Turn
+Adamant Nature
+- Fake Out
+- Feint
+- Dire Claw
+- Close Combat
 
-Lucario (F) @ LucarioniteZ
+Clefable (M) @ RockyHelmet
+Ability: Unaware
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Moonblast
+- Follow Me
+- Protect
+- Helping Hand
+
+Garchomp (F) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Stomping Tantrum
+- Dragon Claw
+- Rock Slide
+
+Lucario (M) @ LucarioniteZ
 Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dark Pulse
+Modest Nature
 - Aura Sphere
 - Flash Cannon
-- Detect
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Twin Beam
-- Thunderbolt
-- Trick Room
 - Protect
+- Vacuum Wave
 
-Kingambit (F) @ FocusSash
-Ability: Defiant
+Talonflame (M) @ LifeOrb
+Ability: GaleWings
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Low Kick
+Jolly Nature
+- Tailwind
+- Protect
+- Flare Blitz
+- Brave Bird

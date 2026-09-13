@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Dragon Pulse
-- Tailwind
-- Protect
-
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Fake Out
-- Protect
-
-Kingambit (M) @ FocusSash
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Low Kick
-
-Garchomp (F) @ LifeOrb
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Dragon Claw
-- Stomping Tantrum
-- Protect
-
-Delphox (F) @ Delphoxite
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
 - Psychic
-- Nasty Plot
+- Trick Room
+- Follow Me
 - Protect
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dazzling Gleam
+- Expanding Force
+- Trick Room
+- Protect
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Trick Room
+- Protect
+- Helping Hand
+
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
+- Eruption
+- Weather Ball
+- Earth Power
 - Protect
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Liquidation
+- Leech Life
+- Iron Head
+- Protect
+
+Milotic (M) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Muddy Water
+- Protect
+- Coil
+- Hypnosis

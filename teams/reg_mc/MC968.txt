@@ -1,59 +1,59 @@
-Pincurchin (M) @ LifeOrb
-Ability: ElectricSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Rising Voltage
-- Venoshock
-- Acupressure
-- Protect
-
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
-
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Glaive Rush
-- High Horsepower
-- Ice Shard
-- Protect
-
-Sinistcha @ ColburBerry
-Ability: Hospitality
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Matcha Gotcha
-- Strength Sap
-- Rage Powder
+- Follow Me
+- Helping Hand
+- Terrain Pulse
 - Trick Room
 
-Incineroar (M) @ WhiteHerb
-Ability: Intimidate
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Close Combat
-- Darkest Lariat
-- Fake Out
+- Dire Claw
+- Rock Slide
+- Protect
 
-Gengar (M) @ Gengarite
-Ability: CursedBody
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Sludge Bomb
-- Shadow Ball
-- Substitute
+Modest Nature
+- Hyper Voice
+- Expanding Force
+- Encore
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Aqua Jet
+- Last Respects
+- Wave Crash
+- Flip Turn
+
+Aerodactyl (M) @ FocusSash
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Tailwind
+- Dual Wingbeat
+- Protect
+
+Volcarona (F) @ SitrusBerry
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Struggle Bug
+- Overheat
+- Rage Powder
 - Protect

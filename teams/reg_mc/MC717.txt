@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
-- Hyper Voice
-- Tailwind
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick Room
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Follow Me
+- Psychic
+- Protect
+
+Torkoal (M) @ Charcoal
+Ability: Drought
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Light of Ruin
-- Moonblast
+Modest Nature
+- Eruption
+- Solar Beam
+- Weather Ball
 - Protect
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Last Respects
-- Wave Crash
-- Aqua Jet
-- Protect
-
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Stomping Tantrum
-- Dragon Claw
-- Earthquake
-- Rock Slide
-
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
-- Low Kick
-
-Sneasler (F) @ FocusSash
+Sneasler (M) @ FocusSash
 Ability: PoisonTouch
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Close Combat
 - Dire Claw
-- Fake Out
-- Feint
+- Protect
+- Swords Dance
+
+Camerupt (F) @ Cameruptite
+Ability: SolidRock
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Ancient Power
+- Earth Power
+- Eruption
+- Protect
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Kowtow Cleave
+- Sucker Punch
+- Protect

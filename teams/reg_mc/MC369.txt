@@ -1,59 +1,59 @@
-Sneasler (F) @ PsychicSeed
+Palafin (F) @ MysticWater
+Ability: ZerotoHero
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flip Turn
+- Jet Punch
+- Wave Crash
+- Protect
+
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
+- Fake Out
 - Dire Claw
-- Rock Slide
-- Acrobatics
+- Close Combat
+- Protect
 
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
+Absol (M) @ AbsoliteZ
+Ability: Pressure
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Shadow Claw
+- Night Slash
+- Substitute
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Psychic
-- Follow Me
 - Trick Room
-- Helping Hand
-
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
 - Thunderbolt
 - Protect
+- Psychic
 
-Cinderace (F) @ LifeOrb
-Ability: Libero
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Pyro Ball
-- Sucker Punch
-- U-turn
-- Protect
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
-
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Pelipper (F) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
+- Hurricane
 - Tailwind
-- Encore
+- Wide Guard
+- Hydro Pump
+
+Dragonite (F) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
+- Dragon Pulse
+- Heat Wave
+- Hurricane

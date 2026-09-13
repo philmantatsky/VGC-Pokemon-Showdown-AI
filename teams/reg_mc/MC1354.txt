@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
-
-Milotic (F) @ SitrusBerry
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Scald
-- Ice Beam
-- Haze
-- Protect
-
-Tyranitar (F) @ Tyranitarite
+Tyranitar (M) @ Tyranitarite
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Rock Slide
 - Knock Off
-- Dragon Dance
+- Low Kick
 - Protect
 
-Excadrill (F) @ LifeOrb
+Excadrill (F) @ FocusSash
 Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Iron Head
 - High Horsepower
-- Rock Slide
+- Earthquake
 - Protect
 
-Sneasler (M) @ WhiteHerb
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Mystical Fire
+- Trick
+- Protect
+
+Corviknight (F) @ SitrusBerry
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Brave Bird
+- Tailwind
+- Roost
+- Bulk Up
+
+Sneasler (F) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
 - Close Combat
+- Dire Claw
 - Throat Chop
 - Protect
 
-Indeedee-F (F) @ EjectButton
-Ability: PsychicSurge
+Annihilape (F) @ SpellTag
+Ability: Defiant
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Helping Hand
-- Psychic
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rage Fist
+- Close Combat
+- Taunt
+- Phantom Force

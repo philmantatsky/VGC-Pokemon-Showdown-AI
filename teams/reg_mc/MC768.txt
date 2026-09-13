@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- First Impression
-- Iron Head
-- Sucker Punch
-- Protect
-
-Swampert (F) @ Swampertite
-Ability: Torrent
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Earthquake
-- Ice Punch
-- Protect
-
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Trick Room
-- Helping Hand
+Timid Nature
+- Hyper Voice
 - Protect
-
-Pelipper (M) @ FocusSash
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hurricane
-- Weather Ball
 - Tailwind
-- Wide Guard
+- Draco Meteor
 
-Archaludon (M) @ Leftovers
-Ability: Stamina
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Electro Shot
-- Dragon Pulse
-- Flash Cannon
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Tomb
+- Dire Claw
+- Close Combat
+- Fake Out
+
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- Fake Out
+- High Horsepower
+
+Kingambit (F) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect
 
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Spirit Break
-- Reflect
-- Light Screen
-- Parting Shot
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Dazzling Gleam
+- Draining Kiss
+- Calm Mind
+- Protect
+
+Basculegion (M) @ FocusSash
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Liquidation
+- Aqua Jet
+- Last Respects
+- Protect

@@ -1,0 +1,59 @@
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Calm Mind
+- Trick Room
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Fake Out
+- Psychic
+- Follow Me
+- Trick Room
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- U-turn
+- Iron Head
+- Protect
+
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Glaive Rush
+- Ice Shard
+- Icicle Spear
+- Protect
+
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
+- Hurricane
+- Wide Guard
+- Tailwind
+
+Sinistcha @ Leftovers
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Matcha Gotcha
+- Shadow Ball
+- Rage Powder
+- Life Dew

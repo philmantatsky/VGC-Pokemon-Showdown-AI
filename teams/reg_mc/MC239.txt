@@ -1,59 +1,59 @@
-Farigiraf (M) @ MentalHerb
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Protect
-- Trick Room
-- Psychic
-- Rain Dance
-
-Incineroar (F) @ ChopleBerry
-Ability: Intimidate
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
+- Wood Hammer
+- Grassy Glide
+- Protect
 
-Blastoise (F) @ Blastoisinite
-Ability: Torrent
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Aura Sphere
-- Dark Pulse
-- Water Spout
-- Fake Out
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect
 
-Tyranitar (F) @ Tyranitarite
+Charizard (F) @ CharizarditeY
+Ability: SolarPower
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Heat Wave
+- Weather Ball
+- Protect
+- Helping Hand
+
+Tyranitar (M) @ ChopleBerry
 Ability: SandStream
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- High Horsepower
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Rock Slide
 - Knock Off
+- Low Kick
 - Protect
 
-Meganium (M) @ Meganiumite
-Ability: LeafGuard
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Weather Ball
-- Solar Beam
-- Dazzling Gleam
-- Protect
-
-Aegislash (M) @ ShucaBerry
-Ability: StanceChange
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Swords Dance
-- Sacred Sword
+Adamant Nature
+- High Horsepower
 - Iron Head
-- King's Shield
+- Protect
+- Rock Tomb
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Acrobatics
+- Gunk Shot
+- Close Combat

@@ -1,54 +1,24 @@
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
 - Protect
 
-Dragonite (F) @ Dragoninite
-Ability: InnerFocus
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dragon Pulse
-- Flamethrower
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Protect
 - Tailwind
-- Protect
 
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Gunk Shot
-- Fake Out
-- Protect
-
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Head Smash
-- Flare Blitz
-- Extreme Speed
-- Protect
-
-Kingambit (F) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
-
-Rillaboom (F) @ SitrusBerry
+Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -56,4 +26,34 @@ Adamant Nature
 - Fake Out
 - Wood Hammer
 - Grassy Glide
-- Superpower
+- High Horsepower
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flip Turn
+- Wave Crash
+- Aqua Jet
+- Last Respects
+
+Mamoswine (M) @ LifeOrb
+Ability: Oblivious
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Ice Shard
+- Earthquake
+- Icicle Crash
+- Protect

@@ -2,58 +2,58 @@ Tyranitar (M) @ Tyranitarite
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
+Adamant Nature
 - Rock Slide
 - Knock Off
 - Dragon Dance
+- Protect
 
-Incineroar (F) @ RockyHelmet
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Close Combat
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
+- Ice Shard
+- Glaive Rush
 - High Horsepower
-
-Rotom-Wash @ Leftovers
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
 - Protect
-- Hydro Pump
-- Volt Switch
-- Will-O-Wisp
 
-Tinkaton (F) @ LifeOrb
-Ability: OwnTempo
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Coaching
 - Protect
-- Gigaton Hammer
-- Play Rough
-- Swords Dance
 
-Dragonite (M) @ Dragoninite
-Ability: InnerFocus
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Expanding Force
+- Tri Attack
+- Terrain Pulse
+- Trick
+
+Corviknight (F) @ PsychicSeed
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Brave Bird
+- Body Press
+- Bulk Up
+- Roost
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- High Horsepower
+- Iron Head
+- Rock Slide
 - Protect
-- Draco Meteor
-- Flamethrower
-- Tailwind

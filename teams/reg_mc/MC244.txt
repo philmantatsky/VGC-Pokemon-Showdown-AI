@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
-
-Armarouge (F) @ LifeOrb
-Ability: FlashFire
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Trick Room
-- Expanding Force
-- Armor Cannon
+- Blizzard
+- Shadow Ball
+- Aurora Veil
 - Protect
 
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Trick Room
-- Psychic
-- Helping Hand
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Flamethrower
+- Tailwind
+- Protect
 
-Rillaboom (M) @ Leftovers
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Gunk Shot
+- Fake Out
+- Protect
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
+- Protect
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
+Adamant Nature
+- Wood Hammer
 - Grassy Glide
-- High Horsepower
-- Protect
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+- U-turn
 - Fake Out
-- Flare Blitz
-- Parting Shot
-- Throat Chop
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Kingambit (F) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Aqua Jet
-- Wave Crash
-- Last Respects
-- Flip Turn
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect

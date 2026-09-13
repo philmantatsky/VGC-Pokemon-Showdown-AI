@@ -1,59 +1,59 @@
-Charizard (F) @ CharizarditeY
-Ability: Blaze
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Weather Ball
-- Heat Wave
-- Ancient Power
+Timid Nature
+- Tailwind
+- Draco Meteor
+- Hyper Voice
 - Protect
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Gholdengo @ Leftovers
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Quick Attack
-- Yawn
-- Detect
+- Nasty Plot
+- Make It Rain
+- Shadow Ball
+- Protect
 
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
-- Dragon Claw
-- Earthquake
-- Stomping Tantrum
+- Grassy Glide
+- Fake Out
+- U-turn
+- Wood Hammer
 
-Venusaur (M) @ LifeOrb
-Ability: Chlorophyll
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Sludge Bomb
-- Leaf Storm
-- Earth Power
+Timid Nature
+- Calm Mind
+- Draining Kiss
+- Moonblast
 - Protect
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Flare Blitz
-- Fake Out
-- Darkest Lariat
-- Parting Shot
+Adamant Nature
+- Last Respects
+- Wave Crash
+- Aqua Jet
+- Protect
 
-Toxapex (M) @ Leftovers
-Ability: Regenerator
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Infestation
-- Toxic
-- Wide Guard
-- Baneful Bunker
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
+- Protect

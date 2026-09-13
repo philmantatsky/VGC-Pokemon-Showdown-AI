@@ -1,59 +1,59 @@
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Rock Slide
-- Knock Off
-- Low Kick
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Tailwind
-- Draco Meteor
-- Hyper Voice
-
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Milotic (F) @ Leftovers
-Ability: Competitive
+Inteleon (F) @ ScopeLens
+Ability: Sniper
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Snipe Shot
 - Protect
-- Scald
-- Ice Beam
-- Icy Wind
+- Haze
+- Substitute
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
+Garchomp (M) @ GarchompiteZ
+Ability: SandVeil
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Snarl
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Dragon Cheer
+- Scary Face
+- Protect
 
-Excadrill (M) @ FocusSash
-Ability: SandRush
+Pelipper (M) @ RockyHelmet
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hurricane
+- Weather Ball
+- Tailwind
+- Protect
+
+Archaludon (M) @ ChopleBerry
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flash Cannon
+- Electro Shot
+- Protect
+- Draco Meteor
+
+Basculegion (M) @ FocusSash
+Ability: SwiftSwim
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Liquidation
+- Last Respects
 - Protect
-- High Horsepower
-- Iron Head
-- Rock Slide
+- Flip Turn
+
+Dragonite (F) @ LifeOrb
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Claw
+- Extreme Speed
+- Protect
+- Superpower

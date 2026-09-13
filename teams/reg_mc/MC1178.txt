@@ -1,59 +1,59 @@
-Absol (F) @ AbsoliteZ
-Ability: Pressure
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Shadow Claw
-- Night Slash
-- X-Scissor
-- Protect
+- Fake Out
+- Close Combat
+- Dire Claw
+- Feint
 
-Talonflame (M) @ Charcoal
-Ability: GaleWings
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
+Adamant Nature
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Protect
+
+Dragonite (F) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Heat Wave
 - Tailwind
-- Dual Wingbeat
-- Overheat
 - Protect
 
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Helping Hand
-- Psychic
-- Hyper Voice
-- Thunderbolt
-
-Excadrill (M) @ LifeOrb
-Ability: MoldBreaker
+Rillaboom (M) @ SitrusBerry
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Iron Head
-- Stomping Tantrum
-- Protect
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
 
-Glimmora (M) @ Glimmoranite
-Ability: ToxicDebris
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Sludge Bomb
-- Power Gem
-- Spiky Shield
-- Earth Power
-
-Primarina (M) @ Leftovers
-Ability: LiquidVoice
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Moonblast
-- Ice Beam
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect

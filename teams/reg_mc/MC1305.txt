@@ -1,59 +1,59 @@
-Glimmora (M) @ Glimmoranite
+Glimmora (F) @ Glimmoranite
 Ability: ToxicDebris
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Spiky Shield
-- Sludge Bomb
+Modest Nature
 - Power Gem
+- Sludge Bomb
 - Earth Power
+- Spiky Shield
+
+Staraptor (M) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Brave Bird
+- Close Combat
+- Roost
+- Protect
+
+Hydreigon (F) @ LifeOrb
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Dark Pulse
+- Earth Power
+- Protect
+
+Gholdengo @ WiseGlasses
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Flash Cannon
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Scald
+- Ice Beam
+- Recover
+- Protect
 
 Whimsicott (F) @ FocusSash
 Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Tailwind
-- Moonblast
-- Encore
-- Protect
-
-Orthworm (M) @ Leftovers
-Ability: EarthEater
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Heavy Slam
-- Protect
-- Iron Defense
-- Body Press
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Last Respects
-- Wave Crash
-- Aqua Jet
-- Protect
-
-Raichu (M) @ RaichuniteY
-Ability: LightningRod
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Zap Cannon
-- Protect
-- Fake Out
-- Focus Blast
-
-Ninetales-Alola (M) @ NeverMeltIce
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Aurora Veil
-- Freeze-Dry
+- Moonblast
+- Tailwind
+- Encore
 - Protect

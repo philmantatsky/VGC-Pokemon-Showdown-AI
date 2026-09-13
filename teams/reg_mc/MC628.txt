@@ -1,41 +1,41 @@
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Feint
+
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-- Fake Out
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Low Kick
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Throat Chop
-- Parting Shot
-- Fake Out
-
-Gholdengo @ Leftovers
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Hyper Voice
-- Double-Edge
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
 - Tailwind
+- Light Screen
 - Protect
 
 Floette-Eternal (F) @ Floettite
@@ -43,17 +43,17 @@ Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Calm Mind
-- Draining Kiss
 - Moonblast
+- Dazzling Gleam
+- Light of Ruin
 - Protect
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Swords Dance
-- Close Combat
-- Dire Claw
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Hyper Voice
+- Heat Wave
 - Protect

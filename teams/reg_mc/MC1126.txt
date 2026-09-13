@@ -1,59 +1,59 @@
-Baxcalibur (M) @ Baxcalibrite
-Ability: ThermalExchange
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Double-Edge
+- Hyper Voice
+- Tailwind
+- Protect
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Icicle Crash
-- Ice Shard
-- Glaive Rush
+- Rock Slide
+- Knock Off
+- Low Kick
 - Protect
 
-Armarouge (F) @ LifeOrb
-Ability: FlashFire
+Excadrill (F) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Rock Slide
+- Iron Head
+- Protect
+
+Gholdengo @ SitrusBerry
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Armor Cannon
-- Expanding Force
-- Trick Room
-- Wide Guard
+Timid Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
 
-Indeedee-F (F) @ SitrusBerry
+Indeedee-F (F) @ PsychicSeed
 Ability: PsychicSurge
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Relaxed Nature
 - Follow Me
-- Dazzling Gleam
+- Psychic
 - Trick Room
-- Helping Hand
-
-Torkoal (M) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
 - Protect
-- Solar Beam
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Primarina (M) @ LifeOrb
+Ability: LiquidVoice
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Draining Kiss
-- Calm Mind
-- Dazzling Gleam
+- Hyper Voice
+- Moonblast
+- Aqua Jet
 - Protect
-
-Milotic (F) @ PsychicSeed
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Muddy Water
-- Coil
-- Hypnosis
-- Recover

@@ -1,44 +1,24 @@
-Salamence (M) @ Salamencite
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Double-Edge
+- Roost
+- Dragon Dance
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Bold Nature
+- Expanding Force
 - Hyper Voice
-- Flamethrower
-- Tailwind
-- Protect
+- Imprison
+- Trick Room
 
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Close Combat
-- Gunk Shot
-- Protect
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Kingambit (M) @ FocusSash
+Kingambit (F) @ LifeOrb
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -46,14 +26,34 @@ Adamant Nature
 - Kowtow Cleave
 - Sucker Punch
 - Iron Head
-- Low Kick
+- Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Arcanine-Hisui (M) @ FocusSash
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Flare Blitz
+- Extreme Speed
+- Protect
+
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Drum Beating
+- Grassy Glide
+- Fake Out
+- U-turn
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Coaching
 - Protect

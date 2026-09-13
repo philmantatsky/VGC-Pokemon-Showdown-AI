@@ -1,59 +1,59 @@
-Absol (M) @ AbsoliteZ
-Ability: Pressure
+Kingambit (F) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Shadow Claw
-- Night Slash
-- X-Scissor
-- Protect
-
-Talonflame (F) @ Charcoal
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Tailwind
-- Dual Wingbeat
-- Overheat
-- Protect
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Helping Hand
-- Psychic
-- Hyper Voice
-- Thunderbolt
-
-Excadrill (F) @ LifeOrb
-Ability: MoldBreaker
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
+Adamant Nature
+- Low Kick
+- Sucker Punch
+- Kowtow Cleave
 - Iron Head
-- Stomping Tantrum
-- Protect
 
-Glimmora (M) @ Glimmoranite
-Ability: ToxicDebris
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Sludge Bomb
-- Power Gem
-- Spiky Shield
-- Earth Power
+- Dazzling Gleam
+- Light of Ruin
+- Protect
+- Moonblast
 
-Primarina (F) @ Leftovers
-Ability: LiquidVoice
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Aqua Jet
+- Wave Crash
+- Last Respects
+- Protect
+
+Garchomp (F) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Stomping Tantrum
+- Earthquake
+- Dragon Claw
+- Rock Slide
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Timid Nature
 - Hyper Voice
-- Moonblast
-- Ice Beam
+- Dragon Pulse
+- Heat Wave
+- Protect
+
+Rillaboom (M) @ Leftovers
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
 - Protect

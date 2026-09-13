@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Dragon Dance
 - Protect
-- Tailwind
-- Flamethrower
 
-Sneasler (F) @ GrassySeed
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Ice Shard
+- Glaive Rush
+- High Horsepower
+- Protect
+
+Sneasler (F) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Tomb
-- Dire Claw
+Adamant Nature
 - Close Combat
-- Fake Out
-
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- Wood Hammer
-- Fake Out
-- High Horsepower
-
-Kingambit (M) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+- Dire Claw
+- Coaching
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Draining Kiss
-- Calm Mind
-- Protect
+Modest Nature
+- Expanding Force
+- Tri Attack
+- Terrain Pulse
+- Trick
 
-Basculegion (M) @ SitrusBerry
-Ability: Adaptability
+Corviknight (F) @ PsychicSeed
+Ability: MirrorArmor
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
+- Brave Bird
+- Body Press
+- Bulk Up
+- Roost
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- High Horsepower
+- Iron Head
+- Rock Slide
 - Protect

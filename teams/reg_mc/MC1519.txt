@@ -1,59 +1,59 @@
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- U-turn
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Psychic
+- Trick Room
+- Follow Me
+- Protect
 
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dazzling Gleam
+- Expanding Force
+- Trick Room
+- Protect
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Trick Room
+- Protect
+- Helping Hand
+
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Aura Sphere
-- Flash Cannon
-- Nasty Plot
+- Eruption
+- Weather Ball
+- Earth Power
 - Protect
 
-Milotic (M) @ GrassySeed
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Liquidation
+- Leech Life
+- Iron Head
+- Protect
+
+Milotic (M) @ Leftovers
 Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Calm Nature
-- Icy Wind
-- Scald
-- Ice Beam
+- Muddy Water
 - Protect
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
-- Hyper Voice
-- Tailwind
-- Protect
-
-Incineroar (F) @ ChopleBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Flare Blitz
-- Throat Chop
-- Fake Out
-- Parting Shot
-
-Garchomp (F) @ SitrusBerry
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Stomping Tantrum
-- Dragon Claw
-- Rock Slide
-- Protect
+- Coil
+- Hypnosis

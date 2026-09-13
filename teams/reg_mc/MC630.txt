@@ -1,59 +1,59 @@
-Steelix (F) @ Steelixite
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Heavy Slam
-- High Horsepower
-- Protect
-- Rock Slide
-
-Tyranitar (M) @ ChopleBerry
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Knock Off
-- Rock Slide
-- Low Kick
-- Protect
-
-Sneasler (M) @ FocusSash
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Close Combat
-- Fake Out
-- Acrobatics
-
-Talonflame (M) @ LifeOrb
-Ability: FlameBody
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Tailwind
-- Brave Bird
-- Flare Blitz
-- Feather Dance
-
-Rillaboom (M) @ SitrusBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- High Horsepower
-- Fake Out
-- Wood Hammer
-
 Golisopod (M) @ Golisopite
 Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- First Impression
-- Protect
-- Liquidation
+- Leech Life
 - Iron Head
+- First Impression
+- Liquidation
+
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Hurricane
+- Weather Ball
+- Tailwind
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Rash Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect
+
+Glimmora (F) @ LifeOrb
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Power Gem
+- Earth Power
+- Sludge Bomb
+- Protect
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- Moonblast
+- Encore
+- Protect

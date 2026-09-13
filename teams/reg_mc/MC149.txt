@@ -1,3 +1,43 @@
+Dragapult (F) @ RedCard
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dragon Cheer
+- Dragon Darts
+- Will-O-Wisp
+- Light Screen
+
+Sinistcha @ KasibBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Rage Powder
+- Matcha Gotcha
+- Trick Room
+- Imprison
+
+Ceruledge (M) @ ColburBerry
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Bulk Up
+- Shadow Sneak
+- Bitter Blade
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Parting Shot
+- Throat Chop
+
 Golisopod (F) @ Golisopite
 Ability: EmergencyExit
 Level: 50
@@ -5,55 +45,15 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Leech Life
 - Iron Head
-- Liquidation
-- Protect
+- Bulk Up
+- Close Combat
 
-Pelipper (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Weather Ball
-- Hurricane
-- Tailwind
-- Protect
-
-Rillaboom (F) @ GrassySeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
-
-Garchomp (M) @ LifeOrb
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dragon Claw
-- Stomping Tantrum
-- Rock Slide
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Garchomp (M) @ GarchompiteZ
+Ability: SandVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
+- Draco Meteor
+- Rock Slide
 - Protect
-
-Pawmot (F) @ FocusSash
-Ability: IronFist
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Double Shock
-- Close Combat
-- Protect
+- Fire Blast

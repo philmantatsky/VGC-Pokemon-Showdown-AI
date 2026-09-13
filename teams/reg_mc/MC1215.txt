@@ -1,59 +1,59 @@
-Archaludon (M) @ ElectricSeed
-Ability: Stamina
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Electro Shot
-- Flash Cannon
-- Snarl
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Dire Claw
+- Close Combat
+- Acrobatics
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- U-turn
+- Fake Out
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
 - Protect
 
-Pelipper (F) @ FocusSash
-Ability: Drizzle
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hurricane
-- Weather Ball
-- Tailwind
-- Wide Guard
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- High Horsepower
+- Iron Head
+- Protect
 
-Sinistcha @ EjectButton
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Matcha Gotcha
-- Life Dew
-- Trick Room
-- Rage Powder
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Flare Blitz
-- Darkest Lariat
-- Fake Out
-- Parting Shot
-
-Gholdengo @ ChoiceScarf
+Gholdengo @ LifeOrb
 Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
 - Shadow Ball
-- Trick
+- Make It Rain
+- Nasty Plot
 - Protect
 
-Raichu (M) @ RaichuniteX
-Ability: LightningRod
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Volt Tackle
-- Volt Switch
-- Fake Out
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Dragon Pulse
+- Heat Wave
+- Tailwind
 - Protect

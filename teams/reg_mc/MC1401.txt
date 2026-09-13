@@ -1,59 +1,59 @@
-Milotic (F) @ SitrusBerry
-Ability: Competitive
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Scald
-- Ice Beam
-- Icy Wind
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
 
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
+Adamant Nature
 - Fake Out
 - Grassy Glide
 - Wood Hammer
 - U-turn
 
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Dragon Dance
-- Double-Edge
-- Roost
-- Protect
-
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Fake Out
-- Close Combat
-- Dire Claw
-- Coaching
-
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
-
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Iron Head
+- Leech Life
+- Swords Dance
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Nasty Plot
+- Hyper Voice
+- Trick Room
+- Twin Beam
+
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dragon Claw
+- Stomping Tantrum
 - Rock Slide
-- High Horsepower
+- Protect
+
+Pelipper (F) @ Leftovers
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Weather Ball
+- Hurricane
+- Wide Guard
 - Protect

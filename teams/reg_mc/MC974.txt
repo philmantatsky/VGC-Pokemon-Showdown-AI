@@ -1,59 +1,59 @@
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Psychic
-- Trick Room
-- Helping Hand
-- Protect
-
-Kangaskhan (F) @ Kangaskhanite
-Ability: Scrappy
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Fake Out
-- Double-Edge
-- Ice Punch
-- Sucker Punch
-
-Charizard (M) @ CharizarditeY
-Ability: Blaze
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Protect
-- Solar Beam
+Bold Nature
+- Follow Me
+- Helping Hand
+- Terrain Pulse
+- Trick Room
 
-Salamence (M) @ LifeOrb
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Dual Wingbeat
-- Dragon Claw
-- Rock Slide
-
-Kingambit (F) @ ChopleBerry
-Ability: Defiant
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Iron Head
-- Kowtow Cleave
-- Sucker Punch
+- Close Combat
+- Dire Claw
+- Rock Slide
 - Protect
 
-Pawmot (M) @ FocusSash
-Ability: IronFist
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Expanding Force
+- Encore
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Fake Out
-- Double Shock
-- Close Combat
-- Revival Blessing
+- Aqua Jet
+- Last Respects
+- Wave Crash
+- Flip Turn
+
+Aerodactyl (M) @ FocusSash
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Tailwind
+- Dual Wingbeat
+- Protect
+
+Volcarona (M) @ SitrusBerry
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Struggle Bug
+- Overheat
+- Rage Powder
+- Protect

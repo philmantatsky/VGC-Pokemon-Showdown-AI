@@ -1,59 +1,59 @@
-Rillaboom (F) @ SitrusBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- U-turn
-- Grassy Glide
-- Wood Hammer
-
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- First Impression
-- Protect
-- Iron Head
-- Close Combat
-
-Farigiraf (M) @ GrassySeed
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Twin Beam
-- Trick Room
-- Protect
-- Thunderbolt
-
 Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Draco Meteor
-- Flamethrower
-- Protect
-- Double-Edge
-
-Pelipper (F) @ FocusSash
-Ability: Drizzle
-Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Weather Ball
+Timid Nature
+- Hyper Voice
 - Tailwind
 - Protect
-- Hurricane
+- Draco Meteor
 
-Sneasler (F) @ WhiteHerb
+Sneasler (F) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Close Combat
+- Swords Dance
 - Dire Claw
-- Feint
+- Close Combat
+- Protect
+
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- Fake Out
+- U-turn
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Aqua Jet
+- Wave Crash
+- Last Respects
+- Flip Turn
+
+Kingambit (M) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Throat Chop
+- Parting Shot

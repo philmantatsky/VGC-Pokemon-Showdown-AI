@@ -1,59 +1,59 @@
-Glimmora (M) @ Glimmoranite
-Ability: ToxicDebris
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Spiky Shield
-- Sludge Bomb
-- Power Gem
-- Earth Power
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Protect
+- Extreme Speed
 
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- U-turn
+
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
+- Kowtow Cleave
+- Low Kick
+- Iron Head
+
+Garchomp (M) @ GarchompiteZ
+Ability: SandVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Tailwind
-- Moonblast
-- Encore
 - Protect
+- Dragon Pulse
+- Earth Power
+- Power Gem
 
-Orthworm (M) @ Leftovers
-Ability: EarthEater
+Whimsicott (M) @ FairyFeather
+Ability: Prankster
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Heavy Slam
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Protect
-- Iron Defense
-- Body Press
+- Moonblast
+- Tailwind
+- Encore
 
-Basculegion (M) @ LifeOrb
+Basculegion (M) @ ChoiceScarf
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Last Respects
 - Wave Crash
+- Last Respects
 - Aqua Jet
-- Protect
-
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Zap Cannon
-- Protect
-- Fake Out
-- Focus Blast
-
-Ninetales-Alola (M) @ NeverMeltIce
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Aurora Veil
-- Freeze-Dry
-- Protect
+- Flip Turn

@@ -1,59 +1,59 @@
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Glaive Rush
-- Ice Shard
-- Protect
-- Swords Dance
-
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Zap Cannon
-- Focus Blast
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect
-- Fake Out
 
-Volcarona (F) @ SitrusBerry
-Ability: FlameBody
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- Sucker Punch
+- Liquidation
+- Leech Life
+
+Pelipper (M) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Giga Drain
+Timid Nature
+- Hurricane
+- Weather Ball
+- Tailwind
 - Protect
-- Rage Powder
 
-Rillaboom (M) @ CobaBerry
-Ability: GrassySurge
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- High Horsepower
+Careful Nature
+- Parting Shot
+- Light Screen
+- Taunt
+- Spirit Break
 
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Protect
-- Nasty Plot
-
-Hawlucha (M) @ FocusSash
-Ability: MoldBreaker
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dual Wingbeat
-- Close Combat
-- Detect
+Bold Nature
 - Helping Hand
+- Twin Beam
+- Trick Room
+- Thunderbolt
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Electro Shot
+- Flash Cannon
+- Dragon Pulse
+- Protect

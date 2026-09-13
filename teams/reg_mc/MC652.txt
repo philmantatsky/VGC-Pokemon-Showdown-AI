@@ -1,59 +1,59 @@
-Incineroar (M) @ WhiteHerb
+Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
-- Fake Out
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
 
-Farigiraf (M) @ Leftovers
-Ability: ArmorTail
+Lucario (M) @ LucarioniteZ
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Psychic
-- Helping Hand
-- Trick Room
+- Flash Cannon
+- Aura Sphere
+- Nasty Plot
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
-- Protect
-
-Maushold-Four @ WideLens
-Ability: Technician
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
-- Protect
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- U-turn
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Throat Chop
+- Fake Out
+- Parting Shot
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Hydreigon (M) @ ChoiceScarf
-Ability: Levitate
+Ninetales-Alola (F) @ FocusSash
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+Timid Nature
+- Blizzard
+- Moonblast
+- Encore
+- Protect

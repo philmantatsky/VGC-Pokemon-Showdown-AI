@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Flamethrower
-- Protect
-
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Dragon Dance
-- Protect
-
-Volcarona (F) @ SitrusBerry
-Ability: FlameBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Flamethrower
-- Rage Powder
-- Giga Drain
-- Protect
-
-Primarina (M) @ Leftovers
-Ability: LiquidVoice
+Lucario (F) @ LucarioniteZ
+Ability: Steadfast
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Moonblast
-- Aqua Jet
+- Aura Sphere
+- Flash Cannon
 - Protect
+- Psychic
 
-Sneasler (F) @ WhiteHerb
+Whimsicott (M) @ EjectButton
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
+- Protect
+- Helping Hand
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Protect
+- Rock Slide
+
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Hyper Voice
+- Trick
+- Terrain Pulse
+
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Close Combat
 - Dire Claw
-- U-turn
+- Close Combat
+- Protect
+- Swords Dance
 
-Corviknight (F) @ OccaBerry
-Ability: MirrorArmor
+Hydreigon (F) @ LifeOrb
+Ability: Levitate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Brave Bird
-- Iron Head
-- Tailwind
-- Roost
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Snarl
+- Dark Pulse
+- Protect
+- Draco Meteor

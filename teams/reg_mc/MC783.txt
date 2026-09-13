@@ -1,59 +1,59 @@
-Lucario (M) @ LucarioniteZ
-Ability: Steadfast
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Calm Mind
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Lonely Nature
-- Double-Edge
-- Hyper Voice
-- Tailwind
-- Protect
-
-Rillaboom (M) @ RockyHelmet
+Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Fake Out
 - Wood Hammer
-- Grassy Glide
-- Fake Out
 - High Horsepower
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Fake Out
-- Parting Shot
-- Taunt
+- Grassy Glide
 
 Kingambit (F) @ BlackGlasses
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
+- Swords Dance
 - Kowtow Cleave
-- Low Kick
+- Sucker Punch
 - Protect
 
-Basculegion (M) @ LifeOrb
+Sneasler (F) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Coaching
+
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Scale Shot
+- Icicle Crash
+- Ice Shard
+- Protect
+
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Aurora Veil
+- Shadow Ball
+- Protect
+
+Basculegion (M) @ ColburBerry
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Aqua Jet
+Adamant Nature
 - Wave Crash
 - Last Respects
-- Flip Turn
+- Aqua Jet
+- Protect

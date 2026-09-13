@@ -1,0 +1,59 @@
+Toxapex (F) @ Leftovers
+Ability: Regenerator
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Infestation
+- Toxic
+- Wide Guard
+- Baneful Bunker
+
+Rillaboom (M) @ EjectButton
+Ability: GrassySurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Fake Out
+- Grassy Glide
+- U-turn
+- Protect
+
+Absol (F) @ AbsoliteZ
+Ability: Justified
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Shadow Claw
+- Sucker Punch
+- Close Combat
+- Detect
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Protect
+
+Vanilluxe (M) @ ChoiceScarf
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Blizzard
+- Freeze-Dry
+- Icy Wind
+- Aurora Veil
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Parting Shot
+- Fake Out
+- Flare Blitz
+- Protect

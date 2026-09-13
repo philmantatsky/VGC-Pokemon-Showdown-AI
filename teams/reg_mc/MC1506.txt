@@ -1,59 +1,59 @@
-Slowbro (F) @ Slowbronite
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Leech Life
+- Iron Head
+- Protect
+- Swords Dance
+
+Slowking-Galar (M) @ MentalHerb
 Ability: Regenerator
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Scald
-- Psychic
-- Yawn
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Dazzling Gleam
-- Moonblast
-- Calm Mind
-- Protect
+- Psychic
+- Trick Room
+- Ice Beam
+- Sludge Bomb
 
-Rillaboom (F) @ OccaBerry
+Incineroar (M) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Darkest Lariat
+- Fake Out
+- Parting Shot
+
+Rillaboom (M) @ SitrusBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+Adamant Nature
 - Wood Hammer
 - Grassy Glide
 - Fake Out
 - High Horsepower
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
+Raichu (F) @ RaichuniteY
+Ability: Static
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Parting Shot
-- Fake Out
-- Throat Chop
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Zap Cannon
+- Volt Switch
+- Protect
+- Focus Blast
 
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Pelipper (F) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+- Hurricane
+- Weather Ball
 - Protect
-
-Pawmot (F) @ FocusSash
-Ability: IronFist
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Double Shock
-- Ice Punch
-- Protect
+- Wide Guard

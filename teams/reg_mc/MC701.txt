@@ -1,59 +1,59 @@
-Mawile (M) @ Mawilite
-Ability: HyperCutter
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Play Rough
-- Iron Head
-- Sucker Punch
-- Protect
-
-Farigiraf (F) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
 - Trick Room
-- Psychic
-- Thunderbolt
 - Protect
 
-Gardevoir (M) @ Gardevoirite
-Ability: Trace
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Follow Me
+- Psychic
+- Protect
+
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
+- Eruption
+- Solar Beam
+- Weather Ball
 - Protect
-- Psyshock
-- Calm Mind
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Throat Chop
-- Fake Out
-- Parting Shot
-
-Aerodactyl (M) @ FocusSash
-Ability: Pressure
+Sneasler (F) @ FocusSash
+Ability: PoisonTouch
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
+- Close Combat
+- Dire Claw
 - Protect
-- Tailwind
-- Rock Slide
-- Dual Wingbeat
+- Swords Dance
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Camerupt (F) @ Cameruptite
+Ability: SolidRock
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Ancient Power
+- Earth Power
+- Eruption
+- Protect
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
+Adamant Nature
+- Swords Dance
+- Kowtow Cleave
+- Sucker Punch
+- Protect

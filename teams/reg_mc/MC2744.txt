@@ -1,0 +1,59 @@
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- First Impression
+- U-turn
+- Iron Head
+- Liquidation
+
+Incineroar (F) @ ExpertBelt
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Fake Out
+- Darkest Lariat
+- Parting Shot
+- Flare Blitz
+
+Rillaboom (M) @ LifeOrb
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- U-turn
+- Wood Hammer
+- Knock Off
+
+Sinistcha @ MentalHerb
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Rage Powder
+- Matcha Gotcha
+- Trick Room
+- Protect
+
+Pelipper (M) @ WacanBerry
+Ability: Drizzle
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Tailwind
+- Hurricane
+- Hydro Pump
+- Wide Guard
+
+Glimmora (M) @ Glimmoranite
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Sludge Bomb
+- Power Gem
+- Spiky Shield
+- Earth Power

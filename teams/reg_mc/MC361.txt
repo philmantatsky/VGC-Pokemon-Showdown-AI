@@ -1,59 +1,59 @@
-Aerodactyl (M) @ Aerodactylite
-Ability: RockHead
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Psychic
+- Follow Me
+- Protect
+- Helping Hand
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Rock Slide
-- Dual Wingbeat
+- Knock Off
 - Protect
-- Tailwind
+- Dragon Dance
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Sinistcha-Masterpiece @ RockyHelmet
+Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Moonblast
-- Light of Ruin
+Bold Nature
+- Matcha Gotcha
 - Protect
+- Rage Powder
+- Strength Sap
 
-Dragonite (M) @ LifeOrb
-Ability: InnerFocus
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Stomping Tantrum
 - Dragon Claw
-- Extreme Speed
-- Superpower
 - Protect
+- Earthquake
 
-Torkoal (M) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Weather Ball
-- Protect
-- Helping Hand
-
-Vileplume (F) @ FocusSash
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Sludge Bomb
-- Protect
-- Sleep Powder
-- After You
-
-Basculegion (M) @ SitrusBerry
-Ability: Adaptability
+Aerodactyl (M) @ FocusSash
+Ability: Unnerve
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Aqua Jet
-- Wave Crash
-- Last Respects
+Jolly Nature
+- Tailwind
+- Wide Guard
+- Rock Slide
 - Protect
+
+Gardevoir (F) @ Gardevoirite
+Ability: Trace
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Expanding Force
+- Protect
+- Calm Mind

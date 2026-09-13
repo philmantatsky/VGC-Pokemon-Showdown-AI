@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Garchomp (M) @ GarchompiteZ
+Ability: RoughSkin
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Iron Head
-- Leech Life
+EVs: 2 HP / 32 SpA / 32 Spe
+Naive Nature
+- Rock Slide
+- Draco Meteor
+- Flamethrower
 - Protect
-- Wide Guard
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Gholdengo @ ChoiceScarf
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Trick
+- Focus Blast
+- Shadow Ball
+- Make It Rain
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Protect
+- Moonblast
+- Calm Mind
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Sucker Punch
+- Iron Head
+- Protect
+
+Sinistcha-Masterpiece @ SitrusBerry
+Ability: Hospitality
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Relaxed Nature
 - Trick Room
-- Helping Hand
-- Psychic
-- Hyper Voice
+- Matcha Gotcha
+- Protect
+- Rage Powder
 
 Pelipper (F) @ FocusSash
 Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Timid Nature
+- Tailwind
 - Weather Ball
 - Hurricane
-- Tailwind
-- Wide Guard
-
-Archaludon (M) @ Leftovers
-Ability: Stamina
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Electro Shot
-- Dragon Pulse
-- Protect
-- Aura Sphere
-
-Swampert (F) @ Swampertite
-Ability: Damp
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- High Horsepower
-- Ice Punch
-- Protect
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Last Respects
-- Wave Crash
-- Aqua Jet
-- Flip Turn
+- Hydro Pump

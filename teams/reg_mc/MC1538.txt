@@ -1,59 +1,59 @@
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Tailwind
-- Sunny Day
-- Moonblast
-- Encore
-
-Garchomp (M) @ LifeOrb
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Earthquake
-- Rock Slide
-- Dragon Claw
-
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Solar Beam
-- Heat Wave
-- Weather Ball
-- Protect
-
-Incineroar (M) @ ChopleBerry
-Ability: Intimidate
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Darkest Lariat
+- Close Combat
+- Dire Claw
+- Rock Slide
+- Protect
 
-Chimecho (M) @ Chimechite
-Ability: Levitate
+Gardevoir (F) @ Gardevoirite
+Ability: Trace
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
+- Hyper Voice
+- Expanding Force
+- Trick Room
 - Protect
-- Flash Cannon
-- Psychic
-- Dazzling Gleam
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn
+
+Pelipper (M) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Waterfall
+- Hurricane
+- Tailwind
+- Protect
+
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Calm Nature
-- Coil
+- Psychic
+- Follow Me
+- Helping Hand
+- Trick Room
+
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Psychic Fangs
+- Ice Punch
+- Iron Head
 - Protect
-- Muddy Water
-- Hypnosis

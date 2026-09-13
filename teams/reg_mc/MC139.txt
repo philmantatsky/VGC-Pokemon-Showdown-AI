@@ -1,59 +1,59 @@
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Head Smash
-- Flare Blitz
-- Extreme Speed
-- Protect
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Thunderbolt
-
-Whimsicott (M) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Dazzling Gleam
+- Protect
+- Flash Cannon
+- Aura Sphere
+- Dark Pulse
+
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Hyper Voice
+- Trick
+- Healing Wish
+
+Houndoom (M) @ FocusSash
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Feint
+- Dark Pulse
+- Flamethrower
+
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Tailwind
 - Moonblast
-- Light of Ruin
-- Protect
+- Light Screen
 
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Raichu (M) @ RaichuniteX
+Ability: LightningRod
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
 - Protect
+- Volt Tackle
+- Wish
+- Helping Hand
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Vanilluxe (M) @ ChopleBerry
+Ability: SnowWarning
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
+- Freeze-Dry
+- Blizzard
+- Ally Switch

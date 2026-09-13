@@ -1,59 +1,59 @@
-Blastoise (M) @ Blastoisinite
-Ability: RainDish
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Calm Nature
+- Dragon Pulse
+- Flash Cannon
+- Electro Shot
 - Protect
-- Shell Smash
-- Water Spout
-- Dark Pulse
 
-Sinistcha-Masterpiece @ MentalHerb
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Matcha Gotcha
-- Protect
-- Trick Room
-- Rage Powder
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Hyper Voice
-- Psychic
-- Trick Room
-- Roar
-
-Annihilape (F) @ Leftovers
-Ability: Defiant
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Bulk Up
-- Drain Punch
-- Rage Fist
-- Protect
+Naughty Nature
+- Last Respects
+- Flip Turn
+- Wave Crash
+- Aqua Jet
 
-Maushold @ ChopleBerry
-Ability: FriendGuard
+Politoed (M) @ SitrusBerry
+Ability: Drizzle
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Weather Ball
 - Encore
-- Super Fang
-- Thunder Wave
-- Follow Me
+- Ice Beam
+- Protect
 
-Incineroar (M) @ FocusSash
+Incineroar (M) @ LumBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
+Jolly Nature
+- Throat Chop
+- Flare Blitz
+- Protect
 - Fake Out
-- Parting Shot
-- Will-O-Wisp
-- Drain Punch
+
+Aerodactyl (F) @ Aerodactylite
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Dragon Claw
+- Rain Dance
+- Tailwind
+
+Sableye (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Disable
+- Encore
+- Fake Out
+- Knock Off

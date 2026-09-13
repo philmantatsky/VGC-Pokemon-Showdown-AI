@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Naive Nature
-- Hyper Voice
-- Draco Meteor
-- Double-Edge
-- Protect
+Bold Nature
+- Psychic
+- Trick Room
+- Follow Me
+- Healing Wish
 
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dire Claw
-- Fake Out
-- Close Combat
-- Coaching
-
-Talonflame (F) @ SharpBeak
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Taunt
-- Tailwind
-- Dual Wingbeat
-- Quick Guard
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- High Horsepower
-- Grassy Glide
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Light of Ruin
-- Moonblast
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
 - Dazzling Gleam
+- Expanding Force
+- Trick Room
 - Protect
 
-Kingambit (M) @ FocusSash
-Ability: Defiant
+Farigiraf (F) @ MentalHerb
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Trick Room
+- Protect
+- Helping Hand
+
+Torkoal (F) @ Charcoal
+Ability: WhiteSmoke
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Earth Power
+- Protect
+
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Rock Slide
+- Leech Life
 - Iron Head
-- Kowtow Cleave
-- Sucker Punch
-- Low Kick
+- Protect
+
+Abomasnow (M) @ Abomasite
+Ability: SnowWarning
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Blizzard
+- Energy Ball
+- Protect
+- Earth Power

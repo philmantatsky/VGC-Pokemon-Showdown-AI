@@ -1,0 +1,59 @@
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Helping Hand
+- Twin Beam
+- Trick Room
+- Thunderbolt
+
+Vivillon-Pokeball (M) @ ChoiceScarf
+Ability: CompoundEyes
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Stun Spore
+- Hurricane
+- Rage Powder
+- Sleep Powder
+
+Sylveon (M) @ LifeOrb
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Calm Mind
+- Hyper Voice
+- Hyper Beam
+- Protect
+
+Camerupt (F) @ Cameruptite
+Ability: SolidRock
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Heat Wave
+- Eruption
+- Earth Power
+
+Kingambit (F) @ ChopleBerry
+Ability: Defiant
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Iron Head
+- Sucker Punch
+- Kowtow Cleave
+- Low Kick
+
+Drampa (F) @ Leftovers
+Ability: CloudNine
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Ice Beam
+- Hyper Voice
+- Earth Power

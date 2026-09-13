@@ -1,59 +1,59 @@
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
+Slowbro (M) @ Slowbronite
+Ability: Oblivious
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Spirit Break
-- Reflect
-- Light Screen
-- Parting Shot
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Protect
+- Trick Room
+- Body Press
 
-Incineroar (M) @ SitrusBerry
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Helping Hand
+- Follow Me
+- Trick Room
+
+Incineroar (M) @ Charcoal
 Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
 - Flare Blitz
-- Throat Chop
-- Parting Shot
+- Protect
+- Darkest Lariat
+- Close Combat
 
-Maushold @ FocusSash
-Ability: FriendGuard
+Alakazam (M) @ Alakazite
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Follow Me
-- Super Fang
+- Expanding Force
+- Psychic
 - Encore
 - Protect
 
-Annihilape (M) @ Leftovers
-Ability: Defiant
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rage Fist
-- Drain Punch
-- Bulk Up
-- Protect
+- Dire Claw
+- Close Combat
+- Coaching
+- Fake Out
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Bold Nature
 - Moonblast
-- Draining Kiss
-- Calm Mind
-- Protect
-
-Gholdengo @ ChoiceScarf
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Shadow Ball
-- Trick
-- Power Gem
+- Tailwind
+- Fake Tears
+- Encore

@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Iron Head
+- Psychic Fangs
+- Body Press
+
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dragon Dance
-- Double-Edge
-- Dragon Claw
-- Protect
+Impish Nature
+- Fake Out
+- Parting Shot
+- Flare Blitz
+- Throat Chop
 
-Sneasler (M) @ FocusSash
-Ability: Unburden
+Rotom-Wash @ Leftovers
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Will-O-Wisp
+- Hydro Pump
+- Thunderbolt
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Taunt
+- Light Screen
+- Reflect
+- Spirit Break
+
+Froslass (F) @ Froslassite
+Ability: SnowCloak
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Aurora Veil
+- Blizzard
+- Shadow Ball
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
-- Feint
-- Dire Claw
-- Close Combat
-
-Clefable (M) @ RockyHelmet
-Ability: Unaware
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Moonblast
-- Follow Me
-- Protect
-- Helping Hand
-
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
+- Grassy Glide
+- Wood Hammer
 - Stomping Tantrum
-- Dragon Claw
-- Rock Slide
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Aura Sphere
-- Flash Cannon
-- Protect
-- Vacuum Wave
-
-Talonflame (M) @ LifeOrb
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Protect
-- Flare Blitz
-- Brave Bird

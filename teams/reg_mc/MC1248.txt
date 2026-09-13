@@ -1,59 +1,59 @@
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Weavile (M) @ FocusSash
+Ability: Pickpocket
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
+Jolly Nature
+- Fake Out
+- Triple Axel
 - Knock Off
-- Low Kick
 - Protect
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- High Horsepower
-- Earthquake
+Jolly Nature
+- Last Respects
+- Wave Crash
+- Aqua Jet
+- Flip Turn
+
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Stomping Tantrum
+- Dragon Claw
+- Rock Slide
 - Protect
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Light of Ruin
+- Moonblast
+- Dazzling Gleam
+- Protect
+
+Charizard (F) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Expanding Force
-- Mystical Fire
-- Trick
+- Heat Wave
+- Solar Beam
+- Weather Ball
 - Protect
 
-Corviknight (F) @ SitrusBerry
-Ability: MirrorArmor
+Steelix (M) @ SitrusBerry
+Ability: Sturdy
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Brave Bird
-- Tailwind
-- Roost
-- Bulk Up
-
-Sneasler (F) @ PsychicSeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Throat Chop
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- High Horsepower
+- Heavy Slam
 - Protect
-
-Annihilape (F) @ SpellTag
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rage Fist
-- Close Combat
-- Taunt
-- Phantom Force
+- Wide Guard

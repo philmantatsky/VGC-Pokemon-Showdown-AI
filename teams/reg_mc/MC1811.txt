@@ -1,0 +1,59 @@
+Camerupt (F) @ Cameruptite
+Ability: SolidRock
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Earth Power
+- Solar Beam
+- Heat Wave
+- Protect
+
+Sinistcha-Masterpiece @ SitrusBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Protect
+- Trick Room
+- Rage Powder
+
+Torkoal (F) @ HeatRock
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Earth Power
+- Eruption
+- Protect
+- Yawn
+
+Leafeon (F) @ MuscleBand
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Knock Off
+- Leaf Blade
+- Solar Blade
+
+Maushold-Four @ MentalHerb
+Ability: FriendGuard
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- After You
+- Follow Me
+- Taunt
+- Population Bomb
+
+Farigiraf (F) @ Leftovers
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Sunny Day
+- Thunderbolt
+- Ally Switch

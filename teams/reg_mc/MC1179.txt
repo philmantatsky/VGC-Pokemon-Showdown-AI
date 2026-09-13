@@ -1,5 +1,25 @@
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Protect
+
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Accelerock
+- Close Combat
+- Protect
+
 Froslass (F) @ Froslassite
-Ability: CursedBody
+Ability: SnowCloak
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
@@ -8,52 +28,32 @@ Timid Nature
 - Aurora Veil
 - Protect
 
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-
-Sneasler (M) @ FocusSash
-Ability: PoisonTouch
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Poison Jab
+- Dire Claw
 - Close Combat
+- Fake Out
 - Protect
 
-Ceruledge (F) @ ColburBerry
-Ability: FlashFire
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Bitter Blade
-- Shadow Sneak
-- Bulk Up
+- Last Respects
+- Aqua Jet
+- Wave Crash
 - Protect
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Scovillain (F) @ Scovillainite
+Ability: Moody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Muddy Water
-- Coil
-- Hypnosis
-- Protect
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
+- Overheat
+- Giga Drain
+- Rage Powder
 - Protect

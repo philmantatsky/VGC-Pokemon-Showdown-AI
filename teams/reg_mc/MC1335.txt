@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Double-Edge
-- Roost
-- Dragon Dance
 - Protect
-
-Ninetales-Alola (M) @ NeverMeltIce
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Icy Wind
-- Aurora Veil
-- Protect
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
-- Protect
-
-Arcanine-Hisui (F) @ FocusSash
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
 - Rock Slide
-- Flare Blitz
-- Extreme Speed
-- Protect
+- Knock Off
+- Dragon Dance
 
-Rillaboom (F) @ OccaBerry
+Incineroar (F) @ RockyHelmet
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Parting Shot
+- Flare Blitz
+- Close Combat
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Drum Beating
-- Grassy Glide
+Adamant Nature
 - Fake Out
+- Grassy Glide
+- Wood Hammer
 - High Horsepower
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Rotom-Wash @ Leftovers
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Hydro Pump
+- Volt Switch
+- Will-O-Wisp
+
+Tinkaton (F) @ LifeOrb
+Ability: OwnTempo
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Coaching
+Jolly Nature
 - Protect
+- Gigaton Hammer
+- Play Rough
+- Swords Dance
+
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Draco Meteor
+- Flamethrower
+- Tailwind

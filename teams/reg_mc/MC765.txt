@@ -1,3 +1,23 @@
+Ninetales-Alola (F) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Moonblast
+- Aurora Veil
+- Protect
+
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Scale Shot
+- Icicle Crash
+- High Horsepower
+- Protect
+
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
@@ -5,17 +25,27 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
 - Grassy Glide
-- Fake Out
 - U-turn
+- Fake Out
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Delphox (F) @ Delphoxite
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Muddy Water
-- Hypnosis
-- Coil
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
+- Protect
+
+Sneasler (M) @ FocusSash
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Coaching
+- Poison Jab
 - Protect
 
 Kingambit (F) @ BlackGlasses
@@ -23,37 +53,7 @@ Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
 - Kowtow Cleave
+- Sucker Punch
 - Swords Dance
-- Protect
-
-Garchomp (M) @ LifeOrb
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Stomping Tantrum
-- Dragon Claw
-- Rock Slide
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dazzling Gleam
-- Moonblast
-- Calm Mind
-- Protect
-
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Zap Cannon
-- Focus Blast
-- Fake Out
 - Protect

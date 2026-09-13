@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Absol (F) @ AbsoliteZ
+Ability: Pressure
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- First Impression
-- Leech Life
-- Protect
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Jolly Nature
 - Close Combat
-- Dire Claw
-- Fake Out
+- Shadow Claw
+- Psycho Cut
 - Protect
 
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Double-Edge
+- Hyper Voice
+- Tailwind
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
-- Low Kick
-- Knock Off
-- Protect
+- Wood Hammer
+- Grassy Glide
+- Taunt
+- Fake Out
 
-Farigiraf (F) @ ColburBerry
-Ability: ArmorTail
+Ninetales-Alola (M) @ NeverMeltIce
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Trick Room
-- Imprison
-- Expanding Force
+Timid Nature
+- Blizzard
+- Freeze-Dry
+- Protect
+- Aurora Veil
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
 - Protect
 
-Primarina (M) @ MysticWater
-Ability: LiquidVoice
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Voice
-- Moonblast
-- Ice Beam
-- Protect
-
-Sinistcha @ SitrusBerry
-Ability: Hospitality
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Matcha Gotcha
-- Trick Room
-- Rage Powder
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
 - Protect

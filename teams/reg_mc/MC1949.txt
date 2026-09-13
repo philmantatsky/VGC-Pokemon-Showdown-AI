@@ -1,0 +1,59 @@
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Hyper Voice
+- Expanding Force
+- Aura Sphere
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Protect
+- Follow Me
+- Trick Room
+- Psychic
+
+Incineroar (F) @ EjectButton
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Flare Blitz
+- Parting Shot
+- Helping Hand
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Serious Nature
+- Tailwind
+- Worry Seed
+- Encore
+- Moonblast
+
+Heliolisk (F) @ ChoiceScarf
+Ability: DrySkin
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Volt Switch
+- Thunder
+- Electroweb
+- Shed Tail
+
+Camerupt (F) @ Cameruptite
+Ability: MagmaArmor
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Eruption
+- Earth Power
+- Heat Wave

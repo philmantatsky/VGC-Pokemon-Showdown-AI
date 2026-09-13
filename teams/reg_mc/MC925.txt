@@ -1,59 +1,59 @@
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Shadow Ball
-- Expanding Force
-- Hyper Voice
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
 - Protect
 
-Indeedee-F (F) @ ColburBerry
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Iron Head
+- High Horsepower
+- Earthquake
+- Protect
+
+Indeedee-F (F) @ RockyHelmet
 Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
 - Follow Me
-- Trick Room
-- Psyshock
 - Helping Hand
+- Trick Room
+- Psychic
 
-Talonflame (F) @ Charcoal
-Ability: GaleWings
+Corviknight (F) @ SitrusBerry
+Ability: MirrorArmor
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Flare Blitz
+Adamant Nature
 - Brave Bird
-- Protect
+- Tailwind
+- Roost
+- Bulk Up
 
-Sneasler (F) @ PsychicSeed
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
 - Close Combat
 - Dire Claw
+- Swords Dance
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Gardevoir (M) @ Gardevoirite
+Ability: Telepathy
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
-
-Kingambit (F) @ FocusSash
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Kowtow Cleave
-- Low Kick
-- Iron Head
-- Sucker Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Hyper Voice
+- Calm Mind
+- Protect

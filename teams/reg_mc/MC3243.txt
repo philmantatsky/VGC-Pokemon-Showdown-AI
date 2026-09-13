@@ -1,0 +1,59 @@
+Corviknight (F) @ Leftovers
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Tailwind
+- Body Press
+- Iron Head
+- Bulk Up
+
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Zap Cannon
+- Focus Blast
+- Fake Out
+- Encore
+
+Primarina (M) @ MysticWater
+Ability: LiquidVoice
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Protect
+- Hyper Voice
+- Energy Ball
+
+Dragapult (M) @ LifeOrb
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Hasty Nature
+- Dragon Darts
+- Shadow Ball
+- Protect
+- Flamethrower
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Parting Shot
+- Throat Chop
+- Flare Blitz
+
+Altaria (M) @ Altarianite
+Ability: CloudNine
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Hyper Voice
+- Fire Blast
+- Helping Hand
+- Will-O-Wisp

@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
-- Draco Meteor
-- Tailwind
-- Protect
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Parting Shot
+- Throat Chop
 
-Excadrill (F) @ FocusSash
-Ability: SandRush
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
-- Iron Head
-- Rock Tomb
-- Protect
-
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Knock Off
-- Protect
-- Low Kick
-
-Tsareena (F) @ ChoiceScarf
-Ability: QueenlyMajesty
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Trop Kick
-- Triple Axel
+Careful Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
 - U-turn
-- Low Kick
 
-Gholdengo @ Leftovers
-Ability: GoodasGold
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Shadow Ball
-- Make It Rain
-- Nasty Plot
+- Dazzling Gleam
+- Moonblast
+- Calm Mind
 - Protect
 
-Rotom-Wash @ SitrusBerry
-Ability: Levitate
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Hydro Pump
-- Thunderbolt
-- Will-O-Wisp
+Timid Nature
+- Tailwind
+- Hyper Voice
+- Draco Meteor
+- Protect
+
+Gholdengo @ ColburBerry
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Power Gem
+- Make It Rain
+- Shadow Ball
+- Protect
+
+Sneasler (M) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Rock Slide
 - Protect

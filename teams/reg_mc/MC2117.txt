@@ -1,0 +1,59 @@
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Protect
+- Trick Room
+- Dazzling Gleam
+
+Indeedee-F (F) @ ColburBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Follow Me
+- Helping Hand
+- Psychic
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Parting Shot
+- Flare Blitz
+- Protect
+- Throat Chop
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Protect
+- Rock Slide
+
+Politoed (F) @ MentalHerb
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Perish Song
+- Muddy Water
+- Chilling Water
+
+Gengar (M) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Perish Song
+- Protect
+- Shadow Ball
+- Sludge Wave

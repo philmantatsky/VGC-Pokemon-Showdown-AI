@@ -1,59 +1,59 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
-- U-turn
+- Kowtow Cleave
+- Sucker Punch
 - Iron Head
-- First Impression
+- Protect
 
-Grapploct (M) @ BlackBelt
-Ability: Technician
+Lycanroc-Dusk (F) @ FocusSash
+Ability: ToughClaws
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Detect
-- Topsy-Turvy
-- Mach Punch
-- Storm Throw
-
-Vaporeon (M) @ Leftovers
-Ability: WaterAbsorb
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Detect
-- Calm Mind
-- Ice Beam
-- Scald
-
-Talonflame (M) @ RockyHelmet
-Ability: FlameBody
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+- Rock Slide
+- Accelerock
+- Close Combat
 - Protect
-- Tailwind
-- Will-O-Wisp
-- Whirlwind
 
-Gengar (M) @ FocusSash
-Ability: CursedBody
+Froslass (F) @ Froslassite
+Ability: SnowCloak
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Protect
-- Sludge Bomb
-- Sludge Wave
+- Blizzard
 - Shadow Ball
+- Aurora Veil
+- Protect
 
-Tyrantrum (F) @ ChoiceScarf
-Ability: RockHead
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Psychic Fangs
-- Dragon Claw
-- Head Smash
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Aqua Jet
+- Wave Crash
+- Protect
+
+Scovillain (F) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Overheat
+- Giga Drain
+- Rage Powder
+- Protect

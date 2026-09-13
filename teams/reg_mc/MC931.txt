@@ -1,59 +1,59 @@
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
+Baxcalibur (F) @ LifeOrb
+Ability: ThermalExchange
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Shadow Ball
-- Expanding Force
-- Hyper Voice
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Glaive Rush
+- Icicle Crash
+- Dragon Dance
 - Protect
 
-Indeedee-F (F) @ ColburBerry
-Ability: PsychicSurge
+Scovillain (F) @ Scovillainite
+Ability: Moody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Follow Me
-- Trick Room
-- Psyshock
-- Helping Hand
-
-Talonflame (M) @ Charcoal
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Flare Blitz
-- Brave Bird
+- Rage Powder
+- Flamethrower
+- Giga Drain
 - Protect
 
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Tauros-Paldea-Aqua (M) @ MysticWater
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
+- Wave Crash
 - Close Combat
-- Dire Claw
+- Aqua Jet
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
 
-Kingambit (F) @ FocusSash
-Ability: Defiant
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Kowtow Cleave
-- Low Kick
-- Iron Head
-- Sucker Punch
+- Rock Slide
+- Close Combat
+- Accelerock
+- Protect
+
+Scizor (F) @ ExpertBelt
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Bullet Punch
+- Bug Bite
+- Close Combat
+- Protect

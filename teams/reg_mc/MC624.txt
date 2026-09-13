@@ -1,59 +1,59 @@
-Steelix (M) @ Steelixite
+Arcanine-Hisui (M) @ FocusSash
 Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Heavy Slam
-- High Horsepower
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
 - Protect
-- Rock Slide
 
-Tyranitar (F) @ ChopleBerry
-Ability: SandStream
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Knock Off
-- Rock Slide
-- Low Kick
+Jolly Nature
+- Wave Crash
+- Aqua Jet
+- Last Respects
 - Protect
 
-Sneasler (F) @ FocusSash
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
+
+Sneasler (F) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
 - Close Combat
+- Gunk Shot
 - Fake Out
-- Acrobatics
+- Quick Guard
 
-Talonflame (M) @ LifeOrb
-Ability: FlameBody
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Tailwind
-- Brave Bird
-- Flare Blitz
-- Feather Dance
-
-Rillaboom (F) @ SitrusBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- High Horsepower
-- Fake Out
-- Wood Hammer
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- First Impression
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect
-- Liquidation
-- Iron Head

@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
+Staraptor (M) @ Staraptite
 Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Dual Wingbeat
 - Tailwind
 - Protect
 
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- First Impression
-- Sucker Punch
-- Liquidation
-- Leech Life
-
-Pelipper (F) @ FocusSash
-Ability: Drizzle
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Hurricane
-- Weather Ball
-- Tailwind
+- Zap Cannon
+- Focus Blast
+- Fake Out
 - Protect
 
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Parting Shot
-- Light Screen
-- Taunt
-- Spirit Break
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
 
-Farigiraf (M) @ SitrusBerry
+Farigiraf (F) @ SitrusBerry
 Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+Calm Nature
+- Psychic
 - Helping Hand
-- Twin Beam
 - Trick Room
-- Thunderbolt
+- Protect
 
-Archaludon (M) @ Leftovers
-Ability: Stamina
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Electro Shot
-- Flash Cannon
-- Dragon Pulse
+Modest Nature
+- Hyper Voice
+- Quick Attack
+- Hyper Beam
+- Detect
+
+Kingambit (M) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect

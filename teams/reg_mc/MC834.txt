@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Scovillain (M) @ ChoiceScarf
+Ability: Moody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Draining Kiss
-- Dazzling Gleam
-- Calm Mind
-- Protect
+- Spicy Extract
+- Worry Seed
+- Rage Powder
+- Overheat
 
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Drum Beating
-- Grassy Glide
-- U-turn
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Throat Chop
-- Parting Shot
-
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
-
-Sneasler (F) @ GrassySeed
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Protect
 - Dire Claw
 - Close Combat
-- Rock Tomb
-- Protect
+- Fake Out
 
-Kingambit (M) @ LifeOrb
-Ability: Defiant
+Rotom-Wash @ Leftovers
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Electroweb
+- Will-O-Wisp
+- Light Screen
+- Hydro Pump
+
+Corviknight (F) @ SharpBeak
+Ability: MirrorArmor
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
+- Brave Bird
+- Bulk Up
+- Iron Head
+- Roost
+
+Rillaboom (M) @ SitrusBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Grassy Glide
+- Fake Out
+- Protect
+- Wood Hammer
+
+Charizard (M) @ CharizarditeX
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dragon Dance
+- Flare Blitz
+- Breaking Swipe
 - Protect

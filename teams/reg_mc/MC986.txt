@@ -1,59 +1,59 @@
-Gyarados (M) @ ExpertBelt
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Temper Flare
-- Aqua Tail
-- Crunch
-- Thunder
-
-Sylveon (F) @ FairyFeather
-Ability: CuteCharm
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Dazzling Gleam
-- Light Screen
-- Helping Hand
-- Protect
-
-Politoed (M) @ Leftovers
-Ability: Drizzle
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Surf
-- Hyper Voice
-- Earthquake
-- Encore
+Relaxed Nature
+- Follow Me
+- Trick Room
+- Psychic
+- Helping Hand
 
-Blastoise (F) @ Blastoisinite
-Ability: RainDish
+Armarouge (M) @ LifeOrb
+Ability: FlashFire
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Surf
-- Dark Pulse
-- Shell Smash
-- Dragon Pulse
+- Armor Cannon
+- Calm Mind
+- Protect
+- Expanding Force
 
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
+Rillaboom (M) @ SitrusBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Grassy Glide
+- High Horsepower
+- Wood Hammer
+- Fake Out
+
+Whimsicott (M) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Electro Ball
-- Thunder
+- Dazzling Gleam
 - Encore
-- Nasty Plot
+- Taunt
+- Tailwind
 
-Umbreon (M) @ BlackGlasses
-Ability: InnerFocus
+Kingambit (F) @ ChopleBerry
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Low Kick
+- Iron Head
+
+Raichu (F) @ RaichuniteY
+Ability: Static
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
+Timid Nature
 - Protect
-- Foul Play
-- Hyper Voice
-- Light Screen
+- Fake Out
+- Zap Cannon
+- Focus Blast

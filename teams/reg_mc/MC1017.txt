@@ -1,59 +1,59 @@
-Sableye (F) @ RoseliBerry
-Ability: Prankster
+Cinderace (F) @ LifeOrb
+Ability: Libero
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Will-O-Wisp
-- Rain Dance
-- Encore
-- Disable
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Pyro Ball
+- Sucker Punch
+- High Jump Kick
+- Protect
 
-Basculegion-F (F) @ ChoiceScarf
-Ability: Adaptability
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Moonblast
+- Light of Ruin
+- Protect
+- Dazzling Gleam
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Muddy Water
-- Shadow Ball
-- Hex
-- Ice Beam
+- Moonblast
+- Tailwind
+- Encore
+- Protect
 
-Lopunny (M) @ Lopunnite
-Ability: CuteCharm
+Basculegion (M) @ MysticWater
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
-- Triple Axel
-- Fake Out
+- Wave Crash
+- Last Respects
 - Protect
+- Aqua Jet
 
-Archaludon (M) @ Leftovers
-Ability: Stamina
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Electro Shot
-- Dragon Pulse
-- Flash Cannon
-- Protect
-
-Glimmora (F) @ FocusSash
-Ability: ToxicDebris
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Power Gem
-- Sludge Bomb
-- Earth Power
-- Spiky Shield
+- Psychic
+- Hyper Voice
+- Trick Room
+- Imprison
 
-Meganium (F) @ Meganiumite
-Ability: Overgrow
+Gholdengo @ MetalCoat
+Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Solar Beam
-- Dazzling Gleam
-- Weather Ball
+- Make It Rain
+- Shadow Ball
+- Thunderbolt
 - Protect

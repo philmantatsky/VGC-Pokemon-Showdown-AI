@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Hyper Voice
-- Double-Edge
-- Tailwind
-- Protect
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Flash Cannon
-- Aura Sphere
-- Nasty Plot
+- Expanding Force
+- Dazzling Gleam
+- Trick
+- Energy Ball
+
+Gardevoir (F) @ Gardevoirite
+Ability: Telepathy
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Thunderbolt
+- Expanding Force
 - Protect
 
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- Fake Out
-- U-turn
-
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
+- Close Combat
+- Gunk Shot
 - Throat Chop
-- Fake Out
-- Parting Shot
+- Rock Tomb
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Talonflame (F) @ SharpBeak
+Ability: GaleWings
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+Jolly Nature
+- Quick Guard
+- Flare Blitz
+- Tailwind
+- Brave Bird
+
+Kommo-o (M) @ LifeOrb
+Ability: Soundproof
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Clanging Scales
+- Aura Sphere
+- Draco Meteor
 - Protect
 
-Ninetales-Alola (F) @ FocusSash
-Ability: SnowWarning
+Lucario (M) @ LucarioniteZ
+Ability: Steadfast
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Moonblast
-- Encore
+- Aura Sphere
+- Flash Cannon
 - Protect
+- Dark Pulse

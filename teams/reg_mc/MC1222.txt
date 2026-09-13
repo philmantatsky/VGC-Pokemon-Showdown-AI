@@ -1,24 +1,24 @@
-Pelipper (M) @ DampRock
-Ability: Drizzle
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Weather Ball
-- Hurricane
-- Wide Guard
-- Tailwind
-
-Archaludon (F) @ Leftovers
-Ability: Stamina
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Electro Shot
-- Dragon Pulse
-- Flash Cannon
+Timid Nature
+- Draco Meteor
+- Hyper Voice
 - Protect
+- Tailwind
 
-Basculegion (M) @ ChoiceScarf
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- U-turn
+- Fake Out
+- Wood Hammer
+
+Basculegion (M) @ MysticWater
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -26,34 +26,34 @@ Adamant Nature
 - Wave Crash
 - Last Respects
 - Aqua Jet
-- Flip Turn
+- Protect
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Jolly Nature
 - Fake Out
-- Grassy Glide
-- Wood Hammer
+- Protect
+- Close Combat
+- Dire Claw
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dazzling Gleam
+- Moonblast
+- Light of Ruin
 - Protect
 
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Leech Life
-- Liquidation
-- Protect
-
-Farigiraf (M) @ GrassySeed
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Twin Beam
-- Thunderbolt
-- Trick Room
-- Protect
+Impish Nature
+- Flare Blitz
+- Parting Shot
+- Fake Out
+- Throat Chop
