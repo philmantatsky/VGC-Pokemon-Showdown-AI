@@ -1,59 +1,59 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dragon Dance
-- Double-Edge
-- Dragon Claw
-- Protect
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- High Horsepower
 
-Sneasler (M) @ FocusSash
+Sneasler (F) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
-- Feint
-- Dire Claw
 - Close Combat
+- Dire Claw
+- Acrobatics
 
-Clefable (M) @ RockyHelmet
-Ability: Unaware
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Moonblast
-- Follow Me
+Mild Nature
+- Draco Meteor
+- Double-Edge
+- Hyper Voice
 - Protect
-- Helping Hand
 
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
-- Stomping Tantrum
-- Dragon Claw
-- Rock Slide
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
+Gengar (M) @ Gengarite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Aura Sphere
-- Flash Cannon
 - Protect
-- Vacuum Wave
+- Shadow Ball
+- Sludge Bomb
+- Disable
 
-Talonflame (M) @ LifeOrb
-Ability: GaleWings
+Kingambit (F) @ FocusSash
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Protect
-- Flare Blitz
-- Brave Bird
+Adamant Nature
+- Sucker Punch
+- Kowtow Cleave
+- Low Kick
+- Iron Head
+
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Icy Wind
+- Ice Beam
+- Scald
+- Recover

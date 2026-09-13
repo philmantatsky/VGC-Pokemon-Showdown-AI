@@ -1,59 +1,59 @@
-Metagross @ Metagrossite
-Ability: ClearBody
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Iron Head
-- Psychic Fangs
-- Body Press
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
+Umbreon (M) @ Leftovers
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Impish Nature
-- Fake Out
-- Parting Shot
-- Flare Blitz
-- Throat Chop
-
-Rotom-Wash @ Leftovers
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Will-O-Wisp
-- Hydro Pump
-- Thunderbolt
-
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
 - Taunt
-- Light Screen
-- Reflect
-- Spirit Break
+- Helping Hand
+- Snarl
+- Moonlight
 
-Froslass (F) @ Froslassite
-Ability: SnowCloak
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Aurora Veil
-- Blizzard
-- Shadow Ball
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Blaziken (F) @ Blazikenite
+Ability: SpeedBoost
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Flare Blitz
+- Close Combat
+- Rock Slide
+- Detect
+
+Gyarados (F) @ MysticWater
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Icy Wind
+- Waterfall
+- Helping Hand
+- Protect
+
+Meowscarada (M) @ LifeOrb
+Ability: Protean
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flower Trick
+- Sucker Punch
+- Triple Axel
+- Protect
+
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shadow Ball
+- Blizzard
+- Thunderbolt
+- Protect
+
+Weavile (F) @ FocusSash
+Ability: Pickpocket
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Feint
+- Knock Off
+- Ice Spinner
 - Fake Out
-- Grassy Glide
-- Wood Hammer
-- Stomping Tantrum

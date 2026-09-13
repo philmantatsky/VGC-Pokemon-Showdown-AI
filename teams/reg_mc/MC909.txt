@@ -1,0 +1,59 @@
+Swampert (M) @ Swampertite
+Ability: Damp
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- High Horsepower
+- Liquidation
+- Protect
+- Ice Punch
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Electro Shot
+- Flash Cannon
+- Draco Meteor
+
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Protect
+- Tailwind
+- Weather Ball
+- Hurricane
+
+Kangaskhan (F) @ Kangaskhanite
+Ability: Scrappy
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Fake Out
+- Facade
+- Protect
+
+Whimsicott (F) @ MentalHerb
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Tailwind
+- Encore
+- Taunt
+- Moonblast
+
+Incineroar (M) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Darkest Lariat
+- Parting Shot
+- Will-O-Wisp

@@ -1,0 +1,59 @@
+Indeedee-F (F) @ EjectButton
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Imprison
+
+Hatterene (F) @ Leftovers
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Dazzling Gleam
+- Expanding Force
+- Calm Mind
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Expanding Force
+- Protect
+- Fire Blast
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Swords Dance
+- Acrobatics
+- Protect
+
+Absol (M) @ AbsoliteZ
+Ability: SuperLuck
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Night Slash
+- Shadow Claw
+- Close Combat
+- Protect
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Solar Beam
+- Earth Power

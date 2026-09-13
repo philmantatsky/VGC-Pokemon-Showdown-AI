@@ -1,59 +1,59 @@
-Raichu (F) @ RaichuniteY
-Ability: LightningRod
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Zap Cannon
-- Focus Blast
-- Fake Out
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect
 
-Staraptor (F) @ Staraptite
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
+
+Incineroar (F) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
-- Protect
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Darkest Lariat
+- Parting Shot
 
-Sinistcha-Masterpiece @ CobaBerry
-Ability: Hospitality
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Strength Sap
-- Psych Up
-- Life Dew
-- Curse
-
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Protect
-
-Gholdengo @ MetalCoat
+Gholdengo @ LifeOrb
 Ability: GoodasGold
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Modest Nature
 - Make It Rain
-- Protect
 - Nasty Plot
-- Metal Sound
+- Shadow Ball
+- Protect
 
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Parting Shot
-- Light Screen
-- Reflect
-- Spirit Break
+Adamant Nature
+- Close Combat
+- Acrobatics
+- Swords Dance
+- Protect
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect

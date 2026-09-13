@@ -1,59 +1,59 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Leech Life
-- Liquidation
-- Protect
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Psychic
-- Trick Room
+- Blizzard
+- Shadow Ball
+- Aurora Veil
 - Protect
 
-Incineroar (F) @ RockyHelmet
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
-- Darkest Lariat
-
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Draco Meteor
-- Hyper Voice
+Modest Nature
+- Dragon Pulse
+- Flamethrower
 - Tailwind
 - Protect
 
-Sylveon (M) @ FairyFeather
-Ability: Pixilate
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Hyper Beam
-- Quick Attack
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Gunk Shot
+- Fake Out
 - Protect
 
-Kingambit (M) @ FocusSash
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
+- Protect
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
+
+Kingambit (F) @ LifeOrb
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Low Kick
-- Sucker Punch
 - Kowtow Cleave
-- Iron Head
+- Sucker Punch
+- Swords Dance
+- Protect

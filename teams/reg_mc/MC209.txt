@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Froslass (F) @ Froslassite
+Ability: SnowCloak
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Hyper Voice
-- Draco Meteor
+- Blizzard
+- Shadow Ball
+- Icy Wind
+- Protect
+
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Glaive Rush
+- Icicle Crash
+- Ice Shard
+- Protect
+
+Aerodactyl (M)
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dual Wingbeat
+- Rock Slide
 - Tailwind
 - Protect
 
-Armarouge (F) @ LifeOrb
-Ability: FlashFire
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Trick Room
-- Expanding Force
-- Armor Cannon
-- Protect
-
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Trick Room
-- Psychic
-- Helping Hand
-
-Rillaboom (M) @ Leftovers
-Ability: GrassySurge
+Rillaboom (F)
+Ability: Overgrow
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
+Adamant Nature
+- Wood Hammer
 - Grassy Glide
 - High Horsepower
-- Protect
+- Fake Out
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
+Sneasler (M) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
+Adamant Nature
+- Close Combat
+- Dire Claw
 - Fake Out
-- Flare Blitz
-- Parting Shot
-- Throat Chop
+- Coaching
 
-Basculegion (M) @ ChoiceScarf
+Basculegion (M) @ LifeOrb
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Aqua Jet
 - Wave Crash
 - Last Respects
-- Flip Turn
+- Aqua Jet
+- Protect

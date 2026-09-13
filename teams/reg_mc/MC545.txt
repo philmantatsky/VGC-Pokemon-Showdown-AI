@@ -1,59 +1,59 @@
-Excadrill (M) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Earthquake
-- Iron Head
-- Swords Dance
-- Protect
-
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Low Kick
-- Protect
-
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Brave Bird
-- Tailwind
+- Head Smash
+- Flare Blitz
+- Extreme Speed
 - Protect
 
-Rotom-Wash @ ChoiceScarf
-Ability: Levitate
+Whimsicott (M) @ FairyFeather
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Volt Switch
-- Thunderbolt
-- Will-O-Wisp
-- Hydro Pump
+Timid Nature
+- Moonblast
+- Tailwind
+- Encore
+- Protect
 
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Follow Me
-- Trick Room
-- Helping Hand
-- Dazzling Gleam
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Aqua Jet
+- Last Respects
+- Protect
 
-Armarouge (F) @ LifeOrb
-Ability: FlashFire
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Heat Wave
-- Wide Guard
-- Trick Room
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
+
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Gunk Shot
+- Fake Out
+- Quick Guard
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect

@@ -1,59 +1,59 @@
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- First Impression
+- Iron Head
+- Close Combat
+
 Salamence (F) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Naive Nature
-- Hyper Voice
-- Draco Meteor
+Mild Nature
 - Double-Edge
+- Hyper Voice
 - Protect
+- Tailwind
 
-Sneasler (F) @ WhiteHerb
+Sneasler (F) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dire Claw
-- Fake Out
-- Close Combat
-- Coaching
-
-Talonflame (F) @ SharpBeak
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Taunt
-- Tailwind
-- Dual Wingbeat
-- Quick Guard
+- Coaching
+- Protect
+- Dire Claw
+- Close Combat
 
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Wood Hammer
-- High Horsepower
 - Grassy Glide
+- Wood Hammer
+- U-turn
+- Fake Out
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Ninetales-Alola (M) @ LightClay
+Ability: SnowWarning
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Light of Ruin
+- Aurora Veil
+- Encore
+- Blizzard
 - Moonblast
-- Dazzling Gleam
-- Protect
 
-Kingambit (F) @ FocusSash
-Ability: Defiant
+Volcarona (M) @ Leftovers
+Ability: FlameBody
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Kowtow Cleave
-- Sucker Punch
-- Low Kick
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Will-O-Wisp
+- Quiver Dance
+- Bug Buzz
+- Heat Wave

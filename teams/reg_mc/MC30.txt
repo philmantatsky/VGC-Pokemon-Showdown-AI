@@ -1,59 +1,59 @@
-Charizard (M) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Solar Beam
-- Heat Wave
-- Air Slash
-
-Venusaur (F) @ WideLens
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Giga Drain
-- Earth Power
-- Sleep Powder
-
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
+- Fire Blast
+- Hyper Voice
+- Draco Meteor
 - Protect
-- Moonblast
-- Tailwind
-- Encore
 
-Basculegion (M) @ MysticWater
-Ability: Adaptability
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- High Horsepower
+- Rock Slide
+- Iron Head
 - Protect
-- Aqua Jet
-- Wave Crash
-- Last Respects
 
-Tyranitar (M) @ Tyranitarite
+Tyranitar (M) @ ChoiceScarf
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
 - Rock Slide
 - Knock Off
-- Low Kick
+- Ice Punch
+- High Horsepower
 
-Mamoswine (M) @ LifeOrb
-Ability: Oblivious
+Rillaboom (F) @ RockyHelmet
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Grassy Glide
+- Fake Out
+- High Horsepower
+- U-turn
+
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
+- Low Kick
+
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Close Combat
+- Dire Claw
 - Protect
-- High Horsepower
-- Rock Slide
-- Ice Shard

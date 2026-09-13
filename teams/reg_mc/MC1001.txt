@@ -1,0 +1,59 @@
+Absol (M) @ AbsoliteZ
+Ability: Justified
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Swords Dance
+- Shadow Claw
+- Detect
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Matcha Gotcha
+- Rage Powder
+- Trick Room
+- Shadow Ball
+
+Toxtricity-Low-Key (F) @ ChoiceScarf
+Ability: PunkRock
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Overdrive
+- Hyper Voice
+- Sludge Bomb
+- Volt Switch
+
+Incineroar (F) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Darkest Lariat
+- Flare Blitz
+- Parting Shot
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Aqua Jet
+- Last Respects
+- Wave Crash
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Calm Mind
+- Draining Kiss
+- Dazzling Gleam
+- Protect

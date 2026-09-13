@@ -1,59 +1,59 @@
-Pelipper (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Weather Ball
-- Wide Guard
-- Tailwind
-- Hurricane
-
-Archaludon (F) @ Leftovers
-Ability: Stamina
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dragon Pulse
-- Electro Shot
-- Flash Cannon
-- Protect
-
-Scizor (F) @ LifeOrb
-Ability: Technician
+Gyarados (F) @ Gyaradosite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Bullet Punch
-- Bug Bite
-- Swords Dance
 - Protect
+- Waterfall
+- Lash Out
+- Dragon Dance
 
-Rillaboom (F) @ OccaBerry
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Detect
+- Aura Sphere
+- Flash Cannon
+- Calm Mind
+
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Parting Shot
+- Flare Blitz
+- Throat Chop
+- Fake Out
+
+Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
 - Wood Hammer
-- Protect
+- Grassy Glide
+- High Horsepower
+- Fake Out
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Light of Ruin
-- Psychic
+Modest Nature
 - Protect
+- Hyper Voice
+- Hyper Beam
+- Quick Attack
 
-Basculegion (M) @ FocusSash
-Ability: Adaptability
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Last Respects
-- Liquidation
-- Aqua Jet
+Jolly Nature
 - Protect
+- Dragon Claw
+- Stomping Tantrum
+- Rock Slide

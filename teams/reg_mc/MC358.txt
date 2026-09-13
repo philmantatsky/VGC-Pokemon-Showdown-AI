@@ -1,34 +1,34 @@
-Salamence (M) @ Salamencite
-Ability: Intimidate
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Double-Edge
-- Dragon Claw
-- Tailwind
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Psychic
+- Helping Hand
 - Protect
 
-Sneasler (F) @ FocusSash
-Ability: PoisonTouch
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Poison Jab
-- Close Combat
-- Quick Guard
-
-Tyranitar (F) @ ChopleBerry
-Ability: SandStream
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Knock Off
-- Ice Punch
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- First Impression
+- Liquidation
+- Iron Head
 - Protect
 
-Rillaboom (M) @ OccaBerry
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Weather Ball
+- Protect
+
+Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -38,22 +38,22 @@ Adamant Nature
 - Wood Hammer
 - U-turn
 
-Primarina (F) @ Leftovers
-Ability: LiquidVoice
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Moonblast
-- Calm Mind
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Fake Out
+- Close Combat
+- Dire Claw
 - Protect
 
-Delphox (M) @ Delphoxite
-Ability: Magician
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Heat Wave
-- Psyshock
-- Nasty Plot
+- Hyper Voice
+- Draco Meteor
+- Tailwind
 - Protect

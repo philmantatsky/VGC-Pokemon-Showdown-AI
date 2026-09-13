@@ -1,59 +1,59 @@
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Trick Room
-- Helping Hand
-- Psychic
-- Follow Me
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Flash Cannon
+- Dragon Pulse
+- Electro Shot
+- Protect
 
-Armarouge (M) @ Charcoal
-Ability: FlashFire
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Flip Turn
+- Aqua Jet
+
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Wide Guard
+
+Venusaur (F) @ Venusaurite
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Giga Drain
+- Sludge Bomb
+- Earth Power
+- Sleep Powder
+
+Charizard (M) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
 - Heat Wave
-- Trick Room
-- Expanding Force
-- Armor Cannon
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Leech Life
+- Ancient Power
 - Protect
-- Iron Head
-- Rock Slide
 
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Trick Room
-- Expanding Force
-- Nasty Plot
-- Hyper Voice
-
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Protect
-- Dazzling Gleam
-- Expanding Force
-- Trick Room
-
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Rock Slide
-- Protect
-- Knock Off
-- Low Kick
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Spirit Break
+- Parting Shot
+- Reflect
+- Light Screen

@@ -1,0 +1,59 @@
+Froslass (F) @ Froslassite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Protect
+- Aurora Veil
+
+Pawmot (F) @ FocusSash
+Ability: IronFist
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Double Shock
+- Revival Blessing
+- Fake Out
+
+Indeedee (M) @ LifeOrb
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Expanding Force
+- Shadow Ball
+- Protect
+- Encore
+
+Scovillain (M) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Overheat
+- Rage Powder
+- Protect
+- Leech Seed
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Iron Head
+- Protect
+- Sucker Punch
+
+Basculegion (M) @ SitrusBerry
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Protect
+- Aqua Jet

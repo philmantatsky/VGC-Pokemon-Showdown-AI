@@ -1,59 +1,59 @@
-Incineroar (M) @ WhiteHerb
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Darkest Lariat
-- Close Combat
-- Fake Out
-
-Farigiraf (M) @ Leftovers
-Ability: ArmorTail
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Psychic
-- Helping Hand
+- Hyper Voice
+- Expanding Force
 - Trick Room
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Indeedee-F (F) @ FocusSash
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
+Bold Nature
+- Protect
+- Psychic
+- Follow Me
+- Helping Hand
+
+Volcarona (M) @ CobaBerry
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Overheat
+- Rage Powder
+- Tailwind
 - Protect
 
-Maushold-Four @ WideLens
-Ability: Technician
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
+- Wave Crash
+- Last Respects
+- Aqua Jet
 - Protect
 
-Torkoal (F) @ Charcoal
-Ability: Drought
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Throat Chop
+- Close Combat
 - Protect
 
-Hydreigon (M) @ ChoiceScarf
-Ability: Levitate
+Garchomp (F) @ GarchompiteZ
+Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Timid Nature
 - Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl
+- Earth Power
+- Power Gem
+- Protect

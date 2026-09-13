@@ -1,59 +1,59 @@
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Dazzling Gleam
-- Protect
-- Trick Room
-
-Torkoal (M) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Weather Ball
-- Heat Wave
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- High Horsepower
+- Iron Head
 - Protect
 
-Indeedee-F (F) @ Leftovers
-Ability: PsychicSurge
+Tyranitar (M) @ ChopleBerry
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
+
+Milotic (M) @ Leftovers
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Follow Me
-- Trick Room
-- Psychic
+Calm Nature
+- Scald
+- Icy Wind
+- Ice Beam
 - Protect
 
-Crabominable (M) @ Crabominite
-Ability: IronFist
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Rock Slide
-- Drain Punch
-- Ice Hammer
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Parting Shot
+- Helping Hand
+- Flare Blitz
+- Fake Out
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Venusaur (F) @ Venusaurite
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Trick Room
-- Psychic
+- Giga Drain
+- Sludge Bomb
+- Earth Power
 - Protect
-- Helping Hand
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Iron Head
-- Swords Dance
-- Leech Life
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Double-Edge
+- Tailwind
+- Hyper Voice
 - Protect

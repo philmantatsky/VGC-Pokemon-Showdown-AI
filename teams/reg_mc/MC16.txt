@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
+Araquanid (M) @ Leftovers
+Ability: WaterBubble
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Infestation
+- Wide Guard
+- Liquidation
+- Protect
+
+Bellibolt (M) @ SitrusBerry
+Ability: Electromorphosis
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Thunderbolt
+- Parabolic Charge
+- Toxic
+- Protect
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Light Screen
+- Reflect
+- Foul Play
+- Parting Shot
+
+Arcanine (M) @ PasshoBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
+- Burn Up
+- Will-O-Wisp
+- Snarl
+- Extreme Speed
 
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect
-
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
-- Protect
-
-Pawmot (F) @ FocusSash
-Ability: VoltAbsorb
+Metagross @ Metagrossite
+Ability: ClearBody
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Fake Out
-- Double Shock
-- Close Combat
-- Revival Blessing
+- Body Press
+- Psychic Fangs
+- Cosmic Power
+- Protect
 
-Rillaboom (M) @ RockyHelmet
-Ability: GrassySurge
+Tyranitar (M) @ ChoiceScarf
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- High Horsepower
-
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Protect
+- Rock Slide
+- Knock Off
+- Low Kick
+- Ice Punch

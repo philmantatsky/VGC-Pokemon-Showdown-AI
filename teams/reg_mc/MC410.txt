@@ -1,59 +1,59 @@
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Dazzling Gleam
-- Trick
-- Energy Ball
-
-Gardevoir (F) @ Gardevoirite
-Ability: Telepathy
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Thunderbolt
-- Expanding Force
-- Protect
-
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Araquanid (F) @ SitrusBerry
+Ability: WaterBubble
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Gunk Shot
-- Throat Chop
-- Rock Tomb
+Careful Nature
+- Wide Guard
+- Entrainment
+- Protect
+- Liquidation
 
-Talonflame (F) @ SharpBeak
-Ability: GaleWings
+Abomasnow (M) @ Abomasite
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Aurora Veil
+- Ice Hammer
+- Wood Hammer
+- Protect
+
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Psyshock
+- Protect
+- Hyper Voice
+
+Sinistcha-Masterpiece @ FocusSash
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Matcha Gotcha
+- Rage Powder
+- Strength Sap
+- Shadow Ball
+
+Raichu (F) @ RaichuniteY
+Ability: Static
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Fake Out
+- Zap Cannon
+- Grass Knot
+- Surf
+
+Weavile (F) @ LifeOrb
+Ability: Pickpocket
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Quick Guard
-- Flare Blitz
-- Tailwind
-- Brave Bird
-
-Kommo-o (F) @ LifeOrb
-Ability: Soundproof
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Clanging Scales
-- Aura Sphere
-- Draco Meteor
-- Protect
-
-Lucario (F) @ LucarioniteZ
-Ability: Steadfast
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Protect
-- Dark Pulse
+- Fake Out
+- Foul Play
+- Icicle Crash
+- Low Kick

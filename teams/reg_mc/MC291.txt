@@ -1,59 +1,59 @@
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Staraptor (F) @ Staraptite
+Ability: Intimidate
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Tailwind
-- Trick Room
-- Moonblast
-- Taunt
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Roost
+- Protect
 
-Garchomp (F) @ GarchompiteZ
-Ability: SandVeil
+Kingambit (M) @ ChopleBerry
+Ability: Defiant
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Draco Meteor
-- Earth Power
-- Flamethrower
-- Power Gem
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Iron Head
+- Low Kick
+- Sucker Punch
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Glimmora (M) @ FocusSash
+Ability: ToxicDebris
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Dragon Cheer
-- Life Dew
-- Icy Wind
-- Muddy Water
+- Sludge Bomb
+- Power Gem
+- Earth Power
+- Spiky Shield
 
-Typhlosion-Hisui (M) @ ChoiceScarf
-Ability: Frisk
+Dragapult (F) @ LifeOrb
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Dragon Darts
+- Phantom Force
+- Will-O-Wisp
+- Protect
+
+Whimsicott (M) @ OccaBerry
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Eruption
-- Shadow Ball
+- Moonblast
+- Tailwind
+- Charm
+- Encore
+
+Delphox (M) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
 - Heat Wave
-- Infernal Parade
-
-Araquanid (F) @ SitrusBerry
-Ability: WaterBubble
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Entrainment
-- Wide Guard
-- Surf
-- Lunge
-
-Scizor (F) @ Scizorite
-Ability: Swarm
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Swords Dance
-- Bullet Punch
-- Struggle Bug
-- Dual Wingbeat
+- Psychic
+- Substitute
+- Protect

@@ -1,59 +1,59 @@
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Glaive Rush
-- Ice Shard
-- High Horsepower
-
-Ninetales-Alola (F) @ LightClay
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Aurora Veil
-- Protect
-- Blizzard
-- Moonblast
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
-- Power Gem
-- Shadow Ball
 - Protect
+- Solar Beam
+- Heat Wave
+- Air Slash
 
-Talonflame (M) @ SharpBeak
-Ability: GaleWings
+Venusaur (F) @ WideLens
+Ability: Chlorophyll
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Brave Bird
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Protect
-- Tailwind
-- U-turn
+- Giga Drain
+- Earth Power
+- Sleep Powder
 
-Basculegion (M) @ ChoiceScarf
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Moonblast
+- Tailwind
+- Encore
+
+Basculegion (M) @ MysticWater
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Protect
 - Aqua Jet
-- Snowscape
 - Wave Crash
 - Last Respects
 
-Rillaboom (F) @ RockyHelmet
-Ability: GrassySurge
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
+- Protect
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Mamoswine (M) @ LifeOrb
+Ability: Oblivious
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- High Horsepower
+- Rock Slide
+- Ice Shard

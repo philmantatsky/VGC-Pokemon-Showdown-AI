@@ -1,0 +1,59 @@
+Falinks @ Falinksite
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Rock Slide
+- Protect
+- No Retreat
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Helping Hand
+- Ally Switch
+- Trick Room
+
+Staraptor (M) @ ChoiceScarf
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Final Gambit
+- Dual Wingbeat
+- Close Combat
+- Tailwind
+
+Blastoise (M) @ Blastoisinite
+Ability: RainDish
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Fake Out
+- Water Spout
+- Dragon Pulse
+- Protect
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
+- Low Kick
+
+Sinistcha-Masterpiece @ KasibBerry
+Ability: Hospitality
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Matcha Gotcha
+- Rage Powder
+- Trick Room
+- Life Dew

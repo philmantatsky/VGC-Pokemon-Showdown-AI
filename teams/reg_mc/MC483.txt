@@ -1,24 +1,44 @@
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
+Incineroar (F) @ WhiteHerb
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Head Smash
+Adamant Nature
 - Flare Blitz
-- Extreme Speed
-- Protect
+- Close Combat
+- Darkest Lariat
+- Fake Out
 
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
+Modest Nature
 - Tailwind
-- Encore
+- Fire Blast
+- Hyper Voice
 - Protect
 
-Basculegion (M) @ LifeOrb
+Mawile (F) @ Mawilite
+Ability: HyperCutter
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Iron Head
+- Rock Slide
+- Play Rough
+- Protect
+
+Gholdengo @ LifeOrb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Basculegion (M) @ ChoiceScarf
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -26,34 +46,14 @@ Jolly Nature
 - Wave Crash
 - Aqua Jet
 - Last Respects
-- Protect
+- Flip Turn
 
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
-- Protect
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Gunk Shot
-- Fake Out
-- Quick Guard
-
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Ally Switch
+- Trick Room
+- Twin Beam
+- Helping Hand

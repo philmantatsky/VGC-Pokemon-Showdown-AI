@@ -1,0 +1,59 @@
+Absol (M) @ AbsoliteZ
+Ability: Pressure
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Psycho Cut
+- Night Slash
+- Shadow Claw
+- Swords Dance
+
+Gallade (M) @ Galladite
+Ability: Justified
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Swords Dance
+- Protect
+- Psycho Cut
+
+Maushold-Four @ SitrusBerry
+Ability: FriendGuard
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Beat Up
+- Follow Me
+- Population Bomb
+- Super Fang
+
+Rillaboom (M) @ GrassySeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Fake Out
+- Grassy Glide
+- Snarl
+- U-turn
+
+Whimsicott (F) @ OccaBerry
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Leech Seed
+- Tailwind
+- Moonblast
+- Taunt
+
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Rock Slide
+- Dragon Claw
+- Protect

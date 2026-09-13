@@ -1,0 +1,59 @@
+Pelipper (M) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Hurricane
+- Weather Ball
+- Tailwind
+- Roost
+
+Dragonite (M) @ Dragoninite
+Ability: Multiscale
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Dragon Pulse
+- Hurricane
+- Tailwind
+- Thunder
+
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Draco Meteor
+- Electro Shot
+- Flash Cannon
+- Protect
+
+Basculegion (M) @ MysticWater
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Aqua Jet
+- Wave Crash
+- Last Respects
+- Flip Turn
+
+Rotom-Heat @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Thunder
+- Trick
+- Overheat
+- Volt Switch
+
+Sneasler (F) @ WhiteHerb
+Ability: PoisonTouch
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Close Combat
+- Dire Claw
+- Protect

@@ -1,0 +1,59 @@
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Follow Me
+- Trick Room
+- Psychic
+- Protect
+
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Armor Cannon
+- Calm Mind
+- Endure
+
+Hatterene (F) @ Leftovers
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Expanding Force
+- Draining Kiss
+- Calm Mind
+
+Torkoal (M) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Overheat
+- Protect
+
+Alakazam (F) @ Alakazite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Nasty Plot
+- Shadow Ball
+- Protect
+
+Gallade (M) @ SitrusBerry
+Ability: Sharpness
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Psycho Cut
+- Sacred Sword
+- Knock Off
+- Wide Guard

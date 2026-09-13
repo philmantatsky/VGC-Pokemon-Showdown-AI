@@ -1,59 +1,59 @@
-Staraptor (M) @ Staraptite
-Ability: Intimidate
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Follow Me
+- Protect
+- Psychic
+- Trick Room
+
+Gardevoir (F) @ Gardevoirite
+Ability: Telepathy
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Protect
+- Trick Room
+- Expanding Force
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Close Combat
-- Brave Bird
+- Coaching
+- Dire Claw
 - Protect
-- Roost
 
 Whimsicott (M) @ FocusSash
 Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Bold Nature
 - Tailwind
 - Protect
-- Charm
-- Taunt
+- Encore
+- Moonblast
 
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Rotom-Wash @ SitrusBerry
+Ability: Levitate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
+Modest Nature
+- Volt Switch
 - Protect
-- Sleep Talk
-- Nasty Plot
+- Hydro Pump
+- Will-O-Wisp
 
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
+Incineroar (F) @ PasshoBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dragon Claw
-- Earthquake
-- Rock Slide
-- Shadow Claw
-
-Sneasler (M) @ WhiteHerb
-Ability: Pressure
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
+Careful Nature
 - Fake Out
-- Dire Claw
-- Protect
-
-Basculegion (M) @ WacanBerry
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Protect
-- Last Respects
+- Parting Shot
+- Flare Blitz
+- Throat Chop

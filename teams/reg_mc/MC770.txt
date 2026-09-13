@@ -1,0 +1,59 @@
+Palafin (F) @ WhiteHerb
+Ability: ZerotoHero
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flip Turn
+- Acrobatics
+- Ice Punch
+- Protect
+
+Garchomp (F) @ GarchompiteZ
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Dragon Claw
+- Rock Slide
+- Protect
+
+Salamence (M) @ Salamencite
+Ability: Moxie
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Earthquake
+- Hyper Voice
+- Dragon Claw
+- Protect
+
+Corviknight (F) @ FocusSash
+Ability: MirrorArmor
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Tailwind
+- Roost
+- Body Press
+- U-turn
+
+Grimmsnarl (M) @ BabiriBerry
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Spirit Break
+- Parting Shot
+- Fake Out
+- Protect
+
+Gyarados (M) @ LifeOrb
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Iron Head
+- Temper Flare
+- Protect

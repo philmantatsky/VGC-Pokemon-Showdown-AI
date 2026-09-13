@@ -1,59 +1,59 @@
-Sneasler (F) @ PsychicSeed
-Ability: Unburden
+Blaziken (F) @ Blazikenite
+Ability: SpeedBoost
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Close Combat
-- Dire Claw
+- Detect
+- Flare Blitz
 - Rock Slide
-- Acrobatics
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
+Primarina (M) @ LifeOrb
+Ability: LiquidVoice
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Voice
+- Aqua Jet
+- Moonblast
+- Protect
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Hyper Voice
+Bold Nature
 - Trick Room
-- Imprison
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
+- Psychic
 - Thunderbolt
 - Protect
 
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
+Venusaur (F) @ OccaBerry
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
-- Tailwind
-- Encore
+- Sleep Powder
+- Leaf Storm
+- Sludge Bomb
+- Protect
+
+Kingambit (F) @ FocusSash
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Helping Hand
 - Protect

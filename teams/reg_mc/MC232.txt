@@ -38,7 +38,7 @@ Adamant Nature
 - Protect
 - Fake Out
 
-Lycanroc-Dusk (F) @ FocusSash
+Lycanroc-Dusk (M) @ FocusSash
 Ability: ToughClaws
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe

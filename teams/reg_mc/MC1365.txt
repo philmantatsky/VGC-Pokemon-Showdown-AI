@@ -1,0 +1,59 @@
+Lopunny (F) @ Lopunnite
+Ability: Limber
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Mach Punch
+- Swords Dance
+- Fake Out
+
+Farigiraf (F) @ LifeOrb
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Twin Beam
+- Hyper Voice
+- Gravity
+- Trick Room
+
+Snorlax (M) @ SitrusBerry
+Ability: ThickFat
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Body Slam
+- Rock Slide
+- Belly Drum
+- Recycle
+
+Maushold-Four @ WideLens
+Ability: FriendGuard
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Population Bomb
+- Encore
+- Follow Me
+- Protect
+
+Kangaskhan (F) @ Kangaskhanite
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Double-Edge
+- Sucker Punch
+- Earthquake
+- Protect
+
+Wigglytuff (F) @ FocusSash
+Ability: Competitive
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Moonblast
+- Hyper Beam
+- Sing
+- Protect

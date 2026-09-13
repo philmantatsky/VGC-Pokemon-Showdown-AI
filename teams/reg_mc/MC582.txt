@@ -1,59 +1,59 @@
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Expanding Force
-- Trick Room
+Timid Nature
+- Protect
+- Solar Beam
+- Weather Ball
+- Heat Wave
+
+Dragonite (F) @ YacheBerry
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Dragon Pulse
+- Heat Wave
+- Ice Beam
 - Protect
 
-Indeedee-F (F) @ FocusSash
-Ability: PsychicSurge
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Protect
-- Psychic
-- Follow Me
-- Helping Hand
-
-Volcarona (M) @ CobaBerry
-Ability: FlameBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Overheat
-- Rage Powder
+Timid Nature
 - Tailwind
+- Dazzling Gleam
+- Encore
 - Protect
 
-Basculegion (M) @ ChoiceScarf
+Kingambit (F) @ Leftovers
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
+- Protect
+- Brick Break
+- Iron Head
+
+Raichu (M) @ RaichuniteY
+Ability: Static
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Volt Tackle
+- Drain Punch
+- Protect
+- Fake Out
+
+Basculegion (M) @ LifeOrb
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Wave Crash
-- Last Respects
 - Aqua Jet
 - Protect
-
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Throat Chop
-- Close Combat
-- Protect
-
-Garchomp (F) @ GarchompiteZ
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Draco Meteor
-- Earth Power
-- Power Gem
-- Protect
+- Liquidation
+- Last Respects

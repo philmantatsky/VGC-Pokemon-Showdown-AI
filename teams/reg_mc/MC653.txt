@@ -1,0 +1,59 @@
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Leech Life
+- Close Combat
+- Iron Head
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
+
+Ceruledge (F) @ ColburBerry
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Bulk Up
+- Bitter Blade
+- Shadow Sneak
+
+Milotic (M) @ Leftovers
+Ability: MarvelScale
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Scald
+- Icy Wind
+- Hypnosis
+- Life Dew
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Draco Meteor
+- Hyper Voice
+- Roost
+
+Hatterene (F) @ GrassySeed
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Protect
+- Expanding Force
+- Dazzling Gleam
+- Trick Room

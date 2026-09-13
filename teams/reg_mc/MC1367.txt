@@ -1,0 +1,59 @@
+Scovillain (F) @ Scovillainite
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flamethrower
+- Giga Drain
+- Rage Powder
+- Leech Seed
+
+Aerodactyl (F) @ Aerodactylite
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Ice Fang
+- Tailwind
+- Dual Wingbeat
+- Rock Slide
+
+Sylveon (F) @ SitrusBerry
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Calm Mind
+- Protect
+- Hyper Voice
+- Shadow Ball
+
+Salazzle (F) @ ShellBell
+Ability: Corrosion
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Hasty Nature
+- Fake Out
+- Flamethrower
+- Sludge Bomb
+- Toxic
+
+Meowstic (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Fake Out
+- Trick Room
+- Psychic
+- Sunny Day
+
+Kingambit (M) @ Leftovers
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Iron Head
+- Low Kick
+- Sucker Punch
+- Kowtow Cleave

@@ -1,54 +1,44 @@
-Rillaboom (M) @ OccaBerry
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Lucario (M) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Flash Cannon
+- Aura Sphere
+- Nasty Plot
+- Protect
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wood Hammer
 - Grassy Glide
-- U-turn
 - Fake Out
+- U-turn
 
-Incineroar (F) @ SitrusBerry
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Careful Nature
 - Flare Blitz
-- Will-O-Wisp
+- Throat Chop
+- Fake Out
 - Parting Shot
-- Fake Out
 
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Close Combat
-- Fake Out
-- Swords Dance
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Double-Edge
-- Tailwind
-- Protect
-
-Basculegion (M) @ ChoiceScarf
+Basculegion (M) @ LifeOrb
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -56,4 +46,14 @@ Adamant Nature
 - Wave Crash
 - Last Respects
 - Aqua Jet
-- Flip Turn
+- Protect
+
+Ninetales-Alola (F) @ FocusSash
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Moonblast
+- Encore
+- Protect

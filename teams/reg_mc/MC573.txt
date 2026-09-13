@@ -1,59 +1,59 @@
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
+Camerupt (F) @ Cameruptite
+Ability: SolidRock
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- High Horsepower
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Rock Tomb
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Ancient Power
+- Earth Power
+- Heat Wave
 - Protect
+
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aura Sphere
+- Steel Beam
+- Flash Cannon
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Protect
+- Helping Hand
+- Twin Beam
+- Trick Room
 
 Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
 - Flare Blitz
-- Darkest Lariat
 - Parting Shot
+- Darkest Lariat
+- Fake Out
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Rillaboom (M) @ GrassySeed
+Ability: GrassySurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Draining Kiss
-- Protect
-- Calm Mind
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- Low Kick
 
-Blastoise (M) @ Blastoisinite
-Ability: Torrent
+Milotic (M) @ Leftovers
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Shell Smash
-- Terrain Pulse
-- Water Spout
+- Ice Beam
+- Life Dew
 - Protect
-
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Psychic
-- Helping Hand
-- Trick Room
+- Scald

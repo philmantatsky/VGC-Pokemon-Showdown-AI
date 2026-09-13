@@ -1,59 +1,59 @@
-Sneasler (M) @ PsychicSeed
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Farigiraf (F) @ GrassySeed
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Trick Room
+- Helping Hand
+- Beat Up
+- Protect
+
+Sneasler (F) @ FocusSash
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Naive Nature
+- Protect
 - Close Combat
 - Dire Claw
-- Rock Slide
-- Throat Chop
+- Feint
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Psychic
-- Trick Room
-- Imprison
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Thunderbolt
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
 - Protect
-
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+- Eruption
 - Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect
+- Earth Power
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Scovillain (M) @ LifeOrb
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Rage Powder
+- Overheat
+- Solar Beam
+- Will-O-Wisp
+
+Absol (F) @ AbsoliteZ
+Ability: Justified
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
 - Protect
-
-Whimsicott (F) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
-- Protect
+- Night Slash
+- Shadow Sneak
+- Close Combat

@@ -1,59 +1,59 @@
-Hatterene (F) @ LifeOrb
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Expanding Force
-- Dazzling Gleam
-- Trick Room
-- Protect
-
-Indeedee-F (F) @ PsychicSeed
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Trick Room
-- Follow Me
-- Psychic
-- Protect
-
-Torkoal (M) @ Charcoal
-Ability: Drought
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Eruption
-- Solar Beam
-- Weather Ball
-- Protect
-
-Absol (M) @ AbsoliteZ
-Ability: SuperLuck
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Sucker Punch
-- Night Slash
-- Shadow Claw
-- Protect
-
-Mawile (M) @ Mawilite
-Ability: SheerForce
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Play Rough
-- Protect
-- Knock Off
-
-Sneasler (M) @ FocusSash
-Ability: PoisonTouch
+Rillaboom (M) @ FocusSash
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Dire Claw
+- Grassy Glide
+- High Horsepower
+- Fake Out
+- Drum Beating
+
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Follow Me
+- Psychic
+- Trick Room
+- Helping Hand
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Draco Meteor
 - Protect
-- Swords Dance
+- Tailwind
+
+Armarouge (M) @ PsychicSeed
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Trick Room
+- Expanding Force
+- Heat Wave
+- Protect
+
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Nasty Plot
+- Flash Cannon
+- Focus Blast
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Last Respects
+- Wave Crash
+- Protect
+- Aqua Jet

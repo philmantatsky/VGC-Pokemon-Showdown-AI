@@ -1,59 +1,59 @@
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Impish Nature
 - Flare Blitz
-- Head Smash
-- Extreme Speed
-- Protect
+- Throat Chop
+- Fake Out
+- Parting Shot
 
-Rillaboom (M) @ LifeOrb
-Ability: GrassySurge
+Rillaboom (M) @ OccaBerry
+Ability: Overgrow
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
 - Wood Hammer
 - Grassy Glide
-- Protect
+- High Horsepower
+- Fake Out
 
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
+Sneasler (M) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Ice Shard
-- Glaive Rush
+- Close Combat
+- Acrobatics
 - Swords Dance
 - Protect
 
-Raichu (M) @ RaichuniteY
-Ability: Static
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Fake Out
-- Zap Cannon
-- Focus Blast
-- Protect
-
-Gholdengo @ GrassySeed
-Ability: GoodasGold
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
 - Protect
 
-Rotom-Wash @ ChoiceScarf
-Ability: Levitate
+Basculegion (M) @ ChoiceScarf
+Ability: SwiftSwim
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Flip Turn
+- Aqua Jet
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hydro Pump
-- Electroweb
-- Will-O-Wisp
-- Trick
+Mild Nature
+- Double-Edge
+- Hyper Beam
+- Tailwind
+- Protect

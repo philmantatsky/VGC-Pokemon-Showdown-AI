@@ -1,59 +1,59 @@
-Incineroar (F) @ WhiteHerb
+Ninetales-Alola (M) @ FocusSash
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Aurora Veil
+- Blizzard
+- Icy Wind
+- Encore
+
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Dragon Dance
+- Glaive Rush
+- Icicle Crash
+- Protect
+
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
 - Flare Blitz
 - Darkest Lariat
-- Close Combat
+- Parting Shot
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
-Farigiraf (F) @ Leftovers
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Protect
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
-- Trick Room
-- Protect
-
-Maushold-Four @ WideLens
-Ability: Technician
+Metagross @ Metagrossite
+Ability: ClearBody
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Population Bomb
-- Follow Me
-- Taunt
+- Iron Head
+- Bullet Punch
+- Psychic Fangs
 - Protect
 
-Torkoal (M) @ Charcoal
-Ability: Drought
+Garchomp (M) @ LifeOrb
+Ability: RoughSkin
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Dragon Claw
+- Stomping Tantrum
 - Protect
-
-Hydreigon (M) @ ChoiceScarf
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Draco Meteor
-- Dark Pulse
-- Heat Wave
-- Snarl

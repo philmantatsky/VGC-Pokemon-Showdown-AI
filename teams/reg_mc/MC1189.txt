@@ -1,0 +1,59 @@
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- U-turn
+- Iron Head
+- First Impression
+
+Grapploct (M) @ BlackBelt
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Detect
+- Topsy-Turvy
+- Mach Punch
+- Storm Throw
+
+Vaporeon (M) @ Leftovers
+Ability: WaterAbsorb
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Detect
+- Calm Mind
+- Ice Beam
+- Scald
+
+Talonflame (M) @ RockyHelmet
+Ability: FlameBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Protect
+- Tailwind
+- Will-O-Wisp
+- Whirlwind
+
+Gengar (M) @ FocusSash
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Sludge Bomb
+- Sludge Wave
+- Shadow Ball
+
+Tyrantrum (F) @ ChoiceScarf
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Psychic Fangs
+- Dragon Claw
+- Head Smash

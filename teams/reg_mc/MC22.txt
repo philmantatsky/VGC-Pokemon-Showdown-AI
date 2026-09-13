@@ -1,59 +1,59 @@
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
+Incineroar (M) @ WhiteHerb
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Ice Shard
-- Glaive Rush
-- Protect
-- Swords Dance
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Flare Blitz
+- Darkest Lariat
+- Brick Break
+- Fake Out
 
-Delphox (F) @ Delphoxite
-Ability: Blaze
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Psychic
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Trick Room
+- Dazzling Gleam
+- Protect
+
+Farigiraf (F) @ TwistedSpoon
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Trick Room
 - Protect
 - Nasty Plot
 
-Ninetales-Alola (F) @ FocusSash
-Ability: SnowWarning
+Torkoal (M) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Icy Wind
-- Moonblast
-- Blizzard
-- Aurora Veil
-
-Rillaboom (F) @ MiracleSeed
-Ability: Overgrow
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- U-turn
-- Grassy Glide
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Ancient Power
 - Protect
 
-Sneasler (F) @ GrassySeed
-Ability: Unburden
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Follow Me
+- Helping Hand
+- Psychic
+
+Sirfetch’d (F) @ BlackBelt
+Ability: Scrappy
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
 - Close Combat
-- Dire Claw
-- Coaching
-- Fake Out
-
-Kingambit (F) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Sucker Punch
-- Iron Head
-- Swords Dance
+- Feint
 - Protect
+- Assurance

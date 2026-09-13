@@ -1,0 +1,59 @@
+Pyroar (M) @ Pyroarite
+Ability: Rivalry
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Hyper Voice
+- Protect
+- Scorching Sands
+
+Baxcalibur (F) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Icicle Crash
+- Glaive Rush
+- Dragon Dance
+- High Horsepower
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Tailwind
+- Protect
+- Energy Ball
+- Encore
+
+Primarina (M) @ MysticWater
+Ability: LiquidVoice
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Hyper Voice
+- Moonblast
+- Protect
+- Life Dew
+
+Aegislash (F) @ Leftovers
+Ability: StanceChange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- King's Shield
+- Poltergeist
+- Reflect
+- Iron Head
+
+Scrafty (M) @ Scraftinite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Drain Punch
+- Protect
+- Knock Off

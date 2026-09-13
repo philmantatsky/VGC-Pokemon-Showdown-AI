@@ -1,28 +1,18 @@
-Venusaur (M) @ FocusSash
-Ability: Chlorophyll
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Sludge Bomb
-- Leaf Storm
-- Sleep Powder
-- Protect
-
-Charizard (M) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
+- Dragon Pulse
 - Heat Wave
-- Hurricane
-- Weather Ball
+- Extreme Speed
+- Protect
 
 Grimmsnarl (M) @ LightClay
 Ability: Prankster
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
 - Spirit Break
 - Light Screen
 - Reflect
@@ -32,28 +22,38 @@ Archaludon (F) @ Leftovers
 Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
+Bold Nature
 - Electro Shot
-- Dragon Pulse
 - Flash Cannon
+- Snarl
 - Protect
 
-Swampert (M) @ Swampertite
-Ability: Torrent
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Earthquake
-- Ice Punch
-- Protect
-
-Pelipper (F) @ SitrusBerry
+Pelipper (F) @ FocusSash
 Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hurricane
 - Weather Ball
+- Hurricane
 - Tailwind
 - Wide Guard
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn
+
+Venusaur (F) @ Venusaurite
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Giga Drain
+- Sludge Bomb
+- Earth Power
+- Protect

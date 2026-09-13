@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect
-
-Rillaboom (F) @ MiracleSeed
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
 - U-turn
+- Wood Hammer
 - Fake Out
+- Grassy Glide
 
 Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Careful Nature
-- Flare Blitz
-- Fake Out
-- Darkest Lariat
+- Helping Hand
 - Parting Shot
+- Fake Out
+- Flare Blitz
 
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Milotic (F) @ Leftovers
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
-- Nasty Plot
-- Shadow Ball
 - Protect
+- Hypnosis
+- Coil
+- Muddy Water
 
-Sneasler (F) @ GrassySeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Close Combat
-- Dire Claw
-- Swords Dance
 - Protect
+- Swords Dance
+- Dire Claw
+- Close Combat
 
-Tyranitar (M) @ Tyranitarite
-Ability: SandStream
+Aerodactyl (F) @ FocusSash
+Ability: Unnerve
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
+- Protect
+- Dual Wingbeat
+- Tailwind
 - Rock Slide
-- Knock Off
-- Low Kick
+
+Absol (M) @ AbsoliteZ
+Ability: Pressure
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Shadow Sneak
+- Night Slash
+- Shadow Claw
 - Protect

@@ -1,0 +1,59 @@
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- U-turn
+- Iron Head
+- First Impression
+
+Vivillon (M) @ FocusSash
+Ability: CompoundEyes
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Protect
+- Sleep Powder
+- Tailwind
+- Rage Powder
+
+Grapploct (F) @ BlackBelt
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Detect
+- Topsy-Turvy
+- Mach Punch
+- Storm Throw
+
+Houndstone (F) @ SitrusBerry
+Ability: Fluffy
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Roar
+- Will-O-Wisp
+- Poltergeist
+
+Baxcalibur (F) @ NeverMeltIce
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Ice Shard
+- Icicle Crash
+- Dragon Claw
+
+Glimmora (M) @ ChoiceScarf
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Earth Power
+- Power Gem
+- Sludge Bomb
+- Sludge Wave

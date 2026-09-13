@@ -1,59 +1,59 @@
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
+Sableye (F) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Reflect
+- Quash
+- Rain Dance
+- Light Screen
+
+Archaludon (M) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Electro Shot
+- Dragon Pulse
+- Flash Cannon
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: SwiftSwim
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Ice Shard
-- Swords Dance
+- Wave Crash
 - Protect
-- Glaive Rush
+- Aqua Jet
+- Last Respects
 
-Rillaboom (F) @ CobaBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Grassy Glide
-- Knock Off
-- Protect
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Protect
-- Close Combat
-- Dire Claw
-- Coaching
-
-Ninetales-Alola (M) @ FocusSash
-Ability: SnowWarning
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Icy Wind
-- Blizzard
+Modest Nature
 - Protect
-- Aurora Veil
+- Weather Ball
+- Hurricane
+- Tailwind
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Sinistcha @ CobaBerry
+Ability: Hospitality
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Sassy Nature
-- Protect
+- Matcha Gotcha
+- Life Dew
 - Trick Room
-- Twin Beam
-- Helping Hand
+- Rage Powder
 
-Aerodactyl (F) @ Aerodactylite
-Ability: Unnerve
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
+Adamant Nature
 - Protect
-- Rock Slide
-- Dual Wingbeat
+- Iron Head
+- Leech Life
+- Liquidation

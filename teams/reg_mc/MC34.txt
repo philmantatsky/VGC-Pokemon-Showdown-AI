@@ -1,59 +1,59 @@
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Talonflame (F) @ SharpBeak
+Ability: GaleWings
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Head Smash
-- Flare Blitz
-- Rock Slide
 - Protect
+- Tailwind
+- Dual Wingbeat
+- Flare Blitz
 
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
+Garchomp (F) @ LifeOrb
+Ability: RoughSkin
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Helping Hand
-- Trick Room
-- Thunderbolt
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Rock Slide
+- Earthquake
+- Stomping Tantrum
 
-Whimsicott (M) @ FairyFeather
-Ability: Prankster
+Maushold @ FocusSash
+Ability: FriendGuard
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
-- Tailwind
+- Protect
+- Super Fang
+- Follow Me
 - Encore
-- Charm
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Gardevoir (M) @ Gardevoirite
+Ability: Telepathy
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Dazzling Gleam
-- Moonblast
-- Light of Ruin
 - Protect
+- Trick Room
+- Hyper Voice
+- Psychic
 
-Staraptor (F) @ Staraptite
+Gyarados (M) @ Gyaradosite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
 - Protect
+- Dragon Dance
+- Waterfall
+- Crunch
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Metagross @ ColburBerry
+Ability: ClearBody
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
+Adamant Nature
 - Protect
+- Bullet Punch
+- Psychic Fangs
+- Hammer Arm

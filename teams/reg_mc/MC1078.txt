@@ -1,0 +1,59 @@
+Gardevoir (F) @ Gardevoirite
+Ability: Trace
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Protect
+- Hyper Voice
+- Thunderbolt
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Trick Room
+- Helping Hand
+- Follow Me
+- Psychic
+
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Protect
+- Expanding Force
+- Dazzling Gleam
+
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Expanding Force
+- Protect
+- Iron Head
+- Body Press
+
+Annihilape (M) @ ExpertBelt
+Ability: VitalSpirit
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Close Combat
+- Rage Fist
+- Rock Tomb
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Parting Shot
+- Flare Blitz
+- Protect
+- Darkest Lariat

@@ -1,0 +1,59 @@
+Maushold-Four @ SitrusBerry
+Ability: FriendGuard
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Beat Up
+- Encore
+- Protect
+
+Absol (F) @ AbsoliteZ
+Ability: SuperLuck
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Night Slash
+- Shadow Claw
+- Focus Energy
+- Protect
+
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Yawn
+- Quick Attack
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Grassy Glide
+- Wood Hammer
+- U-turn
+- Fake Out
+
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Psychic
+- Helping Hand
+- Trick Room
+- Protect
+
+Blastoise (M) @ Blastoisinite
+Ability: Torrent
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Water Spout
+- Aura Sphere
+- Fake Out
+- Protect

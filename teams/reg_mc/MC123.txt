@@ -1,59 +1,59 @@
-Lucario (M) @ LucarioniteZ
-Ability: Steadfast
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Focus Blast
-- Nasty Plot
-- Flash Cannon
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Voice
+- Dragon Pulse
+- Heat Wave
 - Protect
 
-Sableye (M) @ RoseliBerry
-Ability: Prankster
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Gravity
-- Reflect
-- Rain Dance
-- Fake Out
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick Room
+- Protect
 
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
+- Taunt
 - Fake Out
+- Flare Blitz
+- Parting Shot
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Draining Kiss
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Leech Life
+- Sucker Punch
+- Iron Head
+- Protect
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Protect
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
 - Dazzling Gleam
-- Calm Mind
-- Protect
-
-Politoed (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Weather Ball
-- Hypnosis
-- Icy Wind
-- Protect
-
-Archaludon (F) @ Leftovers
-Ability: Stamina
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Electro Shot
-- Dragon Pulse
-- Substitute
+- Follow Me
 - Protect

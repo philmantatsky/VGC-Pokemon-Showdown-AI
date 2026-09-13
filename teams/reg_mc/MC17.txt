@@ -1,59 +1,59 @@
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Ice Shard
-- Glaive Rush
-- Protect
-- Swords Dance
-
-Delphox (F) @ Delphoxite
-Ability: Blaze
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Psychic
-- Protect
-- Nasty Plot
-
-Ninetales-Alola (M) @ FocusSash
-Ability: SnowWarning
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Icy Wind
-- Moonblast
-- Blizzard
-- Aurora Veil
-
-Rillaboom (F) @ MiracleSeed
-Ability: Overgrow
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- U-turn
-- Grassy Glide
+Hasty Nature
+- Hyper Voice
+- Double-Edge
+- Draco Meteor
 - Protect
 
-Sneasler (M) @ GrassySeed
-Ability: Unburden
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Close Combat
-- Dire Claw
-- Coaching
-- Fake Out
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
 
-Kingambit (F) @ LifeOrb
-Ability: Defiant
+Excadrill (F) @ Staraptite
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
+- High Horsepower
 - Iron Head
-- Swords Dance
+- Rock Slide
+- Protect
+
+Azumarill (M) @ SitrusBerry
+Ability: HugePower
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Aqua Jet
+- Play Rough
+- Belly Drum
+- Protect
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- U-turn
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Dire Claw
+- Fake Out
 - Protect

@@ -1,0 +1,59 @@
+Garchomp (F) @ GarchompiteZ
+Ability: SandVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Stealth Rock
+- Iron Head
+- Dragon Tail
+- Earthquake
+
+Tyranitar (M) @ Leftovers
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Stealth Rock
+- Stone Edge
+- Crunch
+- Dragon Tail
+
+Grimmsnarl (M) @ ChoiceScarf
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Play Rough
+- Trick
+- Parting Shot
+
+Gholdengo @ WhiteHerb
+Ability: GoodasGold
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
+- Thunderbolt
+- Shadow Ball
+- Recover
+
+Incineroar (M) @ RockyHelmet
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Parting Shot
+- Will-O-Wisp
+- Taunt
+
+Charizard (F) @ CharizarditeY
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Solar Beam
+- Flamethrower
+- Dragon Pulse
+- Air Slash

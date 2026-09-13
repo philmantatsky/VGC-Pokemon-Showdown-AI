@@ -1,59 +1,59 @@
-Gengar (F) @ Gengarite
-Ability: CursedBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Shadow Ball
-- Will-O-Wisp
-- Perish Song
-- Protect
-
-Incineroar (M) @ ChopleBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
-- Protect
-
-Politoed (M) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Weather Ball
-- Encore
-- Perish Song
-- Protect
-
-Sinistcha @ CobaBerry
-Ability: Hospitality
+Lucario (M) @ LucarioniteZ
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Matcha Gotcha
-- Rage Powder
-- Trick Room
+- Vacuum Wave
+- Flash Cannon
+- Aura Sphere
 - Protect
 
-Swampert (F) @ Swampertite
-Ability: Damp
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Mystical Fire
+- Detect
+- Hyper Beam
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Protect
+- Twin Beam
+- Trick Room
+- Helping Hand
+
+Swampert (M) @ Swampertite
+Ability: Torrent
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Protect
 - Wave Crash
 - High Horsepower
 - Ice Punch
-- Protect
 
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
+Pelipper (F) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Protect
+- Tailwind
+- Hurricane
+- Weather Ball
+
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
+- Grassy Glide
+- Fake Out
+- High Horsepower
+- Wood Hammer

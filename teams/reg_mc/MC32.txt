@@ -1,59 +1,59 @@
-Sableye (F) @ LightClay
-Ability: Prankster
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Reflect
-- Quash
-- Rain Dance
-- Light Screen
-
-Archaludon (M) @ Leftovers
-Ability: Stamina
+Froslass (F) @ Froslassite
+Ability: SnowCloak
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Electro Shot
-- Dragon Pulse
-- Flash Cannon
+Timid Nature
+- Blizzard
+- Protect
+- Aurora Veil
+- Shadow Ball
+
+Scovillain (M) @ Scovillainite
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Rage Powder
+- Protect
+- Overheat
+- Super Fang
+
+Kingambit (F) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Kowtow Cleave
+- Sucker Punch
 - Protect
 
+Sneasler (M) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Close Combat
+- Protect
+- Gunk Shot
+
 Basculegion (M) @ LifeOrb
-Ability: SwiftSwim
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Wave Crash
-- Protect
 - Aqua Jet
 - Last Respects
-
-Pelipper (F) @ SitrusBerry
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
 - Protect
-- Weather Ball
-- Hurricane
-- Tailwind
 
-Sinistcha @ CobaBerry
-Ability: Hospitality
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Matcha Gotcha
-- Life Dew
-- Trick Room
-- Rage Powder
-
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Jolly Nature
+- Accelerock
 - Protect
-- Iron Head
-- Leech Life
-- Liquidation
+- Close Combat
+- Rock Slide

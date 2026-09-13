@@ -6,7 +6,7 @@ Adamant Nature
 - Close Combat
 - Dire Claw
 - Rock Slide
-- Acrobatics
+- Throat Chop
 
 Indeedee (M) @ ChoiceScarf
 Ability: PsychicSurge
@@ -14,7 +14,7 @@ Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
 - Expanding Force
-- Hyper Voice
+- Psychic
 - Trick Room
 - Imprison
 
@@ -35,7 +35,7 @@ EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Heat Wave
 - Weather Ball
-- Ancient Power
+- Solar Beam
 - Protect
 
 Basculegion (M) @ LifeOrb
@@ -48,7 +48,7 @@ Adamant Nature
 - Aqua Jet
 - Protect
 
-Whimsicott (F) @ FocusSash
+Whimsicott (M) @ FocusSash
 Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe

@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Pawmot (F) @ FocusSash
+Ability: IronFist
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Double Shock
+- Close Combat
+- Fake Out
+- Mach Punch
+
+Garchomp (M) @ GarchompiteZ
+Ability: SandVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
+- Draco Meteor
+- Flamethrower
+- Power Gem
 - Protect
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
-
-Lucario (F) @ LucarioniteZ
-Ability: InnerFocus
+Froslass (F) @ Froslassite
+Ability: SnowCloak
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Calm Mind
+- Shadow Ball
+- Blizzard
+- Protect
+- Nasty Plot
+
+Slowking-Galar (F) @ ColburBerry
+Ability: CuriousMedicine
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Protect
+- Eerie Spell
+- Sludge Bomb
+
+Diggersby (F) @ LifeOrb
+Ability: HugePower
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Body Slam
+- Quick Attack
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Tyranitar (M) @ ChopleBerry
+Ability: SandStream
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
-
-Lycanroc-Dusk (F) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Snarl
 - Rock Slide
-- Accelerock
+- High Horsepower
 - Protect

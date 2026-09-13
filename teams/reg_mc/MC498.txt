@@ -1,59 +1,59 @@
-Rillaboom (M) @ OccaBerry
+Whimsicott (M) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Cotton Spore
+- Encore
+- Protect
+
+Meowscarada (F) @ LifeOrb
+Ability: Protean
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flower Trick
+- Sucker Punch
+- Thunder Punch
+- Low Kick
+
+Scovillain (F) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Burning Jealousy
+- Leech Seed
+- Rage Powder
+- Protect
+
+Tsareena (F) @ ChoiceScarf
+Ability: QueenlyMajesty
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Trop Kick
+- Knock Off
+- Zen Headbutt
+- Triple Axel
+
+Venusaur (M) @ Venusaurite
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Sludge Bomb
+- Earth Power
+- Sleep Powder
+- Protect
+
+Rillaboom (F) @ Leftovers
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Wood Hammer
+- Drum Beating
 - Grassy Glide
 - High Horsepower
-
-Sneasler (F) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Rock Tomb
-- Protect
-
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
 - Fake Out
-- Flare Blitz
-- Throat Chop
-- Parting Shot
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dazzling Gleam
-- Draining Kiss
-- Protect
-- Calm Mind
-
-Blastoise (M) @ Blastoisinite
-Ability: Torrent
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Shell Smash
-- Terrain Pulse
-- Water Spout
-- Protect
-
-Indeedee-F (F) @ RockyHelmet
-Ability: PsychicSurge
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Follow Me
-- Psychic
-- Helping Hand
-- Trick Room

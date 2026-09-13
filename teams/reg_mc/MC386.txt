@@ -1,59 +1,59 @@
-Staraptor (F) @ Staraptite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
-- Protect
-- Roost
-
-Whimsicott (M) @ FocusSash
-Ability: Prankster
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Tailwind
-- Protect
-- Charm
-- Taunt
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Make It Rain
-- Protect
-- Sleep Talk
-- Nasty Plot
-
-Garchomp (F) @ ChoiceScarf
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dragon Claw
-- Earthquake
-- Rock Slide
-- Shadow Claw
-
-Sneasler (M) @ WhiteHerb
-Ability: Pressure
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Fake Out
-- Dire Claw
+- Blizzard
+- Shadow Ball
+- Aurora Veil
 - Protect
 
-Basculegion (M) @ WacanBerry
+Basculegion (M) @ SitrusBerry
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
+Adamant Nature
 - Wave Crash
+- Last Respects
 - Aqua Jet
 - Protect
-- Last Respects
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Gunk Shot
+- Protect
+- Fake Out
+
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Accelerock
+- Rock Slide
+- Protect
+
+Scovillain (M) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Giga Drain
+- Overheat
+- Rage Powder
+- Protect

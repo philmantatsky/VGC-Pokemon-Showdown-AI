@@ -1,59 +1,59 @@
-Charizard (M) @ CharizarditeY
-Ability: Blaze
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Swords Dance
+- Ice Shard
+- Protect
+- Glaive Rush
+
+Sneasler (M) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Fake Out
+- Coaching
+- Dire Claw
+
+Sylveon (F) @ FairyFeather
+Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Modest Nature
 - Protect
-- Solar Beam
-- Weather Ball
-- Heat Wave
+- Hyper Voice
+- Quick Attack
+- Yawn
 
-Dragonite (F) @ YacheBerry
-Ability: InnerFocus
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dragon Pulse
-- Heat Wave
-- Ice Beam
-- Protect
-
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Tailwind
-- Dazzling Gleam
-- Encore
-- Protect
-
-Kingambit (F) @ Leftovers
+Kingambit (M) @ HabanBerry
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
 - Protect
-- Brick Break
+- Kowtow Cleave
 - Iron Head
+- Sucker Punch
 
-Raichu (M) @ RaichuniteY
-Ability: Static
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Volt Tackle
-- Drain Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Weather Ball
+- Solar Beam
 - Protect
-- Fake Out
+- Heat Wave
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Milotic (F) @ Leftovers
+Ability: Competitive
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Aqua Jet
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
 - Protect
-- Liquidation
-- Last Respects
+- Icy Wind
+- Scald
+- Recover

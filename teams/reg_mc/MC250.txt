@@ -1,59 +1,57 @@
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
+Sceptile (M) @ Sceptilite
+Ability: Overgrow
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Imprison
-- Expanding Force
-- Hyper Voice
+Timid Nature
+- Detect
+- Energy Ball
+- Earth Power
+- Dragon Pulse
+
+Rotom-Wash @ SitrusBerry
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
 - Protect
+- Discharge
+- Hydro Pump
+- Will-O-Wisp
 
-Indeedee-F (F) @ ColburBerry
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Follow Me
-- Trick Room
-- Psyshock
-- Helping Hand
-
-Talonflame (M) @ SharpBeak
-Ability: GaleWings
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Tailwind
-- Flare Blitz
-- Brave Bird
 - Protect
+- Dragon Dance
+- Rock Slide
+- Knock Off
 
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Kangaskhan (F) @ SilkScarf
+Ability: Scrappy
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
-- Close Combat
-- Dire Claw
-- Protect
+- Fake Out
+- Last Resort
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Aegislash (F) @ Leftovers
+Ability: StanceChange
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
-
-Kingambit (F) @ FocusSash
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Kowtow Cleave
-- Low Kick
+Adamant Nature
+- King's Shield
 - Iron Head
-- Sucker Punch
+- Poltergeist
+- Shadow Sneak
+
+Incineroar (F) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Relaxed Nature
+- Fake Out
+- Parting Shot
+- Flare Blitz
+- Protect

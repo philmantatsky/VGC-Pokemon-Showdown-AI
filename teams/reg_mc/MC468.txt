@@ -1,59 +1,59 @@
-Indeedee (M) @ FocusSash
-Ability: PsychicSurge
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Protect
+- Ice Punch
+- Psychic Fangs
+- Iron Head
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
-- Trick Room
-- Imprison
+Modest Nature
+- Tailwind
 - Protect
+- Hyper Voice
+- Draco Meteor
 
-Sneasler (M) @ PsychicSeed
+Kingambit (F) @ ChopleBerry
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Low Kick
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- High Horsepower
+
+Sneasler (F) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
+- Fake Out
+- Protect
 - Close Combat
-- Swords Dance
-- Protect
+- Gunk Shot
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Milotic (F) @ SitrusBerry
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dragon Pulse
-- Hyper Voice
-- Heat Wave
+Modest Nature
 - Protect
-
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Moonblast
-- Tailwind
-- Encore
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Expanding Force
-- Substitute
-- Protect
+- Ice Beam
+- Scald
+- Icy Wind

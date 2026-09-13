@@ -1,0 +1,59 @@
+Indeedee-F (F) @ SitrusBerry
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Follow Me
+- Helping Hand
+- Psychic
+
+Armarouge (F) @ FocusSash
+Ability: FlashFire
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Armor Cannon
+- Wide Guard
+- Trick Room
+
+Torkoal (F) @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Heat Wave
+- Earth Power
+- Protect
+
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Trick Room
+- Expanding Force
+- Hyper Voice
+- Protect
+
+Sneasler (M) @ PsychicSeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Throat Chop
+- Close Combat
+- Dire Claw
+- Protect
+
+Kingambit (M) @ BlackGlasses
+Ability: SupremeOverlord
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Serious Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
+- Protect

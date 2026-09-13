@@ -8,7 +8,7 @@ Brave Nature
 - Close Combat
 - Fake Out
 
-Farigiraf (M) @ Leftovers
+Farigiraf (F) @ Leftovers
 Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
@@ -18,7 +18,7 @@ Modest Nature
 - Trick Room
 - Protect
 
-Gardevoir (M) @ Gardevoirite
+Gardevoir (F) @ Gardevoirite
 Ability: Synchronize
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
@@ -38,7 +38,7 @@ Jolly Nature
 - Taunt
 - Protect
 
-Torkoal (M) @ Charcoal
+Torkoal (F) @ Charcoal
 Ability: Drought
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA

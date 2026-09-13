@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Naive Nature
-- Hyper Voice
-- Draco Meteor
-- Double-Edge
-- Protect
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dire Claw
-- Fake Out
-- Close Combat
-- Coaching
-
-Talonflame (F) @ SharpBeak
-Ability: GaleWings
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Taunt
-- Tailwind
-- Dual Wingbeat
-- Quick Guard
-
-Rillaboom (M) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Wood Hammer
-- High Horsepower
-- Grassy Glide
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Gengar (M) @ Gengarite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Light of Ruin
-- Moonblast
-- Dazzling Gleam
+- Nasty Plot
+- Sludge Wave
+- Shadow Ball
 - Protect
 
-Kingambit (F) @ FocusSash
-Ability: Defiant
+Swampert (F) @ Swampertite
+Ability: Torrent
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Iron Head
+- Earthquake
+- Ice Punch
+- Wave Crash
+- Protect
+
+Kingambit (M) @ ChopleBerry
+Ability: SupremeOverlord
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Kowtow Cleave
-- Sucker Punch
 - Low Kick
+- Sucker Punch
+- Iron Head
+
+Oranguru (F) @ MentalHerb
+Ability: Telepathy
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Extrasensory
+- Protect
+- Trick Room
+- Instruct
+
+Pelipper (F) @ FocusSash
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Protect
+
+Sinistcha @ Leftovers
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Rage Powder
+- Matcha Gotcha
+- Protect
+- Trick Room

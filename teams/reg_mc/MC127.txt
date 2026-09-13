@@ -1,59 +1,59 @@
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Protect
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Farigiraf (F) @ GrassySeed
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Sassy Nature
-- Trick Room
-- Helping Hand
-- Beat Up
-- Protect
-
-Sneasler (F) @ FocusSash
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Protect
-- Close Combat
-- Dire Claw
-- Feint
-
-Torkoal (F) @ Charcoal
-Ability: Drought
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Quiet Nature
-- Protect
-- Eruption
+- Hyper Voice
+- Dragon Pulse
 - Heat Wave
-- Earth Power
+- Protect
 
-Scovillain (M) @ LifeOrb
-Ability: Chlorophyll
+Hatterene (F) @ LifeOrb
+Ability: MagicBounce
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Rage Powder
-- Overheat
-- Solar Beam
-- Will-O-Wisp
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Expanding Force
+- Dazzling Gleam
+- Trick Room
+- Protect
 
-Absol (F) @ AbsoliteZ
-Ability: Justified
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Taunt
+- Fake Out
+- Flare Blitz
+- Parting Shot
+
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Leech Life
+- Sucker Punch
+- Iron Head
 - Protect
-- Night Slash
-- Shadow Sneak
-- Close Combat
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Protect
+
+Indeedee-F (F) @ PsychicSeed
+Ability: PsychicSurge
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Sassy Nature
+- Trick Room
+- Dazzling Gleam
+- Follow Me
+- Protect

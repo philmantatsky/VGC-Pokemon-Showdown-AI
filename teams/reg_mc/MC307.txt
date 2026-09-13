@@ -1,59 +1,59 @@
-Gardevoir (F) @ Gardevoirite
-Ability: Telepathy
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Protect
-- Expanding Force
-- Moonblast
-- Trick Room
-
-Indeedee-F (F) @ SitrusBerry
-Ability: PsychicSurge
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
 Quiet Nature
-- Psychic
-- Follow Me
-- Trick Room
-- Helping Hand
+- Hyper Beam
+- Calm Mind
+- Quick Attack
+- Protect
 
-Corviknight (M) @ PsychicSeed
-Ability: MirrorArmor
+Tyranitar (M) @ ChopleBerry
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Dragon Dance
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Rock Slide
+- Earthquake
+- Iron Head
+- Protect
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
 EVs: 32 HP / 32 Atk / 2 Def
-Relaxed Nature
-- Body Press
-- Power Trip
-- Curse
-- Roost
+Brave Nature
+- Sucker Punch
+- Kowtow Cleave
+- Swords Dance
+- Protect
 
-Torkoal (M) @ Charcoal
-Ability: Drought
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Leech Life
+- Swords Dance
+- Aqua Jet
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
 Level: 50
 EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Protect
-- Lava Plume
-- Heat Wave
+Relaxed Nature
+- Trick Room
+- Roar
+- Twin Beam
 - Helping Hand
-
-Pyroar (M) @ Pyroarite
-Ability: Unnerve
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Overheat
-- Heat Wave
-- Solar Beam
-
-Vileplume (M) @ FocusSash
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Sludge Bomb
-- After You
-- Sleep Powder

@@ -1,59 +1,59 @@
-Camerupt (F) @ Cameruptite
-Ability: SolidRock
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Ancient Power
-- Earth Power
-- Heat Wave
-- Protect
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Aura Sphere
-- Steel Beam
-- Flash Cannon
-- Protect
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Protect
-- Helping Hand
-- Twin Beam
-- Trick Room
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Parting Shot
-- Darkest Lariat
-- Fake Out
-
-Rillaboom (F) @ GrassySeed
+Rillaboom (M) @ OccaBerry
 Ability: GrassySurge
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
 - Wood Hammer
 - Grassy Glide
+- U-turn
 - Fake Out
-- Low Kick
 
-Milotic (M) @ Leftovers
-Ability: Competitive
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Rock Slide
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Ice Beam
-- Life Dew
+Bold Nature
+- Matcha Gotcha
+- Trick Room
+- Rage Powder
 - Protect
-- Scald
+
+Delphox (F) @ Delphoxite
+Ability: Blaze
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect

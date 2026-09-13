@@ -1,24 +1,34 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Froslass (F) @ Froslassite
+Ability: SnowCloak
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Calm Mind
-- Dazzling Gleam
-- Draining Kiss
+- Blizzard
+- Shadow Ball
+- Aurora Veil
 - Protect
 
-Sneasler (F) @ GrassySeed
-Ability: Unburden
+Scovillain (M) @ Scovillainite
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Overheat
+- Giga Drain
+- Rage Powder
+- Protect
+
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Dire Claw
+Adamant Nature
+- Rock Slide
 - Close Combat
-- Swords Dance
+- Accelerock
+- Protect
 
-Kingambit (F) @ LifeOrb
+Kingambit (M) @ BlackGlasses
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -28,32 +38,22 @@ Adamant Nature
 - Swords Dance
 - Protect
 
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Extreme Speed
-- Protect
-
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Gunk Shot
+- Close Combat
 - Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
+- Protect
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Baxcalibur (F) @ LifeOrb
+Ability: ThermalExchange
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Glaive Rush
+- Icicle Crash
+- Dragon Dance
 - Protect

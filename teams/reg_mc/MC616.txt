@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Weavile (F) @ NeverMeltIce
+Ability: Pickpocket
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Triple Axel
+- Ice Shard
+- Knock Off
+- Low Kick
+
+Charizard (M) @ CharizarditeY
+Ability: SolarPower
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Hasty Nature
+- Air Slash
+- Earthquake
+- Dragon Pulse
+- Weather Ball
+
+Swampert (F) @ Leftovers
+Ability: Torrent
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
+- Flip Turn
+- Stealth Rock
+- Body Press
+- Earthquake
+
+Kingambit (M) @ BlackGlasses
+Ability: SupremeOverlord
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
 - Iron Head
-- Leech Life
+- Kowtow Cleave
 - Swords Dance
 
-Pelipper (F) @ FocusSash
-Ability: Drizzle
+Rotom-Wash @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Discharge
+- Trick
+- Shadow Ball
+- Hydro Pump
+
+Victreebel (M) @ LifeOrb
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Protect
-- Wide Guard
+- Solar Beam
 - Weather Ball
-- Hurricane
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Protect
-- Trick Room
-- Psychic
-- Thunderbolt
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Protect
-- Tailwind
-- Draco Meteor
-- Double-Edge
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn
-
-Incineroar (M) @ PasshoBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
-- Fake Out
-- Flare Blitz
-- Throat Chop
-- Parting Shot
+- Sludge Wave
+- Sunny Day

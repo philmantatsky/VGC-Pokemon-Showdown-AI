@@ -1,59 +1,59 @@
-Gardevoir (F) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Imprison
-- Expanding Force
-- Hyper Voice
-- Protect
-
-Indeedee-F (F) @ ColburBerry
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Follow Me
-- Trick Room
-- Psyshock
-- Helping Hand
-
-Talonflame (M) @ SharpBeak
-Ability: GaleWings
+Rillaboom (F) @ OccaBerry
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Tailwind
-- Flare Blitz
-- Brave Bird
-- Protect
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
 
-Sneasler (F) @ PsychicSeed
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
+
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
-- Close Combat
 - Dire Claw
+- Close Combat
+- Fake Out
+- Rock Slide
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Trick Room
+- Rage Powder
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Delphox (M) @ Delphoxite
+Ability: Blaze
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Heat Wave
+- Psychic
+- Nasty Plot
+- Protect
 
-Kingambit (M) @ FocusSash
-Ability: Defiant
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Kowtow Cleave
-- Low Kick
-- Iron Head
-- Sucker Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect

@@ -1,59 +1,59 @@
-Golisopod (M) @ Golisopite
-Ability: EmergencyExit
+Camerupt (F) @ Cameruptite
+Ability: SolidRock
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Ancient Power
+- Earth Power
+- Heat Wave
 - Protect
-- Leech Life
-- Close Combat
-- Iron Head
+
+Lucario (M) @ LucarioniteZ
+Ability: InnerFocus
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Aura Sphere
+- Steel Beam
+- Flash Cannon
+- Protect
+
+Farigiraf (F) @ ColburBerry
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Protect
+- Helping Hand
+- Twin Beam
+- Trick Room
 
 Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
 - Wood Hammer
-- High Horsepower
+- Grassy Glide
+- Fake Out
+- Low Kick
 
-Ceruledge (F) @ ColburBerry
-Ability: FlashFire
+Milotic (F) @ Leftovers
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Ice Beam
+- Life Dew
+- Protect
+- Scald
+
+Scizor (M) @ LifeOrb
+Ability: Technician
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Bug Bite
+- Bullet Punch
+- Close Combat
 - Protect
-- Bulk Up
-- Bitter Blade
-- Shadow Sneak
-
-Milotic (M) @ Leftovers
-Ability: MarvelScale
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Calm Nature
-- Scald
-- Icy Wind
-- Hypnosis
-- Life Dew
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Draco Meteor
-- Hyper Voice
-- Roost
-
-Hatterene (F) @ GrassySeed
-Ability: MagicBounce
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Protect
-- Expanding Force
-- Dazzling Gleam
-- Trick Room

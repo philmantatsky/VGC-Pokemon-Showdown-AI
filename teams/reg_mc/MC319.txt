@@ -1,59 +1,59 @@
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Flare Blitz
-- Head Smash
-- Extreme Speed
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Beam
+- Calm Mind
+- Quick Attack
 - Protect
 
-Rillaboom (M) @ LifeOrb
-Ability: GrassySurge
+Tyranitar (M) @ ChopleBerry
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Dragon Dance
+- Rock Slide
+- Knock Off
+- Low Kick
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
+- Rock Slide
+- Earthquake
+- Iron Head
 - Protect
 
-Baxcalibur (F) @ Baxcalibrite
-Ability: ThermalExchange
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Ice Shard
-- Glaive Rush
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Sucker Punch
+- Kowtow Cleave
 - Swords Dance
 - Protect
 
-Raichu (M) @ RaichuniteY
-Ability: Static
+Golisopod (F) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Fake Out
-- Zap Cannon
-- Focus Blast
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Leech Life
+- Swords Dance
+- Aqua Jet
 - Protect
 
-Gholdengo @ GrassySeed
-Ability: GoodasGold
+Farigiraf (M) @ ColburBerry
+Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
-- Protect
-
-Rotom-Wash @ ChoiceScarf
-Ability: Levitate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Hydro Pump
-- Electroweb
-- Will-O-Wisp
-- Trick
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
+- Trick Room
+- Roar
+- Twin Beam
+- Helping Hand

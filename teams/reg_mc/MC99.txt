@@ -1,3 +1,13 @@
+Scovillain (F) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Giga Drain
+- Overheat
+- Rage Powder
+- Protect
+
 Basculegion (M) @ LifeOrb
 Ability: Adaptability
 Level: 50
@@ -18,7 +28,7 @@ Adamant Nature
 - Swords Dance
 - Protect
 
-Sneasler (M) @ GrassySeed
+Sneasler (F) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -28,7 +38,7 @@ Adamant Nature
 - Protect
 - Fake Out
 
-Lycanroc-Dusk (M) @ FocusSash
+Lycanroc-Dusk (F) @ FocusSash
 Ability: ToughClaws
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -47,13 +57,3 @@ Timid Nature
 - Shadow Ball
 - Aurora Veil
 - Protect
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Fake Out
-- Grassy Glide
-- Wood Hammer
-- U-turn

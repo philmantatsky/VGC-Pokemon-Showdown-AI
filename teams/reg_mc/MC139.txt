@@ -1,54 +1,24 @@
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Dire Claw
-- Rock Slide
-- Throat Chop
+Jolly Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
+- Protect
 
-Indeedee (M) @ ChoiceScarf
-Ability: PsychicSurge
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Expanding Force
+Bold Nature
 - Psychic
+- Helping Hand
 - Trick Room
-- Imprison
-
-Gardevoir (M) @ Gardevoirite
-Ability: Synchronize
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Expanding Force
-- Hyper Voice
 - Thunderbolt
-- Protect
 
-Charizard (M) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Heat Wave
-- Weather Ball
-- Solar Beam
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Whimsicott (F) @ FocusSash
+Whimsicott (M) @ FairyFeather
 Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
@@ -56,4 +26,34 @@ Timid Nature
 - Moonblast
 - Tailwind
 - Encore
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dazzling Gleam
+- Moonblast
+- Light of Ruin
+- Protect
+
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Roost
+- Protect
+
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Aqua Jet
+- Last Respects
 - Protect

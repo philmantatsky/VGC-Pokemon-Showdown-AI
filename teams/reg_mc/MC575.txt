@@ -1,59 +1,59 @@
-Charizard (F) @ CharizarditeY
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Solar Beam
-- Heat Wave
-- Air Slash
-
-Venusaur (M) @ WideLens
-Ability: Chlorophyll
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Protect
-- Giga Drain
-- Earth Power
-- Sleep Powder
-
-Whimsicott (M) @ FocusSash
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Protect
-- Moonblast
-- Tailwind
-- Encore
-
-Basculegion (M) @ MysticWater
-Ability: Adaptability
+Excadrill (F) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Earthquake
+- Iron Head
+- Swords Dance
 - Protect
-- Aqua Jet
-- Wave Crash
-- Last Respects
 
 Tyranitar (F) @ Tyranitarite
 Ability: SandStream
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Protect
 - Rock Slide
 - Knock Off
 - Low Kick
+- Protect
 
-Mamoswine (M) @ LifeOrb
-Ability: Oblivious
+Staraptor (M) @ Staraptite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Tailwind
 - Protect
-- High Horsepower
-- Rock Slide
-- Ice Shard
+
+Rotom-Wash @ ChoiceScarf
+Ability: Levitate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Volt Switch
+- Thunderbolt
+- Will-O-Wisp
+- Hydro Pump
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Follow Me
+- Trick Room
+- Helping Hand
+- Dazzling Gleam
+
+Armarouge (F) @ LifeOrb
+Ability: FlashFire
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Heat Wave
+- Wide Guard
+- Trick Room

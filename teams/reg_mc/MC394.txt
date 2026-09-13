@@ -1,59 +1,59 @@
-Froslass (F) @ Froslassite
-Ability: SnowCloak
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
+- Zap Cannon
+- Focus Blast
+- Fake Out
 - Protect
 
-Scovillain (M) @ Scovillainite
-Ability: Chlorophyll
+Staraptor (F) @ Staraptite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Brave Bird
+- Roost
+- Protect
+
+Sinistcha-Masterpiece @ CobaBerry
+Ability: Hospitality
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Rage Powder
-- Leech Seed
-- Overheat
+- Strength Sap
+- Psych Up
+- Life Dew
+- Curse
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Psychic
+- Helping Hand
+- Trick Room
 - Protect
 
-Basculegion (M) @ SitrusBerry
-Ability: Adaptability
+Gholdengo @ MetalCoat
+Ability: GoodasGold
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Make It Rain
 - Protect
+- Nasty Plot
+- Metal Sound
 
-Kingambit (F) @ BlackGlasses
-Ability: Defiant
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Sucker Punch
-- Swords Dance
-- Protect
-
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Dire Claw
-- Close Combat
-- Protect
-- Fake Out
-
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Rock Slide
-- Accelerock
-- Protect
+Careful Nature
+- Parting Shot
+- Light Screen
+- Reflect
+- Spirit Break

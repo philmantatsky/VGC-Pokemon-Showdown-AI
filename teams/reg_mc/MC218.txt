@@ -1,59 +1,59 @@
-Palafin (M) @ MysticWater
-Ability: ZerotoHero
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Hasty Nature
+- Double-Edge
+- Protect
+- Draco Meteor
+- Tailwind
+
+Tyranitar (M) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Knock Off
+- Dragon Dance
+- Protect
+
+Excadrill (M) @ FocusSash
+Ability: SandRush
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Flip Turn
-- Jet Punch
-- Wave Crash
+- High Horsepower
 - Protect
+- Iron Head
+- Rock Slide
 
-Sneasler (M) @ WhiteHerb
+Sneasler (M) @ PsychicSeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Dire Claw
 - Close Combat
 - Protect
+- Swords Dance
+- Dire Claw
 
-Absol (F) @ AbsoliteZ
-Ability: Pressure
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Protect
-- Shadow Claw
-- Night Slash
-- Substitute
-
-Farigiraf (F) @ SitrusBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Trick Room
-- Thunderbolt
-- Protect
-- Psychic
-
-Pelipper (F) @ FocusSash
-Ability: Drizzle
+Indeedee (M) @ ChoiceScarf
+Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Hurricane
-- Tailwind
-- Wide Guard
-- Hydro Pump
+- Trick
+- Expanding Force
+- Trick Room
+- Dazzling Gleam
 
-Dragonite (M) @ Dragoninite
-Ability: Multiscale
+Milotic (M) @ Leftovers
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Bold Nature
+- Muddy Water
+- Coil
+- Hypnosis
 - Protect
-- Dragon Pulse
-- Heat Wave
-- Hurricane

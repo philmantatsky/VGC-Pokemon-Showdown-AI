@@ -1,22 +1,42 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Raichu (F) @ RaichuniteY
+Ability: LightningRod
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
+Timid Nature
+- Fake Out
+- Zap Cannon
+- Focus Blast
 - Protect
 
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Baxcalibur (F) @ Baxcalibrite
+Ability: IceBody
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Hasty Nature
-- Hyper Voice
-- Double-Edge
+Adamant Nature
+- Glaive Rush
+- Ice Shard
+- High Horsepower
 - Protect
-- Tailwind
+
+Ninetales-Alola (F) @ LightClay
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Moonblast
+- Aurora Veil
+- Protect
+
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
 
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
@@ -25,35 +45,15 @@ EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
 - Wood Hammer
-- Grassy Glide
 - High Horsepower
+- Grassy Glide
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Basculegion (M) @ ChoiceScarf
+Basculegion (M) @ LifeOrb
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Flip Turn
 - Wave Crash
-- Aqua Jet
 - Last Respects
-
-Mamoswine (F) @ LifeOrb
-Ability: Oblivious
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Ice Shard
-- Earthquake
-- Rock Slide
+- Aqua Jet
 - Protect

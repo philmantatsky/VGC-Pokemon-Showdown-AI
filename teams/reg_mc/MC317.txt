@@ -1,32 +1,52 @@
-Farigiraf (M) @ SitrusBerry
-Ability: ArmorTail
+Gardevoir (F) @ Gardevoirite
+Ability: Synchronize
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Expanding Force
 - Trick Room
-- Psychic
+- Protect
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Double-Edge
+- Earthquake
+- Tailwind
+- Protect
+
+Indeedee-F (F) @ RockyHelmet
+Ability: PsychicSurge
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Follow Me
+- Sing
 - Helping Hand
 - Protect
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
+Sneasler (F) @ PsychicSeed
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- First Impression
-- Liquidation
-- Iron Head
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Throat Chop
 - Protect
 
-Torkoal (M) @ Charcoal
-Ability: Drought
+Kingambit (M) @ LifeOrb
+Ability: Defiant
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Heat Wave
-- Weather Ball
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Iron Head
+- Low Kick
+- Sucker Punch
 
 Rillaboom (F) @ MiracleSeed
 Ability: GrassySurge
@@ -37,23 +57,3 @@ Adamant Nature
 - Grassy Glide
 - Wood Hammer
 - U-turn
-
-Sneasler (M) @ GrassySeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Close Combat
-- Dire Claw
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hyper Voice
-- Draco Meteor
-- Tailwind
-- Protect

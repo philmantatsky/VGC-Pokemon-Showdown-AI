@@ -1,59 +1,59 @@
-Rillaboom (M) @ OccaBerry
-Ability: GrassySurge
+Froslass (F) @ Froslassite
+Ability: SnowCloak
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
+- Protect
+
+Lycanroc-Dusk (F) @ FocusSash
+Ability: ToughClaws
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wood Hammer
-- Grassy Glide
-- U-turn
-- Fake Out
+Jolly Nature
+- Close Combat
+- Accelerock
+- Rock Slide
+- Protect
 
-Incineroar (M) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Flare Blitz
-- Will-O-Wisp
-- Parting Shot
-- Fake Out
-
-Sneasler (F) @ GrassySeed
+Sneasler (M) @ WhiteHerb
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Dire Claw
-- Close Combat
 - Fake Out
-- Rock Slide
+- Close Combat
+- Dire Claw
+- Feint
 
-Sinistcha @ ColburBerry
-Ability: Hospitality
+Basculegion (M) @ LifeOrb
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Protect
+
+Kingambit (M) @ BlackGlasses
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Sucker Punch
+- Kowtow Cleave
+- Swords Dance
+- Protect
+
+Whimsicott (F) @ FairyFeather
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Matcha Gotcha
-- Trick Room
-- Rage Powder
-- Protect
-
-Delphox (F) @ Delphoxite
-Ability: Blaze
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Psychic
-- Nasty Plot
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
 - Moonblast
-- Dazzling Gleam
-- Calm Mind
+- Tailwind
+- Encore
 - Protect

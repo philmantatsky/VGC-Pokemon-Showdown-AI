@@ -1,59 +1,59 @@
 Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Naive Nature
-- Double-Edge
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
 - Hyper Voice
+- Draco Meteor
 - Tailwind
 - Protect
 
-Garchomp (F) @ LifeOrb
-Ability: RoughSkin
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Dragon Claw
+Careful Nature
+- Grassy Glide
+- Wood Hammer
+- U-turn
+- Fake Out
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dazzling Gleam
+- Draining Kiss
+- Protect
+- Calm Mind
+
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Accelerock
 - Rock Slide
+- Close Combat
 - Protect
 
-Incineroar (M) @ RockyHelmet
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Impish Nature
+Hardy Nature
 - Fake Out
-- Parting Shot
 - Flare Blitz
-- Throat Chop
+- Darkest Lariat
+- Parting Shot
 
-Toxapex (F) @ Leftovers
-Ability: Regenerator
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Infestation
-- Toxic
-- Wide Guard
-- Baneful Bunker
-
-Kingambit (M) @ ChopleBerry
+Kingambit (F) @ LifeOrb
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Kowtow Cleave
 - Sucker Punch
-- Low Kick
 - Iron Head
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Fake Out
-- Gunk Shot
-- Close Combat
 - Protect

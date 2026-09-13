@@ -1,59 +1,59 @@
-Weavile (F) @ NeverMeltIce
-Ability: Pickpocket
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Triple Axel
-- Ice Shard
-- Knock Off
-- Low Kick
-
-Charizard (M) @ CharizarditeY
-Ability: SolarPower
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Hasty Nature
-- Air Slash
-- Earthquake
-- Dragon Pulse
-- Weather Ball
-
-Swampert (F) @ Leftovers
-Ability: Torrent
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Flip Turn
-- Stealth Rock
-- Body Press
-- Earthquake
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
 
-Kingambit (M) @ BlackGlasses
-Ability: SupremeOverlord
+Incineroar (F) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
+
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
-- Iron Head
-- Kowtow Cleave
+- Dire Claw
+- Close Combat
+- Fake Out
 - Swords Dance
 
-Rotom-Wash @ ChoiceScarf
-Ability: Levitate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Discharge
-- Trick
-- Shadow Ball
-- Hydro Pump
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect
 
-Victreebel (M) @ LifeOrb
-Ability: Chlorophyll
+Salamence (F) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Solar Beam
-- Weather Ball
-- Sludge Wave
-- Sunny Day
+Timid Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn

@@ -1,59 +1,59 @@
-Froslass (F) @ Froslassite
-Ability: SnowCloak
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Aurora Veil
-- Protect
-
-Lycanroc-Dusk (F) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Accelerock
-- Rock Slide
-- Protect
-
-Sneasler (M) @ WhiteHerb
-Ability: Unburden
+Rillaboom (F) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
+- Protect
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Farigiraf (F) @ GrassySeed
+Ability: ArmorTail
+Level: 50
+EVs: 32 HP / 32 Atk / 2 Def
+Sassy Nature
+- Trick Room
+- Helping Hand
+- Beat Up
+- Protect
+
+Sneasler (M) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Protect
 - Close Combat
 - Dire Claw
 - Feint
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Torkoal (M) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
 - Protect
+- Eruption
+- Heat Wave
+- Earth Power
 
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
+Scovillain (M) @ LifeOrb
+Ability: Chlorophyll
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Rage Powder
+- Overheat
+- Solar Beam
+- Will-O-Wisp
+
+Absol (M) @ AbsoliteZ
+Ability: Justified
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Sucker Punch
-- Kowtow Cleave
-- Swords Dance
 - Protect
-
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Moonblast
-- Tailwind
-- Encore
-- Protect
+- Night Slash
+- Shadow Sneak
+- Close Combat

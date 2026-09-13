@@ -1,59 +1,59 @@
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Calm Mind
-- Protect
-
-Incineroar (M) @ SitrusBerry
+Salamence (M) @ Salamencite
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Darkest Lariat
-- Parting Shot
-
-Rillaboom (F) @ MiracleSeed
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Wood Hammer
-- Grassy Glide
-- U-turn
-
-Lucario (M) @ LucarioniteZ
-Ability: InnerFocus
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Calm Mind
+- Double-Edge
+- Dragon Dance
+- Roost
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Blaziken (F) @ Blazikenite
+Ability: SpeedBoost
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Wave Crash
-- Last Respects
-- Flip Turn
-- Aqua Jet
+- Flare Blitz
+- Close Combat
+- Rock Slide
+- Detect
 
-Lycanroc-Dusk (F) @ FocusSash
-Ability: ToughClaws
+Kingambit (F) @ FocusSash
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Low Kick
+- Protect
+
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Spirit Break
+- Parting Shot
+- Reflect
+- Light Screen
+
+Sinistcha @ ColburBerry
+Ability: Hospitality
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Matcha Gotcha
+- Rage Powder
+- Trick Room
+- Life Dew
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Close Combat
-- Rock Slide
-- Accelerock
-- Protect
+- Dire Claw
+- Fake Out
+- Rock Tomb

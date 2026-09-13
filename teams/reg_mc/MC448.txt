@@ -1,59 +1,59 @@
-Incineroar (F) @ WhiteHerb
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Flare Blitz
-- Close Combat
-- Darkest Lariat
-- Fake Out
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Pelipper (F) @ SitrusBerry
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+Bold Nature
+- Weather Ball
+- Wide Guard
 - Tailwind
-- Fire Blast
-- Hyper Voice
-- Protect
+- Hurricane
 
-Mawile (F) @ Mawilite
-Ability: HyperCutter
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Iron Head
-- Rock Slide
-- Play Rough
-- Protect
-
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Archaludon (F) @ Leftovers
+Ability: Stamina
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Make It Rain
-- Shadow Ball
-- Nasty Plot
+- Dragon Pulse
+- Electro Shot
+- Flash Cannon
 - Protect
 
-Basculegion (M) @ ChoiceScarf
+Scizor (M) @ LifeOrb
+Ability: Technician
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Bullet Punch
+- Bug Bite
+- Swords Dance
+- Protect
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- Protect
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Dazzling Gleam
+- Light of Ruin
+- Psychic
+- Protect
+
+Basculegion (M) @ FocusSash
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Aqua Jet
+Adamant Nature
 - Last Respects
-- Flip Turn
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Ally Switch
-- Trick Room
-- Twin Beam
-- Helping Hand
+- Liquidation
+- Aqua Jet
+- Protect

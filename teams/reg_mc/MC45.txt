@@ -1,59 +1,59 @@
-Rillaboom (F) @ SitrusBerry
+Incineroar (F) @ PasshoBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Throat Chop
+- Fake Out
+- Parting Shot
+- Protect
+
+Gengar (M) @ Gengarite
+Ability: CursedBody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Shadow Ball
+- Sludge Bomb
+- Perish Song
+- Protect
+
+Politoed (M) @ SitrusBerry
+Ability: Drizzle
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Weather Ball
+- Hypnosis
+- Perish Song
+- Protect
+
+Kommo-o (F) @ Leftovers
+Ability: Soundproof
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Clanging Scales
+- Aura Sphere
+- Clangorous Soul
+- Protect
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Fake Out
-- Wood Hammer
 - Grassy Glide
+- Wood Hammer
 - U-turn
-
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Trick Room
-- Helping Hand
-- Roar
-
-Milotic (F) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Scald
-- Ice Beam
-- Recover
-- Protect
-
-Sneasler (F) @ WhiteHerb
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
 - Fake Out
-- Dire Claw
-- Close Combat
-- Rock Tomb
 
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- First Impression
-- Iron Head
-- Leech Life
-- Protect
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Kingambit (M) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Double-Edge
-- Dragon Dance
-- Roost
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect

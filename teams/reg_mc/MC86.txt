@@ -1,24 +1,24 @@
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Leech Life
-- Iron Head
-- Liquidation
-- Protect
-
-Pelipper (M) @ FocusSash
-Ability: Drizzle
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Weather Ball
-- Hurricane
-- Tailwind
+Modest Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
 - Protect
 
-Rillaboom (F) @ GrassySeed
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Darkest Lariat
+- Parting Shot
+
+Rillaboom (M) @ MiracleSeed
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -28,32 +28,32 @@ Adamant Nature
 - Grassy Glide
 - U-turn
 
-Garchomp (F) @ LifeOrb
-Ability: RoughSkin
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dragon Claw
-- Stomping Tantrum
-- Rock Slide
-- Protect
-
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Lucario (F) @ LucarioniteZ
+Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Moonblast
-- Dazzling Gleam
-- Light of Ruin
+Timid Nature
+- Aura Sphere
+- Flash Cannon
+- Calm Mind
 - Protect
 
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Fake Out
-- Flare Blitz
-- Parting Shot
-- Throat Chop
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Flip Turn
+- Aqua Jet
+
+Lycanroc-Dusk (M) @ FocusSash
+Ability: ToughClaws
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Rock Slide
+- Accelerock
+- Protect

@@ -1,59 +1,59 @@
-Lucario (M) @ LucarioniteZ
-Ability: Steadfast
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Aura Sphere
-- Flash Cannon
-- Protect
-- Nasty Plot
-
-Rillaboom (M) @ MiracleSeed
+Rillaboom (F) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Fake Out
+Adamant Nature
 - Wood Hammer
 - Grassy Glide
-- High Horsepower
+- U-turn
+- Fake Out
 
-Pelipper (M) @ FocusSash
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Hurricane
-- Weather Ball
-- Protect
-- Tailwind
-
-Maushold-Four @ ChopleBerry
-Ability: FriendGuard
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Follow Me
-- Feint
-- Super Fang
-- Protect
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
 
-Delphox (F) @ Delphoxite
-Ability: Blaze
+Sneasler (M) @ GrassySeed
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Dire Claw
+- Close Combat
+- Fake Out
+- Rock Slide
+
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Heat Wave
-- Psyshock
-- Nasty Plot
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
+- Protect
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
 - Protect
 
 Basculegion (M) @ ChoiceScarf
 Ability: Adaptability
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Last Respects
+Adamant Nature
 - Wave Crash
+- Last Respects
 - Aqua Jet
 - Flip Turn

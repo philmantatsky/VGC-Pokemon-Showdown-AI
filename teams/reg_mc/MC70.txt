@@ -1,59 +1,59 @@
-Blaziken (M) @ Blazikenite
-Ability: SpeedBoost
+Golisopod (M) @ Golisopite
+Ability: EmergencyExit
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Close Combat
-- Detect
-- Flare Blitz
-- Rock Slide
-
-Primarina (F) @ LifeOrb
-Ability: LiquidVoice
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Hyper Voice
-- Aqua Jet
-- Moonblast
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Iron Head
+- Leech Life
 - Protect
+- Wide Guard
 
-Farigiraf (F) @ SitrusBerry
+Farigiraf (M) @ SitrusBerry
 Ability: ArmorTail
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Relaxed Nature
 - Trick Room
+- Helping Hand
 - Psychic
-- Thunderbolt
-- Protect
+- Hyper Voice
 
-Venusaur (F) @ OccaBerry
-Ability: Chlorophyll
+Pelipper (M) @ FocusSash
+Ability: Drizzle
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Sleep Powder
-- Leaf Storm
-- Sludge Bomb
-- Protect
+Modest Nature
+- Weather Ball
+- Hurricane
+- Tailwind
+- Wide Guard
 
-Kingambit (M) @ FocusSash
-Ability: Defiant
+Archaludon (F) @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Electro Shot
+- Dragon Pulse
+- Protect
+- Aura Sphere
+
+Swampert (M) @ Swampertite
+Ability: Damp
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
+- Wave Crash
+- High Horsepower
+- Ice Punch
 - Protect
-- Kowtow Cleave
-- Sucker Punch
-- Iron Head
 
-Torkoal (M) @ Charcoal
-Ability: Drought
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Eruption
-- Weather Ball
-- Helping Hand
-- Protect
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Last Respects
+- Wave Crash
+- Aqua Jet
+- Flip Turn

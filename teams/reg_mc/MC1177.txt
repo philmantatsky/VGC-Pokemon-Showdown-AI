@@ -1,0 +1,59 @@
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Light of Ruin
+- Dazzling Gleam
+- Psychic
+- Protect
+
+Metagross @ Metagrossite
+Ability: ClearBody
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Psychic Fangs
+- Iron Head
+- Rock Slide
+- Protect
+
+Tauros-Paldea-Aqua (M) @ WhiteHerb
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Aqua Jet
+- Close Combat
+- Raging Bull
+- Protect
+
+Whimsicott (F) @ SitrusBerry
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Tailwind
+- Energy Ball
+- Encore
+- Protect
+
+Farigiraf (F) @ ChoiceScarf
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Naive Nature
+- Hyper Voice
+- Thunderbolt
+- Twin Beam
+- Low Kick
+
+Salazzle (F) @ FocusSash
+Ability: Corrosion
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Fake Out
+- Toxic
+- Heat Wave
+- Protect

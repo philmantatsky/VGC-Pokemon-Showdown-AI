@@ -1,59 +1,59 @@
-Pelipper (F) @ SitrusBerry
-Ability: Drizzle
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Hurricane
-- Weather Ball
-- Tailwind
-- Wide Guard
-
-Baxcalibur (M) @ Baxcalibrite
-Ability: ThermalExchange
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Glaive Rush
-- Icicle Crash
-- Ice Shard
+Modest Nature
+- Calm Mind
+- Dazzling Gleam
+- Draining Kiss
 - Protect
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
+Sneasler (M) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
-- Flip Turn
+- Fake Out
+- Dire Claw
+- Close Combat
+- Swords Dance
 
-Lucario (F) @ LucarioniteZ
-Ability: InnerFocus
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Dark Pulse
-- Aura Sphere
-- Flash Cannon
-- Detect
-
-Farigiraf (F) @ ColburBerry
-Ability: ArmorTail
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Twin Beam
-- Thunderbolt
-- Trick Room
-- Protect
-
-Kingambit (F) @ FocusSash
+Kingambit (M) @ LifeOrb
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Kowtow Cleave
 - Sucker Punch
-- Iron Head
-- Low Kick
+- Swords Dance
+- Protect
+
+Arcanine-Hisui (M) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
+
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- Wood Hammer
+- Grassy Glide
+- U-turn
+
+Salamence (M) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Draco Meteor
+- Tailwind
+- Protect

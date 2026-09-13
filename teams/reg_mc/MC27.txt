@@ -1,59 +1,59 @@
-Tyranitar (F) @ Tyranitarite
-Ability: SandStream
+Raichu (M) @ RaichuniteY
+Ability: LightningRod
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Knock Off
-- Ice Punch
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Zap Cannon
 - Protect
-- Rock Slide
+- Focus Blast
+- Fake Out
 
-Excadrill (M) @ FocusSash
-Ability: SandRush
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Earthquake
-- Iron Head
-- Protect
-- Swords Dance
-
-Corviknight (M) @ Leftovers
-Ability: MirrorArmor
+Kingambit (F) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Brave Bird
-- Iron Head
-- Tailwind
-- Roost
-
-Indeedee-F (F) @ SitrusBerry
-Ability: PsychicSurge
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Psychic
-- Follow Me
-- Helping Hand
+- Kowtow Cleave
+- Sucker Punch
+- Low Kick
 - Protect
-
-Sneasler (M) @ PsychicSeed
-Ability: Unburden
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Dire Claw
-- Close Combat
-- Fake Out
-- Coaching
 
 Sylveon (M) @ FairyFeather
 Ability: Pixilate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Hyper Voice
-- Moonblast
-- Protect
+- Detect
 - Quick Attack
+- Hyper Voice
+- Hyper Beam
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Psychic
+- Protect
+- Helping Hand
+- Trick Room
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Tailwind
+- Dragon Claw
+- Double-Edge
+- Dragon Dance
+
+Sneasler (M) @ FocusSash
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Close Combat
+- Dire Claw
+- Fake Out
+- Coaching

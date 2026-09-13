@@ -1,59 +1,59 @@
-Camerupt (F) @ Cameruptite
-Ability: SolidRock
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Quiet Nature
-- Ancient Power
-- Earth Power
-- Heat Wave
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Blizzard
+- Shadow Ball
+- Aurora Veil
 - Protect
 
-Lucario (F) @ LucarioniteZ
+Dragonite (F) @ Dragoninite
 Ability: InnerFocus
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Aura Sphere
-- Steel Beam
-- Flash Cannon
+- Dragon Pulse
+- Flamethrower
+- Tailwind
 - Protect
 
-Farigiraf (M) @ ColburBerry
-Ability: ArmorTail
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Relaxed Nature
-- Protect
-- Helping Hand
-- Twin Beam
-- Trick Room
-
-Incineroar (F) @ SitrusBerry
-Ability: Intimidate
-Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
-- Flare Blitz
-- Parting Shot
-- Darkest Lariat
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Gunk Shot
 - Fake Out
+- Protect
 
-Rillaboom (M) @ GrassySeed
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Head Smash
+- Flare Blitz
+- Extreme Speed
+- Protect
+
+Kingambit (F) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
+- Protect
+
+Rillaboom (F) @ SitrusBerry
 Ability: GrassySurge
 Level: 50
-EVs: 32 HP / 32 Atk / 2 Def
-Brave Nature
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
 - Wood Hammer
 - Grassy Glide
-- Fake Out
-- Low Kick
-
-Milotic (M) @ Leftovers
-Ability: Competitive
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Ice Beam
-- Life Dew
-- Protect
-- Scald
+- Superpower

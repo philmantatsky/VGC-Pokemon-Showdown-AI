@@ -1,59 +1,59 @@
-Dragonite (F) @ Dragoninite
-Ability: InnerFocus
+Charizard (M) @ CharizarditeY
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dragon Pulse
+Timid Nature
 - Heat Wave
-- Extreme Speed
-- Protect
-
-Grimmsnarl (M) @ LightClay
-Ability: Prankster
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Careful Nature
-- Spirit Break
-- Light Screen
-- Reflect
-- Parting Shot
-
-Archaludon (F) @ Leftovers
-Ability: Stamina
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Electro Shot
-- Flash Cannon
-- Snarl
-- Protect
-
-Pelipper (F) @ FocusSash
-Ability: Drizzle
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
 - Weather Ball
-- Hurricane
-- Tailwind
-- Wide Guard
+- Protect
+- Ancient Power
 
-Basculegion (M) @ ChoiceScarf
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Flip Turn
-
-Venusaur (F) @ Venusaurite
+Venusaur (M) @ LifeOrb
 Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Giga Drain
-- Sludge Bomb
+- Leaf Storm
 - Earth Power
 - Protect
+- Sludge Bomb
+
+Aegislash (M) @ FocusSash
+Ability: StanceChange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Poltergeist
+- Shadow Sneak
+- Wide Guard
+- Close Combat
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Fake Out
+- Darkest Lariat
+- Parting Shot
+- Flare Blitz
+
+Sylveon (M) @ FairyFeather
+Ability: Pixilate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Quick Attack
+- Detect
+- Yawn
+
+Garchomp (M) @ ChoiceScarf
+Ability: RoughSkin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Earthquake
+- Stomping Tantrum
+- Rock Slide
+- Dragon Claw

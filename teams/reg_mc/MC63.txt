@@ -1,59 +1,59 @@
-Froslass (F) @ Froslassite
-Ability: CursedBody
+Baxcalibur (M) @ Baxcalibrite
+Ability: ThermalExchange
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Ice Shard
+- Glaive Rush
+- Protect
+- Swords Dance
+
+Delphox (M) @ Delphoxite
+Ability: Blaze
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
+- Heat Wave
+- Psychic
+- Protect
+- Nasty Plot
+
+Ninetales-Alola (F) @ FocusSash
+Ability: SnowWarning
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Icy Wind
+- Moonblast
 - Blizzard
-- Shadow Ball
 - Aurora Veil
+
+Rillaboom (F) @ MiracleSeed
+Ability: Overgrow
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Fake Out
+- U-turn
+- Grassy Glide
 - Protect
 
-Sneasler (F) @ WhiteHerb
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
+Jolly Nature
 - Close Combat
 - Dire Claw
+- Coaching
 - Fake Out
-- Protect
 
-Lycanroc-Dusk (M) @ FocusSash
-Ability: ToughClaws
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Rock Slide
-- Close Combat
-- Accelerock
-- Protect
-
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Last Respects
-- Aqua Jet
-- Protect
-
-Kingambit (F) @ BlackGlasses
+Kingambit (M) @ LifeOrb
 Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Kowtow Cleave
 - Sucker Punch
+- Iron Head
 - Swords Dance
-- Protect
-
-Scovillain (M) @ Scovillainite
-Ability: Moody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Overheat
-- Giga Drain
-- Rage Powder
 - Protect

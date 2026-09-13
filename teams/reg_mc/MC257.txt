@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Zoroark-Hisui (M) @ BlackGlasses
+Ability: Illusion
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Icy Wind
+- Bitter Malice
+- Protect
+- Snarl
+
+Milotic (M) @ Leftovers
+Ability: Competitive
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Tailwind
-- Draco Meteor
-- Hyper Voice
 - Protect
+- Draining Kiss
+- Icy Wind
+- Scald
 
-Gholdengo @ Leftovers
-Ability: GoodasGold
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Nasty Plot
-- Make It Rain
-- Shadow Ball
-- Protect
-
-Rillaboom (F) @ OccaBerry
-Ability: GrassySurge
+Grimmsnarl (M) @ LightClay
+Ability: Prankster
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- Fake Out
-- U-turn
-- Wood Hammer
+Jolly Nature
+- Parting Shot
+- Spirit Break
+- Drain Punch
+- Light Screen
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
+Espathra (M) @ FocusSash
+Ability: SpeedBoost
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
 - Calm Mind
-- Draining Kiss
-- Moonblast
+- Stored Power
 - Protect
+- Dazzling Gleam
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Annihilape (M) @ ExpertBelt
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Last Respects
-- Wave Crash
-- Aqua Jet
-- Protect
+- Coaching
+- Drain Punch
+- Ice Punch
+- Rage Fist
 
-Arcanine-Hisui (M) @ FocusSash
-Ability: RockHead
+Araquanid (F) @ QuickClaw
+Ability: WaterBubble
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Head Smash
-- Flare Blitz
-- Extreme Speed
-- Protect
+Impish Nature
+- Leech Life
+- Crunch
+- Liquidation
+- Trailblaze

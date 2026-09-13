@@ -1,59 +1,59 @@
-Salamence (F) @ Salamencite
-Ability: Intimidate
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Double-Edge
-- Dragon Claw
-- Tailwind
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Calm Mind
+- Dazzling Gleam
+- Draining Kiss
 - Protect
 
-Sneasler (M) @ FocusSash
-Ability: PoisonTouch
+Sneasler (F) @ GrassySeed
+Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
 - Fake Out
-- Poison Jab
+- Dire Claw
 - Close Combat
-- Quick Guard
+- Swords Dance
 
-Tyranitar (F) @ ChopleBerry
-Ability: SandStream
+Kingambit (F) @ LifeOrb
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Rock Slide
-- Knock Off
-- Ice Punch
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect
 
-Rillaboom (F) @ OccaBerry
+Arcanine-Hisui (F) @ FocusSash
+Ability: RockHead
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Flare Blitz
+- Head Smash
+- Extreme Speed
+- Protect
+
+Rillaboom (M) @ OccaBerry
 Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Fake Out
-- Grassy Glide
 - Wood Hammer
+- Grassy Glide
 - U-turn
 
-Primarina (F) @ Leftovers
-Ability: LiquidVoice
+Salamence (M) @ Salamencite
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
 - Hyper Voice
-- Moonblast
-- Calm Mind
-- Protect
-
-Delphox (F) @ Delphoxite
-Ability: Magician
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Heat Wave
-- Psyshock
-- Nasty Plot
+- Draco Meteor
+- Tailwind
 - Protect

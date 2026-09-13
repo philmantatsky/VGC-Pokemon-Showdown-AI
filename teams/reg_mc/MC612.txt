@@ -1,59 +1,59 @@
-Froslass (F) @ Froslassite
-Ability: CursedBody
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
-- Blizzard
-- Shadow Ball
-- Protect
-- Aurora Veil
-
-Pawmot (M) @ FocusSash
-Ability: IronFist
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Double Shock
-- Revival Blessing
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- Fake Out
+- Protect
+
+Incineroar (M) @ ChopleBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Flare Blitz
+- Throat Chop
+- Parting Shot
 - Fake Out
 
-Indeedee (M) @ LifeOrb
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Draining Kiss
+- Dazzling Gleam
+- Calm Mind
+- Protect
+
+Indeedee-F (F) @ ColburBerry
 Ability: PsychicSurge
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Timid Nature
+Bold Nature
+- Psychic
+- Follow Me
+- Trick Room
+- Protect
+
+Farigiraf (M) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
 - Expanding Force
-- Shadow Ball
-- Protect
+- Hyper Voice
+- Trick Room
+- Helping Hand
+
+Whimsicott (F) @ FocusSash
+Ability: Prankster
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Tailwind
 - Encore
-
-Scovillain (F) @ Scovillainite
-Ability: Moody
-Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Overheat
-- Rage Powder
 - Protect
-- Leech Seed
-
-Kingambit (M) @ BlackGlasses
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Kowtow Cleave
-- Iron Head
-- Protect
-- Sucker Punch
-
-Basculegion (M) @ SitrusBerry
-Ability: Adaptability
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Wave Crash
-- Last Respects
-- Protect
-- Aqua Jet

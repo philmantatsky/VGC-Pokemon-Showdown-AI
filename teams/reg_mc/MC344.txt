@@ -18,7 +18,7 @@ Modest Nature
 - Yawn
 - Detect
 
-Garchomp (F) @ ChoiceScarf
+Garchomp (M) @ ChoiceScarf
 Ability: RoughSkin
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -38,7 +38,7 @@ Modest Nature
 - Earth Power
 - Protect
 
-Incineroar (F) @ SitrusBerry
+Incineroar (M) @ SitrusBerry
 Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe

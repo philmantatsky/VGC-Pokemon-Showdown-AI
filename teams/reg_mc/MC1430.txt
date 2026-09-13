@@ -1,0 +1,59 @@
+Rillaboom (M) @ EjectButton
+Ability: GrassySurge
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Fake Out
+- Knock Off
+- Protect
+- Grassy Glide
+
+Empoleon (F) @ GrassySeed
+Ability: Competitive
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Hydro Pump
+- Flash Cannon
+- Icy Wind
+- Protect
+
+Sneasler (F) @ WhiteHerb
+Ability: Unburden
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Close Combat
+- Fake Out
+- Dire Claw
+- Taunt
+
+Aerodactyl (F) @ Aerodactylite
+Ability: Unnerve
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Tailwind
+- Rock Slide
+- Dual Wingbeat
+- Protect
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Calm Nature
+- Trick Room
+- Psychic
+- Thunderbolt
+- Protect
+
+Staraptor (M) @ ChoiceScarf
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Final Gambit
+- Brave Bird
+- U-turn
+- Tailwind

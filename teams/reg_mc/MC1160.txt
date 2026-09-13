@@ -1,0 +1,59 @@
+Absol (M) @ AbsoliteZ
+Ability: Pressure
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Shadow Claw
+- Night Slash
+- X-Scissor
+- Protect
+
+Talonflame (F) @ Charcoal
+Ability: GaleWings
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Naive Nature
+- Tailwind
+- Dual Wingbeat
+- Overheat
+- Protect
+
+Farigiraf (F) @ SitrusBerry
+Ability: ArmorTail
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Helping Hand
+- Psychic
+- Hyper Voice
+- Thunderbolt
+
+Excadrill (F) @ LifeOrb
+Ability: MoldBreaker
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Rock Slide
+- Iron Head
+- Stomping Tantrum
+- Protect
+
+Glimmora (M) @ Glimmoranite
+Ability: ToxicDebris
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Sludge Bomb
+- Power Gem
+- Spiky Shield
+- Earth Power
+
+Primarina (F) @ Leftovers
+Ability: LiquidVoice
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Hyper Voice
+- Moonblast
+- Ice Beam
+- Protect

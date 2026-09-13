@@ -1,24 +1,24 @@
-Steelix (M) @ Steelixite
-Ability: RockHead
+Rillaboom (M) @ OccaBerry
+Ability: GrassySurge
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
-- Heavy Slam
-- High Horsepower
-- Protect
-- Rock Slide
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
 
-Tyranitar (F) @ ChopleBerry
-Ability: SandStream
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Serious Nature
-- Knock Off
-- Rock Slide
-- Low Kick
-- Protect
+Careful Nature
+- Flare Blitz
+- Will-O-Wisp
+- Parting Shot
+- Fake Out
 
-Sneasler (F) @ FocusSash
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
@@ -26,34 +26,34 @@ Adamant Nature
 - Dire Claw
 - Close Combat
 - Fake Out
-- Acrobatics
+- Swords Dance
 
-Talonflame (M) @ LifeOrb
-Ability: FlameBody
+Floette-Eternal (F) @ Floettite
+Ability: FlowerVeil
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Tailwind
-- Brave Bird
-- Flare Blitz
-- Feather Dance
-
-Rillaboom (F) @ SitrusBerry
-Ability: GrassySurge
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Grassy Glide
-- High Horsepower
-- Fake Out
-- Wood Hammer
-
-Golisopod (F) @ Golisopite
-Ability: EmergencyExit
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- First Impression
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Calm Mind
 - Protect
-- Liquidation
-- Iron Head
+
+Salamence (F) @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Hyper Voice
+- Double-Edge
+- Tailwind
+- Protect
+
+Basculegion (M) @ ChoiceScarf
+Ability: Adaptability
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn

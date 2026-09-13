@@ -1,0 +1,59 @@
+Umbreon (F) @ Leftovers
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Foul Play
+- Screech
+- Fake Tears
+- Toxic
+
+Incineroar (M) @ SitrusBerry
+Ability: Intimidate
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Careful Nature
+- Flare Blitz
+- Fake Out
+- Parting Shot
+- Protect
+
+Serperior (M) @ ChoiceScarf
+Ability: Contrary
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Leaf Storm
+- Glare
+- Giga Drain
+- Dragon Pulse
+
+Excadrill (F) @ FocusSash
+Ability: SandRush
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- High Horsepower
+- Iron Head
+- Protect
+- Rock Slide
+
+Tyranitar (F) @ Tyranitarite
+Ability: SandStream
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Impish Nature
+- Rock Slide
+- Knock Off
+- Protect
+- Low Kick
+
+Scovillain (F) @ Scovillainite
+Ability: Moody
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Bold Nature
+- Rage Powder
+- Leech Seed
+- Flamethrower
+- Giga Drain

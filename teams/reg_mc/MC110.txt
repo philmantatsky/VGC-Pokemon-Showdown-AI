@@ -1,59 +1,59 @@
-Arcanine-Hisui (F) @ FocusSash
-Ability: RockHead
+Blaziken (M) @ Blazikenite
+Ability: SpeedBoost
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Head Smash
+Adamant Nature
+- Close Combat
+- Detect
 - Flare Blitz
-- Extreme Speed
+- Rock Slide
+
+Primarina (M) @ LifeOrb
+Ability: LiquidVoice
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Hyper Voice
+- Aqua Jet
+- Moonblast
 - Protect
 
-Farigiraf (M) @ SitrusBerry
+Farigiraf (F) @ SitrusBerry
 Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Bold Nature
-- Psychic
-- Helping Hand
 - Trick Room
+- Psychic
 - Thunderbolt
+- Protect
 
-Whimsicott (F) @ FairyFeather
-Ability: Prankster
+Venusaur (M) @ OccaBerry
+Ability: Chlorophyll
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Timid Nature
-- Moonblast
-- Tailwind
-- Encore
+- Sleep Powder
+- Leaf Storm
+- Sludge Bomb
 - Protect
 
-Floette-Eternal (F) @ Floettite
-Ability: FlowerVeil
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Dazzling Gleam
-- Moonblast
-- Light of Ruin
-- Protect
-
-Staraptor (F) @ Staraptite
-Ability: Intimidate
+Kingambit (M) @ FocusSash
+Ability: Defiant
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Close Combat
-- Brave Bird
-- Roost
+Adamant Nature
 - Protect
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
 
-Basculegion (M) @ LifeOrb
-Ability: Adaptability
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Wave Crash
-- Aqua Jet
-- Last Respects
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
+- Weather Ball
+- Helping Hand
 - Protect

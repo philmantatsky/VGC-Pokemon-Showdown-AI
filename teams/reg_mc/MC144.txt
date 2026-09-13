@@ -1,59 +1,59 @@
-Alakazam (M) @ Alakazite
-Ability: Synchronize
+Froslass (F) @ Froslassite
+Ability: CursedBody
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Expanding Force
-- Focus Blast
-- Dazzling Gleam
+- Blizzard
+- Shadow Ball
+- Aurora Veil
 - Protect
 
-Indeedee-F (F) @ SitrusBerry
-Ability: PsychicSurge
+Dragonite (F) @ Dragoninite
+Ability: InnerFocus
 Level: 50
-EVs: 32 HP / 2 Def / 32 SpA
-Sassy Nature
-- Follow Me
-- Psychic
-- Helping Hand
-- Trick Room
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Dragon Pulse
+- Flamethrower
+- Tailwind
+- Protect
 
-Sneasler (M) @ PsychicSeed
+Sneasler (M) @ GrassySeed
 Ability: Unburden
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Adamant Nature
 - Close Combat
-- Dire Claw
-- Protect
-- Throat Chop
-
-Salamence (F) @ Salamencite
-Ability: Intimidate
-Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Rash Nature
-- Double-Edge
-- Draco Meteor
-- Hyper Voice
+- Gunk Shot
+- Fake Out
 - Protect
 
 Arcanine-Hisui (F) @ FocusSash
 Ability: RockHead
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
-Jolly Nature
-- Rock Slide
-- Flare Blitz
+Adamant Nature
 - Head Smash
+- Flare Blitz
+- Extreme Speed
 - Protect
 
-Gholdengo @ LifeOrb
-Ability: GoodasGold
+Rillaboom (M) @ MiracleSeed
+Ability: GrassySurge
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
-- Nasty Plot
-- Make It Rain
-- Shadow Ball
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Wood Hammer
+- Grassy Glide
+- U-turn
+- Fake Out
+
+Kingambit (M) @ LifeOrb
+Ability: Defiant
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Swords Dance
 - Protect

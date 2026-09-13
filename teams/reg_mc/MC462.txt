@@ -1,59 +1,59 @@
-Banette (F) @ Banettite
-Ability: Insomnia
+Incineroar (M) @ WhiteHerb
+Ability: Intimidate
 Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Destiny Bond
-- Poltergeist
-- Protect
-- Encore
+EVs: 32 HP / 32 Atk / 2 Def
+Brave Nature
+- Flare Blitz
+- Darkest Lariat
+- Close Combat
+- Fake Out
 
-Typhlosion-Hisui (M) @ FocusSash
-Ability: Blaze
+Farigiraf (M) @ Leftovers
+Ability: ArmorTail
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
 Modest Nature
-- Shadow Ball
+- Hyper Voice
+- Psychic
+- Trick Room
 - Protect
-- Eruption
-- Flamethrower
 
-Aerodactyl (M) @ BrightPowder
-Ability: Unnerve
+Gardevoir (M) @ Gardevoirite
+Ability: Synchronize
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Modest Nature
+- Expanding Force
+- Hyper Voice
+- Trick Room
+- Protect
+
+Maushold-Four @ WideLens
+Ability: Technician
 Level: 50
 EVs: 2 HP / 32 Atk / 32 Spe
 Jolly Nature
-- Rock Slide
-- Wide Guard
+- Population Bomb
+- Follow Me
 - Taunt
-- Tailwind
+- Protect
 
-Charizard (M) @ CharizarditeY
-Ability: Blaze
+Torkoal (F) @ Charcoal
+Ability: Drought
 Level: 50
-EVs: 2 HP / 32 SpA / 32 Spe
-Modest Nature
+EVs: 32 HP / 2 Def / 32 SpA
+Quiet Nature
+- Eruption
 - Heat Wave
 - Weather Ball
 - Protect
-- Ancient Power
 
-Venusaur (M) @ WideLens
-Ability: Chlorophyll
+Hydreigon (F) @ ChoiceScarf
+Ability: Levitate
 Level: 50
 EVs: 2 HP / 32 SpA / 32 Spe
-Bold Nature
-- Sleep Powder
-- Leech Seed
-- Protect
-- Sludge Bomb
-
-Kingambit (F) @ LifeOrb
-Ability: Defiant
-Level: 50
-EVs: 2 HP / 32 Atk / 32 Spe
-Adamant Nature
-- Swords Dance
-- Sucker Punch
-- Kowtow Cleave
-- Protect
+Modest Nature
+- Draco Meteor
+- Dark Pulse
+- Heat Wave
+- Snarl
