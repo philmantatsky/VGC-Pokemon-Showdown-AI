@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## Round 6b trained (five saves); finalist 1 screens CONFIRM with every PPO arm up; verdict reordered (2026-September 13, 15:20)
+
+Training 02:14-11:28 at 148 steps/s, callback reads (100 battles each):
+save 1 heuristic 0.89 / clone 0.86; save 2 0.85 / 0.81; save 3 0.68 / 0.87;
+save 4 0.79 / 0.92; save 5 0.71 / 0.82. Triage finalists: save 1
+(13,762,560) and the final save (17,694,720).
+
+**Finalist 13762560 screening (M-C-anchored arms, n=1,000 paired, seed
+83):** heuristic **-2.8 ± 1.5** (84.4 v 87.2, CONFIRM), frozen **+3.0**,
+rotation1 **+5.1**, rotation2 **+2.6**, human (eval_mcB_20260913, stochastic)
+**-0.3**; weighted (human x2) **+1.22pp**. The first candidate since league 1
+to lift three PPO arms at once; the fresh-seed n=1,500 confirmation of the
+heuristic arm decides.
+
+The verdict chain was killed at 15:16 and relaunched reordered
+(`verdict6_reordered.sh`, log `league6_verdict2.log`): the mcA diagnostic arm
+(pool clone as opponent) had run 2h19m at ~79 decisions/min (the gate arms
+run ~1,900/min) with the eval process CPU-bound and the server idle -- cause
+not yet understood (the eval-only clone arm, same architecture, ran at full
+speed). Order now: finalist-1 confirmation -> finalist-2 gate arms +
+confirmations -> eval_D diagnostics -> mcA diagnostics bounded to 300.
+
 ## Chain resumed on refreshed data; round 6 attempt 1 killed at its first save; round 6b on a deployed-heavy pool (2026-September 13, 02:20)
 
 - **Data refresh (00:03-00:14)**: scrape -> merged corpus of the three
