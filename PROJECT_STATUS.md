@@ -1,5 +1,32 @@
 # VGC Bot Project Status
 
+## Chain resumed on refreshed data; round 6 attempt 1 killed at its first save; round 6b on a deployed-heavy pool (2026-September 13, 02:20)
+
+- **Data refresh (00:03-00:14)**: scrape -> merged corpus of the three
+  dated scrapes; pool rebuilt to **3,609** legal M-C teams; priors retrained
+  (lead top-1 28.9%, move repertoire top-3 74.1%); trajectories A=2,066 /
+  B=2,132; dated clones `mc_A_20260913` epoch 3 (39.2% agreement on B) and
+  `eval_mcB_20260913` epoch 2 (39.9% on A, eval_only). The 09-10 clones stay
+  as they were (the clone tournament's pilot keeps its provenance).
+- **Battery smoke under the watchdog: 29/40 in 65 s** (deployed vs the M-C
+  eval clone, M-C priors live). The 09-10 hang was a stale server.
+- **Round 6 attempt 1 died at reset (00:15)**: the port-7700 server had run
+  since Sep 7, before the simulator merge, so it did not know Reg M-C and all
+  eight workers timed out ("Agent is not challenging"). Lesson recorded: every
+  launcher restarts its server from the current build.
+- **Round 6 attempt 1 (00:18-02:14), pool 40% clone: KILLED by the
+  pre-registered first-save rule.** 148 steps/s, mean episode reward 0.90
+  (the pool was too soft: an M-B-trained lineage piloting unfamiliar M-C
+  teams plus a thin clone). Save 1 (13,762,560) read eval/heuristic **0.75**
+  (kill line 0.80; every earlier round's first save read 0.82-0.89) and a
+  paired 200-battle read on the M-C pool put it at **78.0% vs the deployed
+  brain's 88.0%** on the same battles. Archived in `results_league6_attempt1/`.
+- **Round 6b (02:20)**: same recipe, pool rebalanced to the deployed brain
+  at 6 of 10 copies (incl. the resume point), M-C clone x2, old champion,
+  league-1 history -- the deployed brain is the strongest Reg M-C pilot we
+  have. The watcher now applies the first-save rule automatically (kill when
+  eval/heuristic < 0.80 AND the paired read is worse than -5pp).
+
 ## Paused at the user's word; clone tournament read; venv repaired; exhibition mode online in Reg M-C (2026-September 10, 17:55)
 
 - **01:20 pause** ("pause it rn"): the data layer had finished (scrape

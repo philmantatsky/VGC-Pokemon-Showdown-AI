@@ -1,0 +1,21 @@
+{
+  "comment": "Round 6b (2026-09-13 02:20): attempt 1 was killed at its first save (eval/heuristic 0.75 vs the 0.80 kill line; paired 200-battle read 78.0% vs the deployed brain's 88.0% on the same M-C battles) with the clone at 40% of the pool and mean episode reward 0.90 -- the pool was too soft. Rebalanced: the deployed brain (the strongest available Reg M-C pilot) at 6 of 10 copies incl. the resume point, Reg M-C clone x2, old champion, league-1 history. No adversary. Our side MB430. eval_B, eval_D, eval_mcB, eval_mcB_20260913 banned by content.",
+  "dest": "results_league6/saves_fp_hs_wt/reg_mc/seed1",
+  "resume_stem": 12779520,
+  "sources": {
+    "100": "results_bc/mc_A_20260913/saves_bc/seed1/3.zip",
+    "200": "results_bc/mc_A_20260913/saves_bc/seed1/3.zip",
+    "300": "results_repaired/champion.zip",
+    "400": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip",
+    "500": "results_league/league_champion.zip",
+    "600": "results_league/league_champion.zip",
+    "700": "results_league/league_champion.zip",
+    "800": "results_league/league_champion.zip",
+    "900": "results_league/league_champion.zip",
+    "12779520": "results_league/league_champion.zip"
+  },
+  "weights_source": "data/team_weights_regmc.json",
+  "weights_dest": "data/team_weights_regmc_league6.json",
+  "tr_boost": 1.0,
+  "eval_only_roots": ["results_bc/eval_B", "results_bc/eval_D", "results_bc/eval_mcB", "results_bc/eval_mcB_20260913"]
+}
