@@ -1,52 +1,115 @@
 # VGC Bot Project Status
 
-## Brain v1 built on branch `brain-v1`: joint-action head, threat block, reward shaping, upgrade-on-load (2026-September 10, 00:40)
+## Paused for a machine restart (2026-September 13, 15:25)
 
-NEW_BRAIN_PLAN §3 items 3.1, 3.2 and the shaping half of 3.4, behind flags
-and with the deployed weights as the starting point:
+All compute stopped at the user's word during finalist 1's heuristic
+confirmation (n=1,500, seed 8302; not finished, reruns from scratch).
+Resume = `scratchpad/verdict6_reordered.sh` (also under `training/` after
+this commit): finalist-1 confirmation -> finalist-2 gate arms ->
+diagnostics. Servers die with the restart; the runner restarts 7600 itself.
+Pool from the 09-13 scrape (3,609 teams) committed here.
 
-- **Joint-action head** (`MaskedActorCriticPolicy(joint_head=True)`): slot
-  2's logits = base logits + a zero-ended MLP of (actor latent, embedding of
-  slot 1's chosen action). `forward`/`evaluate_actions` sample and score the
-  genuine conditional; `guards.build_candidates` and the exact-search path
-  enumerate p(slot1 | slot0) through it; asking a joint-head policy for a
-  conditioned distribution without the latent raises instead of silently
-  using the marginal. `train.py --joint_head`; `convert_checkpoint.py
-  --joint-head` adds the head (drift 0 verified on the deployed weights).
-- **Threat block** (`utils.threat_obs_len = 8`, token 1197 -> 1205 floats):
-  for every ACTIVE Pokemon on both sides -- best expected incoming damage
-  and KO flag from each enemy across the field, moves-first flags (Trick
-  Room / Tailwind aware via `tempo_reranker.effective_speed`), Fake Out
-  available now, damaging priority available (Grassy Glide only under the
-  terrain). `vgc_knowledge.threat_knowledge`, memoised in
-  `PolicyPlayer._threat_for` (fingerprint includes speed stages, first-turn
-  flags, weather/field/Tailwind), counters `threat_obs_computed/nonzero`.
-- **Potential-based shaping** (`train.py --shaping_faint W --shaping_hp W`,
-  `ShowdownEnv.material_potential`): reward += Phi(s') - Phi(s), Phi := 0 at
-  the terminal state, so the episode sum is exactly the terminal +-1; both
-  weights 0 (default) leave the reward bit-identical.
-- **Upgrade on load** (`policy.upgrade_policy`, `load_state_dict_upgraded`,
-  `read_policy_state`): the live player, training resume and BC init bring
-  any older checkpoint to the current token length in memory (tail columns
-  zeroed, head zero-ended; counter `policy_upgraded_obs_len`); the deployed
-  brain, clones and lineage keep loading unchanged and play bit-identically.
-  The converter script now uses the same helpers.
-- **Team-agnostic our side**: `train.py --our_team a.txt,b.txt,...` draws our
-  team uniformly per battle; `training/run_brainv1_training.sh` +
-  `make_brainv1_config.py` (pool from the round-6 finalist, M-C clone x4,
-  self-lineage; no adversary).
-- Tests: `test_joint_head.py` (9), `test_threat_obs.py` (8),
-  `test_reward_shaping.py` (5), composition test updated; worktree suite 330
-  passed, the 5 remaining failures are the exact-simulator tests that need
-  the submodule build (absent in the worktree; re-run after merge). Live
-  smoke: the converted deployed brain played 12 M-C battles with the block
-  on (21/21 states non-zero), guards and rerankers unchanged.
-- NOT built: auxiliary heads, critic warm start, memory tokens (v1.1).
+## Round 6b trained (five saves); finalist 1 screens CONFIRM with every PPO arm up; verdict reordered (2026-September 13, 15:20)
 
-Merge rule: the branch changes the observation length for every process that
-imports the package, so it merges only between runs, never under the round-6
-chain; BC trajectories on disk must be regenerated before the next clone
-build (the M-C corpus is small, minutes).
+Training 02:14-11:28 at 148 steps/s, callback reads (100 battles each):
+save 1 heuristic 0.89 / clone 0.86; save 2 0.85 / 0.81; save 3 0.68 / 0.87;
+save 4 0.79 / 0.92; save 5 0.71 / 0.82. Triage finalists: save 1
+(13,762,560) and the final save (17,694,720).
+
+**Finalist 13762560 screening (M-C-anchored arms, n=1,000 paired, seed
+83):** heuristic **-2.8 ± 1.5** (84.4 v 87.2, CONFIRM), frozen **+3.0**,
+rotation1 **+5.1**, rotation2 **+2.6**, human (eval_mcB_20260913, stochastic)
+**-0.3**; weighted (human x2) **+1.22pp**. The first candidate since league 1
+to lift three PPO arms at once; the fresh-seed n=1,500 confirmation of the
+heuristic arm decides.
+
+The verdict chain was killed at 15:16 and relaunched reordered
+(`verdict6_reordered.sh`, log `league6_verdict2.log`): the mcA diagnostic arm
+(pool clone as opponent) had run 2h19m at ~79 decisions/min (the gate arms
+run ~1,900/min) with the eval process CPU-bound and the server idle -- cause
+not yet understood (the eval-only clone arm, same architecture, ran at full
+speed). Order now: finalist-1 confirmation -> finalist-2 gate arms +
+confirmations -> eval_D diagnostics -> mcA diagnostics bounded to 300.
+
+## Chain resumed on refreshed data; round 6 attempt 1 killed at its first save; round 6b on a deployed-heavy pool (2026-September 13, 02:20)
+
+- **Data refresh (00:03-00:14)**: scrape -> merged corpus of the three
+  dated scrapes; pool rebuilt to **3,609** legal M-C teams; priors retrained
+  (lead top-1 28.9%, move repertoire top-3 74.1%); trajectories A=2,066 /
+  B=2,132; dated clones `mc_A_20260913` epoch 3 (39.2% agreement on B) and
+  `eval_mcB_20260913` epoch 2 (39.9% on A, eval_only). The 09-10 clones stay
+  as they were (the clone tournament's pilot keeps its provenance).
+- **Battery smoke under the watchdog: 29/40 in 65 s** (deployed vs the M-C
+  eval clone, M-C priors live). The 09-10 hang was a stale server.
+- **Round 6 attempt 1 died at reset (00:15)**: the port-7700 server had run
+  since Sep 7, before the simulator merge, so it did not know Reg M-C and all
+  eight workers timed out ("Agent is not challenging"). Lesson recorded: every
+  launcher restarts its server from the current build.
+- **Round 6 attempt 1 (00:18-02:14), pool 40% clone: KILLED by the
+  pre-registered first-save rule.** 148 steps/s, mean episode reward 0.90
+  (the pool was too soft: an M-B-trained lineage piloting unfamiliar M-C
+  teams plus a thin clone). Save 1 (13,762,560) read eval/heuristic **0.75**
+  (kill line 0.80; every earlier round's first save read 0.82-0.89) and a
+  paired 200-battle read on the M-C pool put it at **78.0% vs the deployed
+  brain's 88.0%** on the same battles. Archived in `results_league6_attempt1/`.
+- **Round 6b (02:20)**: same recipe, pool rebalanced to the deployed brain
+  at 6 of 10 copies (incl. the resume point), M-C clone x2, old champion,
+  league-1 history -- the deployed brain is the strongest Reg M-C pilot we
+  have. The watcher now applies the first-save rule automatically (kill when
+  eval/heuristic < 0.80 AND the paired read is worse than -5pp).
+
+## Paused at the user's word; clone tournament read; venv repaired; exhibition mode online in Reg M-C (2026-September 10, 17:55)
+
+- **01:20 pause** ("pause it rn"): the data layer had finished (scrape
+  +1,392 replays -> merged corpus 1,615; pool 1,689 teams; M-C priors:
+  preview lead top-3 52.5%, move repertoire top-3 72.5%, switch AUC 0.60;
+  trajectories A=928 / B=998; clones `mc_A` epoch 4 (39.6% agreement on B)
+  and `eval_mcB` epoch 3 (40.4% on A, role eval_only). **Round 6 never
+  started**: the chain's battery smoke (not under the stall watchdog) sat
+  25 min with an empty log; killed with the rest. On resume the smoke runs
+  under `supervised_eval.sh`, then the round-6 build and launch.
+- **Clone tournament complete** (`results_team_tournament/clone_mcA/`,
+  `mc_A` piloting each candidate vs the weighted M-C pool played by itself,
+  300 games/team): T1 consensus six 64.3% [58.8, 69.5]; T0 MB430 62.7%
+  [57.1, 67.9]; T2 TR/Psychic Terrain 52.3%; T3 Psychic-terrain offence
+  46.3%; T4 sun 42.3%; T5 rain 28.3%. T1 and T0 are inside each other's
+  interval; the brain tournament decides. Pilot proxy only.
+- **17:50 venv dead**: Homebrew's `python@3.13` had been removed during the
+  day (3.12 and 3.14 remained), so `.venv/bin/python` was a dead symlink and
+  every script failed. `brew install python@3.13` (3.13.15) restored it in
+  place; torch/poke-env/SB3 import. Recorded in the runbook memory.
+- **17:54 exhibition mode online** (`exhibition_mode.sh`, now Reg M-C with
+  the three opt-in guards, unbuffered, yields to clone/tournament jobs):
+  logged in as antonius1, format gen9championsvgc2026regmc, awaiting
+  challenges; the M-C priors were picked up automatically through
+  `utils.prior_path`. Replays -> `ladder_replays_exhibition_mc/`.
+
+## First Reg M-C ladder read: 13-12 (52.0%), deployed brain + three guards, Reg M-B priors (2026-September 10, 00:50)
+
+25 games 23:43-00:46 (`ladder_replays_mc_guards3_20260909/`, one session,
+no dead sockets; the M-C queue matched in under a minute all night). Record
+**13-12**, six of the wins by opponent forfeit; opponents averaged ~1110 Elo
+(the M-C ladder is a day old; ours started at 1000, 1128 at the end). Not a
+climb claim -- 25 games is a non-regression read -- but the bot is not
+collapsing on a format it never trained on: loss profile
+(`results_analysis/loss_profile_mc_read_20260910.*`) reads like the M-B one
+in miniature: first faint ours -> 12.5% (1/8) vs 70.6%; >= 2 super-effective
+hits -> 77.8% vs 37.5%; we set Tailwind by turn 2 -> 69.2% vs 33.3%;
+opponents bringing Salamence 1/5, Indeedee-F 2/6, Sneasler 4/10, Rillaboom
+5/11; losses average 4.0 faints for us vs 1.75 for them. Hit effectiveness:
+our attacks 18% super-effective / 16% resisted vs opponents' 35% / 15% --
+the coverage gap is the meta's, the resisted share is now the guards'.
+
+**The guards fired for real.** 232 decisions: `resisted_target` promoted a
+re-aimed twin 21 times (9% of decisions), `overkill_split` 11 times,
+`dominated_weather_ball_weather` 2; our single-target attacks into a
+resisting foe with a second foe on the field fell to **5/79 (6.3%)** from
+15% in the August/September reads. No traceback, no stall, no illegal order.
+
+Chain `after_ladder_mc.sh` took over at 00:47 (tally done; scrape running):
+M-C data layer -> clones -> battery smoke -> round 6. The clone tournament
+waits for the clone (`team_tournament_clone.log`); the round-6 first-save
+watch is armed (`round6_watch.log`).
 
 ## Reg M-C program opened: the first M-C ladder read is running; design doc, loss profile, data-layer chain (2026-September 10, 00:05)
 
