@@ -1,0 +1,2495 @@
+{
+ "tables": {
+  "n": 25,
+  "wins": 13,
+  "by_opp_species": {
+   "Salamence": [
+    1,
+    5
+   ],
+   "Indeedee-F": [
+    2,
+    6
+   ],
+   "Sneasler": [
+    4,
+    10
+   ],
+   "Rillaboom": [
+    5,
+    11
+   ],
+   "Lucario": [
+    2,
+    4
+   ]
+  },
+  "by_opp_lead": {
+   "('Rillaboom', 'Sneasler')": [
+    1,
+    3
+   ]
+  },
+  "by_our_lead": {
+   "('Charizard', 'Garchomp')": [
+    3,
+    8
+   ],
+   "('Basculegion', 'Whimsicott')": [
+    9,
+    14
+   ]
+  },
+  "by_our_bring": {
+   "('Basculegion', 'Charizard', 'Garchomp', 'Whimsicott')": [
+    7,
+    17
+   ]
+  },
+  "by_first_faint_species": {
+   "Garchomp": [
+    0,
+    5
+   ]
+  },
+  "by_our_tera": {},
+  "by_opp_tera": {}
+ },
+ "games": [
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 8,
+   "our_rating": 1000,
+   "opp_rating": 1068,
+   "opp_name": "haruto18062001",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Lucario",
+    "Rillaboom",
+    "Incineroar",
+    "Kingambit",
+    "Palafin",
+    "Farigiraf"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Palafin",
+    "Incineroar"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_brought": [
+    "Palafin",
+    "Incineroar",
+    "Rillaboom",
+    "Palafin-Hero",
+    "Lucario"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Incineroar",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Basculegion",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 4,
+   "weather": [
+    [
+     4,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     4,
+     "Lucario"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 5,
+   "our_se": 1,
+   "opp_se": 4,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 9,
+   "battle": "battle-gen9championsvgc2026regmc-2678485635",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 13,
+   "demoted_chosen": 0,
+   "guard_changes": 4,
+   "low_conf": 1
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1000,
+   "opp_rating": 1000,
+   "opp_name": "swish1984",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Salamence",
+    "Rillaboom",
+    "Incineroar",
+    "Farigiraf",
+    "Volcarona",
+    "Primarina"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Farigiraf",
+    "Salamence"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_brought": [
+    "Farigiraf",
+    "Salamence",
+    "Rillaboom",
+    "Primarina"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 3,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Whimsicott",
+    "Basculegion",
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 2,
+   "weather": [
+    [
+     5,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     5,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     2,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 2,
+   "opp_resisted": 2,
+   "our_immune": 1,
+   "opp_immune": 1,
+   "our_attacks": 7,
+   "opp_attacks": 10,
+   "battle": "battle-gen9championsvgc2026regmc-2678486794",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 12,
+   "demoted_chosen": 0,
+   "guard_changes": 5,
+   "low_conf": 0
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1000,
+   "opp_rating": 1102,
+   "opp_name": "Shawnbon22",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Delphox",
+    "Sneasler",
+    "Maushold-Four",
+    "Rillaboom",
+    "Salamence",
+    "Incineroar"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Maushold-Four",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_brought": [
+    "Maushold-Four",
+    "Sneasler",
+    "Rillaboom",
+    "Delphox"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Maushold-Four",
+   "our_faints": 3,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Basculegion",
+    "Whimsicott",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 1,
+   "weather": [
+    [
+     3,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     4,
+     "Delphox"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 3,
+   "opp_se": 2,
+   "our_resisted": 1,
+   "opp_resisted": 2,
+   "our_immune": 1,
+   "opp_immune": 1,
+   "our_attacks": 7,
+   "opp_attacks": 8,
+   "battle": "battle-gen9championsvgc2026regmc-2678487888",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 10,
+   "demoted_chosen": 0,
+   "guard_changes": 3,
+   "low_conf": 2
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1051,
+   "opp_rating": 1048,
+   "opp_name": "hdgdhhrhrb",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Torkoal",
+    "Vileplume",
+    "Indeedee-F",
+    "Salamence",
+    "Hatterene",
+    "Mawile"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Indeedee-F",
+    "Hatterene"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Charizard",
+    "Basculegion",
+    "Garchomp"
+   ],
+   "opp_brought": [
+    "Indeedee-F",
+    "Hatterene",
+    "Torkoal",
+    "Mawile"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Charizard",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Charizard",
+    "Whimsicott",
+    "Basculegion",
+    "Garchomp"
+   ],
+   "opp_tr": true,
+   "opp_tr_turn": 1,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     1,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     4,
+     "Mawile"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 2,
+   "our_resisted": 0,
+   "opp_resisted": 3,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 7,
+   "battle": "battle-gen9championsvgc2026regmc-2678489086",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 10,
+   "demoted_chosen": 0,
+   "guard_changes": 5,
+   "low_conf": 3
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 1,
+   "our_rating": 1033,
+   "opp_rating": 1107,
+   "opp_name": "dietspritezero",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Whimsicott",
+    "Lucario",
+    "Mimikyu",
+    "Blastoise",
+    "Rillaboom",
+    "Gholdengo"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Rillaboom",
+    "Gholdengo"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_brought": [
+    "Rillaboom",
+    "Gholdengo"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Gholdengo",
+   "our_faints": 1,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Basculegion"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 1,
+   "weather": [],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 0,
+   "our_se": 0,
+   "opp_se": 1,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 1,
+   "opp_attacks": 1,
+   "battle": "battle-gen9championsvgc2026regmc-2678489430-qcf2oaoxv4aebwaj2qxacly50kai45ppw",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 5,
+   "demoted_chosen": 0,
+   "guard_changes": 0,
+   "low_conf": 0
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1075,
+   "opp_rating": 1125,
+   "opp_name": "ev_evan",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Espathra",
+    "Lucario",
+    "Sinistcha",
+    "Aerodactyl",
+    "Indeedee-F",
+    "Incineroar"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Aerodactyl",
+    "Espathra"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Aerodactyl",
+    "Espathra",
+    "Indeedee-F",
+    "Lucario"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Indeedee-F",
+   "our_faints": 2,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 1,
+   "weather": [
+    [
+     5,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     5,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     5,
+     "Lucario"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 3,
+   "our_se": 2,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 1,
+   "our_attacks": 6,
+   "opp_attacks": 4,
+   "battle": "battle-gen9championsvgc2026regmc-2678489887",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 10,
+   "demoted_chosen": 0,
+   "guard_changes": 4,
+   "low_conf": 1
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 10,
+   "our_rating": 1108,
+   "opp_rating": 1128,
+   "opp_name": "TREY_NJVGC",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Indeedee-F",
+    "Volcarona",
+    "Gardevoir",
+    "Kingambit",
+    "Sinistcha",
+    "Rotom-Wash"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Rotom-Wash",
+    "Volcarona"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_brought": [
+    "Rotom-Wash",
+    "Volcarona",
+    "Indeedee-F",
+    "Gardevoir"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Basculegion",
+   "our_faints": 3,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Basculegion",
+    "Whimsicott",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 1,
+   "weather": [
+    [
+     4,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     8,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     5,
+     "Gardevoir"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 7,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 1,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 12,
+   "opp_attacks": 5,
+   "battle": "battle-gen9championsvgc2026regmc-2678490597",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 15,
+   "demoted_chosen": 0,
+   "guard_changes": 5,
+   "low_conf": 1
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 3,
+   "our_rating": 1134,
+   "opp_rating": 1041,
+   "opp_name": "Remo26",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Rillaboom",
+    "Baxcalibur",
+    "Scovillain",
+    "Aerodactyl",
+    "Farigiraf",
+    "Empoleon"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Scovillain",
+    "Baxcalibur"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Scovillain",
+    "Baxcalibur",
+    "Aerodactyl",
+    "Empoleon"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Scovillain",
+   "our_faints": 1,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Whimsicott"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 1,
+   "weather": [
+    [
+     3,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Baxcalibur"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 1,
+   "our_switches": 1,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 2,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 2,
+   "battle": "battle-gen9championsvgc2026regmc-2678491770",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 7,
+   "demoted_chosen": 0,
+   "guard_changes": 3,
+   "low_conf": 0
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 4,
+   "our_rating": 1152,
+   "opp_rating": 1074,
+   "opp_name": "orizu",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Golisopod",
+    "Pelipper",
+    "Archaludon",
+    "Rillaboom",
+    "Pawmot",
+    "Farigiraf"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Rillaboom",
+    "Pawmot"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard",
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_brought": [
+    "Rillaboom",
+    "Pawmot",
+    "Pelipper",
+    "Golisopod"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Rillaboom",
+   "our_faints": 2,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": true,
+   "our_tailwind": true,
+   "our_tailwind_turn": 3,
+   "weather": [
+    [
+     1,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     1,
+     "RainDance",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Golisopod"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 3,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 4,
+   "battle": "battle-gen9championsvgc2026regmc-2678492448-6jqdqx8kh7t4q2scjitwdi0dqkej51qpw",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 8,
+   "demoted_chosen": 0,
+   "guard_changes": 3,
+   "low_conf": 1
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 3,
+   "our_rating": 1171,
+   "opp_rating": 1159,
+   "opp_name": "Ghostoryx",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Froslass",
+    "Salamence",
+    "Incineroar",
+    "Rillaboom",
+    "Sneasler",
+    "Basculegion"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Rillaboom",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_brought": [
+    "Rillaboom",
+    "Sneasler",
+    "Basculegion",
+    "Froslass"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Sneasler",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Basculegion",
+    "Whimsicott",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     2,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     3,
+     "Snowscape",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Froslass"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 5,
+   "our_resisted": 1,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 6,
+   "battle": "battle-gen9championsvgc2026regmc-2678493078",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 8,
+   "demoted_chosen": 0,
+   "guard_changes": 2,
+   "low_conf": 1
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1145,
+   "opp_rating": 1204,
+   "opp_name": "Oscarm92",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Tyranitar",
+    "Excadrill",
+    "Sneasler",
+    "Gholdengo",
+    "Salamence",
+    "Indeedee"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Tyranitar",
+    "Excadrill"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard",
+    "Whimsicott"
+   ],
+   "opp_brought": [
+    "Tyranitar",
+    "Excadrill",
+    "Indeedee",
+    "Sneasler"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Tyranitar",
+   "our_faints": 1,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 5,
+   "weather": [
+    [
+     0,
+     "Sandstorm",
+     "p2"
+    ],
+    [
+     2,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     2,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 1,
+   "opp_switches": 2,
+   "our_se": 4,
+   "opp_se": 1,
+   "our_resisted": 0,
+   "opp_resisted": 2,
+   "our_immune": 0,
+   "opp_immune": 1,
+   "our_attacks": 7,
+   "opp_attacks": 6,
+   "battle": "battle-gen9championsvgc2026regmc-2678493798",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 9,
+   "demoted_chosen": 0,
+   "guard_changes": 4,
+   "low_conf": 2
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 2,
+   "our_rating": 1174,
+   "opp_rating": 1087,
+   "opp_name": "YOURFRIENDLEMON",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Golisopod",
+    "Farigiraf",
+    "Basculegion",
+    "Salamence",
+    "Torkoal",
+    "Sneasler"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Golisopod",
+    "Farigiraf"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Golisopod",
+    "Farigiraf",
+    "Torkoal"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 0,
+   "opp_faints": 2,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     1,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Golisopod"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 1,
+   "our_se": 1,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 2,
+   "our_immune": 0,
+   "opp_immune": 1,
+   "our_attacks": 6,
+   "opp_attacks": 2,
+   "battle": "battle-gen9championsvgc2026regmc-2678494582",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 5,
+   "demoted_chosen": 0,
+   "guard_changes": 2,
+   "low_conf": 3
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 5,
+   "our_rating": 1193,
+   "opp_rating": 1179,
+   "opp_name": "Photoshop Kirk",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Hydreigon",
+    "Mamoswine",
+    "Absol",
+    "Golisopod",
+    "Rotom-Wash",
+    "Talonflame"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Talonflame",
+    "Absol"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Charizard",
+    "Garchomp",
+    "Basculegion"
+   ],
+   "opp_brought": [
+    "Talonflame",
+    "Absol",
+    "Hydreigon",
+    "Mamoswine"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Absol",
+   "our_faints": 2,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Whimsicott",
+    "Garchomp"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": true,
+   "our_tailwind": true,
+   "our_tailwind_turn": 2,
+   "weather": [
+    [
+     1,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Absol"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 2,
+   "opp_se": 2,
+   "our_resisted": 2,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 6,
+   "battle": "battle-gen9championsvgc2026regmc-2678494886",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 10,
+   "demoted_chosen": 0,
+   "guard_changes": 4,
+   "low_conf": 3
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1217,
+   "opp_rating": 1291,
+   "opp_name": "thepoopdoctor11",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Golisopod",
+    "Sneasler",
+    "Kingambit",
+    "Salamence",
+    "Basculegion",
+    "Rillaboom"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Sneasler",
+    "Salamence"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard",
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_brought": [
+    "Sneasler",
+    "Salamence",
+    "Rillaboom"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Garchomp",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Garchomp",
+    "Whimsicott",
+    "Charizard",
+    "Basculegion"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     2,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 1,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 11,
+   "battle": "battle-gen9championsvgc2026regmc-2678495302",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 10,
+   "demoted_chosen": 0,
+   "guard_changes": 1,
+   "low_conf": 0
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1197,
+   "opp_rating": 1108,
+   "opp_name": "sonoffin",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Floette-Eternal",
+    "Whimsicott",
+    "Incineroar",
+    "Rillaboom",
+    "Kingambit",
+    "Salamence"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Floette-Eternal",
+    "Salamence"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_brought": [
+    "Floette-Eternal",
+    "Salamence",
+    "Rillaboom",
+    "Incineroar"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Floette-Eternal",
+   "our_faints": 2,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": true,
+   "our_tailwind": true,
+   "our_tailwind_turn": 2,
+   "weather": [
+    [
+     3,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Floette"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 5,
+   "our_se": 2,
+   "opp_se": 4,
+   "our_resisted": 4,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 10,
+   "opp_attacks": 9,
+   "battle": "battle-gen9championsvgc2026regmc-2678495948",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 12,
+   "demoted_chosen": 0,
+   "guard_changes": 5,
+   "low_conf": 2
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1216,
+   "opp_rating": 1131,
+   "opp_name": "UtterlyIncapable",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Lucario",
+    "Rillaboom",
+    "Mamoswine",
+    "Kingambit",
+    "Sneasler",
+    "Farigiraf"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Lucario",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Lucario",
+    "Sneasler",
+    "Rillaboom",
+    "Lucario-Mega-Z"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Whimsicott",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 2,
+   "weather": [
+    [
+     4,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Lucario"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 1,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 7,
+   "battle": "battle-gen9championsvgc2026regmc-2678496960",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 9,
+   "demoted_chosen": 0,
+   "guard_changes": 2,
+   "low_conf": 3
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1185,
+   "opp_rating": 1116,
+   "opp_name": "povertykid",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Staraptor",
+    "Whimsicott",
+    "Absol",
+    "Indeedee-F",
+    "Armarouge",
+    "Torkoal"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Indeedee-F",
+    "Armarouge"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard",
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "opp_brought": [
+    "Indeedee-F",
+    "Armarouge",
+    "Whimsicott"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Garchomp",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Garchomp",
+    "Charizard",
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "opp_tr": true,
+   "opp_tr_turn": 1,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     1,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 2,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 1,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 1,
+   "our_attacks": 3,
+   "opp_attacks": 5,
+   "battle": "battle-gen9championsvgc2026regmc-2678498133",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 9,
+   "demoted_chosen": 0,
+   "guard_changes": 5,
+   "low_conf": 1
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 4,
+   "our_rating": 1155,
+   "opp_rating": 1140,
+   "opp_name": "Indigoesareblue",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Rillaboom",
+    "Sneasler",
+    "Incineroar",
+    "Floette-Eternal",
+    "Blastoise",
+    "Indeedee-F"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Sneasler",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Basculegion",
+    "Charizard",
+    "Floette-Eternal"
+   ],
+   "opp_brought": [
+    "Sneasler",
+    "Rillaboom",
+    "Indeedee-F"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Garchomp",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Garchomp",
+    "Basculegion",
+    "Floette-Eternal",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     3,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 1,
+   "our_se": 0,
+   "opp_se": 2,
+   "our_resisted": 0,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 3,
+   "opp_attacks": 7,
+   "battle": "battle-gen9championsvgc2026regmc-2678498596-5htnbuewgpvknvqt20t1gemnx2s3kclpw",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 9,
+   "demoted_chosen": 0,
+   "guard_changes": 3,
+   "low_conf": 2
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1129,
+   "opp_rating": 1052,
+   "opp_name": "pookiewookielookie",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Ceruledge",
+    "Maushold-Four",
+    "Indeedee-F",
+    "Armarouge",
+    "Lucario",
+    "Sinistcha-Masterpiece"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Indeedee-F",
+    "Armarouge"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard",
+    "Basculegion",
+    "Floette-Eternal"
+   ],
+   "opp_brought": [
+    "Indeedee-F",
+    "Armarouge",
+    "Maushold-Four",
+    "Ceruledge"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Garchomp",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Garchomp",
+    "Charizard",
+    "Basculegion",
+    "Floette-Eternal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     1,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 1,
+   "our_resisted": 4,
+   "opp_resisted": 0,
+   "our_immune": 1,
+   "opp_immune": 1,
+   "our_attacks": 7,
+   "opp_attacks": 12,
+   "battle": "battle-gen9championsvgc2026regmc-2678499308",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 9,
+   "demoted_chosen": 0,
+   "guard_changes": 4,
+   "low_conf": 1
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 2,
+   "our_rating": 1099,
+   "opp_rating": 1055,
+   "opp_name": "KimeraIce",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Sinistcha",
+    "Kingambit",
+    "Kangaskhan",
+    "Aerodactyl"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Blastoise",
+    "Farigiraf"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_brought": [
+    "Blastoise",
+    "Farigiraf"
+   ],
+   "first_faint_ours": null,
+   "first_faint_turn": null,
+   "first_faint_species": null,
+   "our_faints": 0,
+   "opp_faints": 0,
+   "our_faint_species": [],
+   "opp_tr": true,
+   "opp_tr_turn": 1,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 0,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 2,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 2,
+   "opp_attacks": 2,
+   "battle": "battle-gen9championsvgc2026regmc-2678499796",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 5,
+   "demoted_chosen": 0,
+   "guard_changes": 2,
+   "low_conf": 1
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1121,
+   "opp_rating": 1099,
+   "opp_name": "Buttologist",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Tyranitar",
+    "Excadrill",
+    "Gholdengo",
+    "Indeedee",
+    "Sneasler",
+    "Salamence"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Indeedee",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard",
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_brought": [
+    "Indeedee",
+    "Sneasler",
+    "Tyranitar",
+    "Excadrill"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Sneasler",
+   "our_faints": 4,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Garchomp",
+    "Charizard",
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 3,
+   "weather": [
+    [
+     1,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     2,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 2,
+   "opp_se": 1,
+   "our_resisted": 1,
+   "opp_resisted": 3,
+   "our_immune": 0,
+   "opp_immune": 1,
+   "our_attacks": 6,
+   "opp_attacks": 9,
+   "battle": "battle-gen9championsvgc2026regmc-2678500593",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 9,
+   "demoted_chosen": 0,
+   "guard_changes": 4,
+   "low_conf": 2
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 6,
+   "our_rating": 1094,
+   "opp_rating": 1040,
+   "opp_name": "l3Step",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Salamence",
+    "Rillaboom",
+    "Sneasler",
+    "Arcanine-Hisui",
+    "Kingambit",
+    "Basculegion"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Sneasler",
+    "Arcanine-Hisui"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Sneasler",
+    "Arcanine-Hisui",
+    "Salamence",
+    "Kingambit"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Sneasler",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard",
+    "Garchomp"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": true,
+   "our_tailwind": true,
+   "our_tailwind_turn": 1,
+   "weather": [
+    [
+     4,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     5,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 4,
+   "our_se": 1,
+   "opp_se": 3,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 2,
+   "opp_immune": 1,
+   "our_attacks": 4,
+   "opp_attacks": 5,
+   "battle": "battle-gen9championsvgc2026regmc-2678501413",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 10,
+   "demoted_chosen": 0,
+   "guard_changes": 3,
+   "low_conf": 1
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 3,
+   "our_rating": 1066,
+   "opp_rating": 1040,
+   "opp_name": "imgonnalosefs",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Lucario",
+    "Rillaboom",
+    "Sneasler",
+    "Incineroar",
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Rillaboom",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Rillaboom",
+    "Sneasler",
+    "Lucario",
+    "Basculegion"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Sneasler",
+   "our_faints": 1,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Basculegion"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 1,
+   "weather": [
+    [
+     2,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     2,
+     "Lucario"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 0,
+   "our_switches": 1,
+   "opp_switches": 2,
+   "our_se": 3,
+   "opp_se": 1,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 1,
+   "battle": "battle-gen9championsvgc2026regmc-2678502512",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 7,
+   "demoted_chosen": 0,
+   "guard_changes": 3,
+   "low_conf": 2
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1094,
+   "opp_rating": 1208,
+   "opp_name": "Inner won",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Floette-Eternal",
+    "Sneasler",
+    "Kingambit",
+    "Basculegion",
+    "Charizard",
+    "Whimsicott"
+   ],
+   "our_leads": [
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_leads": [
+    "Sneasler",
+    "Whimsicott"
+   ],
+   "our_brought": [
+    "Whimsicott",
+    "Basculegion",
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Sneasler",
+    "Whimsicott",
+    "Basculegion",
+    "Floette-Eternal"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Sneasler",
+   "our_faints": 3,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Whimsicott",
+    "Basculegion",
+    "Garchomp"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": true,
+   "our_tailwind": true,
+   "our_tailwind_turn": 2,
+   "weather": [
+    [
+     4,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Floette"
+    ]
+   ],
+   "our_protects": 0,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 2,
+   "opp_se": 2,
+   "our_resisted": 0,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 5,
+   "battle": "battle-gen9championsvgc2026regmc-2678502967",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 9,
+   "demoted_chosen": 0,
+   "guard_changes": 4,
+   "low_conf": 2
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1128,
+   "opp_rating": 1136,
+   "opp_name": "shaboieng",
+   "our_roster": [
+    "Floette-Eternal",
+    "Charizard",
+    "Whimsicott",
+    "Garchomp",
+    "Basculegion",
+    "Kingambit"
+   ],
+   "opp_roster": [
+    "Tyranitar",
+    "Salamence",
+    "Excadrill",
+    "Milotic",
+    "Gholdengo",
+    "Rillaboom"
+   ],
+   "our_leads": [
+    "Garchomp",
+    "Charizard"
+   ],
+   "opp_leads": [
+    "Salamence",
+    "Gholdengo"
+   ],
+   "our_brought": [
+    "Garchomp",
+    "Charizard",
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "opp_brought": [
+    "Salamence",
+    "Gholdengo",
+    "Tyranitar",
+    "Excadrill",
+    "Salamence-Mega"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Garchomp",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Garchomp",
+    "Charizard",
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": true,
+   "our_tailwind_turn": 2,
+   "weather": [
+    [
+     2,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     2,
+     "Sandstorm",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 3,
+   "opp_protects": 4,
+   "our_switches": 2,
+   "opp_switches": 4,
+   "our_se": 2,
+   "opp_se": 4,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 6,
+   "battle": "battle-gen9championsvgc2026regmc-2678504024",
+   "dir": "ladder_replays_mc_guards3_20260909",
+   "decisions": 12,
+   "demoted_chosen": 0,
+   "guard_changes": 6,
+   "low_conf": 3
+  }
+ ]
+}

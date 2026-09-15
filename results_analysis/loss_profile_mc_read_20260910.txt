@@ -1,0 +1,78 @@
+
+===== pooled: ladder_replays_mc_guards3_20260909 =====
+games 25: 13/25 =  52.0%   forfeits 6
+
+means                     wins    losses
+  turns                     4.38    5.42
+  opp_rating             1112.15 1106.67
+  our_faints                1.62    4.00
+  opp_faints                3.00    1.75
+  first_faint_turn          1.25    1.83
+  our_protects              0.38    1.17
+  opp_protects              1.08    1.00
+  our_switches              1.31    2.00
+  opp_switches              1.92    2.33
+  our_se                    1.62    0.92
+  opp_se                    1.46    2.33
+  our_resisted              0.69    1.25
+  opp_resisted              0.85    0.92
+  our_immune                0.08    0.33
+  our_attacks               5.85    5.00
+  opp_attacks               4.23    7.83
+  decisions                 8.62   10.00
+  demoted_chosen            0.00    0.00
+  guard_changes             3.23    3.67
+  low_conf                  1.54    1.50
+
+splits (win rate when condition holds vs not)
+  first faint ours                       yes 1/8 =  12.5%       no 12/17 =  70.6%
+  opponent set Trick Room                yes 1/3 =  33.3%       no 12/22 =  54.5%
+  opponent set Tailwind                  yes 4/5 =  80.0%       no 9/20 =  45.0%
+  we set Tailwind                        yes 11/17 =  64.7%     no 2/8 =  25.0%
+  we set Tailwind by turn 2              yes 9/13 =  69.2%      no 4/12 =  33.3%
+  we terastallized                       yes 0/0                no 13/25 =  52.0%
+  opponent terastallized                 yes 0/0                no 13/25 =  52.0%
+  we mega evolved                        yes 11/23 =  47.8%     no 2/2 = 100.0%
+  opponent mega evolved                  yes 11/20 =  55.0%     no 2/5 =  40.0%
+  opponent rating >= 1200                yes 2/3 =  66.7%       no 11/22 =  50.0%
+  opponent rating >= 1300                yes 0/0                no 13/25 =  52.0%
+  game <= 6 turns                        yes 11/20 =  55.0%     no 2/5 =  40.0%
+  game >= 12 turns                       yes 0/0                no 13/25 =  52.0%
+  our SE hits >= 2                       yes 7/9 =  77.8%       no 6/16 =  37.5%
+  our resisted hits >= 2                 yes 2/6 =  33.3%       no 11/19 =  57.9%
+  we switched >= 2 times                 yes 7/19 =  36.8%      no 6/6 = 100.0%
+  opp switched >= 2 times                yes 10/19 =  52.6%     no 3/6 =  50.0%
+  guard changed a pick                   yes 0/0                no 13/25 =  52.0%
+
+blowouts: losses by our remaining mons (4 brought - faints)
+  opp mons left when we lost: {1: 1, 2: 7, 3: 4}
+  our mons left when we won: {1: 3, 2: 4, 3: 4, 4: 2}
+
+win rate when the opponent BROUGHT species (n >= 4; worst first)
+  Salamence                                    1/5 =  20.0%
+  Indeedee-F                                   2/6 =  33.3%
+  Sneasler                                     4/10 =  40.0%
+  Rillaboom                                    5/11 =  45.5%
+  Lucario                                      2/4 =  50.0%
+
+win rate vs opponent lead pair (n >= 3; worst first)
+  ('Rillaboom', 'Sneasler')                    1/3 =  33.3%
+
+win rate by OUR lead pair (n >= 3; worst first)
+  ('Charizard', 'Garchomp')                    3/8 =  37.5%
+  ('Basculegion', 'Whimsicott')                9/14 =  64.3%
+
+win rate by OUR brought four (n >= 3; worst first)
+  ('Basculegion', 'Charizard', 'Garchomp', 'Whimsicott') 7/17 =  41.2%
+
+first faint species (ours) -> win rate (n >= 3; worst first)
+  Garchomp                                     0/5 =   0.0%
+
+our tera species -> win rate (n >= 3; worst first)
+
+opponent tera species -> win rate (n >= 3; worst first)
+
+our lead pairs (frequency): [(('Basculegion', 'Whimsicott'), 14), (('Charizard', 'Garchomp'), 8), (('Charizard', 'Whimsicott'), 2), (('Basculegion', 'Garchomp'), 1)]
+opponent repeated (>=2 games): []
+
+wrote results_analysis/loss_profile_mc_read_20260910.json
