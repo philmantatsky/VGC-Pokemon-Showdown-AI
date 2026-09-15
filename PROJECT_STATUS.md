@@ -1,5 +1,35 @@
 # VGC Bot Project Status
 
+## Brain v1 merged and training team-agnostic on the six candidate teams (2026-September 15, 02:55)
+
+- **Merged `brain-v1` into main** (e3071c8) between runs, as required; the
+  one conflict (PROJECT_STATUS) resolved on main's log. Full suite on the
+  merged code: **378 passed**, including the five exact-simulator tests the
+  worktree could not run.
+- **Loader fix found by the first evaluation (7792010):** SB3 rebuilds a
+  stored checkpoint's network from the module constant for the token width,
+  so the pre-merge deployed brain (1,197 floats per token) could not be
+  loaded at all under the new width (1,205). `AttentionExtractor` now sizes
+  `pokemon_proj` from the observation space it is given -- a stored
+  checkpoint comes back at its own width and `upgrade_policy` extends it in
+  memory (counter `policy_upgraded_obs_len`); the outcome-value and
+  BC-agreement loaders upgrade too. Verified live: the deployed checkpoint
+  loads, upgrades (1197 -> 1205, value bit-identical at 0.0988) and plays
+  with the threat block active (52/52 states non-zero).
+- **Kill-line baseline** (deployed brain vs the scripted opponent, 150
+  battles per candidate team): T0 MB430 0.887, T1 0.273, T2 0.500, T3 0.300,
+  T4 0.433, T5 0.387; mean **0.463**, kill line 0.363 (mean - 10pp). The
+  team-agnostic eval averages over the six teams, so 0.46 is "no change".
+- **Training launched 02:48** (`run_brainv1_training.sh`, log
+  `brainv1_024826.log`): joint head on, shaping 0.10 faint / 0.05 HP,
+  our side uniform over T0-T5, deployed-heavy pool (deployed x6 incl. resume,
+  M-C clone x2, old champion, league-1 history), +8 intervals to 20,643,840.
+  Resume upgraded in place (copied 127 tensors, zero-extended 3, added 5).
+  First rollouts: **153 steps/s** (the threat block costs nothing
+  measurable), approx_kl 0.026, clip 0.09, value loss 2.9 (the critic
+  recalibrating to shaped returns). First save ~04:40; the watcher applies
+  the first-save rule (kill line 0.363 AND paired -5pp on MB430).
+
 ## Round 6b verdict: both finalists FAIL on the scripted arm; the final save is +5.0 vs the M-C human clone and +2.9..+8.4 vs every PPO arm; brain tournament: the deployed brain is an MB430 specialist (2026-September 15, 02:00)
 
 **Finalist 13762560 (save 1)** -- fresh-seed confirmation of the heuristic
