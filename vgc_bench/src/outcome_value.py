@@ -65,6 +65,10 @@ class OutcomeValueEvaluator:
         mechanics_weight: float = 0.10,
     ) -> "OutcomeValueEvaluator":
         model = PPO.load(checkpoint, device=device)
+        from vgc_bench.src.policy import MaskedActorCriticPolicy, upgrade_policy
+
+        if isinstance(model.policy, MaskedActorCriticPolicy):
+            model.policy, _changed = upgrade_policy(model.policy)
         metrics_path = checkpoint.with_suffix(".metrics.json")
         payload = json.loads(metrics_path.read_text())
         return cls(

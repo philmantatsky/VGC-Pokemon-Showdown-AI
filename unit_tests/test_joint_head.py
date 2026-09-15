@@ -260,3 +260,48 @@ def test_upgrade_policy_brings_an_older_policy_to_the_current_layout() -> None:
     assert torch.equal(a_old, a_new)
     assert torch.allclose(v_old, v_new)
     assert torch.allclose(lp_old, lp_new)
+
+
+def test_extractor_width_follows_the_given_observation_space() -> None:
+    """A stored checkpoint is rebuilt by SB3 from its SAVED observation space;
+    the extractor must size pokemon_proj from that space, so an older
+    (shorter-token) checkpoint loads with its own width and is then upgraded."""
+    old_len = chunk_obs_len - threat_obs_len
+    old_space = spaces.Dict(
+        {
+            "observation": spaces.Box(
+                -1, len(moves), shape=(12 * old_len,), dtype=np.float32
+            ),
+            "action_mask": spaces.Box(0, 1, shape=(2 * act_len,), dtype=np.int64),
+        }
+    )
+    torch.manual_seed(3)
+    old = MaskedActorCriticPolicy(
+        old_space, ACT_SPACE, lambda _: 3e-4, d_model=32, choose_on_teampreview=True
+    )
+    assert old.features_extractor.pokemon_proj.in_features == old_len + 6 * 31
+    upgraded, changed = upgrade_policy(old)
+    assert changed
+    assert upgraded.features_extractor.pokemon_proj.in_features == (
+        chunk_obs_len + 6 * 31
+    )
+    torch.manual_seed(11)
+    short = torch.rand(2, 12 * old_len) * 0.5
+    full = torch.cat(
+        [
+            short.view(2, 12, old_len),
+            torch.zeros(2, 12, threat_obs_len),
+        ],
+        dim=2,
+    ).reshape(2, -1)
+    mask = torch.ones(2, 2 * act_len)
+    with torch.no_grad():
+        a_old, v_old, lp_old = old.forward(
+            {"observation": short, "action_mask": mask}, deterministic=True
+        )
+        a_new, v_new, lp_new = upgraded.forward(
+            {"observation": full, "action_mask": mask}, deterministic=True
+        )
+    assert torch.equal(a_old, a_new)
+    assert torch.allclose(v_old, v_new)
+    assert torch.allclose(lp_old, lp_new)

@@ -333,7 +333,20 @@ class AttentionExtractor(BaseFeaturesExtractor):
         self.move_embed = nn.Embedding(
             len(moves), self.embed_len, max_norm=self.embed_len**0.5
         )
-        self.pokemon_proj = nn.Linear(chunk_obs_len + 6 * (self.embed_len - 1), d_model)
+        # Size the projection from the observation space we are GIVEN, not from the
+        # module constant: SB3 rebuilds a stored checkpoint from its saved space, so
+        # an older (shorter-token) checkpoint must come back with its own width and
+        # be upgraded afterwards (upgrade_policy) -- otherwise PPO.load itself fails
+        # on the size mismatch before any upgrade can run.
+        inner = (
+            observation_space["observation"]
+            if hasattr(observation_space, "spaces")
+            else observation_space
+        )
+        self.token_len = int(inner.shape[0]) // 12  # type: ignore[union-attr]
+        self.pokemon_proj = nn.Linear(
+            self.token_len + 6 * (self.embed_len - 1), d_model
+        )
         self.cls_token = nn.Parameter(torch.randn(1, 1, d_model))
         self.pokemon_encoder = nn.TransformerEncoder(
             nn.TransformerEncoderLayer(

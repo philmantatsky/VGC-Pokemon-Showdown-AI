@@ -36,7 +36,11 @@ def load_policy(path: str, device: str):
     from stable_baselines3 import PPO
 
     from vgc_bench.src.env import ShowdownEnv
-    from vgc_bench.src.policy import MaskedActorCriticPolicy
+    from vgc_bench.src.policy import (
+        MaskedActorCriticPolicy,
+        load_state_dict_upgraded,
+        read_policy_state,
+    )
     from vgc_bench.src.teams import get_available_regs
     from vgc_bench.src.utils import format_map
 
@@ -54,7 +58,7 @@ def load_policy(path: str, device: str):
         policy_kwargs={"d_model": 256, "choose_on_teampreview": True},
         device=device,
     )
-    ppo.set_parameters(path, device=ppo.device)
+    load_state_dict_upgraded(ppo.policy, read_policy_state(path, ppo.device))
     ppo.policy.eval()
     return ppo.policy
 
