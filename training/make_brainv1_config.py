@@ -30,7 +30,12 @@ def main() -> None:
     ap.add_argument("--resume-stem", type=int, default=12779520)
     ap.add_argument("--out", type=Path, default=Path("training/brainv1_config.json"))
     ap.add_argument("--weights-source", default="data/team_weights_regmc.json")
-    ap.add_argument("--eval-only-clone", default="results_bc/eval_mcB")
+    ap.add_argument(
+        "--eval-only-clone",
+        action="append",
+        default=None,
+        help="eval-only clone roots banned from the pool (repeatable)",
+    )
     args = ap.parse_args()
 
     init = str(args.init)
@@ -39,19 +44,22 @@ def main() -> None:
         "comment": (
             "Brain v1 round (NEW_BRAIN_PLAN M3): joint-action head + threat block + "
             "potential-based shaping, team-agnostic our side (teams/candidates_mc), "
-            "Reg M-C data only. Pool: init x2 + resume, deployed, old champion, "
-            "league-1 history, Reg M-C clone x4. No adversary. Older checkpoints are "
-            "upgraded in memory at load."
+            "Reg M-C data only. Pool: init x2 + resume, deployed x3, old champion, "
+            "league-1 history, Reg M-C clone x2 (deployed-heavy: round 6's lesson). "
+            "No adversary. Older checkpoints are upgraded in memory at load."
         ),
         "dest": "results_brainv1/saves_fp_hs_wt/reg_mc/seed1",
         "resume_stem": args.resume_stem,
         "sources": {
+            # Round 6 (2026-09-13) showed a clone-heavy pool is too soft after a
+            # format change (first save -10pp paired); the deployed brain at 6/10
+            # copies held (first save 0.89). Same shape here.
             "100": clone,
             "200": clone,
-            "300": clone,
-            "400": clone,
-            "500": OLD_CHAMPION,
-            "600": LEAGUE1_HISTORY,
+            "300": OLD_CHAMPION,
+            "400": LEAGUE1_HISTORY,
+            "500": DEPLOYED,
+            "600": DEPLOYED,
             "700": DEPLOYED,
             "800": init,
             "900": init,
@@ -63,7 +71,10 @@ def main() -> None:
         "eval_only_roots": [
             "results_bc/eval_B",
             "results_bc/eval_D",
-            args.eval_only_clone,
+            *(
+                args.eval_only_clone
+                or ["results_bc/eval_mcB", "results_bc/eval_mcB_20260913"]
+            ),
         ],
     }
     args.out.write_text(json.dumps(config, indent=2) + "\n")
