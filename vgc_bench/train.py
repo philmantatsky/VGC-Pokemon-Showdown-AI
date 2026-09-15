@@ -10,13 +10,18 @@ cloning.
 import argparse
 import os
 from pathlib import Path
+from typing import Any
 
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import SubprocVecEnv
 
 from vgc_bench.src.callback import Callback
 from vgc_bench.src.env import ShowdownEnv
-from vgc_bench.src.policy import MaskedActorCriticPolicy
+from vgc_bench.src.policy import (
+    MaskedActorCriticPolicy,
+    load_state_dict_upgraded,
+    read_policy_state,
+)
 from vgc_bench.src.utils import LearningStyle, set_global_seed, verify_league_dir
 
 
@@ -42,6 +47,9 @@ def train(
     learning_rate: float = 1e-5,
     n_epochs: int = 10,
     target_kl: float | None = None,
+    joint_head: bool = False,
+    shaping_faint: float = 0.0,
+    shaping_hp: float = 0.0,
     hidden_sheet_prob: float = 0.0,
     team_weights: str | None = None,
     opponent_team: str | None = None,
@@ -84,9 +92,17 @@ def train(
         team2_path.write_text(team2[1:])
         team_paths = [team1_path, team2_path]
     # Ladder objective: our side fixed, opponents varied. See ShowdownEnv.create_env.
-    our_team_paths = [Path(our_team)] if our_team else None
+    # One path = the classic fixed-team objective; a comma-separated list = the
+    # team-agnostic objective (brain v1): our side is drawn uniformly from the
+    # list each battle, opponents still draw from the weighted pool.
+    our_team_paths = (
+        [Path(p.strip()) for p in our_team.split(",") if p.strip()]
+        if our_team
+        else None
+    )
     if our_team_paths:
-        assert our_team_paths[0].exists(), f"--our_team not found: {our_team}"
+        for path in our_team_paths:
+            assert path.exists(), f"--our_team not found: {path}"
     # Exploiter probes lock the TARGET's roster instead (agent2, the fixed -1
     # opponent) so the champion gets attacked in its deployment seat.
     opponent_team_paths = [Path(opponent_team)] if opponent_team else None
@@ -113,6 +129,8 @@ def train(
             hidden_sheet_prob,
             team_weights_path,
             opponent_team_paths,
+            shaping_faint=shaping_faint,
+            shaping_hp=shaping_hp,
         )
         if learning_style == LearningStyle.PURE_SELF_PLAY
         else SubprocVecEnv(
@@ -132,6 +150,8 @@ def train(
                     hidden_sheet_prob,
                     team_weights_path,
                     opponent_team_paths,
+                    shaping_faint=shaping_faint,
+                    shaping_hp=shaping_hp,
                 )
                 for _ in range(num_envs)
             ]
@@ -169,6 +189,19 @@ def train(
         f"moveset_prior={PolicyPlayer.moveset_prior_enabled()}",
         flush=True,
     )
+    # Brain v1 knobs. The joint_head key is only written when set so the saved
+    # policy_kwargs of every earlier run stay byte-identical.
+    policy_kwargs: dict[str, Any] = {
+        "d_model": 256,
+        "choose_on_teampreview": choose_on_teampreview,
+    }
+    if joint_head:
+        policy_kwargs["joint_head"] = True
+    print(
+        f"joint_head={joint_head}  shaping_faint={shaping_faint}  "
+        f"shaping_hp={shaping_hp}",
+        flush=True,
+    )
     ppo = PPO(
         MaskedActorCriticPolicy,
         env,
@@ -184,7 +217,7 @@ def train(
         gamma=1,
         # ent_coef is set in callback.py based on training progress
         tensorboard_log=str(output_dir / f"logs_{method}"),
-        policy_kwargs={"d_model": 256, "choose_on_teampreview": choose_on_teampreview},
+        policy_kwargs=policy_kwargs,
         device=device,
     )
     num_saved_timesteps = 0
@@ -195,8 +228,14 @@ def train(
         ]
         if saved_policy_timesteps:
             num_saved_timesteps = max(saved_policy_timesteps)
-            ppo.set_parameters(
-                str(save_dir / f"{num_saved_timesteps}.zip"), device=ppo.device
+            resume_from = save_dir / f"{num_saved_timesteps}.zip"
+            copied, zeroed, added = load_state_dict_upgraded(
+                ppo.policy, read_policy_state(resume_from, ppo.device)
+            )
+            print(
+                f"resumed policy from {resume_from}: copied {copied}, "
+                f"zero-extended {zeroed}, added {added}",
+                flush=True,
             )
             if num_saved_timesteps < save_interval:
                 num_saved_timesteps = 0
@@ -338,8 +377,9 @@ if __name__ == "__main__":
         type=str,
         default="",
         help=(
-            "path to the team file our side always brings (ladder objective: one fixed"
-            " team vs many opponent teams). Opponents draw from the --num_teams pool"
+            "team file our side brings (ladder objective: one fixed team vs many"
+            " opponent teams), or a comma-separated list our side is drawn from"
+            " uniformly (team-agnostic training). Opponents draw from the pool"
         ),
     )
     parser.add_argument(
@@ -390,6 +430,23 @@ if __name__ == "__main__":
         type=float,
         default=None,
         help="stop the update early once approx_kl exceeds this (default: no limit)",
+    )
+    parser.add_argument(
+        "--joint_head",
+        action="store_true",
+        help="brain v1: condition slot 2's logits on slot 1's chosen action",
+    )
+    parser.add_argument(
+        "--shaping_faint",
+        type=float,
+        default=0.0,
+        help="brain v1: potential-based shaping weight per faint differential",
+    )
+    parser.add_argument(
+        "--shaping_hp",
+        type=float,
+        default=0.0,
+        help="brain v1: potential-based shaping weight per HP-fraction differential",
     )
     args = parser.parse_args()
     set_global_seed(args.run_id)
@@ -449,6 +506,9 @@ if __name__ == "__main__":
         learning_rate=args.learning_rate,
         n_epochs=args.n_epochs,
         target_kl=args.target_kl,
+        joint_head=args.joint_head,
+        shaping_faint=args.shaping_faint,
+        shaping_hp=args.shaping_hp,
         hidden_sheet_prob=args.hidden_sheet_prob,
         team_weights=args.team_weights or None,
         opponent_team=args.opponent_team or None,

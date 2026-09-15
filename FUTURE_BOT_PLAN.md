@@ -93,6 +93,12 @@ population they were not fit on, ladder only with the user's word.
   symmetric knowledge, memory tokens, dense signal (shaping + auxiliary
   heads + critic warm start), behind flags with checkpoint conversion;
   trained team-agnostic on the candidate pool.
+  - [x] Code on branch `brain-v1` (2026-09-10): joint head, threat block
+    (+8 floats per token), potential-based shaping, converter, live-reload
+    tolerance, 30 unit tests, live smoke clean. Merge between runs only.
+  - [ ] Auxiliary heads, critic warm start, memory tokens (v1.1).
+  - [ ] Training round with the converted round-6 finalist (or the deployed
+    weights), team-agnostic pool; battery on M-C arms.
 - [ ] **M4 — team tournament**: clone tournament on T0-T5 (n=300/team), then
   the brain tournament on the survivors (n=500), then specialise on the
   winner.

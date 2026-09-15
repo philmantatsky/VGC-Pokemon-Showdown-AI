@@ -38,13 +38,28 @@ class ShowdownEnv(DoublesEnv):
         *args: Any,
         hidden_sheet_prob: float = 0.0,
         sheet_seed: int = 0,
+        shaping_faint: float = 0.0,
+        shaping_hp: float = 0.0,
         **kwargs: Any,
     ):
         """
         Initialize the ShowdownEnv.
+
+        ``shaping_faint`` / ``shaping_hp`` weight a potential-based shaping term
+        (brain v1, 2026-09-10): reward += Phi(s') - Phi(s) with Phi = faint
+        differential * shaping_faint + HP-fraction differential * shaping_hp,
+        Phi := 0 at the terminal state. With gamma 1 the per-episode sum
+        telescopes to exactly the terminal +-1, so the optimal policy is
+        unchanged while every turn carries gradient. Both 0 (default) leaves the
+        reward bit-identical to the original terminal-only signal.
         """
         if not 0.0 <= hidden_sheet_prob <= 1.0:
             raise ValueError("hidden_sheet_prob must be between 0 and 1")
+        if shaping_faint < 0 or shaping_hp < 0:
+            raise ValueError("shaping weights must be >= 0")
+        self._shaping_faint = float(shaping_faint)
+        self._shaping_hp = float(shaping_hp)
+        self._potentials: dict[str, float] = {}
         self._hidden_sheet_prob = hidden_sheet_prob
         self._sheet_seed = sheet_seed
         self._sheet_rng = random.Random(sheet_seed)
@@ -75,6 +90,8 @@ class ShowdownEnv(DoublesEnv):
         hidden_sheet_prob: float = 0.0,
         team_weights_path: Path | None = None,
         opponent_team_paths: list[Path] | None = None,
+        shaping_faint: float = 0.0,
+        shaping_hp: float = 0.0,
     ) -> Env:
         """
         Factory method to create a properly wrapped training environment.
@@ -151,6 +168,8 @@ class ShowdownEnv(DoublesEnv):
             choose_on_teampreview=choose_on_teampreview,
             hidden_sheet_prob=hidden_sheet_prob,
             sheet_seed=run_id,
+            shaping_faint=shaping_faint,
+            shaping_hp=shaping_hp,
         )
         if our_builder is not None or opponent_team_paths:
             # Stashed on the env so they survive pickling into subprocess workers;
@@ -239,21 +258,52 @@ class ShowdownEnv(DoublesEnv):
             self._sheet_battles += 1
         return hidden
 
+    def material_potential(self, battle: AbstractBattle) -> float:
+        """Phi(s): weighted faint and HP-fraction differentials, 0 at game start.
+
+        Unrevealed Pokemon count as full HP on both sides, so the two unbrought
+        Pokemon per side cancel and the potential starts at exactly 0.
+        """
+        ours = list(battle.team.values())
+        theirs = list(battle.opponent_team.values())
+        faints = sum(m.fainted for m in theirs) - sum(m.fainted for m in ours)
+        our_hp = sum(m.current_hp_fraction for m in ours) + (6 - len(ours))
+        their_hp = sum(m.current_hp_fraction for m in theirs) + (6 - len(theirs))
+        return self._shaping_faint * faints + self._shaping_hp * (our_hp - their_hp)
+
     def calc_reward(self, battle: AbstractBattle) -> float:
         """
         Calculate reward for the current battle state.
 
         Returns:
-            1 if won, -1 if lost, 0 otherwise.
+            1 if won, -1 if lost, 0 otherwise; plus the potential difference when
+            reward shaping is on (see __init__).
         """
         if not battle.finished:
-            return 0
+            terminal = 0.0
         elif battle.won:
-            return 1
+            terminal = 1.0
         elif battle.lost:
-            return -1
+            terminal = -1.0
         else:
-            return 0
+            terminal = 0.0
+        shaping = getattr(self, "_shaping_faint", 0.0) or getattr(
+            self, "_shaping_hp", 0.0
+        )
+        if not shaping:
+            return terminal
+        potentials = getattr(self, "_potentials", None)
+        if potentials is None:
+            potentials = self._potentials = {}
+        key = battle.battle_tag
+        previous = potentials.get(key, 0.0)
+        if battle.finished:
+            current = 0.0
+            potentials.pop(key, None)
+        else:
+            current = self.material_potential(battle)
+            potentials[key] = current
+        return terminal + (current - previous)
 
     def embed_battle(self, battle: AbstractBattle) -> npt.NDArray[np.float32]:
         """

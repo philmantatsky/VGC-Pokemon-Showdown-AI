@@ -22,7 +22,11 @@ from torch.utils.data import DataLoader, Dataset
 
 from vgc_bench.src.callback import Callback
 from vgc_bench.src.env import ShowdownEnv
-from vgc_bench.src.policy import MaskedActorCriticPolicy
+from vgc_bench.src.policy import (
+    MaskedActorCriticPolicy,
+    load_state_dict_upgraded,
+    read_policy_state,
+)
 from vgc_bench.src.policy_player import BatchPolicyPlayer
 from vgc_bench.src.teams import RandomTeamBuilder, get_available_regs
 from vgc_bench.src.utils import act_len, format_map, set_global_seed
@@ -134,7 +138,13 @@ def pretrain(
         # pass over a smaller high-quality set fine-tunes the model rather than
         # retraining it from scratch on far too little data.
         print(f"initializing policy from {init_from}", flush=True)
-        ppo.set_parameters(str(init_from), device=ppo.device)
+        copied, zeroed, added = load_state_dict_upgraded(
+            ppo.policy, read_policy_state(Path(init_from), ppo.device)
+        )
+        print(
+            f"  copied {copied} tensors, zero-extended {zeroed}, added {added}",
+            flush=True,
+        )
     dataset = TrajectoryDataset(trajs_dir)
     div_count = int(1 / div_frac)
     dataloader = DataLoader(
