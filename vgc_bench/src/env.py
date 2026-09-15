@@ -295,7 +295,13 @@ class ShowdownEnv(DoublesEnv):
         potentials = getattr(self, "_potentials", None)
         if potentials is None:
             potentials = self._potentials = {}
-        key = battle.battle_tag
+        # BOTH agents' battle views live in this one env process and share the
+        # battle tag (poke-env's step() calls calc_reward(battle1) and
+        # calc_reward(battle2)). Keyed by tag alone, each side overwrote the
+        # other's potential and the differences stopped telescoping: the brain-v1
+        # run of 2026-09-15 farmed a mean episode return of +6.4 that way. The
+        # key must name the side.
+        key = (battle.battle_tag, battle.player_role or id(battle))
         previous = potentials.get(key, 0.0)
         if battle.finished:
             current = 0.0

@@ -1,5 +1,24 @@
 # VGC Bot Project Status
 
+## Paused at the user's word; brain-v1 attempt 1 is INVALID -- the shaped reward did not telescope (2026-September 15, 11:35)
+
+Stopped 11:22 (`pause it rn`): chain, watcher and training killed; nothing
+running. Reads before the stop: save 1 (04:34) heuristic 0.51 / clone 0.58,
+save 2 (06:18) 0.61 / 0.68, both averaged over the six candidate teams
+(deployed baseline 0.46). Save 3 never came: throughput fell from 157 to 94
+steps/s and, decisively, **`rollout/ep_rew_mean` climbed 0.6 -> 6.9 while
+episodes lengthened 12 -> 20 turns** -- a shaped return that should telescope
+to +-1 was being farmed. Cause found in `env.py`: the per-battle potential
+was keyed by battle tag, but poke-env computes rewards for BOTH agents from
+two battle views that share the tag, so each side overwrote the other's
+potential. Fixed (key = tag + side; `test_both_sides_of_one_battle_telescope_
+independently`). Saves 1-2 were trained on a corrupted signal: **discarded**;
+the run is archived as `results_brainv1_attempt1_invalid/`, the valid
+kill-line baselines kept in `results_brainv1/`. The relaunch (from the
+deployed weights, same recipe) waits for the user's word. Standing rule
+added to memory: a shaped run's mean episode return must stay within [-1, 1]
+from the first rollouts on.
+
 ## Brain v1 merged and training team-agnostic on the six candidate teams (2026-September 15, 02:55)
 
 - **Merged `brain-v1` into main** (e3071c8) between runs, as required; the

@@ -33,10 +33,11 @@ def _mon(hp: float = 1.0, fainted: bool = False) -> NS:
 
 
 def _battle(
-    ours, theirs, finished=False, won=False, lost=False, tag="b1"
+    ours, theirs, finished=False, won=False, lost=False, tag="b1", role="p1"
 ) -> AbstractBattle:
     fake: Any = NS(
         battle_tag=tag,
+        player_role=role,
         finished=finished,
         won=won,
         lost=lost,
@@ -122,3 +123,47 @@ def test_negative_weights_are_refused():
     bare: Any = NS()
     with pytest.raises(ValueError):
         ShowdownEnv.__init__(bare, shaping_faint=-1.0)
+
+
+def test_both_sides_of_one_battle_telescope_independently():
+    """poke-env computes rewards for BOTH agents of one env from two battle views
+    that share the battle tag. Each side's shaped return must still telescope
+    to its own terminal reward (the 2026-09-15 brain-v1 run farmed +6.4 per
+    episode when the two sides overwrote each other's potential)."""
+    env = _Env(0.25, 0.1)
+    # our view (p1) and their view (p2) of the same battle, interleaved as step()
+    # would call them; p2's material is the mirror image of p1's
+    p1 = [
+        _battle([_mon()] * 6, [_mon()] * 6, role="p1"),
+        _battle(
+            [_mon(0.5)] + [_mon()] * 5, [_mon(fainted=True)] + [_mon()] * 5, role="p1"
+        ),
+        _battle(
+            [_mon(0.5)] + [_mon()] * 5,
+            [_mon(fainted=True)] * 4 + [_mon()] * 2,
+            finished=True,
+            won=True,
+            role="p1",
+        ),
+    ]
+    p2 = [
+        _battle([_mon()] * 6, [_mon()] * 6, role="p2"),
+        _battle(
+            [_mon(fainted=True)] + [_mon()] * 5, [_mon(0.5)] + [_mon()] * 5, role="p2"
+        ),
+        _battle(
+            [_mon(fainted=True)] * 4 + [_mon()] * 2,
+            [_mon(0.5)] + [_mon()] * 5,
+            finished=True,
+            lost=True,
+            role="p2",
+        ),
+    ]
+    r1, r2 = [], []
+    for a, b in zip(p1, p2):
+        r1.append(env.calc_reward(a))
+        r2.append(env.calc_reward(b))
+    assert sum(r1) == pytest.approx(1.0)
+    assert sum(r2) == pytest.approx(-1.0)
+    assert r1[1] > 0 > r2[1]
+    assert env._potentials == {}
