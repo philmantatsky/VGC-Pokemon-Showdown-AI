@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Round 6b verdict: both finalists FAIL on the scripted arm; the final save is +5.0 vs the M-C human clone and +2.9..+8.4 vs every PPO arm; brain tournament: the deployed brain is an MB430 specialist (2026-September 15, 02:00)
+
+**Finalist 13762560 (save 1)** -- fresh-seed confirmation of the heuristic
+arm (n=1,500, seed 8302): **-6.1 ± 1.2** (82.6 v 88.7), hardening the
+screening read of -2.8; frozen +3.0, rotation1 +5.1, rotation2 +2.6, human
+(eval_mcB_20260913) -0.3. Weighted +0.66. **FAIL.**
+
+**Finalist 17694720 (save 5)** -- heuristic **-7.9 ± 1.5** (79.8 v 87.7,
+BREACH), frozen **+5.7**, rotation1 **+8.4**, rotation2 **+2.9**, human
+**+5.0 ± 1.7** (83.6 v 78.6). Weighted (human x2) **+3.18pp**, the largest
+human-arm gain and the largest weighted gain of any candidate since league 1
+-- and a FAIL by the pre-registered rule (no arm below -2pp). The shape of
+rounds 3-5 again, sharper: everything that learns goes up, the scripted
+opponent goes down. Diagnostics (eval_D = Reg M-B humans, mc_A = the pool
+clone, 300) follow in `league6_verdict2.log`. Not deployable under the rule;
+a ladder read of it would be measurement, not selection, and needs the
+user's word.
+
+**Brain tournament** (`results_team_tournament/deployed/`, the deployed brain
+piloting each candidate vs the pool piloted by itself, 300 games): T0 MB430
+82.3%, T2 TR/Psychic Terrain 75.0%, T4 sun 52.7%, T5 rain 49.0%, T3 46.0%,
+**T1 consensus six 35.7%** -- versus the clone tournament's T1 64.3% / T0
+62.7%. The deployed brain is an MB430 specialist and cannot pilot the meta's
+own team; the team decision waits for the team-agnostic brain-v1 round
+(chain armed: merge -> suite -> kill-line baseline -> pool -> training on
+T0-T5 -> battery). Round 6 attempt 1 also showed the pool-softness trap
+(see 02:20 entry); the brain-v1 pool copies round 6b's deployed-heavy shape.
+
 ## Paused for a machine restart (2026-September 13, 15:25)
 
 All compute stopped at the user's word during finalist 1's heuristic
