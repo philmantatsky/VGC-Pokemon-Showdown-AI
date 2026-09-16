@@ -51,5 +51,29 @@ import json; d=json.load(open('results_brainv1/first_save_vs_deployed_200.json')
     fi
   done
   grep -qiE "Traceback" "$LOG" 2>/dev/null && { grep -iE "Traceback|Error" "$LOG" | tail -2 | sed 's/^/V1LOGERR /'; }
+  # shaped-return invariant: a potential-based shaped episode return telescopes
+  # to the terminal +-1; a mean outside [-1.05, 1.05] is a reward bug, never
+  # learning (the 2026-09-15 attempt farmed +6.9). Checked every tick.
+  rew=$(.venv/bin/python - <<'PY' 2>/dev/null
+from pathlib import Path
+from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
+fs = sorted(Path("results_brainv1/logs_fp_hs_wt/reg_mc").rglob("events.out.tfevents.*"))
+if fs:
+    ea = EventAccumulator(str(fs[-1]), size_guidance={"scalars": 0}); ea.Reload()
+    if "rollout/ep_rew_mean" in ea.Tags()["scalars"]:
+        ev = ea.Scalars("rollout/ep_rew_mean")
+        if len(ev) >= 5: print(f"{ev[-1].value:.3f} {len(ev)}")
+PY
+)
+  if [ -n "$rew" ]; then
+    val=${rew%% *}; cnt=${rew##* }
+    if [ $((i % 15)) -eq 0 ]; then echo "V1REWARD rollouts=$cnt ep_rew_mean=$val [$(date '+%H:%M:%S')]"; fi
+    if [ "$(echo "$val > 1.05 || $val < -1.05" | bc)" = 1 ]; then
+      echo "V1_KILLED_REWARD_INVARIANT [$(date '+%H:%M:%S')] ep_rew_mean=$val after $cnt rollouts"
+      pkill -f "brainv1_chain.sh"; sleep 1; pkill -f "vgc_bench[.]train"; sleep 5; pkill -9 -f "vgc_bench[.]train" 2>/dev/null
+      echo "BRAINV1_KILLED_REWARD_INVARIANT [$(date '+%H:%M:%S')] ep_rew_mean=$val" >> $CHAIN
+      exit 0
+    fi
+  fi
 done
 echo "V1WATCH_END [$(date '+%H:%M:%S')]"

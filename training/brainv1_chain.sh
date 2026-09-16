@@ -36,6 +36,7 @@ echo "BRAINV1_BASELINE_START [$(stamp)]"
 mkdir -p results_brainv1
 for T in teams/candidates_mc/T*.txt; do
   L=$(basename "$T" .txt)
+  [ -f "results_brainv1/baseline_heuristic_$L.json" ] && { echo "BASELINE_SKIP $L exists"; continue; }
   $PY evaluation/eval_counterfactual.py --baseline results_league/league_champion.zip --candidate results_league/league_champion.zip --baseline-only \
     --reg mc --team-weights data/team_weights_regmc.json --our-team "$T" --n-battles 150 --hidden-sheets --seed 83 --workers 8 --port 7610 \
     --output "results_brainv1/baseline_heuristic_$L.json" > "results_brainv1/baseline_heuristic_$L.log" 2>&1 || fail "baseline_$L"
