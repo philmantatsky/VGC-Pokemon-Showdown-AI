@@ -1,5 +1,18 @@
 # VGC Bot Project Status
 
+## Brain v1 attempt 2 (valid reward) paused at 4 of 8 saves (2026-September 16, 09:40)
+
+Relaunched 00:06 with the shaping fix; the shaped return stayed within
+[0.02, 0.80] for all 1,352 rollouts (invariant enforced by the watcher).
+Callback reads (100 battles, averaged over the six candidate teams; deployed
+baseline 0.463 vs the scripted opponent): save 1 (01:54) heuristic **0.61**
+/ clone 0.70; save 2 (03:44) **0.66** / 0.64; save 3 (05:33) **0.66** /
+0.67; save 4 (07:21) **0.59** / 0.72. Throughput 145-152 steps/s while
+running; progress stalled ~07:50-09:35 (72 rollouts in 2h18m: a sleep/lid
+gap, not a crash). Paused at the user's word 09:39 at step 16,932,864;
+nothing running. Resume = `brainv1_chain.sh` continues from save 4, or run
+the battery on saves 2-4 now.
+
 ## Paused at the user's word; brain-v1 attempt 1 is INVALID -- the shaped reward did not telescope (2026-September 15, 11:35)
 
 Stopped 11:22 (`pause it rn`): chain, watcher and training killed; nothing
