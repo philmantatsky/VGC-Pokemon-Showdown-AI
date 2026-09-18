@@ -1,5 +1,23 @@
 # VGC Bot Project Status
 
+## Brain v1 attempt 2 resumed from save 4 (2026-September 18, 00:49)
+
+At the user's word ("continue") the round resumed through the new
+`training/resume_brainv1_chain.sh`: pool verified, fresh 7700, training
+continues from `16711680.zip` (all 135 tensors copied, nothing zero-extended;
+Adam restarts, as at the original launch) to 20,643,840 = four more intervals
+(~7.5 h at 145-152 steps/s), then triage -> the supervised battery on the
+finalists (MB430 arms vs the deployed brain, `run_brainv1_verdict_supervised.sh`)
+-> the brain tournament of each finalist on T0-T5 at n=300
+(`results_team_tournament/brainv1_<stem>/`). SB3 appends a second events file
+to the same run directory on resume, so a log-only triage would count four
+probes and mis-map the stems: `triage_league_log.py` gained
+`--from-tensorboard`, which reads every events file of the run keyed by step
+(a later file wins a replayed step); `unit_tests/test_triage_league_log.py`
+(6 tests). Scratch watcher: per-save triage line, traceback grep, a stall
+notice when the events file is silent for 20 min (the 09-16 sleep gap), and
+the shaped-return invariant kill. Lid open, AC power.
+
 ## Brain v1 attempt 2 (valid reward) paused at 4 of 8 saves (2026-September 16, 09:40)
 
 Relaunched 00:06 with the shaping fix; the shaped return stayed within
