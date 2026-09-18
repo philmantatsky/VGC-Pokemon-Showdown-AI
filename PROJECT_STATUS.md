@@ -1,5 +1,36 @@
 # VGC Bot Project Status
 
+## Brain v1 VERDICT: both finalists FAIL the MB430 screening; the team-agnostic brain pilots every candidate team (2026-September 18, 12:45)
+
+Battery (`run_brainv1_verdict_supervised.sh`, 07:59-12:03, port 7600; MB430,
+paired n=1,000 per arm vs the deployed brain; human arm = eval_mcB_20260913
+epoch 2): **save 7 (19660800)** heuristic **-6.6** (79.8 v 86.4, BREACH),
+frozen +5.4, rotation1 +7.7, rotation2 +4.3, human -1.4 (confirm window);
+weighted +1.33, equal +1.88; diagnostics mc_A +1.2, eval_D +2.1 -> **FAIL**.
+**Save 8 (20643840)** heuristic **-9.5** (77.2 v 86.7, BREACH), frozen +2.2,
+rotation1 +11.5, rotation2 +4.3, human **-4.7** (BREACH); weighted -0.15,
+equal +0.76; mc_A +1.1, eval_D +1.8 -> **FAIL**. Same shape as round 6
+(scripted arm down, PPO arms up); the human-clone gain round 6 had on MB430
+(+5.0) is gone for the generalist, which saw MB430 in one sixth of its
+episodes. No memorisation signal (clone diagnostics within 3 / 6pp).
+
+Brain tournament (`run_team_tournament.sh`, n=300 per team, pilot vs itself on
+the weighted M-C pool; `results_team_tournament/brainv1_<stem>/`): save 7 T2
+84.0, T0 83.0, T4 82.0, T1 72.0, T5 71.7, T3 60.0 (mean 75.4); save 8 T4 86.7,
+T0 85.0, T2 80.0, T1 69.7, T3 66.7, T5 66.7 (mean 75.8); the deployed brain
+82.3 / 35.7 / 75.0 / 46.0 / 52.7 / 49.0 (mean 56.8); the clone 62.7 / 64.3 /
+52.3 / 46.3 / 42.3 / 28.3. Both finalists pilot every team at 60-87% where the
+deployed brain fell to 36-53% off MB430: the team-agnostic training did what
+it was for. Caveat: the tournament's opponent side is the pilot itself, so it
+ranks teams within a pilot and does not compare pilots
+(`tools/compare_team_tournaments.py` prints the side-by-side). Cross-pilot
+evidence = the six-team probe (save 7 / 8: 0.67 / 0.69 vs the deployed 0.463,
+n=100 per team) and the **team grid now running** (`evaluation/run_team_grid.sh`:
+save 7 and the deployed brain paired per team, n=300, vs the scripted opponent
+and vs eval_mcB; `results_team_grid/brainv1_19660800/`, ~85 min): it picks the
+team (M4) and gives the per-team human-clone delta the MB430 battery cannot.
+Bot offline; nothing reaches ladder without the user's word.
+
 ## Brain v1 attempt 2 TRAINING COMPLETE (8 saves); battery running on saves 7 + 8 (2026-September 18, 08:00)
 
 The resumed run finished at 07:59 (exit 0, final save `20643840.zip`; the

@@ -75,7 +75,7 @@ population they were not fit on, ladder only with the user's word.
 - [x] **M0 — first M-C ladder read** launched 2026-09-09 23:43 (deployed
   brain + three targeting guards, `--reg mc`, MB430, M-B priors as-is;
   `ladder_replays_mc_guards3_20260909/`). Tally in PROJECT_STATUS when done.
-- [ ] **M1 — M-C data layer** (`after_ladder_mc.sh`, automatic after M0):
+- [x] **M1 — M-C data layer** (done 2026-09-13: dated artifacts `*_20260913`, M-C pool 3,609 teams, clones mc_A epoch 3 / eval_mcB epoch 2) (`after_ladder_mc.sh`, automatic after M0):
   re-scrape both M-C formats → `battle_logs_top_mc_merged/`
   (`datagen/merge_battle_logs.py`); rebuild `teams/reg_mc/` and
   `data/team_weights_regmc.json`; M-C opponent priors
@@ -84,7 +84,7 @@ population they were not fit on, ladder only with the user's word.
   0-4) / B (5-9); clones `results_bc/mc_A` (training_opponent) and
   `results_bc/eval_mcB` (eval_only, banned by content); battery smoke on M-C
   arms (`run_gate_battery.py --reg/--our-team`).
-- [ ] **M2 — round 6, the M-C baseline**: league fine-tune of the deployed
+- [x] **M2 — round 6, the M-C baseline** (2026-09-15: both finalists FAIL on the scripted arm only; final save heuristic −7.9, human clones +5.0/+5.3, PPO arms +2.9..+8.4, weighted +3.18): league fine-tune of the deployed
   weights with M-C data only (`training/league6_config.json`,
   `run_league6_training.sh`, verdict `run_league6_verdict_supervised.sh` on
   M-C-anchored arms + mc_A / eval_D diagnostics). Answers "does the plateau
@@ -95,13 +95,29 @@ population they were not fit on, ladder only with the user's word.
   trained team-agnostic on the candidate pool.
   - [x] Code on branch `brain-v1` (2026-09-10): joint head, threat block
     (+8 floats per token), potential-based shaping, converter, live-reload
-    tolerance, 30 unit tests, live smoke clean. Merge between runs only.
+    tolerance, 30 unit tests, live smoke clean. Merged into main 2026-09-16
+    (e3071c8; upgrade-on-load for older checkpoints).
   - [ ] Auxiliary heads, critic warm start, memory tokens (v1.1).
-  - [ ] Training round with the converted round-6 finalist (or the deployed
-    weights), team-agnostic pool; battery on M-C arms.
+  - [x] Training round from the deployed weights, our side = T0-T5,
+    deployed-heavy pool, valid shaping (attempt 2, 2026-09-16/18; 8 saves).
+    MB430 screening: save 7 heuristic −6.6 / human −1.4 / PPO +4.3..+7.7
+    (weighted +1.33), save 8 heuristic −9.5 / human −4.7 / PPO +2.2..+11.5
+    (−0.15) → both FAIL the gate as written; six-team probe 0.67/0.69 vs
+    the deployed 0.463.
 - [ ] **M4 — team tournament**: clone tournament on T0-T5 (n=300/team), then
-  the brain tournament on the survivors (n=500), then specialise on the
-  winner.
+  the brain tournament, then specialise on the winner.
+  - [x] Clone tournament (2026-09-13): T1 64.3%, T0 62.7%, T2 52.3%.
+  - [x] Deployed-brain tournament (2026-09-15): T0 82.3%, T2 75.0%, T1 35.7%
+    — an MB430 specialist.
+  - [x] Brain-v1 tournament (2026-09-18, n=300, both finalists): every team
+    60-87% (save 7 T2 84.0 / T0 83.0 / T4 82.0; save 8 T4 86.7 / T0 85.0 /
+    T2 80.0). Caveat: the opponent side is the pilot itself — ranks teams
+    within a pilot, does not compare pilots (`tools/compare_team_tournaments.py`).
+  - [ ] Cross-pilot team grid (`evaluation/run_team_grid.sh`: save 7 vs the
+    deployed brain, paired per team, n=300, vs the scripted opponent and vs
+    eval_mcB) — running 2026-09-18 12:41 → picks the team.
+  - [ ] Specialise on the winner (next round: our side = the winning team
+    only, from the brain-v1 finalist).
 - [ ] **M5 — gates and ladder**: screening → promotion → 25 audited games
   with the user's word.
 
