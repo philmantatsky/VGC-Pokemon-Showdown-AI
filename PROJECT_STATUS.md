@@ -1,5 +1,28 @@
 # VGC Bot Project Status
 
+## Paused at the user's word during the team grid; T0-T2 read (2026-September 18, 13:13)
+
+Stopped 13:12 (`pause it`): grid, watchdog and eval processes killed; nothing
+running, bot offline. The cross-pilot grid (`evaluation/run_team_grid.sh`,
+save 7 = `19660800.zip` vs the deployed brain, paired n=300 per cell, seed 83;
+`results_team_grid/brainv1_19660800/`) completed three teams:
+
+| team | vs scripted: save 7 / deployed | vs human clone: save 7 / deployed |
+|---|---|---|
+| T0 (MB430) | 83.7 / 89.3 (**-5.7**) | 73.3 / 79.0 (**-5.7**) |
+| T1 (MC558) | 79.0 / 34.0 (+45.0) | 74.7 / 30.3 (+44.3) |
+| T2 (MC588) | 65.7 / 49.3 (+16.3) | 76.7 / 54.7 (+22.0) |
+
+Read so far: the generalist holds 73-77% against the human clone on every
+team, where the deployed brain holds 79% on MB430 and 30-55% elsewhere; on
+MB430 alone it trails the specialist by ~6pp on both opponents (the MB430
+battery said -6.6 / -1.4 at n=1,000). T2 leads on the human read; T3-T5 are
+pending (~35 min; completed cells are skipped on relaunch):
+`HUMAN_BC=$(cat results_bc/eval_mcB_20260913/BEST.txt) PORT=7600 nohup caffeinate -is ./evaluation/run_team_grid.sh results_brainv1/saves_fp_hs_wt/reg_mc/seed1/19660800.zip results_team_grid/brainv1_19660800 300 >> team_grid_brainv1_19660800.log 2>&1 &`
+Open decisions for the user: the team, whether the scripted-arm rule should
+gate an M-C brain (every M-C-trained candidate breaches it while gaining on
+the human and PPO arms), and any ladder read.
+
 ## Brain v1 VERDICT: both finalists FAIL the MB430 screening; the team-agnostic brain pilots every candidate team (2026-September 18, 12:45)
 
 Battery (`run_brainv1_verdict_supervised.sh`, 07:59-12:03, port 7600; MB430,
