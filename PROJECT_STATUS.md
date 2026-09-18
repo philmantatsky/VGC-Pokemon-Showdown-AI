@@ -1,5 +1,23 @@
 # VGC Bot Project Status
 
+## Brain v1 attempt 2 TRAINING COMPLETE (8 saves); battery running on saves 7 + 8 (2026-September 18, 08:00)
+
+The resumed run finished at 07:59 (exit 0, final save `20643840.zip`; the
+shaped return stayed within [0.46, 0.72] at every 30-minute read; ~153
+steps/s throughout, no stall). Six-team probe reads (100 battles per arm,
+averaged over T0-T5; deployed baseline 0.463 vs the scripted opponent):
+save 5 0.64 / clone 0.76, save 6 0.63 / 0.73, save 7 **0.67 / 0.80**, save 8
+**0.69** / 0.73 (saves 1-4: 0.61/0.70, 0.66/0.64, 0.66/0.67, 0.59/0.72).
+Finalists by the triage rule (best probe sum + final): **19660800** and
+**20643840**. The battery (`run_brainv1_verdict_supervised.sh`, port 7600;
+MB430 arms paired vs the deployed brain at n=1,000: heuristic, frozen,
+rotation1/2, human = eval_mcB_20260913; diagnostics mc_A + eval_D) started
+07:59:48 -> `results_gate_battery_brainv1/<stem>/screening/`; the brain
+tournament of each finalist on T0-T5 (n=300) follows automatically ->
+`results_team_tournament/brainv1_<stem>/`. Caveat on the probe reads: they
+are our six candidate teams vs the scripted opponent, not the MB430 battery
+arm; the battery decides.
+
 ## Brain v1 attempt 2 resumed from save 4 (2026-September 18, 00:49)
 
 At the user's word ("continue") the round resumed through the new
