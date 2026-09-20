@@ -1,5 +1,43 @@
 # VGC Bot Project Status
 
+## Team pick: T4 (Charizard-Y sun); specialist round running (2026-September 20, 00:55)
+
+Grid complete (save 7 vs the deployed brain, paired n=300 per cell, seed 83;
+`results_team_grid/brainv1_19660800/`), with save 7's tournament read and the
+pre-registered score (mean of the human-clone read and the tournament read):
+
+| team | scripted: save 7 / deployed | human clone: save 7 / deployed | tournament | score |
+|---|---|---|---|---|
+| T0 (MB430) | 83.7 / 89.3 | 73.3 / 79.0 | 83.0 | 78.2 |
+| T1 | 79.0 / 34.0 | 74.7 / 30.3 | 72.0 | 73.3 |
+| T2 | 65.7 / 49.3 | 76.7 / 54.7 | 84.0 | 80.3 |
+| T3 | 66.3 / 33.0 | 63.3 / 29.0 | 60.0 | 61.7 |
+| **T4** | 84.3 / 39.3 | **82.0** / 38.3 | 82.0 | **82.0** |
+| T5 | 78.0 / 40.0 | 63.0 / 43.7 | 71.7 | 67.3 |
+
+Six-team means: scripted 76.2 vs 47.5, human clone 72.2 vs 45.8. Confirmation
+reads (save 7 alone vs eval_mcB, n=1,000, fresh seed 8302): **T4 84.4**
+[82.0, 86.5], T0 78.9, T2 77.3 -> the pre-registered rule picks **T4**
+(confirmation lead +5.5pp over T0; `team_pick.json`). T4 =
+`teams/candidates_mc/T4.txt` (real sheet, source MC302): Charizard-Mega-Y,
+Venusaur (Life Orb), Sylveon, Garchomp (Choice Scarf), Incineroar, Toxapex.
+Cross-team, before any specialising: the generalist on T4 reads 84.4% against
+the human clone where the deployed brain on MB430 reads 79.7-79.9% (n=1,000
+each, unpaired **+4.6 +- 1.7pp**): the first local evidence that new brain +
+new team beats old brain + old team against human-like play.
+
+Specialist round launched 00:51:55 (`training/brainv1_spec_chain.sh`; chain
+log `brainv1_spec_chain.log`, training log `brainv1_spec_005155.log`): save 7
+(135 tensors copied) -> +8 intervals to 27,525,120 (~14.5 h), our side T4
+only, pool as pre-registered (clone x2, old champion, league-1 history,
+deployed x2, save 8, save 7 x2 + resume); artifacts `results_brainv1_spec/`;
+scratch watcher kill line 0.743 (save 7's scripted read on T4 minus 0.10) plus
+the shaped-return invariant. After training: triage -> paired verdict vs save
+7 on T4 (`results_gate_battery_brainv1_spec/`) -> `tools/cross_team_read.py`
+against the deployed brain on MB430. Relaunching the chain with saves beyond
+19660800 present keeps the pool and resumes. Tooling commits a495a95, 090d7bb.
+Bot offline; ladder only with the user's word.
+
 ## Grid resumed; team-pick rule and the specialist round PRE-REGISTERED before T3-T5 are read (2026-September 19, 23:56)
 
 Resumed at the user's word (`continue`). Pre-registration, committed before

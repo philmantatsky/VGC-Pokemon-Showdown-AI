@@ -113,11 +113,15 @@ population they were not fit on, ladder only with the user's word.
     60-87% (save 7 T2 84.0 / T0 83.0 / T4 82.0; save 8 T4 86.7 / T0 85.0 /
     T2 80.0). Caveat: the opponent side is the pilot itself — ranks teams
     within a pilot, does not compare pilots (`tools/compare_team_tournaments.py`).
-  - [ ] Cross-pilot team grid (`evaluation/run_team_grid.sh`: save 7 vs the
-    deployed brain, paired per team, n=300, vs the scripted opponent and vs
-    eval_mcB) — running 2026-09-18 12:41 → picks the team.
-  - [ ] Specialise on the winner (next round: our side = the winning team
-    only, from the brain-v1 finalist).
+  - [x] Cross-pilot team grid (`evaluation/run_team_grid.sh`, 2026-09-20):
+    save 7 beats the deployed brain by +16..+45pp on every non-MB430 team
+    (−5.7 on MB430); pre-registered pick (`tools/pick_team_from_grid.py`,
+    confirmation n=1,000) = **T4** (Charizard-Y sun): 84.4% vs the human
+    clone, against the deployed brain's 79.7-79.9% on MB430.
+  - [ ] Specialise on the winner: `training/brainv1_spec_chain.sh
+    teams/candidates_mc/T4.txt` running since 2026-09-20 00:51 (save 7 → +8
+    intervals, `results_brainv1_spec/`); verdict = paired vs save 7 on T4 +
+    `tools/cross_team_read.py` vs the deployed brain on MB430.
 - [ ] **M5 — gates and ladder**: screening → promotion → 25 audited games
   with the user's word.
 
