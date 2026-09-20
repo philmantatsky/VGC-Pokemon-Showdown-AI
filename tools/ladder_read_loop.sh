@@ -44,7 +44,7 @@ while :; do
   [ "$remaining" -le 0 ] && break
   session=$((session + 1))
   [ "$session" -gt "$MAX_SESSIONS" ] && { echo "LADDER_ABORT [$(stamp)] $MAX_SESSIONS sessions used; games_done=$done_n"; break; }
-  LOG="${DIR%/}_session$session.log"
+  LOG="${DIR%/}_$(date +%Y%m%d_%H%M%S)_session$session.log"  # never reuse a name: a relaunch must not overwrite an earlier report
   echo "SESSION_START $session [$(stamp)] games_done=$done_n remaining=$remaining log=$LOG"
   caffeinate -is .venv/bin/python -u ladder_ourteam.py --checkpoint "$CKPT" --reg mc --our_team "$TEAM" \
     --guards-extra "$GUARDS" --n_games "$remaining" --replay_dir "$DIR" > "$LOG" 2>&1 &

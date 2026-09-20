@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## Ladder read, block 1: T4 specialist 16-9, Elo 1104 -> ~1290; block 2 pre-registered (2026-September 20, 17:35)
+
+`ladder_replays_mc_brainv1spec_T4_20260920/`, serial, 16:27-17:24: canary 6-4
+(audit clean: no crash, no parse errors, no forfeit or timeout on our side,
+guards firing sanely) -> continued to 25 = **16-9 (64%, Wilson 95% 44.5-79.8)**.
+Pre-game Elo 1104 -> 1282 before the last game (a win); mean opponent Elo 1195
+(the deployed brain's 09-09 M-C read: 13-12 at mean opponent Elo ~1110, account
+left at ~1104). Honest decomposition: 10 of the 16 wins ended on an opponent
+forfeit/timeout (5 at turn <= 2); excluding turn <= 2 quits 11-9; games played
+to the end 6-9; OUR forfeits/timeouts 0. First faint ours 12/25 (won 4 of
+those; won 11 of the 12 where the opponent lost a Pokemon first). Trick Room 4
+games (2-2). vs opponents >= 1200: 7-5; below: 9-4. Performance rating
+~1295 (deployed 09-09 read ~1125), both +-~140: 25 games support
+non-regression and mechanical soundness, not a rating claim. Bot offline 17:24.
+Launcher fix: session logs are now timestamped (the 16:51 relaunch overwrote
+the canary's session report; replays, decisions.jsonl and the numbers above
+are intact; games 11-25 report kept as `..._block1_games11-25.log`).
+
+**Block 2 (pre-registered 17:35, user-delegated judgement):** the same
+checkpoint, team, guards and replay dir, 25 more games (total 50), fixed
+length, stop only on a mechanical failure. No deployed-brain control block:
+it would spend the account's rating to re-measure a configuration already read
+at 13-12 near 1100. After block 2: bot offline; pooled tally; the deferred
+specialist arms (scripted + mc_A / eval_D diagnostics); then the M1 data
+refresh and an overnight training round, registered when block 2 is in.
+
 ## Specialist round done; ladder pick = T4 specialist 27525120; 10-game canary LIVE (2026-September 20, 16:30)
 
 Specialist round (`results_brainv1_spec/`, save 7 of brain v1 -> +8 intervals
