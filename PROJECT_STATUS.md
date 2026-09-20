@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## Specialist round done; ladder pick = T4 specialist 27525120; 10-game canary LIVE (2026-September 20, 16:30)
+
+Specialist round (`results_brainv1_spec/`, save 7 of brain v1 -> +8 intervals
+on T4 only) finished 15:24:51, exit 0, shaped return within [0.46, 0.94].
+Probes (scripted / pool clone on T4, 100 battles, bare policy): 0.75/0.85,
+0.81/0.82, 0.79/0.81, 0.84/0.84, 0.85/0.85, 0.83/0.88, 0.88/0.86, **0.89/0.87**
+-> one finalist, the final save (best probe sum). Decision arms, paired vs the
+generalist (brain-v1 save 7) on T4, n=1,000, seed 83 (fast path, 15:25-16:26):
+human clone (eval_mcB) **84.6 v 84.5 = +0.1pp**, frozen 90.5 v 87.0 = **+3.5**,
+rotation1 89.8 v 86.5 = **+3.3**, rotation2 90.8 v 85.3 = **+5.5**. Pre-
+registered rule -> **PICK the specialist** (`ladder_pick.txt`). Reading:
+specialising bought nothing against the human clone (the generalist already
+held 84.5%) and 3-5pp against the PPO populations. Cross-team against the
+deployed brain on MB430 (`tools/cross_team_read.py`, unpaired n=1,000 each):
+human **+4.7 +- 1.7**, frozen +8.2, rotation1 +8.2, rotation2 +7.3; weighted
+(human x2) **+6.62pp**. Scripted and diagnostic arms are deliberately pending
+(filled in after the ladder read; scripted advisory on a non-MB430 team).
+
+Ladder MEASUREMENT read (user-delegated; `league_champion.zip` stays the
+deployed checkpoint): checkpoint stamped role `candidate` (sha af4e78a5),
+`tools/ladder_read_loop.sh ... T4.txt 10 ladder_replays_mc_brainv1spec_T4_20260920`
+launched 16:27:18; session log confirms Reg M-C, T4, the Reg M-C priors,
+guards hard + the three opt-in guards, rerank and tempo on, serial. Canary =
+10 games -> audit -> 25 only if clean with >= 2 wins.
+
 ## Fast path to the ladder at the user's word; the field moved toward T4 (2026-September 20, 14:55)
 
 The user, 14:50: `yeah do that, get to ladder sooner`. The pre-registered rule
