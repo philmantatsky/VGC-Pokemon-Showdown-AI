@@ -6,14 +6,17 @@
 # still never-trained-against, which is what the arms are for. Diagnostic arms:
 # the pool clone mc_A (memorisation check) and eval_D (Reg M-B humans).
 # Completed arms are skipped on relaunch.
+# Env overrides (the specialist round: baseline = the brain-v1 generalist on the
+# chosen team): ROOT (output root), BASE (baseline checkpoint), OUR_TEAM, PORT.
 # Usage: HUMAN_BC=<eval_mcB ckpt> MIX_BC=<mc_A ckpt> ./evaluation/run_brainv1_verdict_supervised.sh <ckpt> [<ckpt> ...]
 set -uo pipefail
 cd "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench"
-ROOT=results_gate_battery_brainv1; BASE=results_league/league_champion.zip; PORT=7600
+ROOT=${ROOT:-results_gate_battery_brainv1}; BASE=${BASE:-results_league/league_champion.zip}; PORT=${PORT:-7600}
+OUR_TEAM=${OUR_TEAM:-teams/reg_mc/our_team.txt}
 HUMAN_BC=${HUMAN_BC:?eval-only Reg M-C clone checkpoint}
 MIX_BC=${MIX_BC:?pool Reg M-C clone checkpoint}
 COMMON=(--baseline $BASE --n-battles 1000 --hidden-sheets --seed 83 --workers 8
-        --reg mc --team-weights data/team_weights_regmc.json --our-team teams/reg_mc/our_team.txt)
+        --reg mc --team-weights data/team_weights_regmc.json --our-team "$OUR_TEAM")
 for CAND in "$@"; do
   L=$(basename "$CAND" .zip)
   echo "== $L [$(date '+%H:%M:%S')]"
@@ -28,7 +31,7 @@ for CAND in "$@"; do
   for X in mcA evalD; do .venv/bin/python - "$ROOT/${L}_$X/screening/battery_human_bc.json" "$X" "$L" <<'PY'
 import json, sys
 d = json.load(open(sys.argv[1])); c, b = d["arms"]["distilled_policy"], d["arms"]["champion_policy"]
-print(f"DIAG[{sys.argv[3]}] {sys.argv[2]}: candidate={c['win_rate']:.3f} deployed={b['win_rate']:.3f} delta={100*(c['win_rate']-b['win_rate']):+.1f}pp")
+print(f"DIAG[{sys.argv[3]}] {sys.argv[2]}: candidate={c['win_rate']:.3f} baseline={b['win_rate']:.3f} delta={100*(c['win_rate']-b['win_rate']):+.1f}pp")
 PY
   done
 done
