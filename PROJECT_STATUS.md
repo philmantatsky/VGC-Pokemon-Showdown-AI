@@ -1,6 +1,33 @@
 # VGC Bot Project Status
 
-## The user delegated the ladder-or-training call; decision rules PRE-REGISTERED before the specialist verdict (2026-September 20, 10:50)
+## Fast path to the ladder at the user's word; the field moved toward T4 (2026-September 20, 14:55)
+
+The user, 14:50: `yeah do that, get to ladder sooner`. The pre-registered rule
+is unchanged; only its evaluation became lazy (`tools/ladder_pick.py`, 4 tests;
+`evaluation/run_ladder_pick.sh`): the human arm of every finalist first, then
+the three PPO arms of the finalist with the higher human rate, falling through
+to the next on a disqualification, the generalist when none qualifies, nothing
+below the cross-team bar (79.9%). A scratch waiter takes over at
+`SPEC_VERDICT_START`, stops the chain's full battery and runs those arms into
+the standard paths (`results_gate_battery_brainv1_spec/<stem>/screening/`), so
+the scripted and diagnostic arms are filled in AFTER the ladder read by the
+normal verdict script (`ARMS` filter added; completed arms are skipped). Pick
+expected ~17:00 instead of ~18:50. Specialist probes so far (scripted / clone
+on T4): 0.75/0.85, 0.81/0.82, 0.79/0.81, 0.84/0.84, 0.85/0.85, 0.83/0.88,
+0.88/0.86; shaped return within [0.46, 0.94].
+
+Fresh scrape 10:29 (`battle_logs_top_mc_20260920/`, 4,864 unique replays, 1,410
+new single-game ones) and the new `tools/mc_meta_stats.py` (window vs
+reference; `results_analysis/mc_meta_stats_20260920.json`), 3,351 games since
+the 09-13 corpus: T4's pieces are UP (Charizard 15.3% of sheets +2.5 with a
+52.1% sheet win rate, Garchomp +6.1, Sylveon +3.0, Venusaur +2.2, Incineroar
++1.2), rain -4.9, Trick Room 18.4% (-5.4); MB430's pieces are DOWN (Basculegion
+-9.4, Kingambit -7.5, Floette -3.7, Whimsicott -3.6 at a 45.2% sheet win rate).
+Risers: Gholdengo +12.0 (27.3%), Raichu +12.1 (20.0%), Rillaboom +6.1 (52.9%).
+T4's sixth slot (Toxapex, 0.5% of sheets) is the archetype's odd piece; the
+usual sixth is Torkoal -- a later lever, the sheet stays as trained.
+
+## The user delegated the ladder-or-training call; decision rules PRE-REGISTERED before the specialist verdict (2026-September 20, 10:30)
 
 The user, 10:30: `continue based on your judgement ill be back later` /
 `whether its ladder or more training`. Judgement: both, in sequence -- the
