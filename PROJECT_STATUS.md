@@ -1,5 +1,42 @@
 # VGC Bot Project Status
 
+## The user delegated the ladder-or-training call; decision rules PRE-REGISTERED before the specialist verdict (2026-September 20, 10:50)
+
+The user, 10:30: `continue based on your judgement ill be back later` /
+`whether its ladder or more training`. Judgement: both, in sequence -- the
+specialist round finishes (5 of 8 saves done: probes 0.75/0.85, 0.81/0.82,
+0.79/0.81, 0.84/0.84, 0.85/0.85 scripted/clone on T4), its verdict runs, then
+a 25-game ladder MEASUREMENT read (not a promotion: `league_champion.zip`
+stays the deployed checkpoint), then more training on refreshed data. Rules,
+committed before any verdict arm exists:
+
+1. **Ladder candidate.** A specialist finalist qualifies if, paired vs save 7
+   on T4 (n=1,000 per arm): human arm (eval_mcB) delta >= -1.0pp AND no PPO
+   arm (frozen, rotation1, rotation2) below -2.0pp. Among qualifiers the
+   highest absolute human-arm rate goes; if none qualifies, save 7 (the
+   generalist) goes on T4. The scripted arm is reported, advisory only.
+2. **Cross-team sanity** for whichever brain goes: its human-arm rate on T4
+   >= the deployed brain's on MB430 (79.7-79.9% at n=1,000).
+3. **Ladder protocol.** Serial, `tools/ladder_read_loop.sh` (restart loop for
+   dead sockets, refuses while heavy jobs run, credentials sourced shell-side
+   only), fresh replay dir, three opt-in guards, checkpoint stamped role
+   `candidate`. 10-game canary -> audit (no crash, no parse errors, no
+   inactivity losses, guards firing sanely) -> continue to 25 only if the
+   audit is clean and the canary has >= 2 wins (<= 1 of 10 has p ~ 1% under a
+   50% bot: breakage, not noise). After 25: bot offline, tally with
+   `tools/ladder_loss_profile.py`; 25 games support no claim beyond
+   non-regression against the deployed brain's 13-12 (SE ~10pp).
+4. **Then more training**, machine free again: M1 refresh from the 09-20
+   scrape (running now, network-bound: `battle_logs_top_mc_20260920/`) into
+   dated artifacts and a T4 continuation on the refreshed pool; registered in
+   detail once the scrape and the ladder read are in.
+
+Note on the specialist's first-save rule: its kill line (0.743) was derived
+from the battery-style grid read (0.843, guards on), while the callback probe
+runs the bare policy for 100 battles and reads ~9pp lower (brain-v1 save 7:
+probe 0.67 vs grid 76.2 six-team). Save 1 read 0.75 and passed; the paired
+clause was the safeguard. Future kill lines must use the probe's own baseline.
+
 ## Team pick: T4 (Charizard-Y sun); specialist round running (2026-September 20, 00:55)
 
 Grid complete (save 7 vs the deployed brain, paired n=300 per cell, seed 83;
