@@ -118,12 +118,18 @@ population they were not fit on, ladder only with the user's word.
     (−5.7 on MB430); pre-registered pick (`tools/pick_team_from_grid.py`,
     confirmation n=1,000) = **T4** (Charizard-Y sun): 84.4% vs the human
     clone, against the deployed brain's 79.7-79.9% on MB430.
-  - [ ] Specialise on the winner: `training/brainv1_spec_chain.sh
-    teams/candidates_mc/T4.txt` running since 2026-09-20 00:51 (save 7 → +8
-    intervals, `results_brainv1_spec/`); verdict = paired vs save 7 on T4 +
-    `tools/cross_team_read.py` vs the deployed brain on MB430.
+  - [x] Specialise on the winner (2026-09-20): `results_brainv1_spec/.../27525120.zip`;
+    paired vs the generalist on T4: human +0.1 (84.6%), PPO +3.3..+5.5;
+    cross-team vs the deployed brain on MB430: human +4.7, PPO +7.3..+8.2,
+    weighted +6.6pp.
 - [ ] **M5 — gates and ladder**: screening → promotion → 25 audited games
   with the user's word.
+  - [x] Ladder measurement read (user-delegated, 2026-09-20): T4 specialist
+    **27-23 over 50**, Elo 1104 → peak 1321, settling ~1250-1300 (deployed
+    brain 09-09: 13-12 near 1100); zero mechanical failures.
+  - [ ] Promotion decision (the user's): T4 + the specialist as the deployed
+    configuration, as a new artifact; gate re-anchoring proposal pending.
+  - [ ] Round spec2 (fresh 09-20 human clone in the pool), running overnight.
 
 ## League fine-tune (August 29) — the climb plan's new lever
 

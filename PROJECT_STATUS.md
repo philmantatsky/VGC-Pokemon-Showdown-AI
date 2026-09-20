@@ -1,5 +1,49 @@
 # VGC Bot Project Status
 
+## Ladder read complete: T4 specialist 27-23 over 50, Elo 1104 -> peak 1321, settling ~1250-1300; overnight chain running (2026-September 20, 18:40)
+
+`ladder_replays_mc_brainv1spec_T4_20260920/` (serial, 16:27-18:35, one config):
+block 1 **16-9** at mean opponent Elo 1195 (perf ~1295), block 2 **11-14** at
+mean opponent Elo 1283 (perf ~1241), pooled **27-23 (54%, Wilson 40-67)**, mean
+opponent Elo 1239, performance rating **~1267**. Pre-game Elo path 1104 -> 1300
+after 25 -> peak 1321 -> 1267 before game 50 (a loss). Reference: the deployed
+brain on MB430, 09-09, 13-12 at mean opponent Elo ~1110 (perf ~1125), account
+left at ~1104. OUR forfeits/timeouts/parse errors: **0 in 50**. By opponent
+rating: <1150 6-2, 1150-1250 13-10, 1250-1350 6-7, >=1350 2-4 -> a ~1250-1300
+player in today's Reg M-C field. Opponent forfeits/timeouts 16 of the 27 wins
+(5 at turn <= 2, all in block 1; without those 22-23). "Played to the end
+11-23" is NOT a strength measure: the bot never forfeits, so every loss counts
+while conceded wins do not. First faint ours 28/50 (won 10 = 36%); first faint
+theirs 20 (won 15 = 75%): the opening still decides, and we lose first blood
+more often than not. Trick Room games 5-2 (the historic TR hole does not show
+on T4). Facing: Volcarona 8-2, Rillaboom 16-9, Basculegion 6-3, Indeedee-F 6-3,
+Kingambit 6-4, Incineroar 9-7, Sneasler 10-10, Salamence 5-6, Raichu 4-5,
+Milotic 4-4, Gardevoir 3-5, Garchomp 3-5. Bot offline 18:35.
+
+Reading: the first real ladder gain since August. Same account, eleven days
+apart: the old brain + MB430 held ~1100; brain v1 + T4 climbed ~150-200 points
+and held. 50 games cannot separate 54% from 50%, but the rating path does not
+need to: it is an independent measure of the same thing. **Promotion is the
+user's decision** (recommended: make T4 + `results_brainv1_spec/.../27525120.zip`
+the deployed configuration as a NEW artifact; `league_champion.zip` is never
+overwritten). The MB430-anchored gate cannot judge a team change; proposal
+stands: human-clone + PPO arms gate, scripted arm advisory, cross-team read
+against the incumbent configuration.
+
+**Overnight chain launched 18:36** (`training/refresh_clones_spec2_chain.sh`,
+log `refresh_spec2_chain.log`; single variable vs the specialist round = the
+human clone): deferred specialist arms (scripted + mc_A / eval_D) -> merged
+corpus incl. the 09-20 scrape into `battle_logs_top_mc_merged_20260920/` ->
+trajectories A/B `trajs_regmc_human_{A,B}_20260920` (current token length) ->
+clones `results_bc/mc_A_20260920` (training_opponent) and
+`results_bc/eval_mcB_20260920` (eval_only, banned by content), best epoch by
+cross-bucket agreement -> smoke -> round **spec2** (`results_brainv1_spec2/`:
+the specialist +8 intervals to 35,389,440 on T4 with the new clone in the
+pool; first-save kill line 0.79 = the specialist's own probe 0.89 minus 0.10,
+probe-matched this time, AND a paired 200-battle read below -5pp; reward
+invariant) -> verdict paired vs the specialist on T4 with BOTH eval-only clones
+as human arms. The battery's team pool and weights stay frozen (comparability).
+
 ## Ladder read, block 1: T4 specialist 16-9, Elo 1104 -> ~1290; block 2 pre-registered (2026-September 20, 17:35)
 
 `ladder_replays_mc_brainv1spec_T4_20260920/`, serial, 16:27-17:24: canary 6-4
