@@ -1,5 +1,38 @@
 # VGC Bot Project Status
 
+## Grid resumed; team-pick rule and the specialist round PRE-REGISTERED before T3-T5 are read (2026-September 19, 23:56)
+
+Resumed at the user's word (`continue`). Pre-registration, committed before
+any T3-T5 grid cell exists:
+
+**Team pick.** (1) Score per team = mean of save 7's win rate against the
+eval-only human clone in the grid (n=300) and save 7's tournament win rate
+(n=300, vs itself on the weighted M-C pool): both opponents are competent
+pilots of M-C teams, which the scripted opponent and the deployed brain are
+not. Known so far: T0 (73.3 + 83.0)/2 = 78.2, T1 (74.7 + 72.0)/2 = 73.4,
+T2 (76.7 + 84.0)/2 = 80.4. (2) The top three by score get a confirmation:
+save 7 alone vs eval_mcB, n=1,000, fresh seed 8302 (SE ~1.4pp). The highest
+confirmation read wins; if the top two are within 2pp, the higher step-1 score
+wins. The scripted-opponent read is reported, never used for the pick.
+
+**Specialist round (NEW_BRAIN_PLAN section 4 step 3).** Init = save 7
+(`19660800.zip`); our side = the winning team only; every other training flag
+as brain v1 (joint head, shaping 0.10/0.05, knowledge obs, hidden sheets 0.5,
+lr 3e-5, n_epochs 3, target_kl 0.02); +8 intervals to 27,525,120. Pool: mc_A
+clone x2, old champion, league-1 history, deployed x2, save 8 x1, save 7 x2 +
+resume (one deployed copy swapped for save 8: the deployed brain is a weak
+pilot of the pool's teams, the brain-v1 generalists are not). Artifacts in
+`results_brainv1_spec/` (brain-v1 saves untouched). First-save kill rule:
+eval/heuristic more than 10pp below save 7's own grid read on that team AND a
+paired 200-battle read vs save 7 on that team below -5pp; shaped-return
+invariant as before. Verdict: paired vs save 7 on the winning team, n=1,000
+per arm (scripted, frozen, rotation1/2, human = eval_mcB; diagnostics mc_A,
+eval_D); success = human arm >= +2pp with no PPO/human arm below -2pp
+(scripted arm advisory on a non-MB430 team). The cross-team read against the
+deployed brain on MB430 uses the same arms' absolute rates (deployed on MB430
+at n=1,000: human 79.7-79.9, frozen 82.3-83.8, rotations 79.8-83.5, scripted
+86.4-86.7). Ladder only with the user's word.
+
 ## Paused at the user's word during the team grid; T0-T2 read (2026-September 18, 13:13)
 
 Stopped 13:12 (`pause it`): grid, watchdog and eval processes killed; nothing
