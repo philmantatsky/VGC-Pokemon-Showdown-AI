@@ -46,7 +46,11 @@ DEFAULT_DEST = Path("results_league/saves_fp_hs_wt/reg_mb/seed1")
 DEFAULT_EVAL_ONLY_ROOT = Path("results_bc/eval_B")
 DEFAULT_WEIGHTS_SOURCE = Path("data/team_weights_regmb.json")
 DEFAULT_WEIGHTS_DEST = Path("data/team_weights_regmb_league.json")
-ALLOWED_ROLES = {"training_opponent", "production", "seed"}
+# "candidate" = a learner-lineage checkpoint stamped for a ladder measurement read
+# (2026-09-20: the T4 specialist). It is our own lineage, never an evaluation
+# population, so it may seed and populate the next round; the eval roles
+# (eval_only, eval_opponent) stay refused, and holdouts are also banned by content.
+ALLOWED_ROLES = {"training_opponent", "production", "seed", "candidate"}
 
 DEFAULT_SOURCES: dict[int, str] = {
     100: "results_bc/mix_A/saves_bc/seed1/30.zip",

@@ -71,6 +71,14 @@ def test_check_source_refuses_disallowed_roles(tmp_path: Path) -> None:
         check_source(ckpt)
 
 
+def test_check_source_admits_a_ladder_candidate(tmp_path: Path) -> None:
+    """A learner-lineage checkpoint stamped for a ladder read may seed a round."""
+    ckpt = tmp_path / "specialist.zip"
+    sha = _ckpt(ckpt, b"specialist")
+    _stamp(ckpt, sha, "candidate")
+    assert check_source(ckpt) == (sha, "candidate")
+
+
 def test_check_source_refuses_eval_only_by_sidecar(tmp_path: Path) -> None:
     ckpt = tmp_path / "holdout.zip"
     _stamp(ckpt, _ckpt(ckpt, b"holdout"), "eval_only")
