@@ -1,5 +1,25 @@
 # VGC Bot Project Status
 
+## Specialist verdict complete: PASS on every arm; cross-team +6.3pp weighted over the deployed configuration (2026-September 20, 19:25)
+
+The arms skipped for the fast path are in (`brainv1_spec_verdict_full.log`).
+T4 specialist 27525120 paired vs the brain-v1 generalist on T4, n=1,000 per
+arm: scripted **+8.3** (91.3 v 83.0), frozen +3.5, rotation1 +3.3, rotation2
++5.5, human clone +0.1 (84.6 v 84.5); weighted (human x2) **+3.47pp**, equal
++4.14pp -> **screening PASS**, the first since league 1 (baseline here = the
+generalist on the same team). Diagnostics: pool clone mc_A +3.3, eval_D +3.9;
+the mc_A-vs-eval_mcB divergence is 3.2pp (flag at 10): the human-side gain is
+specific to the clone it trained against, which is tonight's single variable.
+Cross-team against the deployed brain on MB430 (unpaired, n=1,000 each):
+scripted **+4.9**, frozen +8.2, rotation1 +8.2, rotation2 +7.3, human **+4.7**;
+weighted **+6.33pp**, equal +6.66pp -- no arm below the incumbent. The
+scripted-arm breach that failed every M-C candidate (round 6, brain v1) was an
+MB430 artifact: on its own team the new brain beats the scripted opponent more
+often than the deployed brain does on MB430.
+
+Overnight chain: merged corpus `battle_logs_top_mc_merged_20260920/` = 7,558
+unique replays (09-13: 2,390); trajectories started 19:19.
+
 ## Ladder read complete: T4 specialist 27-23 over 50, Elo 1104 -> peak 1321, settling ~1250-1300; overnight chain running (2026-September 20, 18:40)
 
 `ladder_replays_mc_brainv1spec_T4_20260920/` (serial, 16:27-18:35, one config):
