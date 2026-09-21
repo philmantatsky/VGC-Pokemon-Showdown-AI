@@ -1,5 +1,56 @@
 # VGC Bot Project Status
 
+## Team change at the user's word: T6 (Kanto starters, sun + Trick Room) rebuilt from a player's replays; T6 round training since 20:28 (2026-September 20, 20:35)
+
+The user, 20:15: change the team to the player **dksnnfud**'s "Incineroar
+version of the team with all 3 starters", scrape his replays and guess what
+cannot be seen. Found: 4 public replays in total (3 Reg M-C on 09-17/18 at Elo
+1394-1587, 1 Reg M-B), NO open team sheet in any; roster Charizard / Venusaur /
+Blastoise / Torkoal / Farigiraf + a flex slot (Incineroar in the two newest
+games; Rillaboom, Raichu earlier). Four other top players run the same core
+(xdstyfh, jxghxhx, thruxy, Arthuritiis; flex Pawmot / Raichu / Dragapult /
+Incineroar): 13 games of the archetype in the corpus, 8-5 (dksnnfud 3-1).
+How it is played: Blastoise + Farigiraf lead in 4/4 of his games (Fake Out +
+Trick Room, Mega Blastoise, Rain Dance into Water Spout), Torkoal / Venusaur in
+the back; others lead Charizard-Y + Venusaur (sun mode). Charizard and
+Incineroar were NEVER on the field in his games; Incineroar never in any game
+of this version. Reconstruction (`teams/candidates_mc/T6.txt`, validated by the
+Reg M-C simulator; per-Pokemon provenance in `manifest.json`): seen in his games
+= Blastoisinite + Fake Out / Water Spout / Water Pulse / Ice Beam; Farigiraf
+Sitrus Berry + Trick Room / Psychic / Helping Hand / Rain Dance; Venusaur Focus
+Sash + Sludge Bomb / Leaf Storm / Sleep Powder / Protect; Torkoal Drought +
+Eruption / Heat Wave / Protect. Seen from the other players of this team =
+Charizardite Y + Heat Wave / Solar Beam / Ancient Power / Protect. Inferred
+from the 3,610 top-player open sheets = Torkoal's 4th move Weather Ball
+(37/83) + Charcoal (81/83) + Quiet; Incineroar Fake Out / Flare Blitz / Parting
+Shot / Throat Chop (517/1038), Passho Berry (most common once Sitrus is taken:
+item clause), Careful; natures, abilities; EVs never visible: offence + Speed
+for the sun attackers, HP + offence for the Trick Room attackers, HP + defence
+for the two supports (the generic nature rule would have maxed their Speed).
+
+Round spec2 (T4 + fresh clone) was STOPPED at 20:28 before its first save: its
+question is moot once the team changes; nothing but ~1 h of compute lost. The
+T6 round launched 20:28:24 (`brainv1_t6_chain.log`, training log
+`brainv1_t6_202832.log`, artifacts `results_brainv1_t6/`): init = the brain-v1
+GENERALIST save 7 (it has piloted Farigiraf + Torkoal Trick Room lines on T2
+and the sun pieces on T4; the T4 specialist's preview collapsed to one fixed
+four), our side T6 only, +8 intervals to 27,525,120 (~14.5 h), pool = the
+specialist recipe with the fresh 09-20 clone at stems 100/200, all three
+eval-only clones banned. First-save check: the init has no probe on T6, so the
+paired 200-battle read vs the generalist on T6 always runs and kills below
+-5pp; reward invariant as before. Verdict: paired vs the generalist on T6 with
+eval_mcB_20260920 and eval_mcB_20260913 as human arms; then the cross-team read
+against the deployed T4 specialist. The deployed configuration is unchanged
+until T6 earns it.
+
+Ladder finding that motivated looking at the team (from `decisions.jsonl`, 50
+games): the T4 specialist brought the SAME four every game -- Charizard +
+Garchomp lead 50/50, Sylveon + Incineroar in the back; Venusaur (0.19 back-row
+probability) and Toxapex (0.001) never reached the field. A matchup-blind
+preview is the clearest next battle-logic lever. Human record of the exact T4
+six: 33 sheets, 51.5%; Toxapex on any team 168 sheets, 42.9%; nobody runs that
+core with Torkoal (0 of 60) -- my earlier "usual sixth is Torkoal" was wrong.
+
 ## PROMOTED by the user: brain v1 T4 specialist + T4 is the deployed configuration (2026-September 20, 20:05)
 
 The user, 20:00: `yeah make it the official bot`. Promotion as a NEW artifact;
