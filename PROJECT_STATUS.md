@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## Fresh clones built; round spec2 training since 19:31 (2026-September 20, 19:35)
+
+Refresh (`refresh_spec2_chain.log`): trajectories A 4,852 / B 4,940 from the
+7,558-replay merged corpus (token 1019 = current; knowledge block populated,
+the 8 threat floats are ZERO -- logs2trajs never computes them, so every human
+clone is threat-blind and its zero-extended input weights stay zero: harmless
+tonight, a future lever). Clones: `results_bc/mc_A_20260920` best epoch 2 =
+**40.4%** top-1 on B (epochs 3-12 decay to 38.2%); `results_bc/eval_mcB_20260920`
+best epoch 2 = **40.3%** on A (role eval_only). The 09-13 pool clone scores
+39.2% on the new B: the field moved ~1pp for it, so the fresh-clone lever may
+be modest. Smoke: the specialist beats the new eval clone 34/40.
+
+The first spec2 launch died at the pool build, correctly: the specialist had
+been stamped role `candidate` for the ladder read and `build_league.py` admitted
+only production / seed / training_opponent. A candidate is learner lineage,
+not an evaluation population -> `candidate` added to `ALLOWED_ROLES` (eval_only
+and eval_opponent stay refused; holdouts also banned by content; new test;
+5becc19). Relaunched 19:31:01 (`brainv1_spec2_chain.log`, training log
+`brainv1_spec2_193109.log`): specialist (135 tensors copied) -> +8 intervals to
+35,389,440 on T4, pool = specialist recipe with the 09-20 clone at stems
+100/200; eval-only roots banned: eval_mcB, eval_mcB_20260913, eval_mcB_20260920.
+Watcher kill line 0.79 (probe-matched) + paired clause + reward invariant.
+Verdict: paired vs the specialist on T4, human arm = eval_mcB_20260920, extra
+human arm eval_mcB_20260913 under `results_gate_battery_brainv1_spec2_human2/`.
+Expected: last save ~10:00 on 09-21, verdict ~12:30.
+
 ## Specialist verdict complete: PASS on every arm; cross-team +6.3pp weighted over the deployed configuration (2026-September 20, 19:25)
 
 The arms skipped for the fast path are in (`brainv1_spec_verdict_full.log`).
