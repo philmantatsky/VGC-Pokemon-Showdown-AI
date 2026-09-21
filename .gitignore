@@ -68,6 +68,11 @@ results_league/*
 !results_league2/
 results_league2/*
 !results_league2/league_manifest.json
+# deployed configuration (2026-09-20): the manifest and sidecar are the record; weights stay local
+!results_deployed/
+results_deployed/*
+!results_deployed/DEPLOYED.json
+!results_deployed/*.metadata.json
 # league gate batteries: scorecards are the evidence; per-battle logs stay local
 !results_gate_battery_league/
 results_gate_battery_league/*

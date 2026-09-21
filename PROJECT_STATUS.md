@@ -1,5 +1,43 @@
 # VGC Bot Project Status
 
+## PROMOTED by the user: brain v1 T4 specialist + T4 is the deployed configuration (2026-September 20, 20:05)
+
+The user, 20:00: `yeah make it the official bot`. Promotion as a NEW artifact;
+nothing was overwritten: `results_deployed/champion_mc_T4.zip` (verified copy of
+`results_brainv1_spec/.../27525120.zip`, sha256 af4e78a5..., sidecar role
+`production`) + `results_deployed/DEPLOYED.json` (checkpoint, sha, team
+`teams/candidates_mc/T4.txt` + its sha, Reg M-C, the three opt-in guards, the
+evidence, the previous deployed checkpoint and its sha). Tracked in git:
+the manifest and the sidecar (weights stay local, as for the league champion).
+`results_league/league_champion.zip` (deployed 2026-08-30 -> 2026-09-20, MB430)
+stays immutable as a prior champion and the MB430 reference arm;
+`teams/reg_mc/our_team.txt` is NOT repointed (every battery reference and the
+league weights' zero entry mean MB430 by that name).
+
+Evidence on record: ladder read 27-23 over 50 (Elo 1104 -> peak 1321, settling
+~1250-1300; zero mechanical failures); screening PASS vs the generalist on T4
+(weighted +3.47pp); cross-team vs the previous deployed configuration weighted
++6.33pp with no arm below the incumbent. NOT run: the n=5,000 promotion-tier
+battery -- the promotion rests on the user's decision and the evidence above.
+
+Team T4 (real top-player sheet, source MC302): Charizard @ Charizardite Y
+(Weather Ball, Heat Wave, Ancient Power, Protect), Venusaur @ Life Orb
+(Chlorophyll; Sludge Bomb, Leaf Storm, Earth Power, Protect), Sylveon @ Fairy
+Feather (Pixilate; Hyper Voice, Quick Attack, Yawn, Detect), Garchomp @ Choice
+Scarf (Rock Slide, Dragon Claw, Earthquake, Stomping Tantrum), Incineroar @
+Sitrus Berry (Intimidate; Flare Blitz, Fake Out, Darkest Lariat, Parting
+Shot), Toxapex @ Leftovers (Regenerator; Infestation, Toxic, Wide Guard,
+Baneful Bunker).
+
+Launchers: `tools/ladder_deployed.sh <n_total> [replay_dir]` (reads the
+manifest, verifies the sha, serial, restart loop, refuses while heavy jobs
+run); `exhibition_mode.sh` now defaults to the deployed checkpoint and team
+(`CHECKPOINT` / `TEAM` env override; replay dir
+`ladder_replays_exhibition_mc_T4`). The workspace CLAUDE.md names the new
+deployed artifact and keeps all three champions immutable. Round spec2 keeps
+training (step 27.8M at 20:02, shaped return 0.66); the bot is offline until
+the user says ladder, and never while training runs.
+
 ## Fresh clones built; round spec2 training since 19:31 (2026-September 20, 19:35)
 
 Refresh (`refresh_spec2_chain.log`): trajectories A 4,852 / B 4,940 from the

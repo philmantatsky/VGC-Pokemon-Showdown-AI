@@ -21,14 +21,17 @@ set -uo pipefail
 #   nohup ./exhibition_mode.sh > exhibition_mode.log 2>&1 &
 # Stop with pkill -f exhibition_mode.sh (then pkill -f ladder_ourteam.py).
 # Exhibition games land in ladder_replays_exhibition_<reg>/, kept separate
-# from the measured ladder corpus. Since 2026-09-10 the deployed configuration
-# is Reg M-C with the three opt-in targeting guards (REG / GUARDS env
-# override). poke-env only accepts a challenge sent in the bot's own format,
+# from the measured ladder corpus. Since 2026-09-20 the deployed configuration
+# is the one in results_deployed/DEPLOYED.json: brain v1 T4 specialist on
+# teams/candidates_mc/T4.txt, Reg M-C, the three opt-in targeting guards
+# (CHECKPOINT / TEAM / REG / GUARDS env override). poke-env only accepts a challenge sent in the bot's own format,
 # so challengers must pick "[Gen 9 Champions] VGC 2026 Reg M-C".
 
 cd "$(dirname "$0")"
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 REG=${REG:-mc}
+CHECKPOINT=${CHECKPOINT:-results_deployed/champion_mc_T4.zip}
+TEAM=${TEAM:-teams/candidates_mc/T4.txt}
 GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
 LOGIN_GRACE=${LOGIN_GRACE:-120}
 HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament'
@@ -48,11 +51,11 @@ while true; do
   LOG="exhibition_logs/session_$(date '+%Y%m%d_%H%M%S').log"
   echo "SESSION_START $session [$(date '+%H:%M:%S')] log=$LOG"
   caffeinate -is .venv/bin/python -u ladder_ourteam.py \
-    --checkpoint results_league/league_champion.zip \
-    --reg "$REG" --our_team "teams/reg_$REG/our_team.txt" \
+    --checkpoint "$CHECKPOINT" \
+    --reg "$REG" --our_team "$TEAM" \
     --guards-extra "$GUARDS" \
     --challenges --n_games 3 \
-    --replay_dir "ladder_replays_exhibition_$REG" > "$LOG" 2>&1 &
+    --replay_dir "ladder_replays_exhibition_${REG}_$(basename "$TEAM" .txt)" > "$LOG" 2>&1 &
   PID=$!
   started=$(date +%s)
   while kill -0 $PID 2>/dev/null; do

@@ -127,8 +127,13 @@ population they were not fit on, ladder only with the user's word.
   - [x] Ladder measurement read (user-delegated, 2026-09-20): T4 specialist
     **27-23 over 50**, Elo 1104 → peak 1321, settling ~1250-1300 (deployed
     brain 09-09: 13-12 near 1100); zero mechanical failures.
-  - [ ] Promotion decision (the user's): T4 + the specialist as the deployed
-    configuration, as a new artifact; gate re-anchoring proposal pending.
+  - [x] **PROMOTED 2026-09-20 by the user** (`yeah make it the official bot`):
+    `results_deployed/champion_mc_T4.zip` + `teams/candidates_mc/T4.txt`,
+    recorded in `results_deployed/DEPLOYED.json`; launch with
+    `tools/ladder_deployed.sh`. The n=5,000 promotion tier was not run.
+  - [ ] Gate re-anchoring (pending the user): future candidates are judged against
+    the deployed configuration ON T4; human-clone + PPO arms gate, scripted arm
+    advisory; a team change uses the cross-team read.
   - [ ] Round spec2 (fresh 09-20 human clone in the pool), running overnight.
 
 ## League fine-tune (August 29) — the climb plan's new lever
