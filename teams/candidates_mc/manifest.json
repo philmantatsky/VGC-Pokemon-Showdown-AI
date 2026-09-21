@@ -27,5 +27,25 @@
   "source": "teams/reg_mc/MC343.txt",
   "exact": false,
   "note": "partial (5/6 species)"
+ },
+ "T6": {
+  "source": "reconstructed from public replays of the player dksnnfud (Incineroar version of the Kanto-starters sun + Trick Room team), 2026-09-20",
+  "exact": false,
+  "note": "no open team sheet exists for this team; see provenance",
+  "provenance": {
+   "Blastoise": "item (Blastoisinite) and all four moves seen in his games; Quiet + Rain Dish from the 15 top-player Fake Out/Water Spout sheets (15/15 Quiet)",
+   "Farigiraf": "item (Sitrus Berry) and all four moves seen in his games; Armor Tail 335/335 sheets; Bold = most common nature on Trick Room + Helping Hand sheets; bulk spread is a guess",
+   "Venusaur": "item (Focus Sash) and all four moves seen in his games; Chlorophyll 85/85, Modest 73/85 sheets",
+   "Torkoal": "Eruption, Heat Wave, Protect and Drought seen; Weather Ball = most common 4th move (37/83), Charcoal 81/83, Quiet 82/83 sheets",
+   "Charizard": "never brought by him; Charizardite Y, Heat Wave, Solar Beam, Ancient Power, Protect all seen from four other players running this exact team; Modest 183/205 sheets",
+   "Incineroar": "never reached the field in any of the 4 games of this version; most common top-player set (517/1038 sheets); Passho Berry = most common item once Sitrus Berry is taken by Farigiraf (item clause); bulk spread is a guess",
+   "spreads": "EVs are never visible; Champions units (cap 32, budget 66), offence + Speed for the sun attackers, HP + offence for the Trick Room attackers, HP + defence for the two supports"
+  },
+  "replays": [
+   "gen9championsvgc2026regmc-2683572822",
+   "gen9championsvgc2026regmc-2683561174",
+   "gen9championsvgc2026regmc-2682817857",
+   "gen9championsvgc2026regmb-2661181949"
+  ]
  }
 }
