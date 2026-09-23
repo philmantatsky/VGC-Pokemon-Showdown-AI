@@ -1,0 +1,77 @@
+"""Run evaluation/opening_study.py with OUR team preview chosen by a learned,
+human-trained preview model (vgc_bench.src.opponent_preview.PreviewPredictor).
+
+Why (2026-09-23): the T6 brain leads Farigiraf + Torkoal every game; human pilots
+of this kind of team vary their four and their leads by opponent (gankyburner:
+7 lead pairs in 19 games, 15-4). data/preview_t6_focus_*.pt learned those
+choices from replays. This wrapper lets the study's own player (StudyPlayer)
+use that model for its preview and nothing else:
+
+* only StudyPlayer is patched; the opponent's preview stays its own policy's;
+* the model's belief about the OPPONENT's plan is discarded after preview, so
+  the in-battle behaviour is exactly the reference arm's (which ran without a
+  preview model); only the opening differs.
+
+It patches at runtime so evaluation/opening_study.py and vgc_bench/ stay
+byte-identical (the pinned reference arms of results_t6_vs_deployed_v1 remain
+valid). Usage (from the repo root):
+
+  .venv/bin/python evaluation/learned_preview_study.py --preview-model <model.pt> \\
+      -- <opening_study arguments>
+"""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+import argparse
+
+from evaluation import opening_study
+from vgc_bench.src.policy_player import PolicyPlayer
+
+
+def install(model: Path) -> None:
+    """StudyPlayer previews with ``model``; the opponent belief is dropped."""
+    if not model.exists():
+        raise FileNotFoundError(model)
+    if getattr(opening_study.StudyPlayer, "_learned_preview_model", None):
+        raise RuntimeError("learned preview already installed")
+    original_init = opening_study.StudyPlayer.__init__
+    original_learned = PolicyPlayer._learned_teampreview
+
+    def __init__(self, *args, **kwargs):
+        original_init(self, *args, **kwargs)
+        self.preview_model_path = model
+        self.use_learned_teampreview = True
+
+    def _learned_teampreview(self, battle):
+        choice = original_learned(self, battle)
+        if isinstance(self, opening_study.StudyPlayer):
+            # Keep only our opening: in-battle code sees no plan state, exactly as
+            # in the reference arm, so the arms differ in the preview alone.
+            self._battle_plans.pop(battle.battle_tag, None)
+        return choice
+
+    opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
+    opening_study.StudyPlayer._learned_preview_model = str(model)  # type: ignore[attr-defined]
+    PolicyPlayer._learned_teampreview = _learned_teampreview  # type: ignore[method-assign]
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--preview-model", type=Path, required=True)
+    ap.add_argument("study_args", nargs=argparse.REMAINDER)
+    args = ap.parse_args()
+    rest = args.study_args[1:] if args.study_args[:1] == ["--"] else args.study_args
+    install(args.preview_model)
+    print(f"learned preview for our side: {args.preview_model}", flush=True)
+    sys.argv = ["evaluation/opening_study.py", *rest]
+    opening_study.main()
+
+
+if __name__ == "__main__":
+    main()

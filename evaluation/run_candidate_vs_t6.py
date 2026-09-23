@@ -10,6 +10,10 @@ study; uncertainty resamples whole opponent rosters. Delta = candidate minus
 deployed. Also reports how varied each brain's team preview is. No promotion,
 no ladder.
 
+With --preview-model, OUR preview comes from a learned, human-trained preview
+model through evaluation/learned_preview_study.py (opponent belief discarded,
+so only the opening differs from the reference arm).
+
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/run_candidate_vs_t6.py --candidate <ckpt.zip> \\
       --label <name> [--output results_candidate_vs_t6_<name>]
@@ -87,6 +91,12 @@ def main() -> None:
     ap.add_argument("--output", type=Path, default=None)
     ap.add_argument("--port", type=int, default=7610)
     ap.add_argument("--prepare-only", action="store_true")
+    ap.add_argument(
+        "--preview-model",
+        type=Path,
+        default=None,
+        help="human-trained preview model that chooses OUR four and leads",
+    )
     args = ap.parse_args()
     os.chdir(ROOT)
     output = args.output or Path(f"results_candidate_vs_t6_{args.label}")
@@ -125,6 +135,17 @@ def main() -> None:
         "seed": seed,
         "port": args.port,
         "set_data": "Reg M-C (data/joint_sets_regmc.json) for both arms",
+        "our_preview": (
+            {
+                "model": str(args.preview_model),
+                "model_sha256": sha256(args.preview_model),
+                "wrapper": "evaluation/learned_preview_study.py",
+                "wrapper_sha256": sha256("evaluation/learned_preview_study.py"),
+                "opponent_belief": "discarded after preview",
+            }
+            if args.preview_model
+            else "the candidate policy's own preview"
+        ),
         "delta": "candidate minus deployed",
         "battle_rng_paired": False,
         "uncertainty": "whole-roster bootstrap; pooled = equal-population mean",
@@ -163,9 +184,19 @@ def main() -> None:
                 stale = changed_pins(reference["sha256"])
                 if stale:
                     raise ValueError(f"pinned source changed during the run: {stale}")
+                runner = (
+                    [
+                        "evaluation/learned_preview_study.py",
+                        "--preview-model",
+                        str(args.preview_model),
+                        "--",
+                    ]
+                    if args.preview_model
+                    else ["evaluation/opening_study.py"]
+                )
                 command = [
                     sys.executable,
-                    "evaluation/opening_study.py",
+                    *runner,
                     "--checkpoint",
                     args.candidate,
                     "--opponent",

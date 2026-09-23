@@ -1,4 +1,12 @@
-"""Train the opponent/team-preview model on top-player Reg M-B replays."""
+"""Train the opponent/team-preview model on top-player replays.
+
+Optional team focus (2026-09-23): --team-logs adds replays of players who pilot
+teams like ours (their own side kept regardless of the top-500 floor), and
+--focus-team / --focus-min-overlap / --focus-weight repeat, in the TRAINING split
+only, every example whose roster shares at least that many species with the
+focus team, so the model learns how pilots of our kind of team pick their four
+and their leads against each opponent. Validation is unweighted, as before.
+"""
 
 from __future__ import annotations
 
@@ -22,6 +30,7 @@ from vgc_bench.src.opponent_preview import (
     PreviewExample,
     PreviewNet,
     load_replay_examples,
+    species_id,
 )
 
 
@@ -40,6 +49,32 @@ class PreviewDataset(Dataset):
         lead = PAIR_INDICES.index(example.lead)
         bring = -1 if example.bring is None else BRING_INDICES.index(example.bring)
         return roster, opponent, lead, bring
+
+
+def team_species(path: Path) -> set[str]:
+    """Species ids of a Showdown export (the first line of each block)."""
+    names = set()
+    for block in path.read_text().strip().split("\n\n"):
+        head = block.strip().splitlines()[0].split(" @ ")[0]
+        head = head.replace(" (M)", "").replace(" (F)", "").strip()
+        if head.endswith(")") and "(" in head:
+            head = head[head.rindex("(") + 1 : -1]
+        names.add(species_id(head))
+    return names
+
+
+def focus_weighted(
+    train: list[PreviewExample], focus: set[str], min_overlap: int, weight: int
+) -> tuple[list[PreviewExample], int]:
+    """Repeat training examples whose roster shares >= min_overlap focus species."""
+    if not focus or weight <= 1:
+        return train, 0
+    out, hits = [], 0
+    for example in train:
+        close = len(set(example.roster) & focus) >= min_overlap
+        hits += close
+        out.extend([example] * (weight if close else 1))
+    return out, hits
 
 
 def split_examples(examples: list[PreviewExample]):
@@ -102,6 +137,16 @@ def main() -> None:
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--seed", type=int, default=17)
     parser.add_argument(
+        "--team-logs",
+        type=Path,
+        nargs="*",
+        default=[],
+        help="replays of pilots of teams like ours (kept regardless of rating)",
+    )
+    parser.add_argument("--focus-team", type=Path, default=None)
+    parser.add_argument("--focus-min-overlap", type=int, default=4)
+    parser.add_argument("--focus-weight", type=int, default=1)
+    parser.add_argument(
         "--top_500_only",
         action=argparse.BooleanOptionalAction,
         default=True,
@@ -112,7 +157,27 @@ def main() -> None:
     random.seed(args.seed)
     torch.manual_seed(args.seed)
     examples = load_replay_examples(args.logs, top_500_only=args.top_500_only)
+    focus = team_species(args.focus_team) if args.focus_team else set()
+    if args.team_logs:
+        seen = {(e.battle_id, e.roster) for e in examples}
+        extra = [
+            e
+            for e in load_replay_examples(args.team_logs, top_500_only=False)
+            if (e.battle_id, e.roster) not in seen
+            and (not focus or len(set(e.roster) & focus) >= args.focus_min_overlap)
+        ]
+        examples += extra
+        print(f"team-log examples added: {len(extra)}", flush=True)
     train_examples, valid_examples = split_examples(examples)
+    train_examples, focus_hits = focus_weighted(
+        train_examples, focus, args.focus_min_overlap, args.focus_weight
+    )
+    if focus:
+        print(
+            f"focus team {sorted(focus)}: {focus_hits} training examples "
+            f"x{args.focus_weight}",
+            flush=True,
+        )
     species = sorted(
         {
             name
@@ -188,6 +253,11 @@ def main() -> None:
                 "exact_bring_examples": sum(e.bring is not None for e in examples),
                 "source_logs": [str(path) for path in args.logs],
                 "top_500_only": args.top_500_only,
+                "team_logs": [str(path) for path in args.team_logs],
+                "focus_team": str(args.focus_team) if args.focus_team else None,
+                "focus_species": sorted(focus),
+                "focus_min_overlap": args.focus_min_overlap,
+                "focus_weight": args.focus_weight,
             },
         },
         args.output,
