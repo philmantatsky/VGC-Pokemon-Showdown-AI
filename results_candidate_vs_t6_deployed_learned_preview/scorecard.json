@@ -1,0 +1,66 @@
+{
+  "delta": "candidate minus deployed",
+  "populations": {
+    "human_new": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.015473887814313332,
+        "roster_bootstrap_95_ci": [
+          -0.10928433268858798,
+          0.07059961315280465
+        ],
+        "deployed_win_rate": 0.8433268858800773,
+        "candidate_win_rate": 0.8278529980657641
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": 0.003868471953578333,
+        "roster_bootstrap_95_ci": [
+          -0.09864603481624758,
+          0.1083172147001934
+        ],
+        "deployed_win_rate": 0.8588007736943907,
+        "candidate_win_rate": 0.8626692456479691
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.03481624758220503,
+        "roster_bootstrap_95_ci": [
+          -0.15473887814313345,
+          0.07350096711798838
+        ],
+        "deployed_win_rate": 0.8278529980657641,
+        "candidate_win_rate": 0.793036750483559
+      }
+    }
+  },
+  "preview": {
+    "candidate": {
+      "games": 1034,
+      "distinct_lead_pairs": 3,
+      "distinct_brings": 5,
+      "top_lead": "blastoise+farigiraf",
+      "top_lead_share": 0.8297872340425532,
+      "rosters_with_more_than_one_lead": 0,
+      "leads": {
+        "blastoise+farigiraf": 858,
+        "farigiraf+incineroar": 110,
+        "charizard+venusaur": 66
+      }
+    },
+    "deployed": {
+      "games": 1034,
+      "distinct_lead_pairs": 1,
+      "distinct_brings": 1,
+      "top_lead": "farigiraf+torkoal",
+      "top_lead_share": 1.0,
+      "rosters_with_more_than_one_lead": 0,
+      "leads": {
+        "farigiraf+torkoal": 1034
+      }
+    }
+  }
+}

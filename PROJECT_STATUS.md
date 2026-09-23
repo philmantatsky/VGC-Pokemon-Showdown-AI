@@ -1,5 +1,39 @@
 # VGC Bot Project Status
 
+## Paused at the user's word; control arm read on one population (2026-September 23, 10:08)
+
+The user: `pause this for now`. Stopped 10:07: the chain (before training
+started), the control-arm evaluation, caffeinate, both local servers and the
+watcher; nothing is running; the bot is offline; T6 stays deployed.
+
+Done before the pause -- control arm (deployed T6 brain, preview chosen by
+`data/preview_t6_focus_20260923.pt`), new held-out human clone, 1,034 games:
+82.8% vs 84.3% own preview, delta -1.5 [-10.9, +7.1]. By the lead the model
+chose, against the deployed brain's own-preview results on the SAME rosters:
+
+| Lead chosen by the model | Games | Control | Deployed, own lead |
+|---|---:|---:|---:|
+| Blastoise + Farigiraf | 858 | 87.2% | 83.1% |
+| Farigiraf + Incineroar | 110 | 56.4% | 89.1% |
+| Charizard + Venusaur | 66 | 69.7% | 92.4% |
+
+Reading: the human Fake Out lead the old brain can already play (Blastoise +
+Farigiraf) is +4pp over its own lead on those matchups; the openings it never
+practised collapse (-33 / -23pp), as in Codex's forced-lead pilot. Human
+openings help where the brain can pilot them; practising them (the queued
+training cycle) is what should unlock the rest. Frozen-PPO population stopped at
+363/1,034 (only full cells are kept; incomplete cells rerun).
+
+**Resume** (nothing to rebuild; the trial league is prepared, no status.json):
+the chain `human_preview_chain.sh` (scratch) waits for the control arm, then
+trains (`training/run_t6_human_preview_trial.py`) and evaluates both saves; the
+control arm resumes with the same command (completed cells are skipped):
+`caffeinate -is .venv/bin/python -u evaluation/run_candidate_vs_t6.py --candidate
+results_deployed/champion_mc_T6.zip --label deployed_learned_preview
+--preview-model data/preview_t6_focus_20260923.pt` (Showdown on 7610). Or skip
+the rest of the control arm and train straight away (the chain skips the wait
+when no control process runs).
+
 ## Teaching matchup-dependent previews from human pilots of our kind of team; control arm running, training cycle PRE-REGISTERED (2026-September 23, 09:45)
 
 The user, ~07:15: switching back to T4 "doesnt solve the problem" and T6 "needs
