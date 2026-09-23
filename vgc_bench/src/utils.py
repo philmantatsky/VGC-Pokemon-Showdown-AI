@@ -124,6 +124,9 @@ correct_accuracy_obs_len = 4
 # one-sided (our attacks only); this one is filled for BOTH sides' actives. Last
 # block of the token so every older checkpoint zero-extends (convert_checkpoint).
 threat_obs_len = 8
+# Per enemy: fraction of moves observed, fraction supplied by a set estimate.
+# (0, 0) means unknown, not safe. Appended independently for old checkpoints.
+threat_evidence_obs_len = 4
 
 pokemon_obs_len = (
     4 * move_obs_len
@@ -143,6 +146,7 @@ chunk_obs_len = (
     + global_presence_obs_len
     + correct_accuracy_obs_len
     + threat_obs_len
+    + threat_evidence_obs_len
 )
 
 def prior_path(kind: str, reg: str) -> str:

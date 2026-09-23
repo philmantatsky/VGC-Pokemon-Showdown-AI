@@ -1,0 +1,372 @@
+{
+  "checkpoints": {
+    "deployed_T4": "results_deployed/champion_mc_T4.zip",
+    "candidate_T6": "results_brainv1_t6_repair1/saves_fp_hs_wt/reg_mc/seed1/20152320.zip"
+  },
+  "plans": {
+    "deployed_T4": "data/opening_plans_t4_control.json",
+    "candidate_T6": "data/opening_plans_t6.json"
+  },
+  "populations": [
+    "human_new",
+    "frozen",
+    "rotation1",
+    "rotation2",
+    "human_previous",
+    "heuristic"
+  ],
+  "matchups": [
+    {
+      "path": "teams/reg_mc/MC2610.txt",
+      "category": "trick_room",
+      "sha256": "f985066e6d53895bb90b3e8d1784e57f97a5a8201f7fe9ceda1117334441c70c"
+    },
+    {
+      "path": "teams/reg_mc/MC2566.txt",
+      "category": "rain",
+      "sha256": "67dcf08a904b7d118a7c647cb989d8de15b936f89ecfff8f391840a2fc82810e"
+    },
+    {
+      "path": "teams/reg_mc/MC3059.txt",
+      "category": "trick_room",
+      "sha256": "a7c48e46de201e2a2d02d767fd94db2e9efd4fd5e988b1fb61053b60e0e16380"
+    },
+    {
+      "path": "teams/reg_mc/MC210.txt",
+      "category": "balance",
+      "sha256": "5c63a45770431e5a0b37f4922a6c62ce8742cb8e453b62fc2cc87857545920e6"
+    },
+    {
+      "path": "teams/reg_mc/MC868.txt",
+      "category": "grassy_fakeout",
+      "sha256": "5535b415c54cdbee5fc027122d46d869ebd728c1294ffc67e62c9b6233c7835e"
+    },
+    {
+      "path": "teams/reg_mc/MC1838.txt",
+      "category": "trick_room",
+      "sha256": "eb4cded0c30b1914aaa538690033eeab632dfc4048ab17a02daa285a6c76aff8"
+    },
+    {
+      "path": "teams/reg_mc/MC2091.txt",
+      "category": "rain",
+      "sha256": "40b8d5acbb946d2cf38e0d1cdcc11e07cc0c48466b570df26795b839f0404959"
+    },
+    {
+      "path": "teams/reg_mc/MC1406.txt",
+      "category": "trick_room",
+      "sha256": "ee8cc0ee476317984d4657cd638eb6822caf6e41173c9e56fff20c1652805eff"
+    },
+    {
+      "path": "teams/reg_mc/MC2503.txt",
+      "category": "trick_room",
+      "sha256": "8db87215d97cccefca046451fb92005cabda1b1f06cb4c9d0756fab67c332eee"
+    },
+    {
+      "path": "teams/reg_mc/MC3440.txt",
+      "category": "grassy_fakeout",
+      "sha256": "7abb5f394ca635d6c7d8a8f10aa92510140baef781b9a94cbe6a04ed7fea5621"
+    },
+    {
+      "path": "teams/reg_mc/MC3105.txt",
+      "category": "trick_room",
+      "sha256": "27e60f59538197432f7e8d44645486155119634a524af2a452940b37fab76787"
+    },
+    {
+      "path": "teams/reg_mc/MC2868.txt",
+      "category": "trick_room",
+      "sha256": "bacabad53cb86b16502b020ac935a093c6bb022e30e6b2222ae58a1ae9df0674"
+    },
+    {
+      "path": "teams/reg_mc/MC904.txt",
+      "category": "grassy_fakeout",
+      "sha256": "4ecb52d6794c6228d832d7c27bf0851aa348b7751872a4abc874e79114ffbfcb"
+    },
+    {
+      "path": "teams/reg_mc/MC118.txt",
+      "category": "grassy_fakeout",
+      "sha256": "f3a83e905090db5fa0dc2678a5e517fcf584460580bdd6e2e98ca2ff00e19ab6"
+    },
+    {
+      "path": "teams/reg_mc/MC2198.txt",
+      "category": "tailwind",
+      "sha256": "9e79681bde0333da7a0131afab99e539b32316895b81f448c93577e913da521e"
+    },
+    {
+      "path": "teams/reg_mc/MC877.txt",
+      "category": "grassy_fakeout",
+      "sha256": "ed8b9e218f5abddf474a601f25b9f584f3bd397419496f366645414725b32deb"
+    },
+    {
+      "path": "teams/reg_mc/MC767.txt",
+      "category": "trick_room",
+      "sha256": "660cd060a2e7e8bcb982faf3534757d7e6e2e4c0e826e2687075617cde91acf7"
+    },
+    {
+      "path": "teams/reg_mc/MC1899.txt",
+      "category": "grassy_fakeout",
+      "sha256": "6cf225a5f074f356864298519871ec96dba982fe00b3a35d03b3304b38c3918b"
+    },
+    {
+      "path": "teams/reg_mc/MC2459.txt",
+      "category": "tailwind",
+      "sha256": "b9a716c9ed43093d9f5a228ba10ad1c1b024175ce72c79f2414656467155f3d9"
+    },
+    {
+      "path": "teams/reg_mc/MC2739.txt",
+      "category": "grassy_fakeout",
+      "sha256": "a358adaf56e7d65e0ef4c4487fcb493110aa376622c55322574a2f73a13e9412"
+    },
+    {
+      "path": "teams/reg_mc/MC1791.txt",
+      "category": "balance",
+      "sha256": "91ba95c5a8778c803d0db14cf9cabd81d8ab873be097327645f4f0a0e5551176"
+    },
+    {
+      "path": "teams/reg_mc/MC1940.txt",
+      "category": "trick_room",
+      "sha256": "ded4dc55c843551e49e5d46d803cd69cc8ba6dbcd4bd19a9147548b1991b88f4"
+    },
+    {
+      "path": "teams/reg_mc/MC1563.txt",
+      "category": "grassy_fakeout",
+      "sha256": "c875b13a0bf53a806ccbe4d6bbb908c56c34b3017b1d4c1bcd965ed4e9e9ae1f"
+    },
+    {
+      "path": "teams/reg_mc/MC304.txt",
+      "category": "trick_room",
+      "sha256": "0cc4a408e334b2e44311d118b8f03d2588569a65dcd221f2970e34b663785ea3"
+    },
+    {
+      "path": "teams/reg_mc/MC1011.txt",
+      "category": "tailwind",
+      "sha256": "300610a4df35cb40e7d94d92a5215d27b81f2fe1a2d9f71d7d87365ed7e23839"
+    },
+    {
+      "path": "teams/reg_mc/MC666.txt",
+      "category": "rain",
+      "sha256": "77ba589a10136e96174287d7a9dc69a060db0698a4d21e6c490bf2e4d4c39c20"
+    },
+    {
+      "path": "teams/reg_mc/MC3550.txt",
+      "category": "tailwind",
+      "sha256": "8377a2e3068850ded75b6e3a1656c18856fb2087338d6e1b3203e539445885d9"
+    },
+    {
+      "path": "teams/reg_mc/MC1364.txt",
+      "category": "tailwind",
+      "sha256": "4b2aa8ff249a9a058f834aa954532b517fb40528cfb8804156497ec6b7aa3842"
+    },
+    {
+      "path": "teams/reg_mc/MC3355.txt",
+      "category": "grassy_fakeout",
+      "sha256": "5c7b479baaafe38e61e78eaf6e25a2c2589b596645edb70c74d8e62b51435927"
+    },
+    {
+      "path": "teams/reg_mc/MC1098.txt",
+      "category": "grassy_fakeout",
+      "sha256": "055beaf8db65b27ef46c7306c2970bc981f35e6a68b67567d2e080b80238377a"
+    },
+    {
+      "path": "teams/reg_mc/MC1777.txt",
+      "category": "tailwind",
+      "sha256": "14f49c4579fc2c7c150dc5549a0790a277b111613117b8466c617779a89c322c"
+    },
+    {
+      "path": "teams/reg_mc/MC1225.txt",
+      "category": "rain",
+      "sha256": "d40bd92cdb31cf0dd1cc894194f6dbf6b6c246570ed2995d5e741c483ce67f97"
+    },
+    {
+      "path": "teams/reg_mc/MC2243.txt",
+      "category": "rain",
+      "sha256": "76d4e43907412b7c5e4dae1c7138c8ebb2cc651a7a9fc7c4ac573c89a1f38c73"
+    },
+    {
+      "path": "teams/reg_mc/MC53.txt",
+      "category": "rain",
+      "sha256": "618f55194709e3658c18549df91a6da0927b9b7ba6ed76a9c8b0ea4e681930f0"
+    },
+    {
+      "path": "teams/reg_mc/MC844.txt",
+      "category": "tailwind",
+      "sha256": "b764832d4c4f819ad2b8c251237e82c4fdae039c221fb9c9bb889b07641ced02"
+    },
+    {
+      "path": "teams/reg_mc/MC941.txt",
+      "category": "balance",
+      "sha256": "28698b53c8a1cc32ee7b93fe36dc3ccb4b6cc4fc00e0b2aef290a02921b0166f"
+    },
+    {
+      "path": "teams/reg_mc/MC2688.txt",
+      "category": "tailwind",
+      "sha256": "72497fabb8cc09ba9861aff2b4e4cd92d888684a55478a198c36d519ea55e5d5"
+    },
+    {
+      "path": "teams/reg_mc/MC392.txt",
+      "category": "tailwind",
+      "sha256": "c2d2803ea24ae00e4a83f9eb962ce9175403d51edb5dd86905fc92a08698a2fa"
+    },
+    {
+      "path": "teams/reg_mc/MC11.txt",
+      "category": "balance",
+      "sha256": "5d880f0d5c51fd0ff35d02de43fd678f8806431765d3994e8503ff42afab9471"
+    },
+    {
+      "path": "teams/reg_mc/MC1534.txt",
+      "category": "tailwind",
+      "sha256": "ca8c1e7e05ef0a24dbdcd4644f04f396b70904b4ae9054997f16a8da0b0b34a7"
+    },
+    {
+      "path": "teams/reg_mc/MC120.txt",
+      "category": "rain",
+      "sha256": "628748f184c1fe2298265551b8ea17609dcda1dbcab0334c0a846e1c9f76666f"
+    },
+    {
+      "path": "teams/reg_mc/MC821.txt",
+      "category": "balance",
+      "sha256": "a312185e5110ae0ac6e12993df723a11b6556dac8c9e948e49c721c08e7c7b55"
+    },
+    {
+      "path": "teams/reg_mc/MC107.txt",
+      "category": "rain",
+      "sha256": "1c34ca0bbb1dbc08fcf5a53900d40d9c3bb64e4a3a54fce647ca27f098504a37"
+    },
+    {
+      "path": "teams/reg_mc/MC1353.txt",
+      "category": "rain",
+      "sha256": "f78383f4e8a9f1ab610da60eddbd7a1f123534d8ed1807ecd07c03eff30466de"
+    },
+    {
+      "path": "teams/reg_mc/MC3557.txt",
+      "category": "rain",
+      "sha256": "cf59deec7ba4a36ac6a3f137d76dafbe239625a9fb8635771660791c3745b1ca"
+    },
+    {
+      "path": "teams/reg_mc/MC2994.txt",
+      "category": "balance",
+      "sha256": "51fcda6716fa0a4daeeed7c8fa1bb2e16c66e3bb5159cb2316bc11c22d722cbc"
+    },
+    {
+      "path": "teams/reg_mc/MC1129.txt",
+      "category": "balance",
+      "sha256": "acaac825791414ee05ca640a16a7034d9b5fb4eac1ad1f1a8079eddcde285b63"
+    }
+  ],
+  "repeats": 11,
+  "seed": 20923,
+  "port": 7610,
+  "games_per_configuration_per_population": 1034,
+  "sha256": {
+    "results_deployed/champion_mc_T4.zip": "af4e78a55b3e40e161aeef431af6ec513983cb9756b94751f101b9281ed8e397",
+    "results_brainv1_t6_repair1/saves_fp_hs_wt/reg_mc/seed1/20152320.zip": "bed6840ee8a1d995c67aeb7d9dc69c59c27547633ba8c596bdfc6fe1fb1d83b3",
+    "data/opening_plans_t4_control.json": "651b606fd8281f825aa6aa0d3cc357c51f123a95e3b10362915303bf42e5402d",
+    "data/opening_plans_t6.json": "8f4eb1f751e6a55a1035fd2baeffbc4dcb6244465216a530b9736a16094abda7",
+    "teams/candidates_mc/T4.txt": "4dad9037ecee3a2d6af9a0937b21034bf364c8cf8728a18a7fbba5ae7f80da9a",
+    "teams/candidates_mc/T6.txt": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
+    "data/joint_sets_regmc.json": "a4ef12f155737473e49693cdf804d281ec81c9753aee824662c8f3bfc0566845",
+    "results_deployed/DEPLOYED.json": "cf3b3adb4658e23e84d05aace04e031553219293ce6c476d579a10b5f1832430",
+    "results_t6_confirmation_v2/manifest.json": "0ea263c4e460c5493f475aebfb38a690e8ea2b72cdb6f465b9f66543c76c454a",
+    "results_brainv1_t6_repair1/comparison_baseline.manifest.json": "683f9c70d22f56a0c974730cfa9b60d229c0f5dc52239991308ab194fcdf0873",
+    "evaluation/opening_study.py": "82abb79348fc4091d6c414c70e38b97e7b9b41cabab34710f1ffcdbeabe5e2ef",
+    "evaluation/run_t6_confirmation.py": "36da4d0777a93224de630275ea5b7732a1453e72e2264a62caedf62e3e57dec8",
+    "evaluation/run_t6_vs_deployed.py": "964b222ddb53f81167f5995a2fb1faccdef68a4d2a614ce1e875abaadd536b94",
+    "evaluation/review_t6_audits.py": "46d7b36346c62c258fb48c0687c56df0f8cc8ba275bb5a11ba67d5d8d417db38",
+    "results_bc/eval_mcB_20260920/saves_bc/seed2/2.zip": "612130a764c6ec4c57aeb42b6dcea3031eb4d70e5334fd73c5e78e433bf3ef84",
+    "results_repaired/opponents/64opp_3932160_v4.zip": "71d594535bd2b9a309e6d2e8c5d863943d46bf92fb136b01d770901689564a25",
+    "results_repaired/opponents/8opp_4915200_v4.zip": "cbd9450f55f50d309e0d0cca0ee3cd79a1fe66c3d44acd82b30425a5f281b50a",
+    "results_repaired/opponents/tuned_983040_v4.zip": "1d0f8fa337011e56d8d4ebf05bdd57944fbfbe3f44aa22318577003ad6f18e4f",
+    "results_bc/eval_mcB_20260913/saves_bc/seed2/2.zip": "728e69cce0a5fb6fbd0dbddf0ec4af855189b36957bbe9e3b2950b699be41bb0",
+    "vgc_bench/pretrain.py": "37a5451206b12bc8861e7e0e9a35d44bf3a5547f2ed1c6ab502e10a34a0d2332",
+    "vgc_bench/scrape_teams.py": "8d0139baed5fd68f883d0c1eb6a766695200316c404bc07061a42d287d0db9ed",
+    "vgc_bench/__init__.py": "be97814328593c37e7cbc986008d44df634a2fb94eac56ad71ee66a013c2f000",
+    "vgc_bench/logs2trajs.py": "46d3990bfe76661dd02bc243f727039298783cc7362637d3c7cb9d461e017fda",
+    "vgc_bench/visualize.py": "01a8f4fd633e63cd4c77660b902663a26002aa73b1c58650abc5db9fa6d2c054",
+    "vgc_bench/play.py": "ceeb4df48b12cec6000f0deb4582f2d698e945a808fc7dd669506b6b7b1c4230",
+    "vgc_bench/train.py": "fdfb92bd33cec6c6c961022dc03ff78a2d190f318b2689a15504d531edfb9870",
+    "vgc_bench/scrape_logs.py": "f8033cb98837a697ad434cc046f75f143ed1e05903e9341b524ce7fe6e82055d",
+    "vgc_bench/eval.py": "f1a70cf9841084023323b0b1be2802b0806c2b1be554d2c8f8086b1d0d9ac53b",
+    "vgc_bench/scrape_data.py": "ab3ec377a4da335944ae7f0363d90a76096ad61474773306c41e8fb63c8cc287",
+    "vgc_bench/src/callback.py": "e97fcecdcf8211e8de1262aa92736e51354db2854ef40b4db6a90ee9c31e9931",
+    "vgc_bench/src/ponder.py": "f0a9a2febfaf89309a19f9e837003b8d8cc25ad25e613d0c6ee06a8074333a63",
+    "vgc_bench/src/tempo_reranker.py": "c1445da83490503a0c77cec9cabc2483adeeff9be9656ae90f8b8f4ece598074",
+    "vgc_bench/src/outcome_value.py": "9ca0d226d6dcfdcb0df0193477392d4fa82916e15128165246037231a329042e",
+    "vgc_bench/src/opponent_preview.py": "ac2464bff40b81985ff79dc6b0c3d669e52f516809d2a90b625db676b063a62d",
+    "vgc_bench/src/env.py": "c57b84824e321fb2027d77242241a4f90e2d3f5feef6a1a2cdb094d4358eb6d8",
+    "vgc_bench/src/guards.py": "4f7d3986ca65bd6ae13562e6c559c9a028ab19d9203f53a3910901c69b28bdca",
+    "vgc_bench/src/policy_player.py": "876dd8fbf8fa3635854efdf8d0ef24452b6871b392c69c8ec1f19b03864aa999",
+    "vgc_bench/src/opponent_tactics.py": "e9180e65ae109c38733bce3ecedf9cc7bd0e5efc71967cee39233c3afc25e886",
+    "vgc_bench/src/exact_planner.py": "8c8aa13dda3e911b2d584a09888edea5d11121d43e55fa2eef5119b11b0e0bc3",
+    "vgc_bench/src/live_exact.py": "acb998fd149fb47d03f094cc557f6b251b3527c911794c76bedeb1a24d3752ce",
+    "vgc_bench/src/live_preview.py": "c261f214911f7807a889c98b40bb4b7428fe7a2ba8dca9616a2960809931e44d",
+    "vgc_bench/src/teams.py": "4396470978135dc6cb91f17046ea9a6a194ed2412f9798677a06453af00d1cf0",
+    "vgc_bench/src/policy.py": "15605dfed41b99bfe62a7c56677f7a71ce7a0f35f7c49a55e07983f281cc16d6",
+    "vgc_bench/src/llm.py": "f1470cd56b2d63eb28d6d6b15b8dddb4fc7d2d6d5721639b4e59ad6bd39bb3b6",
+    "vgc_bench/src/move_semantics.py": "232ab58a6cdf0eb848779be4422e5dd7e97f03158b073aa30db43c093fed50de",
+    "vgc_bench/src/preview_outcome.py": "91057968e9d0e402b8f680818c227acc98fa023224d5f2b2dfaa4c75adc3210a",
+    "vgc_bench/src/preview_rules.py": "fda2a7cc1dd7d6ba5db957fc856d4644a6ca6c1e658653df94cc2591490738ee",
+    "vgc_bench/src/set_particles.py": "65c070f460af6507508b8f31afd20abb80b5bb794216fe7ca07e4390b80d4e3d",
+    "vgc_bench/src/pokeenv_patches.py": "b700b7fa9fd0e24c2d81e71f0ced805642a3ef6a1fc393a68630a4fc1ece3bdd",
+    "vgc_bench/src/utils.py": "9328e06322b70b59f81312b1ffb049dd976370564792dd34307ba195cacd8c70",
+    "vgc_bench/src/search.py": "2f07ab5458eb88a0329003d7b496a86a7448e36ab2bbd66b370d787af6efd52f",
+    "vgc_bench/src/exact_observation.py": "2a71f00e8f08ad008408a0cf0ae8eba598bcb3468cd3e6f0072574a1e5dd319f",
+    "vgc_bench/src/live_snapshot.py": "577b63b540c536952b1026811ddf5460588d564ee8ea86113c4e52b49e6aabb6",
+    "vgc_bench/src/vgc_knowledge.py": "c2eafb9f69f8f407f32e24027c286724d5ccb73b5bd8e276771ff997edfd7432",
+    "vgc_bench/src/opponent_reranker.py": "3ee67dd271b090ee10a08e7efd688c4bea23d84cf2879c82db344897c6290bef",
+    "vgc_bench/src/exact_sim.py": "dd0a3d8ed88d66c728e9c53191c02309a76e7212840596caa04d568f97415250",
+    "vgc_bench/src/set_priors.py": "9209cf5de54bce280b80acceb3c9ef845581665dbceb2c7fd787ee6f435d6d9a",
+    "vgc_bench/src/residual_ranker.py": "69ceefb20e98bae8c9c4b86de5ce329577c73d7f5443f5d50429211d142e778a",
+    "teams/reg_mc/MC2610.txt": "f985066e6d53895bb90b3e8d1784e57f97a5a8201f7fe9ceda1117334441c70c",
+    "teams/reg_mc/MC2566.txt": "67dcf08a904b7d118a7c647cb989d8de15b936f89ecfff8f391840a2fc82810e",
+    "teams/reg_mc/MC3059.txt": "a7c48e46de201e2a2d02d767fd94db2e9efd4fd5e988b1fb61053b60e0e16380",
+    "teams/reg_mc/MC210.txt": "5c63a45770431e5a0b37f4922a6c62ce8742cb8e453b62fc2cc87857545920e6",
+    "teams/reg_mc/MC868.txt": "5535b415c54cdbee5fc027122d46d869ebd728c1294ffc67e62c9b6233c7835e",
+    "teams/reg_mc/MC1838.txt": "eb4cded0c30b1914aaa538690033eeab632dfc4048ab17a02daa285a6c76aff8",
+    "teams/reg_mc/MC2091.txt": "40b8d5acbb946d2cf38e0d1cdcc11e07cc0c48466b570df26795b839f0404959",
+    "teams/reg_mc/MC1406.txt": "ee8cc0ee476317984d4657cd638eb6822caf6e41173c9e56fff20c1652805eff",
+    "teams/reg_mc/MC2503.txt": "8db87215d97cccefca046451fb92005cabda1b1f06cb4c9d0756fab67c332eee",
+    "teams/reg_mc/MC3440.txt": "7abb5f394ca635d6c7d8a8f10aa92510140baef781b9a94cbe6a04ed7fea5621",
+    "teams/reg_mc/MC3105.txt": "27e60f59538197432f7e8d44645486155119634a524af2a452940b37fab76787",
+    "teams/reg_mc/MC2868.txt": "bacabad53cb86b16502b020ac935a093c6bb022e30e6b2222ae58a1ae9df0674",
+    "teams/reg_mc/MC904.txt": "4ecb52d6794c6228d832d7c27bf0851aa348b7751872a4abc874e79114ffbfcb",
+    "teams/reg_mc/MC118.txt": "f3a83e905090db5fa0dc2678a5e517fcf584460580bdd6e2e98ca2ff00e19ab6",
+    "teams/reg_mc/MC2198.txt": "9e79681bde0333da7a0131afab99e539b32316895b81f448c93577e913da521e",
+    "teams/reg_mc/MC877.txt": "ed8b9e218f5abddf474a601f25b9f584f3bd397419496f366645414725b32deb",
+    "teams/reg_mc/MC767.txt": "660cd060a2e7e8bcb982faf3534757d7e6e2e4c0e826e2687075617cde91acf7",
+    "teams/reg_mc/MC1899.txt": "6cf225a5f074f356864298519871ec96dba982fe00b3a35d03b3304b38c3918b",
+    "teams/reg_mc/MC2459.txt": "b9a716c9ed43093d9f5a228ba10ad1c1b024175ce72c79f2414656467155f3d9",
+    "teams/reg_mc/MC2739.txt": "a358adaf56e7d65e0ef4c4487fcb493110aa376622c55322574a2f73a13e9412",
+    "teams/reg_mc/MC1791.txt": "91ba95c5a8778c803d0db14cf9cabd81d8ab873be097327645f4f0a0e5551176",
+    "teams/reg_mc/MC1940.txt": "ded4dc55c843551e49e5d46d803cd69cc8ba6dbcd4bd19a9147548b1991b88f4",
+    "teams/reg_mc/MC1563.txt": "c875b13a0bf53a806ccbe4d6bbb908c56c34b3017b1d4c1bcd965ed4e9e9ae1f",
+    "teams/reg_mc/MC304.txt": "0cc4a408e334b2e44311d118b8f03d2588569a65dcd221f2970e34b663785ea3",
+    "teams/reg_mc/MC1011.txt": "300610a4df35cb40e7d94d92a5215d27b81f2fe1a2d9f71d7d87365ed7e23839",
+    "teams/reg_mc/MC666.txt": "77ba589a10136e96174287d7a9dc69a060db0698a4d21e6c490bf2e4d4c39c20",
+    "teams/reg_mc/MC3550.txt": "8377a2e3068850ded75b6e3a1656c18856fb2087338d6e1b3203e539445885d9",
+    "teams/reg_mc/MC1364.txt": "4b2aa8ff249a9a058f834aa954532b517fb40528cfb8804156497ec6b7aa3842",
+    "teams/reg_mc/MC3355.txt": "5c7b479baaafe38e61e78eaf6e25a2c2589b596645edb70c74d8e62b51435927",
+    "teams/reg_mc/MC1098.txt": "055beaf8db65b27ef46c7306c2970bc981f35e6a68b67567d2e080b80238377a",
+    "teams/reg_mc/MC1777.txt": "14f49c4579fc2c7c150dc5549a0790a277b111613117b8466c617779a89c322c",
+    "teams/reg_mc/MC1225.txt": "d40bd92cdb31cf0dd1cc894194f6dbf6b6c246570ed2995d5e741c483ce67f97",
+    "teams/reg_mc/MC2243.txt": "76d4e43907412b7c5e4dae1c7138c8ebb2cc651a7a9fc7c4ac573c89a1f38c73",
+    "teams/reg_mc/MC53.txt": "618f55194709e3658c18549df91a6da0927b9b7ba6ed76a9c8b0ea4e681930f0",
+    "teams/reg_mc/MC844.txt": "b764832d4c4f819ad2b8c251237e82c4fdae039c221fb9c9bb889b07641ced02",
+    "teams/reg_mc/MC941.txt": "28698b53c8a1cc32ee7b93fe36dc3ccb4b6cc4fc00e0b2aef290a02921b0166f",
+    "teams/reg_mc/MC2688.txt": "72497fabb8cc09ba9861aff2b4e4cd92d888684a55478a198c36d519ea55e5d5",
+    "teams/reg_mc/MC392.txt": "c2d2803ea24ae00e4a83f9eb962ce9175403d51edb5dd86905fc92a08698a2fa",
+    "teams/reg_mc/MC11.txt": "5d880f0d5c51fd0ff35d02de43fd678f8806431765d3994e8503ff42afab9471",
+    "teams/reg_mc/MC1534.txt": "ca8c1e7e05ef0a24dbdcd4644f04f396b70904b4ae9054997f16a8da0b0b34a7",
+    "teams/reg_mc/MC120.txt": "628748f184c1fe2298265551b8ea17609dcda1dbcab0334c0a846e1c9f76666f",
+    "teams/reg_mc/MC821.txt": "a312185e5110ae0ac6e12993df723a11b6556dac8c9e948e49c721c08e7c7b55",
+    "teams/reg_mc/MC107.txt": "1c34ca0bbb1dbc08fcf5a53900d40d9c3bb64e4a3a54fce647ca27f098504a37",
+    "teams/reg_mc/MC1353.txt": "f78383f4e8a9f1ab610da60eddbd7a1f123534d8ed1807ecd07c03eff30466de",
+    "teams/reg_mc/MC3557.txt": "cf59deec7ba4a36ac6a3f137d76dafbe239625a9fb8635771660791c3745b1ca",
+    "teams/reg_mc/MC2994.txt": "51fcda6716fa0a4daeeed7c8fa1bb2e16c66e3bb5159cb2316bc11c22d722cbc",
+    "teams/reg_mc/MC1129.txt": "acaac825791414ee05ca640a16a7034d9b5fb4eac1ad1f1a8079eddcde285b63"
+  },
+  "battle_rng_paired": false,
+  "opponent_previews_paired": false,
+  "comparison": "Different own teams and weights; opponents choose preview naturally.",
+  "holdout": "Excluded from this fine-tune and original checkpoint selection; not generalist history",
+  "limits": "8 concurrent local battles, one MPS process, 3h per invocation",
+  "decision": "Stop for review. Never promote or start ladder automatically."
+}

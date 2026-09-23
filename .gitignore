@@ -189,3 +189,28 @@ results_gate_battery_league6/*/*/*
 !results_gate_battery_mc_smoke/
 results_gate_battery_mc_smoke/*
 !results_gate_battery_mc_smoke/*.json
+# Codex T6 studies (2026-09-20/21): reviews, scorecards and manifests are the evidence;
+# per-game rows, telemetry, audits and checkpoints stay local
+!results_t6_vs_deployed_v1/
+results_t6_vs_deployed_v1/*
+!results_t6_vs_deployed_v1/REVIEW.md
+!results_t6_vs_deployed_v1/scorecard.json
+!results_t6_vs_deployed_v1/manifest.json
+!results_t6_vs_deployed_v1/status.json
+!results_t6_confirmation_v2/
+results_t6_confirmation_v2/*
+!results_t6_confirmation_v2/REVIEW.md
+!results_t6_confirmation_v2/scorecard.json
+!results_t6_confirmation_v2/manifest.json
+!results_t6_confirmation_v2/status.json
+!results_brainv1_t6_repair1/
+results_brainv1_t6_repair1/*
+!results_brainv1_t6_repair1/experiment.json
+!results_brainv1_t6_repair1/status.json
+!results_brainv1_t6_repair1/comparison_*.manifest.json
+!results_opening_t6/
+results_opening_t6/*
+!results_opening_t6/pilot_summary.json
+!results_opening_t6/*.manifest.json
+# direct-challenge replays stay local, like ladder replays
+challenge_replays*/

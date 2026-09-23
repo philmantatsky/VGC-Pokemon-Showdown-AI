@@ -14,41 +14,31 @@ Stage D of the replan extends this module with the preview rule engine
 rule content can be derived from data rather than intuition.
 """
 
-import json
-from pathlib import Path
-
 from poke_env.data import to_id_str
+
+from vgc_bench.src.set_priors import load_set_priors, prior_reg
 
 TRICK_ROOM_MOVE = "trickroom"
 
 _JOINT_SETS: dict | None = None
-_TR_RATE_CACHE: dict[str, float] = {}
+_TR_RATE_CACHE: dict[tuple[str, str], float] = {}
 
 
-def _joint_sets() -> dict:
+def _joint_sets(formatid: str | None = None) -> dict:
     """Load the replay-counted joint sets once (same pattern as guards.py)."""
-    global _JOINT_SETS
-    if _JOINT_SETS is None:
-        try:
-            root = Path(__file__).resolve().parents[2]
-            _JOINT_SETS = json.loads(
-                (root / "data" / "joint_sets_regmb.json").read_text()
-            )
-        except (OSError, ValueError):
-            _JOINT_SETS = {}
-    return _JOINT_SETS or {}
+    return _JOINT_SETS if _JOINT_SETS is not None else load_set_priors(formatid)[0]
 
 
-def species_trick_room_rate(species: str) -> float:
+def species_trick_room_rate(species: str, formatid: str | None = None) -> float:
     """P(this species' set contains Trick Room), from counted joint sets.
 
     Count-weighted over the species' recorded sets; 0.0 for species without
     data (unknown species cannot claim Trick Room evidence).
     """
-    key = to_id_str(species)
+    key = (prior_reg(formatid), to_id_str(species))
     if key in _TR_RATE_CACHE:
         return _TR_RATE_CACHE[key]
-    entry = _joint_sets().get(key)
+    entry = _joint_sets(formatid).get(key[1])
     rate = 0.0
     if entry:
         sets = entry.get("sets", [])
@@ -64,15 +54,19 @@ def species_trick_room_rate(species: str) -> float:
     return rate
 
 
-def species_trick_room_rates(roster: tuple[str, ...] | list[str]) -> dict[str, float]:
+def species_trick_room_rates(
+    roster: tuple[str, ...] | list[str], formatid: str | None = None
+) -> dict[str, float]:
     """Per-species Trick Room set rates for a roster, rounded for logging."""
     return {
-        to_id_str(species): round(species_trick_room_rate(species), 4)
+        to_id_str(species): round(species_trick_room_rate(species, formatid), 4)
         for species in roster
     }
 
 
-def trick_room_probability(roster: tuple[str, ...] | list[str]) -> float:
+def trick_room_probability(
+    roster: tuple[str, ...] | list[str], formatid: str | None = None
+) -> float:
     """P(at least one roster member's set contains Trick Room).
 
     Treats set choices as independent across the roster, which overstates
@@ -82,5 +76,5 @@ def trick_room_probability(roster: tuple[str, ...] | list[str]) -> float:
     """
     no_tr = 1.0
     for species in roster:
-        no_tr *= 1.0 - species_trick_room_rate(species)
+        no_tr *= 1.0 - species_trick_room_rate(species, formatid)
     return 1.0 - no_tr

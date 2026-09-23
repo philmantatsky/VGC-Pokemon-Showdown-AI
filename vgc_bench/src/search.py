@@ -251,7 +251,7 @@ def _their_candidates(battle: DoubleBattle, k: int, move_predictions=None):
     for slot, foe in enumerate(foes):
         known = list(foe.moves.values())[:4]
         prior = (
-            PolicyPlayer._moveset_prior(foe)
+            PolicyPlayer._moveset_prior(foe, battle.format)
             if PolicyPlayer.moveset_prior_enabled()
             else None
         )

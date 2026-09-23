@@ -19,10 +19,12 @@ import asyncio
 import hashlib
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
 from poke_env import AccountConfiguration, ShowdownServerConfiguration
+from poke_env.concurrency import handle_threaded_coroutines
 from torch import device
 
 from vgc_bench.src.policy import MaskedActorCriticPolicy
@@ -39,7 +41,48 @@ VOLATILE_ARGS = {
     "replay_dir",
     "decision_log",
     "deployment",
+    "rejoin_battle",
 }
+
+
+async def _rejoin_active_battle_in_loop(
+    agent: PolicyPlayer, battle_tag: str, timeout: float = 15.0
+) -> bool:
+    """Rejoin one interrupted battle room and wait for its state to be rebuilt.
+
+    Showdown resends the room protocol and current request after ``/join``. The
+    normal battle parser can therefore reconstruct the live position and continue
+    choosing. Return False if the room has already closed or cannot be joined.
+    """
+    if not re.fullmatch(r"battle-gen9championsvgc2026regmc-[a-z0-9-]+", battle_tag):
+        raise ValueError("--rejoin-battle must be a Reg M-C battle room id")
+    await agent.ps_client.logged_in.wait()
+    # Balance Player._create_battle(), which releases this semaphore when the
+    # rejoined room emits its init block. Without this acquire, a recovered room
+    # could temporarily permit a second accepted challenge.
+    await agent._battle_semaphore.acquire()
+    try:
+        await agent.ps_client.send_message(f"/join {battle_tag}")
+        async with agent._battle_start_condition:
+            await asyncio.wait_for(
+                agent._battle_start_condition.wait_for(
+                    lambda: battle_tag in agent._battles
+                ),
+                timeout=timeout,
+            )
+        return True
+    except (TimeoutError, asyncio.TimeoutError):
+        agent._battle_semaphore.release()
+        return False
+
+
+async def rejoin_active_battle(
+    agent: PolicyPlayer, battle_tag: str, timeout: float = 15.0
+) -> bool:
+    """Run battle recovery on poke-env's dedicated event loop."""
+    return await handle_threaded_coroutines(
+        _rejoin_active_battle_in_loop(agent, battle_tag, timeout), agent.ps_client.loop
+    )
 
 
 def resolve_knowledge_obs(explicit: bool | None, ckpt: Path, ckpt_sha: str) -> bool:
@@ -288,6 +331,14 @@ async def main():
         "--challenges",
         action="store_true",
         help="accept challenges instead of laddering (for testing)",
+    )
+    ap.add_argument(
+        "--rejoin-battle",
+        default="",
+        help=(
+            "with --challenges, rejoin this interrupted Reg M-C battle room once "
+            "before waiting for new challenges"
+        ),
     )
     ap.add_argument(
         "--debug",
@@ -664,9 +715,7 @@ async def main():
         mixing_temperature=args.mixing_temperature,
         mixing_last_turn=args.mixing_last_turn,
         guard_overrides={
-            name.strip(): True
-            for name in args.guards_extra.split(",")
-            if name.strip()
+            name.strip(): True for name in args.guards_extra.split(",") if name.strip()
         },
         team_sheet_wait_timeout=args.opening_wait,
         decision_log_path=(
@@ -748,6 +797,12 @@ async def main():
     )
     print(f"config  : recorded in {run_config_path}")
 
+    if args.rejoin_battle and not args.challenges:
+        raise SystemExit("--rejoin-battle requires --challenges")
+    if args.rejoin_battle:
+        recovered = await rejoin_active_battle(agent, args.rejoin_battle)
+        detail = "resumed " + args.rejoin_battle if recovered else "room unavailable"
+        print(f"rejoin   : {detail}")
     if args.challenges:
         print(f"awaiting {args.n_games} challenge(s)...")
         await agent.accept_challenges(opponent=None, n_challenges=args.n_games)

@@ -1,0 +1,212 @@
+{
+  "human_new": {
+    "overall": {
+      "games_per_model": 1034,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5560928433268859,
+      "candidate_win_rate": 0.8597678916827853,
+      "roster_mean_delta": 0.3036750483558994,
+      "roster_bootstrap_95_ci": [
+        0.19825918762088976,
+        0.40232108317214693
+      ]
+    },
+    "hidden": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.597678916827853,
+      "candidate_win_rate": 0.8820116054158608,
+      "roster_mean_delta": 0.28433268858800775,
+      "roster_bootstrap_95_ci": [
+        0.15473887814313347,
+        0.41005802707930367
+      ]
+    },
+    "open": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5145067698259188,
+      "candidate_win_rate": 0.8375241779497099,
+      "roster_mean_delta": 0.32301740812379104,
+      "roster_bootstrap_95_ci": [
+        0.19922630560928434,
+        0.4429400386847195
+      ]
+    }
+  },
+  "frozen": {
+    "overall": {
+      "games_per_model": 1034,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5087040618955513,
+      "candidate_win_rate": 0.8423597678916828,
+      "roster_mean_delta": 0.33365570599613154,
+      "roster_bootstrap_95_ci": [
+        0.26015473887814317,
+        0.4091150870406191
+      ]
+    },
+    "hidden": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5454545454545454,
+      "candidate_win_rate": 0.851063829787234,
+      "roster_mean_delta": 0.30560928433268864,
+      "roster_bootstrap_95_ci": [
+        0.1818181818181818,
+        0.4235976789168277
+      ]
+    },
+    "open": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.47195357833655704,
+      "candidate_win_rate": 0.8336557059961315,
+      "roster_mean_delta": 0.3617021276595745,
+      "roster_bootstrap_95_ci": [
+        0.24564796905222439,
+        0.4739361702127662
+      ]
+    }
+  },
+  "rotation1": {
+    "overall": {
+      "games_per_model": 1034,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.6170212765957447,
+      "candidate_win_rate": 0.8558994197292069,
+      "roster_mean_delta": 0.23887814313346223,
+      "roster_bootstrap_95_ci": [
+        0.1576402321083172,
+        0.32301740812379115
+      ]
+    },
+    "hidden": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.6537717601547389,
+      "candidate_win_rate": 0.8607350096711799,
+      "roster_mean_delta": 0.20696324951644096,
+      "roster_bootstrap_95_ci": [
+        0.1025145067698259,
+        0.31528046421663436
+      ]
+    },
+    "open": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5802707930367504,
+      "candidate_win_rate": 0.851063829787234,
+      "roster_mean_delta": 0.27079303675048355,
+      "roster_bootstrap_95_ci": [
+        0.15280464216634432,
+        0.390715667311412
+      ]
+    }
+  },
+  "rotation2": {
+    "overall": {
+      "games_per_model": 1034,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.539651837524178,
+      "candidate_win_rate": 0.8481624758220503,
+      "roster_mean_delta": 0.3085106382978724,
+      "roster_bootstrap_95_ci": [
+        0.20599613152804647,
+        0.4032882011605415
+      ]
+    },
+    "hidden": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5822050290135397,
+      "candidate_win_rate": 0.9013539651837524,
+      "roster_mean_delta": 0.3191489361702127,
+      "roster_bootstrap_95_ci": [
+        0.20502901353965183,
+        0.4332688588007737
+      ]
+    },
+    "open": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.49709864603481624,
+      "candidate_win_rate": 0.7949709864603481,
+      "roster_mean_delta": 0.2978723404255319,
+      "roster_bootstrap_95_ci": [
+        0.1702127659574468,
+        0.42166344294003866
+      ]
+    }
+  },
+  "human_previous": {
+    "overall": {
+      "games_per_model": 1034,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.6247582205029013,
+      "candidate_win_rate": 0.7998065764023211,
+      "roster_mean_delta": 0.17504835589941972,
+      "roster_bootstrap_95_ci": [
+        0.10735009671179885,
+        0.24661508704061894
+      ]
+    },
+    "hidden": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.6595744680851063,
+      "candidate_win_rate": 0.7775628626692457,
+      "roster_mean_delta": 0.11798839458413926,
+      "roster_bootstrap_95_ci": [
+        0.01547388781431335,
+        0.2243713733075435
+      ]
+    },
+    "open": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5899419729206963,
+      "candidate_win_rate": 0.8220502901353965,
+      "roster_mean_delta": 0.23210831721470024,
+      "roster_bootstrap_95_ci": [
+        0.15087040618955513,
+        0.32301740812379115
+      ]
+    }
+  },
+  "heuristic": {
+    "overall": {
+      "games_per_model": 1034,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5473887814313346,
+      "candidate_win_rate": 0.8694390715667312,
+      "roster_mean_delta": 0.3220502901353965,
+      "roster_bootstrap_95_ci": [
+        0.2707930367504836,
+        0.3723404255319149
+      ]
+    },
+    "hidden": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.586073500967118,
+      "candidate_win_rate": 0.8549323017408124,
+      "roster_mean_delta": 0.2688588007736944,
+      "roster_bootstrap_95_ci": [
+        0.21083172147001933,
+        0.3288201160541586
+      ]
+    },
+    "open": {
+      "games_per_model": 517,
+      "opponent_rosters": 47,
+      "baseline_win_rate": 0.5087040618955513,
+      "candidate_win_rate": 0.8839458413926499,
+      "roster_mean_delta": 0.3752417794970986,
+      "roster_bootstrap_95_ci": [
+        0.3055609284332688,
+        0.44487427466150875
+      ]
+    }
+  }
+}

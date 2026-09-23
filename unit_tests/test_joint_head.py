@@ -9,6 +9,7 @@ training moves it; after that, slot 2's distribution genuinely depends on slot
 from __future__ import annotations
 
 import numpy as np
+import pytest
 import torch
 from gymnasium import spaces
 from torch import nn
@@ -16,7 +17,14 @@ from torch import nn
 from training.convert_checkpoint import PROJ_W, convert_state_dict, valid_growths
 from vgc_bench.src import guards as G
 from vgc_bench.src.policy import MaskedActorCriticPolicy, act_len, upgrade_policy
-from vgc_bench.src.utils import chunk_obs_len, moves, threat_obs_len
+from vgc_bench.src.utils import (
+    chunk_obs_len,
+    moves,
+    threat_evidence_obs_len,
+    threat_obs_len,
+)
+
+PRE_BRAIN_GROWTH = threat_obs_len + threat_evidence_obs_len
 
 OBS_SPACE = spaces.Dict(
     {
@@ -162,7 +170,8 @@ def test_evaluate_actions_matches_forward_log_prob() -> None:
     assert torch.isfinite(entropy).all()
 
 
-def test_convert_state_dict_extends_projection_and_adds_head() -> None:
+@pytest.mark.parametrize("growth", [threat_evidence_obs_len, PRE_BRAIN_GROWTH])
+def test_convert_state_dict_extends_projection_and_adds_head(growth) -> None:
     plain, joint = _pair()
     # an "older" checkpoint: same weights, token shorter by the threat block,
     # no joint head
@@ -170,7 +179,7 @@ def test_convert_state_dict_extends_projection_and_adds_head() -> None:
     proj_keys = []
     for key, value in plain.state_dict().items():
         if key.endswith("pokemon_proj.weight"):
-            old_sd[key] = value[:, :-threat_obs_len].clone()
+            old_sd[key] = value[:, :-growth].clone()
             proj_keys.append(key)
         else:
             old_sd[key] = value.clone()
@@ -179,18 +188,18 @@ def test_convert_state_dict_extends_projection_and_adds_head() -> None:
     assert added == sum(1 for k in joint.state_dict() if k not in old_sd) and added > 0
     assert copied == len(old_sd) - zeroed
     for key in proj_keys:
-        assert torch.equal(converted[key][:, :-threat_obs_len], old_sd[key])
-        assert torch.count_nonzero(converted[key][:, -threat_obs_len:]) == 0
+        assert torch.equal(converted[key][:, :-growth], old_sd[key])
+        assert torch.count_nonzero(converted[key][:, -growth:]) == 0
     fresh = _policy(True, seed=5)
     fresh.load_state_dict(converted)
     # zero the plain policy's trailing columns too, then equal outputs on any obs
     # whose threat features are zero prove the leading columns survived intact
     with torch.no_grad():
         for key in proj_keys:
-            plain.state_dict()[key][:, -threat_obs_len:] = 0
+            plain.state_dict()[key][:, -growth:] = 0
     obs = _obs(batch=2)
     view = obs["observation"].view(2, 12, chunk_obs_len)
-    view[:, :, -threat_obs_len:] = 0
+    view[:, :, -growth:] = 0
     with torch.no_grad():
         a_old, v_old, lp_old = plain.forward(obs, deterministic=True)
         a_new, v_new, lp_new = fresh.forward(obs, deterministic=True)
@@ -215,7 +224,8 @@ def test_convert_state_dict_refuses_mid_token_growth() -> None:
 
 def test_valid_growths_cover_the_threat_block_and_the_full_history() -> None:
     growths = valid_growths()
-    assert threat_obs_len in growths
+    assert PRE_BRAIN_GROWTH in growths
+    assert threat_evidence_obs_len in growths
     assert 0 in growths
     assert max(growths) > threat_obs_len
     assert PROJ_W.endswith("pokemon_proj.weight")
@@ -237,9 +247,9 @@ def test_upgrade_policy_brings_an_older_policy_to_the_current_layout() -> None:
         assert isinstance(module, nn.Linear)
         targets.setdefault(id(module), (module_path, module))
     for module_path, module in targets.values():
-        shorter = nn.Linear(module.in_features - threat_obs_len, module.out_features)
+        shorter = nn.Linear(module.in_features - PRE_BRAIN_GROWTH, module.out_features)
         with torch.no_grad():
-            shorter.weight.copy_(module.weight[:, :-threat_obs_len])
+            shorter.weight.copy_(module.weight[:, :-PRE_BRAIN_GROWTH])
             shorter.bias.copy_(module.bias)
         parent = plain.get_submodule(module_path.rsplit(".", 1)[0])
         setattr(parent, module_path.rsplit(".", 1)[1], shorter)
@@ -249,9 +259,9 @@ def test_upgrade_policy_brings_an_older_policy_to_the_current_layout() -> None:
     assert changed and upgraded.joint_head
     obs = _obs(batch=2)
     view = obs["observation"].view(2, 12, chunk_obs_len)
-    view[:, :, -threat_obs_len:] = 0
+    view[:, :, -PRE_BRAIN_GROWTH:] = 0
     short_obs = {
-        "observation": view[:, :, :-threat_obs_len].reshape(2, -1).clone(),
+        "observation": view[:, :, :-PRE_BRAIN_GROWTH].reshape(2, -1).clone(),
         "action_mask": obs["action_mask"],
     }
     with torch.no_grad():
@@ -266,7 +276,7 @@ def test_extractor_width_follows_the_given_observation_space() -> None:
     """A stored checkpoint is rebuilt by SB3 from its SAVED observation space;
     the extractor must size pokemon_proj from that space, so an older
     (shorter-token) checkpoint loads with its own width and is then upgraded."""
-    old_len = chunk_obs_len - threat_obs_len
+    old_len = chunk_obs_len - PRE_BRAIN_GROWTH
     old_space = spaces.Dict(
         {
             "observation": spaces.Box(
@@ -288,11 +298,7 @@ def test_extractor_width_follows_the_given_observation_space() -> None:
     torch.manual_seed(11)
     short = torch.rand(2, 12 * old_len) * 0.5
     full = torch.cat(
-        [
-            short.view(2, 12, old_len),
-            torch.zeros(2, 12, threat_obs_len),
-        ],
-        dim=2,
+        [short.view(2, 12, old_len), torch.zeros(2, 12, PRE_BRAIN_GROWTH)], dim=2
     ).reshape(2, -1)
     mask = torch.ones(2, 2 * act_len)
     with torch.no_grad():

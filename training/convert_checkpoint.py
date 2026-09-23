@@ -48,6 +48,7 @@ from vgc_bench.src.utils import (
     knowledge_obs_len,
     presence_obs_len,
     semantics_obs_len,
+    threat_evidence_obs_len,
     threat_obs_len,
 )
 
@@ -89,7 +90,8 @@ def main():
         f"{knowledge_obs_len} knowledge + {semantics_obs_len} semantics "
         f"+ {presence_obs_len} side presence + {global_presence_obs_len} global "
         f"presence + {correct_accuracy_obs_len} corrected accuracy "
-        f"+ {threat_obs_len} threat; joint_head={args.joint_head}"
+        f"+ {threat_obs_len} threat + {threat_evidence_obs_len} threat evidence; "
+        f"joint_head={args.joint_head}"
     )
 
     new = build_fresh_policy(args.device, joint_head=args.joint_head)

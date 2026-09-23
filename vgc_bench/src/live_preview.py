@@ -207,6 +207,7 @@ class LivePreviewPlanner:
         self.database = ParticleDatabase.load(max_particles=12)
 
     def _opponent_worlds(self, battle: DoubleBattle) -> list[tuple[str, float, str]]:
+        self.database = ParticleDatabase.load(max_particles=12, formatid=battle.format)
         roster = _roster_from_battle(battle, own=False)
         if len(roster) != 6:
             raise ValueError(f"preview opponent roster has {len(roster)} Pokemon")

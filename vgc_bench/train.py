@@ -53,6 +53,9 @@ def train(
     hidden_sheet_prob: float = 0.0,
     team_weights: str | None = None,
     opponent_team: str | None = None,
+    fixed_opponent_stems: set[int] | None = None,
+    fixed_opponent_fraction: float = 0.2,
+    save_interval: int = 983_040,
 ):
     """
     Train a Pokemon VGC policy using reinforcement learning.
@@ -80,7 +83,8 @@ def train(
         total_steps: Total training timesteps. Defaults to 1000 * save_interval.
         evaluate: Whether to run evaluations and save checkpoints.
     """
-    save_interval = 983_040
+    if save_interval <= 0 or save_interval % 3072:
+        raise ValueError("save_interval must be a positive multiple of 3072")
     suffix = f"_{results_suffix}" if results_suffix else ""
     output_dir = Path(f"results{suffix}")
     output_dir.mkdir(exist_ok=True)
@@ -261,6 +265,8 @@ def train(
             our_team_paths,
             team_weights_path,
             hidden_sheet_prob,
+            fixed_opponent_stems=fixed_opponent_stems,
+            fixed_opponent_fraction=fixed_opponent_fraction,
         ),
         tb_log_name=str(save_dir.relative_to(output_dir / f"saves_{method}")),
         reset_num_timesteps=False,
@@ -448,6 +454,13 @@ if __name__ == "__main__":
         default=0.0,
         help="brain v1: potential-based shaping weight per HP-fraction differential",
     )
+    parser.add_argument(
+        "--fixed_opponent_stems",
+        default="",
+        help="Comma-separated pool stems with a fixed total sampling mass",
+    )
+    parser.add_argument("--fixed_opponent_fraction", type=float, default=0.2)
+    parser.add_argument("--save_interval", type=int, default=983_040)
     args = parser.parse_args()
     set_global_seed(args.run_id)
     if args.knowledge_obs:
@@ -512,4 +525,9 @@ if __name__ == "__main__":
         hidden_sheet_prob=args.hidden_sheet_prob,
         team_weights=args.team_weights or None,
         opponent_team=args.opponent_team or None,
+        fixed_opponent_stems={
+            int(s) for s in args.fixed_opponent_stems.split(",") if s
+        },
+        fixed_opponent_fraction=args.fixed_opponent_fraction,
+        save_interval=args.save_interval,
     )

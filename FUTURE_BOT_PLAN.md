@@ -1,5 +1,64 @@
 # Future-Looking VGC Bot Checklist
 
+## Current priority — T6 diagnosis-first repair (September 20)
+
+- [x] User-authorized follow-through heartbeat `continue-vgc-validation`
+  (September 21): check every 30 minutes, review confirmation, perform one bounded
+  local follow-on cycle, then pause/report. No ladder or promotion.
+  Keep the same Codex model; if usage runs out, wait for the normal reset.
+  No alternate-model fallback/delegation, reset credits, or credit purchases.
+
+Supersedes the long spec2/T6 runs below. User paused Claude and authorized this
+bounded experiment. T4 remains deployed; no ladder or automatic promotion.
+
+- [x] Add a separate hash-pinned deployed Reg M-C direct-challenge listener.
+  Challenges remain serial and unranked; rated ladder launching is unchanged.
+- [x] Add one-room reconnect/recovery for an interrupted Reg M-C challenge;
+  Showdown room history rebuilds state before the bot continues choosing.
+
+- [x] Confirm the previous run is stopped; preserve all champions/checkpoints.
+- [x] Replace M-B-only hidden-set evidence with format-aware current M-C training
+  evidence across observation/guard/preview/search consumers, with provenance.
+- [x] Append explicit unknown/inferred/revealed threat evidence; preserve old
+  checkpoint projections with zero extension and regression tests.
+- [x] Add fixed human-clone population share (20%) instead of dilution by saves.
+- [x] Run a controlled opening pilot: 240 local games, six opposing rosters,
+  both sheet modes and five opening arms. T6 preview is not collapsed. Tiny
+  per-cell counts are diagnostic only; no opening override is deployed.
+- [x] Build/verify an isolated short-run league, round-held-out rosters, and
+  automatic failure/timeout stops. 421 tests pass; 29 baseline Pyright issues
+  remain, reproduced unchanged at HEAD.
+- [x] Finish the bounded +983,040-step T6 trial (`results_brainv1_t6_repair1`).
+  Both saves completed within the time ceiling; no forced opening labels.
+- [x] Compare init and both saves against the quarantined human clone on the
+  same reserved rosters, hidden/open sheets. Independent battle RNG; not paired
+  outcome differences. These rosters were not withheld from generalist history.
+  Results: 63.3% init, 75.0% earlier save, 65.7% final save (300 games each).
+- [x] Broader confirmation COMPLETE (`results_t6_confirmation_v2`): earlier save
+  vs init, 47 additional roster-disjoint teams, 1,034 games/model/population,
+  two human clones + three PPO opponents + scripted opponent, hidden/open.
+  No search/reranker additions; same guard stack on both models. Saves opponent
+  previews, replay/decision samples, cluster-aware scorecard and tactical flags.
+  Candidate 84.6% vs generalist-on-T6 56.6%; all populations/modes improve.
+  Integrity verified; see `results_t6_confirmation_v2/REVIEW.md` for limitations.
+- [x] Review preview collapse and representative losses: identical leads/four
+  across 6,204 candidate games. Turn-one setter loss is a concrete vulnerability,
+  not proof of a superior alternative preview. Context flags checked against
+  replay and decision logs; no blanket weather/HP rule warranted.
+- [x] ONE bounded follow-on COMPLETE: `results_t6_vs_deployed_v1`, same six
+  populations/47 rosters, candidate T6 versus deployed T4 configuration, 12,408
+  games. Opponents choose preview naturally for each own team; independent RNG.
+  Smoke complete, 435 tests pass. No policy changes, no additional training.
+  T4 86.2% vs T6 83.8%; T6 improvement not established, frozen opponent -8.3 pp.
+- [x] Review follow-on results/audits; pause `continue-vgc-validation` and
+  report recommendation. No further automatic experiments. Keep T4 deployed.
+  Review: `results_t6_vs_deployed_v1/REVIEW.md`. Next proposed work is controlled
+  opening-survival comparisons on training-side rosters, not more blind PPO.
+- [ ] Confirm matchup weaknesses on more rosters before any targeted curriculum
+  or learned preview selector. Keep complete games and hard earlier examples.
+- [ ] Only advance a useful candidate to the full multi-population gate; no
+  inference of ladder strength from this diagnostic and no automatic deployment.
+
 ## Replan (August 23) — active track
 
 The promotion track below is superseded by a diagnosis-driven replan (approved
@@ -134,7 +193,8 @@ population they were not fit on, ladder only with the user's word.
   - [ ] Gate re-anchoring (pending the user): future candidates are judged against
     the deployed configuration ON T4; human-clone + PPO arms gate, scripted arm
     advisory; a team change uses the cross-team read.
-  - [ ] Round spec2 (fresh 09-20 human clone in the pool), running overnight.
+  - [ ] Round spec2 stopped for the user's T6 team change; long T6 run then
+    paused by user. Replaced by the bounded diagnosis-first trial above.
 
 ## League fine-tune (August 29) — the climb plan's new lever
 

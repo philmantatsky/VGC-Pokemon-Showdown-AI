@@ -487,7 +487,7 @@ class LiveExactSession:
         self.ponder_config = ponder_config or PonderConfig()
         self.rng = random.Random(f"{seed}:{battle_tag}")
         self.bridge = ExactShowdownBridge()
-        self.database = ParticleDatabase.load(max_particles=12)
+        self.database = ParticleDatabase.load(max_particles=12, formatid=formatid)
         self.adapter = ExactPolicyAdapter(
             policy,
             preview_predictor=preview_predictor,

@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "path": "battle_logs_top_mc_merged_20260920/logs_gen9championsvgc2026regmc.json",
+      "sha256": "ed3e16f156cc00d37f359aec633ba7c6251d5fb421b908569545093153d8f44f"
+    },
+    {
+      "path": "battle_logs_top_mc_merged_20260920/logs_gen9championsvgc2026regmcbo3.json",
+      "sha256": "d5aae35c6acda43ed782f34acfae1c5282241a35ee52861f48396f2e92e38b80"
+    }
+  ],
+  "buckets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "replays": 3788,
+  "species": 186,
+  "min_count": 1,
+  "role": "training_evidence",
+  "spreads": "not observed; not fabricated"
+}

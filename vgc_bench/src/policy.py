@@ -38,6 +38,7 @@ from vgc_bench.src.utils import (
     presence_obs_len,
     semantics_obs_len,
     side_obs_len,
+    threat_evidence_obs_len,
     threat_obs_len,
 )
 
@@ -423,6 +424,7 @@ TAIL_BLOCKS = [
     presence_obs_len,
     global_presence_obs_len + correct_accuracy_obs_len,
     threat_obs_len,
+    threat_evidence_obs_len,
 ]
 
 

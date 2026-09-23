@@ -1,0 +1,75 @@
+{
+  "checkpoint": "results_brainv1/saves_fp_hs_wt/reg_mc/seed1/19660800.zip",
+  "opponent": "results_bc/mc_A_20260920/saves_bc/seed1/2.zip",
+  "plans": {
+    "team": "teams/candidates_mc/T6.txt",
+    "plans": {
+      "sun": [
+        "charizard",
+        "venusaur",
+        "incineroar",
+        "farigiraf"
+      ],
+      "water_room": [
+        "blastoise",
+        "farigiraf",
+        "torkoal",
+        "venusaur"
+      ],
+      "supported_room": [
+        "incineroar",
+        "farigiraf",
+        "blastoise",
+        "torkoal"
+      ],
+      "sun_water_backup": [
+        "charizard",
+        "venusaur",
+        "blastoise",
+        "farigiraf"
+      ]
+    }
+  },
+  "per_category": 1,
+  "repeats": 4,
+  "seed": 20921,
+  "split": "train",
+  "port": 7610,
+  "device": "mps",
+  "output": "results_opening_t6/pilot_train.jsonl",
+  "matchups": [
+    {
+      "path": "teams/reg_mc/MC1985.txt",
+      "category": "trick_room",
+      "sha256": "9a363971be13eeb94342d25ef89f1000b8c1fbb7816b4a1e25547c9a3c6e64c1"
+    },
+    {
+      "path": "teams/reg_mc/MC1988.txt",
+      "category": "rain",
+      "sha256": "92ec7986943cb73c3d7bea98dc76b6b73964bb1c9b181b0e4848af254f6003a3"
+    },
+    {
+      "path": "teams/reg_mc/MC352.txt",
+      "category": "grassy_fakeout",
+      "sha256": "559b17eccea3c28849c45d0aa8daa3ef34886222168c9a0dafd12b8cd581df19"
+    },
+    {
+      "path": "teams/reg_mc/MC492.txt",
+      "category": "balance",
+      "sha256": "7f219647bf7d689abade670638069f1e5365d09cd6ad4ca098887b7b723b12c2"
+    },
+    {
+      "path": "teams/reg_mc/MC3326.txt",
+      "category": "tailwind",
+      "sha256": "11c6c13ae1b386b7e20f374fa1b921ba6e79e9d6446e11ca5e3516f3583b6f17"
+    },
+    {
+      "path": "teams/reg_mc/MC713.txt",
+      "category": "sun",
+      "sha256": "42e61f29c3de9639a2fda4852c507fe62005b0a12194820d37b58b7cefaba9b4"
+    }
+  ],
+  "checkpoint_sha256": "5e2f882f87eb663555474b7a4885e42a26d75888cde8a751647e8b25ad93e6a0",
+  "opponent_sha256": "403fb188d73f0e24f0331a87e9a71f2deb967376155a3e8ba61764f8651c6a0c",
+  "battle_rng_paired": false
+}

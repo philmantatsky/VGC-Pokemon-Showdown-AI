@@ -1,0 +1,101 @@
+{
+  "checkpoint": "results_brainv1/saves_fp_hs_wt/reg_mc/seed1/19660800.zip",
+  "opponent": "results_bc/eval_mcB_20260920/saves_bc/seed2/2.zip",
+  "plans": {
+    "team": "teams/candidates_mc/T6.txt",
+    "plans": {
+      "sun": [
+        "charizard",
+        "venusaur",
+        "incineroar",
+        "farigiraf"
+      ],
+      "water_room": [
+        "blastoise",
+        "farigiraf",
+        "torkoal",
+        "venusaur"
+      ],
+      "supported_room": [
+        "incineroar",
+        "farigiraf",
+        "blastoise",
+        "torkoal"
+      ],
+      "sun_water_backup": [
+        "charizard",
+        "venusaur",
+        "blastoise",
+        "farigiraf"
+      ]
+    }
+  },
+  "per_category": 1,
+  "repeats": 1,
+  "seed": 20921,
+  "split": "heldout",
+  "port": 7610,
+  "device": "cpu",
+  "output": "results_opening_t6/repaired_harness_smoke.jsonl",
+  "arms": "policy",
+  "cell_timeout": 300,
+  "matchups": [
+    {
+      "path": "teams/reg_mc/MC243.txt",
+      "category": "trick_room",
+      "sha256": "4ae3eaad638aedbd93d6572ed350db34969cc5ba8b3f8e57165176c54f87e64d"
+    },
+    {
+      "path": "teams/reg_mc/MC40.txt",
+      "category": "grassy_fakeout",
+      "sha256": "44d0f2dc244431ca03ccb6da0c634fb12a39dbb15b21465d91fcecca2804e743"
+    },
+    {
+      "path": "teams/reg_mc/MC312.txt",
+      "category": "tailwind",
+      "sha256": "6363b11e99d3b4dcdab70775e54c3c41670d33d8a157ca18bb0c4427a5b34096"
+    },
+    {
+      "path": "teams/reg_mc/MC3272.txt",
+      "category": "rain",
+      "sha256": "f2eb6b753185eff2f4848faa3afda74d3571bf84776cff5b2e9e781c5645f58f"
+    },
+    {
+      "path": "teams/reg_mc/MC531.txt",
+      "category": "balance",
+      "sha256": "759fd474e885dd3359da9379e182027f91fae2ff9a9a9d5d86f6fdac26a95a48"
+    }
+  ],
+  "checkpoint_sha256": "5e2f882f87eb663555474b7a4885e42a26d75888cde8a751647e8b25ad93e6a0",
+  "opponent_sha256": "612130a764c6ec4c57aeb42b6dcea3031eb4d70e5334fd73c5e78e433bf3ef84",
+  "battle_rng_paired": false,
+  "chunk_obs_len": 1023,
+  "set_prior_reg": "mc",
+  "set_prior_sha256": "a4ef12f155737473e49693cdf804d281ec81c9753aee824662c8f3bfc0566845",
+  "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
+  "guard_flags": {
+    "zero_damage": true,
+    "first_turn": true,
+    "priority_block": true,
+    "redirection": true,
+    "status_immunity": true,
+    "ally_damage": false,
+    "setup_into_ko": false,
+    "redundant_side_condition": true,
+    "free_catastrophic_setup": true,
+    "encore_exposure": true,
+    "dominated_weather_ball": true,
+    "single_target_weather_ball": true,
+    "resisted_target": true,
+    "overkill_split": true,
+    "dominated_weather_ball_weather": true,
+    "protect_spam": true,
+    "guaranteed_ko": true,
+    "reserve_weather_mega": true,
+    "severe_attack_drop_switch": true,
+    "yawn_switch": true,
+    "two_on_one_focus": true,
+    "endgame_progress": true,
+    "ko_tiebreak": false
+  }
+}

@@ -18,11 +18,9 @@ a legitimate Earthquake-under-ally-Protect play.
 
 from __future__ import annotations
 
-import json
 import os
 from collections import Counter
 from dataclasses import dataclass, field
-from pathlib import Path
 
 import numpy as np
 import torch
@@ -586,16 +584,13 @@ def _priority_block_prior_probability(battle: DoubleBattle) -> float:
     except ImportError:
         return 0.0
 
-    global _JOINT_SET_CACHE
-    if _JOINT_SET_CACHE is None:
-        try:
-            root = Path(__file__).resolve().parents[2]
-            _JOINT_SET_CACHE = json.loads(
-                (root / "data" / "joint_sets_regmb.json").read_text()
-            )
-        except (OSError, ValueError):
-            _JOINT_SET_CACHE = {}
-    joint_sets = _JOINT_SET_CACHE or {}
+    from vgc_bench.src.set_priors import load_set_priors
+
+    joint_sets = (
+        _JOINT_SET_CACHE
+        if _JOINT_SET_CACHE is not None
+        else load_set_priors(getattr(battle, "format", None))[0]
+    )
 
     no_block_probability = 1.0
     for foe in battle.opponent_active_pokemon:
@@ -631,7 +626,9 @@ def _priority_block_prior_probability(battle: DoubleBattle) -> float:
     return 1.0 - no_block_probability
 
 
-def _hidden_move_probability(mon: Pokemon, move_ids: set[str]) -> float:
+def _hidden_move_probability(
+    mon: Pokemon, move_ids: set[str], formatid: str | None = None
+) -> float:
     """Posterior probability that a hidden set contains one of ``move_ids``.
 
     Revealed moves are facts. Otherwise condition the top-player joint-set table on
@@ -643,16 +640,14 @@ def _hidden_move_probability(mon: Pokemon, move_ids: set[str]) -> float:
     if revealed & move_ids:
         return 1.0
 
-    global _JOINT_SET_CACHE
-    if _JOINT_SET_CACHE is None:
-        try:
-            root = Path(__file__).resolve().parents[2]
-            _JOINT_SET_CACHE = json.loads(
-                (root / "data" / "joint_sets_regmb.json").read_text()
-            )
-        except (OSError, ValueError):
-            _JOINT_SET_CACHE = {}
-    entry = (_JOINT_SET_CACHE or {}).get(_norm(mon.base_species)) or {}
+    from vgc_bench.src.set_priors import load_set_priors
+
+    joint = (
+        _JOINT_SET_CACHE
+        if _JOINT_SET_CACHE is not None
+        else load_set_priors(formatid)[0]
+    )
+    entry = joint.get(_norm(mon.base_species)) or {}
     sets = entry.get("sets") or []
     seen_item = mon.item if mon.item not in (None, "unknown_item") else None
     seen_ability = mon.ability if mon.ability not in (None, "unknown_ability") else None
@@ -739,7 +734,10 @@ def candidate_gives_catastrophic_free_setup(
     return any(
         foe is not None
         and not foe.fainted
-        and _hidden_move_probability(foe, CATASTROPHIC_SETUP_MOVES) >= threshold
+        and _hidden_move_probability(
+            foe, CATASTROPHIC_SETUP_MOVES, getattr(battle, "format", None)
+        )
+        >= threshold
         for foe in battle.opponent_active_pokemon
     )
 
@@ -752,7 +750,10 @@ def battle_can_contest_catastrophic_setup(battle: DoubleBattle) -> bool:
         for foe in battle.opponent_active_pokemon
         if foe is not None
         and not foe.fainted
-        and _hidden_move_probability(foe, CATASTROPHIC_SETUP_MOVES) >= threshold
+        and _hidden_move_probability(
+            foe, CATASTROPHIC_SETUP_MOVES, getattr(battle, "format", None)
+        )
+        >= threshold
     ]
     for pos, attacker in enumerate(battle.active_pokemon):
         if attacker is None or attacker.fainted:
@@ -1953,7 +1954,10 @@ def guard_free_catastrophic_setup(battle, cands, report) -> list[Candidate]:
         for foe in battle.opponent_active_pokemon
         if foe is not None
         and not foe.fainted
-        and _hidden_move_probability(foe, CATASTROPHIC_SETUP_MOVES) >= threshold
+        and _hidden_move_probability(
+            foe, CATASTROPHIC_SETUP_MOVES, getattr(battle, "format", None)
+        )
+        >= threshold
     ]
     if not threats:
         return cands

@@ -33,6 +33,25 @@ HF_BC_MODEL_FILE = "results/saves_bc/seed1/100.zip"
 HF_BC_MODEL_TIMESTEP = 100
 
 
+def fixed_population_weights(
+    paths: list[Path], stems: set[int], fraction: float
+) -> list[float]:
+    """Keep a designated opponent population's mass fixed as lineage grows."""
+    if not 0 < fraction < 1:
+        raise ValueError("fixed opponent fraction must be strictly between 0 and 1")
+    present = {int(p.stem) for p in paths}
+    if not stems or not stems.issubset(present) or present == stems:
+        raise ValueError(
+            "fixed population needs all designated stems and another opponent"
+        )
+    return [
+        fraction / len(stems)
+        if int(p.stem) in stems
+        else (1 - fraction) / (len(paths) - len(stems))
+        for p in paths
+    ]
+
+
 class Callback(BaseCallback):
     """
     Training callback for PPO-based Pokemon VGC training.
@@ -71,6 +90,8 @@ class Callback(BaseCallback):
         our_team_paths: list[Path] | None = None,
         team_weights_path: Path | None = None,
         hidden_sheet_prob: float = 0.0,
+        fixed_opponent_stems: set[int] | None = None,
+        fixed_opponent_fraction: float = 0.2,
     ):
         """
         Initialize the training callback.
@@ -98,6 +119,8 @@ class Callback(BaseCallback):
         self.learning_style = learning_style
         self.behavior_clone = behavior_clone
         self.save_interval = save_interval
+        self.fixed_opponent_stems = fixed_opponent_stems or set()
+        self.fixed_opponent_fraction = fixed_opponent_fraction
         method_tags = [
             "bc" if behavior_clone else None,
             learning_style.abbrev,
@@ -337,9 +360,31 @@ class Callback(BaseCallback):
                 ),
                 key=lambda p: int(p.stem),
             )
+            weights = self.prob_dist
+            if self.fixed_opponent_stems:
+                if self.learning_style != LearningStyle.FICTITIOUS_PLAY:
+                    raise ValueError(
+                        "fixed population mass is only supported for fictitious play"
+                    )
+                weights = fixed_population_weights(
+                    policy_files,
+                    self.fixed_opponent_stems,
+                    self.fixed_opponent_fraction,
+                )
             selected_files = random.choices(
-                policy_files, weights=self.prob_dist, k=self.model.env.num_envs
+                policy_files, weights=weights, k=self.model.env.num_envs
             )
+            if self.fixed_opponent_stems:
+                self.model.logger.record(
+                    "train/human_opp_target_fraction", self.fixed_opponent_fraction
+                )
+                self.model.logger.record(
+                    "train/human_opp_realized_fraction",
+                    sum(
+                        int(p.stem) in self.fixed_opponent_stems for p in selected_files
+                    )
+                    / len(selected_files),
+                )
             for selected in set(selected_files):
                 refuse_eval_only_checkpoint(selected)
             # Seeded league opponents (e.g. bc_mix_A copies) live at stems below

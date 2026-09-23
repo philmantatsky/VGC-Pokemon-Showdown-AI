@@ -1,5 +1,219 @@
 # VGC Bot Project Status
 
+## Deployed Reg M-C challenge listener added (September 21)
+
+User requested direct challenges on the live Showdown server for Reg M-C.
+Added `tools/challenges_deployed.sh`: it pins and hash-verifies both artifacts in
+`results_deployed/DEPLOYED.json`, accepts only `gen9championsvgc2026regmc`, keeps
+play serial, uses the deployed guard profile, and stores challenge replays and
+decision logs separately from rated ladder data. Direct challenges are unranked;
+normal `tools/ladder_deployed.sh` behavior is unchanged. Credentials remain
+shell-side in the existing environment and are neither printed nor passed as CLI
+arguments. The launcher refuses concurrent ladder/challenge or heavy local jobs.
+Added an explicit Reg M-C room-recovery path after the first listener socket timed
+out mid-challenge. It reconnects the same account, rejoins the audited battle room,
+lets Showdown resend room history/current request, and reconstructs live state
+before resuming decisions. The interrupted battle was recovered through turn 5.
+Recovery is dispatched on poke-env's dedicated event loop; invalid/closed rooms
+fail closed and release the serial battle slot.
+
+## Follow-on COMPLETE; keep T4 deployed and pause automation (September 21)
+
+`results_t6_vs_deployed_v1` finished all 12,408 local games. T4 5,346/6,204
+(86.2%) versus candidate T6 5,201/6,204 (83.8%). T6 deltas by population:
+human-new +2.3 pp, frozen -8.3, rotation1 +1.7, rotation2 -2.6,
+human-previous -6.1, heuristic -1.1. Equal-population pooled delta -2.34 pp,
+whole-roster bootstrap 95% interval [-5.75,+0.93]; improvement not established.
+Frozen arm interval [-15.1,-2.4] is the clearest regression. This is a different-
+team configuration comparison, not weight-only causation or a ladder forecast.
+
+All pinned hashes and 12 complete arm files verified, zero recorded guard failures,
+correct own teams and both modes, no duplicate games. Natural opponent previews
+are intentionally unpaired across T4/T6. No evaluation/training processes remain;
+local Showdown servers left untouched. Representative raw replays plus decision
+logs reviewed: same opening vulnerability persists (Farigiraf KO before Trick Room
+in both sampled human losses and 24/25 sampled frozen losses; also present in wins).
+Review and uncertainties: `results_t6_vs_deployed_v1/REVIEW.md`.
+
+The ONE follow-on cycle is complete. Pause `continue-vgc-validation`; do not
+launch more work without user direction. Keep T4 deployment and all champions
+unchanged. Recommended next experiment, NOT STARTED: controlled training-side
+opening-survival comparisons (supported Trick Room and sun alternatives), then
+a matchup-conditioned selector only if full-game benefits replicate. Do not
+retrain on the reviewed holdout or continue the same broad PPO run blindly.
+
+## Confirmation reviewed; one follow-on T4 comparison running (September 21)
+
+`results_t6_confirmation_v2` COMPLETE: 12,408 games. Candidate T6 5,248/6,204
+(84.6%) versus generalist-on-T6 3,509/6,204 (56.6%). All six populations and
+both sheet modes improve; zero recorded guard failures, pairing drift or missing
+cells; pinned hashes intact. Not a comparison against deployed T4 and not a ladder
+claim. Full integrity checks, intervals and replay/decision review:
+`results_t6_confirmation_v2/REVIEW.md`.
+
+All 6,204 candidate games use Torkoal/Farigiraf leads and Blastoise/Charizard back.
+Reviewed all three sampled human-clone losses and representative frozen losses.
+Farigiraf died turn one before Trick Room in all 3 sampled human losses and 25/26
+frozen losses (also 19 frozen wins). Sample is roster-biased, not causal evidence.
+No demonstrated mechanical/pipeline defect: low-HP Eruption flags often reflect
+damage AFTER choosing; no-weather Weather Ball versus Gallade respects revealed
+Wide Guard; sun Water Spout can still KO both foes. Do not patch blanket rules.
+
+The ONE authorized follow-on cycle is now `evaluation/run_t6_vs_deployed.py`,
+under caffeinate, output `results_t6_vs_deployed_v1/`. Read its `status.json`,
+logs and processes FIRST on subsequent heartbeats; do not relaunch confirmation
+or start another experiment. Compares immutable deployed T4 weights/team from
+`DEPLOYED.json` with unchanged candidate T6 save 20,152,320, same production guard
+stack, six populations, 47 reserved rosters, 1,034 games/configuration/population,
+12,408 total. Same roster blocks but independent battle RNG and **natural opponent
+previews for each different own team**, not artificial cross-team preview pairing.
+This measures configuration performance, not a weight-only improvement. Frozen
+source manifests, 8 local battles maximum, one MPS process, per-child one-hour and
+whole-invocation three-hour limits. No training or ladder. Stop for review, then
+PAUSE heartbeat `continue-vgc-validation` and report recommendation to user.
+
+Validation: 20-game two-configuration smoke completed, zero guard errors; smoke
+scores are not strength evidence. Full suite 435 passed, 5 skipped; new runner
+and tests Ruff-clean; diff whitespace clean. No production decision code changed,
+no champion/deployment edits, no credentials, commits or pushes.
+
+## Automatic follow-through authorized (September 21)
+
+User requested automatic next steps after the confirmation finishes. Created
+thread heartbeat `continue-vgc-validation`, active every 30 minutes (updated at
+the user's request). It checks
+actual process/results, stays quiet on unchanged healthy progress, reviews the
+completed six-population results and candidate losses, then performs ONE bounded
+evidence-driven local repair/validation cycle (or a local comparison against the
+deployed T4 configuration if clean). It pauses after that cycle or if user input
+is required. No ladder, promotion, champion overwrite, credentials, cloud compute,
+commit/push, or unbounded training is authorized. Local Mac must remain awake and
+the app running. Latest observed phase: rotation2 baseline; first three completed
+populations favored the candidate, but the final verdict/review remains pending.
+
+User's usage constraint: keep the same Codex model, with no alternate-model
+fallback or delegation. If allowance runs out, leave work pending until the
+normal reset. Do not redeem reset credits or purchase credits to bypass limits.
+
+## T6 multi-population confirmation started; fixed preview found (September 20)
+
+User authorized broader local tests and tactical review after the short trial.
+The trial is COMPLETE: generalist 190/300 (63.3%), save 20,152,320 225/300
+(75.0%), save 20,643,840 197/300 (65.7%) against eval_mcB_20260920, same 25
+round-held-out rosters, independent battle RNG. Save 20,152,320 is selected for
+confirmation, not deployment. No more training, ladder, or promotion authorized.
+
+Important review finding: BOTH trained checkpoints chose Torkoal + Farigiraf,
+back Blastoise + Charizard, in **300/300** games each. The generalist varied its
+preview. Improved sampled win rate does not establish matchup-aware planning.
+Earlier-save category results (60 games each): TR 33 vs baseline 36; grassy/Fake
+Out 56 vs 44; Tailwind 38 vs 34; rain 46 vs 36; balance 52 vs 40. These small
+subgroups identify follow-up questions, not statistically settled regressions.
+
+Running under caffeinate: `evaluation/run_t6_confirmation.py`, artifacts
+`results_t6_confirmation_v2/`, phase in `status.json`, progressive population
+results in `scorecard.json`. Compare init vs save 20,152,320 using the SAME
+policy+guard stack as the short trial, no new search/tempo/preview models.
+Six opponent populations: fresh and 09-13 quarantined human clones (stochastic),
+64opp / 8opp / tuned frozen PPOs (deterministic), simple heuristic. Each model
+plays **1,034 games per population**: 47 roster-disjoint additional test teams,
+11 repeats, both sheet modes. Total 12,408. Excludes the first 25 confirmation
+selection rosters as well as this fine-tune's training roster partition. As
+before, the GENERALIST may have seen these rosters in earlier training.
+Coverage: 10 TR, 10 rain, 10 grassy/Fake Out, 10 Tailwind, 7 balance; no separate
+sun or psychic-terrain bucket available under the current mutually-exclusive
+categorizer/split. This is not exhaustive archetype coverage.
+
+Opponent previews replay exactly from the control arm; battle RNG is independent.
+Uncertainty resamples whole opponent rosters, not correlated repeats as independent
+matchups. No automatic promotion decision. Each subprocess has a one-hour timeout;
+individual cells have a five-minute timeout and fail on guard errors/pairing drift.
+Sampled replay + decision audits from first roster per category/mode for the human
+and 64opp populations. `tactical_review_queue.json` is a context-flag index, NOT a
+verdict that a move was wrong. Human tactical review remains pending sufficient
+candidate loss samples.
+
+Harness hardening discovered during live smoke/resume:
+
+- Persist fingerprints at preview time, not after the opposing six have shrunk to
+  four revealed mons. Old live in-memory pilot pairing worked, but cross-process
+  replay of old post-battle fingerprints was invalid; smoke correctly rejected it.
+- Accept Showdown HP color suffixes (`50/100g`) in the post-game review parser.
+- Use unique local guest accounts on restart: default repeated names rejoined
+  abandoned battles before policy loading. The failed restart added ZERO result
+  rows. Preserved 264 completed control games; unfinished cell rerun. Both source
+  revisions are explicit sidecars next to the updated confirmation manifest.
+  Policy weights/decision code/team/matchups did not change during these repairs.
+
+Verification after repairs: 428 tests pass, 5 skip; Ruff and diff whitespace
+checks clean. Live run resumed beyond the preserved 264 games, with zero pairing
+mismatches in the completed cells. At 341 games, measured cell time was 0.66 s
+per game; the full 12,408-game run is roughly 2-3 hours, subject to matchup length.
+No bot-strength claim from the smoke results. T4 deployment is unchanged.
+
+## T6 diagnosis-first repair trial (2026-September 20, Codex)
+
+User paused Claude's long T6 run and authorized the diagnosis-first approach.
+The old run produced no new checkpoint; it remains stopped. No ladder games,
+promotion, commits or pushes were requested in this pass. Deployed T4 weights
+and deployment manifest are untouched.
+
+Completed repairs:
+
+- Shared format-specific set loader (`src/set_priors.py`): observations, guards,
+  preview helpers, search and determinization use the actual battle regulation.
+  Missing current-format evidence stays unknown, never silently becomes M-B data.
+  Explicit `VGC_SET_PRIOR_REG=mb` is available for controlled ablation only.
+- `data/joint_sets_regmc.json`: 3,788 unique training-bucket replays (buckets 0-4
+  of the merged 09-20 corpus), 186 species, provenance/hashes in its sidecar.
+  Fixed packed nickname/species parsing and duplicate sheets. Rillaboom now has
+  plausible current-format moves. No fabricated Smogon spreads were added.
+- Impossible sets no longer reappear as confident guesses after contradictory
+  reveals. Threat caching includes revealed moves/items/abilities and stat changes.
+- Appended four threat-evidence floats at the token tail: revealed/inferred move
+  fractions for each enemy. Token 1019 -> 1023, projection 1205 -> 1209; old input
+  weights zero-extend. These inputs are available to learn, not already understood
+  by the old model. Compatibility regressions cover both +4 and +12 extensions.
+- Fictitious-play sampling can retain a fixed human-clone probability as new
+  saves accumulate (`--fixed_opponent_stems 100,200`, fraction 0.20).
+
+Opening pilot: `results_opening_t6/pilot_train.jsonl` / `pilot_summary.json`,
+**240 completed games**, six roster categories, hidden/open sheets, five opening
+arms, four repeats/cell. Seven labels exist in the categorizer but no independent
+psychic-terrain bucket was selected (classification gives TR precedence). Policy
+control was 24/48: rain 1/8, grassy/Fake Out 0/8, Tailwind 2/8, balance 6/8,
+TR 7/8, sun 8/8. These are ONE opposing roster per category and tiny samples,
+not strength estimates. T6's preview already changes across matchups; the T4
+"same four every battle" observation does not carry over. Some alternative
+openings helped against rain and hidden-sheet Rillaboom; every tested opening
+lost all four open-sheet Rillaboom games. Do not turn cell winners into rules.
+Opponent preview is reused between arms, but battle RNG is **not paired**.
+
+Current bounded experiment: `training/run_t6_repair_trial.py`, under caffeinate,
+`results_brainv1_t6_repair1/status.json` is the live source of truth. Starts from
+generalist 19,660,800 on T6; ends at 20,643,840 (+983,040), saves every 491,520,
+8 environments, one MPS learner, 50% hidden sheets, fixed 20% human-clone sampling,
+unchanged full-game reward/shaping. No forced openings or tiny-pilot reweighting.
+Roster-hash 20% of the team pool is excluded from THIS fine-tune. This is NOT
+unseen-team generalization: the generalist may have trained on those rosters.
+The eval-only human clone remains excluded from the training population by role
+and content. Verified league plus pinned weights/data/code hashes in experiment.json.
+
+Supervisor stops on invalid returns, 15 minutes without progress, process failure,
+or the 150-minute training ceiling. On successful training it compares the initial
+model and both new checkpoints against the eval-only 09-20 clone, same reserved
+rosters, both sheet modes, up to 8 concurrent LOCAL games, then stops for review.
+This is a diagnostic comparison, not the multi-population promotion gate. The
+training/deployment guard mismatch remains: PPO trains bare policy; comparisons
+use the same production guard profile for every arm. No automatic continuation,
+promotion or ladder command exists in this supervisor.
+
+Verification: 421 tests passed, 5 server-dependent skips; Ruff clean on changed
+files and diff whitespace clean. Pyright still reports 29 errors; an isolated
+HEAD checkout reproduced the SAME 29 pre-existing errors (not new regressions).
+The training process confirmed 132 tensors copied, 3 zero-extended, none replaced.
+Model strength remains unproven until the comparisons finish.
+
 ## Team change at the user's word: T6 (Kanto starters, sun + Trick Room) rebuilt from a player's replays; T6 round training since 20:28 (2026-September 20, 20:35)
 
 The user, 20:15: change the team to the player **dksnnfud**'s "Incineroar

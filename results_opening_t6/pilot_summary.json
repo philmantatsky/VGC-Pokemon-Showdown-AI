@@ -1,0 +1,691 @@
+{
+  "source": "results_opening_t6/pilot_train.jsonl",
+  "games": 240,
+  "cells": [
+    {
+      "category": "balance",
+      "arm": "policy",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 2.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "policy",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "sun",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "sun",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 1,
+        "theirs": 3
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "sun_water_backup",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "sun_water_backup",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "supported_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "supported_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "water_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "balance",
+      "arm": "water_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 3,
+        "theirs": 1
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "policy",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "policy",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 3,
+        "ours": 1
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "sun",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "sun",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "sun_water_backup",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "sun_water_backup",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "supported_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "supported_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 2,
+        "ours": 2
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "water_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "grassy_fakeout",
+      "arm": "water_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "policy",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "policy",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "sun",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 2.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "sun",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "sun_water_backup",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "sun_water_backup",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "supported_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "supported_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "water_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 4
+      }
+    },
+    {
+      "category": "rain",
+      "arm": "water_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "policy",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "policy",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "sun",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "sun",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "sun_water_backup",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "sun_water_backup",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 3,
+        "ours": 1
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "supported_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "supported_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "water_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "sun",
+      "arm": "water_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "policy",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "ours": 1,
+        "theirs": 3
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "policy",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 2.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "sun",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "sun",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "sun_water_backup",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "sun_water_backup",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "supported_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 2.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "supported_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 3,
+        "ours": 1
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "water_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "tailwind",
+      "arm": "water_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "policy",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 4.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "policy",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 1,
+        "ours": 3
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "sun",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 2.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "sun",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "sun_water_backup",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 3.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "sun_water_backup",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "supported_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 0.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 1,
+        "ours": 3
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "supported_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 3,
+        "ours": 1
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "water_room",
+      "hidden_sheets": false,
+      "games": 4,
+      "wins": 1.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    },
+    {
+      "category": "trick_room",
+      "arm": "water_room",
+      "hidden_sheets": true,
+      "games": 4,
+      "wins": 2.0,
+      "opponent_rosters": 1,
+      "first_faint": {
+        "theirs": 4
+      }
+    }
+  ],
+  "policy_previews": {
+    "incineroar,farigiraf,charizard,torkoal": 4,
+    "charizard,farigiraf,torkoal,venusaur": 4,
+    "charizard,farigiraf,torkoal,incineroar": 8,
+    "charizard,farigiraf,torkoal,blastoise": 4,
+    "torkoal,farigiraf,charizard,blastoise": 4,
+    "incineroar,farigiraf,blastoise,torkoal": 4,
+    "charizard,farigiraf,incineroar,torkoal": 16,
+    "charizard,farigiraf,blastoise,torkoal": 4
+  },
+  "caveats": [
+    "Independent battle RNG, not paired counterfactual outcomes.",
+    "Training-split trials are development evidence, not held-out gates.",
+    "Do not infer strength from four-game cells or select their winners as rules."
+  ]
+}

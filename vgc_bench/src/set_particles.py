@@ -206,16 +206,25 @@ class ParticleDatabase:
 
     @classmethod
     def load(
-        cls, root: Path | None = None, max_particles: int = 12
+        cls,
+        root: Path | None = None,
+        max_particles: int = 12,
+        formatid: str | None = None,
     ) -> "ParticleDatabase":
         data = root or Path(__file__).resolve().parents[2] / "data"
-        joint_sets = json.loads((data / "joint_sets_regmb.json").read_text())
-        rare_path = data / "rare_sets_regmb.json"
+        from vgc_bench.src.set_priors import prior_reg
+
+        reg = prior_reg(formatid)
+        joint_path = data / f"joint_sets_reg{reg}.json"
+        joint_sets = json.loads(joint_path.read_text()) if joint_path.exists() else {}
+        rare_path = data / f"rare_sets_reg{reg}.json"
         if rare_path.exists():
             joint_sets.update(json.loads(rare_path.read_text()))
         return cls(
             joint_sets,
-            json.loads((data / "movesets_regmb.json").read_text()),
+            json.loads((data / f"movesets_reg{reg}.json").read_text())
+            if (data / f"movesets_reg{reg}.json").exists()
+            else {},
             max_particles=max_particles,
         )
 

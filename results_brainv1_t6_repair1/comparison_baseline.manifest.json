@@ -1,0 +1,201 @@
+{
+  "checkpoint": "results_brainv1/saves_fp_hs_wt/reg_mc/seed1/19660800.zip",
+  "opponent": "results_bc/eval_mcB_20260920/saves_bc/seed2/2.zip",
+  "plans": {
+    "team": "teams/candidates_mc/T6.txt",
+    "plans": {
+      "sun": [
+        "charizard",
+        "venusaur",
+        "incineroar",
+        "farigiraf"
+      ],
+      "water_room": [
+        "blastoise",
+        "farigiraf",
+        "torkoal",
+        "venusaur"
+      ],
+      "supported_room": [
+        "incineroar",
+        "farigiraf",
+        "blastoise",
+        "torkoal"
+      ],
+      "sun_water_backup": [
+        "charizard",
+        "venusaur",
+        "blastoise",
+        "farigiraf"
+      ]
+    }
+  },
+  "per_category": 5,
+  "repeats": 6,
+  "seed": 20921,
+  "split": "heldout",
+  "port": 7610,
+  "device": "mps",
+  "output": "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_brainv1_t6_repair1/comparison_baseline.jsonl",
+  "arms": "policy",
+  "cell_timeout": 300,
+  "matchups": [
+    {
+      "path": "teams/reg_mc/MC243.txt",
+      "category": "trick_room",
+      "sha256": "4ae3eaad638aedbd93d6572ed350db34969cc5ba8b3f8e57165176c54f87e64d"
+    },
+    {
+      "path": "teams/reg_mc/MC1502.txt",
+      "category": "trick_room",
+      "sha256": "b32f0438e2c0a20f06933c150c9ca56e7e88dff9fc0a1378a569c57986d54d34"
+    },
+    {
+      "path": "teams/reg_mc/MC40.txt",
+      "category": "grassy_fakeout",
+      "sha256": "44d0f2dc244431ca03ccb6da0c634fb12a39dbb15b21465d91fcecca2804e743"
+    },
+    {
+      "path": "teams/reg_mc/MC312.txt",
+      "category": "tailwind",
+      "sha256": "6363b11e99d3b4dcdab70775e54c3c41670d33d8a157ca18bb0c4427a5b34096"
+    },
+    {
+      "path": "teams/reg_mc/MC3130.txt",
+      "category": "grassy_fakeout",
+      "sha256": "321b181a502d51e76d98e3b740f27cc9ddac84be4794b2fe5b4fb8cfe32c3978"
+    },
+    {
+      "path": "teams/reg_mc/MC2630.txt",
+      "category": "grassy_fakeout",
+      "sha256": "1b48f769e7ac92c49ebd7e98e11a356ac241ecf74c9454d1add5af78ce8c1912"
+    },
+    {
+      "path": "teams/reg_mc/MC1616.txt",
+      "category": "trick_room",
+      "sha256": "549d90067aad32530816b3cfa343d0c16a8ef86f60a4c7e1a168ba1d2ad6287b"
+    },
+    {
+      "path": "teams/reg_mc/MC2790.txt",
+      "category": "trick_room",
+      "sha256": "2e6f65578bebb5b2f8968128bf4a9daad2ecec6eeaa984fc4e0e472f2ef19fc7"
+    },
+    {
+      "path": "teams/reg_mc/MC2835.txt",
+      "category": "tailwind",
+      "sha256": "b4f05796b15e6c06b0f9c9395a5a5c54648519b9cec616b84075c38ac0e59157"
+    },
+    {
+      "path": "teams/reg_mc/MC3365.txt",
+      "category": "grassy_fakeout",
+      "sha256": "4c7703b2c0847d54fc71022b7d96e236d712fe74b1093c6fa3c2b25153829e5c"
+    },
+    {
+      "path": "teams/reg_mc/MC1115.txt",
+      "category": "trick_room",
+      "sha256": "416ffac7d8b453463126e51b62bde7a9e372a78025e736e1cc62c79d0bd96e3a"
+    },
+    {
+      "path": "teams/reg_mc/MC3023.txt",
+      "category": "tailwind",
+      "sha256": "e7e1609bdc4280b7a76fc049c62f7117fd073cb6d6301b86d450d21ecb8822cb"
+    },
+    {
+      "path": "teams/reg_mc/MC3272.txt",
+      "category": "rain",
+      "sha256": "f2eb6b753185eff2f4848faa3afda74d3571bf84776cff5b2e9e781c5645f58f"
+    },
+    {
+      "path": "teams/reg_mc/MC531.txt",
+      "category": "balance",
+      "sha256": "759fd474e885dd3359da9379e182027f91fae2ff9a9a9d5d86f6fdac26a95a48"
+    },
+    {
+      "path": "teams/reg_mc/MC3601.txt",
+      "category": "grassy_fakeout",
+      "sha256": "7e535824c521ff92785010de2aa1a95088c1046d140dfc815eb9d232ab21f229"
+    },
+    {
+      "path": "teams/reg_mc/MC36.txt",
+      "category": "tailwind",
+      "sha256": "0af58888b8185e09f82b69d38aac4b60f90188986daa7c9b69c984623d638e34"
+    },
+    {
+      "path": "teams/reg_mc/MC2590.txt",
+      "category": "tailwind",
+      "sha256": "640e0b73b3133ca054deecfa04c18f167e9eb48e8eacbe5883b537a424633175"
+    },
+    {
+      "path": "teams/reg_mc/MC2983.txt",
+      "category": "rain",
+      "sha256": "da4b70834cb5f29f14a8cd782ecff342e152818ce2ba7f327650830aab117e0f"
+    },
+    {
+      "path": "teams/reg_mc/MC961.txt",
+      "category": "balance",
+      "sha256": "814865211533fd1368eefbafcac45dbee2c320b67bc603fff98d127e9c0cc70e"
+    },
+    {
+      "path": "teams/reg_mc/MC43.txt",
+      "category": "rain",
+      "sha256": "204154991087a944606aa6eeb7f45b9d90f54ea11ae7f1007aaaa5337e0a2ef6"
+    },
+    {
+      "path": "teams/reg_mc/MC3371.txt",
+      "category": "balance",
+      "sha256": "5d693adade140a5b43b9ce29e1a4feaadd572cbcdf709f96a73536beedc75dac"
+    },
+    {
+      "path": "teams/reg_mc/MC255.txt",
+      "category": "rain",
+      "sha256": "59c49c8ad2233203eddb514a23e0245b2acb4e901df80528ad2acb6c35f8b3b4"
+    },
+    {
+      "path": "teams/reg_mc/MC1481.txt",
+      "category": "rain",
+      "sha256": "a673205dc88e166f2afbab18f14ca8b2c17cf5709fb3fb31277ede56d1bdd350"
+    },
+    {
+      "path": "teams/reg_mc/MC3356.txt",
+      "category": "balance",
+      "sha256": "6e6ca9d85414f32732bffab45686058894a0e957887dc7316164fccb351bd681"
+    },
+    {
+      "path": "teams/reg_mc/MC722.txt",
+      "category": "balance",
+      "sha256": "df4e9f25194043d5bcc5ca0d3b0f5b50f61183a306a3d4770ae68cf9c718069d"
+    }
+  ],
+  "checkpoint_sha256": "5e2f882f87eb663555474b7a4885e42a26d75888cde8a751647e8b25ad93e6a0",
+  "opponent_sha256": "612130a764c6ec4c57aeb42b6dcea3031eb4d70e5334fd73c5e78e433bf3ef84",
+  "battle_rng_paired": false,
+  "chunk_obs_len": 1023,
+  "set_prior_reg": "mc",
+  "set_prior_sha256": "a4ef12f155737473e49693cdf804d281ec81c9753aee824662c8f3bfc0566845",
+  "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
+  "guard_flags": {
+    "zero_damage": true,
+    "first_turn": true,
+    "priority_block": true,
+    "redirection": true,
+    "status_immunity": true,
+    "ally_damage": false,
+    "setup_into_ko": false,
+    "redundant_side_condition": true,
+    "free_catastrophic_setup": true,
+    "encore_exposure": true,
+    "dominated_weather_ball": true,
+    "single_target_weather_ball": true,
+    "resisted_target": true,
+    "overkill_split": true,
+    "dominated_weather_ball_weather": true,
+    "protect_spam": true,
+    "guaranteed_ko": true,
+    "reserve_weather_mega": true,
+    "severe_attack_drop_switch": true,
+    "yawn_switch": true,
+    "two_on_one_focus": true,
+    "endgame_progress": true,
+    "ko_tiebreak": false
+  }
+}

@@ -719,12 +719,7 @@ class PolicyPlayer(Player):
             order2 = PolicyPlayer.choose_move(self, battle)
             assert not isinstance(order2, Awaitable)
             action2 = DoublesEnv.order_to_action(order2, battle)
-            return (
-                int(action1[0]),
-                int(action1[1]),
-                int(action2[0]),
-                int(action2[1]),
-            )
+            return (int(action1[0]), int(action1[1]), int(action2[0]), int(action2[1]))
         finally:
             self.decision_log_path = saved_log_path
             for pokemon, flag in zip(team, saved):
@@ -936,9 +931,11 @@ class PolicyPlayer(Player):
                     to_id_str(our_mons[slot - 1].base_species)
                     for slot in (*leads, *backline)
                 ),
-                "opponent_trick_room_rates": species_trick_room_rates(theirs),
+                "opponent_trick_room_rates": species_trick_room_rates(
+                    theirs, battle.format
+                ),
                 "opponent_trick_room_probability": round(
-                    trick_room_probability(theirs), 4
+                    trick_room_probability(theirs, battle.format), 4
                 ),
             }
             if self.preview_model_path is not None:
@@ -1171,7 +1168,7 @@ class PolicyPlayer(Player):
             revealed_fraction = min(1.0, len(move_ids) / 4.0)
             prior: dict[str, Any] = {}
             if len(move_ids) < 4 and PolicyPlayer.moveset_prior_enabled():
-                prior = PolicyPlayer._moveset_prior(mon) or {}
+                prior = PolicyPlayer._moveset_prior(mon, battle.format) or {}
                 move_ids.extend(
                     move_id
                     for move_id in prior.get("moves", [])
@@ -1468,9 +1465,7 @@ class PolicyPlayer(Player):
                 overrides = getattr(self, "guard_overrides", None)
                 if overrides:
                     guard_flags = {**(guard_flags or {}), **overrides}
-                cands, guard_report = _guards.apply_guards(
-                    battle, cands, guard_flags
-                )
+                cands, guard_report = _guards.apply_guards(battle, cands, guard_flags)
                 PolicyPlayer.guard_fire_counts["guards_ran"] += 1
                 if guard_report.stages:
                     PolicyPlayer.guard_fire_counts.update(guard_report.stages)
@@ -1842,10 +1837,14 @@ class PolicyPlayer(Player):
                 active_a=a1 is not None and p.name == a1.name,
                 active_b=a2 is not None and p.name == a2.name,
                 knowledge=know.get(id(p)),
+                formatid=battle.format,
             )
             for i, p in enumerate(our_mons)
         ]
-        accuracies = [PolicyPlayer.embed_move_accuracies(p, False) for p in our_mons]
+        accuracies = [
+            PolicyPlayer.embed_move_accuracies(p, False, battle.format)
+            for p in our_mons
+        ]
         pokemons += [np.zeros(pokemon_obs_len, dtype=np.float32)] * (6 - len(pokemons))
         accuracies += [np.zeros(correct_accuracy_obs_len, dtype=np.float32)] * (
             6 - len(accuracies)
@@ -1858,10 +1857,13 @@ class PolicyPlayer(Player):
                 from_opponent=True,
                 active_a=o1 is not None and p.name == o1.name,
                 active_b=o2 is not None and p.name == o2.name,
+                formatid=battle.format,
             )
             for i, p in enumerate(opp_mons)
         ]
-        opp_accuracies = [PolicyPlayer.embed_move_accuracies(p, True) for p in opp_mons]
+        opp_accuracies = [
+            PolicyPlayer.embed_move_accuracies(p, True, battle.format) for p in opp_mons
+        ]
         opp_pokemons += [np.zeros(pokemon_obs_len, dtype=np.float32)] * (
             6 - len(opp_pokemons)
         )
@@ -1878,12 +1880,42 @@ class PolicyPlayer(Player):
         opp_threats += [_ZERO_THREAT] * (6 - len(opp_threats))
         return np.concatenate(
             [
-                np.concatenate([glob, side, p, pres, global_pres, acc, threat])
-                for p, acc, threat in zip(pokemons, accuracies, our_threats)
+                np.concatenate(
+                    [
+                        glob,
+                        side,
+                        p,
+                        pres,
+                        global_pres,
+                        acc,
+                        threat,
+                        PolicyPlayer._threat_evidence(battle, our_mons[i], True)
+                        if i < len(our_mons)
+                        else np.zeros(4),
+                    ]
+                )
+                for i, (p, acc, threat) in enumerate(
+                    zip(pokemons, accuracies, our_threats)
+                )
             ]
             + [
-                np.concatenate([glob, opp_side, p, opp_pres, global_pres, acc, threat])
-                for p, acc, threat in zip(opp_pokemons, opp_accuracies, opp_threats)
+                np.concatenate(
+                    [
+                        glob,
+                        opp_side,
+                        p,
+                        opp_pres,
+                        global_pres,
+                        acc,
+                        threat,
+                        PolicyPlayer._threat_evidence(battle, opp_mons[i], False)
+                        if i < len(opp_mons)
+                        else np.zeros(4),
+                    ]
+                )
+                for i, (p, acc, threat) in enumerate(
+                    zip(opp_pokemons, opp_accuracies, opp_threats)
+                )
             ],
             dtype=np.float32,
         )
@@ -2157,6 +2189,22 @@ class PolicyPlayer(Player):
     _threat_cache: dict[tuple, dict[int, npt.NDArray[np.float32]]] = {}
 
     @staticmethod
+    def _threat_evidence(battle: DoubleBattle, mon: Pokemon, ours: bool) -> list[float]:
+        """Unknown, inferred and revealed attacks have different evidential weight."""
+        result = [0.0] * 4
+        active = battle.active_pokemon if ours else battle.opponent_active_pokemon
+        if not PolicyPlayer.knowledge_obs_enabled() or mon.fainted or mon not in active:
+            return result
+        enemies = battle.opponent_active_pokemon if ours else battle.active_pokemon
+        enemies = [e for e in enemies if e is not None and not e.fainted]
+        for i, enemy in enumerate(enemies[:2]):
+            known = min(4, len(enemy.moves))
+            resolved = len(PolicyPlayer._resolved_moves(enemy, ours, battle.format))
+            result[2 * i] = known / 4.0
+            result[2 * i + 1] = max(0, resolved - known) / 4.0
+        return result
+
+    @staticmethod
     def _threat_for(battle: DoubleBattle) -> dict[int, npt.NDArray[np.float32]]:
         """Threat vectors for all four actives (both sides), memoised per state.
 
@@ -2177,11 +2225,17 @@ class PolicyPlayer(Player):
         fingerprint = (
             battle.battle_tag,
             battle.turn,
+            getattr(battle, "format", None),
             tuple(
                 (
                     p.species,
                     p.current_hp_fraction,
-                    p.boosts.get("spe", 0),
+                    tuple(sorted(p.boosts.items())),
+                    tuple(p.moves),
+                    p.item,
+                    p.ability,
+                    tuple(p.stats.items()),
+                    tuple(p.effects),
                     bool(getattr(p, "first_turn", False)),
                     p.status,
                 )
@@ -2198,8 +2252,12 @@ class PolicyPlayer(Player):
 
         from vgc_bench.src import vgc_knowledge as _vk
 
-        our_moves = {id(p): PolicyPlayer._resolved_moves(p, False) for p in ours}
-        their_moves = {id(p): PolicyPlayer._resolved_moves(p, True) for p in theirs}
+        our_moves = {
+            id(p): PolicyPlayer._resolved_moves(p, False, battle.format) for p in ours
+        }
+        their_moves = {
+            id(p): PolicyPlayer._resolved_moves(p, True, battle.format) for p in theirs
+        }
         out: dict[int, npt.NDArray[np.float32]] = {}
         for p in ours:
             out[id(p)] = np.array(
@@ -2234,25 +2292,22 @@ class PolicyPlayer(Player):
         return out
 
     @staticmethod
-    def _load_priors() -> tuple[dict[str, Any], dict[str, Any]]:
+    def _load_priors(
+        formatid: str | None = None,
+    ) -> tuple[dict[str, Any], dict[str, Any]]:
         """Lazily load (joint sets, Smogon marginals)."""
-        if PolicyPlayer._prior_cache is None:
-            root = Path(__file__).resolve().parents[2] / "data"
+        from vgc_bench.src.set_priors import load_set_priors
 
-            def _read(name):
-                try:
-                    return json.loads((root / name).read_text())
-                except Exception:
-                    return {}
-
-            PolicyPlayer._prior_cache = {
-                "joint": _read("joint_sets_regmb.json"),
-                "marginal": _read("movesets_regmb.json"),
-            }
-        return PolicyPlayer._prior_cache["joint"], PolicyPlayer._prior_cache["marginal"]
+        if PolicyPlayer._prior_cache is not None:  # explicit fixture override
+            return PolicyPlayer._prior_cache["joint"], PolicyPlayer._prior_cache[
+                "marginal"
+            ]
+        return load_set_priors(formatid)
 
     @staticmethod
-    def _moveset_prior(pokemon: Pokemon) -> dict[str, Any] | None:
+    def _moveset_prior(
+        pokemon: Pokemon, formatid: str | None = None
+    ) -> dict[str, Any] | None:
         """Infer this opponent's likely full set, conditioned on what it has revealed.
 
         Marginal usage stats say Kingambit holds Black Glasses 40% of the time
@@ -2264,12 +2319,12 @@ class PolicyPlayer(Player):
         (moves seen, plus item/ability if those leaked) and take the most likely
         survivor. Each reveal narrows the candidates, so the guess sharpens as the
         battle goes on. Falls back to the marginal for species we have no joint data
-        for, and to the unconditioned best set if observations rule everything out
-        (a genuinely novel set).
+        for. If observations rule every joint set out, return unknown rather than
+        resurrecting a disproved set (the opponent may be using a novel set).
         """
         if not PolicyPlayer.moveset_prior_enabled():
             return None
-        joint, marginal = PolicyPlayer._load_priors()
+        joint, marginal = PolicyPlayer._load_priors(formatid)
         species = to_id_str(pokemon.base_species)
         entry = joint.get(species)
         if entry is None:
@@ -2287,6 +2342,9 @@ class PolicyPlayer(Player):
             and (seen_item is None or s["item"] == seen_item)
             and (seen_ability is None or s["ability"] == seen_ability)
         ]
+        # With new evidence, an impossible old set must not become confident again.
+        if not consistent and (seen_moves or seen_item or seen_ability):
+            return None
         pool = consistent or candidates
         best = pool[0]
         # Renormalized posterior mass of the chosen set within the surviving
@@ -2304,10 +2362,14 @@ class PolicyPlayer(Player):
         }
 
     @staticmethod
-    def _resolved_moves(pokemon: Pokemon, from_opponent: bool) -> list[Move]:
+    def _resolved_moves(
+        pokemon: Pokemon, from_opponent: bool, formatid: str | None = None
+    ) -> list[Move]:
         """The four move slots used by both the action decoder and observation."""
         move_list = list(pokemon.moves.values())[:4]
-        prior = PolicyPlayer._moveset_prior(pokemon) if from_opponent else None
+        prior = (
+            PolicyPlayer._moveset_prior(pokemon, formatid) if from_opponent else None
+        )
         if prior and len(move_list) < 4:
             known = {move.id for move in move_list}
             for move_id in prior.get("moves", []):
@@ -2324,7 +2386,7 @@ class PolicyPlayer(Player):
 
     @staticmethod
     def embed_move_accuracies(
-        pokemon: Pokemon, from_opponent: bool
+        pokemon: Pokemon, from_opponent: bool, formatid: str | None = None
     ) -> npt.NDArray[np.float32]:
         """Correct 0..1 move accuracies appended at the token tail.
 
@@ -2334,7 +2396,7 @@ class PolicyPlayer(Player):
         """
         values = [
             float(move.accuracy)
-            for move in PolicyPlayer._resolved_moves(pokemon, from_opponent)
+            for move in PolicyPlayer._resolved_moves(pokemon, from_opponent, formatid)
         ]
         values += [0.0] * (correct_accuracy_obs_len - len(values))
         return np.array(values, dtype=np.float32)
@@ -2347,6 +2409,7 @@ class PolicyPlayer(Player):
         active_a: bool,
         active_b: bool,
         knowledge: npt.NDArray[np.float32] | None = None,
+        formatid: str | None = None,
     ) -> npt.NDArray[np.float32]:
         """Embed a Pokemon's stats, moves, status, and effects."""
         # Invariant: one of OUR revealed Pokemon must have been drafted at teampreview.
@@ -2372,7 +2435,9 @@ class PolicyPlayer(Player):
         # unknown opponent fields with the most common competitive set instead, keeping
         # the observation nearer the training distribution. Shape is unchanged, so
         # existing checkpoints stay valid. Off by default -> training is unaffected.
-        prior = PolicyPlayer._moveset_prior(pokemon) if from_opponent else None
+        prior = (
+            PolicyPlayer._moveset_prior(pokemon, formatid) if from_opponent else None
+        )
         # (mostly) stable fields
         ability = pokemon.ability
         if ability is None and prior and prior.get("ability"):
@@ -2385,7 +2450,7 @@ class PolicyPlayer(Player):
         # [:4] to match poke-env's action decoder (doubles_env.py:200,342,393);
         # [-4:] silently shifted which move each action index referred to whenever
         # more than four were stored.
-        move_list = PolicyPlayer._resolved_moves(pokemon, from_opponent)
+        move_list = PolicyPlayer._resolved_moves(pokemon, from_opponent, formatid)
         move_ids = [moves.index(move.id) for move in move_list]
         move_ids += [0] * (4 - len(move_ids))
         move_embeds = [PolicyPlayer.embed_move(move) for move in move_list]
