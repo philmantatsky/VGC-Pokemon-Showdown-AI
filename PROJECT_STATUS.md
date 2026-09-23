@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## T6 ladder read + loss analysis + one training cycle, user-delegated; rules PRE-REGISTERED (2026-September 23, 01:10)
+
+The user, ~01:05: `test it first, than after u see the results go from your own
+judgement, analyze the losses and see where the bot needs training. im going to
+sleep so u got this`. Committed before any game is played:
+
+1. **Ladder read of the deployed T6** (`tools/ladder_deployed.sh`: sha-verified
+   `DEPLOYED.json`, serial, three opt-in guards, Reg M-C set data, restart loop,
+   credentials sourced shell-side only; fresh dir `ladder_replays_mc_deployed_T6`).
+   10-game canary -> mechanical audit (no crash, no parse errors, no forfeit or
+   timeout on our side, guards sane) -> continue to 25 only if clean with >= 2
+   wins -> at 25 continue to 50 unless the record is <= 8-17 (<= 32%) or a
+   mechanical problem appears -> bot offline. Reference: T4 27-23 over 50 (block
+   1 16-9 at mean opponent Elo 1195, block 2 11-14 at 1283); the account starts
+   at ~1245. 25-50 games measure mechanics and gross strength, not a rating claim.
+2. **Loss analysis**: per game -- leads and brings both sides, whether and when
+   Trick Room went up and who set it, whether our setter acted before fainting,
+   turn-1/2 knockouts and what did them, opponent Fake Out, weather, first faint,
+   archetype of the opposing team; decision logs of the losses; compared against
+   Codex's local audits (Farigiraf KO'd before Trick Room).
+3. **At most ONE bounded training cycle** afterwards, chosen from the dominant
+   loss mechanism: from the deployed T6 brain into NEW artifacts, with a local
+   evaluation registered before it starts, paired against the deployed T6 on
+   held-out rosters. No promotion and no further ladder play without the user.
+   Ladder and training never share the machine.
+
 ## Set-data side-by-side COMPLETE: T4 is better with its old data; T6 is measurably weaker than T4-as-laddered (2026-September 23, 01:10)
 
 `results_set_prior_ablation_T4/REVIEW.md` (6,204 new games, 00:18-01:00; the
