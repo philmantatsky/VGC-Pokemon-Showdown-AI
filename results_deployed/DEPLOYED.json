@@ -1,29 +1,49 @@
 {
  "deployed": {
-  "checkpoint": "results_deployed/champion_mc_T4.zip",
-  "sha256": "af4e78a55b3e40e161aeef431af6ec513983cb9756b94751f101b9281ed8e397",
-  "source": "results_brainv1_spec/saves_fp_hs_wt/reg_mc/seed1/27525120.zip",
-  "team": "teams/candidates_mc/T4.txt",
-  "team_sha256": "4dad9037ecee3a2d6af9a0937b21034bf364c8cf8728a18a7fbba5ae7f80da9a",
+  "checkpoint": "results_deployed/champion_mc_T6.zip",
+  "sha256": "bed6840ee8a1d995c67aeb7d9dc69c59c27547633ba8c596bdfc6fe1fb1d83b3",
+  "source": "results_brainv1_t6_repair1/saves_fp_hs_wt/reg_mc/seed1/20152320.zip",
+  "team": "teams/candidates_mc/T6.txt",
+  "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
   "reg": "mc",
   "format": "gen9championsvgc2026regmc",
   "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather",
   "knowledge_obs": true,
-  "search": false
+  "search": false,
+  "set_prior_data": "Reg M-C (data/joint_sets_regmc.json), the data this brain was trained with"
  },
- "promoted_at": "2026-09-21T01:02:53+00:00",
- "promoted_by": "user decision 2026-09-20: 'yeah make it the official bot'",
+ "promoted_at": "2026-09-23T05:19:54+00:00",
+ "promoted_by": "user decision 2026-09-23: 'we want that new team that i showed the one with all three starters'",
  "evidence": {
-  "ladder_measurement_read": "27-23 over 50 serial games 2026-09-20 (ladder_replays_mc_brainv1spec_T4_20260920), Elo 1104 -> peak 1321, settling ~1250-1300, mean opponent Elo 1239; zero forfeits/timeouts/parse errors on our side",
-  "screening_vs_generalist_on_T4": "PASS; heuristic +8.3, frozen +3.5, rotation1 +3.3, rotation2 +5.5, human clone +0.1; weighted +3.47pp (paired, n=1,000 per arm)",
-  "cross_team_vs_previous_deployed_on_MB430": "heuristic +4.9, frozen +8.2, rotation1 +8.2, rotation2 +7.3, human clone +4.7; weighted +6.33pp (unpaired, n=1,000 each)",
-  "not_run": "the n=5,000 promotion-tier battery; promotion rests on the user's decision, the screening pass, the cross-team read and the ladder read"
+  "team": "T6 = the Kanto-starters sun + Trick Room team (Incineroar version) reconstructed from the player dksnnfud's public replays; provenance per Pokemon in teams/candidates_mc/manifest.json",
+  "training": "brain-v1 generalist save 19660800 + one bounded T6 repair run by Codex (results_brainv1_t6_repair1), save 20152320 selected on a 300-game held-out read",
+  "vs_generalist_on_T6": "84.6% vs 56.6%, 12,408 local games, six populations, both sheet modes (results_t6_confirmation_v2)",
+  "vs_previous_deployed_T4": "T6 83.8% vs T4 86.2%, 12,408 local games; equal-population delta -2.34pp, roster-bootstrap 95% [-5.75, +0.93]; frozen PPO -8.3pp [-15.1, -2.4] (results_t6_vs_deployed_v1). Not an improvement locally; promoted on the user's decision.",
+  "known_weakness": "Farigiraf is often knocked out on turn 1 before Trick Room goes up; the trained brain brings the same four and leads (Torkoal + Farigiraf, Blastoise + Charizard back) in every game",
+  "ladder": "no ladder games yet"
  },
  "previous_deployed": {
-  "checkpoint": "results_league/league_champion.zip",
-  "sha256": "8cc54b2b4fb1422999622fe613d85dccf027c7f0af0801044b455b34611c0815",
-  "team": "teams/reg_mc/our_team.txt (MB430)",
-  "note": "kept immutable as the prior champion and the MB430 reference arm; never overwritten"
+  "checkpoint": "results_deployed/champion_mc_T4.zip",
+  "sha256": "af4e78a55b3e40e161aeef431af6ec513983cb9756b94751f101b9281ed8e397",
+  "team": "teams/candidates_mc/T4.txt",
+  "team_sha256": "4dad9037ecee3a2d6af9a0937b21034bf364c8cf8728a18a7fbba5ae7f80da9a",
+  "deployed": "2026-09-20 -> 2026-09-23",
+  "ladder": "27-23 over 50 serial games 2026-09-20, Elo 1104 -> peak 1321, settling ~1250-1300",
+  "note": "immutable prior champion; never overwritten. Laddered with Reg M-B set data; the Reg M-C vs M-B set-data comparison is results_set_prior_ablation_T4."
  },
+ "history": [
+  {
+   "checkpoint": "results_deployed/champion_mc_T4.zip",
+   "team": "teams/candidates_mc/T4.txt",
+   "from": "2026-09-20",
+   "to": "2026-09-23"
+  },
+  {
+   "checkpoint": "results_league/league_champion.zip",
+   "team": "teams/reg_mc/our_team.txt (MB430)",
+   "from": "2026-08-30",
+   "to": "2026-09-20"
+  }
+ ],
  "rules": "Never overwrite or retrain the deployed checkpoint in place. A new promotion writes a NEW file here and updates this manifest; the old file stays."
 }

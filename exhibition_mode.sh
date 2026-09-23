@@ -21,20 +21,25 @@ set -uo pipefail
 #   nohup ./exhibition_mode.sh > exhibition_mode.log 2>&1 &
 # Stop with pkill -f exhibition_mode.sh (then pkill -f ladder_ourteam.py).
 # Exhibition games land in ladder_replays_exhibition_<reg>/, kept separate
-# from the measured ladder corpus. Since 2026-09-20 the deployed configuration
-# is the one in results_deployed/DEPLOYED.json: brain v1 T4 specialist on
-# teams/candidates_mc/T4.txt, Reg M-C, the three opt-in targeting guards
+# from the measured ladder corpus. The checkpoint and team default to the
+# deployed configuration in results_deployed/DEPLOYED.json (sha-verified;
+# T6 since 2026-09-23), Reg M-C, the three opt-in targeting guards
 # (CHECKPOINT / TEAM / REG / GUARDS env override). poke-env only accepts a challenge sent in the bot's own format,
 # so challengers must pick "[Gen 9 Champions] VGC 2026 Reg M-C".
 
 cd "$(dirname "$0")"
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 REG=${REG:-mc}
-CHECKPOINT=${CHECKPOINT:-results_deployed/champion_mc_T4.zip}
-TEAM=${TEAM:-teams/candidates_mc/T4.txt}
+read -r DEP_CKPT DEP_TEAM DEP_SHA <<<"$(.venv/bin/python -c "
+import json; d=json.load(open('results_deployed/DEPLOYED.json'))['deployed']; print(d['checkpoint'], d['team'], d['sha256'])")"
+CHECKPOINT=${CHECKPOINT:-$DEP_CKPT}
+TEAM=${TEAM:-$DEP_TEAM}
+if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$(shasum -a 256 "$CHECKPOINT" | cut -d' ' -f1)" != "$DEP_SHA" ]; then
+  echo "EXHIBITION_REFUSED deployed checkpoint does not match DEPLOYED.json"; exit 2
+fi
 GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
 LOGIN_GRACE=${LOGIN_GRACE:-120}
-HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament'
+HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|opening_study[.]py|run_t6_|run_set_prior_ablation'
 DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60|Errno 8\]|nodename nor servname|gaierror|ConnectionRefusedError'
 mkdir -p exhibition_logs
 

@@ -8,7 +8,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 N=${1:-1000}
-DIR=${2:-challenge_replays_mc_deployed_T4}
+DIR_ARG=${2:-}
 REJOIN=${3:-}
 MANIFEST=results_deployed/DEPLOYED.json
 
@@ -21,6 +21,9 @@ read -r CKPT TEAM GUARDS CKPT_SHA TEAM_SHA REG FORMAT <<<"$(.venv/bin/python -c 
 import json
 d=json.load(open('$MANIFEST'))['deployed']
 print(d['checkpoint'], d['team'], d['guards_extra'], d['sha256'], d['team_sha256'], d['reg'], d['format'])")"
+
+# default replay dir follows the deployed team (T4 until 2026-09-23, then T6)
+DIR=${DIR_ARG:-challenge_replays_mc_deployed_$(basename "$TEAM" .txt)}
 
 [ "$REG" = mc ] && [ "$FORMAT" = gen9championsvgc2026regmc ] || {
   echo "CHALLENGE_REFUSED deployed configuration is not Reg M-C"
@@ -35,7 +38,7 @@ print(d['checkpoint'], d['team'], d['guards_extra'], d['sha256'], d['team_sha256
   exit 2
 }
 
-HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|run_t6_confirmation|run_t6_vs_deployed'
+HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|run_t6_confirmation|run_t6_vs_deployed|opening_study[.]py|run_t6_|run_set_prior_ablation'
 pgrep -f "$HEAVY" >/dev/null 2>&1 && {
   echo "CHALLENGE_REFUSED a heavy local job is running"
   exit 2

@@ -1,5 +1,44 @@
 # VGC Bot Project Status
 
+## PROMOTED by the user: T6 (Kanto starters) is the deployed configuration; Codex's work committed; set-data side-by-side running (2026-September 23)
+
+The user, 2026-09-23: `commit codex's work and run the side by side test, also
+we want that new team that i showed the one with all three starters`.
+
+**Committed** Codex's 09-20/21 work as one change (82db6ba): format-aware set
+priors, +4 threat-evidence floats (token 1023), fixed human-clone share, the T6
+repair trial, both T6 studies, the challenge listener; reviews, scorecards and
+manifests tracked, per-game rows stay local (.gitignore); challenge replays
+ignored like ladder replays. 442 unit tests pass.
+
+**Promoted T6 on the user's decision**, as a NEW artifact:
+`results_deployed/champion_mc_T6.zip` (verified copy of
+`results_brainv1_t6_repair1/.../20152320.zip`, sha256 bed6840e..., the save
+Codex tested; sidecar role production) + `teams/candidates_mc/T6.txt` (sha
+a326dfd7...), Reg M-C, the same three opt-in guards, recorded in
+`DEPLOYED.json` with the evidence, the previous deployed configuration and a
+history. The T6 brain is native to the current code (projection input 1209);
+it was trained with the Reg M-C set data. Evidence on record, stated plainly:
+locally T6 is NOT better than T4 (83.8% vs 86.2% over 12,408 games; frozen
+PPO -8.3pp); known weaknesses: Farigiraf KO'd turn 1 before Trick Room, and the
+same four + leads every game (Torkoal + Farigiraf, Blastoise + Charizard). No
+ladder games yet. `results_deployed/champion_mc_T4.zip` becomes an immutable
+prior champion (27-23 on ladder). Launchers: `tools/ladder_deployed.sh` and
+`exhibition_mode.sh` read `DEPLOYED.json` (sha-verified); the challenge
+listener's default replay dir now follows the deployed team; all three refuse
+while `opening_study.py`, `run_t6_*` or `run_set_prior_ablation` run.
+
+**Side-by-side running** (f191823, `evaluation/run_set_prior_ablation.py`,
+`results_set_prior_ablation_T4/`, launched 00:38, Showdown on 7610): does the
+T4 brain do better with the Reg M-C set data (Codex's change) or the Reg M-B
+data it trained and laddered with? The new-data arm IS the T4 arm of
+`results_t6_vs_deployed_v1` -- all 105 files that study pinned still hash the
+same (checked before and between populations), so only the old-data arm is
+played (`VGC_SET_PRIOR_REG=mb`, recorded per arm): same checkpoint, team,
+47 held-out rosters, 11 repeats, both sheet modes, seed 20923, six populations
+= 6,204 games (~70-90 min). Whole-roster bootstrap per population and pooled
+(equal-population). Stops for review; nothing is promoted or laddered by it.
+
 ## Deployed Reg M-C challenge listener added (September 21)
 
 User requested direct challenges on the live Showdown server for Reg M-C.

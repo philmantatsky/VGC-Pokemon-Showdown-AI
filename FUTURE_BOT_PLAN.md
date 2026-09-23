@@ -1,5 +1,16 @@
 # Future-Looking VGC Bot Checklist
 
+## Deployed configuration: T6 (September 23)
+
+- [x] Codex's T6 work committed (82db6ba).
+- [x] **T6 PROMOTED by the user 2026-09-23** (`results_deployed/champion_mc_T6.zip`
+  + `teams/candidates_mc/T6.txt`, `DEPLOYED.json`). Locally NOT better than T4
+  (83.8% vs 86.2%); promoted on the user's decision. T4 is a prior champion.
+- [ ] Set-data side-by-side on T4 (`results_set_prior_ablation_T4`), running.
+- [ ] T6 ladder read (serial, `tools/ladder_deployed.sh`), only with the user's word.
+- [ ] T6 opening repair (Codex's recommendation): Farigiraf turn-1 survival and
+  matchup-dependent openings, measured on full games before any selector.
+
 ## Current priority — T6 diagnosis-first repair (September 20)
 
 - [x] User-authorized follow-through heartbeat `continue-vgc-validation`
