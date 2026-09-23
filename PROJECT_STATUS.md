@@ -1,5 +1,55 @@
 # VGC Bot Project Status
 
+## Teaching matchup-dependent previews from human pilots of our kind of team; control arm running, training cycle PRE-REGISTERED (2026-September 23, 09:45)
+
+The user, ~07:15: switching back to T4 "doesnt solve the problem" and T6 "needs
+to understand to bring other pokemon in and not the same everytime because of
+opponent matchups" -- find "a player with a lot of replays and show the bot how
+many different combinations they make based off their opponents". (Fact noted
+once: T6's ladder opponents averaged Elo 1179, T4's 1239; T6 did not face
+stronger opposition.)
+
+**The human evidence.** Full public Reg M-C histories of every player who ran
+teams close to ours (`battle_logs_players_t6like/`, ~185 new games). Best
+match: **gankyburner**, 44 games, 19 with five of our six
+(Charizard/Farigiraf/Incineroar/Torkoal/Venusaur + Salamence): **15-4**, **7
+different lead pairs and 7 different brought fours** by opponent -- Farigiraf +
+Incineroar 11 games (won 9), Incineroar + Salamence 2, Charizard + Torkoal 2,
+Torkoal + Venusaur, Charizard + Farigiraf, ... Never Farigiraf + Torkoal, the
+lead our bot used in 50/50 ladder games. dksnnfud (who built our team) led
+Blastoise + Farigiraf in all 4 of his games.
+
+**Teaching it.** `training/train_preview_model.py` gained a team focus (replays
+of these pilots added; examples sharing >= 4 of our six weighted x10):
+`data/preview_t6_focus_20260923.pt` (validation lead top-1 0.268 / top-3 0.506,
+bring top-1 0.280 / top-3 0.544 over 15 options each; reproduces gankyburner's
+lead in 17/19 of his games, in-sample). For our six against our 50 ladder
+opponents it leads Blastoise + Farigiraf 35, Farigiraf + Incineroar 7, Charizard
++ Venusaur 5, Torkoal + Venusaur 3 -- never Farigiraf + Torkoal; the back row
+varies by matchup. Codex's pilot is the warning: forcing the Incineroar +
+Farigiraf lead on a brain that never practised it won 8/48. So both halves:
+
+- **Control arm (running since 09:34):** the deployed T6 brain unchanged, its
+  preview chosen by the model (`evaluation/learned_preview_study.py`: only our
+  side, opponent belief discarded, so only the opening differs) --
+  `results_candidate_vs_t6_deployed_learned_preview/`.
+- **Training cycle (pre-registered now, launches when the control arm ends):**
+  `training/run_t6_human_preview_trial.py` (a6ded3e): the deployed T6 brain
+  +983,040 steps with `--no_teampreview` and both sides' previews sampled from
+  the model at temperature 1 (`training/human_preview.py`), so the battle policy
+  practises the human openings; one variable vs Codex's T6 recipe; holdout
+  rosters zeroed. Each save then evaluated with the model choosing its preview.
+
+**Evaluation rule** (unchanged instrument, `evaluation/run_candidate_vs_t6.py
+--preview-model`): each arm vs the pinned deployed-T6 arm (own preview), six
+populations x 47 held-out rosters x 11 repeats x both sheet modes = 6,204 games;
+pooled equal-population delta with whole-roster bootstrap 95%; **better** if the
+lower bound > 0 and no population below -3pp; **worse** if the upper bound < 0;
+else no clear change. Mechanism: lead pairs, share of Farigiraf + Torkoal,
+Incineroar / Venusaur brought. Reading: the control arm measures human openings
+with the old battle brain; the trained saves measure what practising them adds.
+No promotion, no ladder without the user.
+
 ## Preview-entropy training cycle: NO CLEAR CHANGE on either save; the back row adapts, the lead does not (2026-September 23, 07:05)
 
 Training 03:33-05:20 (`results_brainv1_t6_preview1/`, boost 9, return
