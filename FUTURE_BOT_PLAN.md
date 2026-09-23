@@ -10,9 +10,14 @@
   with its Reg M-B data (M-C -1.97pp, 95% [-3.66, -0.32], hidden-sheet games);
   T6 vs T4-with-its-data -4.30pp [-7.90, -0.89]. Set data now recorded per brain
   in DEPLOYED.json and applied by the launchers.
-- [ ] T6 ladder read (serial, `tools/ladder_deployed.sh`), only with the user's word.
-- [ ] T6 opening repair (Codex's recommendation): Farigiraf turn-1 survival and
-  matchup-dependent openings, measured on full games before any selector.
+- [x] T6 ladder read (2026-09-23, user-delegated): 21-29, Elo 1253 -> ~1100; fixed
+  opening diagnosed (`tools/ladder_opening_audit.py`).
+- [x] Preview-entropy cycle (`results_brainv1_t6_preview1`): no clear change on
+  either save; back row adapts, lead does not.
+- [ ] T6 lead curriculum: start a share of training games from alternative
+  leads (forced previews excluded from the policy gradient), then let PPO choose.
+- [ ] Decision for the user: switch the deployed configuration back to T4
+  (stronger on ladder and locally) while T6 work continues offline.
 
 ## Current priority — T6 diagnosis-first repair (September 20)
 

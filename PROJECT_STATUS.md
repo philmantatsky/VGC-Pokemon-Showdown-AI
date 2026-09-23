@@ -1,5 +1,49 @@
 # VGC Bot Project Status
 
+## Preview-entropy training cycle: NO CLEAR CHANGE on either save; the back row adapts, the lead does not (2026-September 23, 07:05)
+
+Training 03:33-05:20 (`results_brainv1_t6_preview1/`, boost 9, return
+invariant held: 0.38-0.90; ~153 steps/s). The entropy term rose from 1.7 to
+~5.3 (Codex's unboosted T6 run: 1.2 -> 1.0), so the bonus acted. Training-time
+probe (100 battles, bare policy): scripted bot 0.91 (deployed) -> 0.76 / 0.73;
+pool clone 0.78 -> 0.75 / 0.79. Evaluation (`evaluation/run_candidate_vs_t6.py`,
+6,204 games per save vs the pinned deployed-T6 arm; delta = candidate minus
+deployed; pre-registered rule applied as written):
+
+| Opponent | Save 20,643,840 | Save 21,135,360 |
+|---|---:|---:|
+| New held-out human clone | +0.9 [-3.6, +5.7] | -4.2 [-10.6, +2.3] |
+| Frozen PPO | +0.2 [-4.0, +4.4] | -3.4 [-8.6, +1.6] |
+| Rotation 1 | +3.2 [-1.0, +7.8] | +4.1 [-0.7, +9.0] |
+| Rotation 2 | +0.6 [-4.2, +5.8] | +3.1 [-0.8, +7.0] |
+| Previous held-out human clone | -0.6 [-6.0, +4.6] | +1.4 [-4.4, +7.6] |
+| Scripted heuristic | -2.6 [-5.3, -0.0] | -2.4 [-5.2, +0.3] |
+| **Pooled (equal-population)** | **+0.27 [-1.81, +2.47]** | **-0.24 [-2.76, +2.27]** |
+
+Verdict: **no clear change** for both. Mechanism: the BACK ROW became matchup-
+dependent (save 1 brings Venusaur 41%, Charizard 39%, Incineroar 19% of games,
+where the deployed brain always brought Blastoise + Charizard); the LEAD barely
+moved (Farigiraf + Torkoal 96% in save 1, Charizard + Farigiraf 4%) and fully
+re-collapsed by the final save (100%). So the lever reaches the preview, but the
+lead -- where the ladder losses concentrate (Farigiraf KO'd before Trick Room:
+1-10) -- stays fixed. Likely reason: the in-battle policy only knows how to pilot
+the Trick Room line, so alternative leads lose during training and PPO keeps
+choosing the Trick Room lead; more preview entropy alone cannot fix that.
+Nothing promoted; no ladder. Evaluation summaries tracked
+(`results_candidate_vs_t6_preview_*/`).
+
+**Where the bot needs training** (ladder + this cycle): (1) the lead -- teach
+the in-battle policy to pilot the other leads (sun: Charizard + Venusaur; Fake
+Out support: Blastoise or Incineroar + Farigiraf) by starting a share of
+training games from those leads, with those forced preview choices kept out of
+the policy gradient, then let PPO choose (Codex's "multiple openings per
+matchup" idea); (2) play after Trick Room is up (20-19), against physical
+attackers (56% of our knockouts; Tyranitar alone 19). **Recommendation for the
+user**: the Charizard T4 bot is stronger on both instruments (ladder 27-23 vs
+21-29; locally +4.3pp [0.9, 7.9] over T6); switch the deployed configuration
+back to T4 (with `set_prior_reg: mb`) for ladder, and keep the T6 lead work
+offline -- the user's call.
+
 ## T6 ladder read: 21-29, Elo 1253 -> ~1100; loss analysis; training cycle chosen and its evaluation PRE-REGISTERED (2026-September 23, 03:40)
 
 **Ladder** (`ladder_replays_mc_deployed_T6`, serial, 01:08-03:33, canary 4-6 ->
