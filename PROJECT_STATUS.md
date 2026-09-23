@@ -1,5 +1,54 @@
 # VGC Bot Project Status
 
+## T6 ladder read: 21-29, Elo 1253 -> ~1100; loss analysis; training cycle chosen and its evaluation PRE-REGISTERED (2026-September 23, 03:40)
+
+**Ladder** (`ladder_replays_mc_deployed_T6`, serial, 01:08-03:33, canary 4-6 ->
+audit clean -> 11-14 at 25 (above the 8-17 stop line) -> 50): **21-29 (42%,
+Wilson 29-56)**, mean opponent Elo 1179, performance ~1123, pre-game Elo 1253 ->
+1113 before game 50. Zero forfeits, timeouts or errors on our side (ability
+reveals repaired and counted: 9). Same account, 09-20, T4: 27-23, mean opponent
+1239, performance ~1267, Elo 1104 -> ~1270. Consistent with the local read
+(T6 vs T4-with-its-data -4.30pp [-7.90, -0.89]); 50 games each cannot separate
+~140 performance points at the usual +-140, but both instruments point the
+same way.
+
+**Loss analysis** (`tools/ladder_opening_audit.py`, 8981c96;
+`results_analysis/t6_ladder_opening_audit_20260923.json`):
+- One fixed script: lead Farigiraf + Torkoal **50/50**, back Blastoise +
+  Charizard; Incineroar and Venusaur never reached the field (0/50); decision
+  log: lead probability Farigiraf 0.998, Torkoal 0.915; turn 1 Protect + Trick
+  Room at 0.95.
+- Trick Room up on turn 1 in 39/50 -> **20-19**; not up -> **1-10**. Farigiraf
+  knocked out before Trick Room in 11 games -> **1-10** (10 of the 29 losses).
+- First faint ours -> **4-22**; theirs -> 17-7. Lost a Pokemon on turn 1 -> 1-9.
+- 125 knockouts on our side through 44 games: physical 56%, special 42%;
+  Tyranitar alone 19 (Rock Slide, Knock Off; its sand also removes our sun);
+  then Archaludon Electro Shot, Arcanine-Hisui Head Smash, Rillaboom.
+- A tested hypothesis that failed: "Trick Room hurts us against slow teams" --
+  T6 went 3-0 against the slowest brought teams, 2-5 against the fastest.
+Reading: the losses are not one tactical blunder; they are what a predictable
+opening costs. Humans see the team at preview and focus Farigiraf; the one
+member built to blunt physical attackers (Incineroar: Intimidate, Fake Out,
+Parting Shot) is never brought because the preview never varies.
+
+**Training cycle** (the one pre-registered cycle): `training/run_t6_preview_trial.py`
+(ec651ea) -- the deployed T6 brain + 983,040 steps (saves at 20,643,840 and
+21,135,360), Codex's T6 recipe with ONE change: a team-preview-only entropy
+bonus (`training/preview_entropy.py`, boost 9 -> preview entropy coefficient
+0.2 vs the 0.02 floor), applied at launch so `vgc_bench/` stays byte-identical.
+Held-out roster split (786 teams, incl. every evaluation roster) zeroed.
+
+**Evaluation, registered now, before training** (`evaluation/run_candidate_vs_t6.py`):
+each save vs the deployed T6 arm of `results_t6_vs_deployed_v1` (pins verified),
+six populations x 47 held-out rosters x 11 repeats x both sheet modes = 6,204
+games per save. Primary: pooled equal-population delta (candidate minus
+deployed), whole-roster bootstrap 95%. Verdict per save: **better** if the lower
+bound > 0 and no population's point estimate < -3pp; **worse** if the upper
+bound < 0; otherwise **no clear change**. Two saves = two looks: a single
+"better" is reported with that caveat. Mechanism check: distinct lead pairs,
+top-lead share, rosters with more than one lead, Incineroar / Venusaur brought.
+No promotion and no ladder: the user decides in the morning.
+
 ## T6 ladder read + loss analysis + one training cycle, user-delegated; rules PRE-REGISTERED (2026-September 23, 01:10)
 
 The user, ~01:05: `test it first, than after u see the results go from your own

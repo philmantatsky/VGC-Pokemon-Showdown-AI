@@ -1,0 +1,27 @@
+{
+  "comment": "Brain v1 league (NEW_BRAIN_PLAN M3 / section 4): joint-action head + threat block + potential-based shaping, Reg M-C data only; our side set by the launcher. Pool: init x2 + resume, deployed x3 (x2 when --swap-deployed puts another save at stem 700), old champion, league-1 history, Reg M-C clone x2 (deployed-heavy: round 6's lesson). No adversary. Older checkpoints are upgraded in memory.",
+  "dest": "results_brainv1_t6_preview1/saves_fp_hs_wt/reg_mc/seed1",
+  "resume_stem": 20152320,
+  "sources": {
+    "100": "results_bc/mc_A_20260920/saves_bc/seed1/2.zip",
+    "200": "results_bc/mc_A_20260920/saves_bc/seed1/2.zip",
+    "300": "results_repaired/champion.zip",
+    "400": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip",
+    "500": "results_league/league_champion.zip",
+    "600": "results_league/league_champion.zip",
+    "700": "results_brainv1/saves_fp_hs_wt/reg_mc/seed1/20643840.zip",
+    "800": "results_deployed/champion_mc_T6.zip",
+    "900": "results_deployed/champion_mc_T6.zip",
+    "20152320": "results_deployed/champion_mc_T6.zip"
+  },
+  "weights_source": "data/team_weights_regmc.json",
+  "weights_dest": "results_brainv1_t6_preview1/team_weights.json",
+  "tr_boost": 1.0,
+  "eval_only_roots": [
+    "results_bc/eval_B",
+    "results_bc/eval_D",
+    "results_bc/eval_mcB",
+    "results_bc/eval_mcB_20260913",
+    "results_bc/eval_mcB_20260920"
+  ]
+}

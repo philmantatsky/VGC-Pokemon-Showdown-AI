@@ -1,0 +1,6455 @@
+{
+ "summary": {
+  "games": 50,
+  "record": "21-29",
+  "setter led": {
+   "yes": "21-29",
+   "no": "0-0"
+  },
+  "our Trick Room went up": {
+   "yes": "20-19",
+   "no": "1-10"
+  },
+  "our Trick Room up by turn 1": {
+   "yes": "20-18",
+   "no": "1-11"
+  },
+  "setter fainted before our Trick Room": {
+   "yes": "1-10",
+   "no": "20-19"
+  },
+  "we used Trick Room twice or more (reversal risk)": {
+   "yes": "1-1",
+   "no": "20-28"
+  },
+  "first faint ours": {
+   "yes": "4-22",
+   "no": "17-7"
+  },
+  "we lost a Pokemon on turn 1": {
+   "yes": "1-9",
+   "no": "20-20"
+  },
+  "opponent Fake Out on turn 1": {
+   "yes": "2-0",
+   "no": "19-29"
+  },
+  "opponent set Trick Room": {
+   "yes": "0-0",
+   "no": "21-29"
+  },
+  "open team sheets": {
+   "yes": "0-0",
+   "no": "21-29"
+  },
+  "archetypes": {
+   "trick_room": "1-0",
+   "rain": "3-5",
+   "sun": "0-1",
+   "psychic_terrain": "3-4",
+   "grassy_fakeout": "1-3",
+   "tailwind": "0-2",
+   "balance": "13-14"
+  },
+  "knocked_out_by": {
+   "Tyranitar: Rock Slide": 13,
+   "Tyranitar: Knock Off": 6,
+   "Archaludon: Electro Shot": 6,
+   "Arcanine-Hisui: Head Smash": 5,
+   "Rillaboom: Wood Hammer": 5,
+   "Milotic: Muddy Water": 4,
+   "Gardevoir: Expanding Force": 4,
+   "Incineroar: Darkest Lariat": 4,
+   "Garchomp: Rock Slide": 3,
+   "Baxcalibur: Glaive Rush": 3,
+   "Basculegion: Wave Crash": 3,
+   "Gardevoir: Hyper Voice": 3
+  },
+  "our_faints_by_species": {
+   "Torkoal": 38,
+   "Farigiraf": 35,
+   "Blastoise": 30,
+   "Charizard": 30
+  },
+  "lines": [
+   "games 50  record 21-29",
+   "  setter led                                   yes  21-29   no    0-0",
+   "  our Trick Room went up                       yes  20-19   no   1-10",
+   "  our Trick Room up by turn 1                  yes  20-18   no   1-11",
+   "  setter fainted before our Trick Room         yes   1-10   no  20-19",
+   "  we used Trick Room twice or more (reversal risk) yes    1-1   no  20-28",
+   "  first faint ours                             yes   4-22   no   17-7",
+   "  we lost a Pokemon on turn 1                  yes    1-9   no  20-20",
+   "  opponent Fake Out on turn 1                  yes    2-0   no  19-29",
+   "  opponent set Trick Room                      yes    0-0   no  21-29",
+   "  open team sheets                             yes    0-0   no  21-29",
+   "  our leads: Farigiraf+Torkoal x50",
+   "  our brings: Blastoise+Charizard+Farigiraf+Torkoal x30, Farigiraf+Torkoal x10, Blastoise+Farigiraf+Torkoal x7, Blastoise+Charizard+Charizard+Farigiraf+Torkoal x2",
+   "  vs archetype: trick_room 1-0, rain 3-5, sun 0-1, psychic_terrain 3-4, grassy_fakeout 1-3, tailwind 0-2, balance 13-14",
+   "  our faints by species: Torkoal 38, Farigiraf 35, Blastoise 30, Charizard 30",
+   "  knocked out by: Tyranitar: Rock Slide x13, Tyranitar: Knock Off x6, Archaludon: Electro Shot x6, Arcanine-Hisui: Head Smash x5, Rillaboom: Wood Hammer x5, Milotic: Muddy Water x4, Gardevoir: Expanding Force x4, Incineroar: Darkest Lariat x4, Garchomp: Rock Slide x3, Baxcalibur: Glaive Rush x3"
+  ]
+ },
+ "games": [
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 9,
+   "our_rating": 1253,
+   "opp_rating": 1309,
+   "opp_name": "Daviscartes",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Gallade",
+    "Rillaboom",
+    "Maushold-Four",
+    "Floette-Eternal",
+    "Volcarona",
+    "Gholdengo"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Rillaboom",
+    "Volcarona"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Rillaboom",
+    "Volcarona",
+    "Maushold-Four",
+    "Gallade",
+    "Gallade-Mega"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Maushold-Four",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Farigiraf",
+    "Blastoise",
+    "Torkoal",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": true,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Gallade"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 4,
+   "our_se": 1,
+   "opp_se": 3,
+   "our_resisted": 0,
+   "opp_resisted": 3,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 10,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Farigiraf",
+     "by": "Volcarona",
+     "move": "Heat Wave"
+    },
+    {
+     "turn": 8,
+     "species": "Blastoise",
+     "by": "Volcarona",
+     "move": "Heat Wave"
+    },
+    {
+     "turn": 8,
+     "species": "Torkoal",
+     "by": "Gallade",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 9,
+     "species": "Charizard",
+     "by": "Gallade",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "tailwind",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686248172.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1232,
+   "opp_rating": 1295,
+   "opp_name": "lopper35",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Indeedee",
+    "Sneasler",
+    "Salamence",
+    "Excadrill",
+    "Tyranitar",
+    "Corviknight"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Salamence",
+    "Indeedee"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Salamence",
+    "Indeedee",
+    "Tyranitar",
+    "Excadrill"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Indeedee",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Charizard",
+    "Farigiraf"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     2,
+     "Sandstorm",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 4,
+   "our_switches": 3,
+   "opp_switches": 2,
+   "our_se": 2,
+   "opp_se": 3,
+   "our_resisted": 5,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 9,
+   "opp_attacks": 9,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": null,
+     "move": "Sandstorm"
+    },
+    {
+     "turn": 6,
+     "species": "Blastoise",
+     "by": "Tyranitar",
+     "move": "Knock Off"
+    },
+    {
+     "turn": 7,
+     "species": "Charizard",
+     "by": "Excadrill",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 7,
+     "species": "Farigiraf",
+     "by": "Tyranitar",
+     "move": "Knock Off"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "psychic_terrain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686249421.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 2,
+   "our_rating": 1211,
+   "opp_rating": 1307,
+   "opp_name": "pranavvv",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Gengar",
+    "Mr. Mime",
+    "Rillaboom",
+    "Incineroar",
+    "Pelipper",
+    "Golisopod"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Gengar",
+    "Incineroar"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Gengar",
+    "Incineroar"
+   ],
+   "first_faint_ours": null,
+   "first_faint_turn": null,
+   "first_faint_species": null,
+   "our_faints": 0,
+   "opp_faints": 0,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     1,
+     "Gengar"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 0,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 0,
+   "opp_attacks": 0,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686250305-8x5xlb1eollirlmyhsb4sq842q25rklpw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1243,
+   "opp_rating": 1206,
+   "opp_name": "WeArePrudential",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Rillaboom",
+    "Salamence",
+    "Steelix",
+    "Gholdengo",
+    "Tyranitar",
+    "Milotic"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Salamence",
+    "Tyranitar"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Salamence",
+    "Tyranitar",
+    "Rillaboom"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "Sandstorm",
+     "p1"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 1,
+   "our_se": 0,
+   "opp_se": 4,
+   "our_resisted": 5,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 11,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Farigiraf",
+     "by": "Salamence",
+     "move": "Hyper Voice"
+    },
+    {
+     "turn": 5,
+     "species": "Torkoal",
+     "by": "Tyranitar",
+     "move": "Knock Off"
+    },
+    {
+     "turn": 6,
+     "species": "Blastoise",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 7,
+     "species": "Charizard",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "grassy_fakeout",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686250598-ucirg4a8afefgat5odam4aqylvama7cpw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 8,
+   "our_rating": 1215,
+   "opp_rating": 1195,
+   "opp_name": "marzeepan",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Baxcalibur",
+    "Annihilape",
+    "Rotom-Wash",
+    "Ninetales-Alola",
+    "Meowscarada",
+    "Alakazam"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Meowscarada",
+    "Rotom-Wash"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Meowscarada",
+    "Rotom-Wash",
+    "Ninetales-Alola",
+    "Baxcalibur"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Torkoal",
+   "our_faints": 3,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Farigiraf"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "Snowscape",
+     "p2"
+    ],
+    [
+     3,
+     "RainDance",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 6,
+   "our_se": 2,
+   "opp_se": 4,
+   "our_resisted": 5,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 12,
+   "opp_attacks": 8,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Torkoal",
+     "by": "Rotom-Wash",
+     "move": "Hydro Pump"
+    },
+    {
+     "turn": 6,
+     "species": "Blastoise",
+     "by": "Meowscarada",
+     "move": "Flower Trick"
+    },
+    {
+     "turn": 8,
+     "species": "Farigiraf",
+     "by": "Ninetales-Alola",
+     "move": "Blizzard"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686251274-5acjwfgnttqgu1vi3eaj9xkmhe6qvgrpw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 8,
+   "our_rating": 1239,
+   "opp_rating": 1359,
+   "opp_name": "dhteamo",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Dragalge",
+    "Kingambit",
+    "Torkoal",
+    "Pawmot",
+    "Indeedee-F",
+    "Gardevoir"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Kingambit",
+    "Dragalge"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Kingambit",
+    "Dragalge",
+    "Indeedee-F",
+    "Pawmot",
+    "Dragalge-Mega"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 4,
+   "first_faint_species": "Indeedee-F",
+   "our_faints": 2,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     7,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Dragalge"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 5,
+   "our_se": 2,
+   "opp_se": 2,
+   "our_resisted": 3,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 11,
+   "opp_attacks": 5,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 6,
+     "species": "Farigiraf",
+     "by": "Kingambit",
+     "move": "Kowtow Cleave"
+    },
+    {
+     "turn": 7,
+     "species": "Torkoal",
+     "by": "Kingambit",
+     "move": "Kowtow Cleave"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "psychic_terrain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686252059.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 9,
+   "our_rating": 1272,
+   "opp_rating": 1239,
+   "opp_name": "anhboipkm",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Salamence",
+    "Kingambit",
+    "Gholdengo",
+    "Rillaboom",
+    "Sneasler",
+    "Arcanine-Hisui"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Salamence",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Salamence",
+    "Sneasler",
+    "Arcanine-Hisui",
+    "Rillaboom"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 4,
+   "first_faint_species": "Salamence",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     6,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 3,
+   "opp_protects": 4,
+   "our_switches": 2,
+   "opp_switches": 3,
+   "our_se": 0,
+   "opp_se": 3,
+   "our_resisted": 4,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 7,
+   "opp_attacks": 10,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 5,
+     "species": "Farigiraf",
+     "by": "Arcanine-Hisui",
+     "move": "Flare Blitz"
+    },
+    {
+     "turn": 7,
+     "species": "Torkoal",
+     "by": "Arcanine-Hisui",
+     "move": "Head Smash"
+    },
+    {
+     "turn": 8,
+     "species": "Blastoise",
+     "by": "Rillaboom",
+     "move": "Grassy Glide"
+    },
+    {
+     "turn": 9,
+     "species": "Charizard",
+     "by": "Arcanine-Hisui",
+     "move": "Head Smash"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686252848.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 10,
+   "our_rating": 1242,
+   "opp_rating": 1218,
+   "opp_name": "brassiyagi",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Tyranitar",
+    "Salamence",
+    "Excadrill",
+    "Sneasler",
+    "Indeedee",
+    "Corviknight"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Excadrill",
+    "Corviknight"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Excadrill",
+    "Corviknight",
+    "Tyranitar",
+    "Indeedee",
+    "Tyranitar-Mega"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Torkoal",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p2"
+    ],
+    [
+     4,
+     "RainDance",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     2,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 6,
+   "our_se": 4,
+   "opp_se": 4,
+   "our_resisted": 5,
+   "opp_resisted": 0,
+   "our_immune": 1,
+   "opp_immune": 0,
+   "our_attacks": 12,
+   "opp_attacks": 11,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 8,
+     "species": "Blastoise",
+     "by": "Tyranitar",
+     "move": "Knock Off"
+    },
+    {
+     "turn": 9,
+     "species": "Farigiraf",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 10,
+     "species": "Charizard",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "psychic_terrain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686253818.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1215,
+   "opp_rating": 1220,
+   "opp_name": "windzar",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Ninetales-Alola",
+    "Rotom-Frost",
+    "Baxcalibur",
+    "Tauros-Paldea-Aqua",
+    "Rillaboom",
+    "Glimmora"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Baxcalibur",
+    "Ninetales-Alola"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Baxcalibur",
+    "Ninetales-Alola",
+    "Glimmora",
+    "Tauros-Paldea-Aqua"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Ninetales-Alola",
+   "our_faints": 0,
+   "opp_faints": 4,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "Snowscape",
+     "p1"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     2,
+     "Snowscape",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     2,
+     "Baxcalibur"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 0,
+   "opp_switches": 4,
+   "our_se": 3,
+   "opp_se": 1,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 9,
+   "opp_attacks": 2,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686255248-jlkucgqicjrmxrm77gmgoilv12axwo4pw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1240,
+   "opp_rating": 1232,
+   "opp_name": "sleemo2",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Charizard",
+    "Kingambit",
+    "Garchomp",
+    "Toxapex",
+    "Trevenant",
+    "Heliolisk"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Charizard",
+    "Heliolisk"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Charizard",
+    "Heliolisk",
+    "Toxapex",
+    "Garchomp"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Blastoise",
+    "Charizard",
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 5,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 8,
+   "opp_resisted": 3,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 11,
+   "opp_attacks": 7,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Charizard",
+     "move": "Heat Wave"
+    },
+    {
+     "turn": 4,
+     "species": "Blastoise",
+     "by": "Charizard",
+     "move": "Heat Wave"
+    },
+    {
+     "turn": 6,
+     "species": "Charizard",
+     "by": "Heliolisk",
+     "move": "Volt Switch"
+    },
+    {
+     "turn": 7,
+     "species": "Torkoal",
+     "by": null,
+     "move": "psn"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686256202.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 5,
+   "our_rating": 1214,
+   "opp_rating": 1149,
+   "opp_name": "Jukki-Oh",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Scizor",
+    "Raichu",
+    "Archaludon",
+    "Cinderace",
+    "Sableye",
+    "Meowscarada"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Scizor",
+    "Sableye"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Scizor",
+    "Sableye",
+    "Archaludon",
+    "Cinderace"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 4,
+   "first_faint_species": "Archaludon",
+   "our_faints": 1,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "RainDance",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 1,
+   "our_switches": 1,
+   "opp_switches": 4,
+   "our_se": 0,
+   "opp_se": 2,
+   "our_resisted": 3,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 2,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 4,
+     "species": "Farigiraf",
+     "by": "Cinderace",
+     "move": "U-turn"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686256942.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 9,
+   "our_rating": 1234,
+   "opp_rating": 1333,
+   "opp_name": "Westpac Savings",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Garchomp",
+    "Charizard",
+    "Milotic",
+    "Rillaboom",
+    "Gholdengo",
+    "Raichu"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Garchomp",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Garchomp",
+    "Rillaboom",
+    "Milotic"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Charizard",
+    "Torkoal",
+    "Blastoise"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 3,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 3,
+   "our_resisted": 2,
+   "opp_resisted": 3,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 11,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Rillaboom",
+     "move": "Wood Hammer"
+    },
+    {
+     "turn": 4,
+     "species": "Charizard",
+     "by": "Garchomp",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 4,
+     "species": "Torkoal",
+     "by": "Milotic",
+     "move": "Muddy Water"
+    },
+    {
+     "turn": 9,
+     "species": "Blastoise",
+     "by": "Garchomp",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686257593-472uuj7lq8sc2e4f9rtj83l7egkqyjupw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1216,
+   "opp_rating": 1146,
+   "opp_name": "Mimicry5",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Baxcalibur",
+    "Ninetales-Alola",
+    "Milotic",
+    "Volcarona",
+    "Metagross",
+    "Pawmot"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Milotic",
+    "Baxcalibur"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Milotic",
+    "Baxcalibur",
+    "Ninetales-Alola"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Torkoal",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     3,
+     "Snowscape",
+     "p2"
+    ],
+    [
+     4,
+     "RainDance",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Baxcalibur"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 1,
+   "our_resisted": 4,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 8,
+   "opp_attacks": 4,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Baxcalibur",
+     "move": "Glaive Rush"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Baxcalibur",
+     "move": "Glaive Rush"
+    },
+    {
+     "turn": 7,
+     "species": "Farigiraf",
+     "by": "Baxcalibur",
+     "move": "Glaive Rush"
+    },
+    {
+     "turn": 7,
+     "species": "Charizard",
+     "by": "Milotic",
+     "move": "Muddy Water"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686259122.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 5,
+   "our_rating": 1186,
+   "opp_rating": 1150,
+   "opp_name": "somerandoloser",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Archaludon",
+    "Pelipper",
+    "Golisopod",
+    "Basculegion",
+    "Rillaboom",
+    "Farigiraf"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Farigiraf",
+    "Basculegion"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Farigiraf",
+    "Basculegion",
+    "Pelipper",
+    "Golisopod"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 1,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     2,
+     "RainDance",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 1,
+   "our_switches": 1,
+   "opp_switches": 4,
+   "our_se": 0,
+   "opp_se": 1,
+   "our_resisted": 5,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 7,
+   "opp_attacks": 2,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Pelipper",
+     "move": "Hurricane"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686260570.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 6,
+   "our_rating": 1208,
+   "opp_rating": 1178,
+   "opp_name": "discomi",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Gardevoir",
+    "Golisopod",
+    "Archaludon",
+    "Basculegion",
+    "Indeedee-F",
+    "Pelipper"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Gardevoir",
+    "Basculegion"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Gardevoir",
+    "Basculegion",
+    "Pelipper",
+    "Indeedee-F"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Torkoal",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "RainDance",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     5,
+     "Gardevoir"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 4,
+   "our_se": 0,
+   "opp_se": 1,
+   "our_resisted": 4,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 8,
+   "opp_attacks": 6,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Basculegion",
+     "move": "Wave Crash"
+    },
+    {
+     "turn": 5,
+     "species": "Farigiraf",
+     "by": "Gardevoir",
+     "move": "Hyper Voice"
+    },
+    {
+     "turn": 6,
+     "species": "Blastoise",
+     "by": "Gardevoir",
+     "move": "Expanding Force"
+    },
+    {
+     "turn": 6,
+     "species": "Charizard",
+     "by": "Gardevoir",
+     "move": "Expanding Force"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686261400.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 5,
+   "our_rating": 1181,
+   "opp_rating": 1133,
+   "opp_name": "PuppyTyson",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Salamence",
+    "Raichu",
+    "Farigiraf",
+    "Rillaboom",
+    "Milotic",
+    "Incineroar"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Salamence",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Salamence",
+    "Rillaboom",
+    "Incineroar",
+    "Farigiraf"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 1,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Farigiraf"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 1,
+   "opp_switches": 3,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 8,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 10,
+   "opp_attacks": 5,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Rillaboom",
+     "move": "Wood Hammer"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "grassy_fakeout",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686262186-hbelshhr7kl0d2ujyt28pw68eni2etepw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 6,
+   "our_rating": 1203,
+   "opp_rating": 1204,
+   "opp_name": "Bot4332",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Sableye",
+    "Garchomp",
+    "Sneasler",
+    "Golisopod",
+    "Swampert",
+    "Pelipper"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Pelipper",
+    "Garchomp"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Pelipper",
+    "Garchomp",
+    "Swampert",
+    "Sableye"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Torkoal",
+   "our_faints": 1,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "RainDance",
+     "p2"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     4,
+     "RainDance",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Garchomp"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 5,
+   "our_switches": 1,
+   "opp_switches": 3,
+   "our_se": 0,
+   "opp_se": 1,
+   "our_resisted": 3,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 8,
+   "opp_attacks": 3,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Garchomp",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686262887-51i3kpk8kqkfpmiey569qrw56iqljurpw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 4,
+   "our_rating": 1228,
+   "opp_rating": 1175,
+   "opp_name": "OllyBPerish",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Gengar",
+    "Incineroar",
+    "Rillaboom",
+    "Kingambit",
+    "Floette-Eternal",
+    "Sneasler"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Kingambit",
+    "Gengar"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Kingambit",
+    "Gengar",
+    "Incineroar",
+    "Rillaboom"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Gengar",
+   "our_faints": 0,
+   "opp_faints": 4,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     1,
+     "Gengar"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 1,
+   "our_switches": 0,
+   "opp_switches": 3,
+   "our_se": 2,
+   "opp_se": 0,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 1,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686263728.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 8,
+   "our_rating": 1249,
+   "opp_rating": 1343,
+   "opp_name": "yuzhi0920",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Archaludon",
+    "Pelipper",
+    "Grimmsnarl",
+    "Glimmora",
+    "Rillaboom",
+    "Gholdengo"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Archaludon",
+    "Grimmsnarl"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Archaludon",
+    "Grimmsnarl",
+    "Pelipper",
+    "Glimmora"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Blastoise",
+    "Charizard",
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     2,
+     "RainDance",
+     "p1"
+    ],
+    [
+     6,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 5,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 5,
+   "opp_resisted": 1,
+   "our_immune": 1,
+   "opp_immune": 0,
+   "our_attacks": 16,
+   "opp_attacks": 7,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Farigiraf",
+     "by": "Archaludon",
+     "move": "Electro Shot"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Archaludon",
+     "move": "Electro Shot"
+    },
+    {
+     "turn": 7,
+     "species": "Charizard",
+     "by": "Archaludon",
+     "move": "Dragon Pulse"
+    },
+    {
+     "turn": 8,
+     "species": "Torkoal",
+     "by": "Pelipper",
+     "move": "Weather Ball"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686264398-4n4u3ye692iwyi2w6hghwb6pbfasp2gpw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 5,
+   "our_rating": 1231,
+   "opp_rating": 1217,
+   "opp_name": "potinki",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Raichu",
+    "Kingambit",
+    "Gholdengo",
+    "Staraptor",
+    "Arcanine-Hisui",
+    "Rillaboom"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Gholdengo",
+    "Arcanine-Hisui"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Gholdengo",
+    "Arcanine-Hisui",
+    "Raichu",
+    "Kingambit"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Torkoal",
+   "our_faints": 1,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     3,
+     "RainDance",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 1,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 1,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 1,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Torkoal",
+     "by": "Arcanine-Hisui",
+     "move": "Head Smash"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686265734-j62c87d9q582xl1l7po09fataaganlvpw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 3,
+   "our_rating": 1255,
+   "opp_rating": 1186,
+   "opp_name": "Fongw",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Incineroar",
+    "Rillaboom",
+    "Blaziken",
+    "Salamence",
+    "Sneasler",
+    "Lucario"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Salamence",
+    "Lucario"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Salamence",
+    "Lucario",
+    "Incineroar",
+    "Rillaboom"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 1,
+   "first_faint_species": "Lucario",
+   "our_faints": 2,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Salamence"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 1,
+   "opp_switches": 2,
+   "our_se": 2,
+   "opp_se": 1,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 5,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Farigiraf",
+     "by": "Incineroar",
+     "move": "Darkest Lariat"
+    },
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Incineroar",
+     "move": "Darkest Lariat"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686266283.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1275,
+   "opp_rating": 1284,
+   "opp_name": "MovedOn(Im Lying)",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Lucario",
+    "Rillaboom",
+    "Incineroar",
+    "Pelipper",
+    "Volcarona",
+    "Tyranitar"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Tyranitar",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise",
+    "Charizard-Mega-Y"
+   ],
+   "opp_brought": [
+    "Tyranitar",
+    "Rillaboom",
+    "Volcarona",
+    "Pelipper"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal",
+    "Charizard-Mega-Y",
+    "Blastoise"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "Sandstorm",
+     "p2"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 1,
+   "our_switches": 3,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 4,
+   "our_resisted": 4,
+   "opp_resisted": 2,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 8,
+   "opp_attacks": 9,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Tyranitar",
+     "move": "Knock Off"
+    },
+    {
+     "turn": 4,
+     "species": "Torkoal",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 5,
+     "species": "Charizard",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686266645.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 4,
+   "our_rating": 1251,
+   "opp_rating": 1332,
+   "opp_name": "Re dello Spruzzo",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Staraptor",
+    "Arcanine-Hisui",
+    "Raichu",
+    "Gholdengo",
+    "Rillaboom",
+    "Sylveon"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Staraptor",
+    "Arcanine-Hisui"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Staraptor",
+    "Arcanine-Hisui"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 0,
+   "our_faint_species": [
+    "Farigiraf",
+    "Charizard",
+    "Torkoal",
+    "Blastoise"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Staraptor"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 0,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 8,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Arcanine-Hisui",
+     "move": "Flare Blitz"
+    },
+    {
+     "turn": 2,
+     "species": "Charizard",
+     "by": "Arcanine-Hisui",
+     "move": "Head Smash"
+    },
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Arcanine-Hisui",
+     "move": "Head Smash"
+    },
+    {
+     "turn": 4,
+     "species": "Blastoise",
+     "by": "Staraptor",
+     "move": "Close Combat"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686267597-to57m4p4m4mom8lb7t3xlgqelkwlmhnpw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1232,
+   "opp_rating": 1232,
+   "opp_name": "OleyyVGC",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Klefki",
+    "Garchomp",
+    "Volcarona",
+    "Archaludon",
+    "Salamence",
+    "Glimmora"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Archaludon",
+    "Klefki"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Archaludon",
+    "Klefki",
+    "Garchomp"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Torkoal",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Charizard",
+    "Farigiraf"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "RainDance",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 1,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 7,
+   "opp_attacks": 5,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Torkoal",
+     "by": "Archaludon",
+     "move": "Electro Shot"
+    },
+    {
+     "turn": 3,
+     "species": "Blastoise",
+     "by": "Archaludon",
+     "move": "Electro Shot"
+    },
+    {
+     "turn": 4,
+     "species": "Charizard",
+     "by": "Archaludon",
+     "move": "Electro Shot"
+    },
+    {
+     "turn": 5,
+     "species": "Farigiraf",
+     "by": "Archaludon",
+     "move": "Electro Shot"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686267948.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1207,
+   "opp_rating": 1229,
+   "opp_name": "ChampPractice921",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Excadrill",
+    "Salamence",
+    "Tyranitar",
+    "Indeedee",
+    "Corviknight",
+    "Sneasler"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Tyranitar",
+    "Excadrill"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Tyranitar",
+    "Excadrill",
+    "Salamence",
+    "Sneasler"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "Sandstorm",
+     "p1"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 3,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 4,
+   "opp_se": 3,
+   "our_resisted": 5,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 11,
+   "opp_attacks": 10,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Farigiraf",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 2,
+     "species": "Torkoal",
+     "by": "Excadrill",
+     "move": "High Horsepower"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Sneasler",
+     "move": "Close Combat"
+    },
+    {
+     "turn": 7,
+     "species": "Charizard",
+     "by": "Sneasler",
+     "move": "Dire Claw"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686268838.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 6,
+   "our_rating": 1184,
+   "opp_rating": 1191,
+   "opp_name": "linksummon",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Gardevoir",
+    "Golisopod",
+    "Indeedee-F",
+    "Sneasler",
+    "Armarouge",
+    "Basculegion"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Indeedee-F",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Indeedee-F",
+    "Sneasler",
+    "Armarouge",
+    "Gardevoir"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     4,
+     "Gardevoir"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 4,
+   "our_se": 1,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 1,
+   "our_immune": 1,
+   "opp_immune": 0,
+   "our_attacks": 7,
+   "opp_attacks": 7,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Farigiraf",
+     "by": "Armarouge",
+     "move": "Armor Cannon"
+    },
+    {
+     "turn": 5,
+     "species": "Torkoal",
+     "by": "Armarouge",
+     "move": "Expanding Force"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Gardevoir",
+     "move": "Expanding Force"
+    },
+    {
+     "turn": 6,
+     "species": "Charizard",
+     "by": "Armarouge",
+     "move": "Armor Cannon"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "sun",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686269640.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 9,
+   "our_rating": 1160,
+   "opp_rating": 1076,
+   "opp_name": "khayyunafaza",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Falinks",
+    "Alcremie",
+    "Milotic",
+    "Goodra-Hisui",
+    "Pincurchin",
+    "Oranguru"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Falinks",
+    "Milotic"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Falinks",
+    "Milotic",
+    "Alcremie",
+    "Goodra-Hisui"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Falinks",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     4,
+     "RainDance",
+     "p1"
+    ],
+    [
+     8,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Falinks"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 3,
+   "our_resisted": 8,
+   "opp_resisted": 4,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 14,
+   "opp_attacks": 12,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ],
+    [
+     6,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 2,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Milotic",
+     "move": "Scald"
+    },
+    {
+     "turn": 7,
+     "species": "Blastoise",
+     "by": "Milotic",
+     "move": "Icy Wind"
+    },
+    {
+     "turn": 7,
+     "species": "Farigiraf",
+     "by": "Milotic",
+     "move": "Icy Wind"
+    },
+    {
+     "turn": 9,
+     "species": "Charizard",
+     "by": "Milotic",
+     "move": "Scald"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686270559.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1129,
+   "opp_rating": 1082,
+   "opp_name": "oganesson0",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Salamence",
+    "Whimsicott",
+    "Incineroar",
+    "Basculegion",
+    "Golisopod",
+    "Farigiraf"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Incineroar",
+    "Basculegion"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Incineroar",
+    "Basculegion",
+    "Farigiraf",
+    "Golisopod"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 3,
+   "first_faint_species": "Basculegion",
+   "our_faints": 3,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     5,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     7,
+     "Golisopod"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 5,
+   "our_resisted": 6,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 12,
+   "opp_attacks": 7,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 4,
+     "species": "Torkoal",
+     "by": "Farigiraf",
+     "move": "Twin Beam"
+    },
+    {
+     "turn": 4,
+     "species": "Farigiraf",
+     "by": "Incineroar",
+     "move": "Darkest Lariat"
+    },
+    {
+     "turn": 6,
+     "species": "Charizard",
+     "by": "Golisopod",
+     "move": "Liquidation"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686271881-ph884ukd65vnqt3n2kviycfmx7qi28xpw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 4,
+   "our_rating": 1151,
+   "opp_rating": 1188,
+   "opp_name": "UnaiGH",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Volcarona",
+    "Garchomp",
+    "Rillaboom",
+    "Incineroar",
+    "Raichu",
+    "Gholdengo"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Incineroar",
+    "Garchomp"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Incineroar",
+    "Garchomp",
+    "Volcarona",
+    "Garchomp-Mega-Z"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Volcarona",
+   "our_faints": 0,
+   "opp_faints": 1,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     1,
+     "Garchomp"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 3,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 3,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 4,
+   "opp_attacks": 1,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [
+    [
+     1,
+     ""
+    ]
+   ],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686272966.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1179,
+   "opp_rating": 1185,
+   "opp_name": "loboq",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Sneasler",
+    "Rillaboom",
+    "Garchomp",
+    "Volcarona",
+    "Metagross",
+    "Corviknight"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Volcarona",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Volcarona",
+    "Rillaboom",
+    "Garchomp",
+    "Sneasler"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Charizard",
+    "Torkoal",
+    "Blastoise"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Garchomp"
+    ]
+   ],
+   "our_protects": 3,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 4,
+   "our_se": 0,
+   "opp_se": 5,
+   "our_resisted": 5,
+   "opp_resisted": 2,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 9,
+   "opp_attacks": 9,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Rillaboom",
+     "move": "Wood Hammer"
+    },
+    {
+     "turn": 3,
+     "species": "Charizard",
+     "by": "Garchomp",
+     "move": "Power Gem"
+    },
+    {
+     "turn": 6,
+     "species": "Torkoal",
+     "by": "Garchomp",
+     "move": "Power Gem"
+    },
+    {
+     "turn": 7,
+     "species": "Blastoise",
+     "by": "Rillaboom",
+     "move": "Grassy Glide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "grassy_fakeout",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686273530-2024cl541dpqt6n7ttqsk3hk6qb23e3pw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 6,
+   "our_rating": 1154,
+   "opp_rating": 1142,
+   "opp_name": "yasura",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Golisopod",
+    "Charizard",
+    "Politoed",
+    "Archaludon",
+    "Grimmsnarl",
+    "Farigiraf"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Golisopod",
+    "Grimmsnarl"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Golisopod",
+    "Grimmsnarl",
+    "Politoed",
+    "Farigiraf"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Golisopod",
+   "our_faints": 1,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "RainDance",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Golisopod"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 1,
+   "opp_switches": 3,
+   "our_se": 1,
+   "opp_se": 2,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 7,
+   "opp_attacks": 3,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Torkoal",
+     "by": "Politoed",
+     "move": "Weather Ball"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686274420-os400tb0xnukm0f82gdaq2v6xn1av3wpw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1178,
+   "opp_rating": 1118,
+   "opp_name": "pcrlbot12d159c39a",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Aerodactyl",
+    "Kingambit",
+    "Sylveon",
+    "Garchomp",
+    "Charizard",
+    "Incineroar"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Incineroar",
+    "Sylveon"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Incineroar",
+    "Sylveon",
+    "Aerodactyl"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 0,
+   "our_faint_species": [
+    "Farigiraf",
+    "Blastoise",
+    "Charizard",
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Aerodactyl"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 3,
+   "our_resisted": 1,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 3,
+   "opp_attacks": 7,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Incineroar",
+     "move": "Darkest Lariat"
+    },
+    {
+     "turn": 3,
+     "species": "Blastoise",
+     "by": "Sylveon",
+     "move": "Hyper Beam"
+    },
+    {
+     "turn": 4,
+     "species": "Charizard",
+     "by": "Aerodactyl",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 5,
+     "species": "Torkoal",
+     "by": "Sylveon",
+     "move": "Hyper Beam"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686275336.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 8,
+   "our_rating": 1149,
+   "opp_rating": 1216,
+   "opp_name": "chocolydia",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Milotic",
+    "Incineroar",
+    "Rillaboom",
+    "Volcarona",
+    "Raichu",
+    "Garchomp"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Raichu",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Raichu",
+    "Rillaboom",
+    "Garchomp",
+    "Incineroar",
+    "Raichu-Mega-Y"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 3,
+   "first_faint_species": "Garchomp",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "RainDance",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     5,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Raichu"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 3,
+   "our_switches": 2,
+   "opp_switches": 5,
+   "our_se": 0,
+   "opp_se": 6,
+   "our_resisted": 5,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 9,
+   "opp_attacks": 9,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 4,
+     "species": "Torkoal",
+     "by": "Raichu",
+     "move": "Zap Cannon"
+    },
+    {
+     "turn": 6,
+     "species": "Blastoise",
+     "by": "Raichu",
+     "move": "Zap Cannon"
+    },
+    {
+     "turn": 7,
+     "species": "Farigiraf",
+     "by": "Rillaboom",
+     "move": "U-turn"
+    },
+    {
+     "turn": 8,
+     "species": "Charizard",
+     "by": "Raichu",
+     "move": "Zap Cannon"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "grassy_fakeout",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686276180-4fqtyyofi9qv5q55g8c9so76rwl0oxqpw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": false,
+   "turns": 4,
+   "our_rating": 1129,
+   "opp_rating": 1126,
+   "opp_name": "necromancerGHG",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Rillaboom",
+    "Toxtricity",
+    "Inteleon",
+    "Basculegion",
+    "Staraptor",
+    "Incineroar"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Toxtricity",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Toxtricity",
+    "Rillaboom",
+    "Inteleon",
+    "Staraptor"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Toxtricity",
+   "our_faints": 1,
+   "opp_faints": 4,
+   "our_faint_species": [
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     4,
+     "RainDance",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 1,
+   "opp_switches": 2,
+   "our_se": 1,
+   "opp_se": 1,
+   "our_resisted": 2,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 3,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Inteleon",
+     "move": "Snipe Shot"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686277651-oxhu0ag9v8eofa4x2x7uxk21fy63siapw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 6,
+   "our_rating": 1154,
+   "opp_rating": 1256,
+   "opp_name": "BunuWunnu",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Whimsicott",
+    "Annihilape",
+    "Incineroar",
+    "Gholdengo",
+    "Tyranitar",
+    "Raichu"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Raichu",
+    "Incineroar"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Raichu",
+    "Incineroar",
+    "Tyranitar",
+    "Annihilape"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Torkoal",
+   "our_faints": 4,
+   "opp_faints": 0,
+   "our_faint_species": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Raichu"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 3,
+   "our_se": 1,
+   "opp_se": 3,
+   "our_resisted": 4,
+   "opp_resisted": 0,
+   "our_immune": 1,
+   "opp_immune": 0,
+   "our_attacks": 8,
+   "opp_attacks": 9,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 3,
+     "species": "Farigiraf",
+     "by": null,
+     "move": "Sandstorm"
+    },
+    {
+     "turn": 6,
+     "species": "Blastoise",
+     "by": "Annihilape",
+     "move": "Rage Fist"
+    },
+    {
+     "turn": 6,
+     "species": "Charizard",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686278266.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 8,
+   "our_rating": 1136,
+   "opp_rating": 1231,
+   "opp_name": "godslayerkingclef",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Garchomp",
+    "Charizard",
+    "Whimsicott",
+    "Basculegion",
+    "Kingambit",
+    "Sylveon"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Charizard",
+    "Garchomp"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Charizard",
+    "Garchomp",
+    "Whimsicott",
+    "Basculegion"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 2,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 3,
+   "our_faint_species": [
+    "Farigiraf",
+    "Charizard",
+    "Torkoal",
+    "Blastoise"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": true,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     3,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 4,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 2,
+   "opp_se": 1,
+   "our_resisted": 6,
+   "opp_resisted": 0,
+   "our_immune": 1,
+   "opp_immune": 0,
+   "our_attacks": 9,
+   "opp_attacks": 7,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 2,
+     "species": "Farigiraf",
+     "by": "Charizard",
+     "move": "Ancient Power"
+    },
+    {
+     "turn": 6,
+     "species": "Charizard",
+     "by": "Basculegion",
+     "move": "Last Respects"
+    },
+    {
+     "turn": 7,
+     "species": "Torkoal",
+     "by": "Basculegion",
+     "move": "Last Respects"
+    },
+    {
+     "turn": 8,
+     "species": "Blastoise",
+     "by": "Basculegion",
+     "move": "Last Respects"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "tailwind",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686279222-sre9l4udy9mh2o88eewheh1uone4mr5pw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 9,
+   "our_rating": 1118,
+   "opp_rating": 1080,
+   "opp_name": "Burpyy!",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Garchomp",
+    "Sneasler",
+    "Milotic",
+    "Torterra",
+    "Dragonite",
+    "Heliolisk"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Dragonite",
+    "Milotic"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Dragonite",
+    "Milotic",
+    "Sneasler"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 4,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     5,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [],
+   "our_protects": 2,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 1,
+   "our_se": 1,
+   "opp_se": 3,
+   "our_resisted": 6,
+   "opp_resisted": 2,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 9,
+   "opp_attacks": 12,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 4,
+     "species": "Farigiraf",
+     "by": "Dragonite",
+     "move": "Dragon Claw"
+    },
+    {
+     "turn": 7,
+     "species": "Torkoal",
+     "by": "Milotic",
+     "move": "Muddy Water"
+    },
+    {
+     "turn": 9,
+     "species": "Blastoise",
+     "by": "Sneasler",
+     "move": "Dire Claw"
+    },
+    {
+     "turn": 9,
+     "species": "Charizard",
+     "by": "Milotic",
+     "move": "Muddy Water"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686280570.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 7,
+   "our_rating": 1090,
+   "opp_rating": 1101,
+   "opp_name": "powderedwater23",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Perrserker",
+    "Gholdengo",
+    "Arcanine-Hisui",
+    "Rillaboom",
+    "Tyranitar",
+    "Lucario"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Tyranitar",
+    "Rillaboom"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Tyranitar",
+    "Rillaboom",
+    "Perrserker",
+    "Gholdengo"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 4,
+   "first_faint_species": "Perrserker",
+   "our_faints": 4,
+   "opp_faints": 2,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "Sandstorm",
+     "p2"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     5,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 3,
+   "our_se": 3,
+   "opp_se": 5,
+   "our_resisted": 4,
+   "opp_resisted": 0,
+   "our_immune": 1,
+   "opp_immune": 0,
+   "our_attacks": 7,
+   "opp_attacks": 8,
+   "our_tr_attempts": [
+    [
+     2,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 2,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 4,
+     "species": "Torkoal",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Rillaboom",
+     "move": "Wood Hammer"
+    },
+    {
+     "turn": 6,
+     "species": "Farigiraf",
+     "by": "Rillaboom",
+     "move": "Wood Hammer"
+    },
+    {
+     "turn": 7,
+     "species": "Charizard",
+     "by": "Gholdengo",
+     "move": "Power Gem"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686281845.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 2,
+   "our_rating": 1067,
+   "opp_rating": 1051,
+   "opp_name": "stonee_boi",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Meganium",
+    "Maushold",
+    "Aerodactyl",
+    "Ceruledge",
+    "Meowstic",
+    "Metagross"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Maushold",
+    "Meowstic"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Maushold",
+    "Meowstic"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Maushold",
+   "our_faints": 0,
+   "opp_faints": 2,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 0,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 2,
+   "opp_attacks": 0,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686282827.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 6,
+   "our_rating": 1096,
+   "opp_rating": 1181,
+   "opp_name": "biect",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Charizard",
+    "Froslass",
+    "Whimsicott",
+    "Incineroar",
+    "Sneasler",
+    "Basculegion"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Charizard",
+    "Basculegion"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Charizard",
+    "Basculegion",
+    "Whimsicott"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 0,
+   "our_faint_species": [
+    "Farigiraf",
+    "Charizard",
+    "Torkoal",
+    "Blastoise"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     5,
+     "none",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Charizard"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 1,
+   "our_se": 0,
+   "opp_se": 4,
+   "our_resisted": 3,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 9,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Charizard",
+     "move": "Weather Ball"
+    },
+    {
+     "turn": 3,
+     "species": "Charizard",
+     "by": "Basculegion",
+     "move": "Wave Crash"
+    },
+    {
+     "turn": 4,
+     "species": "Torkoal",
+     "by": "Basculegion",
+     "move": "Wave Crash"
+    },
+    {
+     "turn": 6,
+     "species": "Blastoise",
+     "by": "Charizard",
+     "move": "Ancient Power"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686283118-k7iktuxjtthqsm4wspbgbw2eexm7m06pw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 11,
+   "our_rating": 1077,
+   "opp_rating": 1133,
+   "opp_name": "Ksaweeeerx",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Serperior",
+    "Grapploct",
+    "Lucario",
+    "Indeedee-F",
+    "Swampert",
+    "Pelipper"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Serperior",
+    "Grapploct"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise",
+    "Charizard-Mega-Y"
+   ],
+   "opp_brought": [
+    "Serperior",
+    "Grapploct",
+    "Pelipper",
+    "Swampert"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 5,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Blastoise",
+    "Charizard-Mega-Y",
+    "Torkoal"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": true,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     1,
+     "RainDance",
+     "p2"
+    ],
+    [
+     2,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     5,
+     "Swampert"
+    ]
+   ],
+   "our_protects": 4,
+   "opp_protects": 4,
+   "our_switches": 3,
+   "opp_switches": 5,
+   "our_se": 0,
+   "opp_se": 3,
+   "our_resisted": 4,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 7,
+   "opp_attacks": 9,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     5,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 5,
+     "species": "Farigiraf",
+     "by": "Swampert",
+     "move": "Liquidation"
+    },
+    {
+     "turn": 8,
+     "species": "Blastoise",
+     "by": "Swampert",
+     "move": "High Horsepower"
+    },
+    {
+     "turn": 11,
+     "species": "Charizard",
+     "by": "Swampert",
+     "move": "Liquidation"
+    },
+    {
+     "turn": 11,
+     "species": "Torkoal",
+     "by": "Pelipper",
+     "move": "Weather Ball"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686283679.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 8,
+   "our_rating": 1059,
+   "opp_rating": 1040,
+   "opp_name": "insertnombre",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Golisopod",
+    "Indeedee-F",
+    "Pelipper",
+    "Gardevoir",
+    "Basculegion",
+    "Sneasler"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Indeedee-F",
+    "Basculegion"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Indeedee-F",
+    "Basculegion",
+    "Pelipper",
+    "Gardevoir"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Indeedee-F",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Torkoal",
+    "Blastoise",
+    "Farigiraf",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     2,
+     "RainDance",
+     "p2"
+    ],
+    [
+     6,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     3,
+     "Gardevoir"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 2,
+   "our_switches": 2,
+   "opp_switches": 3,
+   "our_se": 0,
+   "opp_se": 2,
+   "our_resisted": 3,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 6,
+   "opp_attacks": 10,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Gardevoir",
+     "move": "Expanding Force"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Gardevoir",
+     "move": "Hyper Voice"
+    },
+    {
+     "turn": 5,
+     "species": "Farigiraf",
+     "by": "Gardevoir",
+     "move": "Hyper Voice"
+    },
+    {
+     "turn": 8,
+     "species": "Charizard",
+     "by": "Basculegion",
+     "move": "Aqua Jet"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "rain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686285246.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 5,
+   "our_rating": 1039,
+   "opp_rating": 1000,
+   "opp_name": "msliterate",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Salamence",
+    "Primarina",
+    "Tyranitar",
+    "Gholdengo",
+    "Excadrill",
+    "Rillaboom"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Tyranitar",
+    "Primarina"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Charizard",
+    "Blastoise"
+   ],
+   "opp_brought": [
+    "Tyranitar",
+    "Primarina",
+    "Rillaboom",
+    "Tyranitar-Mega"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Charizard",
+    "Torkoal",
+    "Blastoise"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "Sandstorm",
+     "p1"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     1,
+     "Sandstorm",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Charizard"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 1,
+   "our_switches": 2,
+   "opp_switches": 2,
+   "our_se": 2,
+   "opp_se": 4,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 3,
+   "opp_attacks": 8,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Primarina",
+     "move": "Hyper Voice"
+    },
+    {
+     "turn": 3,
+     "species": "Charizard",
+     "by": "Tyranitar",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Primarina",
+     "move": "Hyper Voice"
+    },
+    {
+     "turn": 5,
+     "species": "Blastoise",
+     "by": "Tyranitar",
+     "move": "Knock Off"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686286408-cn3vkg4t3gtwn49w60tw5gxx3r0bk88pw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 3,
+   "our_rating": 1021,
+   "opp_rating": 1081,
+   "opp_name": "ZingerJizSus",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Ceruledge",
+    "Scrafty",
+    "Rillaboom",
+    "Sneasler",
+    "Salamence",
+    "Gholdengo"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Ceruledge",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Ceruledge",
+    "Sneasler",
+    "Scrafty"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Scrafty",
+   "our_faints": 0,
+   "opp_faints": 1,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 2,
+   "opp_attacks": 0,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686286949-s4fqqb2bej58r5lnfs2pgm8i2yd81pkpw.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 9,
+   "our_rating": 1064,
+   "opp_rating": 1119,
+   "opp_name": "ParaMas",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Ampharos",
+    "Sinistcha",
+    "Araquanid",
+    "Torkoal",
+    "Blaziken",
+    "Indeedee"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Blaziken",
+    "Araquanid"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Blaziken",
+    "Araquanid",
+    "Sinistcha",
+    "Blaziken-Mega",
+    "Indeedee"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 3,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 1,
+   "our_faint_species": [
+    "Farigiraf",
+    "Torkoal",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p2"
+    ],
+    [
+     5,
+     "none",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     4,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Blaziken"
+    ]
+   ],
+   "our_protects": 3,
+   "opp_protects": 5,
+   "our_switches": 2,
+   "opp_switches": 3,
+   "our_se": 2,
+   "opp_se": 7,
+   "our_resisted": 5,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 11,
+   "opp_attacks": 10,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [
+    {
+     "turn": 3,
+     "species": "Farigiraf",
+     "by": "Araquanid",
+     "move": "Leech Life"
+    },
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Blaziken",
+     "move": "Rock Slide"
+    },
+    {
+     "turn": 7,
+     "species": "Blastoise",
+     "by": "Sinistcha",
+     "move": "Matcha Gotcha"
+    },
+    {
+     "turn": 9,
+     "species": "Charizard",
+     "by": "Blaziken",
+     "move": "Rock Slide"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "psychic_terrain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686287322.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 3,
+   "our_rating": 1047,
+   "opp_rating": 1000,
+   "opp_name": "lucid7277",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Gengar",
+    "Incineroar",
+    "Espathra",
+    "Maushold-Four",
+    "Kingambit",
+    "Golisopod"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Gengar",
+    "Incineroar"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Gengar",
+    "Incineroar",
+    "Espathra"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 3,
+   "first_faint_species": "Espathra",
+   "our_faints": 0,
+   "opp_faints": 1,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     1,
+     "Gengar"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 0,
+   "opp_switches": 1,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 1,
+   "opp_resisted": 0,
+   "our_immune": 1,
+   "opp_immune": 0,
+   "our_attacks": 2,
+   "opp_attacks": 0,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "balance",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686288748-yyx23e6eeaatjlxh1rsuu5237q8k7sypw.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 5,
+   "our_rating": 1076,
+   "opp_rating": 1067,
+   "opp_name": "juuuujujju",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Excadrill",
+    "Salamence",
+    "Tyranitar",
+    "Indeedee",
+    "Corviknight",
+    "Sneasler"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Indeedee",
+    "Tyranitar"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Indeedee",
+    "Tyranitar",
+    "Sneasler",
+    "Salamence"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Indeedee",
+   "our_faints": 0,
+   "opp_faints": 1,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "Sandstorm",
+     "p2"
+    ],
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ],
+    [
+     2,
+     "Sandstorm",
+     "p2"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     2,
+     "Tyranitar"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 2,
+   "our_switches": 0,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 3,
+   "our_resisted": 3,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 5,
+   "opp_attacks": 3,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "psychic_terrain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686289175.html",
+   "setter_led": true
+  },
+  {
+   "won": false,
+   "forfeit": false,
+   "turns": 3,
+   "our_rating": 1104,
+   "opp_rating": 1181,
+   "opp_name": "Aircraft Ape",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Indeedee",
+    "Delphox",
+    "Sneasler",
+    "Milotic",
+    "Absol",
+    "Hydrapple"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Indeedee",
+    "Absol"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf",
+    "Blastoise",
+    "Charizard"
+   ],
+   "opp_brought": [
+    "Indeedee",
+    "Absol"
+   ],
+   "first_faint_ours": true,
+   "first_faint_turn": 1,
+   "first_faint_species": "Farigiraf",
+   "our_faints": 4,
+   "opp_faints": 0,
+   "our_faint_species": [
+    "Farigiraf",
+    "Blastoise",
+    "Torkoal",
+    "Charizard"
+   ],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": false,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [
+    [
+     2,
+     "Blastoise"
+    ]
+   ],
+   "opp_mega": [
+    [
+     1,
+     "Absol"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 0,
+   "our_switches": 2,
+   "opp_switches": 0,
+   "our_se": 0,
+   "opp_se": 1,
+   "our_resisted": 0,
+   "opp_resisted": 1,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 2,
+   "opp_attacks": 8,
+   "our_tr_attempts": [],
+   "our_tr_up_turn": null,
+   "our_tr_count": 0,
+   "setter_fainted_before_tr": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "knockouts": [
+    {
+     "turn": 1,
+     "species": "Farigiraf",
+     "by": "Absol",
+     "move": "X-Scissor"
+    },
+    {
+     "turn": 2,
+     "species": "Blastoise",
+     "by": "Absol",
+     "move": "Night Slash"
+    },
+    {
+     "turn": 3,
+     "species": "Torkoal",
+     "by": "Indeedee",
+     "move": "Expanding Force"
+    },
+    {
+     "turn": 3,
+     "species": "Charizard",
+     "by": "Absol",
+     "move": "Night Slash"
+    }
+   ],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "psychic_terrain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686290200.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 2,
+   "our_rating": 1084,
+   "opp_rating": 1101,
+   "opp_name": "tomvdvorst",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Metagross",
+    "Sneasler",
+    "Rillaboom",
+    "Indeedee-F",
+    "Pelipper",
+    "Sylveon"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Metagross",
+    "Sneasler"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Metagross",
+    "Sneasler",
+    "Indeedee-F"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Sneasler",
+   "our_faints": 0,
+   "opp_faints": 1,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     1,
+     "Metagross"
+    ]
+   ],
+   "our_protects": 1,
+   "opp_protects": 1,
+   "our_switches": 0,
+   "opp_switches": 1,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 0,
+   "our_attacks": 2,
+   "opp_attacks": 0,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 1,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [
+    [
+     1,
+     ""
+    ]
+   ],
+   "open_sheet": false,
+   "archetype": "psychic_terrain",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686290611.html",
+   "setter_led": true
+  },
+  {
+   "won": true,
+   "forfeit": true,
+   "turns": 4,
+   "our_rating": 1113,
+   "opp_rating": 1136,
+   "opp_name": "Pokg",
+   "our_roster": [
+    "Blastoise",
+    "Farigiraf",
+    "Charizard",
+    "Venusaur",
+    "Torkoal",
+    "Incineroar"
+   ],
+   "opp_roster": [
+    "Alakazam",
+    "Indeedee-F",
+    "Charizard",
+    "Kingambit",
+    "Sneasler",
+    "Ninetales-Alola"
+   ],
+   "our_leads": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Alakazam",
+    "Kingambit"
+   ],
+   "our_brought": [
+    "Torkoal",
+    "Farigiraf"
+   ],
+   "opp_brought": [
+    "Alakazam",
+    "Kingambit",
+    "Indeedee-F",
+    "Sneasler"
+   ],
+   "first_faint_ours": false,
+   "first_faint_turn": 2,
+   "first_faint_species": "Alakazam",
+   "our_faints": 0,
+   "opp_faints": 1,
+   "our_faint_species": [],
+   "opp_tr": false,
+   "opp_tr_turn": null,
+   "our_tr": true,
+   "opp_tailwind": false,
+   "our_tailwind": false,
+   "our_tailwind_turn": null,
+   "weather": [
+    [
+     0,
+     "SunnyDay",
+     "p1"
+    ]
+   ],
+   "our_tera": [],
+   "opp_tera": [],
+   "our_mega": [],
+   "opp_mega": [
+    [
+     1,
+     "Alakazam"
+    ]
+   ],
+   "our_protects": 2,
+   "opp_protects": 0,
+   "our_switches": 0,
+   "opp_switches": 2,
+   "our_se": 0,
+   "opp_se": 0,
+   "our_resisted": 0,
+   "opp_resisted": 0,
+   "our_immune": 0,
+   "opp_immune": 1,
+   "our_attacks": 2,
+   "opp_attacks": 0,
+   "our_tr_attempts": [
+    [
+     1,
+     "Farigiraf"
+    ],
+    [
+     3,
+     "Farigiraf"
+    ]
+   ],
+   "our_tr_up_turn": 1,
+   "our_tr_count": 2,
+   "setter_fainted_before_tr": [],
+   "knockouts": [],
+   "opp_fake_out_turn1": [],
+   "open_sheet": false,
+   "archetype": "trick_room",
+   "replay": "antonius1 - battle-gen9championsvgc2026regmc-2686291003.html",
+   "setter_led": true
+  }
+ ]
+}
