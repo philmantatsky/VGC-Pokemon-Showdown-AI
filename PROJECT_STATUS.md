@@ -29,7 +29,7 @@ listener's default replay dir now follows the deployed team; all three refuse
 while `opening_study.py`, `run_t6_*` or `run_set_prior_ablation` run.
 
 **Side-by-side running** (f191823, `evaluation/run_set_prior_ablation.py`,
-`results_set_prior_ablation_T4/`, launched 00:38, Showdown on 7610): does the
+`results_set_prior_ablation_T4/`, launched 00:18, Showdown on 7610): does the
 T4 brain do better with the Reg M-C set data (Codex's change) or the Reg M-B
 data it trained and laddered with? The new-data arm IS the T4 arm of
 `results_t6_vs_deployed_v1` -- all 105 files that study pinned still hash the

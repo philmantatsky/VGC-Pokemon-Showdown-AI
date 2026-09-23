@@ -1,0 +1,66 @@
+{
+  "arms": {
+    "frozen": {
+      "candidate_rate": 0.856,
+      "delta_pp": 3.0000000000000027,
+      "deployed_rate": 0.826,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.6096583488430083,
+      "source": "screening",
+      "status": "clear"
+    },
+    "heuristic": {
+      "candidate_rate": 0.844,
+      "delta_pp": -2.8000000000000025,
+      "deployed_rate": 0.872,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.4805944752024438,
+      "source": "screening",
+      "status": "confirm"
+    },
+    "human_bc": {
+      "candidate_rate": 0.79,
+      "delta_pp": -0.30000000000000027,
+      "deployed_rate": 0.793,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.6999735292056757,
+      "source": "screening",
+      "status": "clear"
+    },
+    "rotation1": {
+      "candidate_rate": 0.863,
+      "delta_pp": 5.099999999999993,
+      "deployed_rate": 0.812,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.5244638401746364,
+      "source": "screening",
+      "status": "clear"
+    },
+    "rotation2": {
+      "candidate_rate": 0.853,
+      "delta_pp": 2.6000000000000023,
+      "deployed_rate": 0.827,
+      "n": 1000,
+      "paired": true,
+      "se_pp": 1.5662822223341488,
+      "source": "screening",
+      "status": "clear"
+    }
+  },
+  "bar_pp": -2.0,
+  "battery_dir": "results_gate_battery_league6/13762560/screening",
+  "breaches": [],
+  "confirm_needed": [
+    "heuristic"
+  ],
+  "confirm_window_pp": 1.0,
+  "equal_delta_pp": 1.5199999999999991,
+  "neutral_false_fail": 0.41670161523984084,
+  "outcome": "CONFIRM",
+  "tier": "screening",
+  "weighted_delta_pp": 1.216666666666666
+}
