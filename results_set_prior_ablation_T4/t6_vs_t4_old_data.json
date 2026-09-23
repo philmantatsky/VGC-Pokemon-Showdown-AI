@@ -1,0 +1,22 @@
+{
+ "delta": "T6 minus T4 with Reg M-B set data",
+ "per_population": {
+  "human_new": -1.644100580270802,
+  "frozen": -7.640232108317213,
+  "rotation1": -3.2882011605415817,
+  "rotation2": -6.382978723404253,
+  "human_previous": -6.286266924564798,
+  "heuristic": -0.5802707930367523
+ },
+ "pooled": {
+  "populations": 6,
+  "rosters": 47,
+  "mean_delta": -0.043036750483559,
+  "bootstrap_95_ci": [
+   -0.07898533204384268,
+   -0.008865248226950359
+  ],
+  "resamples": 10000,
+  "seed": 20923
+ }
+}

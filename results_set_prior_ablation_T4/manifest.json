@@ -1,0 +1,35 @@
+{
+  "question": "T4 brain: Reg M-C set data (new, Codex) vs Reg M-B set data (old)",
+  "reference_study": "results_t6_vs_deployed_v1",
+  "reference_manifest_sha256": "e3c4fe7902420fc5d5defc557b363a54ef9b88eb98bebebd126f23b563fb1314",
+  "new_data_arm": "results_t6_vs_deployed_v1/<population>_deployed_T4.jsonl",
+  "old_data_arm": "results_set_prior_ablation_T4/<population>_T4_mbdata.jsonl",
+  "checkpoint": "results_deployed/champion_mc_T4.zip",
+  "checkpoint_sha256": "af4e78a55b3e40e161aeef431af6ec513983cb9756b94751f101b9281ed8e397",
+  "plans": "data/opening_plans_t4_control.json",
+  "team": "teams/candidates_mc/T4.txt",
+  "populations": [
+    "human_new",
+    "frozen",
+    "rotation1",
+    "rotation2",
+    "human_previous",
+    "heuristic"
+  ],
+  "matchups": 47,
+  "repeats": 11,
+  "seed": 20923,
+  "port": 7610,
+  "old_data_sha256": {
+    "data/joint_sets_regmb.json": "d99f262213f02660b7fc31afb3ead6844e58ae6fa8032af80f9a8ba9df122a1e",
+    "data/movesets_regmb.json": "e445b6c977d11855736aa4f041bd4a0fb171d7bdafc70c2f8ea449a4995464eb"
+  },
+  "new_data_sha256": {
+    "data/joint_sets_regmc.json": "a4ef12f155737473e49693cdf804d281ec81c9753aee824662c8f3bfc0566845"
+  },
+  "delta": "new minus old",
+  "battle_rng_paired": false,
+  "uncertainty": "whole-roster bootstrap; pooled = equal-population mean",
+  "limits": "8 concurrent local battles, one MPS process, 3h per invocation",
+  "decision": "Stop for review. Never promote or start ladder automatically."
+}

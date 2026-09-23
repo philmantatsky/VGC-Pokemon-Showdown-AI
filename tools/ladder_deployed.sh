@@ -7,8 +7,10 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 N=${1:?total games}; M=results_deployed/DEPLOYED.json
-read -r CKPT TEAM GUARDS SHA <<<"$(.venv/bin/python -c "
-import json; d=json.load(open('$M'))['deployed']; print(d['checkpoint'], d['team'], d['guards_extra'], d['sha256'])")"
+read -r CKPT TEAM GUARDS SHA SET_PRIOR <<<"$(.venv/bin/python -c "
+import json; d=json.load(open('$M'))['deployed']; print(d['checkpoint'], d['team'], d['guards_extra'], d['sha256'], d.get('set_prior_reg', 'mc'))")"
+# the opponent set data this brain was trained with (DEPLOYED.json); recorded per replay dir
+export VGC_SET_PRIOR_REG="$SET_PRIOR"
 [ "$(shasum -a 256 "$CKPT" | cut -d' ' -f1)" = "$SHA" ] || { echo "LADDER_REFUSED the deployed checkpoint does not match the manifest sha256"; exit 2; }
 DIR=${2:-ladder_replays_mc_deployed_$(basename "$TEAM" .txt)}
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"

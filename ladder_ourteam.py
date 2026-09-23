@@ -29,6 +29,7 @@ from torch import device
 
 from vgc_bench.src.policy import MaskedActorCriticPolicy
 from vgc_bench.src.policy_player import PolicyPlayer
+from vgc_bench.src.set_priors import prior_reg
 from vgc_bench.src.teams import RandomTeamBuilder
 from vgc_bench.src.utils import format_map, prior_path
 
@@ -135,6 +136,10 @@ def record_run_config(
     material["guard_profile_resolved"] = guard_profile
     material["mask_immunities"] = not args.no_immunity_mask
     material["moveset_prior"] = not args.no_moveset_prior
+    # Which opponent set data the brain reads (VGC_SET_PRIOR_REG override or the
+    # format's own). It moves results by several points (2026-09-23 side-by-side),
+    # so a replay dir must never mix the two.
+    material["set_prior_reg"] = prior_reg(format_map[args.reg])
     run_config = (
         json.loads(run_config_path.read_text())
         if run_config_path.exists()

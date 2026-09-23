@@ -110,6 +110,15 @@ class TestRecordRunConfig:
         with pytest.raises(SystemExit, match="checkpoint_sha256"):
             record_run_config(tmp_path, _args(), "different", "hard")
 
+    def test_set_prior_data_is_material(self, tmp_path, monkeypatch):
+        monkeypatch.delenv("VGC_SET_PRIOR_REG", raising=False)
+        path = record_run_config(tmp_path, _args(reg="mc"), "abc123", "hard")
+        material = json.loads(path.read_text())["runs"][0]["material"]
+        assert material["set_prior_reg"] == "mc"
+        monkeypatch.setenv("VGC_SET_PRIOR_REG", "mb")
+        with pytest.raises(SystemExit, match="set_prior_reg"):
+            record_run_config(tmp_path, _args(reg="mc"), "abc123", "hard")
+
 
 class TestPreviewRules:
     def test_known_setters_rank_high(self):

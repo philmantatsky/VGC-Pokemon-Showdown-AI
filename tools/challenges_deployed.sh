@@ -17,10 +17,12 @@ case "$N" in
 esac
 [ "$N" -gt 0 ] || { echo "CHALLENGE_REFUSED n_challenges must be positive"; exit 2; }
 
-read -r CKPT TEAM GUARDS CKPT_SHA TEAM_SHA REG FORMAT <<<"$(.venv/bin/python -c "
+read -r CKPT TEAM GUARDS CKPT_SHA TEAM_SHA REG FORMAT SET_PRIOR <<<"$(.venv/bin/python -c "
 import json
 d=json.load(open('$MANIFEST'))['deployed']
-print(d['checkpoint'], d['team'], d['guards_extra'], d['sha256'], d['team_sha256'], d['reg'], d['format'])")"
+print(d['checkpoint'], d['team'], d['guards_extra'], d['sha256'], d['team_sha256'], d['reg'], d['format'], d.get('set_prior_reg', 'mc'))")"
+# the opponent set data this brain was trained with (DEPLOYED.json)
+export VGC_SET_PRIOR_REG="$SET_PRIOR"
 
 # default replay dir follows the deployed team (T4 until 2026-09-23, then T6)
 DIR=${DIR_ARG:-challenge_replays_mc_deployed_$(basename "$TEAM" .txt)}

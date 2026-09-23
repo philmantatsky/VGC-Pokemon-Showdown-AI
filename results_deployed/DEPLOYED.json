@@ -10,7 +10,8 @@
   "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather",
   "knowledge_obs": true,
   "search": false,
-  "set_prior_data": "Reg M-C (data/joint_sets_regmc.json), the data this brain was trained with"
+  "set_prior_reg": "mc",
+  "set_prior_note": "T6 was fine-tuned with the Reg M-C set data (data/joint_sets_regmc.json)"
  },
  "promoted_at": "2026-09-23T05:19:54+00:00",
  "promoted_by": "user decision 2026-09-23: 'we want that new team that i showed the one with all three starters'",
@@ -29,14 +30,17 @@
   "team_sha256": "4dad9037ecee3a2d6af9a0937b21034bf364c8cf8728a18a7fbba5ae7f80da9a",
   "deployed": "2026-09-20 -> 2026-09-23",
   "ladder": "27-23 over 50 serial games 2026-09-20, Elo 1104 -> peak 1321, settling ~1250-1300",
-  "note": "immutable prior champion; never overwritten. Laddered with Reg M-B set data; the Reg M-C vs M-B set-data comparison is results_set_prior_ablation_T4."
+  "note": "immutable prior champion; never overwritten. Laddered with Reg M-B set data; the Reg M-C vs M-B set-data comparison is results_set_prior_ablation_T4.",
+  "set_prior_reg": "mb",
+  "set_prior_note": "T4 plays better with the Reg M-B set data it was trained and laddered with: Reg M-C data -1.97pp pooled, 95% [-3.66, -0.32], -6.6..-8.5pp in hidden-sheet games vs rotation2 / rotation1 / new human clone (results_set_prior_ablation_T4). Run it with VGC_SET_PRIOR_REG=mb."
  },
  "history": [
   {
    "checkpoint": "results_deployed/champion_mc_T4.zip",
    "team": "teams/candidates_mc/T4.txt",
    "from": "2026-09-20",
-   "to": "2026-09-23"
+   "to": "2026-09-23",
+   "set_prior_reg": "mb"
   },
   {
    "checkpoint": "results_league/league_champion.zip",

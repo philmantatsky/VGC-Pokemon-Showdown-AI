@@ -30,9 +30,13 @@ set -uo pipefail
 cd "$(dirname "$0")"
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 REG=${REG:-mc}
-read -r DEP_CKPT DEP_TEAM DEP_SHA <<<"$(.venv/bin/python -c "
-import json; d=json.load(open('results_deployed/DEPLOYED.json'))['deployed']; print(d['checkpoint'], d['team'], d['sha256'])")"
+read -r DEP_CKPT DEP_TEAM DEP_SHA DEP_PRIOR <<<"$(.venv/bin/python -c "
+import json; d=json.load(open('results_deployed/DEPLOYED.json'))['deployed']; print(d['checkpoint'], d['team'], d['sha256'], d.get('set_prior_reg', 'mc'))")"
 CHECKPOINT=${CHECKPOINT:-$DEP_CKPT}
+# the deployed brain reads the set data it was trained with; any other checkpoint
+# uses SET_PRIOR (env) or the format default
+if [ "$CHECKPOINT" = "$DEP_CKPT" ]; then SET_PRIOR=${SET_PRIOR:-$DEP_PRIOR}; fi
+if [ -n "${SET_PRIOR:-}" ]; then export VGC_SET_PRIOR_REG="$SET_PRIOR"; fi
 TEAM=${TEAM:-$DEP_TEAM}
 if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$(shasum -a 256 "$CHECKPOINT" | cut -d' ' -f1)" != "$DEP_SHA" ]; then
   echo "EXHIBITION_REFUSED deployed checkpoint does not match DEPLOYED.json"; exit 2

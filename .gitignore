@@ -214,3 +214,11 @@ results_opening_t6/*
 !results_opening_t6/*.manifest.json
 # direct-challenge replays stay local, like ladder replays
 challenge_replays*/
+# set-data side-by-side (2026-09-23): review, scorecards and manifests are the evidence
+!results_set_prior_ablation_T4/
+results_set_prior_ablation_T4/*
+!results_set_prior_ablation_T4/REVIEW.md
+!results_set_prior_ablation_T4/scorecard.json
+!results_set_prior_ablation_T4/manifest.json
+!results_set_prior_ablation_T4/status.json
+!results_set_prior_ablation_T4/t6_vs_t4_old_data.json

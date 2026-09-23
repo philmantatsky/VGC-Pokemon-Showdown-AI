@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## Set-data side-by-side COMPLETE: T4 is better with its old data; T6 is measurably weaker than T4-as-laddered (2026-September 23, 01:10)
+
+`results_set_prior_ablation_T4/REVIEW.md` (6,204 new games, 00:18-01:00; the
+new-data arm is Codex's verified T4 arm). The T4 brain with Codex's Reg M-C set
+data vs the Reg M-B data it trained and laddered with: pooled **-1.97pp, 95%
+[-3.66, -0.32]** (new minus old); new human clone -4.0, rotation1 -5.0,
+rotation2 -3.8, frozen +0.7, previous clone -0.2, heuristic +0.5. The loss sits
+in HIDDEN-sheet games (-8.5 / -7.7 / -6.6 against the new clone and the two
+rotations; open-sheet deltas within +-2.3) -- exactly where set guesses enter
+the observation. A brain reads the guesses it trained with; "more accurate"
+inputs it never saw make it worse. Codex's data is right for T6 (fine-tuned on
+it), wrong for T4.
+
+Consequence: Codex's T6-vs-T4 study ran T4 handicapped. Against T4 with its own
+data on the same rosters (`t6_vs_t4_old_data.json`): T6 **-4.30pp, 95% [-7.90,
+-0.89]** pooled (frozen -7.6, rotation2 -6.4, previous clone -6.3, rotation1
+-3.3, new clone -1.6, heuristic -0.6); equal-population means T4 88.1% vs T6
+83.8%. Locally T6 is measurably weaker than T4 as laddered. T6 stays deployed:
+the user's decision; switching back is a `DEPLOYED.json` change.
+
+Made actionable (tests pass, 443): `DEPLOYED.json` records `set_prior_reg` per
+brain (T6 `mc`, T4 `mb`); `tools/ladder_deployed.sh`, the challenge listener and
+`exhibition_mode.sh` export it as `VGC_SET_PRIOR_REG`; `ladder_ourteam.py`
+records it in each replay dir's material config, so a dir can never mix set data
+(new test). Local Showdown server stopped; nothing running.
+
 ## PROMOTED by the user: T6 (Kanto starters) is the deployed configuration; Codex's work committed; set-data side-by-side running (2026-September 23)
 
 The user, 2026-09-23: `commit codex's work and run the side by side test, also
