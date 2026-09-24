@@ -2330,6 +2330,208 @@ def guard_dominated_weather_ball_weather(battle, cands, report) -> list[Candidat
     return _demote(cands, dead, "dominated_weather_ball_weather", report)
 
 
+# Attacks whose value is more than their damage (item removal, protect-breaking,
+# screen-breaking, stat resets, conditional or fixed damage). dominated_attack never
+# swaps them away and never promotes them.
+_EFFECT_ATTACKS = frozenset(
+    {
+        "belch",
+        "brickbreak",
+        "bugbite",
+        "burnup",
+        "chloroblast",
+        "clearsmog",
+        "comeuppance",
+        "counter",
+        "covet",
+        "doomdesire",
+        "doubleshock",
+        "dreameater",
+        "feint",
+        "fling",
+        "focuspunch",
+        "futuresight",
+        "incinerate",
+        "knockoff",
+        "lastresort",
+        "metalburst",
+        "mindblown",
+        "mirrorcoat",
+        "naturalgift",
+        "pluck",
+        "pollenpuff",
+        "psychicfangs",
+        "ragingbull",
+        "spectralthief",
+        "steelbeam",
+        "thief",
+    }
+)
+DOMINATED_ATTACK_RATIO = 1.25
+DOMINATED_ATTACK_MIN_GAIN = 0.05
+DOMINATED_ATTACK_KO_WEIGHT = 0.5
+
+
+def _plain_attack(move: Move) -> bool:
+    """A damaging move whose only job is its damage this turn.
+
+    Excludes priority (moving first is the point), pivots, guaranteed secondary
+    effects (Fake Out's flinch, Icy Wind's speed drop, Snarl, Throat Chop),
+    two-turn and recharge moves, self-destruction, fixed damage and the explicit
+    effect list above.
+    """
+    return (
+        move.category != MoveCategory.STATUS
+        and float(move.base_power or 0) > 0
+        and move.priority <= 0
+        and not move.self_switch
+        and not move.self_destruct
+        and not move.damage
+        and not {"charge", "recharge"} & set(move.flags or ())
+        and not any(
+            (effect.get("chance") or 0) >= 100 for effect in move.secondary or ()
+        )
+        and move.id not in _EFFECT_ATTACKS
+        and move.id not in FIRST_TURN_ONLY
+    )
+
+
+def _capped_roll(lo: float, hi: float, hp: float) -> tuple[float, float]:
+    """(E[min(D, hp)], P(D >= hp)) for a damage roll D ~ uniform[lo, hi]."""
+    if hp <= 0:
+        return 0.0, 0.0
+    if hi <= lo:
+        return min(lo, hp), float(lo >= hp)
+    if hi < hp:
+        return (lo + hi) / 2, 0.0
+    if lo >= hp:
+        return hp, 1.0
+    expected = ((hp * hp - lo * lo) / 2 + hp * (hi - hp)) / (hi - lo)
+    return expected, (hi - hp) / (hi - lo)
+
+
+def _partner_damage(battle: DoubleBattle, actions, pos: int) -> dict[int, float]:
+    """Expected damage (fraction of max HP) the partner's attack deals per foe."""
+    partner_pos = 1 - pos
+    partner = battle.active_pokemon[partner_pos]
+    if partner is None or partner.fainted:
+        return {}
+    order = _decode(battle, actions[partner_pos], partner_pos)
+    move, targets = _move_and_targets(battle, order, partner_pos)
+    if move is None or move.category == MoveCategory.STATUS:
+        return {}
+    accuracy = float(move.accuracy or 1.0)
+    dealt = {}
+    for foe in targets:
+        fraction = K.damage_fraction(battle, partner, foe, move)
+        if fraction is not None:
+            dealt[id(foe)] = accuracy * (fraction[0] + fraction[1]) / 2
+    return dealt
+
+
+def _attack_value(
+    battle: DoubleBattle, attacker: Pokemon, order, pos: int, already: dict[int, float]
+):
+    """Accuracy-weighted damage the order deals to foes, capped at the HP they have
+    left after the partner's attack, plus a knockout bonus; None when the
+    calculator cannot evaluate every foe it hits."""
+    move, targets = _move_and_targets(battle, order, pos)
+    if move is None or not targets:
+        return None
+    accuracy = float(move.accuracy or 1.0)
+    total = 0.0
+    for foe in targets:
+        fraction = K.damage_fraction(battle, attacker, foe, move)
+        if fraction is None:
+            return None
+        left = float(foe.current_hp_fraction or 0.0) - already.get(id(foe), 0.0)
+        expected, p_ko = _capped_roll(fraction[0], fraction[1], max(left, 0.0))
+        total += accuracy * (expected + DOMINATED_ATTACK_KO_WEIGHT * p_ko)
+    return total
+
+
+def _gimmicks(order) -> tuple[bool, bool, bool, bool]:
+    return tuple(  # type: ignore[return-value]
+        bool(getattr(order, flag, False))
+        for flag in ("mega", "z_move", "dynamax", "terastallize")
+    )
+
+
+def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
+    """Swap an attack for a clearly stronger attack of the same Pokemon.
+
+    Ladder 2026-09-24 (T6 + human openings, games 1-2): Leaf Storm at -2 SpA into
+    Mega Emboar (resisted, 90% accurate) with Sludge Bomb available; Water Pulse
+    halved by sun into Snorlax while Ice Beam hit twice as hard; Ice Beam into
+    Farigiraf on turn 1 over a full-HP Water Spout that also hit Incineroar super
+    effectively; Water Pulse into Mega Camerupt when Water Spout KO'd it AND hit
+    Hatterene. The policy ranked the better attack (7-20%) and nothing compared
+    one move with another. For each slot of the top pair using a plain attack,
+    the ranked pairs that keep the partner's action and use another plain attack
+    of the same Pokemon (same Mega/Tera choice, not hitting its ally) are scored
+    with the calculator: expected damage per foe hit, capped at the HP the foe
+    has left after the partner's attack, times accuracy, plus half a point per
+    expected knockout. The
+    best one is promoted when it scores at least 1.25x the policy's attack and
+    0.05 more. Only pairs the policy already ranked are promoted, so every action
+    is legal. Stands down when the calculator cannot evaluate an option.
+    Opt-in: not in HARD_GUARDS until it passes its A/B.
+    """
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if not live:
+        return cands
+    top = live[0]
+    best = top
+    for pos in (0, 1):
+        attacker = battle.active_pokemon[pos]
+        if attacker is None or attacker.fainted:
+            continue
+        order = _decode(battle, best.actions[pos], pos)
+        move = getattr(order, "order", None)
+        if not isinstance(move, Move) or not _plain_attack(move):
+            continue
+        # Damage the partner already puts on a foe is not ours to gain: a foe it
+        # knocks out is worth nothing more, so no option overkills into it.
+        already = _partner_damage(battle, best.actions, pos)
+        current = _attack_value(battle, attacker, order, pos, already)
+        if current is None:
+            report.demotions["dominated_attack:no_calc"] += 1
+            continue
+        winner, winner_value = None, current
+        for candidate in live:
+            if (
+                candidate.actions[1 - pos] != best.actions[1 - pos]
+                or candidate.actions[pos] == best.actions[pos]
+            ):
+                continue
+            alternative = _decode(battle, candidate.actions[pos], pos)
+            alt_move = getattr(alternative, "order", None)
+            if (
+                not isinstance(alt_move, Move)
+                or not _plain_attack(alt_move)
+                or alt_move.target == Target.ALL_ADJACENT
+                or (getattr(alternative, "move_target", 0) or 0) < 0
+                or _gimmicks(alternative) != _gimmicks(order)
+            ):
+                continue
+            value = _attack_value(battle, attacker, alternative, pos, already)
+            if value is not None and value > winner_value:
+                winner, winner_value = candidate, value
+        if (
+            winner is not None
+            and winner_value >= current * DOMINATED_ATTACK_RATIO
+            and winner_value - current >= DOMINATED_ATTACK_MIN_GAIN
+        ):
+            best = winner
+    if best is top:
+        return cands
+    # Inherit the corrected pair's confidence so the opponent reranker, which
+    # scores log(prob / top prob), does not simply put the weaker attack back.
+    best.prob = max(best.prob, top.prob)
+    report.demotions["dominated_attack:promoted"] += 1
+    return _promote_candidate(cands, best, "dominated_attack", report)
+
+
 GUARDS = {
     "zero_damage": guard_zero_damage,
     "first_turn": guard_first_turn,
@@ -2346,6 +2548,7 @@ GUARDS = {
     "resisted_target": guard_resisted_target,
     "overkill_split": guard_overkill_split,
     "dominated_weather_ball_weather": guard_dominated_weather_ball_weather,
+    "dominated_attack": guard_dominated_attack,
     "protect_spam": guard_protect_spam,
     "guaranteed_ko": guard_guaranteed_ko,
     "reserve_weather_mega": guard_reserve_weather_mega,
@@ -2407,6 +2610,7 @@ GUARD_ORDER = (
     "encore_exposure",
     "dominated_weather_ball",
     "single_target_weather_ball",
+    "dominated_attack",
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",
