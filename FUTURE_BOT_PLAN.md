@@ -1,6 +1,6 @@
 # Future-Looking VGC Bot Checklist
 
-## Deployed configuration: T6 (September 23)
+## Deployed configuration: T6 + human openings (September 24; T6 from September 23)
 
 - [x] Codex's T6 work committed (82db6ba).
 - [x] **T6 PROMOTED by the user 2026-09-23** (`results_deployed/champion_mc_T6.zip`
@@ -25,9 +25,12 @@
   21,135,360, the pre-declared pick); practice adds +9.6 on identical openings;
   3 leads / 5 fours by matchup. Remaining weakness: rain matchups with the
   Farigiraf + Incineroar / Charizard + Venusaur openings.
-- [ ] **User decision:** promote save 21,135,360 + the model preview
-  (`results_deployed/champion_mc_T6hp.zip`, learned-preview manifest fields), then
-  a serial ladder read -- both only on the user's word.
+- [x] **PROMOTED by the user 2026-09-24** ("make it the official bot and run 25
+  ladder games"): `results_deployed/champion_mc_T6hp.zip` (save 21,135,360, sha
+  c5e92237) + the model preview (a9de37c); T6 is now an immutable prior champion.
+- [ ] 25-game serial ladder read (`tools/ladder_deployed.sh 25`, replay dir
+  `ladder_replays_mc_deployed_T6_humanpreview1`), started 11:27; review openings,
+  losses and Elo against T6's 21-29 and T4's 27-23.
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.
 - [x] Deployment plumbing for a learned preview, ready but unused:

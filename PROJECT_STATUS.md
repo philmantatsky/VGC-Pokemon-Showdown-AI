@@ -1,5 +1,21 @@
 # VGC Bot Project Status
 
+## PROMOTED by the user: T6 trained on human openings + the model preview; 25-game ladder read running (2026-September 24, 11:30)
+
+The user, after the results: "make it the official bot and run 25 ladder games".
+Promotion (a9de37c): save 21,135,360 copied to `results_deployed/champion_mc_T6hp.zip`
+(sha c5e92237..., verified against the source; metadata sidecar stamped
+`requires_knowledge_obs: true`); DEPLOYED.json `deployed` = that checkpoint, team
+T6, the three opt-in guards, `set_prior_reg: mc`, `learned_preview: true`,
+`preview_model: data/preview_t6_focus_20260923.pt` (+ sha), `replay_tag:
+T6_humanpreview1`; T6 -> `previous_deployed` and history (21-29 on ladder), T4's
+history entry keeps its 27-23. Workspace CLAUDE.md: five immutable prior
+champions. Ladder read started 11:27 (`tools/ladder_deployed.sh 25`, serial,
+dir `ladder_replays_mc_deployed_T6_humanpreview1`): session log confirms
+`preview : learned; opponent model=data/preview_t6_focus_20260923.pt`,
+knowledge_obs on, search off, opponent-aware rerank on (as for every
+deployment).
+
 ## Human-opening cycle: BOTH SAVES BETTER than the deployed T6 brain; recommended save 21,135,360 + the model's preview; promotion and ladder await the user (2026-September 24, 05:20)
 
 Chain complete 05:02 (training 01:33-03:32, 983,040 steps, ~138 steps/s, return
