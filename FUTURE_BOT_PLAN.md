@@ -33,13 +33,12 @@
   losses and Elo against T6's 21-29 and T4's 27-23.
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.
-- [x] Deployment plumbing for a learned preview, ready but unused:
+- [x] Deployment plumbing for a learned preview (in use since 2026-09-24):
   `DEPLOYED.json` fields `learned_preview: true`, `preview_model`,
   `preview_model_sha256`, optional `replay_tag` (fresh replay dirs); all launchers
   read the manifest through `tools/deployed_config.py` (sha-verified). One model
   serves our preview and the opponent-plan belief: on the 50 T6 ladder opponents
   the focus model predicts their plans as well as today's top-500 model.
-- [ ] Promotion of a model-preview configuration: only on the user's word.
 
 ## Current priority — T6 diagnosis-first repair (September 20)
 
