@@ -60,6 +60,17 @@
     "vgc_bench/src/vgc_knowledge.py": "c2eafb9f69f8f407f32e24027c286724d5ccb73b5bd8e276771ff997edfd7432",
     "vgc_bench/train.py": "fdfb92bd33cec6c6c961022dc03ff78a2d190f318b2689a15504d531edfb9870",
     "vgc_bench/visualize.py": "01a8f4fd633e63cd4c77660b902663a26002aa73b1c58650abc5db9fa6d2c054",
-    "training/human_preview.py": "d163e5aead162ce8b368812869c9d57ddcdd673b556e85a6706a778af280e3d9"
-  }
+    "training/human_preview.py": "9473f30ed547a0e956c72974c8ef3a3926fe669e99d66067c31e83a08701f9d3"
+  },
+  "amendments": [
+    {
+      "date": "2026-09-24 01:45",
+      "change": "training/human_preview.py fork fix (commit 87712a6): prepare_workers() empties the forkserver preload",
+      "old_sha256": "d163e5aead162ce8b368812869c9d57ddcdd673b556e85a6706a778af280e3d9",
+      "new_sha256": "9473f30ed547a0e956c72974c8ef3a3926fe669e99d66067c31e83a08701f9d3",
+      "why": "attempt 1 (01:26:29-01:26:41) crashed at worker startup before any training step: Python 3.13's forkserver preloaded the launcher, importing poke-env (dead event loop in every forked worker) and torch; macOS killed every worker. No checkpoint, tensorboard log or league file was written.",
+      "recipe_changed": false,
+      "attempt1_log": "training_attempt1_forkcrash.log"
+    }
+  ]
 }

@@ -1,5 +1,47 @@
 # VGC Bot Project Status
 
+## Control arm complete (no clear change; unpractised leads collapse); training attempt 1 crashed at worker start and was fixed; attempt 2 running (2026-September 24, 01:50)
+
+**Control arm** (deployed T6 brain unchanged, our preview chosen by
+`data/preview_t6_focus_20260923.pt`, vs the pinned deployed-T6 arm with its own
+preview; 6 populations x 47 held-out rosters x 22 games):
+
+| Opponent | Model preview | Own preview | Delta [95%] |
+|---|---:|---:|---:|
+| New held-out human clone | 82.8% | 84.3% | -1.5 [-10.9, +7.1] |
+| Frozen PPO | 82.7% | 83.1% | -0.4 [-7.8, +7.4] |
+| Rotation 1 | 82.4% | 84.0% | -1.6 [-9.8, +6.3] |
+| Rotation 2 | 83.1% | 84.8% | -1.7 [-10.0, +7.0] |
+| Previous held-out human clone | 76.0% | 78.1% | -2.1 [-10.8, +6.2] |
+| Scripted heuristic | 80.9% | 88.6% | -7.6 [-12.4, -2.9] |
+| **Pooled** | | | **-2.51 [-6.93, +1.95]** |
+
+Verdict by the pre-registered rule: no clear change. By the lead the model
+chose (same rosters for both arms): Blastoise + Farigiraf (83% of games) 84.5%
+vs 82.4% own lead (+2.1); Farigiraf + Incineroar (11%) 62.4% vs 90.2%;
+Charizard + Venusaur (6%) 72.0% vs 92.4%. The model leaves Trick Room exactly
+where the old brain's Trick Room line already wins 90%+, and the old brain
+cannot pilot the replacements -- the gap the training cycle is meant to close.
+Read-out script: scratch `hp_analysis.py` (each save is also compared with this
+control arm on identical openings, isolating what practice adds in battle).
+
+**Training attempt 1 crashed at worker startup** (01:26:29-01:26:41, zero
+steps): Python 3.13's forkserver preloads a path-run `__main__`, so the launcher
+`training/human_preview.py` installed its patch -- importing poke-env and torch
+and loading the model -- inside the forkserver, and every worker was forked from
+that process. poke-env starts its event-loop thread at any import and never
+restarts it after a fork (dead loop in every worker), and macOS killed the
+workers ("+[NSNumber initialize] may have been in progress in another thread
+when fork() was called"). My earlier fork check passed only because its toy
+children never used the loop. Fix 87712a6: `prepare_workers()` empties the
+forkserver preload, so each worker re-runs the launcher after the fork (tests:
+real forkserver workers are patched and run a coroutine on the poke-env loop;
+negative control shows the dead loop). The trial's pinned launcher hash was
+amended in `experiment.json` with the reason (recipe unchanged; attempt-1 log
+kept as `training_attempt1_forkcrash.log`). **Attempt 2 running since 01:33**:
+9 installs (main + 8 workers, each in its own process), human openings sampled
+for both sides, ~136 steps/s, ep_rew_mean 0.42 -> 0.58.
+
 ## Resumed the human-opening chain; launcher fixes; learned-preview deployment plumbing ready (2026-September 24, 01:05)
 
 The user: `continue`. 00:50: Showdown on 7610, the control arm resumed with its

@@ -1,5 +1,5 @@
 {
-  "phase": "frozen",
-  "arm": "deployed_learned_preview",
-  "started": 1790175147.954746
+  "phase": "complete_review_required",
+  "promoted": false,
+  "ladder_games": 0
 }
