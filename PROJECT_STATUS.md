@@ -1,5 +1,14 @@
 # VGC Bot Project Status
 
+## Tie-break declared before save 2 reports (2026-September 24, 04:10)
+
+The pre-registered rule (0765aad) grades each save but never says which to
+recommend if BOTH pass "better". Declared now, while save 1 is four
+populations in (+3.8 / +6.9 / +6.6 / +8.2) and save 2 has not started: **the
+higher pooled mean delta; within 0.5pp, the later save (more practice).** A save
+that fails its own grade is never recommended. Recommendation only: promotion
+and ladder stay the user's call.
+
 ## Control arm complete (no clear change; unpractised leads collapse); training attempt 1 crashed at worker start and was fixed; attempt 2 running (2026-September 24, 01:50)
 
 **Control arm** (deployed T6 brain unchanged, our preview chosen by
