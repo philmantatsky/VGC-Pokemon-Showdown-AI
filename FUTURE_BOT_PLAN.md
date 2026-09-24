@@ -28,9 +28,13 @@
 - [x] **PROMOTED by the user 2026-09-24** ("make it the official bot and run 25
   ladder games"): `results_deployed/champion_mc_T6hp.zip` (save 21,135,360, sha
   c5e92237) + the model preview (a9de37c); T6 is now an immutable prior champion.
-- [ ] 25-game serial ladder read (`tools/ladder_deployed.sh 25`, replay dir
-  `ladder_replays_mc_deployed_T6_humanpreview1`), started 11:27; review openings,
-  losses and Elo against T6's 21-29 and T4's 27-23.
+- [x] Ladder read started 11:27, stopped by the user at 2-1 after spotting
+  move-choice mistakes; `dominated_attack` built, A/B locally neutral (+0.05pp),
+  **mirror 71.5% [69.5, 73.4]** (wins close games); DEPLOYED at the user's word.
+- [x] `trick_room_direction` (user's Trick Room lesson): HURT where it acted
+  (-9.8pp); stopped; off. Redesign must judge by our whole brought four / plan.
+- [ ] Resume the ladder read with the attack check (22 games left; fresh dir
+  `ladder_replays_mc_deployed_T6_humanpreview1_attackcheck`) -- user's word.
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.
 - [x] Deployment plumbing for a learned preview (in use since 2026-09-24):

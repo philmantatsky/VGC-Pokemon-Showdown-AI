@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## Mirror match: the attack check WINS CLOSE GAMES -- 71.5% [69.5, 73.4] over 2,000 games (2026-September 24, 16:15)
+
+`results_mirror_dominated_attack/`: the deployed bot against itself, side A with
+`dominated_attack`, side B without (same brain, team, preview model, other
+guards; baseline exactly 50%). A won **1,430 / 2,000 = 71.5%, Wilson 95% [69.5,
+73.4]**, no ties; pre-registered reading: **the guard wins close games**. Every
+block agrees -- open sheets 69.4% (A challenging) / 68.6% (B challenging),
+hidden sheets 75.8% / 72.2% -- so it is not the seat. It changed A's attack 2.69
+times per game here (1.1 against the held-out opponents, whose games the bot
+mostly wins regardless). This is the user's point measured: "at higher elo ...
+each move matters so much" -- against an opponent as strong as the bot, the
+weaker-attack mistakes decide most games. The guard is already in the deployed
+configuration (50d6699). Ladder still OFF; 22 of the 25 games remain (resume
+needs the user's word; fresh replay dir `ladder_replays_mc_deployed_T6_humanpreview1_attackcheck`).
+
 ## trick_room_direction HURTS where it acts (-9.8pp); A/B stopped at 3/6 populations; NOT deployed (2026-September 24, 15:12)
 
 Populations: new human clone -1.6 [-4.0, +0.2], frozen +0.8 [-1.4, +3.1],
