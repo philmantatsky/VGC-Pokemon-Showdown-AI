@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## dominated_attack DEPLOYED at the user's word; mirror match pre-registered (2026-September 24, 15:15)
+
+The user, on the locally neutral result: "we still need to fix that problem,
+because at higher elo our opponents will win because of it esp cuz its 2v2 and
+only 4 mons each move matters so much". DEPLOYED.json amended (50d6699):
+`guards_extra` += `dominated_attack`, fresh `replay_tag`
+T6_humanpreview1_attackcheck (the 3 games before the change stay in their own
+dir); the checkpoint and preview model are unchanged; `amendments` records it.
+`tools/deployed_config.py` now refuses unknown guard names (the bot would
+silently ignore a typo). Ladder still OFF (resume needs the user's word).
+
+**Mirror match (pre-registered now, runs after the Trick Room A/B):**
+`evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000`: the
+deployed bot against itself, side A with the guard, side B without -- same
+brain, team, preview model and other guards, so the baseline is exactly 50% and
+every game is as close as the bot can make it (the user's "each move matters"
+case the held-out opponents cannot show). Four blocks of 500: open/hidden sheets
+x which side challenges. Reading: **the guard wins close games** if A's Wilson
+95% lower bound is above 50%; loses them if the upper bound is below 50%; else
+inconclusive. The shared knowledge-observation cache is disabled for the mirror
+(its key cannot tell the two sides apart).
+
 ## dominated_attack A/B: DEPLOY-ELIGIBLE, locally neutral (pooled +0.05pp); trick_room_direction A/B running (2026-September 24, 13:45)
 
 `results_guard_ab_dominated_attack/` (the deployed configuration + the guard on
