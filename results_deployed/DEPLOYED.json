@@ -1,5 +1,35 @@
 {
  "deployed": {
+  "checkpoint": "results_deployed/champion_mc_T6hp.zip",
+  "sha256": "c5e922370dd22f6a984add87dddca78d9308dd6c915ac396434875aad1ab5f1a",
+  "source": "results_brainv1_t6_humanpreview1/saves_fp_xt_hs_wt/reg_mc/seed1/21135360.zip",
+  "team": "teams/candidates_mc/T6.txt",
+  "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
+  "reg": "mc",
+  "format": "gen9championsvgc2026regmc",
+  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather",
+  "knowledge_obs": true,
+  "search": false,
+  "set_prior_reg": "mc",
+  "set_prior_note": "T6 was fine-tuned with the Reg M-C set data (data/joint_sets_regmc.json)",
+  "learned_preview": true,
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
+  "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
+  "replay_tag": "T6_humanpreview1"
+ },
+ "promoted_at": "2026-09-24T16:26:58+00:00",
+ "promoted_by": "user 2026-09-24: 'make it the official bot and run 25 ladder games'",
+ "evidence": {
+  "team": "T6 (unchanged): the Kanto-starters sun + Trick Room team, teams/candidates_mc/T6.txt",
+  "training": "deployed T6 brain (20152320) + 983,040 steps with both sides' team previews sampled from the human-trained, team-focused preview model (training/human_preview.py, --no_teampreview; results_brainv1_t6_humanpreview1, pre-registered 0765aad); save 21135360 chosen by the tie-break declared before it reported (a84617e)",
+  "preview": "data/preview_t6_focus_20260923.pt chooses our four and leads (argmax per matchup): 3 lead pairs and 5 different fours by opponent; the deployed T6 brain always led Farigiraf + Torkoal",
+  "vs_previous_deployed_T6": "pooled equal-population delta +7.08pp, whole-roster bootstrap 95% [+3.69, +10.51], 6,204 local games vs the pinned deployed-T6 arm; every population positive (+4.9 .. +9.7); both sheet modes positive (results_candidate_vs_t6_humanpreview_21135360)",
+  "practice_effect": "+9.59pp [+6.72, +12.52] vs the deployed brain with the same model preview (identical openings)",
+  "known_weakness": "rain matchups when the model opens Farigiraf + Incineroar (83.1%) or Charizard + Venusaur (81.1%): these openings still trail the old Trick Room line on their matchups (-6.1 / -8.8pp)",
+  "ladder": "no ladder games yet; local gains have not always transferred to ladder (T6 went 21-29)"
+ },
+ "previous_deployed": {
   "checkpoint": "results_deployed/champion_mc_T6.zip",
   "sha256": "bed6840ee8a1d995c67aeb7d9dc69c59c27547633ba8c596bdfc6fe1fb1d83b3",
   "source": "results_brainv1_t6_repair1/saves_fp_hs_wt/reg_mc/seed1/20152320.zip",
@@ -11,36 +41,26 @@
   "knowledge_obs": true,
   "search": false,
   "set_prior_reg": "mc",
-  "set_prior_note": "T6 was fine-tuned with the Reg M-C set data (data/joint_sets_regmc.json)"
- },
- "promoted_at": "2026-09-23T05:19:54+00:00",
- "promoted_by": "user decision 2026-09-23: 'we want that new team that i showed the one with all three starters'",
- "evidence": {
-  "team": "T6 = the Kanto-starters sun + Trick Room team (Incineroar version) reconstructed from the player dksnnfud's public replays; provenance per Pokemon in teams/candidates_mc/manifest.json",
-  "training": "brain-v1 generalist save 19660800 + one bounded T6 repair run by Codex (results_brainv1_t6_repair1), save 20152320 selected on a 300-game held-out read",
-  "vs_generalist_on_T6": "84.6% vs 56.6%, 12,408 local games, six populations, both sheet modes (results_t6_confirmation_v2)",
-  "vs_previous_deployed_T4": "T6 83.8% vs T4 86.2%, 12,408 local games; equal-population delta -2.34pp, roster-bootstrap 95% [-5.75, +0.93]; frozen PPO -8.3pp [-15.1, -2.4] (results_t6_vs_deployed_v1). Not an improvement locally; promoted on the user's decision.",
-  "known_weakness": "Farigiraf is often knocked out on turn 1 before Trick Room goes up; the trained brain brings the same four and leads (Torkoal + Farigiraf, Blastoise + Charizard back) in every game",
-  "ladder": "no ladder games yet"
- },
- "previous_deployed": {
-  "checkpoint": "results_deployed/champion_mc_T4.zip",
-  "sha256": "af4e78a55b3e40e161aeef431af6ec513983cb9756b94751f101b9281ed8e397",
-  "team": "teams/candidates_mc/T4.txt",
-  "team_sha256": "4dad9037ecee3a2d6af9a0937b21034bf364c8cf8728a18a7fbba5ae7f80da9a",
-  "deployed": "2026-09-20 -> 2026-09-23",
-  "ladder": "27-23 over 50 serial games 2026-09-20, Elo 1104 -> peak 1321, settling ~1250-1300",
-  "note": "immutable prior champion; never overwritten. Laddered with Reg M-B set data; the Reg M-C vs M-B set-data comparison is results_set_prior_ablation_T4.",
-  "set_prior_reg": "mb",
-  "set_prior_note": "T4 plays better with the Reg M-B set data it was trained and laddered with: Reg M-C data -1.97pp pooled, 95% [-3.66, -0.32], -6.6..-8.5pp in hidden-sheet games vs rotation2 / rotation1 / new human clone (results_set_prior_ablation_T4). Run it with VGC_SET_PRIOR_REG=mb."
+  "set_prior_note": "T6 was fine-tuned with the Reg M-C set data (data/joint_sets_regmc.json)",
+  "promoted_at": "2026-09-23T05:19:54+00:00",
+  "promoted_by": "user decision 2026-09-23: 'we want that new team that i showed the one with all three starters'"
  },
  "history": [
+  {
+   "checkpoint": "results_deployed/champion_mc_T6.zip",
+   "team": "teams/candidates_mc/T6.txt",
+   "from": "2026-09-23",
+   "to": "2026-09-24",
+   "set_prior_reg": "mc",
+   "ladder": "21-29 over 50 serial games 2026-09-23 (Elo 1253 -> ~1100)"
+  },
   {
    "checkpoint": "results_deployed/champion_mc_T4.zip",
    "team": "teams/candidates_mc/T4.txt",
    "from": "2026-09-20",
    "to": "2026-09-23",
-   "set_prior_reg": "mb"
+   "set_prior_reg": "mb",
+   "ladder": "27-23 over 50 serial games 2026-09-20, Elo 1104 -> peak 1321, settling ~1250-1300"
   },
   {
    "checkpoint": "results_league/league_champion.zip",
