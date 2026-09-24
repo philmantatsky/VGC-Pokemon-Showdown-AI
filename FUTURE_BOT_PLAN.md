@@ -19,10 +19,17 @@
   previews instead.
 - [x] Human-trained preview model for our kind of team
   (`data/preview_t6_focus_20260923.pt`; gankyburner 15-4 with 7 lead pairs).
-- [ ] Human-opening cycle (pre-registered 0765aad; replaces the lead curriculum):
-  control arm (deployed brain + model preview) -> `training/run_t6_human_preview_trial.py`
-  (both sides' previews sampled from the model, `--no_teampreview`) -> each save
-  with the model's preview vs the pinned deployed-T6 arm. Resumed 2026-09-24 00:50.
+- [x] Human-opening cycle (pre-registered 0765aad; replaces the lead curriculum),
+  2026-09-24: control arm no clear change (-2.51); **both trained saves BETTER**
+  than the deployed brain (+4.93 [+1.22, +8.82]; **+7.08 [+3.69, +10.51]** for
+  21,135,360, the pre-declared pick); practice adds +9.6 on identical openings;
+  3 leads / 5 fours by matchup. Remaining weakness: rain matchups with the
+  Farigiraf + Incineroar / Charizard + Venusaur openings.
+- [ ] **User decision:** promote save 21,135,360 + the model preview
+  (`results_deployed/champion_mc_T6hp.zip`, learned-preview manifest fields), then
+  a serial ladder read -- both only on the user's word.
+- [ ] Next training target (after the ladder read): the two openings still below
+  the old Trick Room line on their matchups, rain first.
 - [x] Deployment plumbing for a learned preview, ready but unused:
   `DEPLOYED.json` fields `learned_preview: true`, `preview_model`,
   `preview_model_sha256`, optional `replay_tag` (fresh replay dirs); all launchers

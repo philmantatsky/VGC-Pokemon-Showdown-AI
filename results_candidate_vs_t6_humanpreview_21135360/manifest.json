@@ -1,0 +1,36 @@
+{
+  "question": "humanpreview_21135360 vs the deployed T6 brain on T6",
+  "reference_study": "results_t6_vs_deployed_v1",
+  "reference_manifest_sha256": "e3c4fe7902420fc5d5defc557b363a54ef9b88eb98bebebd126f23b563fb1314",
+  "reference_arm": "results_t6_vs_deployed_v1/<population>_candidate_T6.jsonl",
+  "deployed_sha256": "bed6840ee8a1d995c67aeb7d9dc69c59c27547633ba8c596bdfc6fe1fb1d83b3",
+  "candidate": "results_brainv1_t6_humanpreview1/saves_fp_xt_hs_wt/reg_mc/seed1/21135360.zip",
+  "candidate_sha256": "c5e922370dd22f6a984add87dddca78d9308dd6c915ac396434875aad1ab5f1a",
+  "plans": "data/opening_plans_t6.json",
+  "team": "teams/candidates_mc/T6.txt",
+  "populations": [
+    "human_new",
+    "frozen",
+    "rotation1",
+    "rotation2",
+    "human_previous",
+    "heuristic"
+  ],
+  "matchups": 47,
+  "repeats": 11,
+  "seed": 20923,
+  "port": 7610,
+  "set_data": "Reg M-C (data/joint_sets_regmc.json) for both arms",
+  "our_preview": {
+    "model": "data/preview_t6_focus_20260923.pt",
+    "model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
+    "wrapper": "evaluation/learned_preview_study.py",
+    "wrapper_sha256": "350022e8a9780be3a8eebddd1d468f67f02338042a38b4b15f4241fbec65c383",
+    "opponent_belief": "discarded after preview"
+  },
+  "delta": "candidate minus deployed",
+  "battle_rng_paired": false,
+  "uncertainty": "whole-roster bootstrap; pooled = equal-population mean",
+  "limits": "8 concurrent local battles, one MPS process, 3h per invocation",
+  "decision": "Stop for review. Never promote or start ladder automatically."
+}

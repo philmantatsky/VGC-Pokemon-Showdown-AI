@@ -1,5 +1,60 @@
 # VGC Bot Project Status
 
+## Human-opening cycle: BOTH SAVES BETTER than the deployed T6 brain; recommended save 21,135,360 + the model's preview; promotion and ladder await the user (2026-September 24, 05:20)
+
+Chain complete 05:02 (training 01:33-03:32, 983,040 steps, ~138 steps/s, return
+invariant held; probes heuristic 0.83 -> 0.89, clone 0.81 -> 0.80). Each save
+played with OUR preview chosen by `data/preview_t6_focus_20260923.pt` (argmax),
+vs the pinned deployed-T6 arm with its own preview; 6 populations x 47 held-out
+rosters x 22 games = 6,204 games per arm; delta = arm minus deployed:
+
+| Opponent | Control (old brain) | Save 20,643,840 | Save 21,135,360 |
+|---|---:|---:|---:|
+| New held-out human clone | -1.5 [-10.9, +7.1] | +3.8 [-4.6, +12.7] | +4.9 [-2.8, +13.2] |
+| Frozen PPO | -0.4 [-7.8, +7.4] | +6.9 [+0.2, +14.1] | +9.7 [+3.5, +16.5] |
+| Rotation 1 | -1.6 [-9.8, +6.3] | +6.6 [+1.0, +12.8] | +7.8 [+1.8, +14.2] |
+| Rotation 2 | -1.7 [-10.0, +7.0] | +8.2 [+2.0, +15.1] | +7.5 [+1.3, +14.6] |
+| Previous held-out human clone | -2.1 [-10.8, +6.2] | +5.6 [-3.4, +14.9] | +7.4 [-1.0, +16.1] |
+| Scripted heuristic | -7.6 [-12.4, -2.9] | -1.5 [-5.9, +2.9] | +5.0 [+1.6, +8.4] |
+| **Pooled (equal-population)** | **-2.51 [-6.93, +1.95]** | **+4.93 [+1.22, +8.82]** | **+7.08 [+3.69, +10.51]** |
+| Verdict (pre-registered rule) | no clear change | **better** | **better** |
+
+Win rates, save 21,135,360 vs deployed: 89.3/84.3, 92.7/83.1, 91.9/84.0,
+92.4/84.8, 85.6/78.1, 93.6/88.6. Both sheet modes positive in every population
+(hidden +3.7..+11.2, open +3.3..+10.8). Tie-break (declared 04:10, before save
+2 reported): higher pooled mean -> **21,135,360** (+7.08 vs +4.93).
+
+**What practice added** -- each save vs the control arm, identical openings
+(the model's preview is deterministic per matchup): +7.45 [+4.71, +10.32] and
+**+9.59 [+6.72, +12.52]**. By the lead the model chose (all 6 populations):
+
+| Lead (share of games) | Deployed, own lead | Control | Save 1 | Save 2 |
+|---|---:|---:|---:|---:|
+| Blastoise + Farigiraf (83%) | 82.4% | 84.5% | 90.3% | **92.3%** |
+| Farigiraf + Incineroar (11%) | 90.2% | 62.4% | 82.3% | 84.1% |
+| Charizard + Venusaur (6%) | 92.4% | 72.0% | 79.3% | 83.6% |
+
+Mechanism (the user's ask, 2026-09-23: bring different Pokemon by matchup):
+3 lead pairs and 5 different fours by opponent (deployed: 1 and 1); Farigiraf +
+Torkoal 0%; Incineroar brought 68%, Venusaur 45% (deployed: 0% / 0%).
+
+By opponent archetype (save 2 vs deployed): Trick Room 77.7 -> 86.6 (+8.9, the
+ladder's pain point), Tailwind +7.3, Grassy/Fake Out +12.0, balance +11.8,
+**rain 89.5 -> 86.3 (-3.3)**: the remaining weakness, concentrated where the
+model opens Farigiraf + Incineroar (83.1% vs rain) or Charizard + Venusaur
+(81.1%) -- the two openings still below the old Trick Room line on their
+matchups (-6.1 / -8.8). Next training target: those openings, rain first.
+
+**Recommendation (the user decides):** promote save 21,135,360 with the model
+preview as a new artifact `results_deployed/champion_mc_T6hp.zip`
+(DEPLOYED.json `learned_preview: true`, `preview_model`, sha-verified by the
+launchers; `replay_tag` T6_humanpreview1 = fresh replay dirs), then a serial
+ladder read. Caveats: local gains have not always transferred to ladder (T6
+itself went 21-29); ladder play keeps the opponent-aware layer on, which local
+evaluation does not (as for every deployment so far); the focus model then also
+supplies the opponent-plan belief (checked equal to today's model, 01:05 entry).
+Nothing promoted; bot offline; no ladder game played.
+
 ## Tie-break declared before save 2 reports (2026-September 24, 04:10)
 
 The pre-registered rule (0765aad) grades each save but never says which to
