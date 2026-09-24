@@ -1,5 +1,18 @@
 # VGC Bot Project Status
 
+## Repo cleanup at the user's request: 63 GB -> 27 GB, nothing deleted (2026-September 24, 12:35)
+
+Moved (not deleted) to `../_cleanup_2026-09-24/` (README inside; the user drags
+it to the Trash when satisfied): `trajs_foundation` (25 GB), the Reg M-B human
+trajectories A/AC/C/D (~10 GB), `results_brainv1_attempt1_invalid`,
+`results_league2`'s checkpoints (its tracked manifest stays), and the old
+`vgc-bench-brainv1` worktree (branch brain-v1 merged and kept; worktree entry
+pruned). Each was checked with git grep: nothing in code or configs loads them.
+Kept: `trajs/`, `trajs_regmb_human_B`, every referenced results dir, battle logs,
+ladder replays, the champions and evaluation reference arms. The 179 run logs /
+outputs from the repo root now live in `logs/` (ignored); new launcher logs still
+land at the root. The running dominated_attack A/B was not touched.
+
 ## The user's Trick Room lesson -> `trick_room_direction` guard; its A/B pre-registered (2026-September 24, 12:20)
 
 The user, on ladder game 2: Armor Tail blocks Fake Out both ways (the bot

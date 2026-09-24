@@ -266,3 +266,6 @@ results_brainv1_t6_humanpreview1/*
 !results_brainv1_t6_humanpreview1/status.json
 !results_brainv1_t6_humanpreview1/league_config.json
 !results_brainv1_t6_humanpreview1/league_manifest.json
+
+# run logs moved out of the repo root (2026-09-24 cleanup); local only
+logs/
