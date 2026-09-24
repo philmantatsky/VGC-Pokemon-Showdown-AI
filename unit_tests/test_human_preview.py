@@ -103,3 +103,106 @@ def test_install_is_idempotent_and_refuses_missing_models(
     battle.format = "gen9championsvgc2026regmc"
     order = fallback(SimpleNamespace(), battle)
     assert order.startswith("/team ") and len(order) == len("/team ") + 4
+
+
+FORK_SCRIPT = """
+import json, multiprocessing, os, sys
+sys.path.insert(0, {root!r})
+os.environ["VGC_HUMAN_PREVIEW_MODEL"] = {model!r}
+from training import human_preview  # installs here, as the real launcher does
+
+
+def child(queue):
+    import asyncio
+    import threading
+
+    import poke_env.concurrency as concurrency
+    from poke_env.player.player import Player
+
+    alive = concurrency._t.is_alive()
+    ran = None
+    if alive:
+        job = asyncio.run_coroutine_threadsafe(
+            asyncio.sleep(0, result="ran"), concurrency.POKE_LOOP
+        )
+        ran = job.result(timeout=20)
+    marker = getattr(Player.random_teampreview, "_human_preview_model", None)
+    queue.put({{
+        "pid": os.getpid(),
+        "patched": bool(marker),
+        "loop_alive": alive,
+        "ran": ran,
+    }})
+
+
+if __name__ == "__main__":
+    if sys.argv[1] == "clean":
+        human_preview.prepare_workers()
+    ctx = multiprocessing.get_context("forkserver")
+    queue = ctx.Queue()
+    workers = [ctx.Process(target=child, args=(queue,)) for _ in range(2)]
+    for worker in workers:
+        worker.start()
+    results = [queue.get(timeout=120) for _ in workers]
+    for worker in workers:
+        worker.join(timeout=30)
+    print(json.dumps(results))
+"""
+
+
+def _fork_workers(tmp_path: Path, mode: str) -> list[dict]:
+    import json
+    import subprocess
+    import sys
+
+    root = Path(__file__).resolve().parents[1]
+    script = tmp_path / "launcher.py"  # path-run __main__, like human_preview.py
+    script.write_text(
+        FORK_SCRIPT.format(
+            root=str(root), model=str(root / "data/preview_t6_focus_20260923.pt")
+        )
+    )
+    done = subprocess.run(
+        [sys.executable, str(script), mode],
+        capture_output=True,
+        text=True,
+        timeout=300,
+        check=True,
+    )
+    return json.loads(done.stdout.strip().splitlines()[-1])
+
+
+def test_forkserver_workers_install_in_their_own_clean_process(tmp_path: Path) -> None:
+    """2026-09-24: preloading the launcher in the forkserver imported poke-env and
+    torch there; every forked worker got a dead event loop and macOS killed them.
+    With prepare_workers() each worker installs the patch itself and its loop runs."""
+    clean = _fork_workers(tmp_path, "clean")
+    assert len({w["pid"] for w in clean}) == 2
+    assert all(w["patched"] and w["loop_alive"] and w["ran"] == "ran" for w in clean)
+    # The negative control: the old way leaves every worker's event loop dead.
+    dirty = _fork_workers(tmp_path, "dirty")
+    assert all(w["patched"] and not w["loop_alive"] for w in dirty)
+
+
+def test_main_empties_the_forkserver_preload_before_training(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import multiprocessing.forkserver as forkserver
+
+    seen: dict[str, Any] = {}
+    server: Any = forkserver._forkserver  # private stdlib state, untyped
+    monkeypatch.setattr(server, "_preload_modules", ["__main__"], raising=True)
+    monkeypatch.setenv(human_preview.MODEL_ENV, "unused.pt")
+    monkeypatch.setattr(
+        "sys.argv", ["human_preview.py", "--", "--no_teampreview", "--reg", "mc"]
+    )
+    monkeypatch.setattr(
+        human_preview.runpy,
+        "run_module",
+        lambda name, **kw: seen.update(
+            name=name, preload=list(server._preload_modules), **kw
+        ),
+    )
+    human_preview.main()
+    assert seen["name"] == "vgc_bench.train" and seen["alter_sys"] is False
+    assert seen["preload"] == []

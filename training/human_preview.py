@@ -17,10 +17,12 @@ the model's plan distribution (probability ** (1/temperature)); anything that
 fails falls back to poke-env's random order.
 
 It must be active in every process. Training envs run in SubprocVecEnv workers
-started by a forkserver, which re-imports the main script; this file is the
-main script (it runs vgc_bench.train with runpy and alter_sys=False, so
-sys.modules["__main__"] stays this file), and it installs the patch at import
-time whenever VGC_HUMAN_PREVIEW_MODEL is set. vgc_bench/ stays byte-identical.
+started by a forkserver; this file is the main script (it runs vgc_bench.train
+with runpy and alter_sys=False, so sys.modules["__main__"] stays this file) and
+installs the patch at import time whenever VGC_HUMAN_PREVIEW_MODEL is set. The
+forkserver must NOT preload it (prepare_workers): each worker re-runs this file
+after it is forked, so the patch, the model and poke-env's event-loop thread all
+live in the worker's own process. vgc_bench/ stays byte-identical.
 
 Usage (from the repo root; everything after "--" goes to vgc_bench.train):
   VGC_HUMAN_PREVIEW_MODEL=data/preview_t6_focus_20260923.pt \\
@@ -36,6 +38,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+import multiprocessing
 import os
 import random
 import runpy
@@ -127,6 +130,20 @@ if os.environ.get(MODEL_ENV):  # every process, including forkserver workers
     install(Path(os.environ[MODEL_ENV]), float(os.environ.get(TEMPERATURE_ENV, "1.0")))
 
 
+def prepare_workers() -> None:
+    """Keep the forkserver empty so every worker installs the patch itself.
+
+    Python 3.13's forkserver preloads a path-run __main__ (this file) and forks
+    every worker from that process. Installing there imports poke-env, whose
+    event-loop thread does not exist in any forked child (its battles would never
+    run), and torch; on 2026-09-24 macOS killed every worker at startup
+    ("+[NSNumber initialize] may have been in progress in another thread when
+    fork() was called"). With no preload, each worker runs this file after the
+    fork (as __mp_main__), exactly like a fresh process.
+    """
+    multiprocessing.set_forkserver_preload([])
+
+
 def main() -> None:
     if not os.environ.get(MODEL_ENV):
         raise SystemExit(f"set {MODEL_ENV} to the preview model")
@@ -136,6 +153,7 @@ def main() -> None:
     if "--no_teampreview" not in args:
         raise SystemExit("run with --no_teampreview so the preview is not learned")
     sys.argv = ["vgc_bench.train", *args]
+    prepare_workers()  # before vgc_bench.train starts the forkserver
     # alter_sys=False keeps this file as __main__, so workers re-import it.
     runpy.run_module("vgc_bench.train", run_name="__main__", alter_sys=False)
 
