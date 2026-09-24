@@ -1,5 +1,41 @@
 # VGC Bot Project Status
 
+## Ladder stopped by the user after 3 games (2-1); dominated_attack guard built; its A/B PRE-REGISTERED (2026-September 24, 12:25)
+
+The user watched games 1-2 (pasted replays): "water moves are halved in sun",
+"we mightve won if our bot just clicked sludge bomb", "why are we using water
+pulse on camerupt when we can just water spout and hit both", "why did we ice
+beam the farafarig?", then "do that and turn off the ladder games rn". Ladder
+stopped 11:36 at 2-1 (`ladder_replays_mc_deployed_T6_humanpreview1`, 3 games, no
+game abandoned mid-play). The decision log confirms the policy picked the weaker
+of its own attacks while ranking the better one (Leaf Storm 0.76 vs Sludge Bomb
+0.07; Ice Beam into Farigiraf 0.22 vs full-HP Water Spout 0.19; Water Pulse into
+Camerupt 0.21-0.26 vs Water Spout 0.09-0.20); no guard compared one move with
+another (`resisted_target` only re-aims the same move). Human pilots DO bring
+Blastoise with Torkoal (12/30 known fours; their most common four is exactly
+game 1's) -- they manage it with Ice Beam in sun and Farigiraf's Rain Dance.
+
+**Fix:** `dominated_attack` (a8f6b05, opt-in): per slot of the top pair using a
+plain attack, the ranked pairs keeping the partner's action and using another
+plain attack of the same Pokemon are scored with the calculator (expected damage
+per foe, capped at the HP left after the partner's attack, x accuracy, +0.5 per
+expected KO); promote the best when >= 1.25x and +0.05. Never swaps utility
+attacks (priority, Fake Out, pivots, guaranteed secondaries, effect moves),
+never promotes ally-hitting or other-Mega actions, only pairs the policy ranked
+(always legal). Tests rebuild the ladder positions with poke-env's parser + the
+real calculator (Sludge Bomb 21% vs Leaf Storm 13% expected; Water Spout 41% +
+75% vs Ice Beam 22%; Water Spout KO + 62% vs Water Pulse KO).
+
+**A/B (pre-registered now, before any game):** `evaluation/run_guard_ab.py
+--guards dominated_attack`: the deployed configuration + the guard (our player
+only) vs the deployed configuration's promotion arm reused as "without" (valid:
+only `vgc_bench/src/guards.py` changed among the pins, the guard was off there,
+every new population's manifest must equal the reference's but the output path).
+6 populations x 47 held-out rosters x 22 games; pooled equal-population delta,
+whole-roster bootstrap 95%. **Deploy-eligible** (the user decides) if the guard
+fires, the pooled delta is not worse (upper bound >= 0) and no population's point
+estimate is below -3pp; "better" if the lower bound > 0. Otherwise it stays off.
+
 ## PROMOTED by the user: T6 trained on human openings + the model preview; 25-game ladder read running (2026-September 24, 11:30)
 
 The user, after the results: "make it the official bot and run 25 ladder games".

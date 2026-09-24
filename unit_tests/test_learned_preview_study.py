@@ -54,3 +54,20 @@ def test_install_patches_only_the_study_player(
 def test_install_refuses_a_missing_model(tmp_path: Path) -> None:
     with pytest.raises(FileNotFoundError):
         learned_preview_study.install(tmp_path / "missing.pt")
+
+
+def test_extra_guards_reach_our_player_only(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The PPO opponents share PolicyPlayer.guard_flags with our player, so an
+    extra guard must be a per-player override, never a class-level flag."""
+    monkeypatch.setattr(
+        opening_study.StudyPlayer, "__init__", lambda self, *a, **k: None
+    )
+    monkeypatch.setattr(PolicyPlayer, "guard_flags", {"resisted_target": True})
+    learned_preview_study.enable_guards(["dominated_attack"])
+    ours = opening_study.StudyPlayer()
+    assert ours.guard_overrides == {"dominated_attack": True}
+    assert PolicyPlayer.guard_flags == {"resisted_target": True}  # opponents unchanged
+    with pytest.raises(ValueError, match="not opt-in"):
+        learned_preview_study.enable_guards(["zero_damage"])  # a hard guard
+    with pytest.raises(ValueError, match="not opt-in"):
+        learned_preview_study.enable_guards(["no_such_guard"])

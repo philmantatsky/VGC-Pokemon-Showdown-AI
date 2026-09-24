@@ -255,6 +255,11 @@ results_candidate_vs_t6_humanpreview_21135360/*
 !results_candidate_vs_t6_humanpreview_21135360/manifest.json
 !results_candidate_vs_t6_humanpreview_21135360/scorecard.json
 !results_candidate_vs_t6_humanpreview_21135360/status.json
+!results_guard_ab_dominated_attack/
+results_guard_ab_dominated_attack/*
+!results_guard_ab_dominated_attack/manifest.json
+!results_guard_ab_dominated_attack/scorecard.json
+!results_guard_ab_dominated_attack/status.json
 !results_brainv1_t6_humanpreview1/
 results_brainv1_t6_humanpreview1/*
 !results_brainv1_t6_humanpreview1/experiment.json

@@ -17,7 +17,11 @@ byte-identical (the pinned reference arms of results_t6_vs_deployed_v1 remain
 valid). Usage (from the repo root):
 
   .venv/bin/python evaluation/learned_preview_study.py --preview-model <model.pt> \\
-      -- <opening_study arguments>
+      [--extra-guards name,...] -- <opening_study arguments>
+
+--extra-guards (2026-09-24) also turns on opt-in guards for OUR player only
+(a per-player override; the opponents keep the study's class-level set). The
+arm manifest records the class-level flags, so the harness records the extras.
 """
 
 from __future__ import annotations
@@ -31,6 +35,7 @@ sys.path.insert(0, str(ROOT))
 import argparse
 
 from evaluation import opening_study
+from vgc_bench.src.guards import GUARDS, HARD_GUARDS
 from vgc_bench.src.policy_player import PolicyPlayer
 
 
@@ -61,13 +66,41 @@ def install(model: Path) -> None:
     PolicyPlayer._learned_teampreview = _learned_teampreview  # type: ignore[method-assign]
 
 
+def enable_guards(names: list[str]) -> None:
+    """Opt-in guards for OUR player only, on top of the study's own set.
+
+    opening_study sets PolicyPlayer.guard_flags on the class, which the PPO
+    opponents share; a per-player override keeps the opponents exactly as in the
+    reference arm.
+    """
+    invalid = [name for name in names if name not in GUARDS or name in HARD_GUARDS]
+    if invalid:
+        raise ValueError(f"not opt-in guards: {invalid}")
+    original_init = opening_study.StudyPlayer.__init__
+    extra = {name: True for name in names}
+
+    def __init__(self, *args, **kwargs):
+        original_init(self, *args, **kwargs)
+        self.guard_overrides = {
+            **(getattr(self, "guard_overrides", None) or {}),
+            **extra,
+        }
+
+    opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--preview-model", type=Path, required=True)
+    ap.add_argument("--extra-guards", default="", help="comma-separated opt-in guards")
     ap.add_argument("study_args", nargs=argparse.REMAINDER)
     args = ap.parse_args()
     rest = args.study_args[1:] if args.study_args[:1] == ["--"] else args.study_args
     install(args.preview_model)
+    extra = [name for name in args.extra_guards.split(",") if name]
+    if extra:
+        enable_guards(extra)
+        print(f"extra guards for our side: {', '.join(extra)}", flush=True)
     print(f"learned preview for our side: {args.preview_model}", flush=True)
     sys.argv = ["evaluation/opening_study.py", *rest]
     opening_study.main()
