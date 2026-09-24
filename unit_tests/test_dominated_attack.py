@@ -149,41 +149,50 @@ def test_water_spout_replaces_water_pulse_into_mega_camerupt_in_rain():
     assert out[0].actions == (spout, psychic_2)
 
 
-def test_super_effective_ice_beam_replaces_sun_halved_water_pulse():
-    battle = _position(
+def _sun_blastoise(blastoise_hp: int, partner: str, snorlax_hp: int, sinistcha_hp: int):
+    return _position(
         [
-            "|switch|p1a: Blastoise|Blastoise, L50, M|50/100",
+            f"|switch|p1a: Blastoise|Blastoise, L50, M|{blastoise_hp}/100",
             "|detailschange|p1a: Blastoise|Blastoise-Mega, L50, M",
-            "|switch|p1b: Farigiraf|Farigiraf, L50, M|100/100",
-            "|switch|p2a: Snorlax|Snorlax, L50, M|100/100",
-            "|switch|p2b: Sinistcha|Sinistcha, L50|100/100",
+            f"|switch|p1b: {partner}|{partner}, L50, M|100/100",
+            f"|switch|p2a: Snorlax|Snorlax, L50, M|{snorlax_hp}/100",
+            f"|switch|p2b: Sinistcha|Sinistcha, L50|{sinistcha_hp}/100",
             "|-weather|SunnyDay",
         ],
         mega_launcher=True,
     )
+
+
+def test_super_effective_ice_beam_replaces_sun_halved_water_pulse():
+    battle = _sun_blastoise(50, "Farigiraf", 100, 100)
     trick_room = _action(battle, 1, "trickroom", 0)
-    pulse = _action(battle, 0, "waterpulse", 1)
+    pulse = _action(battle, 0, "waterpulse", 2)
     ice = _action(battle, 0, "icebeam", 2)
     out, _ = _run(battle, [((pulse, trick_room), 0.38), ((ice, trick_room), 0.09)])
     assert out[0].actions == (ice, trick_room)
 
 
+def test_target_choice_stays_with_the_policy():
+    """A bigger hit on the OTHER foe is not promoted: which foe to hit is the
+    policy's strategic call (threat, focus fire), not a damage comparison."""
+    battle = _sun_blastoise(50, "Farigiraf", 100, 100)
+    trick_room = _action(battle, 1, "trickroom", 0)
+    pulse_snorlax = _action(battle, 0, "waterpulse", 1)
+    ice_sinistcha = _action(battle, 0, "icebeam", 2)
+    out, report = _run(
+        battle,
+        [((pulse_snorlax, trick_room), 0.38), ((ice_sinistcha, trick_room), 0.09)],
+    )
+    assert out[0].actions == (pulse_snorlax, trick_room)
+    assert not report.stages
+
+
 def test_nothing_to_gain_when_the_partner_already_knocks_both_out():
     """Game 1, turn 4 as played: Torkoal's sun Eruption KO'd Snorlax (1%) and
     Sinistcha (~30%), so Blastoise's choice could not matter."""
-    battle = _position(
-        [
-            "|switch|p1a: Blastoise|Blastoise, L50, M|8/100",
-            "|detailschange|p1a: Blastoise|Blastoise-Mega, L50, M",
-            "|switch|p1b: Torkoal|Torkoal, L50, M|100/100",
-            "|switch|p2a: Snorlax|Snorlax, L50, M|1/100",
-            "|switch|p2b: Sinistcha|Sinistcha, L50|30/100",
-            "|-weather|SunnyDay",
-        ],
-        mega_launcher=True,
-    )
+    battle = _sun_blastoise(8, "Torkoal", 1, 30)
     eruption = _action(battle, 1, "eruption", 0)
-    pulse = _action(battle, 0, "waterpulse", 1)
+    pulse = _action(battle, 0, "waterpulse", 2)
     ice = _action(battle, 0, "icebeam", 2)
     out, report = _run(battle, [((pulse, eruption), 0.384), ((ice, eruption), 0.09)])
     assert out[0].actions == (pulse, eruption)
@@ -330,7 +339,7 @@ def test_the_partner_s_knockout_is_not_counted_twice(stub, monkeypatch):
     damage = {"icebeam": (0.50, 0.60), "hydropump": (0.30, 0.36), "psychic": (1.2, 1.4)}
     monkeypatch.setattr(G.K, "damage_fraction", lambda b, a, d, m: damage[m.id])
     psychic_1 = 7 + 5 * MOVES[1].index("psychic") + 3
-    top = G.Candidate((_stub_action(0, "hydropump", 2), psychic_1), 0.6)
+    top = G.Candidate((_stub_action(0, "hydropump", 1), psychic_1), 0.6)
     ice_same_foe = G.Candidate((_stub_action(0, "icebeam", 1), psychic_1), 0.1)
     out, _ = _run_stub(stub, [top, ice_same_foe])
-    assert out[0] is top
+    assert out[0] is top  # Psychic already KOs that foe: neither attack adds value

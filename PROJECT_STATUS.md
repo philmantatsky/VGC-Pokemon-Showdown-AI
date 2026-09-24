@@ -36,6 +36,17 @@ whole-roster bootstrap 95%. **Deploy-eligible** (the user decides) if the guard
 fires, the pooled delta is not worse (upper bound >= 0) and no population's point
 estimate is below -3pp; "better" if the lower bound > 0. Otherwise it stays off.
 
+**Amendment 12:40 (before any outcome was read):** the first launch changed the
+played action ~2 times per game (338 promotions in 165 games) -- far beyond the
+reported failure class, because the guard could also switch the TARGET for a
+bigger number, overriding which foe the policy chose to hit (threat, focus fire).
+Every reported mistake was a move choice against the same foe(s). Stopped after
+165 games (set aside in `attempt1_unrestricted/`, never scored); the guard now
+requires the alternative to hit every foe the policy's attack hits (a spread
+move may add the other foe), with a test that a bigger hit on the other foe is
+not promoted. The harness also re-checks the guard module's hash between
+populations. Same rule, same design, relaunched.
+
 ## PROMOTED by the user: T6 trained on human openings + the model preview; 25-game ladder read running (2026-September 24, 11:30)
 
 The user, after the results: "make it the official bot and run 25 ladder games".

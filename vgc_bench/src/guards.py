@@ -2468,7 +2468,9 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
     Hatterene. The policy ranked the better attack (7-20%) and nothing compared
     one move with another. For each slot of the top pair using a plain attack,
     the ranked pairs that keep the partner's action and use another plain attack
-    of the same Pokemon (same Mega/Tera choice, not hitting its ally) are scored
+    of the same Pokemon (same Mega/Tera choice, not hitting its ally) that still
+    hits every foe the policy's attack hits -- the policy keeps its choice of
+    target; only a spread move may add the other foe -- are scored
     with the calculator: expected damage per foe hit, capped at the HP the foe
     has left after the partner's attack, times accuracy, plus half a point per
     expected knockout. The
@@ -2497,6 +2499,7 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
         if current is None:
             report.demotions["dominated_attack:no_calc"] += 1
             continue
+        _, aimed = _move_and_targets(battle, order, pos)
         winner, winner_value = None, current
         for candidate in live:
             if (
@@ -2513,6 +2516,11 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
                 or (getattr(alternative, "move_target", 0) or 0) < 0
                 or _gimmicks(alternative) != _gimmicks(order)
             ):
+                continue
+            # Move choice, not target choice: the alternative must hit every foe
+            # the policy's attack hits (a spread move may add the other foe).
+            _, hit = _move_and_targets(battle, alternative, pos)
+            if not all(any(foe is other for other in hit) for foe in aimed):
                 continue
             value = _attack_value(battle, attacker, alternative, pos, already)
             if value is not None and value > winner_value:

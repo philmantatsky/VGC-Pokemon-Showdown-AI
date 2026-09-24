@@ -187,8 +187,16 @@ def main() -> None:
                 remaining = deadline - time.monotonic()
                 if remaining <= 0:
                     raise TimeoutError("bounded comparison time budget exhausted")
-                if not set(changed_pins(pins)) <= ALLOWED_CHANGED_PINS:
-                    raise ValueError("pinned source changed during the run")
+                if not set(changed_pins(pins)) <= ALLOWED_CHANGED_PINS or any(
+                    sha256(path) != config[key]
+                    for path, key in (
+                        ("vgc_bench/src/guards.py", "guards_module_sha256"),
+                        ("evaluation/learned_preview_study.py", "wrapper_sha256"),
+                    )
+                ):
+                    raise ValueError(
+                        "pinned source or guard code changed during the run"
+                    )
                 command = [
                     sys.executable,
                     "evaluation/learned_preview_study.py",
