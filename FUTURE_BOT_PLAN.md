@@ -14,10 +14,22 @@
   opening diagnosed (`tools/ladder_opening_audit.py`).
 - [x] Preview-entropy cycle (`results_brainv1_t6_preview1`): no clear change on
   either save; back row adapts, lead does not.
-- [ ] T6 lead curriculum: start a share of training games from alternative
-  leads (forced previews excluded from the policy gradient), then let PPO choose.
-- [ ] Decision for the user: switch the deployed configuration back to T4
-  (stronger on ladder and locally) while T6 work continues offline.
+- [x] Decision for the user: switch back to T4? **No** (user, 2026-09-23: "switching
+  doesnt solve the problem"); T6 stays deployed and learns matchup-dependent
+  previews instead.
+- [x] Human-trained preview model for our kind of team
+  (`data/preview_t6_focus_20260923.pt`; gankyburner 15-4 with 7 lead pairs).
+- [ ] Human-opening cycle (pre-registered 0765aad; replaces the lead curriculum):
+  control arm (deployed brain + model preview) -> `training/run_t6_human_preview_trial.py`
+  (both sides' previews sampled from the model, `--no_teampreview`) -> each save
+  with the model's preview vs the pinned deployed-T6 arm. Resumed 2026-09-24 00:50.
+- [x] Deployment plumbing for a learned preview, ready but unused:
+  `DEPLOYED.json` fields `learned_preview: true`, `preview_model`,
+  `preview_model_sha256`, optional `replay_tag` (fresh replay dirs); all launchers
+  read the manifest through `tools/deployed_config.py` (sha-verified). One model
+  serves our preview and the opponent-plan belief: on the 50 T6 ladder opponents
+  the focus model predicts their plans as well as today's top-500 model.
+- [ ] Promotion of a model-preview configuration: only on the user's word.
 
 ## Current priority — T6 diagnosis-first repair (September 20)
 

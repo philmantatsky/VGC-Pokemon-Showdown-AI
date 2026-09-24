@@ -1,5 +1,49 @@
 # VGC Bot Project Status
 
+## Resumed the human-opening chain; launcher fixes; learned-preview deployment plumbing ready (2026-September 24, 01:05)
+
+The user: `continue`. 00:50: Showdown on 7610, the control arm resumed with its
+recorded command (33 complete frozen cells kept, incomplete cells never written),
+the chain (`human_preview_chain.sh`, scratch) waiting behind it: then training
+(`training/run_t6_human_preview_trial.py`, verified with `--prepare-only`) and both
+saves' evaluations. No Codex activity since 09-22 12:09; its heartbeat is PAUSED.
+Control arm so far: new human clone -1.5 [-10.9, +7.1], frozen PPO -0.4 [-7.8,
++7.4] (model preview vs the brain's own, same deployed brain).
+
+Found and fixed while it runs (334bb8b, fdacffb):
+- **The ladder launchers would not have refused during this chain**: their
+  heavy-job pattern missed `run_candidate_vs_t6.py`, its `learned_preview_study.py`
+  child and `training/human_preview.py` (whose command line never contains
+  `vgc_bench.train`). Added, with a regression test over sample command lines
+  (`unit_tests/test_launcher_scripts.py`); `ladder_read_loop.sh` now refuses.
+- **The default challenge listener crashed at launch** on this Mac:
+  `/usr/bin/env bash` is bash 3.2, where an empty `"${EXTRA[@]}"` under `set -u`
+  is an unbound-variable error (it only worked with a rejoin room). All array
+  expansions guarded; the test fails on any bare one.
+- `ladder_ourteam.py --learned_preview` without `--preview_model` now refuses:
+  the opponent-model default would have silently chosen our preview.
+
+Deployment plumbing (unused until the user promotes something): every launcher
+(`ladder_deployed.sh`, `challenges_deployed.sh`, `exhibition_mode.sh`) reads
+DEPLOYED.json through `tools/deployed_config.py`, which sha-verifies the
+checkpoint, the team (new for the ladder launcher) and, when `learned_preview:
+true`, `preview_model` against `preview_model_sha256`; `replay_tag` (default: the
+team stem) names fresh single-config replay dirs. The current deployment's ladder
+command is byte-identical (traced). Belief check for that case: on ladder,
+`--preview_model` also feeds the opponent-aware layer's opponent-plan belief.
+On the 50 real T6 ladder opponents, paired:
+
+| Model | Lead top-1 / top-3 | Lead log-p | Bring top-3 | Bring log-p | Brier |
+|---|---|---:|---:|---:|---:|
+| top-500 M-C (ladder today) | 0.10 / 0.30 | -4.47 | 0.38 | -3.95 | 0.268 |
+| general 09-20 | 0.08 / 0.22 | -5.29 | 0.38 | -4.13 | 0.284 |
+| T6 focus 09-23 | 0.16 / 0.26 | -4.56 | 0.38 | -3.92 | 0.274 |
+
+So one focus model can serve both (no loss for the belief). Side finding: all
+three are overconfident at this Elo -- log-p below uniform (-2.71 over 15 leads
+or 15 fours) while ranking above it; opponents at ~1100-1250 lead unlike the
+replay corpus. Worth a temperature on the belief later; not touched now.
+
 ## Paused at the user's word; control arm read on one population (2026-September 23, 10:08)
 
 The user: `pause this for now`. Stopped 10:07: the chain (before training
