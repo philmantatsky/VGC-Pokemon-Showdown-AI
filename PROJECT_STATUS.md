@@ -1,5 +1,32 @@
 # VGC Bot Project Status
 
+## dominated_attack A/B: DEPLOY-ELIGIBLE, locally neutral (pooled +0.05pp); trick_room_direction A/B running (2026-September 24, 13:45)
+
+`results_guard_ab_dominated_attack/` (the deployed configuration + the guard on
+our player vs its promotion arm; 6,204 games; delta = with minus without):
+
+| Opponent | With | Without | Delta [95%] |
+|---|---:|---:|---:|
+| New held-out human clone | 91.0% | 89.3% | +1.7 [-0.4, +4.3] |
+| Frozen PPO | 93.1% | 92.7% | +0.4 [-2.1, +2.8] |
+| Rotation 1 | 92.5% | 91.9% | +0.6 [-1.7, +2.9] |
+| Rotation 2 | 93.1% | 92.4% | +0.8 [-1.9, +3.2] |
+| Previous held-out human clone | 84.1% | 85.6% | -1.5 [-3.6, +0.7] |
+| Scripted heuristic | 91.9% | 93.6% | -1.7 [-3.8, +0.3] |
+| **Pooled** | | | **+0.05 [-0.97, +1.05]** |
+
+It changed the played attack 6,818 times in 6,204 games (~1.1 per game). By the
+pre-registered rule it is **deploy-eligible** (fires; not worse; no population
+below -3pp) but **not "better"**: locally neutral. Reading: the fixes are the
+exact ladder mistakes the user flagged, yet against local opponents the bot
+already wins ~90%, so a better attack rarely changes a result; the ladder is
+the arbiter. Deployment is the user's call.
+
+`trick_room_direction` registered (c18bb25, opt-in; 509 tests) and its
+pre-registered A/B launched 13:43 (`results_guard_ab_trick_room_direction/`):
+early firing in 99 games = 33 changed actions (18 reversals of their room, 15
+counters), 81 keep-ours demotions.
+
 ## Repo cleanup at the user's request: 63 GB -> 27 GB, nothing deleted (2026-September 24, 12:35)
 
 Moved (not deleted) to `../_cleanup_2026-09-24/` (README inside; the user drags
