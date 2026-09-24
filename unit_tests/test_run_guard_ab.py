@@ -38,3 +38,22 @@ def test_guard_firing_counts_only_the_extra_guards():
         "dominated_attack": 3,
         "dominated_attack:promoted:demoted": 3,
     }
+
+
+def test_a_newly_registered_guard_that_is_off_is_not_a_difference():
+    ref = {"seed": 1, "guard_flags": {"resisted_target": True, "ko_tiebreak": False}}
+    later = {
+        "seed": 1,
+        "guard_flags": {**ref["guard_flags"], "dominated_attack": False},
+    }
+    assert same_study(ref, later) == []
+    turned_on = {
+        "seed": 1,
+        "guard_flags": {**ref["guard_flags"], "dominated_attack": True},
+    }
+    assert same_study(ref, turned_on) == ["guard_flags"]
+    flipped = {
+        "seed": 1,
+        "guard_flags": {"resisted_target": False, "ko_tiebreak": False},
+    }
+    assert same_study(ref, flipped) == ["guard_flags"]

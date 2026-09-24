@@ -71,10 +71,29 @@ def sha256(path: str | Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def _flags_match(reference: dict | None, candidate: dict | None) -> bool:
+    """Same class-level guard flags. A guard registered after the reference was
+    played appears only in the new flags, and must be off there."""
+    reference, candidate = reference or {}, candidate or {}
+    shared = reference.keys() & candidate.keys()
+    only = [reference[k] for k in reference.keys() - shared] + [
+        candidate[k] for k in candidate.keys() - shared
+    ]
+    return all(reference[k] == candidate[k] for k in shared) and not any(only)
+
+
 def same_study(reference: dict, candidate: dict) -> list[str]:
     """Manifest fields that differ between two arms, ignoring the output path."""
     keys = (set(reference) | set(candidate)) - {"output"}
-    return sorted(k for k in keys if reference.get(k) != candidate.get(k))
+    return sorted(
+        k
+        for k in keys
+        if (
+            not _flags_match(reference.get(k), candidate.get(k))
+            if k == "guard_flags"
+            else reference.get(k) != candidate.get(k)
+        )
+    )
 
 
 def guard_firing(telemetry: list[dict], guards: list[str]) -> dict[str, int]:
