@@ -2540,6 +2540,19 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
     return _promote_candidate(cands, best, "dominated_attack", report)
 
 
+def guard_trick_room_direction(battle, cands, report) -> list[Candidate]:
+    """Opt-in: set, keep or reverse Trick Room by whom it helps.
+
+    Lives in trick_room_guard.py (it needs the tempo reranker's speed model,
+    which imports this module); imported lazily to avoid the cycle.
+    """
+    from vgc_bench.src.trick_room_guard import (
+        guard_trick_room_direction as trick_room_direction,
+    )
+
+    return trick_room_direction(battle, cands, report)
+
+
 GUARDS = {
     "zero_damage": guard_zero_damage,
     "first_turn": guard_first_turn,
@@ -2557,6 +2570,7 @@ GUARDS = {
     "overkill_split": guard_overkill_split,
     "dominated_weather_ball_weather": guard_dominated_weather_ball_weather,
     "dominated_attack": guard_dominated_attack,
+    "trick_room_direction": guard_trick_room_direction,
     "protect_spam": guard_protect_spam,
     "guaranteed_ko": guard_guaranteed_ko,
     "reserve_weather_mega": guard_reserve_weather_mega,
@@ -2622,6 +2636,7 @@ GUARD_ORDER = (
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",
+    "trick_room_direction",
     "protect_spam",
     "guaranteed_ko",
     "reserve_weather_mega",

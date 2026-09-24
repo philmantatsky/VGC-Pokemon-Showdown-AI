@@ -184,3 +184,17 @@ def test_pairs_without_trick_room_are_untouched():
 def _run_cands(battle, cands):
     report = G.GuardReport()
     return T.guard_trick_room_direction(battle, cands, report), report
+
+
+def test_registered_but_opt_in_and_reachable_through_the_stack():
+    assert "trick_room_direction" in G.GUARDS
+    assert "trick_room_direction" not in G.HARD_GUARDS
+    battle = _battle(TR_TEAM, GAME2_TURN1)
+    spout = _action(battle, 0, "waterspout", 0)
+    psychic = _action(battle, 1, "psychic", 1)
+    trick_room = _action(battle, 1, "trickroom", 0)
+    cands = [G.Candidate((spout, psychic), 0.4), G.Candidate((spout, trick_room), 0.2)]
+    only = {name: name == "trick_room_direction" for name in G.GUARDS}
+    out, report = G.apply_guards(battle, cands, only)
+    assert out[0].actions == (spout, trick_room)
+    assert "trick_room_direction_error" not in report.stages

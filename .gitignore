@@ -260,6 +260,11 @@ results_guard_ab_dominated_attack/*
 !results_guard_ab_dominated_attack/manifest.json
 !results_guard_ab_dominated_attack/scorecard.json
 !results_guard_ab_dominated_attack/status.json
+!results_guard_ab_trick_room_direction/
+results_guard_ab_trick_room_direction/*
+!results_guard_ab_trick_room_direction/manifest.json
+!results_guard_ab_trick_room_direction/scorecard.json
+!results_guard_ab_trick_room_direction/status.json
 !results_brainv1_t6_humanpreview1/
 results_brainv1_t6_humanpreview1/*
 !results_brainv1_t6_humanpreview1/experiment.json
