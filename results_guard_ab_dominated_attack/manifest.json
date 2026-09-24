@@ -1,0 +1,35 @@
+{
+  "question": "deployed configuration + dominated_attack vs without",
+  "extra_guards": [
+    "dominated_attack"
+  ],
+  "extra_guards_scope": "our player only (per-player override)",
+  "reference_arm": "results_candidate_vs_t6_humanpreview_21135360/<population>_humanpreview_21135360.jsonl",
+  "reference_manifest_sha256": "d3d68efcbf9c365414f27d7a585be1629c8af6d7c32ea4675699da118e0f7010",
+  "changed_pins_accepted": [
+    "vgc_bench/src/guards.py"
+  ],
+  "guards_module_sha256": "00cfdaf8f714094bf5da756164d20b58d7875ccafadc76dd6284dcf73e1737cc",
+  "wrapper_sha256": "37c2a7e83af022be1500558a2ccdb83188c255277e7fb3bb1761e9098075d4b8",
+  "checkpoint": "results_brainv1_t6_humanpreview1/saves_fp_xt_hs_wt/reg_mc/seed1/21135360.zip",
+  "checkpoint_sha256": "c5e922370dd22f6a984add87dddca78d9308dd6c915ac396434875aad1ab5f1a",
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
+  "plans": "data/opening_plans_t6.json",
+  "populations": [
+    "human_new",
+    "frozen",
+    "rotation1",
+    "rotation2",
+    "human_previous",
+    "heuristic"
+  ],
+  "matchups": 47,
+  "repeats": 11,
+  "seed": 20923,
+  "port": 7610,
+  "delta": "with the extra guards minus without",
+  "battle_rng_paired": false,
+  "uncertainty": "whole-roster bootstrap; pooled = equal-population mean",
+  "decision": "Stop for review. Never promote or start ladder automatically."
+}
