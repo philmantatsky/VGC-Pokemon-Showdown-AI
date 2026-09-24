@@ -1,5 +1,35 @@
 # VGC Bot Project Status
 
+## The user's Trick Room lesson -> `trick_room_direction` guard; its A/B pre-registered (2026-September 24, 12:20)
+
+The user, on ladder game 2: Armor Tail blocks Fake Out both ways (the bot
+already knew: `priority_block` demoted its Fake Outs 12 times that game -- my
+Fake Out suggestion was wrong), and "its sometimes a good move to predict an
+opponents trick room and undo it because they have a heavy trick room team ...
+sending out our fast pokemon but with farafarig for the sole purpose of
+countering their TR". In game 2 the bot set Trick Room on turns 1 and 4 while
+its Mega Blastoise (88) and Farigiraf (80) outsped their Trick Room team; it
+worked only because their own Trick Room reversed ours both times. Nothing in
+the stack decided whether Trick Room helps us or them (the tempo reranker uses
+its speed comparison only to choose Protect while Trick Room is up).
+
+`vgc_bench/src/trick_room_guard.py` (ac3c86e, tests on rebuilt positions):
+Trick Room up (>= 2 turns) and favouring them -> promote the ranked pair that
+reverses it; up and favouring us -> demote pairs that undo it; down and it would
+favour them -> with a likely setter of theirs active (revealed, or species rate
+>= 0.5) promote the ranked pair that uses ours this turn (both rooms cancel: the
+user's counter), otherwise demote pairs that set it. Rosters with >= 2 likely
+setters are taken at minimum Speed (the plain hidden-spread range, 72-123 for a
+base-60 Pokemon, orders nothing). Registered after the dominated_attack A/B so
+that run stays valid.
+
+**Its A/B (pre-registered now, runs after the current one):** the same harness
+and rule as dominated_attack: `run_guard_ab.py --guards trick_room_direction`
+vs the deployed configuration's arm; deploy-eligible (the user decides) if it
+fires, the pooled delta is not worse (upper bound >= 0) and no population's
+point estimate is below -3pp. Its per-archetype read on the held-out Trick Room
+rosters is reported as the mechanism check.
+
 ## Ladder stopped by the user after 3 games (2-1); dominated_attack guard built; its A/B PRE-REGISTERED (2026-September 24, 12:25)
 
 The user watched games 1-2 (pasted replays): "water moves are halved in sun",
