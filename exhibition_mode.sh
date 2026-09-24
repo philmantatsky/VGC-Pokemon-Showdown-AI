@@ -30,16 +30,25 @@ set -uo pipefail
 cd "$(dirname "$0")"
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 REG=${REG:-mc}
-read -r DEP_CKPT DEP_TEAM DEP_SHA DEP_PRIOR <<<"$(.venv/bin/python -c "
-import json; d=json.load(open('results_deployed/DEPLOYED.json'))['deployed']; print(d['checkpoint'], d['team'], d['sha256'], d.get('set_prior_reg', 'mc'))")"
+# DEP_* = the deployed configuration, sha-verified (checkpoint, team, preview model)
+CFG=$(.venv/bin/python tools/deployed_config.py --prefix DEP_) || {
+  echo "EXHIBITION_REFUSED the deployed configuration failed verification"; exit 2
+}
+eval "$CFG"
 CHECKPOINT=${CHECKPOINT:-$DEP_CKPT}
 # the deployed brain reads the set data it was trained with; any other checkpoint
 # uses SET_PRIOR (env) or the format default
-if [ "$CHECKPOINT" = "$DEP_CKPT" ]; then SET_PRIOR=${SET_PRIOR:-$DEP_PRIOR}; fi
+if [ "$CHECKPOINT" = "$DEP_CKPT" ]; then SET_PRIOR=${SET_PRIOR:-$DEP_SET_PRIOR}; fi
 if [ -n "${SET_PRIOR:-}" ]; then export VGC_SET_PRIOR_REG="$SET_PRIOR"; fi
 TEAM=${TEAM:-$DEP_TEAM}
-if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$(shasum -a 256 "$CHECKPOINT" | cut -d' ' -f1)" != "$DEP_SHA" ]; then
-  echo "EXHIBITION_REFUSED deployed checkpoint does not match DEPLOYED.json"; exit 2
+# the deployed preview model (if any) belongs to the deployed brain on the deployed team
+PREVIEW_ARGS=()
+TAG=$(basename "$TEAM" .txt)
+if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$TEAM" = "$DEP_TEAM" ]; then
+  TAG=$DEP_REPLAY_TAG
+  if [ -n "$DEP_PREVIEW_MODEL" ]; then
+    PREVIEW_ARGS=(--learned_preview --preview_model "$DEP_PREVIEW_MODEL")
+  fi
 fi
 GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
 LOGIN_GRACE=${LOGIN_GRACE:-120}
@@ -64,7 +73,8 @@ while true; do
     --reg "$REG" --our_team "$TEAM" \
     --guards-extra "$GUARDS" \
     --challenges --n_games 3 \
-    --replay_dir "ladder_replays_exhibition_${REG}_$(basename "$TEAM" .txt)" > "$LOG" 2>&1 &
+    --replay_dir "ladder_replays_exhibition_${REG}_${TAG}" \
+    ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!
   started=$(date +%s)
   while kill -0 $PID 2>/dev/null; do

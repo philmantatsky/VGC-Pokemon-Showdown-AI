@@ -14,6 +14,8 @@
 #   a 10-game canary, an audit, then "25" for the remaining 15. No session is
 #   ever killed mid-game except on a dead socket or a 45-minute idle queue.
 # - A replay dir is single-config (ladder_ourteam.py refuses a changed config).
+# - PREVIEW_MODEL (env, set by ladder_deployed.sh from DEPLOYED.json): a learned,
+#   human-trained preview model chooses our four and leads (--learned_preview).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 CKPT=${1:?checkpoint}; TEAM=${2:?team file}; N=${3:?total games}; DIR=${4:?replay dir}
@@ -25,6 +27,11 @@ stamp() { date '+%H:%M:%S'; }
 pgrep -f "$HEAVY" >/dev/null 2>&1 && { echo "LADDER_REFUSED [$(stamp)] a heavy local job is running"; exit 2; }
 pgrep -f "ladder_ourteam[.]py" >/dev/null 2>&1 && { echo "LADDER_REFUSED [$(stamp)] another ladder/exhibition session is running"; exit 2; }
 [ -f "$CKPT" ] && [ -f "$TEAM" ] || { echo "LADDER_REFUSED [$(stamp)] missing checkpoint or team file"; exit 2; }
+PREVIEW_ARGS=()
+if [ -n "${PREVIEW_MODEL:-}" ]; then
+  [ -f "$PREVIEW_MODEL" ] || { echo "LADDER_REFUSED [$(stamp)] missing preview model $PREVIEW_MODEL"; exit 2; }
+  PREVIEW_ARGS=(--learned_preview --preview_model "$PREVIEW_MODEL")
+fi
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 mkdir -p "$DIR"
 games_done() { ls "$DIR"/*.html 2>/dev/null | wc -l | tr -d ' '; }
@@ -37,7 +44,7 @@ wins_done() {  # our account name is the replay filename's prefix before " - bat
   done
   echo $n
 }
-echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM total=$N dir=$DIR games_done=$(games_done)"
+echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} total=$N dir=$DIR games_done=$(games_done)"
 session=0
 while :; do
   done_n=$(games_done); remaining=$((N - done_n))
@@ -47,7 +54,7 @@ while :; do
   LOG="${DIR%/}_$(date +%Y%m%d_%H%M%S)_session$session.log"  # never reuse a name: a relaunch must not overwrite an earlier report
   echo "SESSION_START $session [$(stamp)] games_done=$done_n remaining=$remaining log=$LOG"
   caffeinate -is .venv/bin/python -u ladder_ourteam.py --checkpoint "$CKPT" --reg mc --our_team "$TEAM" \
-    --guards-extra "$GUARDS" --n_games "$remaining" --replay_dir "$DIR" > "$LOG" 2>&1 &
+    --guards-extra "$GUARDS" --n_games "$remaining" --replay_dir "$DIR" ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!; started=$(date +%s); last_games=$done_n; last_change=$started
   while kill -0 $PID 2>/dev/null; do
     sleep 20

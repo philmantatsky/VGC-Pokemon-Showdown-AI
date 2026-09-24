@@ -1,6 +1,7 @@
 import asyncio
 from pathlib import Path
 from types import SimpleNamespace
+from typing import Any
 
 import pytest
 
@@ -21,8 +22,10 @@ def test_challenge_launcher_is_reg_mc_only_and_unranked():
 def test_challenge_launcher_pins_both_deployed_artifacts():
     text = SCRIPT.read_text()
     assert "results_deployed/DEPLOYED.json" in text
-    assert 'shasum -a 256 "$CKPT"' in text
-    assert 'shasum -a 256 "$TEAM"' in text
+    # checkpoint, team (and a deployed preview model) are sha256-verified by the
+    # shared helper (unit_tests/test_deployed_config.py); failure refuses the launch
+    assert 'tools/deployed_config.py --manifest "$MANIFEST"' in text
+    assert "CHALLENGE_REFUSED the deployed configuration failed verification" in text
     assert "SHOWDOWN_PASSWORD" not in text
 
 
@@ -38,7 +41,7 @@ class FakeClient:
 
 def test_rejoin_reconstructs_existing_mc_room():
     async def scenario():
-        agent = SimpleNamespace(
+        agent: Any = SimpleNamespace(
             ps_client=FakeClient(),
             _battle_semaphore=asyncio.Semaphore(1),
             _battle_start_condition=asyncio.Condition(),
@@ -61,6 +64,6 @@ def test_rejoin_reconstructs_existing_mc_room():
 
 
 def test_rejoin_rejects_other_formats():
-    agent = SimpleNamespace()
+    agent: Any = SimpleNamespace()
     with pytest.raises(ValueError, match="Reg M-C"):
         asyncio.run(_rejoin_active_battle_in_loop(agent, "battle-gen9randombattle-1"))

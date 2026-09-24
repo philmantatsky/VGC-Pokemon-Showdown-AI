@@ -9,6 +9,9 @@ must stay team-agnostic.
 import argparse
 import hashlib
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -154,3 +157,37 @@ class TestPreviewRules:
         for roster in rosters:
             value = trick_room_probability(roster)
             assert 0.0 <= value <= 1.0
+
+
+def test_learned_preview_needs_an_explicit_model():
+    """--learned_preview alone would let the opponent-model default (the general
+    top-500 predictor) choose our preview; it must refuse before any connection."""
+    root = Path(__file__).resolve().parents[1]
+    env = {k: v for k, v in os.environ.items() if not k.startswith("SHOWDOWN_")}
+    env["SHOWDOWN_USERNAME"] = "unit-test-no-login"  # never connects: refused first
+    result = subprocess.run(
+        [
+            sys.executable,
+            "ladder_ourteam.py",
+            "--checkpoint",
+            "results_deployed/champion_mc_T6.zip",
+            "--reg",
+            "mc",
+            "--our_team",
+            "teams/candidates_mc/T6.txt",
+            "--learned_preview",
+            "--n_games",
+            "1",
+            "--replay_dir",
+            "/nonexistent/never_created",
+        ],
+        cwd=root,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=120,
+        check=False,
+    )
+    assert result.returncode != 0
+    assert "--learned_preview needs an explicit --preview_model" in result.stderr
+    assert not Path("/nonexistent/never_created").exists()

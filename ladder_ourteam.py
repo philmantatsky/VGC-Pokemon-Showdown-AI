@@ -625,6 +625,9 @@ async def main():
         > 1
     ):
         raise SystemExit("choose only one Team Preview controller")
+    if args.learned_preview and not args.preview_model:
+        # Otherwise the opponent-model default below would silently pick our preview.
+        raise SystemExit("--learned_preview needs an explicit --preview_model")
     if args.opponent_aware or args.outcome_preview or args.planned_preview:
         args.preview_model = args.preview_model or prior_path("preview", args.reg)
     if args.opponent_aware:

@@ -17,26 +17,20 @@ case "$N" in
 esac
 [ "$N" -gt 0 ] || { echo "CHALLENGE_REFUSED n_challenges must be positive"; exit 2; }
 
-read -r CKPT TEAM GUARDS CKPT_SHA TEAM_SHA REG FORMAT SET_PRIOR <<<"$(.venv/bin/python -c "
-import json
-d=json.load(open('$MANIFEST'))['deployed']
-print(d['checkpoint'], d['team'], d['guards_extra'], d['sha256'], d['team_sha256'], d['reg'], d['format'], d.get('set_prior_reg', 'mc'))")"
+# checkpoint, team and (when deployed) preview model are sha-verified by the helper
+CFG=$(.venv/bin/python tools/deployed_config.py --manifest "$MANIFEST") || {
+  echo "CHALLENGE_REFUSED the deployed configuration failed verification"
+  exit 2
+}
+eval "$CFG"
 # the opponent set data this brain was trained with (DEPLOYED.json)
 export VGC_SET_PRIOR_REG="$SET_PRIOR"
 
-# default replay dir follows the deployed team (T4 until 2026-09-23, then T6)
-DIR=${DIR_ARG:-challenge_replays_mc_deployed_$(basename "$TEAM" .txt)}
+# default replay dir follows the deployed configuration (replay_tag, else the team)
+DIR=${DIR_ARG:-challenge_replays_mc_deployed_$REPLAY_TAG}
 
 [ "$REG" = mc ] && [ "$FORMAT" = gen9championsvgc2026regmc ] || {
   echo "CHALLENGE_REFUSED deployed configuration is not Reg M-C"
-  exit 2
-}
-[ "$(shasum -a 256 "$CKPT" | cut -d' ' -f1)" = "$CKPT_SHA" ] || {
-  echo "CHALLENGE_REFUSED deployed checkpoint hash mismatch"
-  exit 2
-}
-[ "$(shasum -a 256 "$TEAM" | cut -d' ' -f1)" = "$TEAM_SHA" ] || {
-  echo "CHALLENGE_REFUSED deployed team hash mismatch"
   exit 2
 }
 
@@ -56,11 +50,15 @@ source "../Laplace-Pokemon-Showdown-AI/.env"
 set +a
 
 mkdir -p "$DIR"
-echo "CHALLENGE_LISTENER format=$FORMAT team=$(basename "$TEAM") limit=$N replays=$DIR"
+echo "CHALLENGE_LISTENER format=$FORMAT team=$(basename "$TEAM") preview=${PREVIEW_MODEL:-policy} limit=$N replays=$DIR"
 EXTRA=()
+# a learned, human-trained model chooses our preview when DEPLOYED.json says so
+if [ -n "$PREVIEW_MODEL" ]; then
+  EXTRA+=(--learned_preview --preview_model "$PREVIEW_MODEL")
+fi
 if [ -n "$REJOIN" ]; then
   case "$REJOIN" in
-    battle-gen9championsvgc2026regmc-*) EXTRA=(--rejoin-battle "$REJOIN") ;;
+    battle-gen9championsvgc2026regmc-*) EXTRA+=(--rejoin-battle "$REJOIN") ;;
     *) echo "CHALLENGE_REFUSED rejoin room is not Reg M-C"; exit 2 ;;
   esac
 fi
@@ -72,4 +70,4 @@ GUARDS="$GUARDS" exec caffeinate -is .venv/bin/python -u ladder_ourteam.py \
   --challenges \
   --n_games "$N" \
   --replay_dir "$DIR" \
-  "${EXTRA[@]}"
+  ${EXTRA[@]+"${EXTRA[@]}"}  # guarded: macOS bash 3.2 calls an empty array unbound under set -u
