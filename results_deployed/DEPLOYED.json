@@ -7,7 +7,7 @@
   "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
   "reg": "mc",
   "format": "gen9championsvgc2026regmc",
-  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather",
+  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack",
   "knowledge_obs": true,
   "search": false,
   "set_prior_reg": "mc",
@@ -16,7 +16,7 @@
   "preview_model": "data/preview_t6_focus_20260923.pt",
   "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
   "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
-  "replay_tag": "T6_humanpreview1"
+  "replay_tag": "T6_humanpreview1_attackcheck"
  },
  "promoted_at": "2026-09-24T16:26:58+00:00",
  "promoted_by": "user 2026-09-24: 'make it the official bot and run 25 ladder games'",
@@ -69,5 +69,18 @@
    "to": "2026-09-20"
   }
  ],
- "rules": "Never overwrite or retrain the deployed checkpoint in place. A new promotion writes a NEW file here and updates this manifest; the old file stays."
+ "rules": "Never overwrite or retrain the deployed checkpoint in place. A new promotion writes a NEW file here and updates this manifest; the old file stays.",
+ "amendments": [
+  {
+   "at": "2026-09-24T20:03:45+00:00",
+   "change": "guards_extra += dominated_attack; replay_tag T6_humanpreview1 -> T6_humanpreview1_attackcheck (fresh single-config replay dirs)",
+   "previous": {
+    "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather",
+    "replay_tag": "T6_humanpreview1"
+   },
+   "by": "user 2026-09-24: 'we still need to fix that problem, because at higher elo our opponents will win because of it esp cuz its 2v2 and only 4 mons each move matters so much'",
+   "evidence": "results_guard_ab_dominated_attack: pooled +0.05pp [-0.97, +1.05], deploy-eligible by the pre-registered rule, locally neutral; fixes the move-choice mistakes the user saw in ladder games 1-2 (tests on those positions)",
+   "ladder_so_far": "3 games before the change: 2-1 (ladder_replays_mc_deployed_T6_humanpreview1)"
+  }
+ ]
 }

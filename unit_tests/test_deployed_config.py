@@ -192,3 +192,9 @@ def test_cli_prefix_keeps_launcher_overrides(tmp_path):
         check=True,
     )
     assert echoed.stdout == "mine.txt|teams/candidates_mc/T9.txt"
+
+
+def test_misspelled_guards_are_refused(tmp_path):
+    manifest = _deployment(tmp_path, guards_extra="resisted_target,dominated_atack")
+    with pytest.raises(ValueError, match="unknown guards"):
+        resolve(manifest, tmp_path)

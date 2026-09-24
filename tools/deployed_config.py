@@ -31,6 +31,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 MANIFEST = Path("results_deployed/DEPLOYED.json")
 
 
@@ -49,6 +51,11 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         checks.append(("preview_model", "preview_model_sha256"))
     elif deployed.get("preview_model"):
         raise ValueError("preview_model is set but learned_preview is not true")
+    from vgc_bench.src.guards import GUARDS
+
+    unknown = [g for g in deployed["guards_extra"].split(",") if g and g not in GUARDS]
+    if unknown:  # the bot would silently ignore a misspelled guard
+        raise ValueError(f"unknown guards in guards_extra: {unknown}")
     for field, sha_field in checks:
         path = root / deployed[field]
         if not path.is_file():
