@@ -1,5 +1,26 @@
 # VGC Bot Project Status
 
+## trick_room_direction HURTS where it acts (-9.8pp); A/B stopped at 3/6 populations; NOT deployed (2026-September 24, 15:12)
+
+Populations: new human clone -1.6 [-4.0, +0.2], frozen +0.8 [-1.4, +3.1],
+rotation 1 -2.8 [-4.8, -1.0]. On the held-out Trick Room rosters: -4.1 / +1.8 /
+-6.4. Per 11-game cell against the same cell of the reference: cells where the
+rule never changed the action -0.5pp (250 cells, noise); cells where it changed
+3+ actions **-9.8pp** (25 cells); every sub-rule's cells negative (counter -6.1,
+reverse -5.4, no-gift -5.8, keep-ours -5.5). Stopped early (the decision can only
+be "do not deploy"); evidence tracked in `results_guard_ab_trick_room_direction/`.
+
+Why (my design, not the user's lesson): T6 is itself a Trick Room team (Torkoal,
+the slowest, behind Farigiraf's room). The rule judged "whom Trick Room helps"
+from the two ACTIVE Pokemon only, and took every Pokemon of a >= 2-setter roster
+at minimum Speed. With Blastoise + Farigiraf out it concluded the room helps
+them, then reversed or refused rooms our Torkoal plan needed and cancelled rooms
+that were good for us. The user's lesson holds for the case they described --
+our FAST mode (e.g. sun Charizard/Venusaur, or a fast four) against a heavy
+Trick Room team -- which a redesign must identify from our whole brought four and
+game plan, not the two actives, and without blanket minimum-Speed assumptions.
+The guard stays registered, opt-in and off.
+
 ## dominated_attack DEPLOYED at the user's word; mirror match pre-registered (2026-September 24, 15:15)
 
 The user, on the locally neutral result: "we still need to fix that problem,

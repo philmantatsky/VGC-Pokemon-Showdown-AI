@@ -1,0 +1,139 @@
+{
+  "delta": "with the extra guards minus without",
+  "populations": {
+    "human_new": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.01644100580270793,
+        "roster_bootstrap_95_ci": [
+          -0.03965183752417794,
+          0.0019342359767891618
+        ],
+        "without_win_rate": 0.8926499032882012,
+        "with_win_rate": 0.8762088974854932
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.03481624758220502,
+        "roster_bootstrap_95_ci": [
+          -0.07543520309477755,
+          -0.005802707930367502
+        ],
+        "without_win_rate": 0.9245647969052224,
+        "with_win_rate": 0.8897485493230174
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": 0.0019342359767891648,
+        "roster_bootstrap_95_ci": [
+          -0.01353965183752418,
+          0.01934235976789167
+        ],
+        "without_win_rate": 0.8607350096711799,
+        "with_win_rate": 0.8626692456479691
+      }
+    },
+    "frozen": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": 0.007736943907156667,
+        "roster_bootstrap_95_ci": [
+          -0.01353965183752418,
+          0.03094777562862669
+        ],
+        "without_win_rate": 0.9274661508704062,
+        "with_win_rate": 0.9352030947775629
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": 0.019342359767891688,
+        "roster_bootstrap_95_ci": [
+          -0.005802707930367502,
+          0.05029013539651838
+        ],
+        "without_win_rate": 0.9381044487427466,
+        "with_win_rate": 0.9574468085106383
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.003868471953578331,
+        "roster_bootstrap_95_ci": [
+          -0.03868471953578336,
+          0.023210831721470027
+        ],
+        "without_win_rate": 0.9168278529980658,
+        "with_win_rate": 0.9129593810444874
+      }
+    },
+    "rotation1": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.028046421663442945,
+        "roster_bootstrap_95_ci": [
+          -0.048355899419729204,
+          -0.009671179883945837
+        ],
+        "without_win_rate": 0.9187620889748549,
+        "with_win_rate": 0.8907156673114119
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.029013539651837526,
+        "roster_bootstrap_95_ci": [
+          -0.061895551257253385,
+          -0.0038684719535783374
+        ],
+        "without_win_rate": 0.9226305609284333,
+        "with_win_rate": 0.8936170212765957
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.027079303675048363,
+        "roster_bootstrap_95_ci": [
+          -0.05802707930367505,
+          0.00193423597678916
+        ],
+        "without_win_rate": 0.9148936170212766,
+        "with_win_rate": 0.8878143133462283
+      }
+    }
+  },
+  "firing": {
+    "human_new": {
+      "trick_room_direction": 86,
+      "trick_room_direction:reverse:demoted": 55,
+      "trick_room_direction:counter:demoted": 22,
+      "trick_room_direction:demoted": 8815,
+      "trick_room_direction:keep_ours:demoted": 1844,
+      "trick_room_direction:no_gift:demoted": 14,
+      "games": 1034
+    },
+    "frozen": {
+      "trick_room_direction": 155,
+      "trick_room_direction:reverse:demoted": 51,
+      "trick_room_direction:demoted": 10483,
+      "trick_room_direction:keep_ours:demoted": 2008,
+      "trick_room_direction:no_gift:demoted": 99,
+      "trick_room_direction:counter:demoted": 19,
+      "games": 1034
+    },
+    "rotation1": {
+      "trick_room_direction": 165,
+      "trick_room_direction:reverse:demoted": 117,
+      "trick_room_direction:counter:demoted": 40,
+      "trick_room_direction:demoted": 8739,
+      "trick_room_direction:no_gift:demoted": 15,
+      "trick_room_direction:keep_ours:demoted": 1914,
+      "games": 1034
+    }
+  }
+}
