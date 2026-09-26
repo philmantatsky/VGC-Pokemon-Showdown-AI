@@ -24,6 +24,11 @@ the rain-category delta as the secondary reading. The midpoint save is only
 evaluated if the final save fails. Runs after the sticky mirror; no ladder, no
 promotion without the user.
 
+**Mirror (pre-registered): `tactical_e4` beats T6ctx 58.0% [55.8, 60.2] over
+2,000 games -- wins close games** (open 60.0 / 54.2, hidden 60.2 / 57.6 by who
+challenges; every block above 54%). `results_mirror_tactical1`. Held-out battery
+next (T6ctx baseline arm, then the candidate).
+
 Fine-tune result (offline, validation split, pre-declared metrics): teacher
 agreement 64.4% -> 75.8%, probability on certainly-useless actions 16.3% ->
 9.6%, drift on lesson-free rows KL 0.034; epoch 4 had the lowest validation
