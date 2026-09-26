@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## focus_boosted + wide_guard DEPLOY-ELIGIBLE (pooled +0.53 [-0.08, +1.19]) -> DEPLOYED; training cycle running (2026-September 26, 04:12)
+
+`results_guard_ab_focus_boosted_wide_guard` (both guards on our side vs the
+dominated_attack arm; 6 populations x 1,034 games): human_new -1.2 [-2.8, +0.3],
+frozen **+1.9 [+0.6, +3.5]**, rotation1 0.0, rotation2 -0.8, human_previous +2.7
+[-0.5, +6.3], heuristic +0.5; **pooled +0.53 [-0.08, +1.19]** -- not worse, no
+population below -3pp, not "better". wide_guard changed 679 actions (191 against
+the previous human clone), focus_boosted 179 (89 against the new human clone).
+By the pre-registered rule both deploy: `guards_extra` += focus_boosted,
+wide_guard, fresh `replay_tag` **T6_humanpreview1_wideguard** (607102c).
+Deployed stack now: resisted_target, overkill_split,
+dominated_weather_ball_weather, dominated_attack, dominated_throat_chop,
+dominated_spread, focus_boosted, wide_guard. The training cycle
+`brainv1_t6_contexts1` started 04:12:02 (35% human-clone opponents, from T6hp).
+
 ## Near-tie mixing LOSES (41.8% [39.6, 43.9]); stays off; focus + Wide Guard A/B running (2026-September 26, 03:29)
 
 `results_mirror_mixing_neartie` (side A samples among its top 3 pairs with >= 15%

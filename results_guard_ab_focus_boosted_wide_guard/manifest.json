@@ -1,0 +1,46 @@
+{
+  "question": "deployed configuration + focus_boosted, wide_guard vs without",
+  "extra_guards": [
+    "focus_boosted",
+    "wide_guard"
+  ],
+  "extra_guards_scope": "our player only (per-player override)",
+  "base_guards_both_sides": [
+    "dominated_attack"
+  ],
+  "reference_arm": "results_guard_ab_dominated_attack/<population>_with_dominated_attack.jsonl",
+  "reference_manifest_sha256": "eab885bf7c16369c3659d03282d2371a5c8e0eeb3a59d3bfc6cde492eb57a5fd",
+  "changed_pins_accepted": [
+    "vgc_bench/src/guards.py",
+    "vgc_bench/src/pokeenv_patches.py",
+    "vgc_bench/src/policy_player.py"
+  ],
+  "guards_module_sha256": "60260b6b8c948af54679300916ff2c112059509ae3949145bb9e394ab3438e81",
+  "guard_sources_sha256": {
+    "vgc_bench/src/guards.py": "60260b6b8c948af54679300916ff2c112059509ae3949145bb9e394ab3438e81",
+    "vgc_bench/src/trick_room_guard.py": "a4de097e8f545750439798ce8424655a6a6c54886a65399250f723d76688581f",
+    "vgc_bench/src/pokeenv_patches.py": "fa025b156bd03d5e3413d6b576b1326bbd3082de4e0d58b191d513bb4434f4ff"
+  },
+  "wrapper_sha256": "37c2a7e83af022be1500558a2ccdb83188c255277e7fb3bb1761e9098075d4b8",
+  "checkpoint": "results_brainv1_t6_humanpreview1/saves_fp_xt_hs_wt/reg_mc/seed1/21135360.zip",
+  "checkpoint_sha256": "c5e922370dd22f6a984add87dddca78d9308dd6c915ac396434875aad1ab5f1a",
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
+  "plans": "data/opening_plans_t6.json",
+  "populations": [
+    "human_new",
+    "frozen",
+    "rotation1",
+    "rotation2",
+    "human_previous",
+    "heuristic"
+  ],
+  "matchups": 47,
+  "repeats": 11,
+  "seed": 20923,
+  "port": 7610,
+  "delta": "with the extra guards minus without",
+  "battle_rng_paired": false,
+  "uncertainty": "whole-roster bootstrap; pooled = equal-population mean",
+  "decision": "Stop for review. Never promote or start ladder automatically."
+}
