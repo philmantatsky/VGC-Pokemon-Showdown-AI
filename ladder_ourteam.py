@@ -324,6 +324,17 @@ async def main():
     mixing_group.add_argument("--mixing-top-k", type=int, default=3)
     mixing_group.add_argument("--mixing-temperature", type=float, default=1.0)
     mixing_group.add_argument("--mixing-last-turn", type=int, default=2)
+    mixing_group.add_argument(
+        "--mixing-min-ratio",
+        type=float,
+        default=0.0,
+        help="sample only near-ties: pairs with >= this share of the top pick",
+    )
+    mixing_group.add_argument(
+        "--mixing-keep-corrections",
+        action="store_true",
+        help="never mix a pick a guard or the opponent reranker corrected",
+    )
     ap.add_argument(
         "--guards-extra",
         default="",
@@ -722,6 +733,8 @@ async def main():
         mixing_top_k=args.mixing_top_k,
         mixing_temperature=args.mixing_temperature,
         mixing_last_turn=args.mixing_last_turn,
+        mixing_min_ratio=args.mixing_min_ratio,
+        mixing_keep_corrections=args.mixing_keep_corrections,
         guard_overrides={
             name.strip(): True for name in args.guards_extra.split(",") if name.strip()
         },

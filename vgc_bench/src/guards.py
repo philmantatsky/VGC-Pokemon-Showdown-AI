@@ -2607,6 +2607,83 @@ def guard_dominated_throat_chop(battle, cands, report) -> list[Candidate]:
     return _dominated_attack(battle, cands, report, "dominated_throat_chop", True)
 
 
+def guard_dominated_spread(battle, cands, report) -> list[Candidate]:
+    """Swap a weak spread attack for a clearly stronger single-target attack.
+
+    Ladder 2026-09-26 (game 3 of the Throat Chop read): Mega Blastoise at 25% HP
+    used Water Spout -- about 37 base power split over Rotom-Wash (resisted, 12%)
+    and Garchomp (27%) -- while Ice Beam into Garchomp was 4x. The user: "water
+    spout and eruption are HP based moves ... sometimes its better to just use
+    the plain water move or heat wave". dominated_attack already swaps a spread
+    move for another spread move (Eruption -> Heat Wave) but never for a
+    single-target one, because its alternative must hit every foe the policy's
+    move hits. Here, with both foes up, the ranked pairs that keep the partner's
+    action and replace the spread attack (hitting only foes) with a plain
+    single-target attack of the same Pokemon into one of those foes (or Throat
+    Chop into no sound move; same Mega/Tera choice) are scored like
+    dominated_attack -- the spread move by its total over both foes -- and the
+    best is promoted at 1.25x and 0.05 more. A full-HP spread hit on two foes
+    keeps its place; a weak one gives way. Opt-in: not in HARD_GUARDS until it
+    passes its A/B.
+    """
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if not live:
+        return cands
+    top = live[0]
+    best = top
+    for pos in (0, 1):
+        attacker = battle.active_pokemon[pos]
+        if attacker is None or attacker.fainted:
+            continue
+        order = _decode(battle, best.actions[pos], pos)
+        move, hit = _move_and_targets(battle, order, pos)
+        if (
+            move is None
+            or len(hit) != 2
+            or move.target != Target.ALL_ADJACENT_FOES
+            or not _plain_attack(move)
+        ):
+            continue
+        already = _partner_damage(battle, best.actions, pos)
+        current = _attack_value(battle, attacker, order, pos, already)
+        if current is None:
+            report.demotions["dominated_spread:no_calc"] += 1
+            continue
+        winner, winner_value = None, current
+        for candidate in live:
+            if (
+                candidate.actions[1 - pos] != best.actions[1 - pos]
+                or candidate.actions[pos] == best.actions[pos]
+            ):
+                continue
+            alternative = _decode(battle, candidate.actions[pos], pos)
+            alt_move, alt_hit = _move_and_targets(battle, alternative, pos)
+            if (
+                alt_move is None
+                or alt_move.target not in SINGLE_TARGET
+                or len(alt_hit) != 1
+                or not any(alt_hit[0] is foe for foe in hit)
+                or (getattr(alternative, "move_target", 0) or 0) < 0
+                or _gimmicks(alternative) != _gimmicks(order)
+                or not _swappable_attack(battle, alt_move, alt_hit, True)
+            ):
+                continue
+            value = _attack_value(battle, attacker, alternative, pos, already)
+            if value is not None and value > winner_value:
+                winner, winner_value = candidate, value
+        if (
+            winner is not None
+            and winner_value >= current * DOMINATED_ATTACK_RATIO
+            and winner_value - current >= DOMINATED_ATTACK_MIN_GAIN
+        ):
+            best = winner
+    if best is top:
+        return cands
+    best.prob = max(best.prob, top.prob)  # see dominated_attack
+    report.demotions["dominated_spread:promoted"] += 1
+    return _promote_candidate(cands, best, "dominated_spread", report)
+
+
 FOCUS_SETUP_STAGES = 2
 FOCUS_STAGE_WEIGHT = 0.25
 FOCUS_MAX_STAGES = 6
@@ -2835,6 +2912,17 @@ def guard_keep_our_weather(battle, cands, report) -> list[Candidate]:
     return _demote(cands, dead, "keep_our_weather", report)
 
 
+def guard_wide_guard(battle, cands, report) -> list[Candidate]:
+    """Opt-in: demote spread attacks into a Wide Guard the opponent has shown.
+
+    Lives in wide_guard.py (it needs the tempo reranker's speed model, which
+    imports this module); imported lazily to avoid the cycle.
+    """
+    from vgc_bench.src.wide_guard import guard_wide_guard as wide_guard
+
+    return wide_guard(battle, cands, report)
+
+
 def guard_trick_room_counter(battle, cands, report) -> list[Candidate]:
     """Opt-in: do not press Trick Room into a counter already shown.
 
@@ -2877,8 +2965,10 @@ GUARDS = {
     "resisted_target": guard_resisted_target,
     "overkill_split": guard_overkill_split,
     "dominated_weather_ball_weather": guard_dominated_weather_ball_weather,
+    "wide_guard": guard_wide_guard,
     "dominated_attack": guard_dominated_attack,
     "dominated_throat_chop": guard_dominated_throat_chop,
+    "dominated_spread": guard_dominated_spread,
     "focus_boosted": guard_focus_boosted,
     "keep_our_weather": guard_keep_our_weather,
     "trick_room_counter": guard_trick_room_counter,
@@ -2944,8 +3034,10 @@ GUARD_ORDER = (
     "encore_exposure",
     "dominated_weather_ball",
     "single_target_weather_ball",
+    "wide_guard",
     "dominated_attack",
     "dominated_throat_chop",
+    "dominated_spread",
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",

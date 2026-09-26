@@ -7,6 +7,7 @@ the battle stalls forever)."""
 
 import threading
 from types import SimpleNamespace
+from typing import Any
 
 import numpy as np
 
@@ -125,3 +126,40 @@ def test_constructor_rejects_unknown_mode() -> None:
 
     with pytest.raises(ValueError):
         PolicyPlayer.__init__(SimpleNamespace(), mixing_mode="sometimes")
+
+
+def _mix(stub, battle, cands, corrected=False):
+    """The sampler on a stub player (typed loosely: a SimpleNamespace, not a
+    PolicyPlayer)."""
+    mix: Any = PolicyPlayer._apply_mixing
+    return mix(stub, battle, cands, corrected)
+
+
+def test_near_tie_mixing_never_spins_onto_a_long_shot() -> None:
+    """The user's wheel (2026-09-26): 85/15 is a near-tie worth mixing; a pair
+    under 15% of the top pick's probability is not."""
+    stub = _stub(mode="always", seed=4)
+    stub.mixing_min_ratio = 0.15
+    cands = _cands([0.80, 0.13, 0.07])  # 0.13 >= 0.12 is in; 0.07 is not
+    ranks = [_mix(stub, _battle(turn=6), cands)[1]["chosen_rank"] for _ in range(2000)]
+    freq = np.bincount(ranks, minlength=3) / len(ranks)
+    assert freq[2] == 0
+    assert abs(freq[1] - 0.13 / 0.93) < 0.03
+    PolicyPlayer.guard_fire_counts.clear()
+    out, report = _mix(stub, _battle(turn=6), _cands([0.9, 0.1]))
+    assert report is None and out[0].prob == 0.9  # 0.1 < 0.135: nothing to mix
+    assert PolicyPlayer.guard_fire_counts["mixing_skipped:single_candidate"] == 1
+
+
+def test_a_corrected_pick_is_never_mixed_away() -> None:
+    """A promoted pair inherits the top pick's probability, so plain mixing
+    would play the corrected mistake back about half the time."""
+    PolicyPlayer.guard_fire_counts.clear()
+    stub = _stub(mode="always", seed=5)
+    stub.mixing_keep_corrections = True
+    cands = _cands([0.5, 0.5])
+    out, report = _mix(stub, _battle(turn=4), cands, True)
+    assert out is cands and report is None
+    assert PolicyPlayer.guard_fire_counts["mixing_skipped:corrected_pick"] == 1
+    out, report = _mix(stub, _battle(turn=4), cands, False)
+    assert report is not None  # an uncorrected near-tie still mixes

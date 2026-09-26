@@ -169,6 +169,8 @@ class PolicyPlayer(Player):
         mixing_temperature: float = 1.0,
         mixing_last_turn: int = 2,
         mixing_seed: int | None = None,
+        mixing_min_ratio: float = 0.0,
+        mixing_keep_corrections: bool = False,
         guard_overrides: dict[str, bool] | None = None,
         *args: Any,
         **kwargs: Any,
@@ -188,6 +190,10 @@ class PolicyPlayer(Player):
                 so every turn. Guard-demoted and strategic-only candidates are
                 never sampled. Weights are the policy's own probabilities raised
                 to ``1/mixing_temperature``. ``mixing_seed`` seeds the sampler.
+                ``mixing_min_ratio`` > 0 samples only near-ties: pairs with at
+                least that fraction of the top pick's probability.
+                ``mixing_keep_corrections`` never mixes a decision whose top pick
+                a guard or the opponent reranker changed.
             deterministic: If True, always pick the highest-probability action
                 instead of sampling from the distribution.
             preview_model_path: Optional learned bring/lead predictor used to track
@@ -259,6 +265,14 @@ class PolicyPlayer(Player):
         self.mixing_top_k = max(1, int(mixing_top_k))
         self.mixing_temperature = float(mixing_temperature)
         self.mixing_last_turn = int(mixing_last_turn)
+        # Near-tie mixing (2026-09-26, the user's "wheel": 85% one move, 15% a
+        # different but not horrible one): only pairs with at least this share
+        # of the top pick's probability are sampled, and a pick a guard or the
+        # opponent reranker corrected is never mixed away (a promoted pair
+        # inherits the top pick's probability, so plain mixing would put the
+        # corrected mistake back about half the time).
+        self.mixing_min_ratio = float(mixing_min_ratio)
+        self.mixing_keep_corrections = bool(mixing_keep_corrections)
         self._mixing_rng = np.random.default_rng(mixing_seed)
         self._mixing_lock = threading.Lock()
         # Per-player guard switches merged over the class-wide profile, so an
@@ -1529,7 +1543,10 @@ class PolicyPlayer(Player):
                 raise ValueError("no live-legal candidate pair")
             mixing_report = None
             if getattr(self, "mixing_mode", "off") != "off":
-                cands, mixing_report = self._apply_mixing(battle, cands)
+                corrected = bool(guard_report is not None and guard_report.stages) or (
+                    opponent_report is not None and bool(opponent_report.changed)
+                )
+                cands, mixing_report = self._apply_mixing(battle, cands, corrected)
             self._audit_decision(
                 battle, cands, opponent_report, guard_report, mixing_report
             )
@@ -1573,7 +1590,7 @@ class PolicyPlayer(Player):
         return False
 
     def _apply_mixing(
-        self, battle: DoubleBattle, cands: list
+        self, battle: DoubleBattle, cands: list, corrected: bool = False
     ) -> tuple[list, dict[str, Any] | None]:
         """Sample the played pair among the top-k eligible candidates.
 
@@ -1587,6 +1604,9 @@ class PolicyPlayer(Player):
         counts = PolicyPlayer.guard_fire_counts
         if not PolicyPlayer._mixing_active(self, battle):
             return cands, None
+        if corrected and getattr(self, "mixing_keep_corrections", False):
+            counts["mixing_skipped:corrected_pick"] += 1
+            return cands, None
         try:
             k = max(1, int(getattr(self, "mixing_top_k", 3)))
             eligible = [
@@ -1595,6 +1615,12 @@ class PolicyPlayer(Player):
                 if getattr(c, "demoted_by", None) is None
                 and not getattr(c, "strategic_only", False)
             ]
+            ratio = float(getattr(self, "mixing_min_ratio", 0.0) or 0.0)
+            if ratio > 0 and cands:
+                floor = ratio * max(float(cands[0].prob), 0.0)
+                eligible = [
+                    c for c in eligible if c is cands[0] or float(c.prob) >= floor
+                ]
             if len(eligible) < 2:
                 counts["mixing_skipped:single_candidate"] += 1
                 return cands, None
@@ -1621,6 +1647,7 @@ class PolicyPlayer(Player):
                 "mode": getattr(self, "mixing_mode", "off"),
                 "eligible": len(eligible),
                 "temperature": temperature,
+                "min_ratio": float(getattr(self, "mixing_min_ratio", 0.0) or 0.0),
                 "chosen_rank": next(i for i, c in enumerate(cands) if c is chosen),
                 "weights": [round(float(w), 4) for w in weights],
                 "changed": changed,
