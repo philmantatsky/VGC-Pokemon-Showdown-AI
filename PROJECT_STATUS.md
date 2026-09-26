@@ -1,5 +1,63 @@
 # VGC Bot Project Status
 
+## Pre-registered: Wide Guard, weak spread, near-tie mixing, focus measurements and a human-opponent training cycle (2026-September 26, 02:09)
+
+The user tonight, during the Throat Chop ladder read: "it needs to be taught wide
+guard if its gonna use water spout and eruption too" (game 2: Water Spout, then
+Eruption, both with Helping Hand, into Aerodactyl's shown Wide Guard); "water
+spout and eruption are HP based moves ... sometimes its better to just use the
+plain water move or heat wave" and "there are also scenarios where we could be
+low hp but the spread attack is better bc one of the opposing mons is really low
+on hp"; a mixed strategy ("like 85% chance to click this one move and 15% to
+click another ... still isnt a horrible move"); "analyze the losses and train it
+on picking correct moves in different contexts"; "lower the ladder games to
+like 15" (the run stops itself after game 15, between games).
+
+Built (dcd37fd, c4aa0ca, d68bc6b; 562 tests): `wide_guard` (demote spread attacks
+while an able foe has shown Wide Guard, unless our Fake Out surely flinches it
+first); `dominated_spread` (with both foes up, a spread attack gives way to a
+single-target attack of the same Pokemon worth 1.25x its TOTAL and 0.05 more --
+a low-HP spread hit that still finishes one foe and chips the other keeps its
+place); near-tie mixing (`mixing_min_ratio`: only pairs with >= that share of the
+top pick; `mixing_keep_corrections`: never mix a pick a guard or the reranker
+corrected, because a promoted pair inherits the top pick's probability); the
+mirror's `--a-mixing`; `run_guard_ab.py --candidate` (another brain vs the
+reused deployed arm); `training/run_t6_contexts_trial.py` (prepared: pool built,
+sources hashed -- no vgc_bench source may change until it ends).
+
+Loss analysis (81 T6 ladder games with replays; scratch `loss_analysis.py`):
+our moves blocked by Protect 11.6% in wins vs **19.5%** in losses; Trick Room ran
+out in 9/37 wins vs **28/44** losses (we win inside the room; opponents stall its
+last turns -- double Protect on a last room turn only in losses); Water Spout /
+Eruption below half HP in 5/37 vs 25/44 (partly a symptom of losing); spread
+into Wide Guard 1/37 vs 5/44.
+
+**Measurements, in this order, after the ladder stops (scratch
+`post_ladder_chain.sh`):**
+1. Mirror `dominated_spread`, 2,000 games; the guard mirrors' reading
+   (deploy-eligible: >= 20 changes, upper >= 50%, no block < 47%; better: lower
+   > 50%; worse: upper < 50%).
+2. Mirror near-tie mixing on side A (always, top 3, T=1, min ratio 0.15,
+   corrections kept), 2,000 games: against a deterministic copy it measures what
+   sampling COSTS (its benefit is against adaptive players, i.e. ladder).
+   Deploy-eligible -> mixing on for the next ladder read (the user asked for
+   it); worse -> off.
+3. Held-out A/B `focus_boosted` + `wide_guard` (`--without-arm
+   results_guard_ab_dominated_attack`), dominated_attack's rule on the pair;
+   each guard deploys only if it changed >= 20 actions, otherwise it is
+   unmeasured and the user decides.
+4. Training cycle `brainv1_t6_contexts1`: from the deployed T6hp brain, +983,040
+   steps, saves 21,626,880 and 22,118,400; the ONE change vs the human-opening
+   recipe: 35% of games against human-style opponents (two training-role Reg
+   M-C clones) instead of 20% -- practice against the Protect, Wide Guard and
+   Trick Room stalling that beat us.
+5. Each save vs the deployed brain (`run_guard_ab.py --candidate`, both sides
+   with dominated_attack, 6 populations x 1,034 games): **better** if the pooled
+   95% lower bound > 0 (any population below -3pp flagged); **worse** if the
+   upper bound < 0; else no clear change. If both are better, the higher pooled
+   point estimate is the pick. Promotion only at the user's word; ladder
+   likewise.
+
 ## Ladder read with Throat Chop: 25 games started; weather guard stays off (user); focus_boosted A/B after the ladder (2026-September 26, 01:43)
 
 The user: "leave weather off, plugged in now, run 25 ladder games".
