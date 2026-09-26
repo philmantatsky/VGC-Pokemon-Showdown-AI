@@ -45,8 +45,18 @@
   (replay_tag T6_humanpreview1_throatchop); Trick Room counter **39.1%, loses**
   -> off (contesting their room beats yielding it); weather **unmeasured** (3
   changes in 2,000 games) -> off, the user decides.
-- [ ] focus_boosted held-out A/B (waits for AC power), deploy if eligible; then
-  a ladder read at the user's word.
+- [x] 15-game ladder read with Throat Chop (2026-09-26): 8-7, 1144 -> ~1170.
+- [x] New user lessons -> `wide_guard` + `focus_boosted` (held-out A/B pooled
+  +0.53 [-0.08, +1.19], deploy-eligible) and `dominated_spread` (mirror **56.4%
+  [54.2, 58.6]**, wins close games): all DEPLOYED (replay_tag
+  T6_humanpreview1_wideguard). Near-tie mixing (the user's wheel) LOSES its
+  mirror (41.8%): off. `keep_our_weather` off (user).
+- [x] Training cycle `brainv1_t6_contexts1` (35% human-clone opponents, from
+  T6hp): both saves **no clear change** (pooled +1.02 [-0.05, +2.14], +1.27
+  [-0.16, +2.68]); gains against the held-out human clones with open sheets.
+  Not promoted.
+- [ ] Next: a ladder read of the new guard stack at the user's word; the user
+  decides whether save 22,118,400 gets a head-to-head or a ladder test.
 - [ ] Sun lead vs rain (training target).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.
