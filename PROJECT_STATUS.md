@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## Training cycle contexts1 complete; both saves being evaluated against the deployed brain (2026-September 26, 06:10)
+
+`results_brainv1_t6_contexts1`: 04:12 -> 06:10, 21,135,360 -> 22,118,400 at ~140
+steps/s, no worker failures, the end-of-run source/data re-check passed. Saves
+21,626,880 and 22,118,400. Training telemetry (small samples, sanity only):
+ep_rew_mean 0.62 -> 0.82, episode length 9.3 -> 8.7 turns; the per-save quick
+evals vs the BC clone 0.83 -> **0.90** and vs the heuristic 0.79 -> 0.83 (the
+human-opening cycle read 0.81 / 0.80 and 0.83 / 0.89 at its saves). The
+pre-registered comparison (`run_guard_ab.py --candidate`, 6 populations x 1,034
+games, both sides with dominated_attack) started 06:10 with 21,626,880;
+22,118,400 follows. Promotion only at the user's word.
+
 ## focus_boosted + wide_guard DEPLOY-ELIGIBLE (pooled +0.53 [-0.08, +1.19]) -> DEPLOYED; training cycle running (2026-September 26, 04:12)
 
 `results_guard_ab_focus_boosted_wide_guard` (both guards on our side vs the
