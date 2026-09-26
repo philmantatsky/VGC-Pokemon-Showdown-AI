@@ -1,5 +1,22 @@
 # VGC Bot Project Status
 
+## Ladder read with the 8-guard stack: 15 games, 8-7, rating 1175 -> peak 1239 -> ~1218 (2026-September 26, 12:40)
+
+`ladder_replays_mc_deployed_T6_humanpreview1_wideguard` (T6hp brain, learned
+preview, guards resisted_target, overkill_split, dominated_weather_ball_weather,
+dominated_attack, dominated_throat_chop, dominated_spread, focus_boosted,
+wide_guard; mixing off): **8-7** (L W W L W L W W L W L W L L W), rating 1175 at
+the start -> **peak 1239** (before game 13) -> ~1218 after game 15, the highest
+this team has reached. The guards changed the pick in 72 of 138 logged decisions
+(dominated_attack 27, resisted_target 20, dominated_spread 10, overkill_split 7,
+guaranteed_ko 3, wide_guard 2, Throat Chop 1, ...); no guard errors, no parse
+errors. Loss contexts: attacks into Protect in 5/7 losses vs 5/8 wins (the gap
+narrowed); into a shown Wide Guard in 1/7 losses (wide_guard fired twice);
+low-HP Water Spout / Eruption in 2/7 (dominated_spread fired 10 times); Trick
+Room's last turn stalled with Protect in 4/7 losses vs 2/8 wins. Pending the
+user: whether save 22,118,400 (head-to-head 59.3% vs this brain) becomes the
+deployed brain.
+
 ## Head-to-head: save 22,118,400 BEATS the deployed brain 59.3% [57.1, 61.4]; ladder read of the deployed configuration next (2026-September 26, 12:01)
 
 `results_mirror_brain_contexts1_22118400`: side A = save 22,118,400 of the
