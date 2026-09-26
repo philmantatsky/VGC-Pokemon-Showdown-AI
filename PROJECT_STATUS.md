@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Head-to-head: save 22,118,400 BEATS the deployed brain 59.3% [57.1, 61.4]; ladder read of the deployed configuration next (2026-September 26, 12:01)
+
+`results_mirror_brain_contexts1_22118400`: side A = save 22,118,400 of the
+35%-human-opponent cycle, side B = the deployed T6hp brain, both with the 8
+deployed guards and the learned preview, T6 vs T6: A **1,186 / 2,000 = 59.3%
+[57.1, 61.4]**, blocks 62.6 / 59.8 (open sheets) and 54.4 / 60.4% (hidden) --
+by the pre-registered reading it **wins close games**. Against the held-out
+battery (mostly opponents the bot already beats ~90%) it was +1.27 [-0.16,
++2.68], no clear change; against an opponent as strong as itself the extra
+practice against human-style play shows. It passed no promotion gate, so the
+deployed brain is unchanged: promotion is the user's call. The 15 ladder games
+now play the deployed configuration as announced (fresh dir
+`ladder_replays_mc_deployed_T6_humanpreview1_wideguard`).
+
 ## Head-to-head mirror of save 22,118,400 vs the deployed brain pre-registered; then 15 ladder games (2026-September 26, 11:32)
 
 The user: "do the head to head mirror then run 15 ladder games".
