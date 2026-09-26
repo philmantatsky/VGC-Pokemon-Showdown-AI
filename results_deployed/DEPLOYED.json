@@ -7,7 +7,7 @@
   "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
   "reg": "mc",
   "format": "gen9championsvgc2026regmc",
-  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack",
+  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop",
   "knowledge_obs": true,
   "search": false,
   "set_prior_reg": "mc",
@@ -16,7 +16,7 @@
   "preview_model": "data/preview_t6_focus_20260923.pt",
   "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
   "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
-  "replay_tag": "T6_humanpreview1_attackcheck"
+  "replay_tag": "T6_humanpreview1_throatchop"
  },
  "promoted_at": "2026-09-24T16:26:58+00:00",
  "promoted_by": "user 2026-09-24: 'make it the official bot and run 25 ladder games'",
@@ -81,6 +81,18 @@
    "by": "user 2026-09-24: 'we still need to fix that problem, because at higher elo our opponents will win because of it esp cuz its 2v2 and only 4 mons each move matters so much'",
    "evidence": "results_guard_ab_dominated_attack: pooled +0.05pp [-0.97, +1.05], deploy-eligible by the pre-registered rule, locally neutral; fixes the move-choice mistakes the user saw in ladder games 1-2 (tests on those positions)",
    "ladder_so_far": "3 games before the change: 2-1 (ladder_replays_mc_deployed_T6_humanpreview1)"
+  },
+  {
+   "at": "2026-09-26T05:33:14+00:00",
+   "change": "guards_extra += dominated_throat_chop; replay_tag T6_humanpreview1_attackcheck -> T6_humanpreview1_throatchop (fresh single-config replay dirs)",
+   "previous": {
+    "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack",
+    "replay_tag": "T6_humanpreview1_attackcheck"
+   },
+   "by": "user 2026-09-25: 'yes do all 4 fixes'; deployed by the rule pre-registered before any game (PROJECT_STATUS 2026-09-25 22:45, combined check amended 23:40)",
+   "evidence": "results_mirror_dominated_throat_chop: 50.4% [48.2, 52.6], 106 changed actions, no block below 47% -> deploy-eligible; results_mirror_ladder_fixes (with focus_boosted, inert in a T6 mirror): 49.7% [47.5, 51.9], not worse; pooled 50.05% [48.5, 51.6] over 4,000 mirror games (neutral); ladder replay audit: 3 of 571 logged T6 decisions change (Flare Blitz into Annihilape and Mega Baxcalibur, Throat Chop into a Ghost-type Chandelure)",
+   "not_deployed": "trick_room_counter (mirror 39.1% [37.0, 41.3], loses close games); keep_our_weather (3 changed actions in 2,000 mirror games: unmeasured, the user decides); focus_boosted (held-out A/B pending)",
+   "ladder_so_far": "ladder_replays_mc_deployed_T6_humanpreview1_attackcheck: 22 games 11-11"
   }
  ]
 }

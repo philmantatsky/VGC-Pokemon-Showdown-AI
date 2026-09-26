@@ -265,6 +265,11 @@ results_guard_ab_trick_room_direction/*
 !results_guard_ab_trick_room_direction/manifest.json
 !results_guard_ab_trick_room_direction/scorecard.json
 !results_guard_ab_trick_room_direction/status.json
+!results_guard_ab_focus_boosted/
+results_guard_ab_focus_boosted/*
+!results_guard_ab_focus_boosted/manifest.json
+!results_guard_ab_focus_boosted/scorecard.json
+!results_guard_ab_focus_boosted/status.json
 !results_mirror_dominated_attack/
 results_mirror_dominated_attack/*
 !results_mirror_dominated_attack/manifest.json

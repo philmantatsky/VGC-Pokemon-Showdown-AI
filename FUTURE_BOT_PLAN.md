@@ -40,9 +40,13 @@
   `focus_boosted`, `keep_our_weather`, `trick_room_counter` (12 of 571 logged
   ladder decisions change, 11 games). Two claims corrected (games 11/19 blocks
   were unshown; weather overwrite 1 loss vs 2 wins).
-- [ ] Their measurements (pre-registered 2026-09-25): mirrors for Throat Chop,
-  Trick Room counter, weather, all four; held-out A/B for focus_boosted; deploy
-  the eligible ones; then a ladder read at the user's word.
+- [x] Their mirrors (pre-registered 2026-09-25): Throat Chop 50.4% then 49.7%
+  with focus_boosted (pooled 50.05% [48.5, 51.6], neutral) -> **DEPLOYED**
+  (replay_tag T6_humanpreview1_throatchop); Trick Room counter **39.1%, loses**
+  -> off (contesting their room beats yielding it); weather **unmeasured** (3
+  changes in 2,000 games) -> off, the user decides.
+- [ ] focus_boosted held-out A/B (waits for AC power), deploy if eligible; then
+  a ladder read at the user's word.
 - [ ] Sun lead vs rain (training target).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.

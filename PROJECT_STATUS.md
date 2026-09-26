@@ -1,5 +1,24 @@
 # VGC Bot Project Status
 
+## dominated_throat_chop DEPLOYED (pre-registered rule); combined mirror not worse; focus_boosted A/B waits for AC power (2026-September 26, 00:33)
+
+`results_mirror_ladder_fixes` (Throat Chop + focus_boosted, which never fired in a
+T6 mirror, as expected): A 994 / 2,000 = **49.7% [47.5, 51.9]**, blocks 47.6 /
+52.0 / 49.6 / 49.6%, 107 Throat Chop changes -> **not worse**. With the first
+mirror, Throat Chop over 4,000 games: **50.05% [48.5, 51.6]** -- neutral, about one
+changed action per 19 games.
+
+By the rule pre-registered before any game (amended 23:40 before any affected
+result), `dominated_throat_chop` is deployed: DEPLOYED.json `guards_extra` +=
+dominated_throat_chop, fresh `replay_tag` **T6_humanpreview1_throatchop**
+(`amendments` records it, with the guards not deployed and why). Checkpoint,
+team and preview model unchanged; `tools/deployed_config.py` resolves it.
+Not deployed: `trick_room_counter` (loses close games, 39.1%), `keep_our_weather`
+(unmeasured -- 3 changes in 2,000 mirror games; the user decides).
+`focus_boosted`'s held-out A/B starts when the MacBook is on AC power
+(`fixes_chain3.sh`); DEPLOYED.json is not a pinned input of that A/B, so this
+amendment does not affect it. Ladder play still waits for the user.
+
 ## Fix mirror 3: keep_our_weather UNMEASURED (3 changes in 2,000 games); combined mirror running; the A/B waits for AC power (2026-September 26, 00:07)
 
 `results_mirror_keep_our_weather`: A 1,027 / 2,000 = 51.4% [49.2, 53.5], but the
