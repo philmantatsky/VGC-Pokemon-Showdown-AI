@@ -1,5 +1,16 @@
 # VGC Bot Project Status
 
+## dominated_spread WINS CLOSE GAMES (56.4% [54.2, 58.6]) -> DEPLOYED (2026-September 26, 03:02)
+
+`results_mirror_dominated_spread`: A 1,128 / 2,000 = **56.4% [54.2, 58.6]**, blocks
+55.4 / 59.2 / 52.8 / 58.2%, 1,424 changed actions (0.71 per game). The user's
+point measured: a spread hit whose HP-scaled power (or split damage) has dropped
+below one clear single-target hit loses close games. By the pre-registered rule
+it is deployed: `guards_extra` += dominated_spread, fresh `replay_tag`
+**T6_humanpreview1_spread** (a6f4e3d). The near-tie mixing mirror had already
+read the configuration when this changed (started 03:01:50), so it compares
+mixing against the stack without dominated_spread on both sides.
+
 ## Ladder read with Throat Chop: 15 games, 8-7; loss contexts confirmed (2026-September 26, 02:35)
 
 `ladder_replays_mc_deployed_T6_humanpreview1_throatchop`: **8-7** (W L W L W L L W L L
