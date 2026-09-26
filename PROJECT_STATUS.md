@@ -1,5 +1,75 @@
 # VGC Bot Project Status
 
+## Four ladder-mistake fixes built as opt-in guards; measurements pre-registered (2026-September 25, 22:45)
+
+The user: "yes do all 4 fixes" (Trick Room into a counter, focus a foe that set
+up, Throat Chop in the attack check, no weather-overwriting switch-in).
+
+Checked against all 75 T6 ladder games first, two of my claims were overstated:
+the Imprison and Taunt that stopped Trick Room in games 11 and 19 came on turn
+1, before either was shown (Sneasler Taunt is 0.6% in the M-C prior), and the
+bot did not retry; re-setting Trick Room into a foe that had shown it happened
+3 times (1 loss, 2 wins). Torkoal replaced our rain beside Blastoise in 3 games
+(1 loss, 2 wins). Throat Chop: 12 uses in 6 games, all lost. 11 single-target
+attacks went past a foe at +2 or more.
+
+Guards (opt-in, off; `vgc_bench/src/guards.py`, `trick_room_guard.py`):
+- `dominated_throat_chop`: dominated_attack's comparison (same 1.25x / +0.05
+  margins, runs right after it) with Throat Chop scored as a plain attack unless
+  a foe it hits has a sound move (revealed, or >= 0.5 in the set prior), both
+  ways. Game 8's Tyranitar is NOT changed: Flare Blitz is 1.5x but only +4.8% of
+  its HP into the resisting Mega.
+- `focus_boosted`: when exactly one of two foes is ahead with >= +2
+  Attack/Sp. Atk/Speed stages (Defense too with a shown Body Press), each foe's
+  share of dominated_attack's value is weighted 1 + 0.25 x stages and a ranked
+  pair of the same Pokemon attacking the boosted foe is promoted at 1.25x /
+  +0.05. The partner-capped HP keeps it from overkilling a boosted foe the
+  partner already KOs (game 21's 3% Serperior).
+- `keep_our_weather`: demotes switching in (by choice or after a faint) a
+  weather setter over OUR weather with >= 2 turns left when the partner staying
+  in is clearly better off in it (strongest move >= 1.25x there, or its speed
+  ability). `pokeenv_patches` now records which side set the weather and on
+  which turn (poke-env forgets the setter and rewrites the start turn at every
+  upkeep); nothing else reads it.
+- `trick_room_counter`: with Trick Room down, demotes pairs that set it while an
+  active foe has shown a counter: Imprison up (Showdown refuses the choice even
+  if its user will faint first -- game 11 turn 2, where the policy's top six
+  pairs all pressed it), a Taunt that would land, or its own Trick Room (can
+  cancel or reverse ours; not in our fast mode -- the user's counter). For Taunt
+  / reverser it stands down when our partner's half stops that foe first (Fake
+  Out, or a certain KO before it acts), which also promotes Heat Wave + Trick
+  Room over Protect + Trick Room.
+
+Replay audit (scratch `guard_audit.py`: 571 logged decisions of the 75 games
+rebuilt from their replays with the Champions stats the server sends, deployed
+stack vs + guards): Throat Chop 3 changed decisions, focus 3, weather 3 (1 lost
+game, 2 won), Trick Room 4; all four together 12 in 11 games (8 lost). Tests on
+the real positions + boundaries: 33 new (`unit_tests/test_dominated_throat_chop.py`,
+`test_focus_boosted.py`, `test_keep_our_weather.py`, `test_trick_room_counter.py`,
+shared `ladder_position.py`); suite 547 passed, 5 skipped. Also: dominated_attack
+refactored into a shared core (its 15 tests unchanged and passing);
+`mirror_guard_ab.py` takes several guards; `run_guard_ab.py --without-arm` reuses
+`results_guard_ab_dominated_attack` as the without side (dominated_attack on
+both sides), accepting the `pokeenv_patches` pin change.
+
+**Measurements (pre-registered now, before any game), run in this order:**
+1. Mirror matches (`evaluation/mirror_guard_ab.py`, 2,000 games, four blocks
+   each): `dominated_throat_chop`, `trick_room_counter`, `keep_our_weather`,
+   then all four together. `focus_boosted` gets no single mirror: T6 has no
+   boosting move, so a T6 mirror cannot trigger it.
+2. Held-out A/B for `focus_boosted`: `run_guard_ab.py --guards focus_boosted
+   --without-arm results_guard_ab_dominated_attack`.
+
+Reading. A mirror: "better" (wins close games) if A's Wilson 95% lower bound
+> 50%; "deploy-eligible" if the guard changed >= 20 of A's actions, the upper
+bound >= 50% and no block's point estimate < 47%; "worse" if the upper bound
+< 50%. The A/B: dominated_attack's rule (fires; pooled upper bound >= 0; no
+population below -3pp; "better" if the lower bound > 0). A guard is added to
+DEPLOYED.json (the user asked for the fixes) if its own measurement makes it
+deploy-eligible or better AND the all-four mirror is not "worse"; one that fires
+< 20 times is "unmeasured here" and stays off for the user to decide; "worse"
+stays off. Fresh replay_tag on any change; ladder play waits for the user.
+
 ## Ladder read with the attack check: 11-11 (25-game read 13-12); loss causes (2026-September 25, 21:10)
 
 `ladder_replays_mc_deployed_T6_humanpreview1_attackcheck`: 22 serial games,

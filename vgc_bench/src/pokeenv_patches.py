@@ -83,11 +83,34 @@ def install() -> bool:
                 PARSE_REPAIRS[f"cant_ability:{ability}"] += 1
             except Exception as exc:
                 PARSE_ERRORS[f"cant_ability_repair:{type(exc).__name__}"] += 1
+        _track_weather(self, split_message)
         return result
 
     AbstractBattle.parse_message = parse_message  # type: ignore[method-assign]
     _installed = True
     return True
+
+
+def _track_weather(battle, event) -> None:  # type: ignore[no-untyped-def]
+    """Record which side set the current weather, and on which turn.
+
+    poke-env keeps only {weather: turn} and rewrites that turn at every end-of-turn
+    `|-weather|RainDance|[upkeep]`, so neither the setter's side nor the weather's
+    age survives. A Rain Dance's `|-weather|` line follows its `|move|` line; an
+    ability names its holder: `|-weather|SunnyDay|[from] ability: Drought|[of]
+    p1a: Torkoal`. Read by the opt-in guard keep_our_weather; nothing else.
+    """
+    if len(event) < 3:
+        return
+    if event[1] == "move":
+        battle._vgc_last_mover = event[2][:2]
+    elif event[1] == "-weather" and "[upkeep]" not in event:
+        if event[2] == "none":
+            battle._vgc_weather_side = battle._vgc_weather_start = None
+            return
+        holder = next((part[5:7] for part in event if part.startswith("[of] ")), None)
+        battle._vgc_weather_side = holder or getattr(battle, "_vgc_last_mover", None)
+        battle._vgc_weather_start = battle.turn
 
 
 def report() -> str:

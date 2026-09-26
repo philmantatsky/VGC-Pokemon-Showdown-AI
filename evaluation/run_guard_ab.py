@@ -7,8 +7,10 @@ populations x 47 held-out rosters x 22 games. That arm is reused as the
 "without" side, which is valid only while nothing it depended on changed except
 the guard module, where the new guards are opt-in and were off:
 
-* every pin of results_t6_vs_deployed_v1 still hashes the same, except
-  vgc_bench/src/guards.py;
+* every pin of results_t6_vs_deployed_v1 still hashes the same, except the
+  guard code: vgc_bench/src/guards.py, and vgc_bench/src/pokeenv_patches.py
+  (2026-09-25: a weather-setter tracker read only by the opt-in guard
+  keep_our_weather);
 * the reference arm played exactly the deployed checkpoint and preview model;
 * each new population's opening_study manifest equals the reference's except
   the output path (the extra guards are a per-player override on our side only,
@@ -20,8 +22,15 @@ independent, uncertainty resamples whole opponent rosters. Delta = with minus
 without. Also reports how often each extra guard changed the played action. No
 promotion, no ladder.
 
+--without-arm DIR reuses a completed run of this script as the "without" side
+instead (2026-09-25: results_guard_ab_dominated_attack, once dominated_attack
+was deployed): its extra guards -- which must all be deployed -- stay on for
+both sides, and only the new guards differ.
+
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/run_guard_ab.py --guards dominated_attack
+  .venv/bin/python evaluation/run_guard_ab.py --guards focus_boosted \
+      --without-arm results_guard_ab_dominated_attack
 """
 
 from __future__ import annotations
@@ -63,7 +72,14 @@ from vgc_bench.src.set_particles import team_roster
 REFERENCE = Path("results_candidate_vs_t6_humanpreview_21135360")
 REFERENCE_LABEL = "humanpreview_21135360"
 PINS = Path("results_t6_vs_deployed_v1/manifest.json")
-ALLOWED_CHANGED_PINS = {"vgc_bench/src/guards.py"}
+ALLOWED_CHANGED_PINS = {"vgc_bench/src/guards.py", "vgc_bench/src/pokeenv_patches.py"}
+# Everything the extra guards run; hashed into the manifest, re-checked between
+# populations so the code cannot change during a comparison.
+GUARD_SOURCES = (
+    "vgc_bench/src/guards.py",
+    "vgc_bench/src/trick_room_guard.py",
+    "vgc_bench/src/pokeenv_patches.py",
+)
 DEPLOYED = Path("results_deployed/DEPLOYED.json")
 
 
@@ -96,6 +112,34 @@ def same_study(reference: dict, candidate: dict) -> list[str]:
     )
 
 
+def without_arm(
+    path: Path, reference: dict, deployed: set[str]
+) -> tuple[list[str], str]:
+    """(base guards, arm label) of a completed run reused as the "without" side.
+
+    It must be this study (same checkpoint, preview model, seed, repeats and
+    populations) and its extra guards must all be deployed: they stay on for
+    both sides, so the comparison isolates the new guards."""
+    prior = json.loads((path / "manifest.json").read_text())
+    if json.loads((path / "status.json").read_text())["phase"] != (
+        "complete_review_required"
+    ):
+        raise ValueError(f"{path} is not complete")
+    same = (
+        prior["checkpoint_sha256"] == reference["candidate_sha256"]
+        and prior["preview_model_sha256"] == reference["our_preview"]["model_sha256"]
+        and prior["seed"] == reference["seed"]
+        and prior["repeats"] == reference["repeats"]
+        and prior["populations"] == reference["populations"]
+    )
+    if not same:
+        raise ValueError(f"{path} is not the same study as the reference")
+    base = list(prior["extra_guards"])
+    if not base or not set(base) <= deployed:
+        raise ValueError(f"{path}'s extra guards are not all deployed: {base}")
+    return base, "with_" + "_".join(base)
+
+
 def guard_firing(telemetry: list[dict], guards: list[str]) -> dict[str, int]:
     """Summed fire counts for the extra guards across every cell."""
     counts: Counter[str] = Counter()
@@ -110,6 +154,12 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--guards", required=True, help="comma-separated opt-in guards")
     ap.add_argument("--output", type=Path, default=None)
+    ap.add_argument(
+        "--without-arm",
+        type=Path,
+        default=None,
+        help="a completed run of this script reused as the without side",
+    )
     ap.add_argument("--port", type=int, default=7610)
     ap.add_argument("--prepare-only", action="store_true")
     args = ap.parse_args()
@@ -136,6 +186,10 @@ def main() -> None:
     already = set(deployed["guards_extra"].split(","))
     if already & set(guards):
         raise ValueError(f"already deployed: {sorted(already & set(guards))}")
+    base, without_dir, without_label = [], REFERENCE, REFERENCE_LABEL
+    if args.without_arm is not None:
+        base, without_label = without_arm(args.without_arm, reference, already)
+        without_dir = args.without_arm
     pins = json.loads(PINS.read_text())["sha256"]
     stale = set(changed_pins(pins))
     if not stale <= ALLOWED_CHANGED_PINS:
@@ -157,10 +211,12 @@ def main() -> None:
         "question": f"deployed configuration + {', '.join(guards)} vs without",
         "extra_guards": guards,
         "extra_guards_scope": "our player only (per-player override)",
-        "reference_arm": f"{REFERENCE}/<population>_{REFERENCE_LABEL}.jsonl",
-        "reference_manifest_sha256": sha256(REFERENCE / "manifest.json"),
+        "base_guards_both_sides": base,
+        "reference_arm": f"{without_dir}/<population>_{without_label}.jsonl",
+        "reference_manifest_sha256": sha256(without_dir / "manifest.json"),
         "changed_pins_accepted": sorted(stale),
         "guards_module_sha256": sha256("vgc_bench/src/guards.py"),
+        "guard_sources_sha256": {path: sha256(path) for path in GUARD_SOURCES},
         "wrapper_sha256": sha256("evaluation/learned_preview_study.py"),
         "checkpoint": reference["candidate"],
         "checkpoint_sha256": reference["candidate_sha256"],
@@ -206,11 +262,13 @@ def main() -> None:
                 remaining = deadline - time.monotonic()
                 if remaining <= 0:
                     raise TimeoutError("bounded comparison time budget exhausted")
-                if not set(changed_pins(pins)) <= ALLOWED_CHANGED_PINS or any(
-                    sha256(path) != config[key]
-                    for path, key in (
-                        ("vgc_bench/src/guards.py", "guards_module_sha256"),
-                        ("evaluation/learned_preview_study.py", "wrapper_sha256"),
+                if (
+                    not set(changed_pins(pins)) <= ALLOWED_CHANGED_PINS
+                    or sha256("evaluation/learned_preview_study.py")
+                    != config["wrapper_sha256"]
+                    or any(
+                        sha256(path) != digest
+                        for path, digest in config["guard_sources_sha256"].items()
                     )
                 ):
                     raise ValueError(
@@ -222,7 +280,7 @@ def main() -> None:
                     "--preview-model",
                     preview["model"],
                     "--extra-guards",
-                    ",".join(guards),
+                    ",".join(base + guards),
                     "--",
                     "--checkpoint",
                     reference["candidate"],
@@ -254,7 +312,7 @@ def main() -> None:
                 telemetry = read_rows(arm.with_suffix(".telemetry.jsonl"))
                 validate_arm(rows, telemetry, matchups, repeats, roster)
                 check_arm_manifest(arm.with_suffix(".manifest.json"), "mc", joint_sha)
-                ref_arm = REFERENCE / f"{pop}_{REFERENCE_LABEL}.jsonl"
+                ref_arm = without_dir / f"{pop}_{without_label}.jsonl"
                 differs = same_study(
                     json.loads(ref_arm.with_suffix(".manifest.json").read_text()),
                     json.loads(arm.with_suffix(".manifest.json").read_text()),

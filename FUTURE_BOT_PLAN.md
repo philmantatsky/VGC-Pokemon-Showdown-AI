@@ -35,10 +35,15 @@
   (-9.8pp); stopped; off. Redesign must judge by our whole brought four / plan.
 - [x] Ladder read with the attack check: 22 games 11-11; the 25-game read 13-12
   (T6: 21-29, T4: 27-23). Loss causes in PROJECT_STATUS (2026-09-25 21:10).
-- [ ] Next fixes (each: tests on real ladder positions + mirror match): Trick Room
-  into a revealed counter (Taunt / Imprison / reverser); focus a foe that just
-  set up; Throat Chop as a plain attack unless the target has a sound move; no
-  switch-in that overwrites our own useful weather; sun lead vs rain (training).
+- [x] Four fixes built at the user's word ("yes do all 4 fixes"), opt-in guards
+  with tests on the real ladder positions: `dominated_throat_chop`,
+  `focus_boosted`, `keep_our_weather`, `trick_room_counter` (12 of 571 logged
+  ladder decisions change, 11 games). Two claims corrected (games 11/19 blocks
+  were unshown; weather overwrite 1 loss vs 2 wins).
+- [ ] Their measurements (pre-registered 2026-09-25): mirrors for Throat Chop,
+  Trick Room counter, weather, all four; held-out A/B for focus_boosted; deploy
+  the eligible ones; then a ladder read at the user's word.
+- [ ] Sun lead vs rain (training target).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.
 - [x] Deployment plumbing for a learned preview (in use since 2026-09-24):

@@ -30,13 +30,28 @@ Speed, as Trick Room teams run it: the plain Speed range of a hidden spread
 
 from __future__ import annotations
 
-from poke_env.battle import DoubleBattle, Field, Move, Pokemon
+from collections import Counter
+
+from poke_env.battle import (
+    DoubleBattle,
+    Effect,
+    Field,
+    Move,
+    MoveCategory,
+    Pokemon,
+    Status,
+)
 from poke_env.data import to_id_str
 
 from vgc_bench.src import guards as G
 from vgc_bench.src import vgc_knowledge as K
 from vgc_bench.src.preview_rules import TRICK_ROOM_MOVE, species_trick_room_rate
-from vgc_bench.src.tempo_reranker import effective_speed_bounds, trick_room_turns
+from vgc_bench.src.tempo_reranker import (
+    effective_speed,
+    effective_speed_bounds,
+    tailwind_turns,
+    trick_room_turns,
+)
 
 SETTER_RATE = 0.5
 HEAVY_SETTERS = 2
@@ -163,3 +178,212 @@ def guard_trick_room_direction(battle, cands, report) -> list[G.Candidate]:
     if any(likely_setter(battle, foe) for foe in battle.opponent_active_pokemon):
         return _promote(battle, cands, report, "counter")
     return _demote(battle, cands, report, "no_gift")
+
+
+# ---- trick_room_counter ---------------------------------------------------------
+
+COUNTER = "trick_room_counter"
+_CANNOT_ACT = (Status.SLP, Status.FRZ)
+_FLINCH_PROOF_ABILITIES = {"innerfocus", "shielddust"}
+
+
+def _fake_out_lands(
+    battle: DoubleBattle, partner: Pokemon, foe: Pokemon, move: Move
+) -> bool:
+    """Our Fake Out flinches ``foe``: our first turn out, no priority blocker on
+    their side, no Psychic Terrain under a grounded foe, no flinch immunity."""
+    if not partner.first_turn:
+        return False
+    if any(
+        mon is not None
+        and not mon.fainted
+        and G._norm(mon.ability) in G.PRIORITY_BLOCK_ABILITIES
+        for mon in battle.opponent_active_pokemon
+    ):
+        return False
+    psychic_terrain = getattr(Field, "PSYCHIC_TERRAIN", None)
+    if (
+        psychic_terrain is not None
+        and psychic_terrain in battle.fields
+        and G._is_grounded(battle, foe)
+    ):
+        return False
+    if (
+        G._norm(foe.ability) in _FLINCH_PROOF_ABILITIES
+        or G._norm(foe.item) == "covertcloak"
+    ):
+        return False
+    return not K.deals_no_damage(battle, partner, foe, move)
+
+
+def _partner_stops(
+    battle: DoubleBattle,
+    candidate: G.Candidate,
+    pos: int,
+    foe: Pokemon,
+    before: int | None,
+) -> bool:
+    """Our partner's half of the pair keeps ``foe`` from acting this turn: a Fake
+    Out that flinches it, or a certain knockout that lands first. Everything at
+    normal priority lands before Trick Room's -7; ``before`` is the priority of
+    a foe's move the partner must beat instead (Taunt), where a tie needs our
+    partner certainly faster."""
+    partner_pos = 1 - pos
+    partner = battle.active_pokemon[partner_pos]
+    if partner is None or partner.fainted:
+        return False
+    order = G._decode(battle, candidate.actions[partner_pos], partner_pos)
+    move = getattr(order, "order", None)
+    if not isinstance(move, Move) or foe not in G.resolved_foe_targets(
+        battle, order, move
+    ):
+        return False
+    priority = G._effective_priority(partner, move)
+    if move.id == "fakeout":
+        landed = _fake_out_lands(battle, partner, foe, move)
+    elif move.category == MoveCategory.STATUS:
+        return False
+    else:
+        landed = K.guaranteed_ko(battle, partner, foe, move)
+    if not landed or before is None:
+        return landed
+    if priority != before:
+        return priority > before
+    K.ensure_stats(foe)
+    ours = effective_speed_bounds(battle, partner, True)
+    theirs = effective_speed_bounds(battle, foe, False)
+    return ours is not None and theirs is not None and ours[0] > theirs[1]
+
+
+def _taunt_lands(battle: DoubleBattle, taunter: Pokemon, setter: Pokemon) -> bool:
+    """A shown Taunt that would reach our setter."""
+    taunt = G._known_move(taunter, "taunt")
+    if taunt is None:
+        return False
+    priority = G._effective_priority(taunter, taunt)
+    if G._priority_is_blocked(battle, taunter, setter, priority):
+        return False  # Prankster into Armor Tail / Dazzling / a Dark setter
+    if G._norm(setter.ability) == "oblivious" or G._norm(setter.item) == "mentalherb":
+        return False
+    return not any(
+        mon is not None and not mon.fainted and G._norm(mon.ability) == "aromaveil"
+        for mon in battle.active_pokemon
+    )
+
+
+def _fast_mode(battle: DoubleBattle, pos: int) -> bool:
+    """Our other active certainly outruns every active foe without Trick Room --
+    against their fastest plausible spread, Scarf aside -- so the room would slow
+    us: pressing it as they press theirs is the counter the user described."""
+    partner = battle.active_pokemon[1 - pos]
+    if partner is None or partner.fainted:
+        return False
+    mine = effective_speed(battle, partner, True)
+    if mine is None:
+        return False
+    for foe in battle.opponent_active_pokemon:
+        if foe is None or foe.fainted:
+            continue
+        base = (getattr(foe, "base_stats", None) or {}).get("spe")
+        if not base:
+            return False
+        ceiling = int((base + 52) * 1.1) * G._BOOST_MULT.get(
+            foe.boosts.get("spe", 0), 1.0
+        )
+        if tailwind_turns(battle, False):
+            ceiling *= 2
+        if not mine > ceiling:
+            return False
+    return True
+
+
+def _counter(
+    battle: DoubleBattle, candidate: G.Candidate, pos: int, setter: Pokemon
+) -> str | None:
+    """Why this pair's Trick Room would be stopped this turn, if it would."""
+    imprison = getattr(Effect, "IMPRISON", None)
+    fmt = _format(battle)
+    for foe in battle.opponent_active_pokemon:
+        if foe is None or foe.fainted or foe.status in _CANNOT_ACT:
+            continue
+        knows_room = G._known_move(foe, TRICK_ROOM_MOVE) is not None
+        # Imprison disables the move at selection (Showdown refuses the choice
+        # outright), so even a partner knocking the Imprison user out first
+        # cannot rescue it -- ladder game 11, turn 2.
+        if (
+            imprison is not None
+            and imprison in (foe.effects or {})
+            and (knows_room or species_trick_room_rate(foe.species, fmt) >= SETTER_RATE)
+        ):
+            return "imprison"
+        taunt = G._known_move(foe, "taunt")
+        if (
+            taunt is not None
+            and _taunt_lands(battle, foe, setter)
+            and not _partner_stops(
+                battle, candidate, pos, foe, G._effective_priority(foe, taunt)
+            )
+        ):
+            return "taunt"
+        if (
+            knows_room
+            and not _fast_mode(battle, pos)
+            and not _partner_stops(battle, candidate, pos, foe, None)
+        ):
+            return "reverser"
+    return None
+
+
+def guard_trick_room_counter(battle, cands, report) -> list[G.Candidate]:
+    """Do not press Trick Room into a counter the opponent has already shown.
+
+    Ladder T6 reads (75 games), 2026-09-25: game 5 pressed Trick Room again the
+    turn after Cofagrigus's own Trick Room cancelled ours; Cofagrigus reversed
+    it the next turn and Farigiraf fell without a lasting room. (The Imprison
+    and Taunt that stopped the first attempt in games 11 and 19 were not shown
+    before that turn -- nothing on the board could have flagged them.)
+
+    With Trick Room down, demotes pairs that set it while an active foe that can
+    act this turn (not asleep or frozen) has shown a counter:
+      * Imprison up and Trick Room known, or its species' set rate >= 0.5 --
+        Showdown refuses the choice itself (game 11, turn 2: the policy's top
+        six pairs all pressed Trick Room into Indeedee's Imprison);
+      * Taunt that would land (not Prankster into a priority blocker or a Dark
+        setter; no Oblivious, Aroma Veil or Mental Herb);
+      * its own Trick Room: it can cancel ours this turn or reverse it the next,
+        and if it wants the room it will set it itself. Not in our fast mode --
+        our other active outruns both foes' fastest plausible spreads -- where
+        pressing Trick Room as they press theirs is the user's counter.
+    For Taunt and a reverser, stands down when our partner's half of the pair
+    stops that foe first (a Fake Out that flinches it, or a certain knockout
+    landing before it) -- which also promotes such a pair over a Protect beside
+    the room. Stands down when nothing else is legal. Opt-in: not in HARD_GUARDS
+    until it passes its A/B.
+    """
+    if Field.TRICK_ROOM in battle.fields:
+        return cands  # setting only; reversing stays the policy's call
+    dead: set[int] = set()
+    reasons: Counter[str] = Counter()
+    for i, candidate in enumerate(cands):
+        if candidate.demoted_by is not None:
+            continue
+        for pos, action in enumerate(candidate.actions):
+            move = getattr(G._decode(battle, action, pos), "order", None)
+            setter = battle.active_pokemon[pos]
+            if (
+                not isinstance(move, Move)
+                or move.id != TRICK_ROOM_MOVE
+                or setter is None
+                or setter.fainted
+            ):
+                continue
+            reason = _counter(battle, candidate, pos, setter)
+            if reason is not None:
+                dead.add(i)
+                reasons[reason] += 1
+    before = report.demotions[COUNTER]
+    out = G._demote(cands, dead, COUNTER, report)
+    if report.demotions[COUNTER] > before:
+        for reason in reasons:
+            report.demotions[f"{COUNTER}:{reason}"] += 1
+    return out

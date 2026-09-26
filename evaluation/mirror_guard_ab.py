@@ -19,7 +19,8 @@ species, HP) cannot tell the two sides of a mirror apart.
 Reports A's win rate (ties count half) with a Wilson 95% interval and how often
 the guard changed A's action. Pre-registered reading (PROJECT_STATUS): the
 guard wins close games if the lower bound is above 50%, loses them if the upper
-bound is below 50%, else inconclusive. No promotion, no ladder.
+bound is below 50%, else inconclusive. No promotion, no ladder. --guard takes a
+comma-separated list to measure several guards together (side A has all).
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000
@@ -54,6 +55,11 @@ from vgc_bench.src.teams import RandomTeamBuilder
 from vgc_bench.src.utils import format_map
 
 BLOCKS = [(hidden, a_first) for hidden in (False, True) for a_first in (True, False)]
+GUARD_SOURCES = (
+    "vgc_bench/src/guards.py",
+    "vgc_bench/src/trick_room_guard.py",
+    "vgc_bench/src/pokeenv_patches.py",
+)
 
 
 def wilson(wins: float, games: int, z: float = 1.96) -> tuple[float, float]:
@@ -127,7 +133,7 @@ def sha256(path: Path) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--guard", required=True)
+    ap.add_argument("--guard", required=True, help="opt-in guard(s), comma-separated")
     ap.add_argument("--games", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=20924)
     ap.add_argument("--port", type=int, default=7610)
@@ -136,17 +142,19 @@ def main() -> None:
     ap.add_argument("--prepare-only", action="store_true")
     args = ap.parse_args()
     os.chdir(ROOT)
-    if args.guard not in GUARDS or args.guard in HARD_GUARDS:
-        raise ValueError(f"{args.guard} is not an opt-in guard")
+    guards = [g for g in args.guard.split(",") if g]
+    if not guards or any(g not in GUARDS or g in HARD_GUARDS for g in guards):
+        raise ValueError(f"{args.guard} is not a list of opt-in guards")
     config = resolve()
     deployed = [g for g in config["GUARDS"].split(",") if g]
-    base = [g for g in deployed if g != args.guard]
-    output = args.output or Path(f"results_mirror_{args.guard}")
+    base = [g for g in deployed if g not in guards]
+    named = ", ".join(guards)
+    output = args.output or Path(f"results_mirror_{'_'.join(guards)}")
     manifest = {
-        "question": f"deployed bot with {args.guard} vs itself without it (mirror)",
+        "question": f"deployed bot with {named} vs itself without (mirror)",
         "guard": args.guard,
-        "side_a": f"deployed setup + {args.guard}",
-        "side_b": f"deployed setup without {args.guard}",
+        "side_a": f"deployed setup + {named}",
+        "side_b": f"deployed setup without {named}",
         "shared_guards": base,
         "checkpoint": config["CKPT"],
         "checkpoint_sha256": sha256(ROOT / config["CKPT"]),
@@ -154,6 +162,7 @@ def main() -> None:
         "team_sha256": sha256(ROOT / config["TEAM"]),
         "preview_model": config["PREVIEW_MODEL"],
         "guards_module_sha256": sha256(ROOT / "vgc_bench/src/guards.py"),
+        "guard_sources_sha256": {path: sha256(ROOT / path) for path in GUARD_SOURCES},
         "games": args.games,
         "blocks": [
             {"hidden_sheets": h, "a_challenges": a, "games": n}
@@ -186,8 +195,10 @@ def main() -> None:
         if n == 0:
             continue
         PolicyPlayer.guard_fire_counts.clear()
-        a = _player(config, hidden, args.seed, args.port, {args.guard: True})
-        b = _player(config, hidden, args.seed + 1, args.port, {args.guard: False})
+        a = _player(config, hidden, args.seed, args.port, dict.fromkeys(guards, True))
+        b = _player(
+            config, hidden, args.seed + 1, args.port, dict.fromkeys(guards, False)
+        )
         first, second = (a, b) if a_first else (b, a)
         started = time.monotonic()
         asyncio.run(
@@ -198,7 +209,9 @@ def main() -> None:
         wins, games, ties = _outcomes(a)
         if games != n:
             raise RuntimeError(f"block expected {n} games, got {games}")
-        fired = int(PolicyPlayer.guard_fire_counts.get(args.guard, 0))
+        counts = PolicyPlayer.guard_fire_counts
+        per_guard = {g: int(counts.get(g, 0)) for g in guards}
+        fired = sum(per_guard.values())
         errors = {
             k: v for k, v in PolicyPlayer.guard_fire_counts.items() if "error" in k
         }
@@ -213,6 +226,7 @@ def main() -> None:
                 "ties": ties,
                 "a_win_rate": wins / games,
                 "guard_changed_actions": fired,
+                "changed_by_guard": per_guard,
                 "elapsed_s": round(time.monotonic() - started, 1),
             }
         )

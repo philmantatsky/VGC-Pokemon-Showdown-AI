@@ -37,6 +37,7 @@ from poke_env.battle import (
     Target,
     Weather,
 )
+from poke_env.data import GenData
 from poke_env.environment import DoublesEnv
 
 from vgc_bench.src import vgc_knowledge as K
@@ -627,7 +628,7 @@ def _priority_block_prior_probability(battle: DoubleBattle) -> float:
 
 
 def _hidden_move_probability(
-    mon: Pokemon, move_ids: set[str], formatid: str | None = None
+    mon: Pokemon, move_ids: set[str] | frozenset[str], formatid: str | None = None
 ) -> float:
     """Posterior probability that a hidden set contains one of ``move_ids``.
 
@@ -2371,6 +2372,16 @@ DOMINATED_ATTACK_RATIO = 1.25
 DOMINATED_ATTACK_MIN_GAIN = 0.05
 DOMINATED_ATTACK_KO_WEIGHT = 0.5
 
+# Showdown's sound-flagged moves (Parting Shot, Snarl, Hyper Voice, Perish Song ...):
+# what Throat Chop's two-turn block stops.
+SOUND_MOVES = frozenset(
+    move_id
+    for move_id, entry in GenData.from_gen(9).moves.items()
+    if (entry.get("flags") or {}).get("sound")
+)
+THROAT_CHOP = "throatchop"
+THROAT_CHOP_SOUND_PROBABILITY = 0.5
+
 
 def _plain_attack(move: Move) -> bool:
     """A damaging move whose only job is its damage this turn.
@@ -2430,11 +2441,17 @@ def _partner_damage(battle: DoubleBattle, actions, pos: int) -> dict[int, float]
 
 
 def _attack_value(
-    battle: DoubleBattle, attacker: Pokemon, order, pos: int, already: dict[int, float]
+    battle: DoubleBattle,
+    attacker: Pokemon,
+    order,
+    pos: int,
+    already: dict[int, float],
+    weight=None,
 ):
     """Accuracy-weighted damage the order deals to foes, capped at the HP they have
     left after the partner's attack, plus a knockout bonus; None when the
-    calculator cannot evaluate every foe it hits."""
+    calculator cannot evaluate every foe it hits. ``weight(foe)``, when given,
+    scales each foe's share (focus_boosted: a set-up foe counts for more)."""
     move, targets = _move_and_targets(battle, order, pos)
     if move is None or not targets:
         return None
@@ -2446,7 +2463,8 @@ def _attack_value(
             return None
         left = float(foe.current_hp_fraction or 0.0) - already.get(id(foe), 0.0)
         expected, p_ko = _capped_roll(fraction[0], fraction[1], max(left, 0.0))
-        total += accuracy * (expected + DOMINATED_ATTACK_KO_WEIGHT * p_ko)
+        share = 1.0 if weight is None else float(weight(foe))
+        total += share * accuracy * (expected + DOMINATED_ATTACK_KO_WEIGHT * p_ko)
     return total
 
 
@@ -2455,6 +2473,96 @@ def _gimmicks(order) -> tuple[bool, bool, bool, bool]:
         bool(getattr(order, flag, False))
         for flag in ("mega", "z_move", "dynamax", "terastallize")
     )
+
+
+def _sound_threat(battle: DoubleBattle, foe: Pokemon) -> bool:
+    """A revealed sound move, or one the set prior gives the foe even odds of."""
+    return (
+        _hidden_move_probability(foe, SOUND_MOVES, getattr(battle, "format", None))
+        >= THROAT_CHOP_SOUND_PROBABILITY
+    )
+
+
+def _swappable_attack(
+    battle: DoubleBattle, move: Move, hit: list[Pokemon], throat_chop: bool
+) -> bool:
+    """A plain attack; with ``throat_chop``, also Throat Chop into foes that have
+    no sound move for its two-turn block to stop."""
+    if _plain_attack(move):
+        return True
+    return (
+        throat_chop
+        and move.id == THROAT_CHOP
+        and bool(hit)
+        and not any(_sound_threat(battle, foe) for foe in hit)
+    )
+
+
+def _dominated_attack(
+    battle, cands, report, name: str, throat_chop: bool
+) -> list[Candidate]:
+    """dominated_attack's comparison; see guard_dominated_attack. With
+    ``throat_chop`` only swaps into or out of Throat Chop are considered (the rest
+    is dominated_attack's, which runs first)."""
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if not live:
+        return cands
+    top = live[0]
+    best = top
+    for pos in (0, 1):
+        attacker = battle.active_pokemon[pos]
+        if attacker is None or attacker.fainted:
+            continue
+        order = _decode(battle, best.actions[pos], pos)
+        move, aimed = _move_and_targets(battle, order, pos)
+        if move is None or not _swappable_attack(battle, move, aimed, throat_chop):
+            continue
+        # Damage the partner already puts on a foe is not ours to gain: a foe it
+        # knocks out is worth nothing more, so no option overkills into it.
+        already = _partner_damage(battle, best.actions, pos)
+        current = _attack_value(battle, attacker, order, pos, already)
+        if current is None:
+            report.demotions[f"{name}:no_calc"] += 1
+            continue
+        winner, winner_value = None, current
+        for candidate in live:
+            if (
+                candidate.actions[1 - pos] != best.actions[1 - pos]
+                or candidate.actions[pos] == best.actions[pos]
+            ):
+                continue
+            alternative = _decode(battle, candidate.actions[pos], pos)
+            alt_move, hit = _move_and_targets(battle, alternative, pos)
+            if (
+                alt_move is None
+                or not _swappable_attack(battle, alt_move, hit, throat_chop)
+                or alt_move.target == Target.ALL_ADJACENT
+                or (getattr(alternative, "move_target", 0) or 0) < 0
+                or _gimmicks(alternative) != _gimmicks(order)
+            ):
+                continue
+            if throat_chop and THROAT_CHOP not in (move.id, alt_move.id):
+                continue
+            # Move choice, not target choice: the alternative must hit every foe
+            # the policy's attack hits (a spread move may add the other foe).
+            if not all(any(foe is other for other in hit) for foe in aimed):
+                continue
+            value = _attack_value(battle, attacker, alternative, pos, already)
+            if value is not None and value > winner_value:
+                winner, winner_value = candidate, value
+        if (
+            winner is not None
+            and winner_value >= current * DOMINATED_ATTACK_RATIO
+            and winner_value - current >= DOMINATED_ATTACK_MIN_GAIN
+        ):
+            best = winner
+    if best is top:
+        return cands
+    # Inherit the corrected pair's confidence so the opponent reranker, which
+    # scores log(prob / top prob), does not simply put the weaker attack back.
+    best.prob = max(best.prob, top.prob)
+    report.demotions[f"{name}:promoted"] += 1
+    return _promote_candidate(cands, best, name, report)
 
 
 def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
@@ -2479,9 +2587,78 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
     is legal. Stands down when the calculator cannot evaluate an option.
     Opt-in: not in HARD_GUARDS until it passes its A/B.
     """
+    return _dominated_attack(battle, cands, report, "dominated_attack", False)
+
+
+def guard_dominated_throat_chop(battle, cands, report) -> list[Candidate]:
+    """dominated_attack for Throat Chop, which it never swaps (its 100% "secondary"
+    -- no sound moves for two turns -- made it an effect attack).
+
+    Ladder 2026-09-25 (game 8): Incineroar used Throat Chop four turns running
+    into a lone Tyranitar (resisted) with Flare Blitz ranked beside it (7-31%);
+    across the 75 T6 ladder games Throat Chop was used 12 times, in 6 games, all
+    lost, Flare Blitz the stronger hit in most. The block only matters against a
+    foe with a sound move (Parting Shot, Snarl, Hyper Voice, Perish Song ...):
+    revealed, or at even odds in the set prior. Otherwise Throat Chop is scored
+    like any plain attack, both ways -- swapped for a clearly stronger attack,
+    or promoted over a clearly weaker one. Runs after dominated_attack.
+    Opt-in: not in HARD_GUARDS until it passes its A/B.
+    """
+    return _dominated_attack(battle, cands, report, "dominated_throat_chop", True)
+
+
+FOCUS_SETUP_STAGES = 2
+FOCUS_STAGE_WEIGHT = 0.25
+FOCUS_MAX_STAGES = 6
+
+
+def _setup_stages(foe: Pokemon) -> int:
+    """Positive Attack, Sp. Atk and Speed stages (Defense too for a revealed Body
+    Press user), capped at +6."""
+    boosts = getattr(foe, "boosts", None) or {}
+    stats = ["atk", "spa", "spe"]
+    if _known_move(foe, "bodypress") is not None:
+        stats.append("def")
+    stages = sum(max(0, int(boosts.get(stat, 0) or 0)) for stat in stats)
+    return min(FOCUS_MAX_STAGES, stages)
+
+
+def guard_focus_boosted(battle, cands, report) -> list[Candidate]:
+    """Put an attack into the foe that has set up when that is worth more.
+
+    Ladder T6 reads (75 games): 11 single-target attacks went into the other foe
+    while one had +2 or more, e.g. Psychic into Milotic beside a +2 Attack Mega
+    Baxcalibur that then KO'd Blastoise. A boosted foe threatens more every turn
+    it stays, so for each slot of the top pair whose attack misses the boosted
+    foe, the ranked pairs that keep the partner's action and attack that foe
+    with the same Pokemon (any plain attack, or Throat Chop into no sound move;
+    same Mega/Tera choice, not hitting its ally) are scored like
+    dominated_attack, with every foe's share weighted 1 + 0.25 x its set-up
+    stages (Attack, Sp. Atk, Speed; +2 counts 1.5x, Shell Smash's +6 2.5x). The
+    best is promoted at 1.25x the policy's attack and 0.05 more. Damage capped at
+    the HP left after the partner's attack keeps a knockout the partner already
+    makes from pulling a second attack in, and the knockout bonus keeps a
+    finishing hit on the other foe. Stands down unless exactly one of two live
+    foes is ahead with >= +2. Opt-in: not in HARD_GUARDS until it passes its A/B.
+    """
     live = [candidate for candidate in cands if candidate.demoted_by is None]
     if not live:
         return cands
+    foes = list(battle.opponent_active_pokemon)
+    if len(foes) != 2 or any(foe is None or foe.fainted for foe in foes):
+        return cands
+    stages = {id(foe): _setup_stages(foe) for foe in foes}
+    boosted = max(foes, key=lambda foe: stages[id(foe)])
+    other = foes[1] if boosted is foes[0] else foes[0]
+    if (
+        stages[id(boosted)] < FOCUS_SETUP_STAGES
+        or stages[id(boosted)] <= stages[id(other)]
+    ):
+        return cands
+
+    def weight(foe: Pokemon) -> float:
+        return 1.0 + FOCUS_STAGE_WEIGHT * stages.get(id(foe), 0)
+
     top = live[0]
     best = top
     for pos in (0, 1):
@@ -2489,17 +2666,19 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
         if attacker is None or attacker.fainted:
             continue
         order = _decode(battle, best.actions[pos], pos)
-        move = getattr(order, "order", None)
-        if not isinstance(move, Move) or not _plain_attack(move):
+        move, aimed = _move_and_targets(battle, order, pos)
+        if (
+            move is None
+            or not aimed
+            or any(foe is boosted for foe in aimed)
+            or not _swappable_attack(battle, move, aimed, True)
+        ):
             continue
-        # Damage the partner already puts on a foe is not ours to gain: a foe it
-        # knocks out is worth nothing more, so no option overkills into it.
         already = _partner_damage(battle, best.actions, pos)
-        current = _attack_value(battle, attacker, order, pos, already)
+        current = _attack_value(battle, attacker, order, pos, already, weight)
         if current is None:
-            report.demotions["dominated_attack:no_calc"] += 1
+            report.demotions["focus_boosted:no_calc"] += 1
             continue
-        _, aimed = _move_and_targets(battle, order, pos)
         winner, winner_value = None, current
         for candidate in live:
             if (
@@ -2508,21 +2687,17 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
             ):
                 continue
             alternative = _decode(battle, candidate.actions[pos], pos)
-            alt_move = getattr(alternative, "order", None)
+            alt_move, hit = _move_and_targets(battle, alternative, pos)
             if (
-                not isinstance(alt_move, Move)
-                or not _plain_attack(alt_move)
+                alt_move is None
+                or not any(foe is boosted for foe in hit)
+                or not _swappable_attack(battle, alt_move, hit, True)
                 or alt_move.target == Target.ALL_ADJACENT
                 or (getattr(alternative, "move_target", 0) or 0) < 0
                 or _gimmicks(alternative) != _gimmicks(order)
             ):
                 continue
-            # Move choice, not target choice: the alternative must hit every foe
-            # the policy's attack hits (a spread move may add the other foe).
-            _, hit = _move_and_targets(battle, alternative, pos)
-            if not all(any(foe is other for other in hit) for foe in aimed):
-                continue
-            value = _attack_value(battle, attacker, alternative, pos, already)
+            value = _attack_value(battle, attacker, alternative, pos, already, weight)
             if value is not None and value > winner_value:
                 winner, winner_value = candidate, value
         if (
@@ -2533,11 +2708,144 @@ def guard_dominated_attack(battle, cands, report) -> list[Candidate]:
             best = winner
     if best is top:
         return cands
-    # Inherit the corrected pair's confidence so the opponent reranker, which
-    # scores log(prob / top prob), does not simply put the weaker attack back.
-    best.prob = max(best.prob, top.prob)
-    report.demotions["dominated_attack:promoted"] += 1
-    return _promote_candidate(cands, best, "dominated_attack", report)
+    best.prob = max(best.prob, top.prob)  # see dominated_attack
+    report.demotions["focus_boosted:promoted"] += 1
+    return _promote_candidate(cands, best, "focus_boosted", report)
+
+
+# Weather set on switch-in, the speed abilities each weather doubles, and the
+# type modifiers of the two weathers that change damage.
+_WEATHER_ABILITIES = {
+    "drought": Weather.SUNNYDAY,
+    "drizzle": Weather.RAINDANCE,
+    "sandstream": Weather.SANDSTORM,
+    "snowwarning": Weather.SNOWSCAPE,
+}
+_WEATHER_SPEED_ABILITIES = {
+    "chlorophyll": Weather.SUNNYDAY,
+    "swiftswim": Weather.RAINDANCE,
+    "sandrush": Weather.SANDSTORM,
+    "slushrush": Weather.SNOWSCAPE,
+}
+_WEATHER_TYPE_MULT = {
+    Weather.SUNNYDAY: {PokemonType.FIRE: 1.5, PokemonType.WATER: 0.5},
+    Weather.RAINDANCE: {PokemonType.WATER: 1.5, PokemonType.FIRE: 0.5},
+}
+_WEATHER_BALL_TYPE = {
+    Weather.SUNNYDAY: PokemonType.FIRE,
+    Weather.RAINDANCE: PokemonType.WATER,
+    Weather.SANDSTORM: PokemonType.ROCK,
+    Weather.SNOWSCAPE: PokemonType.ICE,
+}
+KEEP_WEATHER_TURNS = 2
+KEEP_WEATHER_RATIO = 1.25
+WEATHER_DURATION = 5
+
+
+def _weather_power(mon: Pokemon, weather: Weather) -> float:
+    """The strongest damaging move's power under a weather: base power (Eruption
+    and Water Spout scaled by HP), weather modifier, STAB, Mega Launcher."""
+    best = 0.0
+    hp = float(mon.current_hp_fraction or 0.0)
+    for move in (getattr(mon, "moves", None) or {}).values():
+        if (
+            not isinstance(move, Move)
+            or move.category == MoveCategory.STATUS
+            or not move.base_power
+        ):
+            continue
+        power, move_type = float(move.base_power), move.type
+        if move.id in {"eruption", "waterspout", "dragonenergy"}:
+            power = max(1.0, power * hp)
+        if move.id == "weatherball" and weather in _WEATHER_BALL_TYPE:
+            power, move_type = 100.0, _WEATHER_BALL_TYPE[weather]
+        if move.id in {"solarbeam", "solarblade"} and weather != Weather.SUNNYDAY:
+            power /= 2  # a charge turn
+        multiplier = _WEATHER_TYPE_MULT.get(weather, {}).get(move_type, 1.0)
+        if move.id == "hydrosteam" and weather == Weather.SUNNYDAY:
+            multiplier = 1.5
+        power *= multiplier
+        if move_type in mon.types:
+            power *= 1.5
+        if _norm(mon.ability) == "megalauncher" and "pulse" in (move.flags or ()):
+            power *= 1.5
+        best = max(best, power)
+    return best
+
+
+def _prefers_weather(mon: Pokemon, keep: Weather, new: Weather) -> bool:
+    """Whether ``mon`` is clearly better off in ``keep`` than in ``new``."""
+    speed = _WEATHER_SPEED_ABILITIES.get(_norm(mon.ability))
+    if speed == keep:
+        return True
+    if speed == new:
+        return False
+    kept = _weather_power(mon, keep)
+    return kept > 0 and kept >= KEEP_WEATHER_RATIO * _weather_power(mon, new)
+
+
+def guard_keep_our_weather(battle, cands, report) -> list[Candidate]:
+    """Do not switch in a weather setter over our own weather our partner uses.
+
+    Ladder 2026-09-25 (game 10): Farigiraf's Rain Dance was up for Mega
+    Blastoise's Water Spout when Farigiraf fainted; Torkoal came in (the policy
+    99.9%) and Drought's sun halved every Water Spout that followed. The user,
+    2026-09-24: "water moves are halved in sun so blastoise might not be even
+    good to send out with torkoal". Demotes pairs that switch in (by choice or
+    to replace a fainted Pokemon) a Pokemon whose ability sets a different
+    weather while (a) the current weather was set by OUR side (tracked by
+    pokeenv_patches: poke-env forgets who set it), (b) it has >= 2 turns left,
+    and (c) the partner staying in is clearly better off in it: its strongest
+    move is >= 1.25x stronger there, or it has that weather's speed ability.
+    The setter's own weather wishes are not weighed: the rule is the user's
+    "no switch-in that overwrites our own useful weather". Stands down when
+    nothing else is legal. Opt-in: not in HARD_GUARDS until it passes its A/B.
+    """
+    weathers = [
+        w for w in (getattr(battle, "weather", None) or {}) if w in _WEATHER_BALL_TYPE
+    ]
+    role = getattr(battle, "player_role", None)
+    started = getattr(battle, "_vgc_weather_start", None)
+    if (
+        len(weathers) != 1
+        or role is None
+        or getattr(battle, "_vgc_weather_side", None) != role
+        or not isinstance(started, int)
+        or started + WEATHER_DURATION - int(battle.turn) < KEEP_WEATHER_TURNS
+    ):
+        return cands
+    weather = weathers[0]
+    dead = set()
+    for i, candidate in enumerate(cands):
+        for pos, action in enumerate(candidate.actions):
+            incoming = getattr(_decode(battle, action, pos), "order", None)
+            if not isinstance(incoming, Pokemon):
+                continue
+            new = _WEATHER_ABILITIES.get(_norm(incoming.ability))
+            if new is None or new == weather:
+                continue
+            partner = battle.active_pokemon[1 - pos]
+            stays = getattr(
+                _decode(battle, candidate.actions[1 - pos], 1 - pos), "order", None
+            )
+            if partner is None or partner.fainted or isinstance(stays, Pokemon):
+                continue
+            if _prefers_weather(partner, weather, new):
+                dead.add(i)
+    return _demote(cands, dead, "keep_our_weather", report)
+
+
+def guard_trick_room_counter(battle, cands, report) -> list[Candidate]:
+    """Opt-in: do not press Trick Room into a counter already shown.
+
+    Lives in trick_room_guard.py (it needs the tempo reranker's speed model,
+    which imports this module); imported lazily to avoid the cycle.
+    """
+    from vgc_bench.src.trick_room_guard import (
+        guard_trick_room_counter as trick_room_counter,
+    )
+
+    return trick_room_counter(battle, cands, report)
 
 
 def guard_trick_room_direction(battle, cands, report) -> list[Candidate]:
@@ -2570,6 +2878,10 @@ GUARDS = {
     "overkill_split": guard_overkill_split,
     "dominated_weather_ball_weather": guard_dominated_weather_ball_weather,
     "dominated_attack": guard_dominated_attack,
+    "dominated_throat_chop": guard_dominated_throat_chop,
+    "focus_boosted": guard_focus_boosted,
+    "keep_our_weather": guard_keep_our_weather,
+    "trick_room_counter": guard_trick_room_counter,
     "trick_room_direction": guard_trick_room_direction,
     "protect_spam": guard_protect_spam,
     "guaranteed_ko": guard_guaranteed_ko,
@@ -2633,9 +2945,13 @@ GUARD_ORDER = (
     "dominated_weather_ball",
     "single_target_weather_ball",
     "dominated_attack",
+    "dominated_throat_chop",
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",
+    "focus_boosted",
+    "trick_room_counter",
+    "keep_our_weather",
     "trick_room_direction",
     "protect_spam",
     "guaranteed_ko",

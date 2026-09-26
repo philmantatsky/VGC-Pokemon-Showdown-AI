@@ -3,6 +3,8 @@ recorded input but the output path, and only the extra guards' firing counts."""
 
 from __future__ import annotations
 
+import json
+
 from evaluation.run_guard_ab import guard_firing, same_study
 
 
@@ -57,3 +59,56 @@ def test_a_newly_registered_guard_that_is_off_is_not_a_difference():
         "guard_flags": {"resisted_target": False, "ko_tiebreak": False},
     }
     assert same_study(ref, flipped) == ["guard_flags"]
+
+
+def _prior_run(tmp_path, phase="complete_review_required", **changes):
+    from pathlib import Path
+
+    reference = {
+        "candidate_sha256": "c" * 64,
+        "our_preview": {"model_sha256": "p" * 64},
+        "seed": 20923,
+        "repeats": 11,
+        "populations": ["human_new", "frozen"],
+    }
+    prior = {
+        "extra_guards": ["dominated_attack"],
+        "checkpoint_sha256": "c" * 64,
+        "preview_model_sha256": "p" * 64,
+        "seed": 20923,
+        "repeats": 11,
+        "populations": ["human_new", "frozen"],
+    } | changes
+    run = Path(tmp_path) / "results_guard_ab_dominated_attack"
+    run.mkdir(exist_ok=True)
+    (run / "manifest.json").write_text(json.dumps(prior))
+    (run / "status.json").write_text(json.dumps({"phase": phase}))
+    return run, reference
+
+
+def test_a_completed_deployed_run_becomes_the_without_side(tmp_path):
+    from evaluation.run_guard_ab import without_arm
+
+    run, reference = _prior_run(tmp_path)
+    deployed = {"resisted_target", "dominated_attack"}
+    assert without_arm(run, reference, deployed) == (
+        ["dominated_attack"],
+        "with_dominated_attack",
+    )
+
+
+def test_the_without_side_must_be_complete_the_same_study_and_deployed(tmp_path):
+    import pytest
+
+    from evaluation.run_guard_ab import without_arm
+
+    deployed = {"resisted_target", "dominated_attack"}
+    run, reference = _prior_run(tmp_path, phase="rotation1")
+    with pytest.raises(ValueError, match="not complete"):
+        without_arm(run, reference, deployed)
+    run, reference = _prior_run(tmp_path, seed=1)
+    with pytest.raises(ValueError, match="not the same study"):
+        without_arm(run, reference, deployed)
+    run, reference = _prior_run(tmp_path, extra_guards=["trick_room_direction"])
+    with pytest.raises(ValueError, match="not all deployed"):
+        without_arm(run, reference, deployed)
