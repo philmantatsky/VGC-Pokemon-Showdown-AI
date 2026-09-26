@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Ladder read with Throat Chop: 15 games, 8-7; loss contexts confirmed (2026-September 26, 02:35)
+
+`ladder_replays_mc_deployed_T6_humanpreview1_throatchop`: **8-7** (W L W L W L L W L L
+L W W W W), rating 1144 -> low 1079 (after game 11) -> ~1170; stopped between
+games after game 15 at the user's word ("lower the ladder games to like 15"; a
+watcher ended the session 0.2 s after game 15's replay, no battle left
+unfinished). Throat Chop changed 3 moves, dominated_attack 11, resisted_target 9
+of 123 logged decisions; no guard errors. Loss contexts in this read (7 losses
+vs 8 wins): our moves blocked by Protect in 6/7 losses (2.9 per loss) vs 3/8
+wins; spread moves into a shown Wide Guard in 3/7 losses vs 0/8; Trick Room ran
+out in 6/7 vs 3/8, and its last turn was stalled with Protect in 3/7 losses
+(double Protect in 2) vs 0/8 wins. The pre-registered chain (5c03f3a) started
+02:34:57 with the dominated_spread mirror.
+
 ## Pre-registered: Wide Guard, weak spread, near-tie mixing, focus measurements and a human-opponent training cycle (2026-September 26, 02:09)
 
 The user tonight, during the Throat Chop ladder read: "it needs to be taught wide
