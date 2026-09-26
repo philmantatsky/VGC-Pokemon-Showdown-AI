@@ -78,6 +78,24 @@ _ZERO_THREAT = np.zeros(threat_obs_len, dtype=np.float32)
 _ZERO_MOVE_SEM = np.zeros(MOVE_SEM_LEN, dtype=np.float32)
 
 
+def keep_guard_correction(
+    cands: list, raw_top: tuple, guarded_top: tuple, special_reason: str | None
+) -> tuple[list, bool]:
+    """Put a guard's pick back on top if a later stage restored the exact pair it
+    corrected away (see ``sticky_guard_corrections``). Returns (cands, kept)."""
+    if (
+        special_reason == "predicted_ko_survival"
+        or guarded_top == raw_top
+        or not cands
+        or tuple(cands[0].actions) != raw_top
+    ):
+        return cands, False
+    match = next((c for c in cands if tuple(c.actions) == guarded_top), None)
+    if match is None:
+        return cands, False
+    return [match] + [c for c in cands if c is not match], True
+
+
 class PolicyPlayer(Player):
     """
     A Pokemon VGC player that uses a neural network policy for decisions.
@@ -172,6 +190,7 @@ class PolicyPlayer(Player):
         mixing_min_ratio: float = 0.0,
         mixing_keep_corrections: bool = False,
         guard_overrides: dict[str, bool] | None = None,
+        sticky_guard_corrections: bool = False,
         *args: Any,
         **kwargs: Any,
     ):
@@ -194,6 +213,13 @@ class PolicyPlayer(Player):
                 least that fraction of the top pick's probability.
                 ``mixing_keep_corrections`` never mixes a decision whose top pick
                 a guard or the opponent reranker changed.
+            sticky_guard_corrections: The opponent/tempo reranker may not put
+                back the exact pair a guard corrected away (default off). A
+                promoted pair only ties the pick it corrects, and the reranker's
+                tactical terms leave base damage to the policy, so a predicted
+                switch could restore the mistake (ladder 2026-09-26: Leaf Storm
+                back into a 4x-resisting Archaludon three turns running). The
+                predicted-KO survival pick is exempt.
             deterministic: If True, always pick the highest-probability action
                 instead of sampling from the distribution.
             preview_model_path: Optional learned bring/lead predictor used to track
@@ -278,6 +304,7 @@ class PolicyPlayer(Player):
         # Per-player guard switches merged over the class-wide profile, so an
         # A/B can enable an opt-in guard (e.g. resisted_target) on one arm only.
         self.guard_overrides: dict[str, bool] = dict(guard_overrides or {})
+        self.sticky_guard_corrections = bool(sticky_guard_corrections)
         self.invitee = invitee
         self.preview_model_path = (
             Path(preview_model_path) if preview_model_path is not None else None
@@ -1454,6 +1481,7 @@ class PolicyPlayer(Player):
                 cands, _value = _guards.build_candidates(self.policy, obs_dict, mask)
             if not cands:
                 raise ValueError("no candidates")
+            raw_top = tuple(cands[0].actions)
             if self.residual_ranker_path is not None:
                 from vgc_bench.src.residual_ranker import ResidualJointRanker
                 from vgc_bench.src.residual_ranker import (
@@ -1474,12 +1502,14 @@ class PolicyPlayer(Player):
                 if residual_report.changed:
                     PolicyPlayer.guard_fire_counts["residual_changed_pick"] += 1
             guard_report = None
+            guarded_top = raw_top
             if PolicyPlayer.use_knowledge_guards:
                 guard_flags = PolicyPlayer.guard_flags
                 overrides = getattr(self, "guard_overrides", None)
                 if overrides:
                     guard_flags = {**(guard_flags or {}), **overrides}
                 cands, guard_report = _guards.apply_guards(battle, cands, guard_flags)
+                guarded_top = tuple(cands[0].actions)
                 PolicyPlayer.guard_fire_counts["guards_ran"] += 1
                 if guard_report.stages:
                     PolicyPlayer.guard_fire_counts.update(guard_report.stages)
@@ -1530,6 +1560,21 @@ class PolicyPlayer(Player):
                         PolicyPlayer.guard_fire_counts["combined_reranker"] += 1
                         if use_opponent:
                             PolicyPlayer.guard_fire_counts["opponent_reranker"] += 1
+            if (
+                getattr(self, "sticky_guard_corrections", False)
+                and guard_report is not None
+                and guard_report.stages
+            ):
+                cands, kept = keep_guard_correction(
+                    cands,
+                    raw_top,
+                    guarded_top,
+                    opponent_report.special_reason
+                    if opponent_report is not None
+                    else None,
+                )
+                if kept:
+                    PolicyPlayer.guard_fire_counts["sticky_correction_kept"] += 1
             legal_cands = [
                 candidate
                 for candidate in cands

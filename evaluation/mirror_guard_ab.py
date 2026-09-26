@@ -26,7 +26,11 @@ comma-separated list to measure several guards together (side A has all).
 itself the mirror measures what the sampling COSTS; what unpredictability buys
 against adaptive players only the ladder can show. --a-checkpoint puts another
 BRAIN on side A (2026-09-26: a trained save head-to-head against the deployed
-brain, both with the deployed guards and preview model).
+brain, both with the deployed guards and preview model). --rerankers gives BOTH
+sides the ladder's opponent/tempo reranker (the opponent move and switch
+models), which the evaluation arms otherwise leave out; --a-sticky gives side A
+sticky guard corrections (the reranker may not restore a pair a guard corrected
+away; ladder 2026-09-26 game 6).
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000
@@ -58,7 +62,7 @@ from vgc_bench.src import pokeenv_patches
 from vgc_bench.src.guards import GUARDS, HARD_GUARDS
 from vgc_bench.src.policy_player import PolicyPlayer
 from vgc_bench.src.teams import RandomTeamBuilder
-from vgc_bench.src.utils import format_map
+from vgc_bench.src.utils import format_map, prior_path
 
 BLOCKS = [(hidden, a_first) for hidden in (False, True) for a_first in (True, False)]
 GUARD_SOURCES = (
@@ -103,6 +107,7 @@ def _player(
     overrides: dict,
     mixing: dict | None = None,
     checkpoint: str | None = None,
+    extra: dict | None = None,
 ):
     player = StudyPlayer(
         account_configuration=fresh_local_account(),
@@ -119,6 +124,7 @@ def _player(
         open_timeout=None,
         guard_overrides=overrides,
         **(mixing or {}),
+        **(extra or {}),
     )
     player.set_policy(ROOT / (checkpoint or config["CKPT"]), torch.device("mps"))
     if config["PREVIEW_MODEL"]:
@@ -155,6 +161,16 @@ def main() -> None:
     ap.add_argument("--a-mixing-min-ratio", type=float, default=0.0)
     ap.add_argument("--a-mixing-keep-corrections", action="store_true")
     ap.add_argument("--a-checkpoint", type=Path, default=None, help="side A's brain")
+    ap.add_argument(
+        "--rerankers",
+        action="store_true",
+        help="both sides run the ladder's opponent/tempo reranker",
+    )
+    ap.add_argument(
+        "--a-sticky",
+        action="store_true",
+        help="side A keeps guard corrections the reranker would undo",
+    )
     ap.add_argument("--games", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=20924)
     ap.add_argument("--port", type=int, default=7610)
@@ -176,10 +192,25 @@ def main() -> None:
             "mixing_keep_corrections": args.a_mixing_keep_corrections,
             "mixing_seed": args.seed,
         }
-    if not guards and mixing is None and args.a_checkpoint is None:
+    if (
+        not guards
+        and mixing is None
+        and args.a_checkpoint is None
+        and not args.a_sticky
+    ):
         raise ValueError(
-            "nothing to compare: give --guard, --a-mixing or --a-checkpoint"
+            "nothing to compare: give --guard, --a-mixing, --a-checkpoint or --a-sticky"
         )
+    if args.a_sticky and not args.rerankers:
+        raise ValueError("--a-sticky only matters with --rerankers")
+    shared_extra: dict = {}
+    if args.rerankers:
+        shared_extra = {
+            "move_model_path": ROOT / prior_path("move", "mc"),
+            "switch_model_path": ROOT / prior_path("switch", "mc"),
+            "use_opponent_reranker": True,
+            "use_tempo_reranker": True,
+        }
     a_checkpoint = None
     if args.a_checkpoint is not None:
         if not (ROOT / args.a_checkpoint).is_file():
@@ -197,12 +228,18 @@ def main() -> None:
         )
     if a_checkpoint is not None:
         parts.insert(0, f"brain {a_checkpoint}")
+    if args.a_sticky:
+        parts.append("sticky guard corrections")
     named = ", ".join(parts)
     tag = "_".join(guards) if guards else f"mixing_{args.a_mixing}"
     if a_checkpoint is not None:
         tag = f"brain_{Path(a_checkpoint).stem}"
     if mixing is not None and guards:
         tag += f"_mixing_{args.a_mixing}"
+    if args.a_sticky and not guards and mixing is None and a_checkpoint is None:
+        tag = "sticky_corrections"
+    if args.rerankers:
+        tag += "_rerankers"
     output = args.output or Path(f"results_mirror_{tag}")
     manifest = {
         "question": (
@@ -217,6 +254,11 @@ def main() -> None:
         "shared_guards": base,
         "a_mixing": mixing,
         "a_checkpoint": a_checkpoint,
+        "rerankers_both_sides": args.rerankers,
+        "reranker_models": {
+            k: str(v) for k, v in shared_extra.items() if k.endswith("_path")
+        },
+        "a_sticky_guard_corrections": args.a_sticky,
         "a_checkpoint_sha256": sha256(ROOT / a_checkpoint) if a_checkpoint else None,
         "checkpoint": config["CKPT"],
         "checkpoint_sha256": sha256(ROOT / config["CKPT"]),
@@ -265,9 +307,16 @@ def main() -> None:
             dict.fromkeys(guards, True),
             mixing,
             a_checkpoint,
+            shared_extra
+            | ({"sticky_guard_corrections": True} if args.a_sticky else {}),
         )
         b = _player(
-            config, hidden, args.seed + 1, args.port, dict.fromkeys(guards, False)
+            config,
+            hidden,
+            args.seed + 1,
+            args.port,
+            dict.fromkeys(guards, False),
+            extra=shared_extra,
         )
         first, second = (a, b) if a_first else (b, a)
         started = time.monotonic()
@@ -283,6 +332,8 @@ def main() -> None:
         per_guard = {g: int(counts.get(g, 0)) for g in guards}
         if mixing is not None:  # only side A mixes, so the counter is A's
             per_guard["mixing"] = int(counts.get("mixing_changed_pick", 0))
+        if args.a_sticky:  # only side A is sticky
+            per_guard["sticky"] = int(counts.get("sticky_correction_kept", 0))
         fired = sum(per_guard.values())
         errors = {
             k: v for k, v in PolicyPlayer.guard_fire_counts.items() if "error" in k

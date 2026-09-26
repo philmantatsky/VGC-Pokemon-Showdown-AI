@@ -1,5 +1,21 @@
 # VGC Bot Project Status
 
+## Sticky guard corrections (opt-in) + pre-registered mirror with the ladder's rerankers (2026-September 26, 18:25)
+
+From the mistake review above (class 2): on ladder the opponent/tempo reranker
+put back pairs a guard had corrected away in 6 of 37 corrections. New per-player
+option `sticky_guard_corrections` (policy_player.py, default off): if the
+reranker's top pick is exactly the pair the guards corrected away, the guards'
+pick goes back on top (`keep_guard_correction`); any other reranker choice
+stands, and the predicted-KO survival pick is exempt. `mirror_guard_ab.py`
+gained `--rerankers` (both sides run the ladder's opponent/tempo reranker with
+the Reg M-C move and switch models, which the local arms otherwise leave out)
+and `--a-sticky`. **Pre-registered:** `mirror_guard_ab.py --rerankers --a-sticky
+--games 2000` (deployed T6ctx config on both sides): wins close games if the
+Wilson lower bound > 50%, loses them if the upper bound < 50%; deploy-eligible
+under the mirror rule (>= 20 changed actions, upper bound >= 50%, no block below
+47%). Runs after the tactical chain; deployment is the user's decision.
+
 ## T6ctx ladder read (6-9) + mistake review of wins AND losses -> tactical fine-tune (2026-September 26, 18:05)
 
 The user: "run 15 ladder games with the new brain, then make your own decision on
