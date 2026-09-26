@@ -7,7 +7,7 @@
   "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
   "reg": "mc",
   "format": "gen9championsvgc2026regmc",
-  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop",
+  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread",
   "knowledge_obs": true,
   "search": false,
   "set_prior_reg": "mc",
@@ -16,7 +16,7 @@
   "preview_model": "data/preview_t6_focus_20260923.pt",
   "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
   "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
-  "replay_tag": "T6_humanpreview1_throatchop"
+  "replay_tag": "T6_humanpreview1_spread"
  },
  "promoted_at": "2026-09-24T16:26:58+00:00",
  "promoted_by": "user 2026-09-24: 'make it the official bot and run 25 ladder games'",
@@ -93,6 +93,17 @@
    "evidence": "results_mirror_dominated_throat_chop: 50.4% [48.2, 52.6], 106 changed actions, no block below 47% -> deploy-eligible; results_mirror_ladder_fixes (with focus_boosted, inert in a T6 mirror): 49.7% [47.5, 51.9], not worse; pooled 50.05% [48.5, 51.6] over 4,000 mirror games (neutral); ladder replay audit: 3 of 571 logged T6 decisions change (Flare Blitz into Annihilape and Mega Baxcalibur, Throat Chop into a Ghost-type Chandelure)",
    "not_deployed": "trick_room_counter (mirror 39.1% [37.0, 41.3], loses close games); keep_our_weather (3 changed actions in 2,000 mirror games: unmeasured, the user decides); focus_boosted (held-out A/B pending)",
    "ladder_so_far": "ladder_replays_mc_deployed_T6_humanpreview1_attackcheck: 22 games 11-11"
+  },
+  {
+   "at": "2026-09-26T08:02:18+00:00",
+   "change": "guards_extra += dominated_spread; replay_tag T6_humanpreview1_throatchop -> T6_humanpreview1_spread (fresh single-config replay dirs)",
+   "previous": {
+    "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop",
+    "replay_tag": "T6_humanpreview1_throatchop"
+   },
+   "by": "user 2026-09-26: 'water spout and eruption are HP based moves ... sometimes its better to just use the plain water move or heat wave' / 'but there are also scenarios where we could be low hp but the spread attack is better'; deployed by the rule pre-registered before any game (PROJECT_STATUS 2026-09-26, 5c03f3a)",
+   "evidence": "results_mirror_dominated_spread: 1,128 / 2,000 = 56.4% [54.2, 58.6], blocks 55.4 / 59.2 / 52.8 / 58.2%, 1,424 changed actions (0.71 per game) -> the guard wins close games; tests on ladder game 3 (Ice Beam into Garchomp over a quarter-HP Water Spout) and the user's counter-case (a low-HP spread hit that finishes one foe and chips the other stays)",
+   "ladder_so_far": "ladder_replays_mc_deployed_T6_humanpreview1_throatchop: 15 games 8-7"
   }
  ]
 }

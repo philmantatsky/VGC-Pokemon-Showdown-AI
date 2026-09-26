@@ -1,0 +1,50 @@
+{
+  "question": "deployed bot with dominated_spread vs itself without (mirror)",
+  "guard": "dominated_spread",
+  "side_a": "deployed setup + dominated_spread",
+  "side_b": "deployed setup without dominated_spread",
+  "shared_guards": [
+    "resisted_target",
+    "overkill_split",
+    "dominated_weather_ball_weather",
+    "dominated_attack",
+    "dominated_throat_chop"
+  ],
+  "a_mixing": null,
+  "checkpoint": "results_deployed/champion_mc_T6hp.zip",
+  "checkpoint_sha256": "c5e922370dd22f6a984add87dddca78d9308dd6c915ac396434875aad1ab5f1a",
+  "team": "teams/candidates_mc/T6.txt",
+  "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "guards_module_sha256": "60260b6b8c948af54679300916ff2c112059509ae3949145bb9e394ab3438e81",
+  "guard_sources_sha256": {
+    "vgc_bench/src/guards.py": "60260b6b8c948af54679300916ff2c112059509ae3949145bb9e394ab3438e81",
+    "vgc_bench/src/trick_room_guard.py": "a4de097e8f545750439798ce8424655a6a6c54886a65399250f723d76688581f",
+    "vgc_bench/src/pokeenv_patches.py": "fa025b156bd03d5e3413d6b576b1326bbd3082de4e0d58b191d513bb4434f4ff"
+  },
+  "games": 2000,
+  "blocks": [
+    {
+      "hidden_sheets": false,
+      "a_challenges": true,
+      "games": 500
+    },
+    {
+      "hidden_sheets": false,
+      "a_challenges": false,
+      "games": 500
+    },
+    {
+      "hidden_sheets": true,
+      "a_challenges": true,
+      "games": 500
+    },
+    {
+      "hidden_sheets": true,
+      "a_challenges": false,
+      "games": 500
+    }
+  ],
+  "seed": 20924,
+  "reading": "lower bound > 50%: wins close games; upper < 50%: loses them"
+}
