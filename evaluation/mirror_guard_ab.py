@@ -21,6 +21,10 @@ the guard changed A's action. Pre-registered reading (PROJECT_STATUS): the
 guard wins close games if the lower bound is above 50%, loses them if the upper
 bound is below 50%, else inconclusive. No promotion, no ladder. --guard takes a
 comma-separated list to measure several guards together (side A has all).
+--a-mixing gives side A mixed-strategy play instead of (or as well as) guards
+(2026-09-26, the user's near-tie "wheel"): against a deterministic copy of
+itself the mirror measures what the sampling COSTS; what unpredictability buys
+against adaptive players only the ladder can show.
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000
@@ -89,7 +93,14 @@ class _NoCache(dict):
         return None
 
 
-def _player(config: dict, hidden: bool, seed: int, port: int, overrides: dict):
+def _player(
+    config: dict,
+    hidden: bool,
+    seed: int,
+    port: int,
+    overrides: dict,
+    mixing: dict | None = None,
+):
     player = StudyPlayer(
         account_configuration=fresh_local_account(),
         deterministic=True,
@@ -104,6 +115,7 @@ def _player(config: dict, hidden: bool, seed: int, port: int, overrides: dict):
         accept_open_team_sheet=not hidden,
         open_timeout=None,
         guard_overrides=overrides,
+        **(mixing or {}),
     )
     player.set_policy(ROOT / config["CKPT"], torch.device("mps"))
     if config["PREVIEW_MODEL"]:
@@ -133,7 +145,12 @@ def sha256(path: Path) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--guard", required=True, help="opt-in guard(s), comma-separated")
+    ap.add_argument("--guard", default="", help="opt-in guard(s), comma-separated")
+    ap.add_argument("--a-mixing", choices=("off", "opening", "always"), default="off")
+    ap.add_argument("--a-mixing-top-k", type=int, default=3)
+    ap.add_argument("--a-mixing-temperature", type=float, default=1.0)
+    ap.add_argument("--a-mixing-min-ratio", type=float, default=0.0)
+    ap.add_argument("--a-mixing-keep-corrections", action="store_true")
     ap.add_argument("--games", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=20924)
     ap.add_argument("--port", type=int, default=7610)
@@ -143,19 +160,42 @@ def main() -> None:
     args = ap.parse_args()
     os.chdir(ROOT)
     guards = [g for g in args.guard.split(",") if g]
-    if not guards or any(g not in GUARDS or g in HARD_GUARDS for g in guards):
+    if any(g not in GUARDS or g in HARD_GUARDS for g in guards):
         raise ValueError(f"{args.guard} is not a list of opt-in guards")
+    mixing = None
+    if args.a_mixing != "off":
+        mixing = {
+            "mixing_mode": args.a_mixing,
+            "mixing_top_k": args.a_mixing_top_k,
+            "mixing_temperature": args.a_mixing_temperature,
+            "mixing_min_ratio": args.a_mixing_min_ratio,
+            "mixing_keep_corrections": args.a_mixing_keep_corrections,
+            "mixing_seed": args.seed,
+        }
+    if not guards and mixing is None:
+        raise ValueError("nothing to compare: give --guard and/or --a-mixing")
     config = resolve()
     deployed = [g for g in config["GUARDS"].split(",") if g]
     base = [g for g in deployed if g not in guards]
-    named = ", ".join(guards)
-    output = args.output or Path(f"results_mirror_{'_'.join(guards)}")
+    parts = list(guards)
+    if mixing is not None:
+        parts.append(
+            f"{args.a_mixing} mixing (top {args.a_mixing_top_k}, "
+            f"T={args.a_mixing_temperature:g}, min ratio {args.a_mixing_min_ratio:g}"
+            + (", corrections kept)" if args.a_mixing_keep_corrections else ")")
+        )
+    named = ", ".join(parts)
+    tag = "_".join(guards) if guards else f"mixing_{args.a_mixing}"
+    if mixing is not None and guards:
+        tag += f"_mixing_{args.a_mixing}"
+    output = args.output or Path(f"results_mirror_{tag}")
     manifest = {
         "question": f"deployed bot with {named} vs itself without (mirror)",
         "guard": args.guard,
         "side_a": f"deployed setup + {named}",
         "side_b": f"deployed setup without {named}",
         "shared_guards": base,
+        "a_mixing": mixing,
         "checkpoint": config["CKPT"],
         "checkpoint_sha256": sha256(ROOT / config["CKPT"]),
         "team": config["TEAM"],
@@ -195,7 +235,9 @@ def main() -> None:
         if n == 0:
             continue
         PolicyPlayer.guard_fire_counts.clear()
-        a = _player(config, hidden, args.seed, args.port, dict.fromkeys(guards, True))
+        a = _player(
+            config, hidden, args.seed, args.port, dict.fromkeys(guards, True), mixing
+        )
         b = _player(
             config, hidden, args.seed + 1, args.port, dict.fromkeys(guards, False)
         )
@@ -211,6 +253,8 @@ def main() -> None:
             raise RuntimeError(f"block expected {n} games, got {games}")
         counts = PolicyPlayer.guard_fire_counts
         per_guard = {g: int(counts.get(g, 0)) for g in guards}
+        if mixing is not None:  # only side A mixes, so the counter is A's
+            per_guard["mixing"] = int(counts.get("mixing_changed_pick", 0))
         fired = sum(per_guard.values())
         errors = {
             k: v for k, v in PolicyPlayer.guard_fire_counts.items() if "error" in k
