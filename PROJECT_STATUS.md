@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## Head-to-head mirror of save 22,118,400 vs the deployed brain pre-registered; then 15 ladder games (2026-September 26, 11:32)
+
+The user: "do the head to head mirror then run 15 ladder games".
+`evaluation/mirror_guard_ab.py --a-checkpoint` (new): side A = save 22,118,400 of
+`brainv1_t6_contexts1`, side B = the deployed T6hp brain; both with every
+deployed guard (8) and the learned preview model, T6 on both sides, 2,000 games
+in the four blocks, output `results_mirror_brain_contexts1_22118400`. Reading
+(pre-registered now): save 2 **wins close games** if its Wilson 95% lower bound
+is above 50%, **loses** them if the upper bound is below 50%, else inconclusive.
+It already has "no clear change" on the held-out battery, so it passes no gate
+either way: promotion stays the user's decision. The 15 ladder games then play
+the DEPLOYED configuration (T6hp + 8 guards, fresh dir
+`ladder_replays_mc_deployed_T6_humanpreview1_wideguard`) unless the user says
+otherwise.
+
 ## Training cycle contexts1: both saves NO CLEAR CHANGE (+1.02 / +1.27 pooled, lower bounds just below 0); not promoted (2026-September 26, 07:37)
 
 Each save vs the deployed brain (`results_brain_ab_contexts1_<save>`, both sides

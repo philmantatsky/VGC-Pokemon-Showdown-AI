@@ -24,7 +24,9 @@ comma-separated list to measure several guards together (side A has all).
 --a-mixing gives side A mixed-strategy play instead of (or as well as) guards
 (2026-09-26, the user's near-tie "wheel"): against a deterministic copy of
 itself the mirror measures what the sampling COSTS; what unpredictability buys
-against adaptive players only the ladder can show.
+against adaptive players only the ladder can show. --a-checkpoint puts another
+BRAIN on side A (2026-09-26: a trained save head-to-head against the deployed
+brain, both with the deployed guards and preview model).
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000
@@ -100,6 +102,7 @@ def _player(
     port: int,
     overrides: dict,
     mixing: dict | None = None,
+    checkpoint: str | None = None,
 ):
     player = StudyPlayer(
         account_configuration=fresh_local_account(),
@@ -117,7 +120,7 @@ def _player(
         guard_overrides=overrides,
         **(mixing or {}),
     )
-    player.set_policy(ROOT / config["CKPT"], torch.device("mps"))
+    player.set_policy(ROOT / (checkpoint or config["CKPT"]), torch.device("mps"))
     if config["PREVIEW_MODEL"]:
         player.preview_model_path = ROOT / config["PREVIEW_MODEL"]
         player.use_learned_teampreview = True
@@ -151,6 +154,7 @@ def main() -> None:
     ap.add_argument("--a-mixing-temperature", type=float, default=1.0)
     ap.add_argument("--a-mixing-min-ratio", type=float, default=0.0)
     ap.add_argument("--a-mixing-keep-corrections", action="store_true")
+    ap.add_argument("--a-checkpoint", type=Path, default=None, help="side A's brain")
     ap.add_argument("--games", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=20924)
     ap.add_argument("--port", type=int, default=7610)
@@ -172,8 +176,15 @@ def main() -> None:
             "mixing_keep_corrections": args.a_mixing_keep_corrections,
             "mixing_seed": args.seed,
         }
-    if not guards and mixing is None:
-        raise ValueError("nothing to compare: give --guard and/or --a-mixing")
+    if not guards and mixing is None and args.a_checkpoint is None:
+        raise ValueError(
+            "nothing to compare: give --guard, --a-mixing or --a-checkpoint"
+        )
+    a_checkpoint = None
+    if args.a_checkpoint is not None:
+        if not (ROOT / args.a_checkpoint).is_file():
+            raise ValueError(f"no checkpoint {args.a_checkpoint}")
+        a_checkpoint = str(args.a_checkpoint)
     config = resolve()
     deployed = [g for g in config["GUARDS"].split(",") if g]
     base = [g for g in deployed if g not in guards]
@@ -184,18 +195,29 @@ def main() -> None:
             f"T={args.a_mixing_temperature:g}, min ratio {args.a_mixing_min_ratio:g}"
             + (", corrections kept)" if args.a_mixing_keep_corrections else ")")
         )
+    if a_checkpoint is not None:
+        parts.insert(0, f"brain {a_checkpoint}")
     named = ", ".join(parts)
     tag = "_".join(guards) if guards else f"mixing_{args.a_mixing}"
+    if a_checkpoint is not None:
+        tag = f"brain_{Path(a_checkpoint).stem}"
     if mixing is not None and guards:
         tag += f"_mixing_{args.a_mixing}"
     output = args.output or Path(f"results_mirror_{tag}")
     manifest = {
-        "question": f"deployed bot with {named} vs itself without (mirror)",
+        "question": (
+            f"brain {a_checkpoint} vs the deployed brain, both with the deployed "
+            "guards and preview (head-to-head mirror)"
+            if a_checkpoint is not None and not guards and mixing is None
+            else f"deployed bot with {named} vs itself without (mirror)"
+        ),
         "guard": args.guard,
         "side_a": f"deployed setup + {named}",
         "side_b": f"deployed setup without {named}",
         "shared_guards": base,
         "a_mixing": mixing,
+        "a_checkpoint": a_checkpoint,
+        "a_checkpoint_sha256": sha256(ROOT / a_checkpoint) if a_checkpoint else None,
         "checkpoint": config["CKPT"],
         "checkpoint_sha256": sha256(ROOT / config["CKPT"]),
         "team": config["TEAM"],
@@ -236,7 +258,13 @@ def main() -> None:
             continue
         PolicyPlayer.guard_fire_counts.clear()
         a = _player(
-            config, hidden, args.seed, args.port, dict.fromkeys(guards, True), mixing
+            config,
+            hidden,
+            args.seed,
+            args.port,
+            dict.fromkeys(guards, True),
+            mixing,
+            a_checkpoint,
         )
         b = _player(
             config, hidden, args.seed + 1, args.port, dict.fromkeys(guards, False)
