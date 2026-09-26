@@ -1,7 +1,8 @@
 """The shell launchers that can put the bot online: they parse, survive macOS
 bash 3.2 (an empty "${array[@]}" is an unbound-variable error under set -u,
 which crashed the default challenge listener), and refuse while any heavy local
-job runs -- including the human-preview training and evaluation jobs."""
+job runs -- including the human-preview training and evaluation jobs and the
+guard mirror / A/B runners."""
 
 from __future__ import annotations
 
@@ -28,6 +29,8 @@ HEAVY_JOBS = [
     "python evaluation/learned_preview_study.py --preview-model m.pt -- --port 7610",
     "python evaluation/opening_study.py --checkpoint c.zip",
     "bash /scratch/human_preview_chain.sh",
+    ".venv/bin/python evaluation/mirror_guard_ab.py --guard focus_boosted",
+    ".venv/bin/python evaluation/run_guard_ab.py --guards focus_boosted",
 ]
 
 
