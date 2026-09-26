@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## Ladder read with Throat Chop: 25 games started; weather guard stays off (user); focus_boosted A/B after the ladder (2026-September 26, 01:43)
+
+The user: "leave weather off, plugged in now, run 25 ladder games".
+`keep_our_weather` stays off by the user's decision. `tools/ladder_deployed.sh 25`
+into the fresh dir `ladder_replays_mc_deployed_T6_humanpreview1_throatchop`
+(guards_extra = resisted_target, overkill_split, dominated_weather_ball_weather,
+dominated_attack, dominated_throat_chop; T6hp brain; learned preview; serial;
+credentials sourced shell-side). The AC-gated A/B chain was stopped before its
+A/B started (ladder and heavy local runs never share the machine); the
+focus_boosted A/B runs after the ladder, unchanged. At launch `pmset` still
+reported battery power (58%).
+
 ## dominated_throat_chop DEPLOYED (pre-registered rule); combined mirror not worse; focus_boosted A/B waits for AC power (2026-September 26, 00:33)
 
 `results_mirror_ladder_fixes` (Throat Chop + focus_boosted, which never fired in a
