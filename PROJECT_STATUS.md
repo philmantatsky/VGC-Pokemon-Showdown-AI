@@ -21,8 +21,12 @@ or its battery shows a population below -3pp; otherwise T6ctx. The pick is the
 final save; it is judged by a 2,000-game mirror vs T6ctx (same reading as
 above) and the held-out battery against `results_brain_ab_deployed_T6ctx`, with
 the rain-category delta as the secondary reading. The midpoint save is only
-evaluated if the final save fails. Runs after the sticky mirror; no ladder, no
-promotion without the user.
+evaluated if the final save fails. Amended 18:40 (before any weather result):
+because the tactical fine-tune won its mirror, the same fine-tune (same data and
+settings) is re-applied on top of the final save, and BOTH the final save and its
+re-fit get a 2,000-game mirror vs T6ctx; the battery plays whichever won more of
+its mirror. Runs after the sticky mirror; no ladder, no promotion without the
+user.
 
 **Mirror (pre-registered): `tactical_e4` beats T6ctx 58.0% [55.8, 60.2] over
 2,000 games -- wins close games** (open 60.0 / 54.2, hidden 60.2 / 57.6 by who
