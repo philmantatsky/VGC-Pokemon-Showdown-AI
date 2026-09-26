@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## Near-tie mixing LOSES (41.8% [39.6, 43.9]); stays off; focus + Wide Guard A/B running (2026-September 26, 03:29)
+
+`results_mirror_mixing_neartie` (side A samples among its top 3 pairs with >= 15%
+of the top pick's probability, weights = policy probabilities, never undoing a
+guard or reranker correction; side B the same stack deterministic): A 835 / 2,000
+= **41.8% [39.6, 43.9]**, every block 40.4-44.0%; the wheel changed 3,371 picks
+(1.69 per game), so each spin cost roughly 5% of the game. Against a copy of
+itself the policy's second choice is not a near-equal move even at an 85/15
+split: its probabilities rank moves, they are not an equilibrium mix. By the
+pre-registered rule mixing stays off (September's opening-only mixing cost 1-3pp;
+every-turn near-tie mixing costs ~8pp here). Unpredictability has to come from
+training that makes the policy's own mixes worth playing, not from sampling a
+policy trained to be played at argmax. The focus_boosted + wide_guard held-out
+A/B started 03:28:45.
+
 ## dominated_spread WINS CLOSE GAMES (56.4% [54.2, 58.6]) -> DEPLOYED (2026-September 26, 03:02)
 
 `results_mirror_dominated_spread`: A 1,128 / 2,000 = **56.4% [54.2, 58.6]**, blocks
