@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## Training cycle contexts1: both saves NO CLEAR CHANGE (+1.02 / +1.27 pooled, lower bounds just below 0); not promoted (2026-September 26, 07:37)
+
+Each save vs the deployed brain (`results_brain_ab_contexts1_<save>`, both sides
+with dominated_attack, 6 populations x 1,034 games, whole-roster bootstrap):
+
+| Population | 21,626,880 | 22,118,400 |
+|---|---:|---:|
+| New held-out human clone | -0.1 [-3.5, +3.5] | +2.8 [-0.1, +6.3] |
+| Frozen PPO | -1.3 [-5.9, +2.3] | +1.0 [-1.8, +3.7] |
+| Rotation 1 | +0.6 [-1.9, +3.1] | -0.2 [-3.4, +3.3] |
+| Rotation 2 | +2.9 [-0.2, +6.4] | +1.9 [-1.6, +5.8] |
+| Previous held-out human clone | **+3.5 [+0.1, +7.4]** | +2.6 [-0.4, +5.8] |
+| Scripted heuristic | +0.5 [-1.5, +2.4] | -0.5 [-2.8, +1.6] |
+| **Pooled** | **+1.02 [-0.05, +2.14]** | **+1.27 [-0.16, +2.68]** |
+
+By the pre-registered rule both are **no clear change** (neither worse nor
+better; no population below -3pp). The shape is the intended one -- the gains
+sit against the held-out human clones and mostly with open sheets (save 2: human
+clones +4.3 / +4.4 open, +1.4 / +0.8 hidden) -- but the bar was a pooled lower
+bound above zero and it is not met. Not promoted; the deployed brain stays
+T6hp. The chain completed 07:36:43.
+
 ## Training cycle contexts1 complete; both saves being evaluated against the deployed brain (2026-September 26, 06:10)
 
 `results_brainv1_t6_contexts1`: 04:12 -> 06:10, 21,135,360 -> 22,118,400 at ~140
