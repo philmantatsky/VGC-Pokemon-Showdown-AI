@@ -1,7 +1,12 @@
 """Resolve results_deployed/DEPLOYED.json for the shell launchers, verified.
 
 Prints shell assignments (shlex-quoted, for eval) of the deployed configuration:
-CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL and REPLAY_TAG.
+CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL, REPLAY_TAG and MIXING.
+
+MIXING is empty unless the deployment has a "mixing" field (2026-09-26, the
+user's near-tie "wheel"): {"mode": "always"|"opening", "top_k", "temperature",
+"min_ratio", "keep_corrections"}; it prints the matching ladder_ourteam.py
+flags. Invalid values refuse the whole configuration.
 
 PREVIEW_MODEL is empty unless the deployment lets a learned, human-trained model
 choose our team preview (fields learned_preview: true, preview_model,
@@ -40,6 +45,39 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def mixing_args(deployed: dict) -> str:
+    """ladder_ourteam.py flags for the deployment's mixed-strategy play."""
+    mixing = deployed.get("mixing")
+    if not mixing:
+        return ""
+    mode = mixing.get("mode", "off")
+    if mode not in ("off", "opening", "always"):
+        raise ValueError(f"unknown mixing mode {mode!r}")
+    if mode == "off":
+        return ""
+    top_k = mixing.get("top_k", 3)
+    temperature = float(mixing.get("temperature", 1.0))
+    ratio = float(mixing.get("min_ratio", 0.0))
+    keep = mixing.get("keep_corrections", False)
+    if not isinstance(top_k, int) or top_k < 1:
+        raise ValueError("mixing top_k must be a positive integer")
+    if not temperature > 0 or not 0 <= ratio < 1 or not isinstance(keep, bool):
+        raise ValueError("mixing temperature/min_ratio/keep_corrections invalid")
+    flags = [
+        "--mixing",
+        mode,
+        "--mixing-top-k",
+        str(top_k),
+        "--mixing-temperature",
+        f"{temperature:g}",
+        "--mixing-min-ratio",
+        f"{ratio:g}",
+    ]
+    if keep:
+        flags.append("--mixing-keep-corrections")
+    return " ".join(flags)
+
+
 def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
     """The deployed configuration as shell variables; raises when unverified."""
     deployed = json.loads((root / manifest).read_text())["deployed"]
@@ -71,6 +109,7 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         "SET_PRIOR": deployed.get("set_prior_reg", "mc"),
         "PREVIEW_MODEL": deployed["preview_model"] if learned else "",
         "REPLAY_TAG": deployed.get("replay_tag") or Path(deployed["team"]).stem,
+        "MIXING": mixing_args(deployed),
     }
 
 

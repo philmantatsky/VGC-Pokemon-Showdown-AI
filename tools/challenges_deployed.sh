@@ -56,6 +56,11 @@ EXTRA=()
 if [ -n "$PREVIEW_MODEL" ]; then
   EXTRA+=(--learned_preview --preview_model "$PREVIEW_MODEL")
 fi
+# mixed-strategy play when DEPLOYED.json turns it on
+if [ -n "$MIXING" ]; then
+  read -r -a MIXING_ARGS <<< "$MIXING"
+  EXTRA+=(${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"})
+fi
 if [ -n "$REJOIN" ]; then
   case "$REJOIN" in
     battle-gen9championsvgc2026regmc-*) EXTRA+=(--rejoin-battle "$REJOIN") ;;

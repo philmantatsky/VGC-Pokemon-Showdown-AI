@@ -43,14 +43,20 @@ if [ -n "${SET_PRIOR:-}" ]; then export VGC_SET_PRIOR_REG="$SET_PRIOR"; fi
 TEAM=${TEAM:-$DEP_TEAM}
 # the deployed preview model (if any) belongs to the deployed brain on the deployed team
 PREVIEW_ARGS=()
+MIXING_ARGS=()
 TAG=$(basename "$TEAM" .txt)
+DEFAULT_GUARDS=resisted_target,overkill_split,dominated_weather_ball_weather
 if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$TEAM" = "$DEP_TEAM" ]; then
   TAG=$DEP_REPLAY_TAG
+  DEFAULT_GUARDS=$DEP_GUARDS  # the deployed brain plays with the deployed guards
   if [ -n "$DEP_PREVIEW_MODEL" ]; then
     PREVIEW_ARGS=(--learned_preview --preview_model "$DEP_PREVIEW_MODEL")
   fi
+  if [ -n "$DEP_MIXING" ]; then
+    read -r -a MIXING_ARGS <<< "$DEP_MIXING"
+  fi
 fi
-GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
+GUARDS=${GUARDS:-$DEFAULT_GUARDS}
 LOGIN_GRACE=${LOGIN_GRACE:-120}
 HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab'
 DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60|Errno 8\]|nodename nor servname|gaierror|ConnectionRefusedError'
@@ -74,7 +80,8 @@ while true; do
     --guards-extra "$GUARDS" \
     --challenges --n_games 3 \
     --replay_dir "ladder_replays_exhibition_${REG}_${TAG}" \
-    ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} > "$LOG" 2>&1 &
+    ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} \
+    ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!
   started=$(date +%s)
   while kill -0 $PID 2>/dev/null; do

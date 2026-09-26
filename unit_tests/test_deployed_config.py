@@ -198,3 +198,40 @@ def test_misspelled_guards_are_refused(tmp_path):
     manifest = _deployment(tmp_path, guards_extra="resisted_target,dominated_atack")
     with pytest.raises(ValueError, match="unknown guards"):
         resolve(manifest, tmp_path)
+
+
+def test_mixing_is_off_unless_the_manifest_turns_it_on(tmp_path):
+    assert resolve(_deployment(tmp_path), tmp_path)["MIXING"] == ""
+    mixing = {
+        "mode": "always",
+        "top_k": 3,
+        "temperature": 1.0,
+        "min_ratio": 0.15,
+        "keep_corrections": True,
+    }
+    flags = resolve(_deployment(tmp_path, mixing=mixing), tmp_path)["MIXING"]
+    assert flags == (
+        "--mixing always --mixing-top-k 3 --mixing-temperature 1 "
+        "--mixing-min-ratio 0.15 --mixing-keep-corrections"
+    )
+    off = resolve(_deployment(tmp_path, mixing={"mode": "off"}), tmp_path)
+    assert off["MIXING"] == ""
+
+
+def test_invalid_mixing_refuses_the_configuration(tmp_path):
+    for bad in (
+        {"mode": "sometimes"},
+        {"mode": "always", "top_k": 0},
+        {"mode": "always", "min_ratio": 1.5},
+        {"mode": "always", "keep_corrections": "yes"},
+    ):
+        with pytest.raises(ValueError):
+            resolve(_deployment(tmp_path, mixing=bad), tmp_path)
+
+
+def test_mixing_flags_are_accepted_by_the_ladder_script():
+    import ladder_ourteam  # noqa: F401 -- the flags below must exist there
+
+    text = (ROOT / "ladder_ourteam.py").read_text()
+    for flag in ("--mixing-min-ratio", "--mixing-keep-corrections", "--mixing-top-k"):
+        assert flag in text

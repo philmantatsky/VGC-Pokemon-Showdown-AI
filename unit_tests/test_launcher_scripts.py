@@ -60,3 +60,17 @@ def test_launchers_refuse_during_heavy_jobs(script):
         assert heavy.search(command), f"{script.name} would not refuse: {command}"
     ladder = ".venv/bin/python -u ladder_ourteam.py --checkpoint c.zip --reg mc"
     assert not heavy.search(ladder)
+
+
+@pytest.mark.parametrize(
+    "script",
+    [p for p in LAUNCHERS if p.name != "ladder_deployed.sh"],
+    ids=lambda p: p.name,
+)
+def test_launchers_pass_the_deployed_mixing_flags(script):
+    """DEPLOYED.json's mixing reaches ladder_ourteam.py (empty = off)."""
+    assert "MIXING_ARGS" in script.read_text()
+
+
+def test_the_deployed_ladder_exports_mixing():
+    assert "export MIXING" in (ROOT / "tools/ladder_deployed.sh").read_text()

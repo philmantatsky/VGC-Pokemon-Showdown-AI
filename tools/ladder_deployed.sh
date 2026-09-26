@@ -15,5 +15,7 @@ eval "$CFG"
 export VGC_SET_PRIOR_REG="$SET_PRIOR"
 # non-empty only when DEPLOYED.json lets a learned, human-trained model choose our preview
 export PREVIEW_MODEL
+# non-empty only when DEPLOYED.json turns on mixed-strategy play (ladder_ourteam flags)
+export MIXING
 DIR=${2:-ladder_replays_mc_deployed_$REPLAY_TAG}
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"
