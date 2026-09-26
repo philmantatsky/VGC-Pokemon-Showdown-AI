@@ -1,5 +1,35 @@
 # VGC Bot Project Status
 
+## Next training cycle pre-registered: rain/sand curriculum (2026-September 26, 18:12)
+
+Why (from the mistake review): across the 120 T6-era ladder games the bot is
+56-64 overall but **4-11 against opponents that set rain**, 4-10 / 4-11 / 2-7 /
+4-9 when Pelipper / Milotic / Archaludon / Basculegion come in, **6-14 against
+sand-setting Tyranitar** -- and the reading mistakes (predictable Protects, a
+doomed mon left in, attacks into Protect on Trick Room's last turn) sit in those
+games. Against Trick Room rosters it is 20-20, so no Trick Room boost.
+`training/run_t6_weather_trial.py`: the recipe that made T6ctx (35% human-clone
+games, human-model previews, 50% hidden sheets, reward unchanged) with ONE
+change: rosters with a rain or sand setter (Drizzle, Sand Stream, read from the
+roster text) weigh x2 -- 28% -> 44% of the training games; held-out evaluation
+rosters zeroed. +983,040 steps from the start checkpoint's own step.
+
+**Pre-registered, before the tactical results:** the start is the tactical
+fine-tune (`results_tactical1/sft/tactical_e4.zip`, the pre-declared pick: its
+validation cross-entropy was lowest) unless its mirror LOSES (upper bound < 50%)
+or its battery shows a population below -3pp; otherwise T6ctx. The pick is the
+final save; it is judged by a 2,000-game mirror vs T6ctx (same reading as
+above) and the held-out battery against `results_brain_ab_deployed_T6ctx`, with
+the rain-category delta as the secondary reading. The midpoint save is only
+evaluated if the final save fails. Runs after the sticky mirror; no ladder, no
+promotion without the user.
+
+Fine-tune result (offline, validation split, pre-declared metrics): teacher
+agreement 64.4% -> 75.8%, probability on certainly-useless actions 16.3% ->
+9.6%, drift on lesson-free rows KL 0.034; epoch 4 had the lowest validation
+cross-entropy (2.49 -> 1.98) -> candidate `tactical_e4`. Positions: 2,000 local
+games, 11,198 decisions, 0 teacher errors.
+
 ## Sticky guard corrections (opt-in) + pre-registered mirror with the ladder's rerankers (2026-September 26, 18:25)
 
 From the mistake review above (class 2): on ladder the opponent/tempo reranker
