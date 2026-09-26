@@ -1,5 +1,21 @@
 # VGC Bot Project Status
 
+## Fix mirror 3: keep_our_weather UNMEASURED (3 changes in 2,000 games); combined mirror running; the A/B waits for AC power (2026-September 26, 00:07)
+
+`results_mirror_keep_our_weather`: A 1,027 / 2,000 = 51.4% [49.2, 53.5], but the
+guard changed only **3** of A's actions in 2,000 games (blocks 2 / 0 / 1 / 0):
+in a T6 mirror our own Rain Dance with Blastoise staying in and a weather setter
+coming in almost never happens, so the 51.4% is the mirror's noise. By the
+pre-registered rule it is **unmeasured here** (< 20 changes): stays off, the
+user decides. So the amended combined mirror runs `dominated_throat_chop` +
+`focus_boosted` (inert in a T6 mirror) -- in effect a second 2,000-game sample
+of the Throat Chop guard (`results_mirror_ladder_fixes`, started 00:06).
+
+The MacBook has been on battery since the chain began (68% at 00:06, ~2h45m at
+this load); the ~2 h focus_boosted A/B would risk dying part-way, so it now
+starts only on AC power (house rule for long runs; scratch `fixes_chain3.sh`
+waits for `pmset` to report AC). The A/B itself is unchanged.
+
 ## Fix mirrors 1-2: Throat Chop deploy-eligible (50.4%); Trick Room counter LOSES (39.1%); combined mirror amended (2026-September 25, 23:40)
 
 `results_mirror_dominated_throat_chop`: A 1,008 / 2,000 = **50.4% [48.2, 52.6]**,
