@@ -1,5 +1,29 @@
 # VGC Bot Project Status
 
+## Fix mirrors 1-2: Throat Chop deploy-eligible (50.4%); Trick Room counter LOSES (39.1%); combined mirror amended (2026-September 25, 23:40)
+
+`results_mirror_dominated_throat_chop`: A 1,008 / 2,000 = **50.4% [48.2, 52.6]**,
+blocks 49.2 / 53.8 / 49.6 / 49.0%, 106 changed actions (0.05 per game) ->
+**deploy-eligible** (not "better").
+
+`results_mirror_trick_room_counter`: A 782 / 2,000 = **39.1% [37.0, 41.3]** ->
+**the guard loses close games; stays off.** Open sheets 48.2 / 45.2% (it
+changed exactly one action per game: their Farigiraf's Trick Room is on the
+sheet, so A never pressed its own on turn 1), hidden sheets 30.8 / 32.2%. In a
+Trick Room mirror, yielding the room hands the opponent its timing; with hidden
+sheets both rooms cancel on turn 1 and the rule then stops A from ever
+contesting it. The user's instinct -- contest their room -- is the better rule.
+
+**Amendment (before any keep_our_weather or combined result was read):** the
+pre-registered combined check ("the all-four mirror is not worse") would now
+mostly measure trick_room_counter, which is already shown to lose and will not
+ship. The combined mirror is replaced by one of the guards that could ship:
+`dominated_throat_chop`, `focus_boosted` (inert in a T6 mirror) and
+`keep_our_weather` only if its own mirror is deploy-eligible or better; same
+2,000 games, same reading, output `results_mirror_ladder_fixes`. The chain is
+restarted after the running keep_our_weather mirror (unchanged) finishes; the
+focus_boosted A/B follows as planned.
+
 ## Four ladder-mistake fixes built as opt-in guards; measurements pre-registered (2026-September 25, 22:45)
 
 The user: "yes do all 4 fixes" (Trick Room into a counter, focus a foe that set
