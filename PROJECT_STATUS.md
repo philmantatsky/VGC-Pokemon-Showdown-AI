@@ -1,5 +1,37 @@
 # VGC Bot Project Status
 
+## Ladder read with the attack check: 11-11 (25-game read 13-12); loss causes (2026-September 25, 21:10)
+
+`ladder_replays_mc_deployed_T6_humanpreview1_attackcheck`: 22 serial games,
+**11-11**, no parse errors; rating 1144 -> peak 1227 (after 3-0) -> low 1069 ->
+~1140. With the 3 games before the fix (2-1) the user's 25-game read is
+**13-12** (T6 before it: 21-29; T4: 27-23). `dominated_attack` changed the pick
+in 37 of 181 logged decisions, e.g. Eruption -> Heat Wave at low HP and Leaf
+Storm -> Sludge Bomb in game 1 (both won).
+
+Loss causes from the replays (`scratch/ladder_loss_causes.py`; a loss can have
+several), share of WINS vs LOSSES showing each:
+
+| Feature | Wins | Losses |
+|---|---:|---:|
+| Our Trick Room Taunted / Imprisoned / reversed | 0/11 | 4/11 |
+| Opponent set up a boost (Shell Smash, Curse, Bulk Up, Swords Dance...) | 1/11 | 4/11 |
+| Sun lead (Charizard + Venusaur) into a rain team | 0/11 | 2/11 |
+| Tyranitar / sand team | 1/11 | 2/11 |
+| Attacked into Protect 2+ times | 4/11 | 7/11 |
+
+Also 5 losses came after being ahead on knockouts (2-on-1 endgames lost in
+games 8 and 10). Concrete gaps seen in the replays: Throat Chop is never swapped
+by the attack check (its sound-block side effect made it "utility") -- 4 resisted
+Throat Chops into a lone Tyranitar in game 8; Torkoal switched in and replaced
+our own Rain Dance for Blastoise (game 10); Farigiraf kept re-setting Trick Room
+into a reverser (game 5) and into Taunt / Imprison (games 19 / 11); a Shell Smash
+Blastoise went unpunished (game 19). Candidates, strongest evidence first: stop
+spending turns on Trick Room into a revealed counter; focus a foe that just set
+up; Throat Chop as a plain attack unless the target has a sound move; no
+weather-overwriting switch-in; the sun lead vs rain as a training target.
+Nothing changed on the bot during the read.
+
 ## Ladder read resumed with the attack check: 22 games (2026-September 25, 19:48)
 
 The user: "continue our earlier task" (the 25-game read they paused on 09-24 to

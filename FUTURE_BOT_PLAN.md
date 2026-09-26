@@ -33,8 +33,12 @@
   **mirror 71.5% [69.5, 73.4]** (wins close games); DEPLOYED at the user's word.
 - [x] `trick_room_direction` (user's Trick Room lesson): HURT where it acted
   (-9.8pp); stopped; off. Redesign must judge by our whole brought four / plan.
-- [ ] Resume the ladder read with the attack check (22 games left; fresh dir
-  `ladder_replays_mc_deployed_T6_humanpreview1_attackcheck`) -- user's word.
+- [x] Ladder read with the attack check: 22 games 11-11; the 25-game read 13-12
+  (T6: 21-29, T4: 27-23). Loss causes in PROJECT_STATUS (2026-09-25 21:10).
+- [ ] Next fixes (each: tests on real ladder positions + mirror match): Trick Room
+  into a revealed counter (Taunt / Imprison / reverser); focus a foe that just
+  set up; Throat Chop as a plain attack unless the target has a sound move; no
+  switch-in that overwrites our own useful weather; sun lead vs rain (training).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.
 - [x] Deployment plumbing for a learned preview (in use since 2026-09-24):
