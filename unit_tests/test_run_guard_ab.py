@@ -112,3 +112,81 @@ def test_the_without_side_must_be_complete_the_same_study_and_deployed(tmp_path)
     run, reference = _prior_run(tmp_path, extra_guards=["trick_room_direction"])
     with pytest.raises(ValueError, match="not all deployed"):
         without_arm(run, reference, deployed)
+
+
+def _named_run(tmp_path, name, **prior):
+    from pathlib import Path
+
+    run = Path(tmp_path) / name
+    run.mkdir(exist_ok=True)
+    (run / "manifest.json").write_text(json.dumps(prior))
+    (run / "status.json").write_text(json.dumps({"phase": "complete_review_required"}))
+    return run
+
+
+def _study(**changes):
+    return {
+        "checkpoint_sha256": "d" * 64,
+        "preview_model_sha256": "p" * 64,
+        "seed": 20923,
+        "repeats": 11,
+        "populations": ["human_new", "frozen"],
+    } | changes
+
+
+def test_a_baseline_run_of_the_deployed_brain_becomes_the_without_side(tmp_path):
+    """2026-09-26: T6ctx replaced the brain the reference study played, so the
+    deployed configuration is played once (--baseline) and reused."""
+    from evaluation.run_guard_ab import without_arm
+
+    run = _named_run(
+        tmp_path,
+        "results_brain_ab_deployed_T6ctx",
+        **_study(
+            arm_label="deployed_T6ctx",
+            extra_guards=[],
+            base_guards_both_sides=["dominated_attack", "wide_guard"],
+        ),
+    )
+    _, reference = _prior_run(tmp_path)  # the study design; its brain is older
+    deployed = {"resisted_target", "dominated_attack", "wide_guard"}
+    assert without_arm(run, reference, deployed, "d" * 64) == (
+        ["dominated_attack", "wide_guard"],
+        "deployed_T6ctx",
+    )
+
+
+def test_the_without_side_must_have_played_the_deployed_brain(tmp_path):
+    import pytest
+
+    from evaluation.run_guard_ab import without_arm
+
+    run = _named_run(
+        tmp_path,
+        "results_brain_ab_deployed_T6ctx",
+        **_study(
+            arm_label="deployed_T6ctx",
+            extra_guards=[],
+            base_guards_both_sides=["dominated_attack"],
+        ),
+    )
+    _, reference = _prior_run(tmp_path)
+    with pytest.raises(ValueError, match="not the same study"):
+        without_arm(run, reference, {"dominated_attack"}, "e" * 64)
+
+
+def test_a_candidate_run_keeps_its_arm_label(tmp_path):
+    """Runs from before arm_label was recorded: a brain arm is
+    <population>_candidate_<label>.jsonl, its guards the base it ran with."""
+    from evaluation.run_guard_ab import without_arm
+
+    run = _named_run(
+        tmp_path,
+        "results_brain_ab_contexts1_22118400",
+        **_study(extra_guards=[], base_guards_both_sides=["dominated_attack"]),
+    )
+    _, reference = _prior_run(tmp_path)
+    assert without_arm(run, reference, {"dominated_attack"}, "d" * 64) == (
+        ["dominated_attack"],
+        "candidate_contexts1_22118400",
+    )

@@ -59,8 +59,18 @@
 - [x] Head-to-head (the user asked): save 22,118,400 beats T6hp 59.3% [57.1,
   61.4] -> **PROMOTED by the user 2026-09-26** as `champion_mc_T6ctx.zip`
   (replay_tag T6ctx; guards, team, preview unchanged).
-- [ ] Next: a ladder read of T6ctx at the user's word; a T6ctx reference arm for
-  future guard A/Bs.
+- [x] Ladder read of T6ctx (user, 2026-09-26): 6-9, 1219 -> peak 1282 -> ~1150.
+  Mistake review of wins and losses: wrong attack/target is the largest class,
+  as common in wins; the network's own pick corrected in 45% of decisions
+  (T6hp 47%); the ladder reranker undid 6 of 37 guard corrections.
+- [ ] Tactical fine-tune (my decision at the user's delegation, pre-registered in
+  PROJECT_STATUS 2026-09-26 18:05): teach the network the facts the guards patch;
+  mirror vs T6ctx + held-out battery against the new T6ctx reference arm
+  (`results_brain_ab_deployed_T6ctx`).
+- [ ] Then, if it holds: RL practice for the reading mistakes (doomed mon left in,
+  predictable Protects, Trick Room vs Trick Room).
+- [ ] Guards that stick on ladder: the reranker must not restore a pair a guard
+  corrected (needs a mirror with the rerankers on to measure).
 - [ ] Sun lead vs rain (training target).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.

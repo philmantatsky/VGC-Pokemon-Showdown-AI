@@ -1,5 +1,74 @@
 # VGC Bot Project Status
 
+## T6ctx ladder read (6-9) + mistake review of wins AND losses -> tactical fine-tune (2026-September 26, 18:05)
+
+The user: "run 15 ladder games with the new brain, then make your own decision on
+how to train it further BASED ON MISTAKES not only losses, evaluate wins and
+losses too".
+
+**Ladder read** (`ladder_replays_mc_deployed_T6ctx`, deployed config, mixing off):
+**6-9** (W W W L L L W L L W L L L W L), rating 1219 -> **peak 1282** before game 4
+(the team's highest) -> ~1150. No guard or parse errors.
+
+**Mistake review.** Every decision of the 15 games reviewed by hand, and the 30
+earlier ladder games of today (T6hp, same guards) by two independent reviews
+(`agent_review_*.json` in the session scratchpad), plus automatic flags over all
+120 T6-era games. What recurs, in wins as much as losses:
+1. **Wrong attack or target** (by damage and matchup) -- the largest class: 22 of
+   40 mistakes in one review (11 in wins, 11 in losses), 8 of 23 in the other.
+   The network's own pick was changed by a guard in **44 of 98** move decisions
+   of this read (45%) vs 56 of 118 for T6hp (47%): the human-opponent cycle did
+   not teach it (Heat Wave over a full-HP Eruption, Fake Out into Psychic
+   Terrain with ~95% of its mass, Leaf Storm into a 4x resist, Water Spout at low
+   HP, Solar Beam ignored in sun; Rain Dance clicked into active rain 3 times).
+2. **The guard patch leaks on ladder**: the opponent/tempo reranker that runs
+   after the guards (ladder only; local evaluation runs without it) undid **6 of
+   37** guard corrections this read (Leaf Storm back into Archaludon three turns
+   running, game 6), 3/32 and 4/56 in the earlier reads -- a promoted pair only
+   ties the original's probability and the reranker's tactical terms ignore base
+   damage. And guards choose among the network's top eight: when the right move
+   has ~0% (Weather Ball KO, game 5 turn 4), the fallback is wrong.
+3. Reading mistakes with no exact teacher: a doomed slow mon left in (7 of 23 in
+   one review), attacks into predictable Protects (alternating-Protect
+   Tyranitar, the Trick Room last-turn double Protect; blocked 1.2 per win vs 2.2
+   per loss), our Trick Room cancelling the opponent's on turn 1 (games 4, 11).
+
+**Decision: teach the network the move and damage facts the guards patch
+(tactical fine-tune), then practise the reading mistakes by RL if it holds.**
+Class 1 is the most frequent, habitual (as common in wins), untouched by the
+last RL cycle, and has an exact teacher -- the damage calculator and mechanics
+the validated guards already use -- while the guard patch is leaky (class 2).
+`training/tactical_teacher.py`: certainly-useless actions (a damaging move every
+target is immune to, priority into Psychic Terrain / Armor Tail, Fake Out after
+turn 1, status into immunity, weather already up, Helping Hand without a
+partner) and the value of every plain attack of the normal band (accuracy x
+damage capped at the HP left after the partner's attack + 0.5 x P(KO), Solar
+Beam counted in sun, spread moves into a shown Wide Guard at 15%). The target is
+the brain's OWN distribution: useless mass removed, the mass on attacks re-spread
+over them by value (softmax, tau 0.1); attack vs Protect vs switch vs support and
+Mega timing keep the brain's proportions. `training/gen_tactical_data.py`: the
+deployed bot plays 2,000 local games against training-role opponents only (the
+two Reg M-C human clones of the last cycle, T6hp, itself; train-split rosters,
+open and hidden sheets) and records what the network saw at every move decision.
+`training/tactical_sft.py`: actor-only fine-tune of T6ctx (critic frozen: it has
+its own extractor), slot 2 conditioned on slot 1's played action, lr 1e-4, 4
+epochs, 10% validation split by battle; saves are new files under
+`results_tactical1/sft/` (T6ctx is never modified).
+
+**Pre-registered (before any result):** the candidate is the epoch with the
+lowest validation cross-entropy. (1) Offline, on the validation split: teacher
+agreement and the probability left on useless actions, before vs after.
+(2) Head-to-head mirror, candidate vs T6ctx, both with the 8 deployed guards and
+the learned preview, 2,000 games: wins close games if the Wilson lower bound
+> 50%, loses them if the upper bound < 50%, else inconclusive. (3) Held-out
+battery against a NEW reference arm of the deployed configuration
+(`run_guard_ab.py --baseline` -> `results_brain_ab_deployed_T6ctx`, T6ctx + all
+8 guards; this is also the T6ctx reference arm future guard A/Bs need): better if
+the pooled lower bound > 0, a regression flag if any population is below -3pp.
+Promotion is the user's decision; no ladder without the user's word.
+`run_guard_ab.py` gained `--baseline` and accepts a without arm that played the
+deployed brain (the old reference is T6hp, no longer deployed).
+
 ## PROMOTED by the user: T6ctx (save 22,118,400 of the human-opponent cycle) is the deployed brain (2026-September 26, 16:57)
 
 The user: "make the new brain official". `results_deployed/champion_mc_T6ctx.zip`

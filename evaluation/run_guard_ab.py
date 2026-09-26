@@ -32,10 +32,19 @@ both sides, and only the new guards differ.
 "with" side (2026-09-26: a newly trained save against the deployed brain):
 the arms may then differ in the checkpoint as well; --guards may be empty.
 
+--baseline (2026-09-26, once T6ctx replaced the brain this study was built on)
+plays the DEPLOYED configuration -- deployed brain, every deployed guard -- as
+an arm of its own, with no comparison: the "without" side for later guard and
+brain A/Bs on that brain (--without-arm results_brain_ab_deployed_<replay tag>).
+A reused without side must have played the deployed brain.
+
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/run_guard_ab.py --guards dominated_attack
   .venv/bin/python evaluation/run_guard_ab.py --guards focus_boosted \
       --without-arm results_guard_ab_dominated_attack
+  .venv/bin/python evaluation/run_guard_ab.py --baseline
+  .venv/bin/python evaluation/run_guard_ab.py --candidate <save.zip> --label <name> \
+      --without-arm results_brain_ab_deployed_T6ctx
 """
 
 from __future__ import annotations
@@ -121,21 +130,33 @@ def same_study(reference: dict, candidate: dict) -> list[str]:
     )
 
 
+def arm_label(path: Path, prior: dict) -> str:
+    """The label a completed run's arm files carry (<population>_<label>.jsonl)."""
+    if prior.get("arm_label"):
+        return str(prior["arm_label"])
+    if prior.get("extra_guards"):
+        return "with_" + "_".join(prior["extra_guards"])
+    return "candidate_" + path.name.removeprefix("results_brain_ab_")
+
+
 def without_arm(
-    path: Path, reference: dict, deployed: set[str]
+    path: Path, reference: dict, deployed: set[str], brain_sha256: str | None = None
 ) -> tuple[list[str], str]:
     """(base guards, arm label) of a completed run reused as the "without" side.
 
-    It must be this study (same checkpoint, preview model, seed, repeats and
-    populations) and its extra guards must all be deployed: they stay on for
-    both sides, so the comparison isolates the new guards."""
+    It must be this study (same brain, preview model, seed, repeats and
+    populations) and its guards must all be deployed: they stay on for both
+    sides, so the comparison isolates what differs. The brain defaults to the
+    reference study's; ``brain_sha256`` names another (the deployed brain once
+    it is no longer the reference's)."""
     prior = json.loads((path / "manifest.json").read_text())
     if json.loads((path / "status.json").read_text())["phase"] != (
         "complete_review_required"
     ):
         raise ValueError(f"{path} is not complete")
+    brain = brain_sha256 or reference["candidate_sha256"]
     same = (
-        prior["checkpoint_sha256"] == reference["candidate_sha256"]
+        prior["checkpoint_sha256"] == brain
         and prior["preview_model_sha256"] == reference["our_preview"]["model_sha256"]
         and prior["seed"] == reference["seed"]
         and prior["repeats"] == reference["repeats"]
@@ -143,10 +164,14 @@ def without_arm(
     )
     if not same:
         raise ValueError(f"{path} is not the same study as the reference")
-    base = list(prior["extra_guards"])
+    base = list(prior.get("base_guards_both_sides") or []) + [
+        g
+        for g in prior["extra_guards"]
+        if g not in (prior.get("base_guards_both_sides") or [])
+    ]
     if not base or not set(base) <= deployed:
         raise ValueError(f"{path}'s extra guards are not all deployed: {base}")
-    return base, "with_" + "_".join(base)
+    return base, arm_label(path, prior)
 
 
 def guard_firing(telemetry: list[dict], guards: list[str]) -> dict[str, int]:
@@ -171,17 +196,29 @@ def main() -> None:
         default=None,
         help="a completed run of this script reused as the without side",
     )
+    ap.add_argument(
+        "--baseline",
+        action="store_true",
+        help="play the deployed configuration as a reference arm (no comparison)",
+    )
     ap.add_argument("--port", type=int, default=7610)
     ap.add_argument("--prepare-only", action="store_true")
     args = ap.parse_args()
     os.chdir(ROOT)
     guards = [name for name in args.guards.split(",") if name]
     invalid = [g for g in guards if g not in GUARDS or g in HARD_GUARDS]
-    if invalid or (not guards and args.candidate is None):
+    if args.baseline and (guards or args.candidate is not None or args.without_arm):
+        raise ValueError("--baseline plays the deployed configuration alone")
+    if invalid or (not guards and args.candidate is None and not args.baseline):
         raise ValueError(f"need opt-in guards, got {guards} (invalid: {invalid})")
     if args.candidate is not None and (args.without_arm is None or not args.label):
         raise ValueError("--candidate needs --without-arm and --label")
-    if args.candidate is not None:
+    deployed = json.loads(DEPLOYED.read_text())["deployed"]
+    if args.baseline:
+        output = args.output or Path(
+            f"results_brain_ab_deployed_{deployed['replay_tag']}"
+        )
+    elif args.candidate is not None:
         output = args.output or Path(f"results_brain_ab_{args.label}")
     else:
         output = args.output or Path(f"results_guard_ab_{'_'.join(guards)}")
@@ -191,9 +228,15 @@ def main() -> None:
         "complete_review_required"
     ):
         raise ValueError("the reference arm is not complete")
-    deployed = json.loads(DEPLOYED.read_text())["deployed"]
-    if reference["candidate_sha256"] != deployed["sha256"]:
-        raise ValueError("the reference arm is not the deployed brain")
+    if (
+        not args.baseline
+        and args.without_arm is None
+        and reference["candidate_sha256"] != deployed["sha256"]
+    ):
+        raise ValueError(
+            "the reference arm is not the deployed brain: give --without-arm "
+            "(a --baseline run of the deployed configuration)"
+        )
     preview = reference["our_preview"]
     if not deployed.get("learned_preview") or (
         preview["model_sha256"] != deployed["preview_model_sha256"]
@@ -203,8 +246,13 @@ def main() -> None:
     if already & set(guards):
         raise ValueError(f"already deployed: {sorted(already & set(guards))}")
     base, without_dir, without_label = [], REFERENCE, REFERENCE_LABEL
-    if args.without_arm is not None:
-        base, without_label = without_arm(args.without_arm, reference, already)
+    if args.baseline:
+        base = sorted(already)
+        without_dir, without_label = None, None
+    elif args.without_arm is not None:
+        base, without_label = without_arm(
+            args.without_arm, reference, already, deployed["sha256"]
+        )
         without_dir = args.without_arm
     pins = json.loads(PINS.read_text())["sha256"]
     stale = set(changed_pins(pins))
@@ -215,7 +263,11 @@ def main() -> None:
     if sha256(preview["model"]) != preview["model_sha256"]:
         raise ValueError("the preview model changed")
     checkpoint = reference["candidate"]
-    if args.candidate is not None:
+    if args.baseline:
+        checkpoint = deployed["checkpoint"]
+        if sha256(checkpoint) != deployed["sha256"]:
+            raise ValueError("the deployed checkpoint changed")
+    elif args.candidate is not None:
         checkpoint = str(args.candidate)
         if not args.candidate.is_file():
             raise ValueError(f"no candidate checkpoint {args.candidate}")
@@ -228,18 +280,35 @@ def main() -> None:
     roster = {p.species for p in team_roster(Path(reference["team"]).read_text())}
     joint_sha = pins["data/joint_sets_regmc.json"]
 
+    label = (
+        f"deployed_{deployed['replay_tag']}"
+        if args.baseline
+        else "with_" + "_".join(guards)
+        if args.candidate is None
+        else f"candidate_{args.label}"
+    )
     config = {
         "question": (
-            f"deployed configuration + {', '.join(guards)} vs without"
+            f"the deployed configuration ({checkpoint} + {', '.join(base)}) as a "
+            "reference arm"
+            if args.baseline
+            else f"deployed configuration + {', '.join(guards)} vs without"
             if args.candidate is None
             else f"brain {checkpoint} vs the deployed brain, both with "
             f"{', '.join(base + guards)}"
         ),
+        "arm_label": label,
         "extra_guards": guards,
         "extra_guards_scope": "our player only (per-player override)",
         "base_guards_both_sides": base,
-        "reference_arm": f"{without_dir}/<population>_{without_label}.jsonl",
-        "reference_manifest_sha256": sha256(without_dir / "manifest.json"),
+        "reference_arm": (
+            None
+            if without_dir is None
+            else f"{without_dir}/<population>_{without_label}.jsonl"
+        ),
+        "reference_manifest_sha256": (
+            None if without_dir is None else sha256(without_dir / "manifest.json")
+        ),
         "changed_pins_accepted": sorted(stale),
         "guards_module_sha256": sha256("vgc_bench/src/guards.py"),
         "guard_sources_sha256": {path: sha256(path) for path in GUARD_SOURCES},
@@ -270,11 +339,6 @@ def main() -> None:
         return
 
     os.environ.pop("VGC_SET_PRIOR_REG", None)  # both arms read the Reg M-C data
-    label = (
-        "with_" + "_".join(guards)
-        if args.candidate is None
-        else f"candidate_{args.label}"
-    )
     deadline = time.monotonic() + 3 * 3600
     with (output / "run.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -342,6 +406,17 @@ def main() -> None:
                 telemetry = read_rows(arm.with_suffix(".telemetry.jsonl"))
                 validate_arm(rows, telemetry, matchups, repeats, roster)
                 check_arm_manifest(arm.with_suffix(".manifest.json"), "mc", joint_sha)
+                if without_dir is None:  # --baseline: the arm alone
+                    wins = sum(r["target"] for r in rows)
+                    report["populations"][pop] = {
+                        "games": len(rows),
+                        "win_rate": wins / len(rows),
+                    }
+                    report["firing"][pop] = guard_firing(telemetry, base) | {
+                        "games": len(rows)
+                    }
+                    atomic_json(output / "scorecard.json", report)
+                    continue
                 ref_arm = without_dir / f"{pop}_{without_label}.jsonl"
                 differs = same_study(
                     json.loads(ref_arm.with_suffix(".manifest.json").read_text()),
@@ -366,7 +441,8 @@ def main() -> None:
                 firing.update(pop_firing)
                 report["firing"][pop] = pop_firing | {"games": len(rows)}
                 atomic_json(output / "scorecard.json", report)
-            report["pooled"] = pooled_roster_bootstrap(deltas)
+            if deltas:
+                report["pooled"] = pooled_roster_bootstrap(deltas)
             report["firing"]["total"] = dict(firing)
             atomic_json(output / "scorecard.json", report)
             atomic_json(
