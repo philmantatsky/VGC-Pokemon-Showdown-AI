@@ -8,9 +8,10 @@ populations x 47 held-out rosters x 22 games. That arm is reused as the
 the guard module, where the new guards are opt-in and were off:
 
 * every pin of results_t6_vs_deployed_v1 still hashes the same, except the
-  guard code: vgc_bench/src/guards.py, and vgc_bench/src/pokeenv_patches.py
+  guard code: vgc_bench/src/guards.py, vgc_bench/src/pokeenv_patches.py
   (2026-09-25: a weather-setter tracker read only by the opt-in guard
-  keep_our_weather);
+  keep_our_weather) and vgc_bench/src/policy_player.py (2026-09-26: near-tie
+  mixing options, default off -- a player without mixing runs the same code);
 * the reference arm played exactly the deployed checkpoint and preview model;
 * each new population's opening_study manifest equals the reference's except
   the output path (the extra guards are a per-player override on our side only,
@@ -26,6 +27,10 @@ promotion, no ladder.
 instead (2026-09-25: results_guard_ab_dominated_attack, once dominated_attack
 was deployed): its extra guards -- which must all be deployed -- stay on for
 both sides, and only the new guards differ.
+
+--candidate CKPT (with --without-arm and --label) plays another BRAIN on the
+"with" side (2026-09-26: a newly trained save against the deployed brain):
+the arms may then differ in the checkpoint as well; --guards may be empty.
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/run_guard_ab.py --guards dominated_attack
@@ -72,7 +77,11 @@ from vgc_bench.src.set_particles import team_roster
 REFERENCE = Path("results_candidate_vs_t6_humanpreview_21135360")
 REFERENCE_LABEL = "humanpreview_21135360"
 PINS = Path("results_t6_vs_deployed_v1/manifest.json")
-ALLOWED_CHANGED_PINS = {"vgc_bench/src/guards.py", "vgc_bench/src/pokeenv_patches.py"}
+ALLOWED_CHANGED_PINS = {
+    "vgc_bench/src/guards.py",
+    "vgc_bench/src/pokeenv_patches.py",
+    "vgc_bench/src/policy_player.py",
+}
 # Everything the extra guards run; hashed into the manifest, re-checked between
 # populations so the code cannot change during a comparison.
 GUARD_SOURCES = (
@@ -152,7 +161,9 @@ def guard_firing(telemetry: list[dict], guards: list[str]) -> dict[str, int]:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--guards", required=True, help="comma-separated opt-in guards")
+    ap.add_argument("--guards", default="", help="comma-separated opt-in guards")
+    ap.add_argument("--candidate", type=Path, default=None, help="another brain")
+    ap.add_argument("--label", default=None, help="names the candidate's arm")
     ap.add_argument("--output", type=Path, default=None)
     ap.add_argument(
         "--without-arm",
@@ -166,9 +177,14 @@ def main() -> None:
     os.chdir(ROOT)
     guards = [name for name in args.guards.split(",") if name]
     invalid = [g for g in guards if g not in GUARDS or g in HARD_GUARDS]
-    if not guards or invalid:
+    if invalid or (not guards and args.candidate is None):
         raise ValueError(f"need opt-in guards, got {guards} (invalid: {invalid})")
-    output = args.output or Path(f"results_guard_ab_{'_'.join(guards)}")
+    if args.candidate is not None and (args.without_arm is None or not args.label):
+        raise ValueError("--candidate needs --without-arm and --label")
+    if args.candidate is not None:
+        output = args.output or Path(f"results_brain_ab_{args.label}")
+    else:
+        output = args.output or Path(f"results_guard_ab_{'_'.join(guards)}")
 
     reference = json.loads((REFERENCE / "manifest.json").read_text())
     if json.loads((REFERENCE / "status.json").read_text())["phase"] != (
@@ -198,6 +214,11 @@ def main() -> None:
         raise ValueError("the reference checkpoint changed")
     if sha256(preview["model"]) != preview["model_sha256"]:
         raise ValueError("the preview model changed")
+    checkpoint = reference["candidate"]
+    if args.candidate is not None:
+        checkpoint = str(args.candidate)
+        if not args.candidate.is_file():
+            raise ValueError(f"no candidate checkpoint {args.candidate}")
 
     populations = reference["populations"]
     repeats, seed = reference["repeats"], reference["seed"]
@@ -208,7 +229,12 @@ def main() -> None:
     joint_sha = pins["data/joint_sets_regmc.json"]
 
     config = {
-        "question": f"deployed configuration + {', '.join(guards)} vs without",
+        "question": (
+            f"deployed configuration + {', '.join(guards)} vs without"
+            if args.candidate is None
+            else f"brain {checkpoint} vs the deployed brain, both with "
+            f"{', '.join(base + guards)}"
+        ),
         "extra_guards": guards,
         "extra_guards_scope": "our player only (per-player override)",
         "base_guards_both_sides": base,
@@ -218,8 +244,8 @@ def main() -> None:
         "guards_module_sha256": sha256("vgc_bench/src/guards.py"),
         "guard_sources_sha256": {path: sha256(path) for path in GUARD_SOURCES},
         "wrapper_sha256": sha256("evaluation/learned_preview_study.py"),
-        "checkpoint": reference["candidate"],
-        "checkpoint_sha256": reference["candidate_sha256"],
+        "checkpoint": checkpoint,
+        "checkpoint_sha256": sha256(checkpoint),
         "preview_model": preview["model"],
         "preview_model_sha256": preview["model_sha256"],
         "plans": reference["plans"],
@@ -244,7 +270,11 @@ def main() -> None:
         return
 
     os.environ.pop("VGC_SET_PRIOR_REG", None)  # both arms read the Reg M-C data
-    label = "with_" + "_".join(guards)
+    label = (
+        "with_" + "_".join(guards)
+        if args.candidate is None
+        else f"candidate_{args.label}"
+    )
     deadline = time.monotonic() + 3 * 3600
     with (output / "run.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -283,7 +313,7 @@ def main() -> None:
                     ",".join(base + guards),
                     "--",
                     "--checkpoint",
-                    reference["candidate"],
+                    checkpoint,
                     "--opponent",
                     opponent,
                     "--plans",
@@ -317,6 +347,12 @@ def main() -> None:
                     json.loads(ref_arm.with_suffix(".manifest.json").read_text()),
                     json.loads(arm.with_suffix(".manifest.json").read_text()),
                 )
+                if args.candidate is not None:  # the brain is what differs
+                    differs = [
+                        k
+                        for k in differs
+                        if k not in ("checkpoint", "checkpoint_sha256")
+                    ]
                 if differs:
                     raise ValueError(f"{pop}: arms differ beyond output: {differs}")
                 ref_rows = read_rows(ref_arm)
