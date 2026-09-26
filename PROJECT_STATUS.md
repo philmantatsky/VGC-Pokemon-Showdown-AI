@@ -1,5 +1,16 @@
 # VGC Bot Project Status
 
+## Ladder read resumed with the attack check: 22 games (2026-September 25, 19:48)
+
+The user: "continue our earlier task" (the 25-game read they paused on 09-24 to
+fix the move-choice mistakes). `tools/ladder_deployed.sh 22` into the fresh dir
+`ladder_replays_mc_deployed_T6_humanpreview1_attackcheck`; its run_config records
+`guards_extra` = resisted_target, overkill_split, dominated_weather_ball_weather,
+dominated_attack, the learned preview (`data/preview_t6_focus_20260923.pt`) and
+the T6hp brain; serial, credentials sourced shell-side. The 3 games before the
+fix (2-1) stay in `ladder_replays_mc_deployed_T6_humanpreview1`. Codex idle since
+09-22 (heartbeat PAUSED); nothing else running.
+
 ## Mirror match: the attack check WINS CLOSE GAMES -- 71.5% [69.5, 73.4] over 2,000 games (2026-September 24, 16:15)
 
 `results_mirror_dominated_attack/`: the deployed bot against itself, side A with
