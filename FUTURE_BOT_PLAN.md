@@ -55,8 +55,12 @@
   T6hp): both saves **no clear change** (pooled +1.02 [-0.05, +2.14], +1.27
   [-0.16, +2.68]); gains against the held-out human clones with open sheets.
   Not promoted.
-- [ ] Next: a ladder read of the new guard stack at the user's word; the user
-  decides whether save 22,118,400 gets a head-to-head or a ladder test.
+- [x] Ladder read of the 8-guard stack (T6hp): 8-7, 1175 -> peak 1239 -> ~1218.
+- [x] Head-to-head (the user asked): save 22,118,400 beats T6hp 59.3% [57.1,
+  61.4] -> **PROMOTED by the user 2026-09-26** as `champion_mc_T6ctx.zip`
+  (replay_tag T6ctx; guards, team, preview unchanged).
+- [ ] Next: a ladder read of T6ctx at the user's word; a T6ctx reference arm for
+  future guard A/Bs.
 - [ ] Sun lead vs rain (training target).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.

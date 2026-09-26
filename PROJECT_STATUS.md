@@ -1,5 +1,21 @@
 # VGC Bot Project Status
 
+## PROMOTED by the user: T6ctx (save 22,118,400 of the human-opponent cycle) is the deployed brain (2026-September 26, 16:57)
+
+The user: "make the new brain official". `results_deployed/champion_mc_T6ctx.zip`
+(new file, sha 5f20cecf..., copy of
+`results_brainv1_t6_contexts1/saves_fp_xt_hs_wt/reg_mc/seed1/22118400.zip`,
+metadata sidecar role production). DEPLOYED.json: checkpoint -> T6ctx, team,
+preview model and the 8 guards unchanged, fresh `replay_tag` **T6ctx**; the
+outgoing T6hp moves to `previous_deployed` (with its amendments and its ladder
+record, 29-26 over 55 games, peak 1239) and `history`. Evidence recorded:
+head-to-head 59.3% [57.1, 61.4] vs T6hp with every deployed guard; held-out
+battery +1.27 [-0.16, +2.68] (no clear change) -- the user's decision, no gate
+passed on its own. T6hp is now an immutable prior champion (six in all). Suite:
+569 passed. Follow-up for the next guard A/B: `run_guard_ab.py` checks its
+reference arm against the deployed brain, so guard A/Bs on T6ctx need a T6ctx
+reference arm (e.g. `results_brain_ab_contexts1_22118400`, T6ctx + dominated_attack).
+
 ## Ladder read with the 8-guard stack: 15 games, 8-7, rating 1175 -> peak 1239 -> ~1218 (2026-September 26, 12:40)
 
 `ladder_replays_mc_deployed_T6_humanpreview1_wideguard` (T6hp brain, learned

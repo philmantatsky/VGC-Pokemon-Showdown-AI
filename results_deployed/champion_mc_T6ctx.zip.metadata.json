@@ -1,0 +1,7 @@
+{
+ "sha256": "5f20cecfb7ba92c9e0547417c69e54b86a4d83daf9097af9fe12a9bab690b049",
+ "requires_knowledge_obs": true,
+ "obs_len": null,
+ "role": "production",
+ "stamped_at": "2026-09-26T21:56:46+00:00"
+}
