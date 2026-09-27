@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## Pre-registered before the no-script battery result: the user's ladder condition (2026-September 27, 17:00)
+
+The user: "if it holds up run 15 ladder games". Holds up = the same bar on
+`results_brain_ab_practice1_23101440_tactical_water_noscript`: pooled upper bound >=
+0, no population below -3pp, no playbook errors in more than 1% of games (and the
+arm really ran without `playbook_opening`). Then 15 serial ladder games with exactly
+that configuration: brain `results_brainv1_t6_playbook1/tactical/tactical_e4.zip`,
+the deployed team / preview model / 8 guards / sticky corrections, playbook
+`data/playbook_t6_trial.json` (Water Room only), NO turn-1 script -- via
+`tools/ladder_trial.sh` into `ladder_replays_mc_practice1_water_noscript_t6`;
+DEPLOYED.json untouched. If it does not hold up: no ladder, report.
+
 ## Ladder: the practised brain + Water Room 6-9 (played out 3-9); the turn-1 script overrode its practised opening -> test without the script (2026-September 27, 16:55)
 
 `ladder_replays_mc_practice1_water_t6` (15 serial games, 15:56-16:44, the user's
