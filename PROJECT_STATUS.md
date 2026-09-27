@@ -1,5 +1,24 @@
 # VGC Bot Project Status
 
+## Tactical fine-tune: wins its mirror 58.0%, battery no clear change (-0.40 [-1.61, +0.84]); guards correct it 31% less (2026-September 26, 20:00)
+
+`tactical_e4` (T6ctx + the tactical fine-tune), against the deployed T6ctx, both
+with the 8 deployed guards and the learned preview:
+- **Mirror: 58.0% [55.8, 60.2]** over 2,000 games -- wins close games (every
+  block > 54%). `results_mirror_tactical1`.
+- **Held-out battery: pooled -0.40pp [-1.61, +0.84] -- no clear change**; no
+  population below -3pp (human_new -1.3, frozen -1.5, rotation1 0.0, rotation2
+  -1.9, human_previous +0.4, heuristic +1.9); rain rosters 0.0, Trick Room +1.7,
+  grassy Fake Out -2.0, Tailwind -1.7. `results_brain_ab_tactical1_e4` against the
+  new reference arm `results_brain_ab_deployed_T6ctx` (T6ctx + all 8 guards: 93.0 /
+  95.3 / 93.0 / 96.0 / 88.5 / 91.1%).
+- **What it learned:** in those 6,204 games the guards that only our player runs
+  changed its pick **0.98 times per game vs 1.43** for T6ctx (-31%);
+  dominated_attack **0.38 vs 0.77 per game** (halved).
+Same evidence profile as T6ctx at its promotion (mirror 59.3%, battery no clear
+change): deploy-eligible under the mirror rule; promotion is the user's call.
+By the pre-registered rule the rain/sand cycle starts from `tactical_e4`.
+
 ## Next training cycle pre-registered: rain/sand curriculum (2026-September 26, 18:12)
 
 Why (from the mistake review): across the 120 T6-era ladder games the bot is

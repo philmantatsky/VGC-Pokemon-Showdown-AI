@@ -63,10 +63,14 @@
   Mistake review of wins and losses: wrong attack/target is the largest class,
   as common in wins; the network's own pick corrected in 45% of decisions
   (T6hp 47%); the ladder reranker undid 6 of 37 guard corrections.
-- [ ] Tactical fine-tune (my decision at the user's delegation, pre-registered in
-  PROJECT_STATUS 2026-09-26 18:05): teach the network the facts the guards patch;
-  mirror vs T6ctx + held-out battery against the new T6ctx reference arm
-  (`results_brain_ab_deployed_T6ctx`).
+- [x] Tactical fine-tune (my decision at the user's delegation, pre-registered in
+  PROJECT_STATUS 2026-09-26 18:05): `results_tactical1/sft/tactical_e4.zip` **wins
+  its mirror 58.0% [55.8, 60.2]**; battery -0.40 [-1.61, +0.84] (no clear change,
+  no population below -3pp); guards correct it 31% less. Promotion: the user.
+- [x] T6ctx reference arm for guard/brain A/Bs: `results_brain_ab_deployed_T6ctx`
+  (`run_guard_ab.py --baseline`).
+- [ ] Rain/sand curriculum cycle (`training/run_t6_weather_trial.py`) from
+  `tactical_e4`, re-fit, mirror both, battery the better (pre-registered).
 - [ ] Then, if it holds: RL practice for the reading mistakes (doomed mon left in,
   predictable Protects, Trick Room vs Trick Room).
 - [ ] Guards that stick on ladder: the reranker must not restore a pair a guard
