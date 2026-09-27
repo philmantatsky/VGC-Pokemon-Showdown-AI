@@ -1,5 +1,40 @@
 # VGC Bot Project Status
 
+## Playbook planner built; its evaluation pre-registered (2026-September 27, 00:55)
+
+The user: "we need to think of this moreso as a handoff, like a strategy playbook
+... our team picker needs to come up with a plan of action as to why its choosing
+its specific 4 and why it wants its first two ... we need to be the human picking
+and choosing our own strategy not just basing it off of what others did" -- then
+"draft them" and, of the draft, "i like them all".
+- `PLAYBOOK_T6.md` / `data/playbook_t6.json`: four plan cards (Water Room =
+  default, Sun Room only against clean fire-weak teams, Support Room against 4+
+  heavy physical attackers or 2+ Fake Out users, Fast Sun kept but experimental),
+  each with jobs, turn-1 script, beaten-by and fallback, plus seven rules from our
+  mistakes. Grounded in the 135 T6-era ladder games: Farigiraf + Torkoal is 14-10
+  against clean teams but 7-19 against sand / Wide Guard / Imprison / Psychic
+  Terrain; Blastoise + Farigiraf 54% either way; Charizard + Venusaur 1-6.
+- `vgc_bench/src/playbook.py`: opponent features from the Reg M-C set data and the
+  type chart (open sheet when shown), the card by rules, its reasons logged.
+  `vgc_bench/src/playbook_opening.py`: opt-in guard `playbook_opening` -- on turn 1
+  the card's script goes on top (Fake Out their Trick Room / Tailwind setter, else
+  the biggest threat to our setter; Farigiraf Trick Room), FIRST in the guard order
+  so every factual veto still judges it. 13 tests.
+- Wiring (after the running battery): PolicyPlayer `playbook_path` (the card at
+  preview; the preview model keeps predicting THEIR plan), the card attached to the
+  battle and written to the decision log; `resisted_target` stops retargeting Fake
+  Out (its flinch is the point -- T6tac ladder game 8 and two earlier reviews).
+
+**Pre-registered:** (1) mirror `--a-playbook data/playbook_t6.json --guard
+playbook_opening`, 2,000 games vs the deployed T6tac setup (both with the Fake Out
+fix; the opponent is our own T6, one matchup, so this tests that card and its
+script): wins close games if the Wilson lower bound > 50%, loses if the upper
+bound < 50%. (2) Held-out battery, T6tac + playbook + playbook_opening against
+`results_brain_ab_tactical1_e4` (played before the Fake Out fix, so that fix rides
+along): better if the pooled lower bound > 0; deploy-eligible if the pooled upper
+bound >= 0 and no population is below -3pp; the card mix over the 47 rosters is
+reported. Deployment and ladder are the user's call.
+
 ## Pre-registered: weather routing (the user's idea), before the rain/sand battery result (2026-September 27, 00:35)
 
 The rain/sand-trained save LOSES its mirror against T6tac badly (35.4% [33.0,

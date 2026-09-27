@@ -30,7 +30,10 @@ brain, both with the deployed guards and preview model). --rerankers gives BOTH
 sides the ladder's opponent/tempo reranker (the opponent move and switch
 models), which the evaluation arms otherwise leave out; --a-sticky gives side A
 sticky guard corrections (the reranker may not restore a pair a guard corrected
-away; ladder 2026-09-26 game 6).
+away; ladder 2026-09-26 game 6). --a-playbook gives side A our own playbook at
+team preview (vgc_bench/src/playbook.py: the plan card for this opponent, its
+four, its leads and the turn-1 script for the opt-in guard playbook_opening --
+pass --guard playbook_opening to play the script too).
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000
@@ -167,6 +170,12 @@ def main() -> None:
         help="both sides run the ladder's opponent/tempo reranker",
     )
     ap.add_argument(
+        "--a-playbook",
+        type=Path,
+        default=None,
+        help="side A picks its preview from this playbook (data/playbook_<team>.json)",
+    )
+    ap.add_argument(
         "--a-sticky",
         action="store_true",
         help="side A keeps guard corrections the reranker would undo",
@@ -197,6 +206,7 @@ def main() -> None:
         and mixing is None
         and args.a_checkpoint is None
         and not args.a_sticky
+        and args.a_playbook is None
     ):
         raise ValueError(
             "nothing to compare: give --guard, --a-mixing, --a-checkpoint or --a-sticky"
@@ -230,6 +240,10 @@ def main() -> None:
         parts.insert(0, f"brain {a_checkpoint}")
     if args.a_sticky:
         parts.append("sticky guard corrections")
+    if args.a_playbook is not None:
+        if not (ROOT / args.a_playbook).is_file():
+            raise ValueError(f"no playbook {args.a_playbook}")
+        parts.insert(0, f"playbook {args.a_playbook}")
     named = ", ".join(parts)
     tag = "_".join(guards) if guards else f"mixing_{args.a_mixing}"
     if a_checkpoint is not None:
@@ -238,6 +252,9 @@ def main() -> None:
         tag += f"_mixing_{args.a_mixing}"
     if args.a_sticky and not guards and mixing is None and a_checkpoint is None:
         tag = "sticky_corrections"
+    if args.a_playbook is not None:
+        tag = "playbook_" + Path(args.a_playbook).stem
+        tag += ("_" + "_".join(guards)) if guards else ""
     if args.rerankers:
         tag += "_rerankers"
     output = args.output or Path(f"results_mirror_{tag}")
@@ -259,6 +276,10 @@ def main() -> None:
             k: str(v) for k, v in shared_extra.items() if k.endswith("_path")
         },
         "a_sticky_guard_corrections": args.a_sticky,
+        "a_playbook": str(args.a_playbook) if args.a_playbook else None,
+        "a_playbook_sha256": (
+            sha256(ROOT / args.a_playbook) if args.a_playbook else None
+        ),
         "a_checkpoint_sha256": sha256(ROOT / a_checkpoint) if a_checkpoint else None,
         "checkpoint": config["CKPT"],
         "checkpoint_sha256": sha256(ROOT / config["CKPT"]),
@@ -308,7 +329,12 @@ def main() -> None:
             mixing,
             a_checkpoint,
             shared_extra
-            | ({"sticky_guard_corrections": True} if args.a_sticky else {}),
+            | ({"sticky_guard_corrections": True} if args.a_sticky else {})
+            | (
+                {"playbook_path": ROOT / args.a_playbook}
+                if args.a_playbook is not None
+                else {}
+            ),
         )
         b = _player(
             config,
