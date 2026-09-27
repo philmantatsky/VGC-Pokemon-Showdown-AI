@@ -17,5 +17,7 @@ export VGC_SET_PRIOR_REG="$SET_PRIOR"
 export PREVIEW_MODEL
 # non-empty only when DEPLOYED.json turns on mixed-strategy play (ladder_ourteam flags)
 export MIXING
+# non-empty only when DEPLOYED.json keeps guard corrections the reranker would undo
+export STICKY
 DIR=${2:-ladder_replays_mc_deployed_$REPLAY_TAG}
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"

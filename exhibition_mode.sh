@@ -44,6 +44,7 @@ TEAM=${TEAM:-$DEP_TEAM}
 # the deployed preview model (if any) belongs to the deployed brain on the deployed team
 PREVIEW_ARGS=()
 MIXING_ARGS=()
+STICKY_ARGS=()
 TAG=$(basename "$TEAM" .txt)
 DEFAULT_GUARDS=resisted_target,overkill_split,dominated_weather_ball_weather
 if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$TEAM" = "$DEP_TEAM" ]; then
@@ -54,6 +55,9 @@ if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$TEAM" = "$DEP_TEAM" ]; then
   fi
   if [ -n "$DEP_MIXING" ]; then
     read -r -a MIXING_ARGS <<< "$DEP_MIXING"
+  fi
+  if [ -n "$DEP_STICKY" ]; then
+    STICKY_ARGS=(--sticky-corrections)
   fi
 fi
 GUARDS=${GUARDS:-$DEFAULT_GUARDS}
@@ -81,7 +85,8 @@ while true; do
     --challenges --n_games 3 \
     --replay_dir "ladder_replays_exhibition_${REG}_${TAG}" \
     ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} \
-    ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} > "$LOG" 2>&1 &
+    ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} \
+    ${STICKY_ARGS[@]+"${STICKY_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!
   started=$(date +%s)
   while kill -0 $PID 2>/dev/null; do

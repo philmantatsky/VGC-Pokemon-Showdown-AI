@@ -122,6 +122,20 @@ class TestRecordRunConfig:
         with pytest.raises(SystemExit, match="set_prior_reg"):
             record_run_config(tmp_path, _args(reg="mc"), "abc123", "hard")
 
+    def test_sticky_corrections_are_material_only_when_on(self, tmp_path):
+        """A directory recorded before the flag existed keeps accepting runs with
+        it off; turning it on is a different configuration (2026-09-26)."""
+        record_run_config(tmp_path, _args(), "abc123", "hard")
+        path = record_run_config(
+            tmp_path, _args(sticky_corrections=False), "abc123", "hard"
+        )
+        material = json.loads(path.read_text())["runs"][-1]["material"]
+        assert "sticky_corrections" not in material
+        with pytest.raises(SystemExit, match="sticky_corrections"):
+            record_run_config(
+                tmp_path, _args(sticky_corrections=True), "abc123", "hard"
+            )
+
 
 class TestPreviewRules:
     def test_known_setters_rank_high(self):

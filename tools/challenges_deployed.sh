@@ -61,6 +61,10 @@ if [ -n "$MIXING" ]; then
   read -r -a MIXING_ARGS <<< "$MIXING"
   EXTRA+=(${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"})
 fi
+# guard corrections the reranker may not undo, when DEPLOYED.json says so
+if [ -n "${STICKY:-}" ]; then
+  EXTRA+=(--sticky-corrections)
+fi
 if [ -n "$REJOIN" ]; then
   case "$REJOIN" in
     battle-gen9championsvgc2026regmc-*) EXTRA+=(--rejoin-battle "$REJOIN") ;;

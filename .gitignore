@@ -288,3 +288,15 @@ results_brainv1_t6_humanpreview1/*
 
 # run logs moved out of the repo root (2026-09-24 cleanup); local only
 logs/
+!results_mirror_tactical1/
+results_mirror_tactical1/*
+!results_mirror_tactical1/manifest.json
+!results_mirror_tactical1/result.json
+!results_mirror_sticky_corrections_rerankers/
+results_mirror_sticky_corrections_rerankers/*
+!results_mirror_sticky_corrections_rerankers/manifest.json
+!results_mirror_sticky_corrections_rerankers/result.json
+!results_mirror_weather1*/
+results_mirror_weather1*/*
+!results_mirror_weather1*/manifest.json
+!results_mirror_weather1*/result.json

@@ -74,3 +74,18 @@ def test_launchers_pass_the_deployed_mixing_flags(script):
 
 def test_the_deployed_ladder_exports_mixing():
     assert "export MIXING" in (ROOT / "tools/ladder_deployed.sh").read_text()
+
+
+@pytest.mark.parametrize(
+    "script",
+    [p for p in LAUNCHERS if p.name != "ladder_deployed.sh"],
+    ids=lambda p: p.name,
+)
+def test_launchers_pass_the_deployed_sticky_flag(script):
+    """DEPLOYED.json's sticky_guard_corrections reaches ladder_ourteam.py."""
+    text = script.read_text()
+    assert "STICKY" in text and "--sticky-corrections" in text
+
+
+def test_the_deployed_ladder_exports_sticky():
+    assert "export STICKY" in (ROOT / "tools/ladder_deployed.sh").read_text()

@@ -1,7 +1,12 @@
 """Resolve results_deployed/DEPLOYED.json for the shell launchers, verified.
 
 Prints shell assignments (shlex-quoted, for eval) of the deployed configuration:
-CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL, REPLAY_TAG and MIXING.
+CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL, REPLAY_TAG, MIXING and
+STICKY.
+
+STICKY is "--sticky-corrections" when the deployment has
+"sticky_guard_corrections": true (2026-09-26: the reranker may not put back a
+pair a guard corrected away), else empty; a non-boolean value refuses.
 
 MIXING is empty unless the deployment has a "mixing" field (2026-09-26, the
 user's near-tie "wheel"): {"mode": "always"|"opening", "top_k", "temperature",
@@ -100,6 +105,9 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
             raise ValueError(f"deployed {field} is missing: {deployed[field]}")
         if sha256(path) != deployed[sha_field]:
             raise ValueError(f"deployed {field} does not match {sha_field}")
+    sticky = deployed.get("sticky_guard_corrections", False)
+    if not isinstance(sticky, bool):
+        raise ValueError("sticky_guard_corrections must be true or false")
     return {
         "CKPT": deployed["checkpoint"],
         "TEAM": deployed["team"],
@@ -110,6 +118,7 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         "PREVIEW_MODEL": deployed["preview_model"] if learned else "",
         "REPLAY_TAG": deployed.get("replay_tag") or Path(deployed["team"]).stem,
         "MIXING": mixing_args(deployed),
+        "STICKY": "--sticky-corrections" if sticky else "",
     }
 
 

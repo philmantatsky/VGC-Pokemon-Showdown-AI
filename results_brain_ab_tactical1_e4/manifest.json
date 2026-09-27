@@ -1,0 +1,51 @@
+{
+  "question": "brain results_tactical1/sft/tactical_e4.zip vs the deployed brain, both with dominated_attack, dominated_spread, dominated_throat_chop, dominated_weather_ball_weather, focus_boosted, overkill_split, resisted_target, wide_guard",
+  "arm_label": "candidate_tactical1_e4",
+  "extra_guards": [],
+  "extra_guards_scope": "our player only (per-player override)",
+  "base_guards_both_sides": [
+    "dominated_attack",
+    "dominated_spread",
+    "dominated_throat_chop",
+    "dominated_weather_ball_weather",
+    "focus_boosted",
+    "overkill_split",
+    "resisted_target",
+    "wide_guard"
+  ],
+  "reference_arm": "results_brain_ab_deployed_T6ctx/<population>_deployed_T6ctx.jsonl",
+  "reference_manifest_sha256": "cdf898d16ef6b6a6680ec04fee2b2dd015728294e4956c6a3edb5afd5a72d4d6",
+  "changed_pins_accepted": [
+    "vgc_bench/src/guards.py",
+    "vgc_bench/src/pokeenv_patches.py",
+    "vgc_bench/src/policy_player.py"
+  ],
+  "guards_module_sha256": "60260b6b8c948af54679300916ff2c112059509ae3949145bb9e394ab3438e81",
+  "guard_sources_sha256": {
+    "vgc_bench/src/guards.py": "60260b6b8c948af54679300916ff2c112059509ae3949145bb9e394ab3438e81",
+    "vgc_bench/src/trick_room_guard.py": "a4de097e8f545750439798ce8424655a6a6c54886a65399250f723d76688581f",
+    "vgc_bench/src/pokeenv_patches.py": "fa025b156bd03d5e3413d6b576b1326bbd3082de4e0d58b191d513bb4434f4ff"
+  },
+  "wrapper_sha256": "37c2a7e83af022be1500558a2ccdb83188c255277e7fb3bb1761e9098075d4b8",
+  "checkpoint": "results_tactical1/sft/tactical_e4.zip",
+  "checkpoint_sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
+  "plans": "data/opening_plans_t6.json",
+  "populations": [
+    "human_new",
+    "frozen",
+    "rotation1",
+    "rotation2",
+    "human_previous",
+    "heuristic"
+  ],
+  "matchups": 47,
+  "repeats": 11,
+  "seed": 20923,
+  "port": 7610,
+  "delta": "with the extra guards minus without",
+  "battle_rng_paired": false,
+  "uncertainty": "whole-roster bootstrap; pooled = equal-population mean",
+  "decision": "Stop for review. Never promote or start ladder automatically."
+}

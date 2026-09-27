@@ -235,3 +235,15 @@ def test_mixing_flags_are_accepted_by_the_ladder_script():
     text = (ROOT / "ladder_ourteam.py").read_text()
     for flag in ("--mixing-min-ratio", "--mixing-keep-corrections", "--mixing-top-k"):
         assert flag in text
+
+
+def test_sticky_corrections_are_off_unless_the_manifest_turns_them_on(tmp_path):
+    """2026-09-26: the reranker may not put back a pair a guard corrected away."""
+    assert resolve(_deployment(tmp_path), tmp_path)["STICKY"] == ""
+    on = resolve(_deployment(tmp_path, sticky_guard_corrections=True), tmp_path)
+    assert on["STICKY"] == "--sticky-corrections"
+    off = resolve(_deployment(tmp_path, sticky_guard_corrections=False), tmp_path)
+    assert off["STICKY"] == ""
+    with pytest.raises(ValueError, match="sticky_guard_corrections"):
+        resolve(_deployment(tmp_path, sticky_guard_corrections="yes"), tmp_path)
+    assert "--sticky-corrections" in (ROOT / "ladder_ourteam.py").read_text()

@@ -140,6 +140,9 @@ def record_run_config(
     # format's own). It moves results by several points (2026-09-23 side-by-side),
     # so a replay dir must never mix the two.
     material["set_prior_reg"] = prior_reg(format_map[args.reg])
+    # recorded only when on, so directories from before the flag stay valid
+    if not material.get("sticky_corrections"):
+        material.pop("sticky_corrections", None)
     run_config = (
         json.loads(run_config_path.read_text())
         if run_config_path.exists()
@@ -334,6 +337,14 @@ async def main():
         "--mixing-keep-corrections",
         action="store_true",
         help="never mix a pick a guard or the opponent reranker corrected",
+    )
+    ap.add_argument(
+        "--sticky-corrections",
+        action="store_true",
+        help=(
+            "the opponent/tempo reranker may not put back a pair a guard corrected "
+            "away (mirror 2026-09-26: 53.4% [51.2, 55.5]); recorded in run_config.json"
+        ),
     )
     ap.add_argument(
         "--guards-extra",
@@ -735,6 +746,7 @@ async def main():
         mixing_last_turn=args.mixing_last_turn,
         mixing_min_ratio=args.mixing_min_ratio,
         mixing_keep_corrections=args.mixing_keep_corrections,
+        sticky_guard_corrections=args.sticky_corrections,
         guard_overrides={
             name.strip(): True for name in args.guards_extra.split(",") if name.strip()
         },
@@ -816,6 +828,7 @@ async def main():
         "audit   : "
         f"{args.decision_log or str(Path(args.replay_dir) / 'decisions.jsonl')}"
     )
+    print(f"sticky  : {'on' if args.sticky_corrections else 'off'}")
     print(f"config  : recorded in {run_config_path}")
 
     if args.rejoin_battle and not args.challenges:

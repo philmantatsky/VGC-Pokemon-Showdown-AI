@@ -17,6 +17,7 @@
 # - PREVIEW_MODEL (env, set by ladder_deployed.sh from DEPLOYED.json): a learned,
 #   human-trained preview model chooses our four and leads (--learned_preview).
 # - MIXING (env, same source): ladder_ourteam.py mixed-strategy flags, or empty.
+# - STICKY (env, same source): --sticky-corrections, or empty.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 CKPT=${1:?checkpoint}; TEAM=${2:?team file}; N=${3:?total games}; DIR=${4:?replay dir}
@@ -37,6 +38,10 @@ MIXING_ARGS=()
 if [ -n "${MIXING:-}" ]; then
   read -r -a MIXING_ARGS <<< "$MIXING"
 fi
+STICKY_ARGS=()
+if [ -n "${STICKY:-}" ]; then
+  STICKY_ARGS=(--sticky-corrections)
+fi
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 mkdir -p "$DIR"
 games_done() { ls "$DIR"/*.html 2>/dev/null | wc -l | tr -d ' '; }
@@ -49,7 +54,7 @@ wins_done() {  # our account name is the replay filename's prefix before " - bat
   done
   echo $n
 }
-echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} total=$N dir=$DIR games_done=$(games_done)"
+echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} sticky=${STICKY:+on} total=$N dir=$DIR games_done=$(games_done)"
 session=0
 while :; do
   done_n=$(games_done); remaining=$((N - done_n))
@@ -60,7 +65,8 @@ while :; do
   echo "SESSION_START $session [$(stamp)] games_done=$done_n remaining=$remaining log=$LOG"
   caffeinate -is .venv/bin/python -u ladder_ourteam.py --checkpoint "$CKPT" --reg mc --our_team "$TEAM" \
     --guards-extra "$GUARDS" --n_games "$remaining" --replay_dir "$DIR" ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} \
-    ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} > "$LOG" 2>&1 &
+    ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} \
+    ${STICKY_ARGS[@]+"${STICKY_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!; started=$(date +%s); last_games=$done_n; last_change=$started
   while kill -0 $PID 2>/dev/null; do
     sleep 20
