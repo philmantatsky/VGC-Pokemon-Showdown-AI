@@ -1,0 +1,10 @@
+{
+  "phase": "training_complete_evaluation_next",
+  "saves": [
+    "results_brainv1_t6_playbook1/saves_fp_xt_hs_wt/reg_mc/seed1/22609920.zip",
+    "results_brainv1_t6_playbook1/saves_fp_xt_hs_wt/reg_mc/seed1/23101440.zip"
+  ],
+  "finished": 1790533189.6101272,
+  "promoted": false,
+  "ladder_games": 0
+}

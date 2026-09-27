@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Practice cycle result: practice helps (+3.6pp) and wins the mirror, but the full playbook is still worse than T6tac's own preview -> no ladder; Water Room only re-tested (2026-September 27, 15:20)
+
+`results_brain_ab_practice1_23101440_tactical` (the practised brain's re-fit +
+playbook draft 1.1 + `playbook_opening` vs `results_brain_ab_tactical1_e4`):
+- **Pooled -4.38pp [-7.38, -1.42]** -> not better, NOT deploy-eligible (every
+  population negative: human_new -1.9, frozen -4.1, rotation1 -4.1, rotation2 -7.0,
+  human_previous -5.3, heuristic -4.0) -> **the user's condition ("if the battery
+  holds up run 15 ladder games") failed: no ladder** (LADDER_HOLD 15:10, automatic).
+- **Practice effect** (vs last night's unpractised playbook arm, same cells):
+  **+3.64pp [+1.93, +5.48]**; mirror 54.4% [52.2, 56.6] (wins; unpractised 30.6%).
+- **Per card** (T6tac / unpractised / practised): Water Room 90.9 / 88.1 / 90.5%
+  (**-0.3**); Sun Room 96.0 / 90.8 / 91.8 (-4.1); Support Room 92.7 / 78.1 / 84.0
+  (**-8.6**). Practice closed most of the gap for Water Room, part of it for Support
+  Room: against these held-out teams, our rule-picked Support Room and Sun Room
+  openings stay worse than the human-trained preview's choice (there mostly Blastoise
+  + Farigiraf), even practised. The mirror (our own team) hides this.
+- Lesson: the human-trained preview picks better fours than our card RULES; the
+  playbook's value so far is Water Room (even), the turn-1 facts (Fake Out
+  reachability: Indeedee leads 4-0 on ladder) and the explanation layer. Draft 2
+  (the openings research) should re-key Support Room before it is practised again.
+- **Pre-registered now (the machine is idle; local only):** the practised brain +
+  Water Room only (`data/playbook_t6_trial.json`, last night's ladder-trial
+  playbook) + `playbook_opening`, battery vs `results_brain_ab_tactical1_e4`:
+  holds up = pooled upper >= 0 and no population below -3pp. Caveat: Water Room was
+  chosen after seeing these rosters' per-card results (its own cells -0.3); the
+  new information is Water Room on the other 26 rosters. Ladder only on the user's
+  word.
+
 ## Practice cycle: both mirrors WIN; the user's ladder condition pre-registered before the battery result (2026-September 27, 14:35)
 
 - Training (11:21-13:19) clean: ep_rew_mean 0.48 -> 0.80; practice previews Support

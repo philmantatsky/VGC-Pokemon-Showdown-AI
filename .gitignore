@@ -309,3 +309,13 @@ results_guard_ab_playbook_playbook_t6_playbook_opening/*
 !results_guard_ab_playbook_playbook_t6_playbook_opening/manifest.json
 !results_guard_ab_playbook_playbook_t6_playbook_opening/scorecard.json
 !results_guard_ab_playbook_playbook_t6_playbook_opening/status.json
+!results_mirror_practice1_*/
+results_mirror_practice1_*/*
+!results_mirror_practice1_*/manifest.json
+!results_mirror_practice1_*/result.json
+!results_brainv1_t6_playbook1/
+results_brainv1_t6_playbook1/*
+!results_brainv1_t6_playbook1/experiment.json
+!results_brainv1_t6_playbook1/status.json
+!results_brainv1_t6_playbook1/league_config.json
+!results_brainv1_t6_playbook1/league_manifest.json

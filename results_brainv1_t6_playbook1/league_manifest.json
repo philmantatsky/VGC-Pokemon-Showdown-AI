@@ -1,0 +1,135 @@
+{
+ "banned_sha256": {
+  "03033b900ba0c9790ec0f3d0c33778c96fbbc0dff0d7ea4ddc3dd3414a352862": "results_bc/eval_B/saves_bc/seed2/8.zip (eval-only holdout)",
+  "0441336494fc4f84f9247fc8b2d3a28e4080ca446c8197725366606b7079494b": "results_bc/eval_mcB/saves_bc/seed2/9.zip (eval-only holdout)",
+  "14d9070e87991268d5e0e4c4e94f486eb5ea1cb8e9adff1618c3bc4900c2ff97": "results_bc/eval_mcB_20260913/saves_bc/seed2/7.zip (eval-only holdout)",
+  "1885d41de819c20d17cacc7eb7730ec386774b5c2de5db694616199fdec1196a": "results_bc/eval_mcB/saves_bc/seed2/10.zip (eval-only holdout)",
+  "18ef23dbc3186ee484cc272139c835ca4f22412c8a12d2cbf76087677fc75819": "results_bc/eval_B/saves_bc/seed2/12.zip (eval-only holdout)",
+  "1eaec8c09b25dd307ba817d915eb5421f36038a42c3ec116a3832fce4c210b87": "results_bc/eval_B/saves_bc/seed2/14.zip (eval-only holdout)",
+  "2375519529e85744a943b56b14945a0acdf3b698a83f2cca3b94e8e7b93e28d0": "results_bc/eval_mcB/saves_bc/seed2/6.zip (eval-only holdout)",
+  "274cbc0cfeb458f644094e0d1920aa163fb282a195a0f82d22bcd01919ac2435": "results_bc/eval_mcB_20260920/saves_bc/seed2/8.zip (eval-only holdout)",
+  "27891e7d6a81d957ca88443b6cee39d04467fc889cc49b662c39ed18c579484a": "results_bc/eval_B/saves_bc/seed2/24.zip (eval-only holdout)",
+  "2878fd55276c494da0957188f4a5fbab4cf0c28961d0ff25cd5c672787cd83ff": "results_bc/eval_mcB_20260913/saves_bc/seed2/4.zip (eval-only holdout)",
+  "2c9adc4e65e9ed0489d147b4a4013606db5635dd28afa45cfa80da900554b153": "results_bc/eval_B/saves_bc/seed2/30.zip (eval-only holdout)",
+  "2d0930d6c9a7e8d0d98af021afe94e8c5c7f436f442ab1e69f05cf450cd83b23": "results_bc/eval_B/saves_bc/seed2/6.zip (eval-only holdout)",
+  "32f1ffc6182fc7aa2b2a4e03a7a7dcd7569277cc9ecae78231f0e5950f658e7b": "results_bc/eval_B/saves_bc/seed2/10.zip (eval-only holdout)",
+  "37662f831c0581d561e88ec9f89456313d1a5f3942a9d5b51ae912e2d9e5e21c": "results_bc/eval_B/saves_bc/seed2/19.zip (eval-only holdout)",
+  "390c21483b3afa59305d220a25f87991450ff595cd41cb889897da455a163958": "results_bc/eval_B/saves_bc/seed2/28.zip (eval-only holdout)",
+  "3ff80c42d2892b02da0ab1f9b1d406d6a7baf5df5bdc3b31c41f06352768c441": "results_bc/eval_B/saves_bc/seed2/15.zip (eval-only holdout)",
+  "42eccf6fb0acb91843020d4fa86d9cdbda548ea63da8ad2066f78ab171ae8a08": "results_bc/eval_mcB_20260920/saves_bc/seed2/0.zip (eval-only holdout)",
+  "48f3c41511cd7349473d85fce44cf4862603cd015562efe90e13bcb2d221d264": "results_bc/eval_B/saves_bc/seed2/17.zip (eval-only holdout)",
+  "4c79dc4af050399c453cf368eb00423b7d16d208aa339388bf11de908af9b014": "results_bc/eval_mcB/saves_bc/seed2/3.zip (eval-only holdout)",
+  "50818be67738286440054f6c21084be53cf64d6af244300f79142d4e42de8472": "results_bc/eval_B/saves_bc/seed2/29.zip (eval-only holdout)",
+  "55386f6574948be48f74ce1637d13b37c8f465a8ce2c26f7b6584d74a72892a6": "results_bc/eval_B/saves_bc/seed2/7.zip (eval-only holdout)",
+  "5e89b61892cb9aaf1ab0f99078334515dcc27fbd8317ef5f091c174c3ec44ddc": "results_bc/eval_B/saves_bc/seed2/26.zip (eval-only holdout)",
+  "5e8ffd72b75cd8859c8f0cfa78e16fa67a526ccede34ef70b47deab26172824c": "results_bc/eval_mcB/saves_bc/seed2/2.zip (eval-only holdout)",
+  "612130a764c6ec4c57aeb42b6dcea3031eb4d70e5334fd73c5e78e433bf3ef84": "results_bc/eval_mcB_20260920/saves_bc/seed2/2.zip (eval-only holdout)",
+  "639765e85bb4747b3f3e6a3405195a1ad320021b5e88ea30eb3d244e40606810": "results_bc/eval_mcB/saves_bc/seed2/1.zip (eval-only holdout)",
+  "68570597bc3908b699b63119a17e34a242a4f0691a50d2ea94d2bc62d6297c87": "results_bc/eval_B/saves_bc/seed2/22.zip (eval-only holdout)",
+  "69d3e22d333965ce16b8780d46044b6de75ad80ad1d6c1f247a3e305ef5f4558": "results_bc/eval_B/saves_bc/seed2/23.zip (eval-only holdout)",
+  "6e066076647c8cec55392deed8147b9af6eb60802ab611c6741ee595d5eb3d93": "results_bc/eval_mcB_20260913/saves_bc/seed2/0.zip (eval-only holdout)",
+  "7144c1b272b0ddc0c815e0a127e4adf8598f318ce4a5d9e887798f7db874d9ed": "results_bc/eval_B/saves_bc/seed2/11.zip (eval-only holdout)",
+  "728e69cce0a5fb6fbd0dbddf0ec4af855189b36957bbe9e3b2950b699be41bb0": "results_bc/eval_mcB_20260913/saves_bc/seed2/2.zip (eval-only holdout)",
+  "72cbbdd3db5615410bd17cf4ae170a213f9daac811a3ae21c72da557b4b3f702": "results_bc/eval_B/saves_bc/seed2/16.zip (eval-only holdout)",
+  "734417c2a0ff81a2036ebf549df6577bcdaa47fcbde3fd2f0c5c6e7d2b924df2": "results_bc/eval_B/saves_bc/seed2/25.zip (eval-only holdout)",
+  "7410219623fa05e1302050344b8f5f621461ff70981b2b6c5666fcbc06c50c0d": "results_bc/eval_D/saves_bc/seed2/2.zip (eval-only holdout)",
+  "767c4bb40c3e7d68f411b82412d67437fd795f4dc1ba337cdaf5b93d1d27ee21": "results_bc/eval_D/saves_bc/seed2/8.zip (eval-only holdout)",
+  "77415ff0bf96a273de3835a1c5ff714bee803c911e1ac558794a1e722a5043fe": "results_bc/eval_B/saves_bc/seed2/20.zip (eval-only holdout)",
+  "7eef4ec13c73f3bff6f714710e82ffbdf01cc38e892d093ee82ac66683d41e9d": "results_bc/eval_B/saves_bc/seed2/3.zip (eval-only holdout)",
+  "8192117c15944d950d2008110868a6746de019405783c4aa6a1bd796eeaaf40d": "results_bc/eval_mcB/saves_bc/seed2/5.zip (eval-only holdout)",
+  "81a12044d98f687e50760037312512abd7aeef073eb00d5c5ce2bdd82d6b5c5f": "results_bc/eval_mcB_20260913/saves_bc/seed2/6.zip (eval-only holdout)",
+  "99ffe1b548f978bca3a63020b5fac36988746a163349a03388216be83297598b": "results_bc/eval_D/saves_bc/seed2/4.zip (eval-only holdout)",
+  "9b5a64a62c49c84f44748e3789c373e199c354fdfd5bc90ba3c785ff7ce5b3f2": "results_bc/eval_mcB/saves_bc/seed2/7.zip (eval-only holdout)",
+  "a015ba739b8db344698a29fd7055594dea5944ac2174ac1432644ebf485e37c9": "results_bc/eval_mcB_20260913/saves_bc/seed2/1.zip (eval-only holdout)",
+  "a117051bfd6d87f67763c7c64ca97c9fab883f38e39795b1f46e53c6d9cfabbe": "results_bc/eval_mcB/saves_bc/seed2/0.zip (eval-only holdout)",
+  "a55f5d549d4f9542c0191ea64e9620cac9453490f9a8879e9adbc588ae53e5df": "results_bc/eval_mcB/saves_bc/seed2/4.zip (eval-only holdout)",
+  "a6368715e1a3110f063fd1058148c77214c00eb3aaabcf5ff307dee9c96e0b8d": "results_bc/eval_mcB_20260920/saves_bc/seed2/4.zip (eval-only holdout)",
+  "b1fc7a5e961c85aef1c5df64f63909e6042267ecdf6f8852a8fe24912ab183fb": "results_bc/eval_B/saves_bc/seed2/21.zip (eval-only holdout)",
+  "b6467e5f940d6cc9f6b5f5266bce523db1d07440d3a1f3bb70fdd8e671dbbd79": "results_bc/eval_mcB_20260920/saves_bc/seed2/5.zip (eval-only holdout)",
+  "be222fc61dde90dae19425bccd1944d5ea1f7e472bae43fbb838be1b25c7c035": "results_bc/eval_B/saves_bc/seed2/27.zip (eval-only holdout)",
+  "c01e60f4af818f4e758bce380baaf2606ac72816fb9f9fa6a1337ed3459c629a": "results_bc/eval_mcB/saves_bc/seed2/8.zip (eval-only holdout)",
+  "c10ecabe53fae3ac16ebd150afe45743fa8acb298d860106e0fee36ec8e93504": "results_bc/eval_B/saves_bc/seed2/4.zip (eval-only holdout)",
+  "c2b6e8bb710b5644f23abc919e667a00ee99c16eea149a6e5c28c8c0e2cfebea": "results_bc/eval_D/saves_bc/seed2/1.zip (eval-only holdout)",
+  "c337d4aa26dcef8a7fad16eb31ee2734618edf4e2f311a6704c6a04a123cbf4e": "results_bc/eval_mcB_20260920/saves_bc/seed2/1.zip (eval-only holdout)",
+  "c4c4646c37f661a498e47fc6f47be59fa1feb3e251acca4639e64c2e33d6ba1b": "results_bc/eval_B/saves_bc/seed2/2.zip (eval-only holdout)",
+  "c68b387513f8347a83f908b1451361e9abfcc38d2c68d5a7b887fab7e24fd22c": "results_bc/eval_B/saves_bc/seed2/5.zip (eval-only holdout)",
+  "c6a96157d43b660d502b2cd88f2f1ffe0f508941f7c34abeb90cd394ffd16194": "results_bc/eval_mcB_20260920/saves_bc/seed2/6.zip (eval-only holdout)",
+  "d20b0a718d5554f8638d87b72a4aaa9facc36c9342c19e624e7d25e3cab3bedf": "results_bc/eval_mcB_20260913/saves_bc/seed2/5.zip (eval-only holdout)",
+  "da3cb4246256c7745e7164698abb6a4ccf30511f88f35d9404ee74f98f57ed1e": "results_bc/eval_mcB_20260913/saves_bc/seed2/3.zip (eval-only holdout)",
+  "dab5a145657b303953c2ec9dcc762203dab0e22c9cd36fc03fab194914901a58": "results_bc/eval_B/saves_bc/seed2/18.zip (eval-only holdout)",
+  "df14b1f854fc8897c3d4bbb3de451311311ca7d1c0a88794480d569216b43bbf": "results_bc/eval_D/saves_bc/seed2/0.zip (eval-only holdout)",
+  "e60689ae4933404d27eb8236ba719ad4c7e78e278aac960c34480eccb2cf0210": "results_bc/eval_mcB_20260920/saves_bc/seed2/3.zip (eval-only holdout)",
+  "e6fcdae795517f85407572fc4ecb52b2de0f6c1f645af914a3a6b7aa23918763": "results_bc/eval_D/saves_bc/seed2/3.zip (eval-only holdout)",
+  "e88697ab675b19c1ea28fd5aecb73893ef04dfad1ae45b8d1d3222dd51b94688": "results_bc/eval_mcB_20260920/saves_bc/seed2/7.zip (eval-only holdout)",
+  "ee0084b70c9563dd27e4ab4123f8c4eeac738a138fe23dfb7bcde09c6563c145": "results_bc/eval_B/saves_bc/seed2/1.zip (eval-only holdout)",
+  "f55fec0510738b5803f2b31e49ac7cb871dad82e977a0c19eac7ecf7b659a609": "results_bc/eval_B/saves_bc/seed2/0.zip (eval-only holdout)",
+  "f7bea04ed00595e4d55bd437183313946eab00d3d03ca903ece1c444ffad11e9": "results_bc/eval_D/saves_bc/seed2/7.zip (eval-only holdout)",
+  "f864baa239b2fb1e79e1e470f4b694eb356763a5551bda5603b9943f41f91ff3": "results_bc/eval_D/saves_bc/seed2/5.zip (eval-only holdout)",
+  "fa5afb81850408d0f0f8fb1bf5dd0a2c4a387d7c4f42941157ef19d7e405bbd0": "results_bc/eval_mcB_20260913/saves_bc/seed2/8.zip (eval-only holdout)",
+  "fc259ef2661d53f8185a918318982485533148bfe21ea61098673c812db695a4": "results_bc/eval_D/saves_bc/seed2/6.zip (eval-only holdout)",
+  "fdbae640a284f73c91937a01e1a5cc003d01f604e8e86f149df0fdae3eb02b3d": "results_bc/eval_B/saves_bc/seed2/13.zip (eval-only holdout)",
+  "fff46db16c617204eefa76932eb4e8f5cb4d12f54a2830d053f1e6a055533a64": "results_bc/eval_B/saves_bc/seed2/9.zip (eval-only holdout)"
+ },
+ "created_at": "2026-09-27T16:21:24+00:00",
+ "entries": {
+  "100": {
+   "role": "training_opponent",
+   "sha256": "403fb188d73f0e24f0331a87e9a71f2deb967376155a3e8ba61764f8651c6a0c",
+   "source": "results_bc/mc_A_20260920/saves_bc/seed1/2.zip"
+  },
+  "150": {
+   "role": "training_opponent",
+   "sha256": "4a2c991d28d0afefbf1893beca8763b67972b103718036cf2ca097c36c54c46c",
+   "source": "results_bc/mc_A_20260913/saves_bc/seed1/3.zip"
+  },
+  "200": {
+   "role": "training_opponent",
+   "sha256": "403fb188d73f0e24f0331a87e9a71f2deb967376155a3e8ba61764f8651c6a0c",
+   "source": "results_bc/mc_A_20260920/saves_bc/seed1/2.zip"
+  },
+  "22118400": {
+   "role": "candidate",
+   "sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+   "source": "results_tactical1/sft/tactical_e4.zip"
+  },
+  "300": {
+   "role": "production",
+   "sha256": "8ce56e9dce5fe5784a4795621522b3f10e888423fcf91853eb806b9645e51f12",
+   "source": "results_repaired/champion.zip"
+  },
+  "400": {
+   "role": "lineage",
+   "sha256": "4b2bbac09ccdb803adcb09eb52ac5d33c6206e734f23fe73d6a42ebc6ee015da",
+   "source": "results_league/saves_fp_hs_wt/reg_mb/seed1/11796480.zip"
+  },
+  "500": {
+   "role": "production",
+   "sha256": "8cc54b2b4fb1422999622fe613d85dccf027c7f0af0801044b455b34611c0815",
+   "source": "results_league/league_champion.zip"
+  },
+  "600": {
+   "role": "production",
+   "sha256": "8cc54b2b4fb1422999622fe613d85dccf027c7f0af0801044b455b34611c0815",
+   "source": "results_league/league_champion.zip"
+  },
+  "700": {
+   "role": "lineage",
+   "sha256": "9d6e73a7bbe71ebec00cff77bccbb89c1c8b580e5bd788735125c2723b588f7c",
+   "source": "results_brainv1/saves_fp_hs_wt/reg_mc/seed1/20643840.zip"
+  },
+  "800": {
+   "role": "candidate",
+   "sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+   "source": "results_tactical1/sft/tactical_e4.zip"
+  },
+  "900": {
+   "role": "candidate",
+   "sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+   "source": "results_tactical1/sft/tactical_e4.zip"
+  }
+ },
+ "resume_stem": 22118400,
+ "team_weights": "results_brainv1_t6_playbook1/team_weights.json",
+ "tr_boost": 1.0,
+ "tr_boosted_teams": 0
+}
