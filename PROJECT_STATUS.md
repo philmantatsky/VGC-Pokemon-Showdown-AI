@@ -1,5 +1,41 @@
 # VGC Bot Project Status
 
+## Playbook evaluation: the planner's own openings LOSE locally, its turn-1 script is about neutral; the ladder trial plays Water Room only (2026-September 27, 03:00)
+
+Pre-registered readings (00:55 / 01:20 / 01:50 / 01:55):
+- **Mirror** (`results_mirror_playbook_t6`): **30.6% [28.6, 32.6] -> loses** (the
+  pre-registered verdict). Open sheets (Support Room vs our own team) 13.6%;
+  hidden sheets (Water Room) 47.5% [44.4, 50.6] -> no hold (01:50 amendment).
+- **Battery** (`results_guard_ab_playbook_playbook_t6_playbook_opening` vs
+  `results_brain_ab_tactical1_e4`): **pooled -8.03pp [-11.04, -4.96]** -> not
+  better, not deploy-eligible; every population negative (human_new -5.5, frozen
+  -11.0, rotation1 -9.7, rotation2 -13.3, human_previous -3.4, heuristic -5.2). No
+  errors: a card in all 6,204 games, the turn-1 script changed turn 1 in 3,983.
+- **Per card** (same roster x sheet cells, T6tac -> playbook): Support Room 92.7%
+  -> 78.1% (**-14.6pp**, 2,574 games), Sun Room 96.0 -> 90.8 (-5.2, 990), Water
+  Room -2.7 (2,640). The pre-registered per-card rule switched Support Room and Sun
+  Room off for the ladder trial (`data/playbook_t6_trial.json`: the same cards
+  with `experimental: true` on those two).
+- **Where the loss is** (descriptive, `playbook_decompose.py`): in the Water Room
+  cells where T6tac's own preview already played the card's exact lead + four,
+  the arms differ only by the turn-1 script (and the Fake Out fix): **-1.1pp over
+  924 games, no clear effect**, although the script changed turn 1 in 61% of Water
+  Room games. Where the card's plan differs from T6tac's own: -3.6 (Water Room's
+  fixed back line), -14.6 (Support Room; T6tac itself led Incineroar + Farigiraf in
+  36 of those 234 cells), -5.2 (Sun Room). **The loss is the plan choice, not the
+  script:** rule-picked fours and leads lose to the human-trained preview this brain
+  practised with -- the unpractised-opening collapse again (2026-09-23: Farigiraf +
+  Incineroar 62% where the practised lead scored 90%+; openings research section 8).
+- **Ladder trial** (the user's word; hold checks passed: no errors, hidden-sheet
+  mirror upper 50.6% >= 40%, battery upper -4.96 >= -5): started 02:50 with Water
+  Room for every opponent + the turn-1 script, into
+  `ladder_replays_mc_deployed_T6tac_playbook_t6`.
+- **Next (the user's call):** a plan has to be PRACTISED before it is played -- a
+  training cycle whose preview for our side comes from the playbook (the way
+  `training/human_preview.py` sampled the human model), then these same tests;
+  draft 2 from `OPENINGS_RESEARCH_T6.md` (Support Room keyed to physical threats or
+  a Psychic attacker, not to two Fake Out users).
+
 ## Amended mid-mirror, before its hidden-sheet blocks: the mirror's ladder hold now reads the Water Room blocks only (2026-September 27, 01:50)
 
 The mirror's two open-sheet blocks: **A 13.8% and 13.4%** (136 / 1,000). An

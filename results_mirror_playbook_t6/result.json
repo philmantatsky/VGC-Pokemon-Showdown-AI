@@ -1,0 +1,67 @@
+{
+  "blocks": [
+    {
+      "hidden_sheets": false,
+      "a_challenges": true,
+      "games": 500,
+      "a_wins": 69.0,
+      "ties": 0,
+      "a_win_rate": 0.138,
+      "guard_changed_actions": 0,
+      "changed_by_guard": {
+        "playbook_opening": 0
+      },
+      "elapsed_s": 335.7
+    },
+    {
+      "hidden_sheets": false,
+      "a_challenges": false,
+      "games": 500,
+      "a_wins": 67.0,
+      "ties": 0,
+      "a_win_rate": 0.134,
+      "guard_changed_actions": 0,
+      "changed_by_guard": {
+        "playbook_opening": 0
+      },
+      "elapsed_s": 333.6
+    },
+    {
+      "hidden_sheets": true,
+      "a_challenges": true,
+      "games": 500,
+      "a_wins": 233.0,
+      "ties": 0,
+      "a_win_rate": 0.466,
+      "guard_changed_actions": 0,
+      "changed_by_guard": {
+        "playbook_opening": 0
+      },
+      "elapsed_s": 469.1
+    },
+    {
+      "hidden_sheets": true,
+      "a_challenges": false,
+      "games": 500,
+      "a_wins": 242.0,
+      "ties": 0,
+      "a_win_rate": 0.484,
+      "guard_changed_actions": 0,
+      "changed_by_guard": {
+        "playbook_opening": 0
+      },
+      "elapsed_s": 454.5
+    }
+  ],
+  "games": 2000,
+  "a_wins": 611.0,
+  "ties": 0,
+  "a_win_rate": 0.3055,
+  "wilson_95": [
+    0.2857012805014091,
+    0.32604447824519045
+  ],
+  "guard_changed_actions_per_game": 0.0,
+  "verdict": "guard loses close games",
+  "complete": true
+}

@@ -300,3 +300,12 @@ results_mirror_sticky_corrections_rerankers/*
 results_mirror_weather1*/*
 !results_mirror_weather1*/manifest.json
 !results_mirror_weather1*/result.json
+!results_mirror_playbook_t6/
+results_mirror_playbook_t6/*
+!results_mirror_playbook_t6/manifest.json
+!results_mirror_playbook_t6/result.json
+!results_guard_ab_playbook_playbook_t6_playbook_opening/
+results_guard_ab_playbook_playbook_t6_playbook_opening/*
+!results_guard_ab_playbook_playbook_t6_playbook_opening/manifest.json
+!results_guard_ab_playbook_playbook_t6_playbook_opening/scorecard.json
+!results_guard_ab_playbook_playbook_t6_playbook_opening/status.json

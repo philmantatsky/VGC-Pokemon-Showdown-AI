@@ -1,0 +1,269 @@
+{
+  "delta": "with the extra guards minus without",
+  "populations": {
+    "human_new": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.055125725338491284,
+        "roster_bootstrap_95_ci": [
+          -0.11411992263056091,
+          0.0009671179883945904
+        ],
+        "without_win_rate": 0.9177949709864603,
+        "with_win_rate": 0.8626692456479691
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.07543520309477757,
+        "roster_bootstrap_95_ci": [
+          -0.16827852998065765,
+          0.011605415860735
+        ],
+        "without_win_rate": 0.9110251450676983,
+        "with_win_rate": 0.8355899419729207
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.034816247582205015,
+        "roster_bootstrap_95_ci": [
+          -0.1199226305609284,
+          0.05222437137330754
+        ],
+        "without_win_rate": 0.9245647969052224,
+        "with_win_rate": 0.8897485493230174
+      }
+    },
+    "frozen": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.11025145067698258,
+        "roster_bootstrap_95_ci": [
+          -0.1847437137330754,
+          -0.033849129593810465
+        ],
+        "without_win_rate": 0.937137330754352,
+        "with_win_rate": 0.8268858800773694
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.12572533849129594,
+        "roster_bootstrap_95_ci": [
+          -0.2224371373307544,
+          -0.03481624758220502
+        ],
+        "without_win_rate": 0.9400386847195358,
+        "with_win_rate": 0.8143133462282398
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.09477756286266924,
+        "roster_bootstrap_95_ci": [
+          -0.1856866537717602,
+          -0.005802707930367504
+        ],
+        "without_win_rate": 0.9342359767891683,
+        "with_win_rate": 0.839458413926499
+      }
+    },
+    "rotation1": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.09671179883945841,
+        "roster_bootstrap_95_ci": [
+          -0.1528046421663443,
+          -0.0454303675048355
+        ],
+        "without_win_rate": 0.9303675048355899,
+        "with_win_rate": 0.8336557059961315
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.1276595744680851,
+        "roster_bootstrap_95_ci": [
+          -0.21470019342359767,
+          -0.042553191489361715
+        ],
+        "without_win_rate": 0.9381044487427466,
+        "with_win_rate": 0.8104448742746615
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.0657640232108317,
+        "roster_bootstrap_95_ci": [
+          -0.14313346228239843,
+          0.005802707930367507
+        ],
+        "without_win_rate": 0.9226305609284333,
+        "with_win_rate": 0.8568665377176016
+      }
+    },
+    "rotation2": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.1334622823984526,
+        "roster_bootstrap_95_ci": [
+          -0.20502901353965183,
+          -0.06479690522243714
+        ],
+        "without_win_rate": 0.9410058027079303,
+        "with_win_rate": 0.8075435203094777
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.0909090909090909,
+        "roster_bootstrap_95_ci": [
+          -0.18375241779497095,
+          -0.0038684719535783283
+        ],
+        "without_win_rate": 0.9342359767891683,
+        "with_win_rate": 0.8433268858800773
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.1760154738878143,
+        "roster_bootstrap_95_ci": [
+          -0.2746615087040619,
+          -0.08317214700193423
+        ],
+        "without_win_rate": 0.9477756286266924,
+        "with_win_rate": 0.7717601547388782
+      }
+    },
+    "human_previous": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.033849129593810444,
+        "roster_bootstrap_95_ci": [
+          -0.0957688588007737,
+          0.02707930367504836
+        ],
+        "without_win_rate": 0.8887814313346228,
+        "with_win_rate": 0.8549323017408124
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.08317214700193423,
+        "roster_bootstrap_95_ci": [
+          -0.16054158607350097,
+          -0.013539651837524168
+        ],
+        "without_win_rate": 0.8916827852998066,
+        "with_win_rate": 0.8085106382978723
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": 0.015473887814313341,
+        "roster_bootstrap_95_ci": [
+          -0.056092843326885876,
+          0.09477756286266924
+        ],
+        "without_win_rate": 0.8858800773694391,
+        "with_win_rate": 0.9013539651837524
+      }
+    },
+    "heuristic": {
+      "overall": {
+        "games_per_model": 1034,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.05222437137330756,
+        "roster_bootstrap_95_ci": [
+          -0.10154738878143132,
+          -0.008704061895551259
+        ],
+        "without_win_rate": 0.9303675048355899,
+        "with_win_rate": 0.8781431334622823
+      },
+      "hidden": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.05029013539651839,
+        "roster_bootstrap_95_ci": [
+          -0.1083172147001934,
+          0.001934235976789176
+        ],
+        "without_win_rate": 0.9226305609284333,
+        "with_win_rate": 0.8723404255319149
+      },
+      "open": {
+        "games_per_model": 517,
+        "opponent_rosters": 47,
+        "roster_mean_delta": -0.0541586073500967,
+        "roster_bootstrap_95_ci": [
+          -0.10444874274661507,
+          -0.009671179883945828
+        ],
+        "without_win_rate": 0.9381044487427466,
+        "with_win_rate": 0.8839458413926499
+      }
+    }
+  },
+  "firing": {
+    "human_new": {
+      "playbook_opening": 628,
+      "playbook_opening:promoted:demoted": 462,
+      "playbook_opening:injected:demoted": 166,
+      "games": 1034
+    },
+    "frozen": {
+      "playbook_opening": 631,
+      "playbook_opening:injected:demoted": 169,
+      "playbook_opening:promoted:demoted": 462,
+      "games": 1034
+    },
+    "rotation1": {
+      "playbook_opening": 693,
+      "playbook_opening:promoted:demoted": 462,
+      "playbook_opening:injected:demoted": 231,
+      "games": 1034
+    },
+    "rotation2": {
+      "playbook_opening": 727,
+      "playbook_opening:injected:demoted": 199,
+      "playbook_opening:promoted:demoted": 528,
+      "games": 1034
+    },
+    "human_previous": {
+      "playbook_opening": 599,
+      "playbook_opening:promoted:demoted": 451,
+      "playbook_opening:injected:demoted": 148,
+      "games": 1034
+    },
+    "heuristic": {
+      "playbook_opening": 705,
+      "playbook_opening:promoted:demoted": 496,
+      "playbook_opening:injected:demoted": 209,
+      "games": 1034
+    },
+    "total": {
+      "playbook_opening": 3983,
+      "playbook_opening:promoted:demoted": 2861,
+      "playbook_opening:injected:demoted": 1122
+    }
+  },
+  "pooled": {
+    "populations": 6,
+    "rosters": 47,
+    "mean_delta": -0.08027079303675047,
+    "bootstrap_95_ci": [
+      -0.11041666666666668,
+      -0.049641360412637066
+    ],
+    "resamples": 10000,
+    "seed": 20923
+  }
+}

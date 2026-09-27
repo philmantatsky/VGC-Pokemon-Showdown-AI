@@ -88,10 +88,16 @@
   preview (the card, its reasons, the cards passed over), turn-1 script guard
   `playbook_opening`, wired into PolicyPlayer, the harness and every launcher
   (`--playbook`, DEPLOYED.json `playbook`, `tools/ladder_trial.sh`).
-- [ ] Playbook evaluation (pre-registered 2026-09-27 00:55 / 01:20 / 01:55): mirror
-  2,000 vs T6tac, held-out battery vs `results_brain_ab_tactical1_e4` with the
-  per-card breakdown, then a 15-game ladder TRIAL (the user's word) in
-  `ladder_replays_mc_deployed_T6tac_playbook_t6`. Promotion: the user.
+- [x] Playbook evaluation (pre-registered 2026-09-27): mirror **30.6% [28.6, 32.6],
+  loses** (Support Room vs our own team 13.6%, Water Room 47.5%); battery **-8.03
+  [-11.04, -4.96]**, every population negative; per card Support Room -14.6, Sun
+  Room -5.2, Water Room -2.7; the turn-1 script alone about neutral (-1.1 where the
+  plan matched T6tac's own). The loss is the unpractised plan choice.
+- [ ] 15-game ladder TRIAL (the user's word), Water Room only (per-card rule), in
+  `ladder_replays_mc_deployed_T6tac_playbook_t6` -- running since 02:50.
+- [ ] Practise the playbook: a training cycle with our preview drawn from the
+  playbook cards (like `training/human_preview.py`), then mirror + battery again;
+  draft 2 from `OPENINGS_RESEARCH_T6.md`. The user's call.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.
