@@ -101,9 +101,13 @@
 - [x] Practise the playbook (2026-09-27): mirror **54.4% (wins)**, battery
   **-4.38 [-7.38, -1.42]** (not deploy-eligible -> no ladder); practice effect
   +3.64 [+1.93, +5.48]; per card Water Room -0.3, Sun Room -4.1, Support Room -8.6.
-- [ ] The practised brain + Water Room only (local battery, pre-registered 15:20);
-  ladder on the user's word. Then draft 2 (re-key Support Room per
-  `OPENINGS_RESEARCH_T6.md`) before practising it again.
+- [x] The practised brain + Water Room + turn-1 script: battery -0.06 [-2.68, +2.63]
+  (holds up) -> ladder (the user's word) **6-9**, played out 3-9. Without the script:
+  battery -1.81 [-3.93, +0.66], heuristic -6.0, mirror 44.5% -> no ladder; the script
+  is worth ~+1.75pp to the practised brain.
+- [ ] Next (the user's call): draft 2 (re-key Support Room per
+  `OPENINGS_RESEARCH_T6.md`), or target the steadiest loss pattern (our slow Pokemon
+  fainting before they act, 9 of 9 losses in the last read).
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.

@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## No-script test: the practised brain's own opening is WORSE -> no ladder; the turn-1 script helps it (2026-September 27, 18:05)
+
+The practised brain + Water Room WITHOUT `playbook_opening` (it plays its practised
+Mega Water Spout + Trick Room):
+- **Mirror** `results_mirror_practice1_water_noscript`: **44.5% [42.3, 46.6] ->
+  loses** (open sheets 35.0%, hidden 53.9%).
+- **Battery** `results_brain_ab_practice1_23101440_tactical_water_noscript`: **pooled
+  -1.81pp [-3.93, +0.66]**; human_new -1.8, frozen +0.5, rotation1 -2.6, rotation2
+  -1.0, human_previous +0.1, **heuristic -6.0 [-9.8, -2.4]** -> does not hold up (a
+  population below -3pp): **the user's condition failed, no ladder** (automatic hold
+  17:58).
+- Against the same brain with the script (-0.06 [-2.68, +2.63]) the script is worth
+  about **+1.75pp** locally: my 16:55 hypothesis (the script hurt the practised brain
+  on ladder) was wrong -- the practised turn 1 is the weaker one, and the 6-9 ladder
+  read looks like noise around an even configuration.
+- Where the playbook stands: practice made its openings playable (+3.64pp over
+  unpractised), and the practised brain + Water Room + the turn-1 script is even with
+  T6tac locally; nothing in the playbook beats T6tac + the human-trained preview yet.
+  T6tac stays deployed. The steadiest ladder loss pattern today: in all 9 losses of
+  the 15-game read one of our Pokemon fainted before it acted (slow Pokemon outside
+  or at the end of Trick Room).
+
 ## Pre-registered before the no-script battery result: the user's ladder condition (2026-September 27, 17:00)
 
 The user: "if it holds up run 15 ladder games". Holds up = the same bar on
