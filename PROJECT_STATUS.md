@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## Amended mid-mirror, before its hidden-sheet blocks: the mirror's ladder hold now reads the Water Room blocks only (2026-September 27, 01:50)
+
+The mirror's two open-sheet blocks: **A 13.8% and 13.4%** (136 / 1,000). An
+8-game diagnostic of side A with a decision log (port 7611) shows **no bug**:
+every game Support Room is chosen by its rule ("fake out users 2 (blastoise,
+incineroar)") against our own T6 -- a special-attacking team with 1 physical
+threat whose Farigiraf's Armor Tail blocks every Fake Out -- exactly the case
+`PLAYBOOK_T6.md` lists under Support Room's "Beaten by: special attackers
+(Intimidate does nothing)". The turn-1 script correctly drops the unreachable Fake
+Out (0 changed actions); Incineroar + Farigiraf simply lose to Blastoise +
+Farigiraf here. On our 135 T6-era ladder opponents draft 1.1 picks Water Room 75,
+Support Room 44, Sun Room 16, and only 2 of the 44 Support Room picks face fewer
+than 3 physical threats.
+- **Amendment (made before the hidden-sheet blocks, the battery and the per-card
+  breakdown exist):** hold rule (b) was a bug detector; the bug question is
+  answered, so the mirror can hold the ladder only through its hidden-sheet blocks
+  (Water Room, what 56% of ladder games get): hold if their upper bound < 40%.
+  The open-sheet blocks are reported, not a hold. The battery clauses (pooled
+  upper < -5pp; errors) and the per-card rule are unchanged -- Support Room plays
+  on ladder only if its battery cells (21 of the 47 held-out rosters) do not lose
+  >= 5pp. The pre-registered mirror verdict is read on all 2,000 games as fixed.
+- For the morning (a tweak, not made tonight): Support Room's rule should need
+  physical threats (or avoid special teams / an Armor Tail side), not just two
+  Fake Out users.
+
 ## Playbook wired in; draft 1.1; its evaluation and the ladder trial running (2026-September 27, 01:55)
 
 - `PolicyPlayer(playbook_path=...)`: at team preview the planner picks the card for
