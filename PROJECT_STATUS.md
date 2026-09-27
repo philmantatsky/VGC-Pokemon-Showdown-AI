@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## Pre-registered before the Water-Room-only battery result: the user's ladder condition (2026-September 27, 15:30)
+
+The user: "yes if it holds up run 15 ladder games". Holds up = the same bar --
+pooled upper bound >= 0 and no population below -3pp, and no playbook errors in
+more than 1% of games -- on `results_brain_ab_practice1_23101440_tactical_water`.
+Then 15 serial ladder games with exactly the tested configuration: brain
+`results_brainv1_t6_playbook1/tactical/tactical_e4.zip` (sha b0ad945b), the
+deployed team / preview model / 8 guards / sticky corrections, playbook
+`data/playbook_t6_trial.json` (Water Room only) + `playbook_opening`, via
+`tools/ladder_trial.sh` into `ladder_replays_mc_practice1_water_t6`; DEPLOYED.json
+untouched. If it does not hold up: no ladder, report.
+
 ## Practice cycle result: practice helps (+3.6pp) and wins the mirror, but the full playbook is still worse than T6tac's own preview -> no ladder; Water Room only re-tested (2026-September 27, 15:20)
 
 `results_brain_ab_practice1_23101440_tactical` (the practised brain's re-fit +
