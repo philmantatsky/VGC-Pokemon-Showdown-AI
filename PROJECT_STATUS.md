@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Pre-registered: tonight's ladder trial of the playbook (2026-September 27, 01:20)
+
+The user, going to sleep: "test everything out and map it all togehter and try it
+on some ladder to see it" -- the explicit word for a ladder trial. Fixed now,
+before the rain/sand result and before any playbook result:
+- **Order (serial, never sharing the machine):** rain/sand battery -> wire the
+  playbook (tests, commit) -> the pre-registered mirror and battery (00:55 entry)
+  -> 15 serial ladder games -> review of every game, wins and losses.
+- **Configuration:** `tools/ladder_trial.sh` (new): the verified DEPLOYED
+  configuration (T6tac, T6, the preview model now only predicting THEIR plan, the
+  8 guards, sticky corrections) + `TRIAL_PLAYBOOK=data/playbook_t6.json`
+  (draft 1, unchanged) + `TRIAL_GUARDS=playbook_opening`, replay dir
+  `ladder_replays_mc_deployed_T6tac_playbook_t6`. DEPLOYED.json is not changed:
+  a trial, not a promotion (that stays the user's call).
+- **The ladder runs whatever the local verdict**, because the user asked to see
+  it and the battery barely moves (T6tac ~92% there), EXCEPT: (a) the playbook
+  errors or never fires locally (`playbook_error` / `playbook_opening_error` in
+  more than 1% of games, or no `playbook:<card>` counts) -> fix and re-check
+  first; (b) a result that looks like a bug rather than a strategy -- mirror
+  upper bound < 40% or pooled battery upper bound < -5pp -> hold the ladder and
+  report. No card is tweaked before the trial; tweaks go to the morning report.
+- **What 15 games can say:** a read, not proof (T6ctx 6-9, T6tac 7-8 in the
+  same size of read). Reported: record, card mix and its reasons, whether each
+  turn-1 script happened as planned (Fake Out target, Trick Room), and the
+  mistake review.
+- Weather routing, if its pre-registered reading passes, is built and tested
+  separately, never mixed into this trial.
+
 ## Playbook planner built; its evaluation pre-registered (2026-September 27, 00:55)
 
 The user: "we need to think of this moreso as a handoff, like a strategy playbook
