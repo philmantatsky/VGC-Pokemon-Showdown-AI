@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## PROMOTED by the user: T6tac (tactical fine-tune) + sticky guard corrections ON; rain/sand cycle paused for the ladder (2026-September 26, 21:00)
+
+The user: "turn on the sticky fix and make tactical official then more ladder".
+`results_deployed/champion_mc_T6tac.zip` (new file, sha 05e82218..., copy of
+`results_tactical1/sft/tactical_e4.zip`, sidecar role production). DEPLOYED.json:
+checkpoint -> T6tac, **`sticky_guard_corrections: true`** (the launchers pass
+`--sticky-corrections` to ladder_ourteam.py), guards / team / preview model
+unchanged, fresh `replay_tag` **T6tac**; the outgoing T6ctx moves to
+`previous_deployed` and `history` with its ladder record (6-9, peak 1282) and is
+now an immutable prior champion (seven in all). Evidence recorded: mirror 58.0%
+[55.8, 60.2] vs T6ctx, battery -0.40 [-1.61, +0.84] (no clear change), sticky
+mirror 53.4% [51.2, 55.5]. Suite: 589 passed.
+
+The rain/sand training cycle (started 20:31 from `tactical_e4`) was stopped at
+about 10% so the ladder can run alone (ladder and heavy local runs never share
+the machine); its directory is in `_cleanup_2026-09-26/` (nothing deleted). It
+restarts from scratch after the ladder. **Pre-registration amended before any
+weather result:** its comparisons are now against the DEPLOYED brain T6tac -- the
+mirror's side B is the deployed configuration, and the battery's without arm is
+`results_brain_ab_tactical1_e4`, which played exactly T6tac (same sha) with the 8
+guards -- same readings as before. Next: 15 ladder games with T6tac.
+
 ## Sticky guard corrections WIN their mirror: 53.4% [51.2, 55.5]; 59.4 / 56.0% in open-sheet games (2026-September 26, 20:31)
 
 `results_mirror_sticky_corrections_rerankers` (pre-registered 18:25): deployed

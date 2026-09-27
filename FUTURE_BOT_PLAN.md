@@ -69,8 +69,15 @@
   no population below -3pp); guards correct it 31% less. Promotion: the user.
 - [x] T6ctx reference arm for guard/brain A/Bs: `results_brain_ab_deployed_T6ctx`
   (`run_guard_ab.py --baseline`).
+- [x] **PROMOTED by the user 2026-09-26 evening** ("turn on the sticky fix and make
+  tactical official then more ladder"): `results_deployed/champion_mc_T6tac.zip`
+  (sha 05e82218) + `sticky_guard_corrections: true`; replay_tag T6tac; T6ctx is now
+  an immutable prior champion.
+- [ ] Ladder read of T6tac (15 games, the user's word).
 - [ ] Rain/sand curriculum cycle (`training/run_t6_weather_trial.py`) from
-  `tactical_e4`, re-fit, mirror both, battery the better (pre-registered).
+  `tactical_e4` (= T6tac), re-fit, mirror both vs T6tac, battery the better against
+  `results_brain_ab_tactical1_e4` (pre-registered; stopped at 10% for the ladder,
+  restarts after it).
 - [ ] Then, if it holds: RL practice for the reading mistakes (doomed mon left in,
   predictable Protects, Trick Room vs Trick Room).
 - [x] Guards that stick on ladder (`sticky_guard_corrections`, opt-in): **mirror with
