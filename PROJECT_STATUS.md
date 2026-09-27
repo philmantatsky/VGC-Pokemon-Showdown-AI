@@ -1,5 +1,28 @@
 # VGC Bot Project Status
 
+## Ladder: the practised brain + Water Room 6-9 (played out 3-9); the turn-1 script overrode its practised opening -> test without the script (2026-September 27, 16:55)
+
+`ladder_replays_mc_practice1_water_t6` (15 serial games, 15:56-16:44, the user's
+pre-registered condition): **6-9**; 3 wins by forfeit / inactivity, played out
+**3-9** (T6tac 7-8 / 4-8; last night's T6tac + Water Room 11-4 / 4-4). 15 games are a
+read, not proof, but two findings stand:
+- **The turn-1 script fought the practised brain:** it changed turn 1 in 13 of 15
+  ladder games (T6tac last night: 7 of 15) and in 5,273 of the 6,204 battery games
+  (85%; 3,866 injected = the brain did not even rank the scripted pair). The
+  practised brain learned **Mega Water Spout + Trick Room** as its Water Room turn 1
+  (its top pick in 9 of the 13, p 0.41-0.83); training has no guards, so the
+  script's Fake Out was never practised. The practised brain's own opening has not
+  been tested yet.
+- Every one of the 9 losses had one of our Pokemon faint before it acted (2.8 per
+  loss; wins 0): the slow team outside or at the end of Trick Room, as before.
+- **Pre-registered now (local only):** the practised brain + Water Room WITHOUT
+  `playbook_opening`: mirror (2,000 vs the deployed T6tac setup; wins close games if
+  the Wilson lower bound > 50%) and battery vs `results_brain_ab_tactical1_e4` (holds
+  up = pooled upper >= 0 and no population below -3pp; better if the lower bound > 0);
+  descriptive: the script's effect on the practised brain = this arm minus the
+  with-script arm on the same cells. Ladder only on the user's word; T6tac stays
+  deployed.
+
 ## The practised brain + Water Room only HOLDS UP (even with T6tac) -> 15 ladder games running (2026-September 27, 16:00)
 
 `results_brain_ab_practice1_23101440_tactical_water` (the practised re-fit +
