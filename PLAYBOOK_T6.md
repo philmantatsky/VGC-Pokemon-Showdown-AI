@@ -1,4 +1,11 @@
-# T6 playbook — draft 1 (2026-09-27, for the user to correct)
+# T6 playbook — draft 1 (2026-09-27; approved by the user: "i like them all, we can edit and make tweaks later")
+
+Machine form: `data/playbook_t6.json`, read by `vgc_bench/src/playbook.py`
+(cards in priority order: Fast Sun, Sun Room, Support Room, Water Room = default).
+Tuning after replaying the planner over our 135 ladder opponents: Support Room
+needs 4+ heavy physical attackers or 2+ Fake Out users (3+ flagged 65% of teams);
+Fast Sun is marked experimental -- kept, but not picked until a local test backs it
+(1-6 as a lead; the 7 teams its rule flags were won 5-2 with other leads).
 
 The team's own game plans, written as a pilot would think about them. Each card:
 when to pick it, the four and the leads, every Pokémon's job, the first turns, the
