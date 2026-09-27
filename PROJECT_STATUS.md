@@ -1,5 +1,32 @@
 # VGC Bot Project Status
 
+## Pre-registered: the playbook practice cycle (2026-September 27, 11:40)
+
+The user, after last night's report: "start the practice cycle". Fixed now, before
+any training:
+- **Training** (`training/run_t6_playbook_trial.py` + `training/playbook_preview.py`,
+  new): from T6tac (`results_tactical1/sft/tactical_e4.zip`, the deployed sha)
+  +983,040 steps (two saves) on the recipe that made T6ctx (35% human-clone games,
+  human-model previews for the opponents, 50% hidden sheets, held-out rosters
+  zeroed) with ONE change: our previews come from the playbook (draft 1.1: the card
+  its rules pick for the opponent, else with p = 0.15 another non-experimental card,
+  so every opening is practised). No roster weighting. Then the tactical re-fit of
+  the final save (same data and settings as before; the lowest validation CE).
+- **Pick:** whichever of the two wins more of its mirror (candidate + playbook
+  draft 1.1 + `playbook_opening` vs the deployed T6tac setup, 2,000 games each).
+- **Readings:** (1) the pick's mirror: wins close games if the Wilson lower bound
+  > 50%, loses if the upper bound < 50%. (2) Battery, the pick + playbook +
+  `playbook_opening` vs `results_brain_ab_tactical1_e4` (T6tac with its own
+  preview): better if the pooled lower bound > 0; deploy-eligible if the pooled
+  upper bound >= 0 and no population is below -3pp; per-card breakdown (a card
+  counts as practised if its cells are no longer below -3pp). (3) Descriptive: the
+  practice effect = this arm minus last night's untrained playbook arm (-8.03
+  [-11.04, -4.96]) on the same cells; the two guard fixes made after that battery
+  (`severe_attack_drop_switch` vs Fake Out, the script keeps the card's Mega) ride
+  along in the new arm.
+- No ladder and no promotion without the user's word. About 4.5 h (training ~2 h,
+  re-fit, two mirrors ~1 h, battery ~50 min).
+
 ## Playbook ladder trial: 11-4 (played out 4-4); review of every game; two fixes (2026-September 27, 03:45)
 
 `ladder_replays_mc_deployed_T6tac_playbook_t6` (15 serial games, 02:50-03:22; the

@@ -98,9 +98,10 @@
   Psychic Terrain leads 4-0; one loss from a hard-guard bug (fixed:
   `severe_attack_drop_switch` vs Fake Out). A read, not proof; promotion is the
   user's call.
-- [ ] Practise the playbook: a training cycle with our preview drawn from the
-  playbook cards (like `training/human_preview.py`), then mirror + battery again;
-  draft 2 from `OPENINGS_RESEARCH_T6.md`. The user's call.
+- [ ] Practise the playbook (the user: "start the practice cycle", 2026-09-27;
+  pre-registered 11:40): `training/run_t6_playbook_trial.py` (our previews from the
+  playbook, p = 0.15 exploration), re-fit, both mirrors, battery of the better --
+  running. Then draft 2 from `OPENINGS_RESEARCH_T6.md`.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.
