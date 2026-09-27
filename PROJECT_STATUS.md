@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## The practised brain + Water Room only HOLDS UP (even with T6tac) -> 15 ladder games running (2026-September 27, 16:00)
+
+`results_brain_ab_practice1_23101440_tactical_water` (the practised re-fit +
+`data/playbook_t6_trial.json` + `playbook_opening` vs `results_brain_ab_tactical1_e4`):
+**pooled -0.06pp [-2.68, +2.63]**; human_new -1.0, frozen -0.4, rotation1 +1.1,
+rotation2 +0.8, human_previous +2.0, heuristic -2.9 (the worst, inside the -3pp
+bar); Water Room chosen in all 6,204 games, no errors -> deploy-eligible, not better.
+With the mirror (the practised brain + playbook beat T6tac 54.4%; its Water Room
+blocks 54.5% / 54.4% for the two saves) it is the first playbook configuration that
+is at least even locally. By the user's pre-registered condition the 15 ladder
+games started automatically at 15:56 (`ladder_replays_mc_practice1_water_t6`).
+
 ## Pre-registered before the Water-Room-only battery result: the user's ladder condition (2026-September 27, 15:30)
 
 The user: "yes if it holds up run 15 ladder games". Holds up = the same bar --
