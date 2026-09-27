@@ -1,5 +1,24 @@
 # VGC Bot Project Status
 
+## Pre-registered: weather routing (the user's idea), before the rain/sand battery result (2026-September 27, 00:35)
+
+The rain/sand-trained save LOSES its mirror against T6tac badly (35.4% [33.0,
+37.9] after 1,500 games, sun-vs-sun: no rain or sand in the matchup). The user:
+"the weather checks really only should apply if the opponent even has weather
+it shouldnt overthink those checks without that". So the rain/sand brain is not
+a replacement; it could only be a SPECIALIST: **route** each game at team
+preview -- the rain/sand brain when the opponent's roster has a rain or sand
+setter (a species whose Reg M-C set data, `data/joint_sets_regmc.json`, gives
+P(Drizzle or Sand Stream) >= 0.5: Pelipper, Politoed, Tyranitar, Hippowdon, ...;
+property-derived, no species list), T6tac otherwise. The router flags 14 of the
+47 held-out battery rosters (10 rain, 2 Trick Room, 2 Tailwind categories).
+**Reading (fixed now):** from the battery arm the chain plays (the better of the
+two weather mirrors) against `results_brain_ab_tactical1_e4` (T6tac), the delta
+on the 14 flagged rosters (whole-roster bootstrap). The router is worth building
+only if that delta's 95% lower bound is above 0; otherwise the weather cycle is
+recorded as failed and T6tac stays alone. The unflagged rosters would play
+T6tac unchanged (and the mirror is unflagged: no change there).
+
 ## T6tac ladder read: 7-8 (T6ctx 6-9); the guards corrected its own pick 35% of the time vs 45%; rain/sand cycle restarted (2026-September 26, 21:50)
 
 `ladder_replays_mc_deployed_T6tac` (T6tac, 8 guards, learned preview, sticky
