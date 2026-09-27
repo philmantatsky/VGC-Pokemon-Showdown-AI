@@ -151,8 +151,9 @@ def prepare(init: str) -> dict:
                 "hidden_sheet_fraction": 0.5,
                 "holdout": "roster-hash heldout split zeroed (the evaluation rosters)",
                 "evaluation": "evaluation/mirror_guard_ab.py --a-checkpoint <save> "
-                "(head-to-head vs T6ctx) and evaluation/run_guard_ab.py --candidate "
-                "<save> --without-arm results_brain_ab_deployed_T6ctx, per save",
+                "(head-to-head vs the deployed brain) and evaluation/run_guard_ab.py "
+                "--candidate <save> --without-arm <an arm of the deployed brain with "
+                "the deployed guards>",
                 "source_sha256": {
                     str(p.relative_to(ROOT)): digest(p)
                     for p in sorted((ROOT / "vgc_bench").rglob("*.py"))
