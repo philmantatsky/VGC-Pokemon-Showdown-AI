@@ -1,5 +1,40 @@
 # VGC Bot Project Status
 
+## Playbook ladder trial: 11-4 (played out 4-4); review of every game; two fixes (2026-September 27, 03:45)
+
+`ladder_replays_mc_deployed_T6tac_playbook_t6` (15 serial games, 02:50-03:22; the
+verified T6tac configuration + `data/playbook_t6_trial.json` = Water Room for every
+opponent after the per-card rule + `playbook_opening`): **11-4 (73%)**. A read, not
+proof (vs T6tac 7-8, T6ctx 6-9 in the same size of read; 11/15 vs 7/15 is not a
+significant difference). 7 of the 11 wins are opponent forfeits (turn 0 once,
+turns 3-5 six times); played-out games **4-4** -- the best played-out record of the
+recent reads (T6tac 4-8, T6ctx 3-9, wide guard 4-7, Throat Chop 3-7; opponents
+forfeited 3-5 times in each). No errors; every game logged its card and reasons.
+- **Turn-1 script** (`plan_audit.py`): changed turn 1 in 7 games (5-2): Fake Out
+  on their Tailwind setter instead of an attack (G1 W, G2 W, G8 L -- G8 gave up a
+  4x Ice Beam on Mega Salamence for a 7% Fake Out), a different Fake Out target
+  (G4 L: Golisopod, the threat to Farigiraf, while Rotom's Volt Switch took 65%
+  from Blastoise; G13 W; G15 W), and once a Fake Out without the card's Mega (G12
+  W). Against Indeedee / Psychic Terrain leads (4 games) no Fake Out could land, so
+  the policy played Water Spout + Trick Room: **4-0** (our history there 5-11).
+- **Losses:** G6 -- a HARD-guard bug: after a double Intimidate,
+  `severe_attack_drop_switch` read Fake Out as a crippled physical attack and
+  switched Mega Blastoise out for Torkoal on turn 1 (p=0.00); Torkoal and Farigiraf
+  fell on turn 2. G4 -- Water Pulse into Rotom (resisted) and Rain Dance with
+  Blastoise at 35%. G8 -- three turns of attacks into Protect while Trick Room ran
+  out. G9 (sand) -- the expert turn-2 Rain Dance, then two critical hits and a lost
+  Sableye endgame. Mistake flags as in the T6tac read (fewer attacks into Protect in
+  wins: 1.18 vs 2.14 per win).
+- **Fixed (tests from the real positions):** `severe_attack_drop_switch` never
+  counts Fake Out (a FIRST_TURN_ONLY move) as a crippled attack -- on ladder it
+  fired twice in all T6-era logs, once here; this changes the DEPLOYED guard stack
+  in exactly that case (the user may want it measured first). `playbook_opening`
+  promotes a ranked pair only if it carries the card's Mega; otherwise it builds the
+  Mega pair (legality-checked).
+- **For draft 2 (not made):** the Fake Out target order from the openings research
+  (Tailwind setter -> screens -> a reachable Trick Room setter -> Tyranitar -> their
+  Mega / fastest attacker), and never trade a likely KO (4x Ice Beam) for Fake Out.
+
 ## Playbook evaluation: the planner's own openings LOSE locally, its turn-1 script is about neutral; the ladder trial plays Water Room only (2026-September 27, 03:00)
 
 Pre-registered readings (00:55 / 01:20 / 01:50 / 01:55):

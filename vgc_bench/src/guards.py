@@ -1607,6 +1607,10 @@ def guard_severe_attack_drop_switch(battle, cands, report) -> list[Candidate]:
             and _norm(mon.ability) not in {"contrary", "defiant"}
             and isinstance(move, Move)
             and move.category == MoveCategory.PHYSICAL
+            # Fake Out's flinch is its point, not its damage: -2 Attack does not
+            # cripple it (ladder 2026-09-27, playbook trial game 6 turn 1: double
+            # Intimidate switched Mega Blastoise out for Torkoal at p=0.00)
+            and move.id not in FIRST_TURN_ONLY
         ):
             affected.add(pos)
     if not affected:

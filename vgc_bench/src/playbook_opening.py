@@ -168,6 +168,17 @@ def _legal(battle: DoubleBattle, action: int, pos: int) -> bool:
     return order is not None and str(order) in valid
 
 
+def _can_mega(battle: DoubleBattle, pos: int) -> bool:
+    """Whether the live request allows this Pokemon to Mega Evolve (positions
+    built without a request -- test fixtures -- are not checked)."""
+    try:
+        if not battle.available_moves[pos]:
+            return True
+        return bool(battle.can_mega_evolve[pos])
+    except (AttributeError, IndexError, TypeError):
+        return True
+
+
 def _find_action(
     battle: DoubleBattle, pos: int, move_id: str, target: int | None, mega: bool
 ) -> int | None:
@@ -243,7 +254,18 @@ def guard_playbook_opening(battle, cands, report) -> list[G.Candidate]:
     steps = scripted_steps(battle, plan)
     if not steps:
         return cands
+    ours = {
+        _species(mon): pos
+        for pos, mon in enumerate(battle.active_pokemon)
+        if mon is not None
+    }
+    mega_pos = ours.get((plan.get("turn1") or {}).get("mega", ""))
+    # the card's Mega is part of the script: a ranked pair without it is not the
+    # script (ladder 2026-09-27, playbook trial game 12 promoted a non-Mega Fake Out)
+    wants_mega = mega_pos in steps and _can_mega(battle, mega_pos)
     for candidate in live:
+        if wants_mega and not 27 <= candidate.actions[mega_pos] <= 46:
+            continue
         if all(
             _matches(battle, candidate.actions[pos], pos, move, target)
             for pos, (move, target) in steps.items()
@@ -253,12 +275,6 @@ def guard_playbook_opening(battle, cands, report) -> list[G.Candidate]:
             candidate.prob = max(candidate.prob, live[0].prob)
             report.demotions[f"{NAME}:promoted"] += 1
             return G._promote_candidate(cands, candidate, NAME, report)
-    ours = {
-        _species(mon): pos
-        for pos, mon in enumerate(battle.active_pokemon)
-        if mon is not None
-    }
-    mega_pos = ours.get((plan.get("turn1") or {}).get("mega", ""))
     actions = list(live[0].actions)
     for pos, (move, target) in steps.items():
         action = _find_action(battle, pos, move, target, mega=pos == mega_pos)

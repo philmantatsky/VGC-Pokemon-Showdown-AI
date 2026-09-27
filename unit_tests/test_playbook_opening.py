@@ -181,3 +181,52 @@ def test_no_fake_out_step_when_neither_foe_can_be_faked_out():
     psychic = move_action(armor_tail, 1, "psychic", 1)
     out, _ = run(guard_playbook_opening, armor_tail, [((water_spout, psychic), 0.7)])
     assert out[0].actions == (water_spout, move_action(armor_tail, 1, "trickroom", 0))
+
+
+def test_double_intimidate_does_not_switch_out_a_fake_out():
+    """Playbook trial game 6 turn 1 (2026-09-27): Salamence + Incineroar
+    Intimidated Blastoise to -2; severe_attack_drop_switch took the physical Fake
+    Out for a crippled attack and switched Mega Blastoise out for Torkoal (p=0.00).
+    The flinch does not depend on Attack."""
+    from vgc_bench.src import guards as G
+
+    battle = position(
+        [
+            "|switch|p1a: Blastoise|Blastoise, L50, M|186/186",
+            "|switch|p1b: Farigiraf|Farigiraf, L50, F|227/227",
+            "|switch|p2a: Salamence|Salamence, L50, M|100/100",
+            "|switch|p2b: Incineroar|Incineroar, L50, M|100/100",
+            "|-ability|p2a: Salamence|Intimidate|boost",
+            "|-unboost|p1a: Blastoise|atk|1",
+            "|-unboost|p1b: Farigiraf|atk|1",
+            "|-ability|p2b: Incineroar|Intimidate|boost",
+            "|-unboost|p1a: Blastoise|atk|1",
+            "|-unboost|p1b: Farigiraf|atk|1",
+            "|turn|1",
+        ]
+    )
+    fake_out = move_action(battle, 0, "fakeout", 1) + 20  # Mega band
+    trick_room = move_action(battle, 1, "trickroom", 0)
+    out, report = run(
+        G.guard_severe_attack_drop_switch,
+        battle,
+        [((fake_out, trick_room), 0.72), ((5, trick_room), 0.0)],  # 5 = Torkoal
+    )
+    assert out[0].actions == (fake_out, trick_room)
+    assert not report.stages
+
+
+def test_a_ranked_pair_without_the_scripted_mega_is_not_the_script():
+    """Playbook trial game 12 (2026-09-27): the policy had ranked Fake Out + Trick
+    Room without the Mega, and promoting it cost Water Room its turn-1 Mega."""
+    battle = _whimsicott_lead()
+    plain_fake_out = move_action(battle, 0, "fakeout", 1)
+    ice_beam = move_action(battle, 0, "icebeam", 2) + 20
+    trick_room = move_action(battle, 1, "trickroom", 0)
+    out, report = run(
+        guard_playbook_opening,
+        battle,
+        [((ice_beam, trick_room), 0.63), ((plain_fake_out, trick_room), 0.30)],
+    )
+    assert out[0].actions == (plain_fake_out + 20, trick_room)
+    assert report.demotions["playbook_opening:injected"] == 1

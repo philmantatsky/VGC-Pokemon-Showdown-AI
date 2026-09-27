@@ -93,8 +93,11 @@
   [-11.04, -4.96]**, every population negative; per card Support Room -14.6, Sun
   Room -5.2, Water Room -2.7; the turn-1 script alone about neutral (-1.1 where the
   plan matched T6tac's own). The loss is the unpractised plan choice.
-- [ ] 15-game ladder TRIAL (the user's word), Water Room only (per-card rule), in
-  `ladder_replays_mc_deployed_T6tac_playbook_t6` -- running since 02:50.
+- [x] 15-game ladder TRIAL (the user's word), Water Room only (per-card rule):
+  **11-4**, played out 4-4 (7 opponent forfeits; T6tac 4-8 played out); Indeedee /
+  Psychic Terrain leads 4-0; one loss from a hard-guard bug (fixed:
+  `severe_attack_drop_switch` vs Fake Out). A read, not proof; promotion is the
+  user's call.
 - [ ] Practise the playbook: a training cycle with our preview drawn from the
   playbook cards (like `training/human_preview.py`), then mirror + battery again;
   draft 2 from `OPENINGS_RESEARCH_T6.md`. The user's call.
