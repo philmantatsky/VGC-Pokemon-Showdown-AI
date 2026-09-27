@@ -174,6 +174,17 @@ def without_arm(
     return base, arm_label(path, prior)
 
 
+def without_brain(path: Path, brain_sha256: str) -> str:
+    """The brain file a guard or playbook arm plays against a without side: that
+    side's own file (the deployed brain), so the two arms' manifests differ only
+    in the change tested. Since T6ctx the reference study's brain is no longer
+    the deployed one (2026-09-27: a playbook arm would have played T6hp)."""
+    checkpoint = json.loads((path / "manifest.json").read_text())["checkpoint"]
+    if sha256(checkpoint) != brain_sha256:
+        raise ValueError(f"{path}'s brain file {checkpoint} is not the deployed brain")
+    return str(checkpoint)
+
+
 def guard_firing(telemetry: list[dict], guards: list[str]) -> dict[str, int]:
     """Summed fire counts for the extra guards across every cell."""
     counts: Counter[str] = Counter()
@@ -195,6 +206,12 @@ def main() -> None:
         type=Path,
         default=None,
         help="a completed run of this script reused as the without side",
+    )
+    ap.add_argument(
+        "--playbook",
+        type=Path,
+        default=None,
+        help="our preview from this playbook (evaluation/learned_preview_study.py)",
     )
     ap.add_argument(
         "--baseline",
@@ -220,6 +237,10 @@ def main() -> None:
         )
     elif args.candidate is not None:
         output = args.output or Path(f"results_brain_ab_{args.label}")
+    elif args.playbook is not None:
+        output = args.output or Path(
+            f"results_guard_ab_playbook_{args.playbook.stem}_{'_'.join(guards)}"
+        )
     else:
         output = args.output or Path(f"results_guard_ab_{'_'.join(guards)}")
 
@@ -271,6 +292,8 @@ def main() -> None:
         checkpoint = str(args.candidate)
         if not args.candidate.is_file():
             raise ValueError(f"no candidate checkpoint {args.candidate}")
+    elif args.without_arm is not None:
+        checkpoint = without_brain(args.without_arm, deployed["sha256"])
 
     populations = reference["populations"]
     repeats, seed = reference["repeats"], reference["seed"]
@@ -283,7 +306,7 @@ def main() -> None:
     label = (
         f"deployed_{deployed['replay_tag']}"
         if args.baseline
-        else "with_" + "_".join(guards)
+        else ("playbook_" if args.playbook is not None else "with_") + "_".join(guards)
         if args.candidate is None
         else f"candidate_{args.label}"
     )
@@ -298,6 +321,8 @@ def main() -> None:
             f"{', '.join(base + guards)}"
         ),
         "arm_label": label,
+        "playbook": str(args.playbook) if args.playbook else None,
+        "playbook_sha256": sha256(args.playbook) if args.playbook else None,
         "extra_guards": guards,
         "extra_guards_scope": "our player only (per-player override)",
         "base_guards_both_sides": base,
@@ -373,6 +398,7 @@ def main() -> None:
                     "evaluation/learned_preview_study.py",
                     "--preview-model",
                     preview["model"],
+                    *(["--playbook", str(args.playbook)] if args.playbook else []),
                     "--extra-guards",
                     ",".join(base + guards),
                     "--",

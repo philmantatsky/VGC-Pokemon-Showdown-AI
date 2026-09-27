@@ -2108,6 +2108,10 @@ def guard_resisted_target(battle, cands, report) -> list[Candidate]:
             or float(move.base_power or 0) <= 0
             or len(targets) != 1
             or targets[0] not in foes
+            # Fake Out's flinch is its point, not its damage: the target was chosen
+            # for who must not move (ladder 2026-09-26, T6tac game 8 turn 1: a
+            # Fake Out moved off Tyranitar; flagged in two earlier reviews too)
+            or move.id in FIRST_TURN_ONLY
         ):
             continue
         current = targets[0]
@@ -2923,6 +2927,19 @@ def guard_wide_guard(battle, cands, report) -> list[Candidate]:
     return wide_guard(battle, cands, report)
 
 
+def guard_playbook_opening(battle, cands, report) -> list[Candidate]:
+    """Opt-in: play the chosen plan card's turn-1 script (the playbook handoff).
+
+    Lives in playbook_opening.py (it reads the plan the player attached at team
+    preview); imported lazily like the other plan-level guards.
+    """
+    from vgc_bench.src.playbook_opening import (
+        guard_playbook_opening as playbook_opening,
+    )
+
+    return playbook_opening(battle, cands, report)
+
+
 def guard_trick_room_counter(battle, cands, report) -> list[Candidate]:
     """Opt-in: do not press Trick Room into a counter already shown.
 
@@ -2950,6 +2967,7 @@ def guard_trick_room_direction(battle, cands, report) -> list[Candidate]:
 
 
 GUARDS = {
+    "playbook_opening": guard_playbook_opening,
     "zero_damage": guard_zero_damage,
     "first_turn": guard_first_turn,
     "priority_block": guard_priority_block,
@@ -3022,6 +3040,8 @@ HARD_GUARDS = frozenset(
 # moment the team changes. Guard value is team-specific -- check firing counts against
 # YOUR team before concluding a rule is worthless.
 GUARD_ORDER = (
+    # first, so every factual veto below still judges the scripted pair
+    "playbook_opening",
     "zero_damage",
     "first_turn",
     "priority_block",

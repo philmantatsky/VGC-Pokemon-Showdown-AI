@@ -65,6 +65,10 @@ fi
 if [ -n "${STICKY:-}" ]; then
   EXTRA+=(--sticky-corrections)
 fi
+# our own plan cards at team preview, when DEPLOYED.json has them
+if [ -n "${PLAYBOOK:-}" ]; then
+  EXTRA+=(--playbook "$PLAYBOOK")
+fi
 if [ -n "$REJOIN" ]; then
   case "$REJOIN" in
     battle-gen9championsvgc2026regmc-*) EXTRA+=(--rejoin-battle "$REJOIN") ;;

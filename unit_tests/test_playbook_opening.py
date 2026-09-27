@@ -116,3 +116,68 @@ def test_only_on_turn_one_and_never_into_our_own_room():
     setattr(room, "_vgc_playbook", WATER_ROOM)
     out, report = run(guard_playbook_opening, room, pairs)
     assert not report.stages
+
+
+def test_a_live_request_decides_what_can_be_scripted(monkeypatch):
+    """The scripted pair is built, not drawn from the masked policy: a Mega the
+    request does not allow is dropped, and the rest stays legal."""
+    battle = _whimsicott_lead()
+    moves = [list(mon.moves.values()) for mon in battle.active_pokemon if mon]
+    cls = type(battle)
+    monkeypatch.setattr(cls, "available_moves", property(lambda self: moves))
+    monkeypatch.setattr(cls, "can_mega_evolve", property(lambda self: [False, False]))
+    water_spout = move_action(battle, 0, "waterspout", 0)
+    psychic = move_action(battle, 1, "psychic", 1)
+    out, _ = run(guard_playbook_opening, battle, [((water_spout, psychic), 0.7)])
+    assert out[0].actions == (
+        move_action(battle, 0, "fakeout", 1),  # the plain band: no Mega allowed
+        move_action(battle, 1, "trickroom", 0),
+    )
+    monkeypatch.setattr(cls, "can_mega_evolve", property(lambda self: [True, False]))
+    out, _ = run(guard_playbook_opening, battle, [((water_spout, psychic), 0.7)])
+    assert out[0].actions[0] == move_action(battle, 0, "fakeout", 1) + 20  # Mega
+
+
+def _lead(*lines: str):
+    battle = position(
+        [
+            "|switch|p1a: Blastoise|Blastoise, L50, M|186/186",
+            "|switch|p1b: Farigiraf|Farigiraf, L50, F|227/227",
+            *lines,
+            "|turn|1",
+        ]
+    )
+    setattr(battle, "_vgc_playbook", WATER_ROOM)
+    return battle
+
+
+def test_fake_out_skips_a_setter_it_cannot_touch():
+    """Sinistcha sets Trick Room but is a Ghost: Fake Out goes to its partner
+    instead of into an immunity (2026-09-27 openings research)."""
+    battle = _lead(
+        "|switch|p2a: Sinistcha|Sinistcha, L50|100/100",
+        "|switch|p2b: Kingambit|Kingambit, L50, M|100/100",
+    )
+    assert fake_out_target(battle, battle.active_pokemon[1]) == 2
+
+
+def test_no_fake_out_step_when_neither_foe_can_be_faked_out():
+    """Psychic Terrain shields grounded foes and Armor Tail their whole side: the
+    script keeps only Trick Room; Blastoise keeps the policy's own move."""
+    terrain = _lead(
+        "|switch|p2a: Indeedee|Indeedee-F, L50, F|100/100",
+        "|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge"
+        "|[of] p2a: Indeedee",
+        "|switch|p2b: Hatterene|Hatterene, L50, F|100/100",
+    )
+    assert scripted_steps(terrain, WATER_ROOM) == {1: ("trickroom", None)}
+    armor_tail = _lead(
+        "|switch|p2a: Farigiraf|Farigiraf, L50, M|100/100",
+        "|switch|p2b: Kingambit|Kingambit, L50, M|100/100",
+        "|-ability|p2a: Farigiraf|Armor Tail",
+    )
+    assert fake_out_target(armor_tail, armor_tail.active_pokemon[1]) is None
+    water_spout = move_action(armor_tail, 0, "waterspout", 0) + 20
+    psychic = move_action(armor_tail, 1, "psychic", 1)
+    out, _ = run(guard_playbook_opening, armor_tail, [((water_spout, psychic), 0.7)])
+    assert out[0].actions == (water_spout, move_action(armor_tail, 1, "trickroom", 0))

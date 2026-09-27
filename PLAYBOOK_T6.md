@@ -6,6 +6,13 @@ Tuning after replaying the planner over our 135 ladder opponents: Support Room
 needs 4+ heavy physical attackers or 2+ Fake Out users (3+ flagged 65% of teams);
 Fast Sun is marked experimental -- kept, but not picked until a local test backs it
 (1-6 as a lead; the 7 teams its rule flags were won 5-2 with other leads).
+**Draft 1.1 (2026-09-27 01:45, before any playbook result):** Sun Room now also
+avoids Tailwind teams, as Plan A already said (Water Room is also the pick against
+Tailwind teams) -- the machine rule had missed it, so 18 of our 25 ladder Tailwind
+teams got Sun Room (flagged by the openings research, `OPENINGS_RESEARCH_T6.md`).
+Turn-1 Fake Out now goes only where it can land: not a Ghost, not a grounded foe
+under Psychic Terrain, not into Armor Tail / Dazzling / Queenly Majesty. The
+planner's log names the cards it passed over and why.
 
 The team's own game plans, written as a pilot would think about them. Each card:
 when to pick it, the four and the leads, every Pokémon's job, the first turns, the
@@ -54,7 +61,9 @@ both "clean" teams and teams hostile to a Torkoal lead; local 94%]
   and Intimidate. Torkoal is the second nuke once Blastoise is down.
 - **Turn 1:** Mega Blastoise Fake Out on their biggest threat to Farigiraf. If they
   lead a Trick Room / Tailwind setter, Fake Out THE SETTER instead. Farigiraf sets
-  Trick Room (Armor Tail stops their Fake Out on it).
+  Trick Room (Armor Tail stops their Fake Out on it). Fake Out only a foe it can
+  reach (not a Ghost, not grounded under Psychic Terrain, no Armor Tail / Dazzling /
+  Queenly Majesty on their side); if neither, Blastoise attacks instead.
 - **Turns 2–4:** Water Spout while Blastoise is healthy (Rain Dance only if rain is
   not up already, Helping Hand for a KO). Below ~half HP use Water Pulse / Ice Beam
   instead, unless Water Spout still finishes a low foe and chips the other.
@@ -72,7 +81,7 @@ both "clean" teams and teams hostile to a Torkoal lead; local 94%]
 **Pick when:** a "clean" team — no sand setter, no Wide Guard, no Imprison, no
 Psychic Terrain — and their team is weak to fire. [ladder 14-10 there]
 **Avoid when:** any of those four. [7-19 against them — the worst record of any
-opening we use]
+opening we use] Also a Tailwind team: Water Room's job (Plan A).
 
 - **Bring:** Farigiraf, Torkoal + Blastoise + Incineroar.
 - **Lead:** Farigiraf + Torkoal.

@@ -16,7 +16,7 @@ from pathlib import Path
 
 import pytest
 
-from ladder_ourteam import record_run_config, resolve_knowledge_obs
+from ladder_ourteam import check_playbook, record_run_config, resolve_knowledge_obs
 from vgc_bench.src.preview_rules import species_trick_room_rate, trick_room_probability
 
 
@@ -135,6 +135,43 @@ class TestRecordRunConfig:
             record_run_config(
                 tmp_path, _args(sticky_corrections=True), "abc123", "hard"
             )
+
+    def test_a_playbook_is_material_with_its_sha_only_when_on(self, tmp_path):
+        """2026-09-27: the plan cards themselves are the configuration -- an edited
+        playbook may not share a replay dir with the one before it."""
+        record_run_config(tmp_path, _args(), "abc123", "hard")
+        path = record_run_config(tmp_path, _args(playbook=""), "abc123", "hard")
+        material = json.loads(path.read_text())["runs"][-1]["material"]
+        assert "playbook" not in material and "playbook_sha256" not in material
+        book = tmp_path / "playbook.json"
+        book.write_text('{"cards": [1]}')
+        with pytest.raises(SystemExit, match="playbook"):
+            record_run_config(tmp_path, _args(playbook=str(book)), "abc123", "hard")
+        fresh = tmp_path / "fresh"
+        path = record_run_config(fresh, _args(playbook=str(book)), "abc123", "hard")
+        material = json.loads(path.read_text())["runs"][-1]["material"]
+        digest = hashlib.sha256(book.read_bytes()).hexdigest()
+        assert material["playbook_sha256"] == digest
+        book.write_text('{"cards": [2]}')
+        with pytest.raises(SystemExit, match="playbook_sha256"):
+            record_run_config(fresh, _args(playbook=str(book)), "abc123", "hard")
+
+    def test_a_playbook_for_another_team_is_refused(self, tmp_path):
+        """Its cards name our Pokemon: on another team every preview would fall
+        back silently, so the ladder refuses to start instead."""
+        team, other = tmp_path / "T6.txt", tmp_path / "T7.txt"
+        team.write_text("ours")
+        other.write_text("another")
+        book = tmp_path / "playbook.json"
+        book.write_text(json.dumps({"team": str(team), "cards": []}))
+        check_playbook(book, team)
+        with pytest.raises(SystemExit, match="written for"):
+            check_playbook(book, other)
+        with pytest.raises(SystemExit, match="does not exist"):
+            check_playbook(tmp_path / "missing.json", team)
+        check_playbook(
+            Path("data/playbook_t6.json"), Path("teams/candidates_mc/T6.txt")
+        )
 
 
 class TestPreviewRules:

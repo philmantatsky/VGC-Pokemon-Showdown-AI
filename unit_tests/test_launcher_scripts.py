@@ -16,10 +16,14 @@ ROOT = Path(__file__).resolve().parents[1]
 LAUNCHERS = [
     ROOT / "tools/ladder_read_loop.sh",
     ROOT / "tools/ladder_deployed.sh",
+    ROOT / "tools/ladder_trial.sh",
     ROOT / "tools/challenges_deployed.sh",
     ROOT / "exhibition_mode.sh",
 ]
-REFUSING = [p for p in LAUNCHERS if p.name != "ladder_deployed.sh"]
+# the two ladder wrappers exec tools/ladder_read_loop.sh, which refuses and
+# passes the flags for them
+WRAPPERS = ("ladder_deployed.sh", "ladder_trial.sh")
+REFUSING = [p for p in LAUNCHERS if p.name not in WRAPPERS]
 HEAVY_JOBS = [
     ".venv/bin/python -m vgc_bench.train --reg mc",
     ".venv/bin/python -u training/human_preview.py -- --no_teampreview --reg mc",
@@ -62,11 +66,7 @@ def test_launchers_refuse_during_heavy_jobs(script):
     assert not heavy.search(ladder)
 
 
-@pytest.mark.parametrize(
-    "script",
-    [p for p in LAUNCHERS if p.name != "ladder_deployed.sh"],
-    ids=lambda p: p.name,
-)
+@pytest.mark.parametrize("script", REFUSING, ids=lambda p: p.name)
 def test_launchers_pass_the_deployed_mixing_flags(script):
     """DEPLOYED.json's mixing reaches ladder_ourteam.py (empty = off)."""
     assert "MIXING_ARGS" in script.read_text()
@@ -76,11 +76,7 @@ def test_the_deployed_ladder_exports_mixing():
     assert "export MIXING" in (ROOT / "tools/ladder_deployed.sh").read_text()
 
 
-@pytest.mark.parametrize(
-    "script",
-    [p for p in LAUNCHERS if p.name != "ladder_deployed.sh"],
-    ids=lambda p: p.name,
-)
+@pytest.mark.parametrize("script", REFUSING, ids=lambda p: p.name)
 def test_launchers_pass_the_deployed_sticky_flag(script):
     """DEPLOYED.json's sticky_guard_corrections reaches ladder_ourteam.py."""
     text = script.read_text()
@@ -89,3 +85,27 @@ def test_launchers_pass_the_deployed_sticky_flag(script):
 
 def test_the_deployed_ladder_exports_sticky():
     assert "export STICKY" in (ROOT / "tools/ladder_deployed.sh").read_text()
+
+
+@pytest.mark.parametrize("script", REFUSING, ids=lambda p: p.name)
+def test_launchers_pass_the_playbook(script):
+    """DEPLOYED.json's playbook (or a trial's) reaches ladder_ourteam.py."""
+    text = script.read_text()
+    assert "PLAYBOOK" in text and "--playbook" in text
+
+
+@pytest.mark.parametrize("name", WRAPPERS)
+def test_the_ladder_wrappers_export_what_the_read_loop_reads(name):
+    text = (ROOT / "tools" / name).read_text()
+    for variable in ("PREVIEW_MODEL", "MIXING", "STICKY", "PLAYBOOK"):
+        assert re.search(rf"export\b.*\b{variable}\b", text), variable
+
+
+def test_a_trial_is_the_verified_deployment_plus_its_additions():
+    """Checked by reading, never by running: a launcher that got past its checks
+    would log in and play real ladder games."""
+    text = (ROOT / "tools/ladder_trial.sh").read_text()
+    assert "tools/deployed_config.py" in text and 'eval "$CFG"' in text
+    assert 'ladder_replays_mc_deployed_"$REPLAY_TAG"' in text  # its own dir only
+    assert 'GUARDS="$GUARDS,$TRIAL_GUARDS"' in text  # added, never replacing
+    assert "exec ./tools/ladder_read_loop.sh" in text

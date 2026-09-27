@@ -1,8 +1,12 @@
 """Resolve results_deployed/DEPLOYED.json for the shell launchers, verified.
 
 Prints shell assignments (shlex-quoted, for eval) of the deployed configuration:
-CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL, REPLAY_TAG, MIXING and
-STICKY.
+CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL, REPLAY_TAG, MIXING,
+STICKY and PLAYBOOK.
+
+PLAYBOOK is empty unless the deployment has our own plan cards (fields playbook,
+playbook_sha256; 2026-09-27, vgc_bench/src/playbook.py): the launchers then pass
+--playbook, and the file is sha-checked like the others.
 
 STICKY is "--sticky-corrections" when the deployment has
 "sticky_guard_corrections": true (2026-09-26: the reranker may not put back a
@@ -94,6 +98,8 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         checks.append(("preview_model", "preview_model_sha256"))
     elif deployed.get("preview_model"):
         raise ValueError("preview_model is set but learned_preview is not true")
+    if deployed.get("playbook"):
+        checks.append(("playbook", "playbook_sha256"))
     from vgc_bench.src.guards import GUARDS
 
     unknown = [g for g in deployed["guards_extra"].split(",") if g and g not in GUARDS]
@@ -119,6 +125,7 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         "REPLAY_TAG": deployed.get("replay_tag") or Path(deployed["team"]).stem,
         "MIXING": mixing_args(deployed),
         "STICKY": "--sticky-corrections" if sticky else "",
+        "PLAYBOOK": deployed.get("playbook") or "",
     }
 
 

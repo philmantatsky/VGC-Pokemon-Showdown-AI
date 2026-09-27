@@ -131,3 +131,35 @@ def test_rules_and_the_default_card(tmp_path):
     )
     with pytest.raises(ValueError, match="unconditional default"):
         Playbook(bad)
+
+
+def test_a_recorded_set_without_an_item_is_not_a_crash(monkeypatch):
+    """Recorded sets can carry "item": null (found by the 2026-09-27 openings
+    research); asking for an item share must count them as not matching."""
+    from vgc_bench.src import playbook as P
+
+    table = {
+        "testmon": {
+            "sets": [{"ability": None, "item": None, "moves": ["x"], "prob": 1.0}]
+        }
+    }
+    monkeypatch.setitem(P._SETS_CACHE, "mc", table)
+    fmt = "gen9championsvgc2026regmc"
+    assert P.set_share("testmon", item="choicescarf", formatid=fmt) == 0.0
+    assert P.set_share("testmon", ability="intimidate", formatid=fmt) == 0.0
+    assert P.set_share("testmon", move="x", formatid=fmt) == 1.0
+
+
+def test_tailwind_teams_get_water_room_and_the_reason_says_why(playbook):
+    """PLAYBOOK_T6.md: Water Room is also the pick against Tailwind teams, so a
+    clean fire-weak team with a Tailwind setter is not Sun Room (the rule matched
+    the text only after 2026-09-27; 18 of 25 ladder Tailwind teams were Sun Room)."""
+    choice = playbook.choose(
+        OURS,
+        ["whimsicott", "kingambit", "amoonguss", "scizor", "garchomp", "sinistcha"],
+    )
+    assert choice.card == "water_room"
+    assert "torkoal" not in choice.lead
+    assert any(
+        r.startswith("not sun_room: tailwind (whimsicott") for r in choice.reasons
+    )

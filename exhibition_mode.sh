@@ -45,6 +45,7 @@ TEAM=${TEAM:-$DEP_TEAM}
 PREVIEW_ARGS=()
 MIXING_ARGS=()
 STICKY_ARGS=()
+PLAYBOOK_ARGS=()
 TAG=$(basename "$TEAM" .txt)
 DEFAULT_GUARDS=resisted_target,overkill_split,dominated_weather_ball_weather
 if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$TEAM" = "$DEP_TEAM" ]; then
@@ -58,6 +59,9 @@ if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$TEAM" = "$DEP_TEAM" ]; then
   fi
   if [ -n "$DEP_STICKY" ]; then
     STICKY_ARGS=(--sticky-corrections)
+  fi
+  if [ -n "$DEP_PLAYBOOK" ]; then
+    PLAYBOOK_ARGS=(--playbook "$DEP_PLAYBOOK")
   fi
 fi
 GUARDS=${GUARDS:-$DEFAULT_GUARDS}
@@ -86,7 +90,8 @@ while true; do
     --replay_dir "ladder_replays_exhibition_${REG}_${TAG}" \
     ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} \
     ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} \
-    ${STICKY_ARGS[@]+"${STICKY_ARGS[@]}"} > "$LOG" 2>&1 &
+    ${STICKY_ARGS[@]+"${STICKY_ARGS[@]}"} \
+    ${PLAYBOOK_ARGS[@]+"${PLAYBOOK_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!
   started=$(date +%s)
   while kill -0 $PID 2>/dev/null; do

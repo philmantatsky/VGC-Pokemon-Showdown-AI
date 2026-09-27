@@ -19,5 +19,7 @@ export PREVIEW_MODEL
 export MIXING
 # non-empty only when DEPLOYED.json keeps guard corrections the reranker would undo
 export STICKY
+# non-empty only when DEPLOYED.json has our own plan cards (playbook, sha-verified)
+export PLAYBOOK
 DIR=${2:-ladder_replays_mc_deployed_$REPLAY_TAG}
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"

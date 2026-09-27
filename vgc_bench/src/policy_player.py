@@ -191,6 +191,7 @@ class PolicyPlayer(Player):
         mixing_keep_corrections: bool = False,
         guard_overrides: dict[str, bool] | None = None,
         sticky_guard_corrections: bool = False,
+        playbook_path: str | Path | None = None,
         *args: Any,
         **kwargs: Any,
     ):
@@ -220,6 +221,13 @@ class PolicyPlayer(Player):
                 switch could restore the mistake (ladder 2026-09-26: Leaf Storm
                 back into a 4x-resisting Archaludon three turns running). The
                 predicted-KO survival pick is exempt.
+            playbook_path: Our own game plans (data/playbook_<team>.json, read by
+                vgc_bench/src/playbook.py): at team preview the planner picks the
+                card for this opponent -- our four, our leads, every Pokemon's job
+                and the turn-1 script -- with its reasons (the user, 2026-09-27).
+                The preview model, when set, still supplies the belief about THEIR
+                plan. The card is attached to the battle for the opt-in guard
+                playbook_opening and written to the decision log.
             deterministic: If True, always pick the highest-probability action
                 instead of sampling from the distribution.
             preview_model_path: Optional learned bring/lead predictor used to track
@@ -305,6 +313,8 @@ class PolicyPlayer(Player):
         # A/B can enable an opt-in guard (e.g. resisted_target) on one arm only.
         self.guard_overrides: dict[str, bool] = dict(guard_overrides or {})
         self.sticky_guard_corrections = bool(sticky_guard_corrections)
+        self.playbook_path = Path(playbook_path) if playbook_path else None
+        self._playbook = None
         self.invitee = invitee
         self.preview_model_path = (
             Path(preview_model_path) if preview_model_path is not None else None
@@ -689,10 +699,61 @@ class PolicyPlayer(Player):
     def _preview_roster(team: dict[str, Pokemon]) -> tuple[str, ...]:
         return tuple(to_id_str(mon.base_species) for mon in team.values())
 
+    def _playbook_sheets(self, battle: DoubleBattle) -> dict:
+        """Their open team sheet (ability + moves known at preview), else {}."""
+        from vgc_bench.src.playbook import OpenSet
+
+        sheets = {}
+        for mon in battle.opponent_team.values():
+            moves = tuple(getattr(mon, "moves", {}) or {})
+            if mon.ability and moves:
+                sheets[to_id_str(mon.base_species)] = OpenSet(
+                    to_id_str(mon.ability), to_id_str(mon.item or ""), moves
+                )
+        return sheets
+
+    def _playbook_teampreview(self, battle: DoubleBattle) -> str | None:
+        """Our own plan: the playbook card for this opponent, with its reasons."""
+        from vgc_bench.src.playbook import Playbook
+
+        try:
+            if self._playbook is None:
+                self._playbook = Playbook(self.playbook_path)  # type: ignore[arg-type]
+            ours = self._preview_roster(battle.team)
+            theirs = self._preview_roster(battle.opponent_team)
+            if len(ours) != 6 or len(theirs) != 6:
+                raise ValueError("preview rosters incomplete")
+            choice = self._playbook.choose(
+                ours, theirs, self._playbook_sheets(battle), battle.format
+            )
+            state = self._battle_plans.get(battle.battle_tag)
+            if state is not None:
+                state.own_plan = choice.plan
+            selected = set(choice.plan.bring_indices)
+            for index, pokemon in enumerate(battle.team.values()):
+                pokemon._selected_in_teampreview = index in selected
+            audit = choice.audit()
+            setattr(battle, "_vgc_playbook", audit)
+            PolicyPlayer.guard_fire_counts[f"playbook:{choice.card}"] += 1
+            if self.decision_log_path is not None:
+                with open(self.decision_log_path, "a") as handle:
+                    handle.write(
+                        json.dumps(
+                            {"battle": battle.battle_tag, "turn": 0, "playbook": audit},
+                            default=str,
+                        )
+                        + "\n"
+                    )
+            order = plan_to_showdown_order(choice.plan)
+            return "/team " + "".join(str(index) for index in order)
+        except Exception as exc:
+            PolicyPlayer.guard_fire_counts[f"playbook_error:{type(exc).__name__}"] += 1
+            return None
+
     def _learned_teampreview(self, battle: DoubleBattle) -> str | None:
         """Choose a coherent lead-two/bring-four plan from replay-trained priors."""
         if self.preview_model_path is None:
-            return None
+            return self._playbook_teampreview(battle) if self.playbook_path else None
         try:
             if self._preview_predictor is None:
                 self._preview_predictor = PreviewPredictor.load(self.preview_model_path)
@@ -706,6 +767,10 @@ class PolicyPlayer(Player):
             self._battle_plans[battle.battle_tag] = BattlePlanState(
                 own_plan=None, opponent_belief=OpponentBelief(theirs, their_plans)
             )
+            if self.playbook_path is not None:
+                # our four and leads from our own playbook; the model above keeps
+                # its job of predicting THEIR plan
+                return self._playbook_teampreview(battle)
             if not self.use_learned_teampreview:
                 # Production only wants the opponent belief; our own plan is chosen
                 # by the champion policy, so computing it here would be waste.

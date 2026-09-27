@@ -1,5 +1,75 @@
 # VGC Bot Project Status
 
+## Playbook wired in; draft 1.1; its evaluation and the ladder trial running (2026-September 27, 01:55)
+
+- `PolicyPlayer(playbook_path=...)`: at team preview the planner picks the card for
+  this opponent (our four, our leads, each Pokemon's job, the turn-1 script, the
+  reasons -- now also the cards it passed over and why, e.g. "not sun_room:
+  tailwind (whimsicott)"); the preview model keeps predicting THEIR plan. The card
+  is attached to the battle for the opt-in guard `playbook_opening` (registered
+  FIRST in the guard order) and written to the decision log as a turn-0 row. A
+  playbook failure counts `playbook_error:<type>` and falls back to the normal
+  preview.
+- `resisted_target` no longer retargets Fake Out (T6tac ladder game 8 turn 1; two
+  earlier reviews); both sides wherever the guard is on.
+- **Draft 1.1, amended before any playbook result** (the openings-research
+  session's flags, 01:40): Sun Room also avoids Tailwind teams, as the approved
+  text's Plan A already said (the JSON had missed it: 18 of our 25 ladder Tailwind
+  teams got Sun Room, a lead the current brain has not played in 84 ladder games);
+  turn-1 Fake Out only at a foe it can reach (not a Ghost, not grounded under
+  Psychic Terrain, no Armor Tail / Dazzling / Queenly Majesty on their side -- the
+  priority_block guard's facts), else no Fake Out step; a scripted action must be
+  legal in the live request (a Mega the request forbids is dropped). Held-out card
+  mix (hidden sheets): Water Room 21, Support Room 21, Sun Room 5 (draft 1:
+  17 / 10 / 20). Mirror: Water Room with hidden sheets, Support Room with open ones
+  (our own T6 sheet shows two Fake Out users).
+- **Added to the ladder-trial pre-registration (before any result):** the battery's
+  per-card breakdown (playbook arm vs T6tac arm on the same roster x sheet cells,
+  six populations pooled); a card whose cells lose >= 5pp over >= 500 games is
+  marked experimental for the ladder trial only (its opponents fall to the next
+  card; the default card never is) -- the known failure mode is an unpractised lead
+  collapsing (2026-09-23: sun -23, Incineroar -33). The local verdicts read draft
+  1.1 unchanged.
+- Harness: `learned_preview_study.py --playbook`, `run_guard_ab.py --playbook` (arm
+  `playbook_<guards>`; the playbook and its sha in the manifest). Fixed a latent
+  `run_guard_ab.py` flaw: a guard arm against a `--without-arm` played the
+  REFERENCE study's brain (T6hp), not the deployed one -- harmless while T6hp was
+  deployed (every earlier guard run), wrong since T6ctx. It now plays the without
+  side's own brain file (sha checked against the deployed brain); `same_study`
+  compares the checkpoint path too.
+- Ladder: `ladder_ourteam.py --playbook` (its sha in run_config.json; a playbook
+  written for another team is refused); `PLAYBOOK` passes through every launcher
+  (DEPLOYED.json fields `playbook` + `playbook_sha256`, sha-verified by
+  `tools/deployed_config.py`); `tools/ladder_trial.sh` = the verified deployed
+  configuration + `TRIAL_PLAYBOOK` / `TRIAL_GUARDS` in its own replay dir,
+  DEPLOYED.json untouched.
+- `playbook.set_share` no longer crashes on recorded sets with `item: null` (found
+  by the openings research; no caller used that path yet).
+- Suite 621 passed + the new playbook / opening / preview / harness / launcher
+  tests; Ruff and Pyright clean on every changed file (the 8 pre-existing
+  `policy_player.py` Pyright errors unchanged).
+- Running (chain under caffeinate): mirror (2,000) -> battery -> the pre-registered
+  hold check and per-card rule -> 15 ladder games
+  (`ladder_replays_mc_deployed_T6tac_playbook_t6`).
+
+## Rain/sand cycle fails its pre-registered test: no weather router, T6tac stays alone (2026-September 27, 01:30)
+
+The rain/sand-trained save (`results_brainv1_t6_weather1/saves_fp_xt_hs_wt/reg_mc/
+seed1/23101440.zip`; its mirror 35.45%, the tactical re-fit's 35.3%, both losing to
+T6tac) on the held-out battery against T6tac (`results_brain_ab_weather1_23101440`
+vs `results_brain_ab_tactical1_e4`):
+- **Pre-registered router reading, the 14 rosters with a rain / sand setter:
+  -0.92pp, 95% [-3.03, +1.08]** -- the lower bound is not above 0, so no router;
+  the cycle is recorded as failed (the user's idea stays right in principle: the
+  specialist simply is not better at its specialty).
+- Unflagged 33 rosters -0.44 [-2.23, +1.38]; all 47 -0.58 [-1.97, +0.81]; per
+  population human_new -0.5, frozen +0.7, rotation1 -1.4, rotation2 +1.1,
+  human_previous -2.5, heuristic -0.9.
+- Lesson: two rounds of RL practice with rain / sand rosters doubled did not make
+  the brain better against rain / sand even locally, and cost 15 points in the
+  mirror. Rain needs a different answer than more of the same practice (the
+  openings research: rain + Archaludon has no known winning line for this team).
+
 ## Pre-registered: tonight's ladder trial of the playbook (2026-September 27, 01:20)
 
 The user, going to sleep: "test everything out and map it all togehter and try it

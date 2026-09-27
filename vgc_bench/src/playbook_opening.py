@@ -8,7 +8,9 @@ the card's script on top of the policy's ranking --
 * ``fake_out``: that Pokemon Fake Outs their Trick Room or Tailwind setter if one
   leads (a revealed move, else the species' Reg M-C set rate >= 0.5), otherwise
   the lead that threatens our Trick Room setter most (the damage calculator over
-  the foe's revealed or most-used moves);
+  the foe's revealed or most-used moves) -- among the foes Fake Out can reach
+  (not a Ghost, not grounded under Psychic Terrain, no Armor Tail / Dazzling /
+  Queenly Majesty on their side); none reachable -> no Fake Out step;
 * ``setter``: that Pokemon uses the named move (Trick Room);
 * ``status``: that Pokemon uses the named status move on the named kind of target;
 * ``mega``: that Pokemon Mega Evolves with its scripted move.
@@ -23,7 +25,16 @@ policy's own choice for any unscripted slot.
 
 from __future__ import annotations
 
-from poke_env.battle import DoubleBattle, Field, Move, MoveCategory, Pokemon
+import os
+
+from poke_env.battle import (
+    DoubleBattle,
+    Field,
+    Move,
+    MoveCategory,
+    Pokemon,
+    PokemonType,
+)
 from poke_env.data import to_id_str
 
 from vgc_bench.src import guards as G
@@ -82,12 +93,44 @@ def _threat_to(battle: DoubleBattle, foe: Pokemon, target: Pokemon) -> float:
     return best
 
 
-def fake_out_target(battle: DoubleBattle, protect: Pokemon | None) -> int | None:
-    """Slot (1 or 2) of the foe the script Fake Outs."""
+def fake_out_reachable(
+    battle: DoubleBattle, foe: Pokemon, attacker: Pokemon | None = None
+) -> bool:
+    """Whether our Fake Out can flinch this foe at all (2026-09-27: many Trick Room
+    setters cannot be Faked Out). Not a Ghost (immune to a Normal move unless we
+    have Scrappy / Mind's Eye), not grounded under Psychic Terrain, and no Armor
+    Tail / Dazzling / Queenly Majesty on their side -- known, or near-certain by
+    usage, the same facts and threshold as the priority_block guard."""
+    ability = G._norm(getattr(attacker, "ability", None))
+    if PokemonType.GHOST in foe.types and ability not in ("scrappy", "mindseye"):
+        return False
+    if Field.PSYCHIC_TERRAIN in getattr(battle, "fields", {}) and G._is_grounded(
+        battle, foe
+    ):
+        return False
+    foes = [
+        f for f in battle.opponent_active_pokemon if f is not None and not f.fainted
+    ]
+    if any(G._norm(f.ability) in G.PRIORITY_BLOCK_ABILITIES for f in foes):
+        return False
+    try:
+        prior = G._priority_block_prior_probability(battle)
+    except (AttributeError, TypeError):
+        prior = 0.0
+    return prior < float(os.environ.get("VGC_PRIORITY_BLOCK_PRIOR_THRESHOLD", "0.99"))
+
+
+def fake_out_target(
+    battle: DoubleBattle, protect: Pokemon | None, attacker: Pokemon | None = None
+) -> int | None:
+    """Slot (1 or 2) of the foe the script Fake Outs, or None when Fake Out can
+    reach neither foe (that Pokemon then keeps the policy's own action)."""
     foes = [
         (slot, foe)
         for slot, foe in enumerate(battle.opponent_active_pokemon, start=1)
-        if foe is not None and not foe.fainted
+        if foe is not None
+        and not foe.fainted
+        and fake_out_reachable(battle, foe, attacker)
     ]
     if not foes:
         return None
@@ -111,11 +154,26 @@ def trick_room_setter_target(battle: DoubleBattle) -> int | None:
     return best[0] if best else None
 
 
+def _legal(battle: DoubleBattle, action: int, pos: int) -> bool:
+    """Whether the live request accepts this action (a scripted pair is built,
+    not drawn from the masked policy). Positions built without a request (test
+    fixtures) list no available moves and are not checked."""
+    try:
+        if not battle.available_moves[pos]:
+            return True
+        valid = {str(order) for order in battle.valid_orders[pos]}
+    except (AttributeError, IndexError, TypeError):
+        return True
+    order = G._decode(battle, action, pos)
+    return order is not None and str(order) in valid
+
+
 def _find_action(
     battle: DoubleBattle, pos: int, move_id: str, target: int | None, mega: bool
 ) -> int | None:
     """The action index for (move, target) in the plain or Mega band; a move
-    with no scripted target uses target 0, the code Showdown expects for it."""
+    with no scripted target uses target 0, the code Showdown expects for it. A
+    Mega the request does not allow is dropped; an illegal move is not scripted."""
     wanted = 0 if target is None else target
     for action in range(7, 27):
         order = G._decode(battle, action, pos)
@@ -124,7 +182,9 @@ def _find_action(
             continue
         if (getattr(order, "move_target", 0) or 0) != wanted:
             continue
-        return action + (MEGA_OFFSET if mega else 0)
+        if mega and _legal(battle, action + MEGA_OFFSET, pos):
+            return action + MEGA_OFFSET
+        return action if _legal(battle, action, pos) else None
     return None
 
 
@@ -154,7 +214,10 @@ def scripted_steps(
     fake_out = script.get("fake_out") or {}
     if fake_out.get("user") in ours:
         protect = battle.active_pokemon[setter_pos] if setter_pos is not None else None
-        steps[ours[fake_out["user"]]] = ("fakeout", fake_out_target(battle, protect))
+        user_pos = ours[fake_out["user"]]
+        target = fake_out_target(battle, protect, battle.active_pokemon[user_pos])
+        if target is not None:
+            steps[user_pos] = ("fakeout", target)
     if setter_pos is not None and setter.get("move"):
         steps[setter_pos] = (to_id_str(setter["move"]), None)
     status = script.get("status") or {}

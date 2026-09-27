@@ -76,13 +76,25 @@
 - [x] Ladder read of T6tac (15 games, the user's word): 7-8, 1140 -> ~1105; guards
   corrected its own pick 35% (T6ctx 45%); sticky fired 0 times (all closed-sheet
   games).
-- [ ] Guard fix: `resisted_target` must not retarget Fake Out (the flinch is the
-  point; ladder 2026-09-26 T6tac game 8, and two earlier reviews) -- after the
-  training run (it hashes guards.py).
-- [ ] Rain/sand curriculum cycle (`training/run_t6_weather_trial.py`) from
-  `tactical_e4` (= T6tac), re-fit, mirror both vs T6tac, battery the better against
-  `results_brain_ab_tactical1_e4` (pre-registered; stopped at 10% for the ladder,
-  restarts after it).
+- [x] Guard fix: `resisted_target` no longer retargets Fake Out (the flinch is the
+  point; ladder 2026-09-26 T6tac game 8, and two earlier reviews) -- 2026-09-27,
+  with the playbook wiring.
+- [x] Rain/sand curriculum cycle (`training/run_t6_weather_trial.py`) from
+  `tactical_e4` (= T6tac): mirrors 35.45% / 35.3% (lose), battery -0.58 [-1.97,
+  +0.81]; the pre-registered weather-router reading on the 14 rain/sand rosters
+  -0.92 [-3.03, +1.08] -> **failed, no router**; T6tac stays alone.
+- [x] Our own playbook (the user's handoff idea, 2026-09-27): `PLAYBOOK_T6.md` /
+  `data/playbook_t6.json` (draft 1.1), planner `vgc_bench/src/playbook.py` at team
+  preview (the card, its reasons, the cards passed over), turn-1 script guard
+  `playbook_opening`, wired into PolicyPlayer, the harness and every launcher
+  (`--playbook`, DEPLOYED.json `playbook`, `tools/ladder_trial.sh`).
+- [ ] Playbook evaluation (pre-registered 2026-09-27 00:55 / 01:20 / 01:55): mirror
+  2,000 vs T6tac, held-out battery vs `results_brain_ab_tactical1_e4` with the
+  per-card breakdown, then a 15-game ladder TRIAL (the user's word) in
+  `ladder_replays_mc_deployed_T6tac_playbook_t6`. Promotion: the user.
+- [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
+  training cycle that practises each card's opening, so the brain plays the plan
+  instead of a guard forcing turn 1.
 - [ ] Then, if it holds: RL practice for the reading mistakes (doomed mon left in,
   predictable Protects, Trick Room vs Trick Room).
 - [x] Guards that stick on ladder (`sticky_guard_corrections`, opt-in): **mirror with

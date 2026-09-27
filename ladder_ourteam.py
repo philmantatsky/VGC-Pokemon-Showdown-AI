@@ -121,6 +121,19 @@ def resolve_knowledge_obs(explicit: bool | None, ckpt: Path, ckpt_sha: str) -> b
     return explicit
 
 
+def check_playbook(playbook: Path, team: Path) -> None:
+    """Refuse a playbook that is missing or written for another team: its cards
+    name our Pokemon, so on the wrong team every preview would silently fall back."""
+    if not playbook.is_file():
+        raise SystemExit(f"--playbook {playbook} does not exist")
+    written_for = json.loads(playbook.read_text()).get("team", "")
+    if not written_for or Path(written_for).resolve() != team.resolve():
+        raise SystemExit(
+            f"--playbook {playbook} is written for {written_for or 'no team'}, "
+            f"not {team}"
+        )
+
+
 def record_run_config(
     replay_dir: Path, args: argparse.Namespace, ckpt_sha: str, guard_profile: str
 ) -> Path:
@@ -143,6 +156,14 @@ def record_run_config(
     # recorded only when on, so directories from before the flag stay valid
     if not material.get("sticky_corrections"):
         material.pop("sticky_corrections", None)
+    # the plan cards themselves, not just their path: an edited playbook is a
+    # different configuration (recorded only when on, like the flag above)
+    if material.get("playbook"):
+        material["playbook_sha256"] = hashlib.sha256(
+            Path(material["playbook"]).read_bytes()
+        ).hexdigest()
+    else:
+        material.pop("playbook", None)
     run_config = (
         json.loads(run_config_path.read_text())
         if run_config_path.exists()
@@ -344,6 +365,17 @@ async def main():
         help=(
             "the opponent/tempo reranker may not put back a pair a guard corrected "
             "away (mirror 2026-09-26: 53.4% [51.2, 55.5]); recorded in run_config.json"
+        ),
+    )
+    ap.add_argument(
+        "--playbook",
+        default="",
+        help=(
+            "our own plan cards (data/playbook_<team>.json, read by "
+            "vgc_bench/src/playbook.py): the card for each opponent picks our four "
+            "and leads, with its reasons in the decision log; add the opt-in guard "
+            "playbook_opening to play its turn-1 script. Recorded in run_config.json "
+            "with its sha256"
         ),
     )
     ap.add_argument(
@@ -618,6 +650,8 @@ async def main():
 
     team_path = Path(args.our_team)
     assert team_path.exists(), f"team not found: {team_path}"
+    if args.playbook:
+        check_playbook(Path(args.playbook), team_path)
     ckpt = Path(args.checkpoint)
     assert ckpt.exists(), f"checkpoint not found: {ckpt}"
     ckpt_sha = hashlib.sha256(ckpt.read_bytes()).hexdigest()
@@ -747,6 +781,7 @@ async def main():
         mixing_min_ratio=args.mixing_min_ratio,
         mixing_keep_corrections=args.mixing_keep_corrections,
         sticky_guard_corrections=args.sticky_corrections,
+        playbook_path=Path(args.playbook) if args.playbook else None,
         guard_overrides={
             name.strip(): True for name in args.guards_extra.split(",") if name.strip()
         },
@@ -829,6 +864,7 @@ async def main():
         f"{args.decision_log or str(Path(args.replay_dir) / 'decisions.jsonl')}"
     )
     print(f"sticky  : {'on' if args.sticky_corrections else 'off'}")
+    print(f"playbook: {args.playbook or 'off'}")
     print(f"config  : recorded in {run_config_path}")
 
     if args.rejoin_battle and not args.challenges:

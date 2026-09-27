@@ -247,3 +247,22 @@ def test_sticky_corrections_are_off_unless_the_manifest_turns_them_on(tmp_path):
     with pytest.raises(ValueError, match="sticky_guard_corrections"):
         resolve(_deployment(tmp_path, sticky_guard_corrections="yes"), tmp_path)
     assert "--sticky-corrections" in (ROOT / "ladder_ourteam.py").read_text()
+
+
+def test_a_playbook_is_off_unless_deployed_and_verified(tmp_path):
+    """2026-09-27: our own plan cards, sha-checked like every other file."""
+    assert resolve(_deployment(tmp_path), tmp_path)["PLAYBOOK"] == ""
+    book = tmp_path / "data/playbook_t9.json"
+    book.parent.mkdir(parents=True, exist_ok=True)
+    book.write_text('{"cards": []}')
+    on = _deployment(
+        tmp_path, playbook="data/playbook_t9.json", playbook_sha256=_digest(book)
+    )
+    assert resolve(on, tmp_path)["PLAYBOOK"] == "data/playbook_t9.json"
+    wrong = _deployment(
+        tmp_path, playbook="data/playbook_t9.json", playbook_sha256="0" * 64
+    )
+    with pytest.raises(ValueError, match="playbook"):
+        resolve(wrong, tmp_path)
+    with pytest.raises(KeyError):
+        resolve(_deployment(tmp_path, playbook="data/playbook_t9.json"), tmp_path)

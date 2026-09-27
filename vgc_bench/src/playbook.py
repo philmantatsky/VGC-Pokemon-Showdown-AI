@@ -78,11 +78,14 @@ def set_share(
         return 0.0
     share = 0.0
     for s in entry.get("sets", []):
-        if ability is not None and to_id_str(s.get("ability", "")) != ability:
+        # recorded sets can carry "item": null (no item seen), never a crash
+        if ability is not None and to_id_str(s.get("ability") or "") != ability:
             continue
-        if move is not None and move not in {to_id_str(m) for m in s.get("moves", [])}:
+        if move is not None and move not in {
+            to_id_str(m) for m in s.get("moves") or []
+        }:
             continue
-        if item is not None and to_id_str(s.get("item", "")) != item:
+        if item is not None and to_id_str(s.get("item") or "") != item:
             continue
         share += float(s.get("prob", 0.0))
     return share
@@ -277,11 +280,18 @@ class Playbook:
     ) -> PlaybookChoice:
         ours = [to_id_str(s) for s in our_species]
         feats = opponent_features(their_species, sheets, formatid)
+        passed_over: list[str] = []  # cards whose case held but an avoid rule fired
         for card in self.cards:
             if card.get("experimental") and not self.allow_experimental:
                 continue
             rule = card.get("when") or {}
             if not rule_matches(rule, feats):
+                if rule_matches({k: v for k, v in rule.items() if k != "none"}, feats):
+                    hits = [c for c in rule.get("none", []) if _holds(c, feats)]
+                    passed_over.append(
+                        f"not {card['name']}: "
+                        + ", ".join(_describe(c, feats) for c in hits)
+                    )
                 continue
             back = list(card["back"])
             swapped = None
@@ -309,6 +319,7 @@ class Playbook:
                     f"back line {' + '.join(back)} because "
                     + ", ".join(_describe(c, feats) for c in hit)
                 )
+            reasons.extend(passed_over)
             index = {s: i for i, s in enumerate(ours)}
             lead = (index[wanted[0]], index[wanted[1]])
             bring = tuple(sorted(index[s] for s in wanted))

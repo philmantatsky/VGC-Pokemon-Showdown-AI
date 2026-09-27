@@ -190,3 +190,23 @@ def test_a_candidate_run_keeps_its_arm_label(tmp_path):
         ["dominated_attack"],
         "candidate_contexts1_22118400",
     )
+
+
+def test_a_guard_arm_plays_the_without_sides_own_brain_file(tmp_path):
+    """Since T6ctx the reference study's brain is not the deployed one: a guard or
+    playbook arm plays the without side's own file (its sha is the deployed
+    brain's), else the arm manifests differ in the checkpoint."""
+    import hashlib
+
+    import pytest
+
+    from evaluation.run_guard_ab import without_brain
+
+    brain = tmp_path / "brain.zip"
+    brain.write_bytes(b"weights")
+    run = tmp_path / "results_brain_ab_x"
+    run.mkdir()
+    (run / "manifest.json").write_text(json.dumps({"checkpoint": str(brain)}))
+    assert without_brain(run, hashlib.sha256(b"weights").hexdigest()) == str(brain)
+    with pytest.raises(ValueError, match="not the deployed brain"):
+        without_brain(run, "0" * 64)

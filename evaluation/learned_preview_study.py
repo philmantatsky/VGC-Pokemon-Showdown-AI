@@ -19,6 +19,9 @@ valid). Usage (from the repo root):
   .venv/bin/python evaluation/learned_preview_study.py --preview-model <model.pt> \\
       [--extra-guards name,...] -- <opening_study arguments>
 
+--playbook (2026-09-27) makes OUR four and leads come from our own playbook
+(vgc_bench/src/playbook.py); the preview model then only predicts THEIR plan.
+
 --extra-guards (2026-09-24) also turns on opt-in guards for OUR player only
 (a per-player override; the opponents keep the study's class-level set). The
 arm manifest records the class-level flags, so the harness records the extras.
@@ -89,9 +92,27 @@ def enable_guards(names: list[str]) -> None:
     opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
 
 
+def enable_playbook(path: Path) -> None:
+    """OUR preview from our own playbook (vgc_bench/src/playbook.py); the preview
+    model installed above keeps predicting the opponent's plan."""
+    if not path.exists():
+        raise FileNotFoundError(path)
+    original_init = opening_study.StudyPlayer.__init__
+
+    def __init__(self, *args, **kwargs):
+        original_init(self, *args, **kwargs)
+        self.playbook_path = path
+        self._playbook = None
+
+    opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--preview-model", type=Path, required=True)
+    ap.add_argument(
+        "--playbook", type=Path, default=None, help="our preview from this playbook"
+    )
     ap.add_argument("--extra-guards", default="", help="comma-separated opt-in guards")
     ap.add_argument("study_args", nargs=argparse.REMAINDER)
     args = ap.parse_args()
@@ -101,6 +122,9 @@ def main() -> None:
     if extra:
         enable_guards(extra)
         print(f"extra guards for our side: {', '.join(extra)}", flush=True)
+    if args.playbook is not None:
+        enable_playbook(args.playbook)
+        print(f"playbook preview for our side: {args.playbook}", flush=True)
     print(f"learned preview for our side: {args.preview_model}", flush=True)
     sys.argv = ["evaluation/opening_study.py", *rest]
     opening_study.main()
