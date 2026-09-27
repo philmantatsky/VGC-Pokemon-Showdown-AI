@@ -73,8 +73,9 @@
   `tactical_e4`, re-fit, mirror both, battery the better (pre-registered).
 - [ ] Then, if it holds: RL practice for the reading mistakes (doomed mon left in,
   predictable Protects, Trick Room vs Trick Room).
-- [ ] Guards that stick on ladder: the reranker must not restore a pair a guard
-  corrected (needs a mirror with the rerankers on to measure).
+- [x] Guards that stick on ladder (`sticky_guard_corrections`, opt-in): **mirror with
+  the rerankers on 53.4% [51.2, 55.5], wins close games** (open sheets 57.7%, where
+  it fires ~1/game); deploy-eligible. Ladder use: the user's call.
 - [ ] Sun lead vs rain (training target).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.

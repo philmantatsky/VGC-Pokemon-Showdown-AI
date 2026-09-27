@@ -1,5 +1,22 @@
 # VGC Bot Project Status
 
+## Sticky guard corrections WIN their mirror: 53.4% [51.2, 55.5]; 59.4 / 56.0% in open-sheet games (2026-September 26, 20:31)
+
+`results_mirror_sticky_corrections_rerankers` (pre-registered 18:25): deployed
+T6ctx configuration on both sides WITH the ladder's opponent/tempo reranker;
+side A keeps guard corrections the reranker would undo. **A 1,067 / 2,000 =
+53.4% [51.2, 55.5] -- wins close games.** By block: open sheets 59.4% (A
+challenges) and 56.0%, hidden sheets 51.0% and 47.0%. The fix fired **1.01 and
+1.08 times per game with open sheets** and 0.07 / 0.04 with hidden ones -- the
+reranker's switch evidence only runs when the opponent's sets are known -- so
+the effect sits exactly where the fix acts (open: 577 / 1,000 = 57.7% [54.6,
+60.7]); the hidden blocks are close to an A/A comparison. Deploy-eligible under
+the mirror rule (2,099 changed actions, upper bound >= 50%, no block below 47%:
+the lowest is exactly 47.0%, a block where it fired 18 times). The mistake it
+removes is the one found on ladder (6 of 37 corrections undone; Leaf Storm into
+Archaludon three turns running). Turning it on for ladder is the user's call;
+ladder_ourteam needs a flag and DEPLOYED.json a field (to add at the user's word).
+
 ## Tactical fine-tune: wins its mirror 58.0%, battery no clear change (-0.40 [-1.61, +0.84]); guards correct it 31% less (2026-September 26, 20:00)
 
 `tactical_e4` (T6ctx + the tactical fine-tune), against the deployed T6ctx, both
