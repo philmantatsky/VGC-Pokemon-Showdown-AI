@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## Practice cycle: both mirrors WIN; the user's ladder condition pre-registered before the battery result (2026-September 27, 14:35)
+
+- Training (11:21-13:19) clean: ep_rew_mean 0.48 -> 0.80; practice previews Support
+  Room 47%, Water Room 38%, Sun Room 16% (with the 15% exploration), no errors.
+- **Mirrors** (candidate + playbook draft 1.1 + `playbook_opening` vs the deployed
+  T6tac setup, 2,000 each): RL save 23,101,440 **53.75% [51.6, 55.9]**, its
+  tactical re-fit **54.4% [52.2, 56.6]** -- both win close games (last night's
+  unpractised brain with the same playbook: 30.6%; its Support Room blocks 13.6%,
+  now 54.0 / 53.4%). The re-fit is the battery pick (pre-registered rule).
+- **The user, while the battery runs: "if the battery holds up run 15 ladder games
+  with it".** Fixed now: "holds up" = the pre-registered deploy-eligible bar --
+  pooled upper bound >= 0 and no population below -3pp -- plus no playbook errors in
+  more than 1% of games. Then 15 serial ladder games with the tested
+  configuration: brain `results_brainv1_t6_playbook1/tactical/tactical_e4.zip`
+  (sha b0ad945b; its sidecar now carries `requires_knowledge_obs: true`), the
+  deployed team / preview model / 8 guards / sticky corrections, the playbook
+  (draft 1.1) and `playbook_opening`, except that a card whose battery cells lose
+  >= 5pp over >= 500 games is switched off (last night's rule). Via
+  `tools/ladder_trial.sh` (new `TRIAL_CHECKPOINT`), replay dir
+  `ladder_replays_mc_practice1_playbook_t6`; DEPLOYED.json untouched. If it does not
+  hold up: no ladder, report.
+
 ## Pre-registered: the playbook practice cycle (2026-September 27, 11:40)
 
 The user, after last night's report: "start the practice cycle". Fixed now, before

@@ -10,6 +10,9 @@
 #   deployed playbook if there is one.
 # - TRIAL_GUARDS: opt-in guards added to the deployed ones (e.g. playbook_opening,
 #   the playbook's turn-1 script).
+# - TRIAL_CHECKPOINT: a candidate brain instead of the deployed one (the user's
+#   word; its sidecar must carry sha256 + requires_knowledge_obs, which
+#   ladder_ourteam.py checks). Everything else stays the deployed configuration.
 # Ladder play needs the user's explicit word; tools/ladder_read_loop.sh refuses
 # while a heavy local job or another ladder session runs.
 set -uo pipefail
@@ -23,6 +26,10 @@ case "$DIR" in
   ladder_replays_mc_deployed_"$REPLAY_TAG"|ladder_replays_mc_deployed_"$REPLAY_TAG"/)
     echo "LADDER_REFUSED a trial needs its own replay dir"; exit 2 ;;
 esac
+if [ -n "${TRIAL_CHECKPOINT:-}" ]; then
+  [ -f "$TRIAL_CHECKPOINT" ] || { echo "LADDER_REFUSED missing checkpoint $TRIAL_CHECKPOINT"; exit 2; }
+  CKPT=$TRIAL_CHECKPOINT
+fi
 if [ -n "${TRIAL_PLAYBOOK:-}" ]; then
   [ -f "$TRIAL_PLAYBOOK" ] || { echo "LADDER_REFUSED missing playbook $TRIAL_PLAYBOOK"; exit 2; }
   PLAYBOOK=$TRIAL_PLAYBOOK

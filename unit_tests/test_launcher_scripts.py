@@ -109,3 +109,4 @@ def test_a_trial_is_the_verified_deployment_plus_its_additions():
     assert 'ladder_replays_mc_deployed_"$REPLAY_TAG"' in text  # its own dir only
     assert 'GUARDS="$GUARDS,$TRIAL_GUARDS"' in text  # added, never replacing
     assert "exec ./tools/ladder_read_loop.sh" in text
+    assert 'CKPT=$TRIAL_CHECKPOINT' in text  # a candidate brain, the user's word
