@@ -40,7 +40,7 @@ import numpy as np
 import torch
 from stable_baselines3 import PPO
 
-from training.tactical_teacher import target_distribution
+from training.tactical_teacher import doomed_target, target_distribution
 
 
 def sha256(path: Path) -> str:
@@ -89,14 +89,29 @@ def policy_probs(policy, obs, mask, played0, device, batch=512):
     return np.concatenate(p0s), np.concatenate(p1s)
 
 
-def build_targets(p0, p1, useless, values, tau):
-    """Targets for both positions and which rows carry a lesson."""
+def build_targets(p0, p1, useless, values, tau, doomed=None, protect=None, wasted=None):
+    """Targets for both positions and which rows carry a lesson. With the doomed
+    facts (data since 2026-09-27) a Pokemon likely knocked out before it moves
+    also has that share of its wasted moves' mass moved onto Protect."""
     q0 = p0.copy()
     q1 = p1.copy()
     lesson = np.zeros((len(p0), 2), dtype=bool)
     for i in range(len(p0)):
         for pos, (p, q) in enumerate(((p0, q0), (p1, q1))):
             t = target_distribution(p[i], useless[i, pos], values[i, pos], tau)
+            if (
+                doomed is not None
+                and protect is not None
+                and wasted is not None
+                and doomed[i, pos] > 0
+            ):
+                d = doomed_target(
+                    p[i] if t is None else t,
+                    float(doomed[i, pos]),
+                    protect[i, pos],
+                    wasted[i, pos],
+                )
+                t = d if d is not None else t
             if t is not None:
                 q[i] = t
                 lesson[i, pos] = True
@@ -125,6 +140,7 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
     agree = total = 0
     useless_mass = useless_rows = 0.0
     drift_sum = drift_rows = 0.0
+    doomed_mass = doomed_rows = 0.0
     with torch.no_grad():
         for start in range(0, len(rows), batch):
             idx = rows[start : start + batch]
@@ -143,6 +159,11 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
                 flags = data["useless"][idx, pos]
                 for j in range(len(idx)):
                     row_lesson = lesson[idx[j], pos]
+                    if "doomed" in data and data["doomed"][idx[j], pos] > 0:
+                        doomed_mass += float(
+                            probs[j][data["wasted"][idx[j], pos]].sum()
+                        )
+                        doomed_rows += 1
                     if flags[j].any():
                         useless_mass += float(probs[j][flags[j]].sum())
                         useless_rows += 1
@@ -176,6 +197,9 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
         "lesson_rows": total,
         "useless_mass": useless_mass / max(1, useless_rows),
         "drift_kl_no_lesson": drift_sum / max(1, drift_rows),
+        # the probability still put on moves a likely knocked-out Pokemon wastes
+        "doomed_wasted_mass": doomed_mass / max(1, doomed_rows),
+        "doomed_rows": doomed_rows,
     }
 
 
@@ -210,7 +234,16 @@ def main() -> None:
     p0, p1 = policy_probs(
         frozen, data["obs"], data["mask"], data["played"][:, 0], device
     )
-    q0, q1, lesson = build_targets(p0, p1, data["useless"], data["values"], args.tau)
+    q0, q1, lesson = build_targets(
+        p0,
+        p1,
+        data["useless"],
+        data["values"],
+        args.tau,
+        data.get("doomed"),
+        data.get("protect"),
+        data.get("wasted"),
+    )
 
     critic = (
         list(policy.vf_features_extractor.parameters())
@@ -234,6 +267,7 @@ def main() -> None:
         "val_rows": int(len(val_rows)),
         "lesson_rows_pos0": int(lesson[:, 0].sum()),
         "lesson_rows_pos1": int(lesson[:, 1].sum()),
+        "doomed_rows": int((data["doomed"] > 0).sum()) if "doomed" in data else 0,
         "args": {k: str(v) for k, v in vars(args).items()},
         "epochs": [],
     }

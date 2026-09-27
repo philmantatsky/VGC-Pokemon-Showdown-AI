@@ -319,3 +319,17 @@ results_brainv1_t6_playbook1/*
 !results_brainv1_t6_playbook1/status.json
 !results_brainv1_t6_playbook1/league_config.json
 !results_brainv1_t6_playbook1/league_manifest.json
+!results_tactical2/
+results_tactical2/*
+!results_tactical2/data/
+results_tactical2/data/*
+!results_tactical2/data/manifest.json
+!results_tactical2/data/summary.json
+!results_tactical2/sft/
+results_tactical2/sft/*
+!results_tactical2/sft/log.json
+!results_tactical2/sft/*.metadata.json
+!results_mirror_tactical2/
+results_mirror_tactical2/*
+!results_mirror_tactical2/manifest.json
+!results_mirror_tactical2/result.json

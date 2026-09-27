@@ -128,3 +128,121 @@ def test_nothing_to_teach():
     values = np.full(107, np.nan)
     values[9] = 0.5  # one attack: no ranking to teach
     assert target_distribution(probs, np.zeros(107, dtype=bool), values, 0.1) is None
+
+
+# -- doomed: knocked out before it moves (the user chose this lesson, 2026-09-27) --
+
+
+def _torkoal(extra: list[str] | None = None, hp: str = "60/177"):
+    """Torkoal at a third of its HP beside Farigiraf; Garchomp outspeeds it and
+    its Rock Slide / Earthquake knocks it out (T6-era ladder: 53 times a Torkoal
+    attacked and fainted first)."""
+    return position(
+        [
+            f"|switch|p1a: Torkoal|Torkoal, L50, M|{hp}",
+            "|switch|p1b: Farigiraf|Farigiraf, L50, F|227/227",
+            "|switch|p2a: Garchomp|Garchomp, L50, M|100/100",
+            "|switch|p2b: Kingambit|Kingambit, L50, M|100/100",
+            *(extra or []),
+        ]
+    )
+
+
+def test_a_doomed_torkoal_is_taught_to_protect():
+    from training.tactical_teacher import doomed_facts
+
+    battle = _torkoal()
+    chance, protect, wasted = doomed_facts(battle, 0, LEGAL[:107])
+    assert chance >= 0.5
+    assert protect[move_action(battle, 0, "protect", 0)]
+    assert wasted[move_action(battle, 0, "eruption", 0)]
+    assert not wasted[move_action(battle, 0, "protect", 0)]
+
+
+def test_trick_room_reverses_it():
+    from training.tactical_teacher import doomed_facts
+
+    room = _torkoal(["|-fieldstart|move: Trick Room|[of] p1b: Farigiraf"])
+    assert doomed_facts(room, 0, LEGAL[:107])[0] == 0.0
+
+
+def test_no_lesson_after_a_protect_or_without_one():
+    from training.tactical_teacher import doomed_facts
+
+    battle = _torkoal()
+    battle.active_pokemon[0]._protect_counter = 1  # it Protected last turn
+    assert doomed_facts(battle, 0, LEGAL[:107])[0] == 0.0
+    weak_farigiraf = position(
+        [
+            "|switch|p1a: Torkoal|Torkoal, L50, M|177/177",
+            "|switch|p1b: Farigiraf|Farigiraf, L50, F|20/227",
+            "|switch|p2a: Garchomp|Garchomp, L50, M|100/100",
+            "|switch|p2b: Kingambit|Kingambit, L50, M|100/100",
+        ]
+    )
+    chance, protect, _ = doomed_facts(weak_farigiraf, 1, LEGAL[:107])
+    assert chance == 0.0 and not protect.any()  # Farigiraf has no Protect
+
+
+def test_grassy_glide_is_priority_unless_our_armor_tail_blocks_it():
+    from training.tactical_teacher import doomed_probability
+
+    lines = [
+        "|switch|p2a: Rillaboom|Rillaboom, L50, M|100/100",
+        "|switch|p2b: Kingambit|Kingambit, L50, M|100/100",
+        "|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge"
+        "|[of] p2a: Rillaboom",
+        "|-fieldstart|move: Trick Room|[of] p1b: Farigiraf",
+    ]
+    exposed = position(
+        [
+            "|switch|p1a: Blastoise|Blastoise, L50, M|40/186",
+            "|switch|p1b: Torkoal|Torkoal, L50, M|177/177",
+            *lines,
+        ]
+    )
+    shielded = position(
+        [
+            "|switch|p1a: Blastoise|Blastoise, L50, M|40/186",
+            "|switch|p1b: Farigiraf|Farigiraf, L50, F|227/227",
+            *lines,
+        ]
+    )
+    # under our own Trick Room only the priority Grassy Glide can move first
+    assert doomed_probability(exposed, 0) > 0.0
+    assert doomed_probability(shielded, 0) == 0.0
+
+
+def test_the_doomed_share_moves_from_wasted_moves_to_protect():
+    from training.tactical_teacher import doomed_target
+
+    q = np.array([0.0] * 7 + [0.6, 0.2, 0.1, 0.1] + [0.0] * 96)
+    protect = np.zeros(107, dtype=bool)
+    wasted = np.zeros(107, dtype=bool)
+    protect[10] = True
+    wasted[[7, 8]] = True
+    t = doomed_target(q, 0.5, protect, wasted)
+    assert t is not None
+    assert t[7] == pytest.approx(0.3) and t[8] == pytest.approx(0.1)
+    assert t[10] == pytest.approx(0.5)  # 0.1 + half of 0.8
+    assert t[9] == pytest.approx(0.1) and t.sum() == pytest.approx(1.0)
+    assert doomed_target(q, 0.0, protect, wasted) is None
+
+
+def test_the_fine_tune_applies_the_doomed_lesson_on_top_of_the_others():
+    from training.tactical_sft import build_targets
+
+    p = np.zeros((1, 107))
+    p[0, [7, 8, 10]] = [0.6, 0.3, 0.1]
+    useless = np.zeros((1, 2, 107), dtype=bool)
+    values = np.full((1, 2, 107), np.nan)
+    doomed = np.array([[0.5, 0.0]])
+    protect = np.zeros((1, 2, 107), dtype=bool)
+    wasted = np.zeros((1, 2, 107), dtype=bool)
+    protect[0, 0, 10] = True
+    wasted[0, 0, [7, 8]] = True
+    q0, q1, lesson = build_targets(p, p, useless, values, 0.1, doomed, protect, wasted)
+    assert lesson[0].tolist() == [True, False]  # slot 2 is not doomed
+    assert q0[0, 10] == pytest.approx(0.55) and q0[0, 7] == pytest.approx(0.3)
+    old = build_targets(p, p, useless, values, 0.1)  # data without doomed facts
+    assert not old[2].any()

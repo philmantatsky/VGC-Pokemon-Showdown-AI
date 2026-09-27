@@ -1,5 +1,37 @@
 # VGC Bot Project Status
 
+## Pre-registered: the doomed-Pokemon lesson (tactical fine-tune 2) (2026-September 27, 18:55)
+
+The user chose it ("2"): teach the brain not to waste a turn with a Pokemon that
+will be knocked out before it moves. In 165 T6-era ladder games one of our Pokemon
+chose an attack and fainted before acting 217 times (191 in losses; 187 with no
+Trick Room up; Torkoal 53, Farigiraf 51, Blastoise 51, Incineroar 28, Charizard 22,
+Venusaur 12); the brain had ranked Protect among its top pairs in only 50.
+- **Teacher** (`training/tactical_teacher.py`: `doomed_probability`,
+  `doomed_facts`, `doomed_target`): the chance our Pokemon is knocked out before it
+  moves -- a foe that certainly acts first (speed bounds over every Champions build
+  of its species, Trick Room / Tailwind / paralysis / weather-speed abilities, or a
+  priority move -- Grassy Glide in Grassy Terrain included -- that our Armor Tail
+  does not block) has a likely damaging move that knocks it out from its current HP
+  (damage-roll share x accuracy x the foe attacking, 0.8 x the move aimed at us, 1.0
+  spread / 0.6 single-target). When the Pokemon has a legal Protect it did not use
+  last turn and the chance is >= 0.25, that share of its wasted moves' mass moves
+  onto Protect (on top of the existing move and damage lessons). Switching out is
+  not taught (whether the incoming Pokemon survives is far less certain), so the
+  lesson reaches Torkoal, Charizard and Venusaur (87 of the 217 events).
+- **Run:** positions from the deployed T6tac on train-split rosters
+  (`training/gen_tactical_data.py --games-per-cell 400 --output
+  results_tactical2/data`, 3,200 games), fine-tune from
+  `results_deployed/champion_mc_T6tac.zip` (never modified) exactly as T6tac was
+  made (lr 1e-4, 4 epochs, tau 0.1); the pick = the epoch with the lowest validation
+  cross-entropy.
+- **Readings:** (1) mirror, the pick vs the deployed T6tac setup, 2,000 games: wins
+  close games if the Wilson lower bound > 50%, loses if the upper bound < 50%. (2)
+  battery vs `results_brain_ab_tactical1_e4`: better if the pooled lower bound > 0;
+  deploy-eligible if the pooled upper bound >= 0 and no population below -3pp. (3)
+  Diagnostic: the validation `doomed_wasted_mass` before vs after (the lesson was
+  learned). Promotion and ladder: the user's word only.
+
 ## No-script test: the practised brain's own opening is WORSE -> no ladder; the turn-1 script helps it (2026-September 27, 18:05)
 
 The practised brain + Water Room WITHOUT `playbook_opening` (it plays its practised

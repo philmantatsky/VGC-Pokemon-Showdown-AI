@@ -26,7 +26,20 @@ target: useless actions lose their mass (spread over the rest in proportion),
 and the mass the policy puts on plain attacks is re-spread over them by value
 (softmax with temperature ``tau``). Attack vs Protect vs switch vs support and
 Mega timing keep the policy's own proportions: the teacher only says WHICH
-attack, never WHETHER to attack.
+attack, never WHETHER to attack -- with one exception (2026-09-27, the user
+chose it: "2"):
+
+* ``doomed_facts``: the chance our Pokemon is knocked out BEFORE it moves this
+  turn -- a foe that certainly acts first (speed bounds with Trick Room /
+  Tailwind / paralysis / weather abilities, or a priority move our side does not
+  block) has a likely damaging move that knocks it out from its current HP.
+  A move it would lose that way is wasted; when the Pokemon has a legal Protect
+  it did not use last turn, ``doomed_target`` moves that share of the mass its
+  wasted moves carry onto Protect (playbook rule 6: "when Trick Room is down and
+  a slow Pokemon will be knocked out before it moves, Protect ... instead of
+  clicking an attack"). In 165 T6-era ladder games one of our Pokemon attacked
+  and was knocked out first 217 times, 191 of them in losses. Switching out is
+  not taught: whether the Pokemon coming in survives is far less certain.
 """
 
 from __future__ import annotations
@@ -46,6 +59,7 @@ from poke_env.battle import (
     MoveCategory,
     PokemonType,
     Status,
+    Target,
     Weather,
 )
 
@@ -204,6 +218,166 @@ def position_facts(
     for action, value in attack_values(battle, pos, mask_row, partner_action).items():
         values[action] = value
     return flags, values
+
+
+USE_SHARE = 0.8  # a foe attacks most turns (it may also Protect, set up or switch)
+TARGET_SHARE = 0.6  # a foe that can knock our Pokemon out usually aims at it
+DOOMED_MIN = 0.25  # below this the doomed lesson stays silent
+SPREAD_TARGETS = (Target.ALL_ADJACENT_FOES, Target.ALL_ADJACENT)
+WEATHER_SPEED = {
+    "chlorophyll": (Weather.SUNNYDAY, Weather.DESOLATELAND),
+    "swiftswim": (Weather.RAINDANCE, Weather.PRIMORDIALSEA),
+    "sandrush": (Weather.SANDSTORM,),
+    "slushrush": (Weather.SNOWSCAPE, Weather.HAIL),
+}
+
+
+def _speed_bounds(battle: DoubleBattle, mon, ours: bool) -> tuple[float, float] | None:
+    """(slowest, fastest) effective Speed. Ours is known; a foe's spans every
+    Champions build of its species (0-32 points, -/+ Speed nature)."""
+    if ours:
+        base = (mon.stats or {}).get("spe")
+        if not base:
+            return None
+        lo = hi = float(base)
+    else:
+        stats = getattr(mon, "base_stats", None) or {}
+        if not stats.get("spe"):
+            return None
+        lo = (stats["spe"] + 20) * 0.9
+        hi = (stats["spe"] + 32 + 20) * 1.1
+    mult = G._BOOST_MULT.get(mon.boosts.get("spe", 0), 1.0)
+    conds = battle.side_conditions if ours else battle.opponent_side_conditions
+    if G.SideCondition.TAILWIND in conds:
+        mult *= 2
+    if mon.status == Status.PAR:
+        mult *= 0.5
+    weather = set(getattr(battle, "weather", {}) or {})
+    if weather & set(WEATHER_SPEED.get(G._norm(mon.ability), ())):
+        mult *= 2
+    return lo * mult, hi * mult
+
+
+def _acts_first(battle: DoubleBattle, me, foe) -> bool:
+    """True only when the foe CERTAINLY outspeeds us this turn (Trick Room read)."""
+    mine = _speed_bounds(battle, me, ours=True)
+    theirs = _speed_bounds(battle, foe, ours=False)
+    if mine is None or theirs is None:
+        return False
+    if Field.TRICK_ROOM in getattr(battle, "fields", {}):
+        return theirs[1] < mine[0]
+    return theirs[0] > mine[1]
+
+
+def _priority(battle: DoubleBattle, mon, move: Move) -> int:
+    priority = G._effective_priority(mon, move)
+    if move.id == "grassyglide" and Field.GRASSY_TERRAIN in getattr(
+        battle, "fields", {}
+    ):
+        priority += 1
+    return priority
+
+
+def _ko_chance(fraction: tuple[float, float], hp: float) -> float:
+    """Share of the damage roll range that knocks out ``hp`` (max-HP fractions)."""
+    lo, hi = fraction
+    if lo >= hp:
+        return 1.0
+    if hi < hp or hi <= lo:
+        return 0.0
+    return (hi - hp) / (hi - lo)
+
+
+def doomed_probability(battle: DoubleBattle, pos: int) -> float:
+    """Chance our Pokemon in ``pos`` is knocked out before it moves this turn.
+
+    Each foe contributes its best likely damaging move (revealed, else the
+    species' most-used set) that acts first: a priority move our side does not
+    block, or any move when the foe certainly outspeeds us. The foe attacks with
+    USE_SHARE; a spread move then hits us for sure, a single-target move is aimed
+    at us with TARGET_SHARE; accuracy counts, critical hits do not. Unknowns
+    contribute nothing.
+    """
+    from vgc_bench.src.playbook_opening import _likely_moves
+
+    me = battle.active_pokemon[pos]
+    if me is None or me.fainted:
+        return 0.0
+    hp = float(me.current_hp_fraction or 0.0)
+    if hp <= 0.0:
+        return 0.0
+    survive = 1.0
+    for foe in battle.opponent_active_pokemon:
+        if foe is None or foe.fainted:
+            continue
+        K.ensure_stats(foe)
+        best = 0.0
+        for move in _likely_moves(battle, foe):
+            if move.category == MoveCategory.STATUS or float(move.base_power or 0) <= 0:
+                continue
+            priority = _priority(battle, foe, move)
+            if priority > 0:
+                if G._priority_is_blocked(battle, foe, me, priority):
+                    continue
+            elif priority < 0 or not _acts_first(battle, me, foe):
+                continue
+            fraction = K.damage_fraction(battle, foe, me, move)
+            if fraction is None:
+                continue
+            accuracy = move.accuracy if isinstance(move.accuracy, float) else 1.0
+            aimed = USE_SHARE * (1.0 if move.target in SPREAD_TARGETS else TARGET_SHARE)
+            best = max(best, _ko_chance(fraction, hp) * min(accuracy, 1.0) * aimed)
+        survive *= 1.0 - best
+    return 1.0 - survive
+
+
+def doomed_facts(
+    battle: DoubleBattle, pos: int, mask_row: np.ndarray
+) -> tuple[float, np.ndarray, np.ndarray]:
+    """(doomed chance, Protect actions, wasted actions) over act_len for ``pos``.
+
+    Silent (0.0) unless the Pokemon has a legal Protect it did not use last turn
+    and the chance reaches DOOMED_MIN. Wasted = its legal moves other than
+    Protect that do not act before the foes (priority <= 0).
+    """
+    protect = np.zeros(act_len, dtype=bool)
+    wasted = np.zeros(act_len, dtype=bool)
+    me = battle.active_pokemon[pos]
+    if me is None or me.fainted or int(getattr(me, "protect_counter", 0) or 0) > 0:
+        return 0.0, protect, wasted
+    for action in MOVE_BANDS:
+        if not mask_row[action]:
+            continue
+        order = G._decode(battle, action, pos)
+        move = getattr(order, "order", None)
+        if not isinstance(move, Move):
+            continue
+        if move.id in G.PROTECT_MOVES:
+            protect[action] = True
+        elif _priority(battle, me, move) <= 0:
+            wasted[action] = True
+    if not protect.any() or not wasted.any():
+        return 0.0, protect, wasted
+    chance = doomed_probability(battle, pos)
+    return (chance if chance >= DOOMED_MIN else 0.0), protect, wasted
+
+
+def doomed_target(
+    q: np.ndarray, doomed: float, protect: np.ndarray, wasted: np.ndarray
+) -> np.ndarray | None:
+    """Move the ``doomed`` share of the wasted moves' mass onto Protect (in
+    Protect's own proportions, evenly if it has none). None: nothing to move."""
+    if doomed <= 0.0 or not protect.any():
+        return None
+    q = np.asarray(q, dtype=np.float64).copy()
+    moved = doomed * q[wasted].sum()
+    if moved <= 0.0:
+        return None
+    q[wasted] *= 1.0 - doomed
+    base = q[protect]
+    share = base / base.sum() if base.sum() > 0 else np.full(len(base), 1 / len(base))
+    q[protect] = base + moved * share
+    return q / q.sum()
 
 
 def target_distribution(
