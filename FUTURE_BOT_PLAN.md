@@ -73,7 +73,12 @@
   tactical official then more ladder"): `results_deployed/champion_mc_T6tac.zip`
   (sha 05e82218) + `sticky_guard_corrections: true`; replay_tag T6tac; T6ctx is now
   an immutable prior champion.
-- [ ] Ladder read of T6tac (15 games, the user's word).
+- [x] Ladder read of T6tac (15 games, the user's word): 7-8, 1140 -> ~1105; guards
+  corrected its own pick 35% (T6ctx 45%); sticky fired 0 times (all closed-sheet
+  games).
+- [ ] Guard fix: `resisted_target` must not retarget Fake Out (the flinch is the
+  point; ladder 2026-09-26 T6tac game 8, and two earlier reviews) -- after the
+  training run (it hashes guards.py).
 - [ ] Rain/sand curriculum cycle (`training/run_t6_weather_trial.py`) from
   `tactical_e4` (= T6tac), re-fit, mirror both vs T6tac, battery the better against
   `results_brain_ab_tactical1_e4` (pre-registered; stopped at 10% for the ladder,

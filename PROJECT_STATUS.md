@@ -1,5 +1,28 @@
 # VGC Bot Project Status
 
+## T6tac ladder read: 7-8 (T6ctx 6-9); the guards corrected its own pick 35% of the time vs 45%; rain/sand cycle restarted (2026-September 26, 21:50)
+
+`ladder_replays_mc_deployed_T6tac` (T6tac, 8 guards, learned preview, sticky
+corrections on): **7-8** (L L W W L W L L L W L W L W W), rating 1140 -> ~1080
+low -> ~1105; no guard or parse errors. Every game of this read and of T6ctx's
+was a closed-sheet game (the opponent did not accept open team sheets in time).
+- **The fine-tune's target moved on ladder too:** the guards changed the brain's
+  own pick in **34 of 98** move decisions (35%) vs 44 of 98 (45%) for T6ctx;
+  dominated_attack **8 vs 20**.
+- **Sticky corrections fired 0 times** (the reranker changed the pick twice in
+  121 decisions): in closed-sheet games the reranker has no switch evidence, so
+  the fix -- worth 57.7% in open-sheet mirror games -- rarely has anything to do.
+- Mistakes seen (hand review): attacks into the Trick Room last-turn double
+  Protect again (games 2, 9; blocked 2.1 per win, 1.9 per loss), where a switch
+  to Chlorophyll Venusaur for the post-TR turn was the better line (game 2);
+  Water Spout + Eruption both at ~20% HP (game 1 turn 5); `resisted_target`
+  retargeting a Fake Out away from Tyranitar (game 8 turn 1 -- the flinch is the
+  point; a guard fix, after the training run); losses again to sand/rain/
+  Archaludon/Kingambit teams (games 5, 7, 8, 9).
+7-8 vs 6-9 is within noise; the 2,000-game mirror (58.0%) remains the strong
+evidence. The rain/sand cycle restarted at 21:45 from `tactical_e4` (= T6tac),
+its comparisons against T6tac as amended.
+
 ## PROMOTED by the user: T6tac (tactical fine-tune) + sticky guard corrections ON; rain/sand cycle paused for the ladder (2026-September 26, 21:00)
 
 The user: "turn on the sticky fix and make tactical official then more ladder".
