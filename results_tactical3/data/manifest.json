@@ -1,0 +1,41 @@
+{
+  "purpose": "positions for the tactical teacher (training/tactical_teacher.py)",
+  "checkpoint": "results_deployed/champion_mc_T6tac.zip",
+  "checkpoint_sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+  "team": "teams/candidates_mc/T6.txt",
+  "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "guards": [
+    "resisted_target",
+    "overkill_split",
+    "dominated_weather_ball_weather",
+    "dominated_attack",
+    "dominated_throat_chop",
+    "dominated_spread",
+    "focus_boosted",
+    "wide_guard"
+  ],
+  "opponents": {
+    "clone_0920": "results_bc/mc_A_20260920/saves_bc/seed1/2.zip",
+    "clone_0913": "results_bc/mc_A_20260913/saves_bc/seed1/3.zip",
+    "t6hp": "results_deployed/champion_mc_T6hp.zip",
+    "self": "results_deployed/champion_mc_T6tac.zip"
+  },
+  "rosters": "teams/reg_mc MC*.txt, train split only",
+  "roster_count": 2823,
+  "games_per_cell": 400,
+  "cells": [
+    "clone_0920_open",
+    "clone_0920_hidden",
+    "clone_0913_open",
+    "clone_0913_hidden",
+    "t6hp_open",
+    "t6hp_hidden",
+    "self_open",
+    "self_hidden"
+  ],
+  "seed": 20926,
+  "chunk_obs_len": 1023,
+  "teacher_sha256": "6d507b451d79a3e49713316cf9fe1e4d2fc55e5d98adb6367e9d98f27ebd04fc",
+  "guards_sha256": "168bd2863c1affdee097364bfe3875a0b28ad95a2f5d6e6ee16ea6da8b32a40f"
+}

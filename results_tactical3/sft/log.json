@@ -1,0 +1,91 @@
+{
+  "start_checkpoint": "results_deployed/champion_mc_T6tac.zip",
+  "start_sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+  "data": "results_tactical3/data",
+  "rows": 17692,
+  "train_rows": 15777,
+  "val_rows": 1915,
+  "lesson_rows_pos0": 16873,
+  "lesson_rows_pos1": 15016,
+  "doomed_rows": 672,
+  "args": {
+    "checkpoint": "results_deployed/champion_mc_T6tac.zip",
+    "data": "results_tactical3/data",
+    "output": "results_tactical3/sft",
+    "tau": "0.1",
+    "lr": "0.0001",
+    "epochs": "4",
+    "batch": "256",
+    "seed": "20926",
+    "device": "mps"
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 1.985447432224595,
+      "cross_entropy": 1.9862570819904537,
+      "teacher_agreement": 0.785988767366243,
+      "lesson_rows": 3383,
+      "useless_mass": 0.05803284691584429,
+      "drift_kl_no_lesson": 0.01715299533385568,
+      "doomed_wasted_mass": 0.6143017149551989,
+      "doomed_rows": 83.0,
+      "pair_drain_mass": 0.14802703937886166,
+      "pair_rows": 9.0,
+      "minutes": 0.1
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.9225930481452094,
+      "cross_entropy": 1.9599854153067886,
+      "teacher_agreement": 0.7960390186225244,
+      "lesson_rows": 3383,
+      "useless_mass": 0.05912406067167154,
+      "drift_kl_no_lesson": 0.011976642366792075,
+      "doomed_wasted_mass": 0.6578835085702506,
+      "doomed_rows": 83.0,
+      "pair_drain_mass": 0.13031300906278254,
+      "pair_rows": 9.0,
+      "minutes": 0.0
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.8890129289163446,
+      "cross_entropy": 1.953350846014197,
+      "teacher_agreement": 0.7916050842447532,
+      "lesson_rows": 3383,
+      "useless_mass": 0.05573428794213833,
+      "drift_kl_no_lesson": 0.01821708642439598,
+      "doomed_wasted_mass": 0.6114669708043787,
+      "doomed_rows": 83.0,
+      "pair_drain_mass": 0.11171154523623904,
+      "pair_rows": 9.0,
+      "minutes": 0.0
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.8627692446884279,
+      "cross_entropy": 1.9359595555238251,
+      "teacher_agreement": 0.8001773573751109,
+      "lesson_rows": 3383,
+      "useless_mass": 0.05569811982560776,
+      "drift_kl_no_lesson": 0.01323201715703982,
+      "doomed_wasted_mass": 0.5936064592634732,
+      "doomed_rows": 83.0,
+      "pair_drain_mass": 0.12078708492088058,
+      "pair_rows": 9.0,
+      "minutes": 0.0
+    }
+  ],
+  "val_before": {
+    "cross_entropy": 2.06033141930483,
+    "teacher_agreement": 0.759089565474431,
+    "lesson_rows": 3383,
+    "useless_mass": 0.09524195944822132,
+    "drift_kl_no_lesson": 3.1799738743086223e-09,
+    "doomed_wasted_mass": 0.8048838708865954,
+    "doomed_rows": 83.0,
+    "pair_drain_mass": 0.12212116013178094,
+    "pair_rows": 9.0
+  }
+}

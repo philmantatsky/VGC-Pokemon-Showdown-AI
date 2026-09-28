@@ -1,0 +1,82 @@
+[
+  {
+    "cell": "clone_0920_open",
+    "games": 400,
+    "wins": 351,
+    "decisions": 2530,
+    "teacher_errors": 0,
+    "guard_errors": {
+      "priority_block_error": 1
+    },
+    "minutes": 3.2
+  },
+  {
+    "cell": "clone_0920_hidden",
+    "games": 400,
+    "wins": 368,
+    "decisions": 2514,
+    "teacher_errors": 0,
+    "guard_errors": {},
+    "minutes": 3.1
+  },
+  {
+    "cell": "clone_0913_open",
+    "games": 400,
+    "wins": 360,
+    "decisions": 2237,
+    "teacher_errors": 0,
+    "guard_errors": {},
+    "minutes": 2.9
+  },
+  {
+    "cell": "clone_0913_hidden",
+    "games": 400,
+    "wins": 372,
+    "decisions": 2396,
+    "teacher_errors": 0,
+    "guard_errors": {},
+    "minutes": 3.0
+  },
+  {
+    "cell": "t6hp_open",
+    "games": 400,
+    "wins": 363,
+    "decisions": 1996,
+    "teacher_errors": 0,
+    "guard_errors": {
+      "priority_block_error": 1
+    },
+    "minutes": 2.6
+  },
+  {
+    "cell": "t6hp_hidden",
+    "games": 400,
+    "wins": 363,
+    "decisions": 2066,
+    "teacher_errors": 0,
+    "guard_errors": {},
+    "minutes": 2.6
+  },
+  {
+    "cell": "self_open",
+    "games": 400,
+    "wins": 362,
+    "decisions": 1974,
+    "teacher_errors": 0,
+    "guard_errors": {
+      "priority_block_error": 2
+    },
+    "minutes": 2.6
+  },
+  {
+    "cell": "self_hidden",
+    "games": 400,
+    "wins": 358,
+    "decisions": 1979,
+    "teacher_errors": 0,
+    "guard_errors": {
+      "priority_block_error": 2
+    },
+    "minutes": 2.5
+  }
+]

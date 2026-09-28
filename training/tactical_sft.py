@@ -239,6 +239,14 @@ def main() -> None:
     ap.add_argument("--batch", type=int, default=256)
     ap.add_argument("--seed", type=int, default=20926)
     ap.add_argument("--device", default="mps")
+    ap.add_argument(
+        "--lessons",
+        choices=("all", "base"),
+        default="all",
+        help="base: only the useless-action and attack-value lessons, even when the "
+        "data also carries the doomed / Fake Out pairing facts (2026-09-28: both "
+        "brains taught the doomed lesson lost their mirror)",
+    )
     args = ap.parse_args()
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
@@ -259,17 +267,18 @@ def main() -> None:
     p0, p1 = policy_probs(
         frozen, data["obs"], data["mask"], data["played"][:, 0], device
     )
+    extra = args.lessons == "all"
     q0, q1, lesson = build_targets(
         p0,
         p1,
         data["useless"],
         data["values"],
         args.tau,
-        data.get("doomed"),
-        data.get("protect"),
-        data.get("wasted"),
-        data.get("drain"),
-        data.get("receive"),
+        data.get("doomed") if extra else None,
+        data.get("protect") if extra else None,
+        data.get("wasted") if extra else None,
+        data.get("drain") if extra else None,
+        data.get("receive") if extra else None,
     )
 
     critic = (

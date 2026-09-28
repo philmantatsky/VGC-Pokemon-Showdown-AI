@@ -1,5 +1,24 @@
 # VGC Bot Project Status
 
+## Tactical fine-tune 3 loses its mirror (41.2%) -> no ladder; tactical fine-tune 4 (base lessons only) pre-registered (2026-September 28, 04:00)
+
+- **Tactical 3** (`results_tactical3/sft/tactical_e4.zip`; 3,200 games from T6tac,
+  no teacher errors): validation wasted-move mass in doomed spots 0.805 -> 0.594,
+  useless mass 0.095 -> 0.056, agreement 0.76 -> 0.80; the Fake Out pairing lesson
+  had 9 validation rows and did not move (0.12 -> 0.12). **Mirror 41.2% [39.1,
+  43.4] -> loses** (open 37.3, hidden 45.3); **battery +0.34 [-0.60, +1.31]**
+  (deploy-eligible, worst -1.7). L2 held by its pre-registered rule.
+- Both brains taught the doomed lesson lost or failed to win their mirror (tactical
+  2: 48.25%, tactical 3: 41.2%) while the fine-tune without it (T6tac itself: 58.0%
+  vs T6ctx) won; the doomed lesson is the prime suspect.
+- **Pre-registered now: tactical fine-tune 4** = the same data
+  (`results_tactical3/data`) and recipe from T6tac, but only the base lessons
+  (`training/tactical_sft.py --lessons base`: useless actions, attack values with the
+  self-drop cost) -> the pick by validation CE -> mirror vs T6tac (2,000) -> battery
+  vs `results_brain_ab_tactical1_e4`. **L3** (the L2 rule): a 20-game ladder read
+  with the review guards (their local test passed) only if the mirror WINS close
+  games (lower > 50%) and the battery is deploy-eligible.
+
 ## L1 ladder read (T6tac + the review guards): 11-9, played out 7-9 (2026-September 28, 02:20)
 
 `ladder_replays_mc_T6tac_review_guards` (20 serial games, 01:22-02:13): **11-9
