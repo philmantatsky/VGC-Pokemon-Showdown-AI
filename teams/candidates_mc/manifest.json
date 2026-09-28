@@ -47,5 +47,15 @@
    "gen9championsvgc2026regmc-2682817857",
    "gen9championsvgc2026regmb-2661181949"
   ]
+ },
+ "T6m": {
+  "source": "teams/candidates_mc/T6.txt with Torkoal Earth Power for Heat Wave and Charizard Weather Ball for Solar Beam (TEAM_REVIEW_T6.md section 4b, the two meta tweaks our ladder logs support), 2026-09-28",
+  "exact": false,
+  "note": "set variant of T6 for the clone team tournament; passes the gen9championsvgc2026regmc validator"
+ },
+ "T6mAS": {
+  "source": "teams/candidates_mc/T6m.txt with Blastoise Aura Sphere for Water Pulse (results_analysis/blastoise_set_20260928/, the Blastoise audit), 2026-09-28",
+  "exact": false,
+  "note": "set variant of T6 for the clone team tournament; passes the gen9championsvgc2026regmc validator"
  }
 }

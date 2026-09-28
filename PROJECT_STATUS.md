@@ -1,5 +1,36 @@
 # VGC Bot Project Status
 
+## T6 set-variant clone tournament pre-registered: T6 / T6m / T6m + Aura Sphere, full pool and sand pool (2026-September 28, 11:05)
+
+The user: "yes start the tournament with all three teams". Local only: no ladder,
+nothing promoted, DEPLOYED.json untouched.
+- **Teams:** `teams/candidates_mc/T6.txt` (as deployed), `T6m.txt` (Torkoal Earth
+  Power for Heat Wave, Charizard Weather Ball for Solar Beam: TEAM_REVIEW_T6.md 4b),
+  `T6mAS.txt` (T6m + Blastoise Aura Sphere for Water Pulse: the 10:40 Blastoise
+  audit). All three pass the simulator's validator (an illegal control fails).
+- **Pilot:** the human clone `results_bc/mc_A_20260920/saves_bc/seed1/2.zip` (its
+  BEST) plays our team and every opponent (stochastic); hidden sheets (ladder is
+  closed-sheet); seed 83, so every arm meets the same opponent-team sequence; 8
+  workers; `evaluation/run_team_tournament.sh` (new: `TEAM_WEIGHTS` swaps the pool).
+- **Run A, full pool:** `data/team_weights_regmc.json` (3,610 teams, ladder-usage
+  weights), **1,000 games per team** -> `results_team_tournament/clone_t6variants_20260928/`.
+- **Run B, sand pool:** `data/team_weights_regmc_sand.json`, the same weights with
+  every team lacking a sand setter at 0 (371 teams, all Tyranitar; 10.1% of the full
+  pool's weight), 1,000 games per team ->
+  `results_team_tournament/clone_t6variants_sand_20260928/`. Smoke (8 games, T6mAS,
+  sand pool): clean, Tyranitar brought in 6 of 8.
+- **Reading, fixed now:** per variant and pool, d = win rate - T6's, with a 95%
+  interval for a difference of two proportions (unpaired, conservative): better =
+  lower bound > 0; worse = upper bound < 0; else no detectable difference
+  (resolution about +/-4.4pp).
+- **Decision rule:** a variant qualifies for a practice cycle (the user's call) if it
+  is better on run A, or better on run B with run A's point estimate >= -2pp. Both
+  qualify -> the higher run-A point estimate (tie -> T6m, the smaller change).
+  Neither -> T6 stays and no practice cycle.
+- The clone is a human-like pilot, not our brain (09-15: the two rank teams
+  differently); a qualifying variant still needs a practice cycle, then the mirror
+  and battery vs T6tac, before any ladder.
+
 ## Blastoise's moves on ladder: Ice Beam earns its slot; Protect for Fake Out and Dark Pulse for Ice Beam not supported; Aura Sphere for Water Pulse is the swap our games favour (2026-September 28, 10:40)
 
 The user: "how often do we use ice beam on blastoise ... and how often does it
