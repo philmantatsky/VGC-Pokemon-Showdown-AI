@@ -1,6 +1,6 @@
 # VGC Bot Project Status
 
-## T6 set-variant clone tournament pre-registered: T6 / T6m / T6m + Aura Sphere, full pool and sand pool (2026-September 28, 11:05)
+## T6 set-variant clone tournament pre-registered: T6 / T6m / T6m + Aura Sphere, full pool and sand pool; paused (2026-September 28, 11:02)
 
 The user: "yes start the tournament with all three teams". Local only: no ladder,
 nothing promoted, DEPLOYED.json untouched.
@@ -30,6 +30,12 @@ nothing promoted, DEPLOYED.json untouched.
 - The clone is a human-like pilot, not our brain (09-15: the two rank teams
   differently); a qualifying variant still needs a practice cycle, then the mirror
   and battery vs T6tac, before any ladder.
+- **Paused at the user's word (11:10, "pause it for now ill do it later")** during
+  the first arm (T6, full pool; committed a4d098c at 11:02:39, run started 11:02:49).
+  No arm finished, so nothing was read; the partial logs are in
+  `results_team_tournament/clone_t6variants_20260928/paused_1110/`. Resume, unchanged:
+  `./evaluation/run_t6variants_20260928.sh` (runs both pools under caffeinate, skips
+  finished arms, then prints the pre-registered reading), about 75 minutes.
 
 ## Blastoise's moves on ladder: Ice Beam earns its slot; Protect for Fake Out and Dark Pulse for Ice Beam not supported; Aura Sphere for Water Pulse is the swap our games favour (2026-September 28, 10:40)
 
