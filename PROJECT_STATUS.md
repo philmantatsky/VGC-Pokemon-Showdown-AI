@@ -1,5 +1,16 @@
 # VGC Bot Project Status
 
+## Ladder read of the doomed-lesson brain (the user's word, 2026-September 27, 20:05)
+
+The user: "yes run 15 ladder games with it". 15 serial games with exactly the
+tested configuration: brain `results_tactical2/sft/tactical_e4.zip` (sha in its
+sidecar, now with `requires_knowledge_obs: true`), the deployed team / preview model /
+8 guards / sticky corrections, no playbook -- via `tools/ladder_trial.sh`
+(TRIAL_CHECKPOINT) into `ladder_replays_mc_tactical2_e4`; DEPLOYED.json untouched. A
+read, not proof (15-game reads of near-identical configurations have ranged 6-9 to
+11-4); reported with the forfeit-adjusted record and how often a Pokemon about to be
+knocked out Protected.
+
 ## Doomed-Pokemon lesson: learned, no clear change locally (deploy-eligible); the mirror splits by sheet mode (2026-September 27, 19:55)
 
 (The 18:55 pre-registration was written and committed before the run started at
