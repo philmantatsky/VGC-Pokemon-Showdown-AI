@@ -6,6 +6,6 @@
   "epoch": 4,
   "tau": 0.1,
   "lr": 0.0001,
-  "sha256": "287ca0f7a3fc7b00a22e7b11a3c1dfbdfb130844a332d3c7c95593558e6d2b3c",
+  "sha256": "f5b7c5cd86631992dc8c341497fe6f0bb21312f5e66ca9f260e72655c071bac7",
   "requires_knowledge_obs": true
 }

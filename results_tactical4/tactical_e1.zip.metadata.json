@@ -3,9 +3,8 @@
   "method": "tactical fine-tune (training/tactical_sft.py)",
   "start_checkpoint": "results_deployed/champion_mc_T6tac.zip",
   "start_sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
-  "epoch": 4,
+  "epoch": 1,
   "tau": 0.1,
   "lr": 0.0001,
-  "sha256": "287ca0f7a3fc7b00a22e7b11a3c1dfbdfb130844a332d3c7c95593558e6d2b3c",
-  "requires_knowledge_obs": true
+  "sha256": "323254b48dd82dd98a5cf5199bb8c9e0e18271aff9d030df13709f6c5a08be4f"
 }

@@ -1,5 +1,24 @@
 # VGC Bot Project Status
 
+## Tactical fine-tune 4 (base lessons only) also fails its mirror -> no ladder; the L1 read continues to 40 games (2026-September 28, 05:10)
+
+- **Tactical 4** (`results_tactical4/tactical_e4.zip`, `--lessons base` on
+  `results_tactical3/data`): useless mass 0.095 -> 0.055, agreement 0.76 -> 0.80.
+  **Mirror 47.4% [45.2, 49.6] -> loses close games** (open 52.2, hidden 42.6);
+  **battery +0.61 [-0.55, +1.81]** (deploy-eligible, worst -1.0). L3 held.
+- So the doomed lesson is not the (only) reason: a second tactical round on T6tac's
+  own games (tactical 2 / 3 / 4: mirrors 48.25 / 41.2 / 47.4%, batteries +0.35 /
+  +0.34 / +0.61) does not beat T6tac head-to-head, while the first round (T6tac vs
+  T6ctx: 58.0%) did. The mirrors' hidden-sheet halves are the weak side (40.7 / 45.3
+  / 42.6%). Lesson: the first tactical round took the easy gain; more of the same
+  lessons from the brain's own play adds little and costs the mirror.
+- **Pre-registered now (L1b):** the only configuration that passed its local test
+  tonight -- T6tac + the three review guards -- continues its ladder read from 20 to
+  40 games in the same directory (`tools/ladder_trial.sh 40
+  ladder_replays_mc_T6tac_review_guards`), to give the morning decision (adding the
+  three guards to the deployed configuration) more than 20 games. The stop rule
+  applies to the whole read (<= 25% wins ends it).
+
 ## Tactical fine-tune 3 loses its mirror (41.2%) -> no ladder; tactical fine-tune 4 (base lessons only) pre-registered (2026-September 28, 04:00)
 
 - **Tactical 3** (`results_tactical3/sft/tactical_e4.zip`; 3,200 games from T6tac,
