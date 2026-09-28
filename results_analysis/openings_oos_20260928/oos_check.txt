@@ -1,0 +1,102 @@
+{'research': 134, 'day0927': 29, 'night0928': 54}
+new games, all: 45-38 (54% [44,65])   excluding free wins: 41-38 (52% [41,63])
+
+== opponent forfeits / inactivity: when they quit (all T6-era + new)
+   {'ahead': 49, 'by turn 1 (free win)': 4, 'even': 8}
+  per read (parsed games -> excluding free wins; a quit at team preview has
+  no leads, so the parser drops it: 3 more free wins, 7 in all)
+      T6tac_review_guards                      23-17 (58% [42,71])      -> 20-17 (54% [38,69])
+      deployed_T6                              21-29 (42% [29,56])      -> 21-29 (42% [29,56])
+      deployed_T6_humanpreview1                2-1 (67% [21,94])        -> 2-1 (67% [21,94])
+      deployed_T6_humanpreview1_attackcheck    10-11 (48% [28,68])      -> 10-11 (48% [28,68])
+      deployed_T6_humanpreview1_throatchop     8-7 (53% [30,75])        -> 8-7 (53% [30,75])
+      deployed_T6_humanpreview1_wideguard      8-7 (53% [30,75])        -> 8-7 (53% [30,75])
+      deployed_T6ctx                           6-9 (40% [20,64])        -> 6-9 (40% [20,64])
+      deployed_T6tac                           7-8 (47% [25,70])        -> 7-8 (47% [25,70])
+      deployed_T6tac_playbook_t6               10-4 (71% [45,88])       -> 10-4 (71% [45,88])
+      practice1_water_t6                       6-9 (40% [20,64])        -> 5-9 (36% [16,61])
+      tactical2_e4                             6-8 (43% [21,67])        -> 6-8 (43% [21,67])
+
+== the research's holes (excluding free wins): research 134 / new / both
+  Psychic Terrain roster 21-23 (48% [34,62])      13-12 (52% [33,70])      34-35 (49% [38,61])
+  Indeedee led           5-11 (31% [14,56])       9-8 (53% [31,74])        14-19 (42% [27,59])
+  sand setter roster     6-16 (27% [13,48])       2-5 (29% [8,64])         8-21 (28% [15,46])
+  Tyranitar led          1-9 (10% [2,40])         0-3 (0% [0,56])          1-12 (8% [1,33])
+  rain setter roster     8-14 (36% [20,57])       7-10 (41% [22,64])       15-24 (38% [25,54])
+  rain + Archaludon      3-9 (25% [9,53])         7-7 (50% [27,73])        10-16 (38% [22,57])
+  Wide Guard roster      12-25 (32% [20,49])      5-9 (36% [16,61])        17-34 (33% [22,47])
+  Volcarona roster       1-10 (9% [2,38])         6-3 (67% [35,88])        7-13 (35% [18,57])
+  Sinistcha roster       3-9 (25% [9,53])         2-3 (40% [12,77])        5-12 (29% [13,53])
+  redirector roster      26-31 (46% [33,58])      19-15 (56% [39,71])      45-46 (49% [39,60])
+  Tailwind roster        33-46 (42% [32,53])      22-19 (54% [39,68])      55-65 (46% [37,55])
+  TR setter roster       35-38 (48% [37,59])      22-22 (50% [36,64])      57-60 (49% [40,58])
+  none of PT/sand/rain   34-31 (52% [40,64])      19-15 (56% [39,71])      53-46 (54% [44,63])
+
+== Water Room lead by opponent archetype: research / new
+  trick_room       12-4 (75% [51,90])       8-10 (44% [25,66])
+  tailwind         8-3 (73% [43,90])        6-4 (60% [31,83])
+  rain             2-4 (33% [10,70])        5-3 (62% [31,86])
+  sand             5-5 (50% [24,76])        1-4 (20% [4,62])
+  psychic_terrain  4-8 (33% [14,61])        4-3 (57% [25,84])
+  sun              0-1 (0% [0,79])          5-2 (71% [36,92])
+  balance          2-4 (33% [10,70])        1-4 (20% [4,62])
+
+== our lead pair, by era
+  research
+      Blastoise + Farigiraf          35-30 (54% [42,65])
+      Farigiraf + Torkoal            21-29 (42% [29,56])
+      Farigiraf + Incineroar         5-5 (50% [24,76])
+      Charizard + Venusaur           1-6 (14% [3,51])
+      Torkoal + Venusaur             0-2 (0% [0,66])
+  day0927
+      Blastoise + Farigiraf          15-13 (54% [36,70])
+  night0928
+      Blastoise + Farigiraf          16-17 (48% [33,65])
+      Torkoal + Venusaur             4-4 (50% [22,78])
+      Farigiraf + Incineroar         5-1 (83% [44,97])
+      Charizard + Venusaur           1-3 (25% [5,70])
+
+== Water Room turns 1-2 (human-preview brains; correlational)
+  turn 1 (Blastoise, Farigiraf):
+       56  ('Fake Out', 'Trick Room')
+       39  ('Water Spout', 'Trick Room')
+       11  ('Ice Beam', 'Trick Room')
+        7  ('Water Spout', '<cant:move: Imprison>')
+        5  (None, 'Trick Room')
+        2  ('Water Spout', None)
+        1  (None, '<cant:flinch>')
+        1  ('Water Spout', '<cant:flinch>')
+  turn 2 by (our room up T1, Farigiraf Rain Dance, Blastoise Water Spout):
+      (True, True, True)     33-19 (63% [50,75])
+      (True, False, False)   10-15 (40% [23,59])
+      (True, True, False)    5-10 (33% [15,58])
+      (False, False, False)  5-8 (38% [18,64])
+      (True, False, True)    9-5 (64% [39,84])
+      (False, False, True)   3-2 (60% [23,88])
+      (False, True, True)    1-0 (100% [21,100])
+      (False, True, False)   0-1 (0% [0,79])
+
+== sand rosters: Rain Dance on turns 1-2? (human-preview brains)
+  yes 3-7 (30% [11,60])   no 4-6 (40% [17,69])
+
+== Wide Guard blocks of our moves (the wide_guard guard is deployed 09-26)
+  games 14: 1-13 (7% [1,31])
+  blocked: Counter({'Water Spout': 24, 'Eruption': 22, 'Heat Wave': 6})
+      T6tac_review_guards                      L blocked on turns [1]
+      deployed_T6                              L blocked on turns [3, 5]
+      deployed_T6                              L blocked on turns [5]
+      deployed_T6                              W blocked on turns [3, 5]
+      deployed_T6                              L blocked on turns [2, 7, 9]
+      deployed_T6                              L blocked on turns [3, 5]
+      deployed_T6_humanpreview1_throatchop     L blocked on turns [2, 3, 5]
+      deployed_T6_humanpreview1_throatchop     L blocked on turns [8]
+      deployed_T6_humanpreview1_throatchop     L blocked on turns [1]
+      deployed_T6_humanpreview1_wideguard      L blocked on turns [2]
+      deployed_T6ctx                           L blocked on turns [3]
+      deployed_T6tac                           L blocked on turns [2, 6]
+      practice1_water_t6                       L blocked on turns [2]
+      practice1_water_t6                       L blocked on turns [2]
+
+== the Baltimore runner-up team (research finding 9)
+  night0928  SC-SME               win=True free=False
+  research   yasura               win=True free=False

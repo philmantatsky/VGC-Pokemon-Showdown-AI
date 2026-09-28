@@ -1,5 +1,47 @@
 # VGC Bot Project Status
 
+## The openings research re-checked on the 83 ladder games played after it; correction: opponent forfeits are wins (2026-September 28, 10:05)
+
+The user: "take a look at openings research that i had another context make".
+Analysis only (`results_analysis/openings_oos_20260928/oos_check.py` / `.txt`, reusing
+the research's parser); nothing trained, nothing on the server, DEPLOYED.json untouched.
+- **Correction to my "played out" records (09-27/28):** excluding every opponent
+  forfeit threw away real wins. Of the 64 opponent forfeits / inactivity losses in the
+  220 T6-era ladder games, 49 came with us ahead on Pokemon, 8 even, and only 7 by
+  turn 1 (free wins, 3 of them at team preview). Counting all but free wins: T6tac +
+  Water Room **10-4** (reported "played out 4-4"), the practised brain + Water Room
+  5-9 (3-9), tactical fine-tune 2 6-8 (2-8), T6tac + the review guards **20-17**
+  (11-17), T6tac alone 7-8 (4-8). No decision rested on these (the night's holds were
+  mirror verdicts). From now on ladder records exclude only free wins.
+- **Out of sample (the research's 134 games -> the 83 after it):** sand replicates --
+  sand rosters 6-16 -> 2-5 (both 8-21), Tyranitar leads 1-9 -> 0-3 (**1-12**; 0-7 for
+  the human-preview brains); Wide Guard rosters 12-25 -> 5-9 (17-34); rain 8-14 ->
+  7-10 (15-24). Did not replicate: Indeedee / Psychic Terrain leads 5-11 -> 9-8, rain +
+  Archaludon 3-9 -> 7-7, Volcarona 1-10 -> 6-3, Water Room vs Trick Room 12-4 -> 8-10.
+  Rosters with none of Psychic Terrain / sand / rain: 53-46.
+- **Wide Guard:** 1-13 in the 14 games where it blocked us (52 blocked Water Spouts /
+  Eruptions / Heat Waves), but the repeats were before the `wide_guard` guard
+  (09-26); since then only the first, unrevealed Wide Guard lands (one turn per game,
+  5 of 7 Pelipper). The research's "Water Pulse / Ice Beam once shown" is deployed.
+- **The experts' turn 2 is already the brain's:** after its own turn-1 room it plays
+  Rain Dance + Water Spout on turn 2 in 52 of 103 Water Room games (33-19,
+  correlational); Imprison blanked our turn-1 Trick Room 7 times. Vs sand it Rain
+  Dances by turn 2 in 10 of 20 games (3-7; 4-6 without), and in 3 of the 4
+  human-preview Tyranitar-lead losses the research lists, our own Torkoal re-set sun
+  right after our Rain Dance (the research: back Incineroar + Venusaur vs sand).
+- **Mechanics:** Champions disables Fake Out after the first action
+  (`pokemon-showdown/data/mods/champions/moves.ts`), so Encore -> Struggle holds. "Mold
+  Breaker ignores Armor Tail" is not modelled: `guards._priority_is_blocked` and the
+  teacher's priority-block fact ignore the attacker's Mold Breaker (2 Mold Breaker
+  games in our 220; minor). The Baltimore runner-up team: met once in the 83 (a win).
+- **So:** draft 2 as card rules is not worth building -- its main new rule (Support
+  Room vs Psychic Terrain) rests on a hole that did not replicate, and that card lost
+  -14.6 locally. What carries forward: sand, the one hole that holds out of sample and
+  on the local battery (the sand roster 73.5%, among the three worst); T6m from
+  `TEAM_REVIEW_T6.md` (Torkoal Earth Power: 2x on Tyranitar, Excadrill, Archaludon, and
+  single-target, so Wide Guard cannot block it) aims at it, through that review's
+  clone team tournament first. The user's call.
+
 ## Night summary: T6tac + the review guards 23-17 over 40 ladder games; no brain beat T6tac; nothing promoted (2026-September 28, 06:05)
 
 - **Ladder** `ladder_replays_mc_T6tac_review_guards` (40 serial games, 01:22-05:58):

@@ -1,0 +1,5215 @@
+[
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689048645",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Charizard",
+"Farigiraf",
+"Golisopod",
+"Grimmsnarl",
+"Politoed"
+],
+"opp_leads": [
+"Archaludon",
+"Politoed"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689049160-7hl756ms13cvjtrv2q4r2u0gjep7hufpw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Arcanine-Hisui",
+"Kangaskhan",
+"Milotic",
+"Mimikyu",
+"Raichu",
+"Rillaboom"
+],
+"opp_leads": [
+"Raichu",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689049675-3cw2a7l6jbtc1845hg9cimtt4507g68pw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Houndstone",
+"Pelipper",
+"Raichu",
+"Swampert",
+"Tsareena"
+],
+"opp_leads": [
+"Archaludon",
+"Swampert"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689050862",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "rain",
+"roster": [
+"Basculegion",
+"Dragonite",
+"Gholdengo",
+"Pelipper",
+"Sneasler",
+"Swampert"
+],
+"opp_leads": [
+"Dragonite",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689051543",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Cinderace",
+"Gardevoir",
+"Indeedee-F",
+"Mamoswine",
+"Pincurchin",
+"Raichu-Alola"
+],
+"opp_leads": [
+"Gardevoir",
+"Raichu-Alola"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689052003-41mqljvoni614vmmk16b7en3usjdtdcpw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Farigiraf",
+"Hawlucha",
+"Incineroar",
+"Indeedee-F",
+"Meowstic",
+"Snorlax"
+],
+"opp_leads": [
+"Indeedee-F",
+"Meowstic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689053036",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Farigiraf",
+"Kingambit",
+"Lucario",
+"Salamence",
+"Sneasler",
+"Whimsicott"
+],
+"opp_leads": [
+"Farigiraf",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689053747",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Excadrill",
+"Indeedee",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Indeedee",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689054229",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "balance",
+"roster": [
+"Delphox",
+"Garchomp",
+"Grapploct",
+"Kingambit",
+"Rotom-Wash",
+"Serperior"
+],
+"opp_leads": [
+"Garchomp",
+"Rotom-Wash"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689054742-w0111khi2d69tldhwavf8tlttgu84yypw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Incineroar",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Gardevoir",
+"Gholdengo",
+"Incineroar",
+"Indeedee-F",
+"Venusaur"
+],
+"opp_leads": [
+"Gardevoir",
+"Indeedee-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689055481-7yhm3fvidn9yd93bx403s17bd6j4a5npw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Farigiraf",
+"Golisopod",
+"Pawmot",
+"Pelipper",
+"Rillaboom"
+],
+"opp_leads": [
+"Archaludon",
+"Pawmot"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689056069",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Absol",
+"Kingambit",
+"Rillaboom",
+"Sableye",
+"Salamence",
+"Sinistcha"
+],
+"opp_leads": [
+"Absol",
+"Sableye"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689056531",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Excadrill",
+"Rillaboom",
+"Rotom-Wash",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Rillaboom",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689057200",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Incineroar",
+"arch": "tailwind",
+"roster": [
+"Alcremie",
+"Dragapult",
+"Metagross",
+"Sharpedo",
+"Sneasler",
+"Whimsicott"
+],
+"opp_leads": [
+"Alcremie",
+"Dragapult"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689057672",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Arcanine-Hisui",
+"Corviknight",
+"Garchomp",
+"Indeedee-F",
+"Toxtricity",
+"Tyranitar"
+],
+"opp_leads": [
+"Indeedee-F",
+"Toxtricity"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689058514",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Abomasnow",
+"Archaludon",
+"Farigiraf",
+"Rotom-Fan",
+"Slowbro",
+"Typhlosion"
+],
+"opp_leads": [
+"Rotom-Fan",
+"Slowbro"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689059419-ygxuyja28jjqcuj9a19hxdffb28dbwtpw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": true,
+"quit_state": "even",
+"lead": "Torkoal + Venusaur",
+"arch": "balance",
+"roster": [
+"Dragapult",
+"Incineroar",
+"Lucario",
+"Raichu",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Raichu",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689059647-2cbro0o0hsps99dos80dkg7ktvhkxdvpw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Dragonite",
+"Gholdengo",
+"Hatterene",
+"Milotic",
+"Rillaboom"
+],
+"opp_leads": [
+"Hatterene",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689060876",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "psychic_terrain",
+"roster": [
+"Alakazam",
+"Arcanine-Hisui",
+"Greninja",
+"Indeedee",
+"Sneasler",
+"Whimsicott"
+],
+"opp_leads": [
+"Alakazam",
+"Indeedee"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689061594",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Garchomp",
+"Indeedee",
+"Perrserker",
+"Sylveon",
+"Talonflame",
+"Torkoal"
+],
+"opp_leads": [
+"Garchomp",
+"Indeedee"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689112734",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "tailwind",
+"roster": [
+"Garchomp",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Staraptor",
+"Volcarona"
+],
+"opp_leads": [
+"Staraptor",
+"Volcarona"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689113735",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Torkoal + Venusaur",
+"arch": "sand",
+"roster": [
+"Garchomp",
+"Gholdengo",
+"Malamar",
+"Sneasler",
+"Tyranitar",
+"Volcarona"
+],
+"opp_leads": [
+"Garchomp",
+"Malamar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689114948",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Salamence",
+"Weavile"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689115962",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "snow",
+"roster": [
+"Basculegion",
+"Baxcalibur",
+"Ninetales-Alola",
+"Rillaboom",
+"Sneasler",
+"Talonflame"
+],
+"opp_leads": [
+"Rillaboom",
+"Talonflame"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689117119",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Garchomp",
+"Grimmsnarl",
+"Milotic",
+"Sinistcha",
+"Staraptor",
+"Typhlosion-Hisui"
+],
+"opp_leads": [
+"Grimmsnarl",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689118355",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Torkoal + Venusaur",
+"arch": "tailwind",
+"roster": [
+"Floette-Eternal",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Staraptor",
+"Volcarona"
+],
+"opp_leads": [
+"Raichu",
+"Staraptor"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689119331",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": true,
+"quit_state": "ahead",
+"lead": "Charizard + Venusaur",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Charizard",
+"Grimmsnarl",
+"Pelipper",
+"Swampert",
+"Venusaur"
+],
+"opp_leads": [
+"Archaludon",
+"Pelipper"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689119842-qg6fw8i1fb491l6x778aidyd25m37kypw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "snow",
+"roster": [
+"Ceruledge",
+"Indeedee-F",
+"Metagross",
+"Milotic",
+"Ninetales-Alola",
+"Rillaboom"
+],
+"opp_leads": [
+"Indeedee-F",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689121380",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "balance",
+"roster": [
+"Garchomp",
+"Gholdengo",
+"Incineroar",
+"Raichu",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Raichu",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689122292",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Camerupt",
+"Farigiraf",
+"Hatterene",
+"Indeedee",
+"Squawkabilly",
+"Torkoal"
+],
+"opp_leads": [
+"Farigiraf",
+"Squawkabilly"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689122763",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Garchomp",
+"Golisopod",
+"Medicham",
+"Milotic",
+"Whimsicott"
+],
+"opp_leads": [
+"Charizard",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689123783",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": true,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Camerupt",
+"Farigiraf",
+"Hatterene",
+"Indeedee",
+"Squawkabilly",
+"Torkoal"
+],
+"opp_leads": [
+"Farigiraf",
+"Squawkabilly"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689124003",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Annihilape",
+"Archaludon",
+"Dragapult",
+"Golisopod",
+"Politoed",
+"Rillaboom"
+],
+"opp_leads": [
+"Annihilape",
+"Golisopod"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689124075",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Indeedee-F",
+"Mawile",
+"Pelipper",
+"Sableye",
+"Swampert"
+],
+"opp_leads": [
+"Pelipper",
+"Sableye"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689124588",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Gardevoir",
+"Indeedee-F",
+"Kingambit",
+"Raichu",
+"Sneasler",
+"Torkoal"
+],
+"opp_leads": [
+"Gardevoir",
+"Indeedee-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689125170",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Arcanine-Hisui",
+"Indeedee",
+"Metagross",
+"Milotic",
+"Salamence",
+"Sneasler"
+],
+"opp_leads": [
+"Indeedee",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689125966",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Farigiraf",
+"Greninja",
+"Pelipper",
+"Politoed",
+"Torkoal"
+],
+"opp_leads": [
+"Farigiraf",
+"Pelipper"
+],
+"wg_blocks": [
+[
+1,
+"Water Spout"
+],
+[
+1,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689127659-2a5ohntei4q132ejf8goqtdmuwaix4apw",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Ditto",
+"Manectric",
+"Mawile",
+"Politoed",
+"Spiritomb"
+],
+"opp_leads": [
+"Archaludon",
+"Spiritomb"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689128049",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Camerupt",
+"Garchomp",
+"Hatterene",
+"Indeedee-F",
+"Rillaboom"
+],
+"opp_leads": [
+"Hatterene",
+"Indeedee-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689129136",
+"era": "night0928",
+"source": "ours:T6tac_review_guards",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Basculegion",
+"Golisopod",
+"Incineroar",
+"Pelipper",
+"Swampert"
+],
+"opp_leads": [
+"Basculegion",
+"Pelipper"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686248172",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "tr_splash",
+"roster": [
+"Floette-Eternal",
+"Gallade",
+"Gholdengo",
+"Maushold-Four",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Rillaboom",
+"Volcarona"
+],
+"wg_blocks": [
+[
+3,
+"Eruption"
+],
+[
+3,
+"Eruption"
+],
+[
+5,
+"Eruption"
+],
+[
+5,
+"Eruption"
+],
+[
+5,
+"Water Spout"
+],
+[
+5,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686249421",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Excadrill",
+"Indeedee",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Indeedee",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686250305-8x5xlb1eollirlmyhsb4sq842q25rklpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Farigiraf + Torkoal",
+"arch": "rain",
+"roster": [
+"Gengar",
+"Golisopod",
+"Incineroar",
+"Mr. Mime",
+"Pelipper",
+"Rillaboom"
+],
+"opp_leads": [
+"Gengar",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686250598-ucirg4a8afefgat5odam4aqylvama7cpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Gholdengo",
+"Milotic",
+"Rillaboom",
+"Salamence",
+"Steelix",
+"Tyranitar"
+],
+"opp_leads": [
+"Salamence",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686251274-5acjwfgnttqgu1vi3eaj9xkmhe6qvgrpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "snow",
+"roster": [
+"Alakazam",
+"Annihilape",
+"Baxcalibur",
+"Meowscarada",
+"Ninetales-Alola",
+"Rotom-Wash"
+],
+"opp_leads": [
+"Meowscarada",
+"Rotom-Wash"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686252059",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Dragalge",
+"Gardevoir",
+"Indeedee-F",
+"Kingambit",
+"Pawmot",
+"Torkoal"
+],
+"opp_leads": [
+"Dragalge",
+"Kingambit"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686252848",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Kingambit",
+"Rillaboom",
+"Salamence",
+"Sneasler"
+],
+"opp_leads": [
+"Salamence",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686253818",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Excadrill",
+"Indeedee",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Corviknight",
+"Excadrill"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686255248-jlkucgqicjrmxrm77gmgoilv12axwo4pw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "snow",
+"roster": [
+"Baxcalibur",
+"Glimmora",
+"Ninetales-Alola",
+"Rillaboom",
+"Rotom-Frost",
+"Tauros-Paldea-Aqua"
+],
+"opp_leads": [
+"Baxcalibur",
+"Ninetales-Alola"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686256202",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Garchomp",
+"Heliolisk",
+"Kingambit",
+"Toxapex",
+"Trevenant"
+],
+"opp_leads": [
+"Charizard",
+"Heliolisk"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686256942",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Farigiraf + Torkoal",
+"arch": "balance",
+"roster": [
+"Archaludon",
+"Cinderace",
+"Meowscarada",
+"Raichu",
+"Sableye",
+"Scizor"
+],
+"opp_leads": [
+"Sableye",
+"Scizor"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686257593-472uuj7lq8sc2e4f9rtj83l7egkqyjupw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Garchomp",
+"Gholdengo",
+"Milotic",
+"Raichu",
+"Rillaboom"
+],
+"opp_leads": [
+"Garchomp",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686259122",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "snow",
+"roster": [
+"Baxcalibur",
+"Metagross",
+"Milotic",
+"Ninetales-Alola",
+"Pawmot",
+"Volcarona"
+],
+"opp_leads": [
+"Baxcalibur",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686260570",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Basculegion",
+"Farigiraf",
+"Golisopod",
+"Pelipper",
+"Rillaboom"
+],
+"opp_leads": [
+"Basculegion",
+"Farigiraf"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686261400",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Basculegion",
+"Gardevoir",
+"Golisopod",
+"Indeedee-F",
+"Pelipper"
+],
+"opp_leads": [
+"Basculegion",
+"Gardevoir"
+],
+"wg_blocks": [
+[
+5,
+"Water Spout"
+],
+[
+5,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686262186-hbelshhr7kl0d2ujyt28pw68eni2etepw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Farigiraf",
+"Incineroar",
+"Milotic",
+"Raichu",
+"Rillaboom",
+"Salamence"
+],
+"opp_leads": [
+"Rillaboom",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686262887-51i3kpk8kqkfpmiey569qrw56iqljurpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "rain",
+"roster": [
+"Garchomp",
+"Golisopod",
+"Pelipper",
+"Sableye",
+"Sneasler",
+"Swampert"
+],
+"opp_leads": [
+"Garchomp",
+"Pelipper"
+],
+"wg_blocks": [
+[
+3,
+"Eruption"
+],
+[
+3,
+"Eruption"
+],
+[
+5,
+"Water Spout"
+],
+[
+5,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686263728",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "balance",
+"roster": [
+"Floette-Eternal",
+"Gengar",
+"Incineroar",
+"Kingambit",
+"Rillaboom",
+"Sneasler"
+],
+"opp_leads": [
+"Gengar",
+"Kingambit"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686264398-4n4u3ye692iwyi2w6hghwb6pbfasp2gpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Gholdengo",
+"Glimmora",
+"Grimmsnarl",
+"Pelipper",
+"Rillaboom"
+],
+"opp_leads": [
+"Archaludon",
+"Grimmsnarl"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686265734-j62c87d9q582xl1l7po09fataaganlvpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Kingambit",
+"Raichu",
+"Rillaboom",
+"Staraptor"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Gholdengo"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686266283",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Blaziken",
+"Incineroar",
+"Lucario",
+"Rillaboom",
+"Salamence",
+"Sneasler"
+],
+"opp_leads": [
+"Lucario",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686266645",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "rain",
+"roster": [
+"Incineroar",
+"Lucario",
+"Pelipper",
+"Rillaboom",
+"Tyranitar",
+"Volcarona"
+],
+"opp_leads": [
+"Rillaboom",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686267597-to57m4p4m4mom8lb7t3xlgqelkwlmhnpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Staraptor",
+"Sylveon"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Staraptor"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686267948",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Archaludon",
+"Garchomp",
+"Glimmora",
+"Klefki",
+"Salamence",
+"Volcarona"
+],
+"opp_leads": [
+"Archaludon",
+"Klefki"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686268838",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Excadrill",
+"Indeedee",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Excadrill",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686269640",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "psychic_terrain",
+"roster": [
+"Armarouge",
+"Basculegion",
+"Gardevoir",
+"Golisopod",
+"Indeedee-F",
+"Sneasler"
+],
+"opp_leads": [
+"Indeedee-F",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686270559",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Alcremie",
+"Falinks",
+"Goodra-Hisui",
+"Milotic",
+"Oranguru",
+"Pincurchin"
+],
+"opp_leads": [
+"Falinks",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686271881-ph884ukd65vnqt3n2kviycfmx7qi28xpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Basculegion",
+"Farigiraf",
+"Golisopod",
+"Incineroar",
+"Salamence",
+"Whimsicott"
+],
+"opp_leads": [
+"Basculegion",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686272966",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "balance",
+"roster": [
+"Garchomp",
+"Gholdengo",
+"Incineroar",
+"Raichu",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Garchomp",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686273530-2024cl541dpqt6n7ttqsk3hk6qb23e3pw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Corviknight",
+"Garchomp",
+"Metagross",
+"Rillaboom",
+"Sneasler",
+"Volcarona"
+],
+"opp_leads": [
+"Rillaboom",
+"Volcarona"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686274420-os400tb0xnukm0f82gdaq2v6xn1av3wpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Charizard",
+"Farigiraf",
+"Golisopod",
+"Grimmsnarl",
+"Politoed"
+],
+"opp_leads": [
+"Golisopod",
+"Grimmsnarl"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686275336",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sun",
+"roster": [
+"Aerodactyl",
+"Charizard",
+"Garchomp",
+"Incineroar",
+"Kingambit",
+"Sylveon"
+],
+"opp_leads": [
+"Incineroar",
+"Sylveon"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686276180-4fqtyyofi9qv5q55g8c9so76rwl0oxqpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "balance",
+"roster": [
+"Garchomp",
+"Incineroar",
+"Milotic",
+"Raichu",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Raichu",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686277651-oxhu0ag9v8eofa4x2x7uxk21fy63siapw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Basculegion",
+"Incineroar",
+"Inteleon",
+"Rillaboom",
+"Staraptor",
+"Toxtricity"
+],
+"opp_leads": [
+"Rillaboom",
+"Toxtricity"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686278266",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Annihilape",
+"Gholdengo",
+"Incineroar",
+"Raichu",
+"Tyranitar",
+"Whimsicott"
+],
+"opp_leads": [
+"Incineroar",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686279222-sre9l4udy9mh2o88eewheh1uone4mr5pw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sun",
+"roster": [
+"Basculegion",
+"Charizard",
+"Garchomp",
+"Kingambit",
+"Sylveon",
+"Whimsicott"
+],
+"opp_leads": [
+"Charizard",
+"Garchomp"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686280570",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Dragonite",
+"Garchomp",
+"Heliolisk",
+"Milotic",
+"Sneasler",
+"Torterra"
+],
+"opp_leads": [
+"Dragonite",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686281845",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Lucario",
+"Perrserker",
+"Rillaboom",
+"Tyranitar"
+],
+"opp_leads": [
+"Rillaboom",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686282827",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Aerodactyl",
+"Ceruledge",
+"Maushold",
+"Meganium",
+"Meowstic",
+"Metagross"
+],
+"opp_leads": [
+"Maushold",
+"Meowstic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686283118-k7iktuxjtthqsm4wspbgbw2eexm7m06pw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sun",
+"roster": [
+"Basculegion",
+"Charizard",
+"Froslass",
+"Incineroar",
+"Sneasler",
+"Whimsicott"
+],
+"opp_leads": [
+"Basculegion",
+"Charizard"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686283679",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Grapploct",
+"Indeedee-F",
+"Lucario",
+"Pelipper",
+"Serperior",
+"Swampert"
+],
+"opp_leads": [
+"Grapploct",
+"Serperior"
+],
+"wg_blocks": [
+[
+2,
+"Heat Wave"
+],
+[
+2,
+"Heat Wave"
+],
+[
+2,
+"Eruption"
+],
+[
+2,
+"Eruption"
+],
+[
+7,
+"Water Spout"
+],
+[
+7,
+"Water Spout"
+],
+[
+7,
+"Heat Wave"
+],
+[
+7,
+"Heat Wave"
+],
+[
+9,
+"Heat Wave"
+],
+[
+9,
+"Heat Wave"
+],
+[
+9,
+"Eruption"
+],
+[
+9,
+"Eruption"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686285246",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "rain",
+"roster": [
+"Basculegion",
+"Gardevoir",
+"Golisopod",
+"Indeedee-F",
+"Pelipper",
+"Sneasler"
+],
+"opp_leads": [
+"Basculegion",
+"Indeedee-F"
+],
+"wg_blocks": [
+[
+3,
+"Eruption"
+],
+[
+3,
+"Eruption"
+],
+[
+5,
+"Water Spout"
+],
+[
+5,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686286408-cn3vkg4t3gtwn49w60tw5gxx3r0bk88pw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Excadrill",
+"Gholdengo",
+"Primarina",
+"Rillaboom",
+"Salamence",
+"Tyranitar"
+],
+"opp_leads": [
+"Primarina",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686286949-s4fqqb2bej58r5lnfs2pgm8i2yd81pkpw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "tailwind",
+"roster": [
+"Ceruledge",
+"Gholdengo",
+"Rillaboom",
+"Salamence",
+"Scrafty",
+"Sneasler"
+],
+"opp_leads": [
+"Ceruledge",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686287322",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "trick_room",
+"roster": [
+"Ampharos",
+"Araquanid",
+"Blaziken",
+"Indeedee",
+"Sinistcha",
+"Torkoal"
+],
+"opp_leads": [
+"Araquanid",
+"Blaziken"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686288748-yyx23e6eeaatjlxh1rsuu5237q8k7sypw",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "balance",
+"roster": [
+"Espathra",
+"Gengar",
+"Golisopod",
+"Incineroar",
+"Kingambit",
+"Maushold-Four"
+],
+"opp_leads": [
+"Gengar",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686289175",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Excadrill",
+"Indeedee",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Indeedee",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686290200",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Torkoal",
+"arch": "psychic_terrain",
+"roster": [
+"Absol",
+"Delphox",
+"Hydrapple",
+"Indeedee",
+"Milotic",
+"Sneasler"
+],
+"opp_leads": [
+"Absol",
+"Indeedee"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686290611",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "rain",
+"roster": [
+"Indeedee-F",
+"Metagross",
+"Pelipper",
+"Rillaboom",
+"Sneasler",
+"Sylveon"
+],
+"opp_leads": [
+"Metagross",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2686291003",
+"era": "research",
+"source": "ours:deployed_T6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Torkoal",
+"arch": "sun",
+"roster": [
+"Alakazam",
+"Charizard",
+"Indeedee-F",
+"Kingambit",
+"Ninetales-Alola",
+"Sneasler"
+],
+"opp_leads": [
+"Alakazam",
+"Kingambit"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687127802",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Chimecho",
+"Corviknight",
+"Emboar",
+"Farigiraf",
+"Sinistcha",
+"Snorlax"
+],
+"opp_leads": [
+"Farigiraf",
+"Snorlax"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687129903-dolwnjd78sv1r521k869uyjpaccoomypw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Camerupt",
+"Farigiraf",
+"Gallade",
+"Hatterene",
+"Incineroar",
+"Indeedee-F"
+],
+"opp_leads": [
+"Farigiraf",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687131265",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tr_splash",
+"roster": [
+"Arcanine-Hisui",
+"Armarouge",
+"Garchomp",
+"Malamar",
+"Sinistcha",
+"Sneasler"
+],
+"opp_leads": [
+"Garchomp",
+"Malamar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687964960-12tpci0yb51e7fwf74jj4qhlu1hcyuhpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Milotic",
+"Raichu",
+"Rillaboom",
+"Salamence"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687965700-xwi2xtqwuyj42wu219pf5a7us21df2fpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Absol",
+"Arcanine-Hisui",
+"Clefable",
+"Lucario",
+"Milotic",
+"Rillaboom"
+],
+"opp_leads": [
+"Absol",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687966871",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Charizard",
+"Espathra",
+"Politoed",
+"Raichu",
+"Venusaur"
+],
+"opp_leads": [
+"Espathra",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687967797-5twbm6xpkch0l0o5dhw1nr9wvgraudopw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Gengar",
+"Incineroar",
+"Politoed",
+"Rillaboom",
+"Swampert"
+],
+"opp_leads": [
+"Archaludon",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687969131",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Annihilape",
+"Basculegion",
+"Cofagrigus",
+"Gengar",
+"Sableye",
+"Typhlosion-Hisui"
+],
+"opp_leads": [
+"Cofagrigus",
+"Typhlosion-Hisui"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687970354-ew9d8fgssqt7c8rk6oddk6hu7a2u2ctpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "trick_room",
+"roster": [
+"Aggron",
+"Grimmsnarl",
+"Hydreigon",
+"Pelipper",
+"Rillaboom",
+"Sinistcha"
+],
+"opp_leads": [
+"Aggron",
+"Grimmsnarl"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687971839",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Garchomp",
+"Krookodile",
+"Runerigus",
+"Torterra",
+"Tyranitar"
+],
+"opp_leads": [
+"Corviknight",
+"Runerigus"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687973471-j40i1tnijmuqj15i57xajwo6se4t2efpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Garchomp",
+"Gardevoir",
+"Incineroar",
+"Indeedee",
+"Rillaboom",
+"Salamence"
+],
+"opp_leads": [
+"Rillaboom",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687974232",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Basculegion",
+"Delphox",
+"Kingambit",
+"Milotic",
+"Rillaboom",
+"Wyrdeer"
+],
+"opp_leads": [
+"Basculegion",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687975114",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Chandelure",
+"Indeedee",
+"Luxray",
+"Metagross",
+"Milotic",
+"Whimsicott"
+],
+"opp_leads": [
+"Indeedee",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687976684",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Alakazam",
+"Grapploct",
+"Indeedee-F",
+"Kingambit",
+"Sylveon",
+"Torkoal"
+],
+"opp_leads": [
+"Alakazam",
+"Grapploct"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687977655",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Armarouge",
+"Excadrill",
+"Gliscor",
+"Indeedee-F",
+"Metagross",
+"Tyranitar"
+],
+"opp_leads": [
+"Armarouge",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687979475",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "balance",
+"roster": [
+"Aegislash",
+"Basculegion",
+"Baxcalibur",
+"Incineroar",
+"Rillaboom",
+"Sneasler"
+],
+"opp_leads": [
+"Baxcalibur",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687981024",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Clefable",
+"Delphox",
+"Indeedee",
+"Kleavor",
+"Sneasler",
+"Torkoal"
+],
+"opp_leads": [
+"Clefable",
+"Indeedee"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687981543",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Excadrill",
+"Gholdengo",
+"Milotic",
+"Rillaboom",
+"Salamence",
+"Tyranitar"
+],
+"opp_leads": [
+"Gholdengo",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687981911",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Annihilape",
+"Banette",
+"Golisopod",
+"Maushold-Four",
+"Pawmot",
+"Serperior"
+],
+"opp_leads": [
+"Golisopod",
+"Serperior"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687982894-e6uoafpq3txe2545c4otcxenci9ihxbpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Golisopod",
+"Milotic",
+"Raichu",
+"Rillaboom"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687984421-xlc6359p43ss7acnouacnh57ofnvxujpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Blastoise",
+"Hydreigon",
+"Indeedee",
+"Kingambit",
+"Sneasler",
+"Volcarona"
+],
+"opp_leads": [
+"Blastoise",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687985298",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Armarouge",
+"Garchomp",
+"Golisopod",
+"Primarina",
+"Sableye",
+"Slowking-Galar"
+],
+"opp_leads": [
+"Primarina",
+"Sableye"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687986146",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "balance",
+"roster": [
+"Heliolisk",
+"Pawmot",
+"Pincurchin",
+"Raichu",
+"Rotom-Wash",
+"Toxtricity"
+],
+"opp_leads": [
+"Heliolisk",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2687987253",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_attackcheck",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Farigiraf + Incineroar",
+"arch": "balance",
+"roster": [
+"Flapple",
+"Gardevoir",
+"Gengar",
+"Maushold-Four",
+"Mr. Rime",
+"Sableye"
+],
+"opp_leads": [
+"Gengar",
+"Sableye"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688075265-62dp2u4dd67y3xrcfjcefg78hhk9ob0pw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Clawitzer",
+"Eelektross",
+"Farigiraf",
+"Metagross",
+"Rillaboom",
+"Sylveon"
+],
+"opp_leads": [
+"Farigiraf",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688075708",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Aerodactyl",
+"Basculegion",
+"Gardevoir",
+"Indeedee",
+"Lopunny",
+"Volcarona"
+],
+"opp_leads": [
+"Aerodactyl",
+"Basculegion"
+],
+"wg_blocks": [
+[
+2,
+"Water Spout"
+],
+[
+2,
+"Water Spout"
+],
+[
+3,
+"Water Spout"
+],
+[
+3,
+"Water Spout"
+],
+[
+5,
+"Eruption"
+],
+[
+5,
+"Eruption"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688076692",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Garchomp",
+"Grimmsnarl",
+"Milotic",
+"Rotom-Wash",
+"Salamence",
+"Sinistcha"
+],
+"opp_leads": [
+"Garchomp",
+"Rotom-Wash"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688077142",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tr_splash",
+"roster": [
+"Basculegion",
+"Baxcalibur",
+"Kingambit",
+"Pawmot",
+"Sinistcha",
+"Volcarona"
+],
+"opp_leads": [
+"Kingambit",
+"Pawmot"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688077931",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Armarouge",
+"Gardevoir",
+"Indeedee-F",
+"Kingambit",
+"Torkoal",
+"Vivillon"
+],
+"opp_leads": [
+"Kingambit",
+"Vivillon"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688078295-2oecd4jldn3e4vw18mdtrnwmbgyupp6pw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "sand",
+"roster": [
+"Dragapult",
+"Indeedee",
+"Metagross",
+"Rillaboom",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Indeedee",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688079003-fi7jmuv9wxv10qtrfchdluqf8d3gb6jpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Charizard",
+"Dragapult",
+"Golisopod",
+"Grimmsnarl",
+"Pelipper"
+],
+"opp_leads": [
+"Archaludon",
+"Grimmsnarl"
+],
+"wg_blocks": [
+[
+8,
+"Eruption"
+],
+[
+8,
+"Eruption"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688080035",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Glimmora",
+"Goodra",
+"Greninja",
+"Rillaboom",
+"Sneasler",
+"Whimsicott"
+],
+"opp_leads": [
+"Glimmora",
+"Whimsicott"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688080682",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Armarouge",
+"Blastoise",
+"Golisopod",
+"Indeedee-F",
+"Sinistcha-Masterpiece",
+"Sneasler"
+],
+"opp_leads": [
+"Armarouge",
+"Indeedee-F"
+],
+"wg_blocks": [
+[
+1,
+"Water Spout"
+],
+[
+1,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688081303",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Armarouge",
+"Dragapult",
+"Gengar",
+"Indeedee-F",
+"Milotic",
+"Staraptor"
+],
+"opp_leads": [
+"Indeedee-F",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688082574",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Dragonite",
+"Kingambit",
+"Raichu",
+"Sinistcha",
+"Sneasler",
+"Volcarona"
+],
+"opp_leads": [
+"Kingambit",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688083330-f8o0rwl8rgoqph674an1stgdysaawrnpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "tr_splash",
+"roster": [
+"Delphox",
+"Gliscor",
+"Lucario",
+"Maushold-Four",
+"Sinistcha-Masterpiece",
+"Umbreon"
+],
+"opp_leads": [
+"Gliscor",
+"Umbreon"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688084569",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Basculegion",
+"Clefable",
+"Garchomp",
+"Kingambit",
+"Sinistcha-Masterpiece",
+"Skarmory"
+],
+"opp_leads": [
+"Kingambit",
+"Skarmory"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688085072",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "snow",
+"roster": [
+"Floette-Eternal",
+"Froslass",
+"Glaceon",
+"Ninetales-Alola",
+"Pawmot",
+"Sirfetch\u2019d"
+],
+"opp_leads": [
+"Froslass",
+"Glaceon"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688086415",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_throatchop",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Eelektross",
+"Garchomp",
+"Gardevoir",
+"Kingambit",
+"Sneasler",
+"Talonflame"
+],
+"opp_leads": [
+"Gardevoir",
+"Kingambit"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688264483",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "rain",
+"roster": [
+"Aerodactyl",
+"Archaludon",
+"Luxray",
+"Meganium",
+"Pelipper",
+"Scizor"
+],
+"opp_leads": [
+"Aerodactyl",
+"Luxray"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688265482-e6qadrckk7a4926n7xesukdnwv2yap2pw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Azumarill",
+"Chimecho",
+"Golurk",
+"Incineroar",
+"Sinistcha",
+"Sneasler"
+],
+"opp_leads": [
+"Sinistcha",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688265815",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Basculegion",
+"Glimmora",
+"Hydreigon",
+"Lucario",
+"Rillaboom",
+"Talonflame"
+],
+"opp_leads": [
+"Glimmora",
+"Talonflame"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688266515",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Salamence",
+"Sylveon"
+],
+"opp_leads": [
+"Raichu",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688267836",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Excadrill",
+"Indeedee",
+"Milotic",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Excadrill",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688268597-nny240rkvcxljcqoocacpmbvsg9dv13pw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Dragonite",
+"Garchomp",
+"Indeedee-F",
+"Salamence",
+"Sylveon"
+],
+"opp_leads": [
+"Garchomp",
+"Indeedee-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688269400-b15s7hcy0cf3ewmdnjyo0anj50kvxxopw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Kingambit",
+"Rillaboom",
+"Salamence",
+"Sneasler"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688270016",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Cofagrigus",
+"Empoleon",
+"Indeedee-F",
+"Meganium",
+"Pelipper",
+"Tyrantrum"
+],
+"opp_leads": [
+"Cofagrigus",
+"Empoleon"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688271574",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Incineroar",
+"Lucario",
+"Rillaboom",
+"Salamence",
+"Sinistcha",
+"Snorlax"
+],
+"opp_leads": [
+"Salamence",
+"Snorlax"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688273052",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Armarouge",
+"Gardevoir",
+"Golisopod",
+"Indeedee-F",
+"Pelipper",
+"Sneasler"
+],
+"opp_leads": [
+"Indeedee-F",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688274662",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Grimmsnarl",
+"Metagross",
+"Pelipper",
+"Rillaboom",
+"Sinistcha"
+],
+"opp_leads": [
+"Archaludon",
+"Grimmsnarl"
+],
+"wg_blocks": [
+[
+2,
+"Eruption"
+],
+[
+2,
+"Eruption"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688275970-d69ifveq9njqaoieul3m2ilwhj089uvpw",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Arcanine-Hisui",
+"Indeedee",
+"Metagross",
+"Milotic",
+"Salamence",
+"Sneasler"
+],
+"opp_leads": [
+"Milotic",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688277788",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Gallade",
+"Glimmora",
+"Mimikyu",
+"Rillaboom",
+"Steelix",
+"Tyranitar"
+],
+"opp_leads": [
+"Gallade",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688278648",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Altaria",
+"Arcanine-Hisui",
+"Dragapult",
+"Indeedee-F",
+"Metagross",
+"Milotic"
+],
+"opp_leads": [
+"Altaria",
+"Arcanine-Hisui"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688280522",
+"era": "research",
+"source": "ours:deployed_T6_humanpreview1_wideguard",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Aerodactyl",
+"Gholdengo",
+"Incineroar",
+"Kommo-o",
+"Raichu",
+"Rillaboom"
+],
+"opp_leads": [
+"Incineroar",
+"Kommo-o"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688390116",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Arcanine-Hisui",
+"Armarouge",
+"Gardevoir",
+"Indeedee-F",
+"Salamence",
+"Sneasler"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688391465-it9jiv3a9ib3c2nkvyqu4mue02nxd3jpw",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Excadrill",
+"Indeedee",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Indeedee",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688392308-52bi2ylh9r4ccsnps25y9vt5ve2w1ijpw",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Corviknight",
+"Excadrill",
+"Indeedee",
+"Salamence",
+"Sneasler",
+"Tyranitar"
+],
+"opp_leads": [
+"Corviknight",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688393921",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Camerupt",
+"Farigiraf",
+"Rillaboom",
+"Staraptor",
+"Sylveon",
+"Whimsicott"
+],
+"opp_leads": [
+"Staraptor",
+"Whimsicott"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688395162",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "trick_room",
+"roster": [
+"Aerodactyl",
+"Farigiraf",
+"Garchomp",
+"Kingambit",
+"Sneasler",
+"Torkoal"
+],
+"opp_leads": [
+"Aerodactyl",
+"Kingambit"
+],
+"wg_blocks": [
+[
+3,
+"Eruption"
+],
+[
+3,
+"Eruption"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688395652",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Feraligatr",
+"Grimmsnarl",
+"Meganium",
+"Pelipper",
+"Sneasler"
+],
+"opp_leads": [
+"Feraligatr",
+"Grimmsnarl"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688396451",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Excadrill",
+"Farigiraf",
+"Milotic",
+"Rillaboom",
+"Salamence",
+"Tyranitar"
+],
+"opp_leads": [
+"Farigiraf",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688397019-j0wbxnyh2u5y2a3dh7mmjumqy83ws9qpw",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Aegislash",
+"Excadrill",
+"Indeedee",
+"Milotic",
+"Staraptor",
+"Tyranitar"
+],
+"opp_leads": [
+"Indeedee",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688398519",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Staraptor",
+"Sylveon"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688401033",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Ampharos",
+"Golisopod",
+"Maushold",
+"Oranguru",
+"Pincurchin",
+"Raichu-Alola"
+],
+"opp_leads": [
+"Oranguru",
+"Pincurchin"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688402099",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Excadrill",
+"Garchomp",
+"Milotic",
+"Sinistcha",
+"Tyranitar",
+"Whimsicott"
+],
+"opp_leads": [
+"Milotic",
+"Sinistcha"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688403770",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Basculegion",
+"Gardevoir",
+"Incineroar",
+"Indeedee-F",
+"Lucario",
+"Sneasler"
+],
+"opp_leads": [
+"Gardevoir",
+"Indeedee-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688404317",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Primarina",
+"Raichu",
+"Rillaboom",
+"Staraptor"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Primarina"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688405617",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Alakazam",
+"Drampa",
+"Inteleon",
+"Metagross",
+"Noivern",
+"Pawmot"
+],
+"opp_leads": [
+"Metagross",
+"Pawmot"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688405921",
+"era": "research",
+"source": "ours:deployed_T6ctx",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Dragonite",
+"Gengar",
+"Incineroar",
+"Rillaboom",
+"Scrafty",
+"Snorlax"
+],
+"opp_leads": [
+"Scrafty",
+"Snorlax"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688475449",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Gardevoir",
+"Gholdengo",
+"Incineroar",
+"Indeedee-F",
+"Salamence",
+"Sneasler"
+],
+"opp_leads": [
+"Salamence",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688476938",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "balance",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Hydreigon",
+"Raichu",
+"Rillaboom",
+"Sneasler"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688478153-8w0jyon4ahphe1eng8xjdcoqnx9qrpepw",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Blastoise + Farigiraf",
+"arch": "snow",
+"roster": [
+"Absol",
+"Incineroar",
+"Indeedee-F",
+"Mr. Rime",
+"Rillaboom",
+"Vanilluxe"
+],
+"opp_leads": [
+"Absol",
+"Vanilluxe"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688479457",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Aerodactyl",
+"Incineroar",
+"Indeedee-F",
+"Kingambit",
+"Salamence",
+"Zoroark-Hisui"
+],
+"opp_leads": [
+"Aerodactyl",
+"Kingambit"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688480483",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "sand",
+"roster": [
+"Indeedee-F",
+"Metagross",
+"Mimikyu",
+"Torkoal",
+"Tyranitar",
+"Venusaur"
+],
+"opp_leads": [
+"Torkoal",
+"Venusaur"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688481663-th2ln06japkl8vsxunvgdixcljswdltpw",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Staraptor",
+"Sylveon"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Staraptor"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688482546-pnirh9ucq92aadlt140p4j80pw4i7wmpw",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Greninja",
+"Kingambit",
+"Sinistcha",
+"Skeledirge",
+"Staraptor",
+"Talonflame"
+],
+"opp_leads": [
+"Kingambit",
+"Staraptor"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688483529",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Greninja",
+"Sirfetch\u2019d",
+"Skarmory",
+"Slowking-Galar",
+"Stunfisk",
+"Tyranitar"
+],
+"opp_leads": [
+"Greninja",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688484440",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Altaria",
+"Archaludon",
+"Gengar",
+"Incineroar",
+"Politoed",
+"Rillaboom"
+],
+"opp_leads": [
+"Altaria",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688485828",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": true,
+"free": false,
+"quit_state": "even",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Alcremie",
+"Basculegion",
+"Chesnaught",
+"Heliolisk",
+"Mr. Rime",
+"Pidgeot"
+],
+"opp_leads": [
+"Chesnaught",
+"Pidgeot"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688486414",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Araquanid",
+"Blastoise",
+"Corviknight",
+"Garchomp",
+"Indeedee-F",
+"Pelipper"
+],
+"opp_leads": [
+"Araquanid",
+"Blastoise"
+],
+"wg_blocks": [
+[
+2,
+"Water Spout"
+],
+[
+2,
+"Water Spout"
+],
+[
+6,
+"Eruption"
+],
+[
+6,
+"Eruption"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688487094",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Basculegion",
+"Gardevoir",
+"Indeedee-F",
+"Kingambit",
+"Sneasler",
+"Torkoal"
+],
+"opp_leads": [
+"Gardevoir",
+"Indeedee-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688487899-5vci9jb7sl6fusjvxx8djgqfa7v98nbpw",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Dragonite",
+"Golisopod",
+"Pelipper",
+"Wigglytuff",
+"Wyrdeer"
+],
+"opp_leads": [
+"Wigglytuff",
+"Wyrdeer"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688488798",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Farigiraf + Incineroar",
+"arch": "psychic_terrain",
+"roster": [
+"Absol",
+"Arcanine-Hisui",
+"Indeedee-F",
+"Lucario",
+"Primarina",
+"Rillaboom"
+],
+"opp_leads": [
+"Absol",
+"Arcanine-Hisui"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688490293-2oq66ogehrdsd41q5h4cqmvik2oeqd7pw",
+"era": "research",
+"source": "ours:deployed_T6tac",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Ceruledge",
+"Gardevoir",
+"Incineroar",
+"Indeedee-F",
+"Rotom-Wash",
+"Talonflame"
+],
+"opp_leads": [
+"Ceruledge",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688577435",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Basculegion",
+"Blastoise",
+"Farigiraf",
+"Kangaskhan",
+"Torkoal",
+"Vivillon"
+],
+"opp_leads": [
+"Basculegion",
+"Vivillon"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688577936",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Gengar",
+"Incineroar",
+"Politoed",
+"Rillaboom",
+"Vivillon"
+],
+"opp_leads": [
+"Gengar",
+"Vivillon"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688578590",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Garchomp",
+"Golisopod",
+"Incineroar",
+"Rillaboom",
+"Rotom-Wash",
+"Sylveon"
+],
+"opp_leads": [
+"Golisopod",
+"Rotom-Wash"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688579406",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Armarouge",
+"Indeedee",
+"Lucario",
+"Salamence",
+"Sneasler",
+"Sylveon"
+],
+"opp_leads": [
+"Indeedee",
+"Lucario"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688579790-64hxoapw3tas303nhag5a76ovvge8l2pw",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Archaludon",
+"Incineroar",
+"Rillaboom",
+"Salamence",
+"Sneasler",
+"Sylveon"
+],
+"opp_leads": [
+"Incineroar",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688580759",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Absol",
+"Armarouge",
+"Crabominable",
+"Gardevoir",
+"Indeedee-F",
+"Sneasler"
+],
+"opp_leads": [
+"Indeedee-F",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688581277",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Annihilape",
+"Farigiraf",
+"Gholdengo",
+"Maushold",
+"Rillaboom",
+"Salamence"
+],
+"opp_leads": [
+"Rillaboom",
+"Salamence"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688582018",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Dragapult",
+"Excadrill",
+"Garchomp",
+"Metagross",
+"Sableye",
+"Tyranitar"
+],
+"opp_leads": [
+"Dragapult",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688582886",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Gholdengo",
+"Incineroar",
+"Pelipper",
+"Sneasler",
+"Swampert"
+],
+"opp_leads": [
+"Gholdengo",
+"Incineroar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688582948",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Basculegion",
+"Froslass",
+"Indeedee-F",
+"Lycanroc-Dusk",
+"Sceptile",
+"Volcarona"
+],
+"opp_leads": [
+"Indeedee-F",
+"Lycanroc-Dusk"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688583703",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Gengar",
+"Gholdengo",
+"Incineroar",
+"Pawmot",
+"Rillaboom",
+"Salamence"
+],
+"opp_leads": [
+"Gengar",
+"Pawmot"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688584452",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Aerodactyl",
+"Floette-Eternal",
+"Kingambit",
+"Rillaboom",
+"Tauros-Paldea-Aqua",
+"Typhlosion-Hisui"
+],
+"opp_leads": [
+"Aerodactyl",
+"Tauros-Paldea-Aqua"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688584815-2p6w9ib6gyuk2uejy9qqgt7frvafet6pw",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Aggron",
+"Ditto",
+"Incineroar",
+"Indeedee-F",
+"Maushold-Four",
+"Sinistcha"
+],
+"opp_leads": [
+"Aggron",
+"Indeedee-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688585252",
+"era": "day0927",
+"source": "ours:deployed_T6tac_playbook_t6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Arcanine-Hisui",
+"Froslass",
+"Kingambit",
+"Raichu",
+"Rillaboom",
+"Sneasler"
+],
+"opp_leads": [
+"Kingambit",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688851684",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Indeedee",
+"Kingambit",
+"Kommo-o",
+"Meowstic-F",
+"Sneasler"
+],
+"opp_leads": [
+"Meowstic-F",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688852390",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Clefable",
+"Incineroar",
+"Mamoswine",
+"Salamence",
+"Sneasler",
+"Tsareena"
+],
+"opp_leads": [
+"Clefable",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688853303",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Blaziken",
+"Gholdengo",
+"Indeedee-F",
+"Meowscarada",
+"Meowstic-F",
+"Torkoal"
+],
+"opp_leads": [
+"Blaziken",
+"Meowstic-F"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688854379",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Altaria",
+"Indeedee-F",
+"Meowscarada",
+"Metagross",
+"Milotic",
+"Tauros-Paldea-Blaze"
+],
+"opp_leads": [
+"Meowscarada",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688856339-r2a56eh5sxd5sdvb02ya55mx05nhfgepw",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Garchomp",
+"Gholdengo",
+"Incineroar",
+"Raichu",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Garchomp",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688858371",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sand",
+"roster": [
+"Annihilape",
+"Camerupt",
+"Corviknight",
+"Garchomp",
+"Sinistcha",
+"Tyranitar"
+],
+"opp_leads": [
+"Garchomp",
+"Tyranitar"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688859710",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "psychic_terrain",
+"roster": [
+"Chimecho",
+"Decidueye",
+"Indeedee-F",
+"Mudsdale",
+"Rotom-Heat",
+"Sneasler"
+],
+"opp_leads": [
+"Indeedee-F",
+"Rotom-Heat"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688860977",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Charizard",
+"Gliscor",
+"Klefki",
+"Politoed",
+"Rillaboom"
+],
+"opp_leads": [
+"Gliscor",
+"Rillaboom"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688862227-8aru7wcvbhh9eqme4rh824uwyou82dvpw",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Farigiraf",
+"Garchomp",
+"Golisopod",
+"Incineroar",
+"Milotic",
+"Rillaboom"
+],
+"opp_leads": [
+"Farigiraf",
+"Garchomp"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688864739",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Floette-Eternal",
+"Kingambit",
+"Palafin",
+"Rillaboom",
+"Sneasler"
+],
+"opp_leads": [
+"Palafin",
+"Sneasler"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688865368-vf70m0lbrfbj62jbl7o638xfl2mb1impw",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Farigiraf",
+"Garchomp",
+"Kingambit",
+"Meganium",
+"Pelipper",
+"Sneasler"
+],
+"opp_leads": [
+"Garchomp",
+"Pelipper"
+],
+"wg_blocks": [
+[
+2,
+"Water Spout"
+],
+[
+2,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688866857-campfciivumo8qnxlpret2w00t0x54hpw",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": true,
+"free": true,
+"quit_state": "even",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Arcanine-Hisui",
+"Gholdengo",
+"Raichu",
+"Rillaboom",
+"Staraptor",
+"Sylveon"
+],
+"opp_leads": [
+"Arcanine-Hisui",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688867438",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Archaludon",
+"Golisopod",
+"Grimmsnarl",
+"Pelipper",
+"Raichu",
+"Sinistcha"
+],
+"opp_leads": [
+"Grimmsnarl",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688869110",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "balance",
+"roster": [
+"Eelektross",
+"Swampert",
+"Tinkaton",
+"Venusaur",
+"Wigglytuff",
+"Wyrdeer"
+],
+"opp_leads": [
+"Wigglytuff",
+"Wyrdeer"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2688870266-ckrellxdngdaym645eolehvll4qmgtmpw",
+"era": "day0927",
+"source": "ours:practice1_water_t6",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Absol",
+"Archaludon",
+"Gardevoir",
+"Indeedee-F",
+"Pelipper",
+"Sneasler"
+],
+"opp_leads": [
+"Absol",
+"Indeedee-F"
+],
+"wg_blocks": [
+[
+2,
+"Water Spout"
+],
+[
+2,
+"Water Spout"
+]
+]
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689016873",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Charizard + Venusaur",
+"arch": "rain",
+"roster": [
+"Archaludon",
+"Gengar",
+"Incineroar",
+"Politoed",
+"Rillaboom",
+"Swampert"
+],
+"opp_leads": [
+"Incineroar",
+"Swampert"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689017567",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "rain",
+"roster": [
+"Garchomp",
+"Golisopod",
+"Maushold",
+"Milotic",
+"Pelipper",
+"Sneasler"
+],
+"opp_leads": [
+"Maushold",
+"Milotic"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689018520",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Garchomp",
+"Gengar",
+"Milotic",
+"Raichu",
+"Weavile",
+"Whimsicott"
+],
+"opp_leads": [
+"Gengar",
+"Raichu"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689019123",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Charizard",
+"Indeedee-F",
+"Metagross",
+"Salamence",
+"Scrafty",
+"Whimsicott"
+],
+"opp_leads": [
+"Salamence",
+"Scrafty"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689019936",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Charizard + Venusaur",
+"arch": "tailwind",
+"roster": [
+"Incineroar",
+"Kingambit",
+"Raichu",
+"Rillaboom",
+"Staraptor",
+"Typhlosion-Hisui"
+],
+"opp_leads": [
+"Incineroar",
+"Staraptor"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689020817-03tatfjdqr7p8x86sc0f1ey2kvx3bqcpw",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "balance",
+"roster": [
+"Garchomp",
+"Gholdengo",
+"Incineroar",
+"Primarina",
+"Raichu",
+"Rillaboom"
+],
+"opp_leads": [
+"Garchomp",
+"Gholdengo"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689021756",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Alcremie",
+"Annihilape",
+"Dragapult",
+"Metagross",
+"Sharpedo",
+"Whimsicott"
+],
+"opp_leads": [
+"Metagross",
+"Sharpedo"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689022421",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Gallade",
+"Incineroar",
+"Meowscarada",
+"Rotom-Wash",
+"Sylveon",
+"Umbreon"
+],
+"opp_leads": [
+"Incineroar",
+"Rotom-Wash"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689024073",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Absol",
+"Golisopod",
+"Indeedee-F",
+"Sceptile",
+"Sylveon",
+"Whimsicott"
+],
+"opp_leads": [
+"Sceptile",
+"Whimsicott"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689024985-nmnyfpuoeai44trx2vhf7k20827mk2kpw",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": true,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "trick_room",
+"roster": [
+"Dragapult",
+"Eelektross",
+"Empoleon",
+"Farigiraf",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Dragapult",
+"Farigiraf"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689025968",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": true,
+"free": false,
+"quit_state": "ahead",
+"lead": "Blastoise + Farigiraf",
+"arch": "tailwind",
+"roster": [
+"Alakazam",
+"Arcanine-Hisui",
+"Kommo-o",
+"Rillaboom",
+"Volcarona",
+"Whimsicott"
+],
+"opp_leads": [
+"Alakazam",
+"Volcarona"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689026409-qqb4eamlc1m0j3hvka529mkouylnutnpw",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "sun",
+"roster": [
+"Delphox",
+"Indeedee",
+"Milotic",
+"Ninetales",
+"Sableye",
+"Tsareena"
+],
+"opp_leads": [
+"Delphox",
+"Indeedee"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689026971",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Torkoal + Venusaur",
+"arch": "balance",
+"roster": [
+"Garchomp",
+"Gholdengo",
+"Incineroar",
+"Raichu",
+"Rillaboom",
+"Volcarona"
+],
+"opp_leads": [
+"Raichu",
+"Volcarona"
+],
+"wg_blocks": []
+},
+{
+"id": "antonius1 - battle-gen9championsvgc2026regmc-2689028084",
+"era": "night0928",
+"source": "ours:tactical2_e4",
+"win": false,
+"free": false,
+"quit_state": null,
+"lead": "Blastoise + Farigiraf",
+"arch": "trick_room",
+"roster": [
+"Farigiraf",
+"Incineroar",
+"Metagross",
+"Milotic",
+"Sandaconda",
+"Tyranitar"
+],
+"opp_leads": [
+"Farigiraf",
+"Metagross"
+],
+"wg_blocks": []
+}
+]

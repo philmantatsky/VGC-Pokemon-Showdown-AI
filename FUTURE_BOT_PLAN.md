@@ -94,7 +94,8 @@
   Room -5.2, Water Room -2.7; the turn-1 script alone about neutral (-1.1 where the
   plan matched T6tac's own). The loss is the unpractised plan choice.
 - [x] 15-game ladder TRIAL (the user's word), Water Room only (per-card rule):
-  **11-4**, played out 4-4 (7 opponent forfeits; T6tac 4-8 played out); Indeedee /
+  **11-4**, 10-4 without the one free win (09-28: the other forfeits came from
+  behind and count; T6tac alone 7-8); Indeedee /
   Psychic Terrain leads 4-0; one loss from a hard-guard bug (fixed:
   `severe_attack_drop_switch` vs Fake Out). A read, not proof; promotion is the
   user's call.
@@ -102,7 +103,8 @@
   **-4.38 [-7.38, -1.42]** (not deploy-eligible -> no ladder); practice effect
   +3.64 [+1.93, +5.48]; per card Water Room -0.3, Sun Room -4.1, Support Room -8.6.
 - [x] The practised brain + Water Room + turn-1 script: battery -0.06 [-2.68, +2.63]
-  (holds up) -> ladder (the user's word) **6-9**, played out 3-9. Without the script:
+  (holds up) -> ladder (the user's word) **6-9** (5-9 without a free win). Without
+  the script:
   battery -1.81 [-3.93, +0.66], heuristic -6.0, mirror 44.5% -> no ladder; the script
   is worth ~+1.75pp to the practised brain.
 - [x] The doomed-Pokemon lesson (the user chose it, 2026-09-27): tactical fine-tune 2
@@ -112,11 +114,15 @@
   promotion: the user's call.
 - [x] The user's ladder review (2026-09-28) -> three opt-in guards `drop_free_finish`,
   `fake_out_partner_acts`, `switch_the_crippled`: battery +0.26 [-0.53, +1.03]
-  (deploy-eligible), ladder T6tac + guards 23-17 over 40 (they fired 3 times).
+  (deploy-eligible), ladder T6tac + guards 23-17 over 40, 20-17 without free wins
+  (they fired 3 times).
   Promotion into `guards_extra`: the user's call.
 - [x] Tactical fine-tunes 3 / 4 from T6tac: mirrors 41.2 / 47.4% (lose), batteries
   +0.34 / +0.61 -> a second tactical round on the brain's own games does not beat it.
-- [ ] Draft 2 of the playbook (re-key Support Room per `OPENINGS_RESEARCH_T6.md`).
+- [x] Draft 2 of the playbook -- dropped 2026-09-28: re-checked on the 83 later
+  ladder games, its Psychic Terrain premise did not replicate (Indeedee leads 5-11
+  -> 9-8) and Support Room lost -14.6 locally. Sand is the hole that holds
+  (Tyranitar leads 1-12) -> the T6m route in `TEAM_REVIEW_T6.md` (the user's call).
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.
