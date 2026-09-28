@@ -40,7 +40,7 @@ import numpy as np
 import torch
 from stable_baselines3 import PPO
 
-from training.tactical_teacher import doomed_target, target_distribution
+from training.tactical_teacher import doomed_target, pair_target, target_distribution
 
 
 def sha256(path: Path) -> str:
@@ -89,10 +89,23 @@ def policy_probs(policy, obs, mask, played0, device, batch=512):
     return np.concatenate(p0s), np.concatenate(p1s)
 
 
-def build_targets(p0, p1, useless, values, tau, doomed=None, protect=None, wasted=None):
+def build_targets(
+    p0,
+    p1,
+    useless,
+    values,
+    tau,
+    doomed=None,
+    protect=None,
+    wasted=None,
+    drain=None,
+    receive=None,
+):
     """Targets for both positions and which rows carry a lesson. With the doomed
     facts (data since 2026-09-27) a Pokemon likely knocked out before it moves
-    also has that share of its wasted moves' mass moved onto Protect."""
+    also has that share of its wasted moves' mass moved onto Protect; with the
+    pairing facts (since 2026-09-28) slot 2's Protect beside a Fake Out, or its
+    Fake Out beside a Protect, gives its mass to its other moves."""
     q0 = p0.copy()
     q1 = p1.copy()
     lesson = np.zeros((len(p0), 2), dtype=bool)
@@ -112,6 +125,11 @@ def build_targets(p0, p1, useless, values, tau, doomed=None, protect=None, waste
                     wasted[i, pos],
                 )
                 t = d if d is not None else t
+            if drain is not None and receive is not None and drain[i, pos].any():
+                r = pair_target(
+                    p[i] if t is None else t, drain[i, pos], receive[i, pos]
+                )
+                t = r if r is not None else t
             if t is not None:
                 q[i] = t
                 lesson[i, pos] = True
@@ -141,6 +159,7 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
     useless_mass = useless_rows = 0.0
     drift_sum = drift_rows = 0.0
     doomed_mass = doomed_rows = 0.0
+    pair_mass = pair_rows = 0.0
     with torch.no_grad():
         for start in range(0, len(rows), batch):
             idx = rows[start : start + batch]
@@ -159,6 +178,9 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
                 flags = data["useless"][idx, pos]
                 for j in range(len(idx)):
                     row_lesson = lesson[idx[j], pos]
+                    if "drain" in data and data["drain"][idx[j], pos].any():
+                        pair_mass += float(probs[j][data["drain"][idx[j], pos]].sum())
+                        pair_rows += 1
                     if "doomed" in data and data["doomed"][idx[j], pos] > 0:
                         doomed_mass += float(
                             probs[j][data["wasted"][idx[j], pos]].sum()
@@ -200,6 +222,9 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
         # the probability still put on moves a likely knocked-out Pokemon wastes
         "doomed_wasted_mass": doomed_mass / max(1, doomed_rows),
         "doomed_rows": doomed_rows,
+        # slot 2's Protect beside a Fake Out / Fake Out beside a Protect
+        "pair_drain_mass": pair_mass / max(1, pair_rows),
+        "pair_rows": pair_rows,
     }
 
 
@@ -243,6 +268,8 @@ def main() -> None:
         data.get("doomed"),
         data.get("protect"),
         data.get("wasted"),
+        data.get("drain"),
+        data.get("receive"),
     )
 
     critic = (

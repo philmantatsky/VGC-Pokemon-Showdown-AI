@@ -8,7 +8,8 @@ eval-only clones never appear, so the held-out battery stays clean). Every move
 decision records exactly what the network saw (observation, action mask), the
 actions played, and the teacher's facts for both positions (slot 2's conditioned
 on slot 1's played action) -- since 2026-09-27 also the doomed facts (the chance
-of being knocked out before moving, its Protect and wasted actions). The
+of being knocked out before moving, its Protect and wasted actions), and since
+2026-09-28 the Fake Out pairing facts for slot 2 (drain / receive). The
 training target is built later from the network's own distribution, so the
 temperature can change without replaying.
 
@@ -44,7 +45,7 @@ from evaluation.opening_study import (
     roster_split,
 )
 from tools.deployed_config import resolve
-from training.tactical_teacher import doomed_facts, position_facts
+from training.tactical_teacher import doomed_facts, pair_facts, position_facts
 from vgc_bench.src import pokeenv_patches
 from vgc_bench.src.guards import GUARDS, HARD_GUARDS
 from vgc_bench.src.policy import MaskedActorCriticPolicy
@@ -96,7 +97,9 @@ class RecordingPlayer(StudyPlayer):
             m1 = MaskedActorCriticPolicy._update_mask(m, torch.tensor([[a0]]))
             f1, v1 = position_facts(battle, 1, m1[0, act_len:].numpy(), a0)
             d0, p0, w0 = doomed_facts(battle, 0, row[:act_len])
-            d1, p1, w1 = doomed_facts(battle, 1, m1[0, act_len:].numpy())
+            d1, p1, w1 = doomed_facts(battle, 1, m1[0, act_len:].numpy(), a0)
+            dr1, rc1 = pair_facts(battle, m1[0, act_len:].numpy(), a0)
+            none = np.zeros(act_len, dtype=bool)
             self.records.append(
                 {
                     "obs": obs_dict["observation"][0]
@@ -111,6 +114,8 @@ class RecordingPlayer(StudyPlayer):
                     "doomed": np.array([d0, d1], dtype=np.float32),
                     "protect": np.stack([p0, p1]),
                     "wasted": np.stack([w0, w1]),
+                    "drain": np.stack([none, dr1]),
+                    "receive": np.stack([none, rc1]),
                     "turn": int(battle.turn),
                     "battle": battle.battle_tag,
                 }
@@ -133,6 +138,8 @@ def save_shard(path: Path, records: list[dict]) -> int:
         doomed=np.stack([r["doomed"] for r in records]),
         protect=np.stack([r["protect"] for r in records]),
         wasted=np.stack([r["wasted"] for r in records]),
+        drain=np.stack([r["drain"] for r in records]),
+        receive=np.stack([r["receive"] for r in records]),
         turn=np.array([r["turn"] for r in records], dtype=np.int16),
         battle=np.array([r["battle"] for r in records]),
     )

@@ -57,6 +57,7 @@ from poke_env.battle import (
     Field,
     Move,
     MoveCategory,
+    Pokemon,
     PokemonType,
     Status,
     Target,
@@ -79,6 +80,10 @@ WEATHER_MOVES = {
 }
 SOLAR_MOVES = {"solarbeam", "solarblade"}
 WIDE_GUARD_SHARE = 0.15  # a shown Wide Guard is used often, not always
+# per stage an attack lowers its user's own stats (Leaf Storm -2 = 0.10): a
+# drop-free knockout wins the tie (2026-09-28, the user: "the bot leaf stormed a
+# low hp raichu for no reason killing its spA")
+SELF_DROP_COST = 0.05
 
 
 def _in_sun(battle: DoubleBattle, attacker) -> bool:
@@ -202,7 +207,8 @@ def attack_values(
             continue
         if wide and spread_attack(order):
             value *= WIDE_GUARD_SHARE
-        values[action] = float(value)
+        drop = sum(-v for v in (move.self_boost or {}).values() if v < 0)
+        values[action] = float(value) - SELF_DROP_COST * drop
     return values
 
 
@@ -288,7 +294,9 @@ def _ko_chance(fraction: tuple[float, float], hp: float) -> float:
     return (hi - hp) / (hi - lo)
 
 
-def doomed_probability(battle: DoubleBattle, pos: int) -> float:
+def doomed_probability(
+    battle: DoubleBattle, pos: int, skip: frozenset[int] = frozenset()
+) -> float:
     """Chance our Pokemon in ``pos`` is knocked out before it moves this turn.
 
     Each foe contributes its best likely damaging move (revealed, else the
@@ -296,7 +304,8 @@ def doomed_probability(battle: DoubleBattle, pos: int) -> float:
     block, or any move when the foe certainly outspeeds us. The foe attacks with
     USE_SHARE; a spread move then hits us for sure, a single-target move is aimed
     at us with TARGET_SHARE; accuracy counts, critical hits do not. Unknowns
-    contribute nothing.
+    contribute nothing, and so do the foes in ``skip`` (ids of foes our Fake Out
+    flinches this turn).
     """
     from vgc_bench.src.playbook_opening import _likely_moves
 
@@ -308,7 +317,7 @@ def doomed_probability(battle: DoubleBattle, pos: int) -> float:
         return 0.0
     survive = 1.0
     for foe in battle.opponent_active_pokemon:
-        if foe is None or foe.fainted:
+        if foe is None or foe.fainted or id(foe) in skip:
             continue
         K.ensure_stats(foe)
         best = 0.0
@@ -331,14 +340,49 @@ def doomed_probability(battle: DoubleBattle, pos: int) -> float:
     return 1.0 - survive
 
 
+def _landing_fake_out(battle: DoubleBattle, action: int | None) -> Pokemon | None:
+    """The foe slot 1's action Fakes Out, when that Fake Out lands."""
+    if action is None:
+        return None
+    order = G._decode(battle, int(action), 0)
+    move = getattr(order, "order", None)
+    if not isinstance(move, Move) or move.id != "fakeout":
+        return None
+    if useless(battle, 0, int(action)) is not None:
+        return None  # blocked, immune or not its first turn
+    hit = G.resolved_foe_targets(battle, order, move)
+    return hit[0] if len(hit) == 1 else None
+
+
+def _partner_attacks(battle: DoubleBattle, action: int | None) -> bool:
+    """Slot 1's action is a damaging move."""
+    if action is None:
+        return False
+    move = getattr(G._decode(battle, int(action), 0), "order", None)
+    return (
+        isinstance(move, Move)
+        and move.category != MoveCategory.STATUS
+        and float(move.base_power or 0) > 0
+    )
+
+
 def doomed_facts(
-    battle: DoubleBattle, pos: int, mask_row: np.ndarray
+    battle: DoubleBattle,
+    pos: int,
+    mask_row: np.ndarray,
+    partner_action: int | None = None,
 ) -> tuple[float, np.ndarray, np.ndarray]:
     """(doomed chance, Protect actions, wasted actions) over act_len for ``pos``.
 
     Silent (0.0) unless the Pokemon has a legal Protect it did not use last turn
     and the chance reaches DOOMED_MIN. Wasted = its legal moves other than
     Protect that do not act before the foes (priority <= 0).
+
+    A Protect has to buy something (2026-09-28 ladder review: a double Protect,
+    and Torkoal Protecting beside Incineroar's Fake Out): silent too when the
+    partner is itself doomed, or -- for slot 2, whose partner action is known --
+    when the partner does not attack; and a foe slot 1's Fake Out flinches does
+    not count as a threat to slot 2.
     """
     protect = np.zeros(act_len, dtype=bool)
     wasted = np.zeros(act_len, dtype=bool)
@@ -358,8 +402,71 @@ def doomed_facts(
             wasted[action] = True
     if not protect.any() or not wasted.any():
         return 0.0, protect, wasted
-    chance = doomed_probability(battle, pos)
+    if (
+        pos == 1
+        and partner_action is not None
+        and not _partner_attacks(battle, partner_action)
+    ):
+        return 0.0, protect, wasted
+    if doomed_probability(battle, 1 - pos) >= DOOMED_MIN:
+        return 0.0, protect, wasted  # a double Protect only delays
+    flinched = _landing_fake_out(battle, partner_action) if pos == 1 else None
+    skip = frozenset({id(flinched)}) if flinched is not None else frozenset()
+    chance = doomed_probability(battle, pos, skip)
     return (chance if chance >= DOOMED_MIN else 0.0), protect, wasted
+
+
+def pair_facts(
+    battle: DoubleBattle, mask_row: np.ndarray, partner_action: int | None
+) -> tuple[np.ndarray, np.ndarray]:
+    """(drain, receive) over act_len for slot 2 given slot 1's action.
+
+    A Fake Out buys the partner a free turn (the user, 2026-09-28: "the fake out
+    was for us to attack with the other mon"): beside a landing Fake Out, slot 2's
+    Protect mass goes to its other moves; beside a Protect, slot 2's Fake Out mass
+    goes to its moves other than Fake Out and Protect.
+    """
+    drain = np.zeros(act_len, dtype=bool)
+    receive = np.zeros(act_len, dtype=bool)
+    if partner_action is None:
+        return drain, receive
+    partner = getattr(G._decode(battle, int(partner_action), 0), "order", None)
+    if not isinstance(partner, Move):
+        return drain, receive
+    fake_out = _landing_fake_out(battle, partner_action) is not None
+    if not fake_out and partner.id not in G.PROTECT_MOVES:
+        return drain, receive
+    for action in MOVE_BANDS:
+        if not mask_row[action]:
+            continue
+        move = getattr(G._decode(battle, action, 1), "order", None)
+        if not isinstance(move, Move):
+            continue
+        if fake_out:
+            (drain if move.id in G.PROTECT_MOVES else receive)[action] = True
+        elif move.id == "fakeout":
+            drain[action] = True
+        elif move.id not in G.PROTECT_MOVES:
+            receive[action] = True
+    if not drain.any() or not receive.any():
+        drain[:] = False
+        receive[:] = False
+    return drain, receive
+
+
+def pair_target(
+    q: np.ndarray, drain: np.ndarray, receive: np.ndarray
+) -> np.ndarray | None:
+    """Move all of ``drain``'s mass onto ``receive`` in its own proportions; None
+    when there is nothing to move or nothing the policy puts mass on to receive."""
+    q = np.asarray(q, dtype=np.float64).copy()
+    moved = q[drain].sum()
+    base = q[receive]
+    if moved <= 0.0 or base.sum() <= 0.0:
+        return None
+    q[drain] = 0.0
+    q[receive] = base + moved * base / base.sum()
+    return q / q.sum()
 
 
 def doomed_target(
