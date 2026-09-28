@@ -1,5 +1,13 @@
 # VGC Bot Project Status
 
+## L1 ladder read (T6tac + the review guards): 11-9, played out 7-9 (2026-September 28, 02:20)
+
+`ladder_replays_mc_T6tac_review_guards` (20 serial games, 01:22-02:13): **11-9
+(55%)**, 4 wins by forfeit / inactivity, **played out 7-9** -- the best played-out
+record of the recent reads (T6tac 4-8, T6ctx 3-9). But the three guards changed only
+3 ladder decisions (all `drop_free_finish`), so this read mostly re-measures T6tac:
+a read, not proof. Tactical fine-tune 3 started at 02:14 (the chain's next step).
+
 ## The review guards: battery +0.26 (deploy-eligible), mirror inconclusive (never fired) -> L1 ladder read running (2026-September 28, 01:30)
 
 - **Battery** `results_guard_ab_review_guards_0928` (T6tac + the three vs T6tac):
