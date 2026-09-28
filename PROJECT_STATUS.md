@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Night summary: T6tac + the review guards 23-17 over 40 ladder games; no brain beat T6tac; nothing promoted (2026-September 28, 06:05)
+
+- **Ladder** `ladder_replays_mc_T6tac_review_guards` (40 serial games, 01:22-05:58):
+  **23-17 (57.5%)**; 12 wins by forfeit / inactivity, played out 11-17. The three
+  review guards changed 3 ladder decisions in 40 games (all `drop_free_finish`), so
+  this read is essentially T6tac's level tonight (its earlier 15-game read: 7-8).
+- **Candidates tonight:** the review guards (battery +0.26 [-0.53, +1.03],
+  deploy-eligible; they fix the mistakes the user found; ladder above) and three
+  tactical fine-tunes from T6tac, none better head-to-head (mirrors 48.25 / 41.2 /
+  47.4%; batteries +0.35 / +0.34 / +0.61).
+- **For the user (not done tonight):** add `drop_free_finish`,
+  `fake_out_partner_acts`, `switch_the_crippled` to DEPLOYED.json `guards_extra`
+  (the evidence above); T6tac stays the brain.
+
 ## Tactical fine-tune 4 (base lessons only) also fails its mirror -> no ladder; the L1 read continues to 40 games (2026-September 28, 05:10)
 
 - **Tactical 4** (`results_tactical4/tactical_e4.zip`, `--lessons base` on

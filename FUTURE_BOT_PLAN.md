@@ -110,6 +110,12 @@
   0.53) -> mirror 48.25% inconclusive (open 55.8 / hidden 40.7), battery +0.35
   [-0.64, +1.37] (deploy-eligible, not better; hidden sheets +1.06). Ladder /
   promotion: the user's call.
+- [x] The user's ladder review (2026-09-28) -> three opt-in guards `drop_free_finish`,
+  `fake_out_partner_acts`, `switch_the_crippled`: battery +0.26 [-0.53, +1.03]
+  (deploy-eligible), ladder T6tac + guards 23-17 over 40 (they fired 3 times).
+  Promotion into `guards_extra`: the user's call.
+- [x] Tactical fine-tunes 3 / 4 from T6tac: mirrors 41.2 / 47.4% (lose), batteries
+  +0.34 / +0.61 -> a second tactical round on the brain's own games does not beat it.
 - [ ] Draft 2 of the playbook (re-key Support Room per `OPENINGS_RESEARCH_T6.md`).
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
