@@ -1,5 +1,32 @@
 # VGC Bot Project Status
 
+## Pre-registered: tonight's plan under the user's delegation (2026-September 28, 00:25)
+
+The user, going to sleep: "continue training as needed and run ladder whenever u
+feel the need to, im sleeping so use your best judgment from here on out". Fixed
+now, before the review-guard A/B (running) or anything else reports:
+- **DEPLOYED.json stays T6tac**; no promotion tonight (candidates and evidence go to
+  the morning report). Ladder only through `tools/ladder_trial.sh`, serial, never
+  sharing the machine with a local run.
+- **L1 -- the three review guards on T6tac:** a 20-game ladder read
+  (`ladder_replays_mc_T6tac_review_guards`) if their battery is deploy-eligible
+  (pooled upper >= 0, no population below -3pp) and their mirror does not lose
+  (upper >= 50%). If the bundle fails, no ladder for it; a subset is only laddered
+  after its own local test.
+- **T1 -- tactical fine-tune 3 from T6tac** (the lessons the reviews keep finding,
+  taught to the brain, not only guarded): the existing move / damage lessons; the
+  doomed lesson with its two ladder-exposed flaws fixed (slot 2 does not count a
+  foe our slot 1 Fakes Out; no Protect shift when both our Pokemon are doomed);
+  finishing drop-free (a self-dropping attack's value carries a cost per stage
+  dropped, so a drop-free knockout wins the tie); and a Fake Out's partner acts
+  (slot 2 conditioned on slot 1: a Fake Out beside a Protect moves the Protect /
+  Fake Out mass to that Pokemon's other moves). Same recipe as T6tac (positions
+  from T6tac, lr 1e-4, 4 epochs, lowest validation CE).
+- **L2 -- tactical 3:** a 20-game ladder read (with the review guards if L1's local
+  test passed) only if its mirror WINS close games (Wilson lower > 50%) and its
+  battery is deploy-eligible.
+- **Stop rule:** a read at 5-15 or worse ends ladder play for the night.
+
 ## Ladder read of the doomed-lesson brain: 7-8 (played out 2-8); the user's review -> three opt-in guards, their A/B pre-registered (2026-September 28, 00:40)
 
 `ladder_replays_mc_tactical2_e4` (15 games, 23:21-00:04): **7-8, 5 wins by forfeit
