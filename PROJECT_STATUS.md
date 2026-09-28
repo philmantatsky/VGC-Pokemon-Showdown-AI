@@ -1,5 +1,22 @@
 # VGC Bot Project Status
 
+## The review guards: battery +0.26 (deploy-eligible), mirror inconclusive (never fired) -> L1 ladder read running (2026-September 28, 01:30)
+
+- **Battery** `results_guard_ab_review_guards_0928` (T6tac + the three vs T6tac):
+  **pooled +0.26pp [-0.53, +1.03]** -> no clear change, deploy-eligible (human_new
+  +0.6, frozen +2.2 [+0.4, +4.3], rotation1 +0.2, rotation2 +0.2, human_previous +0.7,
+  heuristic -2.3 [-4.5, -0.2]). Fired in 6,204 games: `drop_free_finish` 226,
+  `switch_the_crippled` 59 (56 promoted, 3 built), `fake_out_partner_acts` 21; no
+  errors.
+- **Mirror** `results_mirror_review_guards_0928`: **48.15% [45.97, 50.34] ->
+  inconclusive**, and none of the three fired in its 2,000 games: against our own
+  team T6tac's preview almost never brings Venusaur (the only self-dropping attack,
+  Leaf Storm) and the other two situations barely arise -- the mirror cannot see
+  these guards; the battery is their test.
+- By the pre-registered L1 rule (battery deploy-eligible, mirror upper >= 50%) the
+  20-game ladder read of T6tac + the three guards started at 01:22
+  (`ladder_replays_mc_T6tac_review_guards`).
+
 ## Pre-registered: tonight's plan under the user's delegation (2026-September 28, 00:25)
 
 The user, going to sleep: "continue training as needed and run ladder whenever u
