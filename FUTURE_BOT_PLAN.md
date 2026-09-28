@@ -105,9 +105,12 @@
   (holds up) -> ladder (the user's word) **6-9**, played out 3-9. Without the script:
   battery -1.81 [-3.93, +0.66], heuristic -6.0, mirror 44.5% -> no ladder; the script
   is worth ~+1.75pp to the practised brain.
-- [ ] Next (the user's call): draft 2 (re-key Support Room per
-  `OPENINGS_RESEARCH_T6.md`), or target the steadiest loss pattern (our slow Pokemon
-  fainting before they act, 9 of 9 losses in the last read).
+- [x] The doomed-Pokemon lesson (the user chose it, 2026-09-27): tactical fine-tune 2
+  (`results_tactical2/sft/tactical_e4.zip`) learned it (wasted-move mass 0.77 ->
+  0.53) -> mirror 48.25% inconclusive (open 55.8 / hidden 40.7), battery +0.35
+  [-0.64, +1.37] (deploy-eligible, not better; hidden sheets +1.06). Ladder /
+  promotion: the user's call.
+- [ ] Draft 2 of the playbook (re-key Support Room per `OPENINGS_RESEARCH_T6.md`).
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.

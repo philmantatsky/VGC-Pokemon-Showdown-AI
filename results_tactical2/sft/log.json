@@ -1,0 +1,81 @@
+{
+  "start_checkpoint": "results_deployed/champion_mc_T6tac.zip",
+  "start_sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+  "data": "results_tactical2/data",
+  "rows": 17807,
+  "train_rows": 16043,
+  "val_rows": 1764,
+  "lesson_rows_pos0": 17012,
+  "lesson_rows_pos1": 15175,
+  "doomed_rows": 952,
+  "args": {
+    "checkpoint": "results_deployed/champion_mc_T6tac.zip",
+    "data": "results_tactical2/data",
+    "output": "results_tactical2/sft",
+    "tau": "0.1",
+    "lr": "0.0001",
+    "epochs": "4",
+    "batch": "256",
+    "seed": "20926",
+    "device": "mps"
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 1.9978140784507752,
+      "cross_entropy": 1.9420474305444835,
+      "teacher_agreement": 0.7938834023574387,
+      "lesson_rows": 3139,
+      "useless_mass": 0.045957257622912584,
+      "drift_kl_no_lesson": 0.010649152322973641,
+      "doomed_wasted_mass": 0.5975854908828034,
+      "doomed_rows": 90.0,
+      "minutes": 0.1
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.9314805634381549,
+      "cross_entropy": 1.9143363969936933,
+      "teacher_agreement": 0.8126791971965595,
+      "lesson_rows": 3139,
+      "useless_mass": 0.042378402744275394,
+      "drift_kl_no_lesson": 0.012602753162996303,
+      "doomed_wasted_mass": 0.5915771528527092,
+      "doomed_rows": 90.0,
+      "minutes": 0.0
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.8990754171447073,
+      "cross_entropy": 1.896866640536423,
+      "teacher_agreement": 0.8161834979292768,
+      "lesson_rows": 3139,
+      "useless_mass": 0.03848397332404879,
+      "drift_kl_no_lesson": 0.01227525085747,
+      "doomed_wasted_mass": 0.5379410203644324,
+      "doomed_rows": 90.0,
+      "minutes": 0.0
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.8728935684578485,
+      "cross_entropy": 1.887854543672938,
+      "teacher_agreement": 0.8222363810130615,
+      "lesson_rows": 3139,
+      "useless_mass": 0.03569053237052973,
+      "drift_kl_no_lesson": 0.018598537974354647,
+      "doomed_wasted_mass": 0.5313961321098342,
+      "doomed_rows": 90.0,
+      "minutes": 0.0
+    }
+  ],
+  "val_before": {
+    "cross_entropy": 2.018582298642113,
+    "teacher_agreement": 0.7808219178082192,
+    "lesson_rows": 3139,
+    "useless_mass": 0.07157544351529303,
+    "drift_kl_no_lesson": -7.619931932630925e-09,
+    "doomed_wasted_mass": 0.7722781742502106,
+    "doomed_rows": 90.0
+  }
+}

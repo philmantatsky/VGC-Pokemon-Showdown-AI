@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## Doomed-Pokemon lesson: learned, no clear change locally (deploy-eligible); the mirror splits by sheet mode (2026-September 27, 19:55)
+
+(The 18:55 pre-registration was written and committed before the run started at
+18:12 wall-clock; its header time is a typo.)
+- **Data** `results_tactical2/data`: 3,200 games by the deployed T6tac on train-split
+  rosters, 17,807 decisions, no teacher errors (4 `priority_block_error`, the known
+  rare one); doomed positions ~4% of slots (mean chance 0.56).
+- **Fine-tune** `results_tactical2/sft/tactical_e4.zip` (from T6tac, lr 1e-4, 4
+  epochs; the pick by validation CE 2.019 -> 1.888): validation **mass on wasted
+  moves in doomed positions 0.772 -> 0.531** (the lesson is learned, partly);
+  useless mass 0.072 -> 0.036, teacher agreement 0.78 -> 0.82, drift on lesson-free
+  rows 0.019.
+- **Mirror** `results_mirror_tactical2`: **48.25% [46.07, 50.44] -> inconclusive**;
+  open sheets 55.8% (wins), hidden sheets **40.7%** (loses).
+- **Battery** `results_brain_ab_tactical2_e4`: **pooled +0.35pp [-0.64, +1.37]** ->
+  no clear change, deploy-eligible (every population within about 1pp: human_new
+  +0.3, frozen -0.3, rotation1 +0.7, rotation2 +0.9, human_previous +0.9,
+  heuristic -0.3). By sheet mode the battery is the mirror's opposite: hidden
+  +1.06 (all six positive), open -0.35.
+- Reading: the brain learned to Protect a Pokemon that is about to be knocked out,
+  but locally that neither wins nor loses games measurably. The mirror's
+  hidden-sheet loss is the one matchup where the usage-based set guesses (which the
+  lesson leans on) fit worst: our own unusual sets (Water Spout Blastoise vs the
+  meta's Shell Smash, etc.). Ladder and promotion: the user's call.
+
 ## Pre-registered: the doomed-Pokemon lesson (tactical fine-tune 2) (2026-September 27, 18:55)
 
 The user chose it ("2"): teach the brain not to waste a turn with a Pokemon that

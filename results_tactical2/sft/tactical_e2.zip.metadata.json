@@ -1,0 +1,10 @@
+{
+  "role": "candidate",
+  "method": "tactical fine-tune (training/tactical_sft.py)",
+  "start_checkpoint": "results_deployed/champion_mc_T6tac.zip",
+  "start_sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
+  "epoch": 2,
+  "tau": 0.1,
+  "lr": 0.0001,
+  "sha256": "98d9cab94ac956cac0b1879aae467f3e93ddcd3d0309fe2c1ce36165c3430176"
+}
