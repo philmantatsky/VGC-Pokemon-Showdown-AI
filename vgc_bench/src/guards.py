@@ -1636,6 +1636,190 @@ def guard_severe_attack_drop_switch(battle, cands, report) -> list[Candidate]:
     return _promote_candidate(cands, best, "severe_attack_drop_switch", report)
 
 
+DROP_FREE_KO = 0.5  # the self-dropping attack is meant as a finisher
+# the stat each move category attacks with
+_ATTACK_STAT = {MoveCategory.PHYSICAL: "atk", MoveCategory.SPECIAL: "spa"}
+
+
+def _self_drop(move: Move) -> bool:
+    """The user's own stats fall (Leaf Storm, Overheat, Close Combat ...)."""
+    return any(value < 0 for value in (move.self_boost or {}).values())
+
+
+def _ko_chances(battle: DoubleBattle, attacker: Pokemon, order, pos: int):
+    """Accuracy-weighted knockout chance per foe the order hits, from the foes'
+    current HP; None when the calculator cannot evaluate one of them."""
+    move, targets = _move_and_targets(battle, order, pos)
+    if move is None or not targets:
+        return None
+    accuracy = float(move.accuracy or 1.0)
+    chances = []
+    for foe in targets:
+        fraction = K.damage_fraction(battle, attacker, foe, move)
+        if fraction is None:
+            return None
+        _, p_ko = _capped_roll(
+            fraction[0], fraction[1], float(foe.current_hp_fraction or 0.0)
+        )
+        chances.append(accuracy * p_ko)
+    return chances
+
+
+def guard_drop_free_finish(battle, cands, report) -> list[Candidate]:
+    """Finish a foe with a move that does not lower our own stats.
+
+    Ladder 2026-09-28 (the doomed-lesson read, vs s9mmow, turn 7; the user: "the
+    bot leaf stormed a low hp raichu for no reason killing its spA"): Leaf Storm
+    into a 9% Mega Raichu with Sludge Bomb -- which also knocks it out -- ranked
+    beside it; dominated_attack scores two knockouts alike and never counts the
+    -2. For each slot of the top pair using a plain attack that lowers its user's
+    stats and is likely to knock out every foe it hits (>= 0.5, accuracy included,
+    from their current HP), the ranked pair that keeps the partner's action and
+    uses a plain drop-free attack of the same Pokemon (same Mega/Tera choice) on
+    the same foes, knocking each out at least as surely, is promoted. Only ranked
+    pairs; stands down when the calculator cannot evaluate. Opt-in: not in
+    HARD_GUARDS until it passes its A/B.
+    """
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if len(live) < 2:
+        return cands
+    top = live[0]
+    for pos in (0, 1):
+        attacker = battle.active_pokemon[pos]
+        if attacker is None or attacker.fainted:
+            continue
+        order = _decode(battle, top.actions[pos], pos)
+        move, aimed = _move_and_targets(battle, order, pos)
+        if move is None or not aimed or not _plain_attack(move) or not _self_drop(move):
+            continue
+        chances = _ko_chances(battle, attacker, order, pos)
+        if chances is None or min(chances) < DROP_FREE_KO:
+            continue
+        foes = {id(foe) for foe in aimed}
+        for candidate in live[1:]:
+            if candidate.actions[1 - pos] != top.actions[1 - pos]:
+                continue
+            alternative = _decode(battle, candidate.actions[pos], pos)
+            alt_move, hit = _move_and_targets(battle, alternative, pos)
+            if (
+                alt_move is None
+                or not _plain_attack(alt_move)
+                or _self_drop(alt_move)
+                or _gimmicks(alternative) != _gimmicks(order)
+                or {id(foe) for foe in hit} != foes
+            ):
+                continue
+            alt_chances = _ko_chances(battle, attacker, alternative, pos)
+            if alt_chances is None or min(alt_chances) < min(chances):
+                continue
+            candidate.prob = max(candidate.prob, top.prob)  # see resisted_target
+            report.demotions["drop_free_finish:promoted"] += 1
+            return _promote_candidate(cands, candidate, "drop_free_finish", report)
+    return cands
+
+
+def guard_fake_out_partner_acts(battle, cands, report) -> list[Candidate]:
+    """A Fake Out buys the partner a free turn: the partner should use it.
+
+    Ladder 2026-09-28 (same game, turn 10; the user: "we used fakeout and then
+    protected with the other mon which makes no sense cuz the fake out was for us
+    to attack with the other mon"): Incineroar Faked Out Volcarona while Torkoal
+    Protected, and the unflinched Garchomp knocked Incineroar out. When the top
+    pair pairs our Fake Out with the partner's Protect, the best-ranked pair in
+    which the same Pokemon still uses Fake Out and the partner uses a move other
+    than a Protect is promoted. Only ranked pairs. Opt-in: not in HARD_GUARDS
+    until it passes its A/B.
+    """
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if len(live) < 2:
+        return cands
+    top = live[0]
+
+    def move_of(candidate: Candidate, pos: int) -> Move | None:
+        order = _decode(battle, candidate.actions[pos], pos)
+        move = getattr(order, "order", None)
+        return move if isinstance(move, Move) else None
+
+    for fake_pos in (0, 1):
+        partner_pos = 1 - fake_pos
+        fake, partner = move_of(top, fake_pos), move_of(top, partner_pos)
+        if fake is None or fake.id != "fakeout":
+            continue
+        if partner is None or partner.id not in PROTECT_MOVES:
+            continue
+        for candidate in live[1:]:
+            fake2, partner2 = (
+                move_of(candidate, fake_pos),
+                move_of(candidate, partner_pos),
+            )
+            if fake2 is None or fake2.id != "fakeout":
+                continue
+            if partner2 is None or partner2.id in PROTECT_MOVES:
+                continue
+            candidate.prob = max(candidate.prob, top.prob)
+            report.demotions["fake_out_partner_acts:promoted"] += 1
+            return _promote_candidate(cands, candidate, "fake_out_partner_acts", report)
+    return cands
+
+
+def guard_switch_the_crippled(battle, cands, report) -> list[Candidate]:
+    """When one of ours switches out anyway, switch the one a stat drop crippled.
+
+    Ladder 2026-09-28 (same game, turn 9; the user: "it switched torkoal out but it
+    wouldve been much better to switch out venu cuz of sun + it would get its spA
+    back"): Torkoal (7%) went out for Incineroar while Venusaur, at -2 Sp. Atk
+    after Leaf Storm, stayed in to Leaf Storm again. When the top pair switches
+    one Pokemon out while the other attacks with the stat its move uses at -2 or
+    worse (Attack for physical, Sp. Atk for special; Contrary / Defiant /
+    Competitive excluded), the crippled Pokemon takes that switch instead (a
+    switch resets its stats) and the other acts with its best-ranked non-switch
+    action. The pair is promoted if ranked, else built from the two ranked
+    actions (both legal; a switch never conflicts with a move). Opt-in: not in
+    HARD_GUARDS until it passes its A/B.
+    """
+    live = [candidate for candidate in cands if candidate.demoted_by is None]
+    if len(live) < 2:
+        return cands
+    top = live[0]
+    orders = [_decode(battle, top.actions[pos], pos) for pos in (0, 1)]
+    for out_pos in (0, 1):
+        stay_pos = 1 - out_pos
+        incoming = getattr(orders[out_pos], "order", None)
+        crippled = battle.active_pokemon[stay_pos]
+        move = getattr(orders[stay_pos], "order", None)
+        if not isinstance(incoming, Pokemon) or crippled is None or crippled.fainted:
+            continue
+        if not isinstance(move, Move) or move.category not in _ATTACK_STAT:
+            continue
+        if _norm(crippled.ability) in {"contrary", "defiant", "competitive"}:
+            continue
+        if crippled.boosts.get(_ATTACK_STAT[move.category], 0) > -2:
+            continue
+        switch = top.actions[out_pos]
+        other_action = None
+        for candidate in live:
+            action = candidate.actions[out_pos]
+            if not isinstance(
+                getattr(_decode(battle, action, out_pos), "order", None), Pokemon
+            ):
+                other_action = action
+                break
+        if other_action is None:
+            continue
+        wanted: tuple[int, int] = (
+            (switch, other_action) if stay_pos == 0 else (other_action, switch)
+        )
+        match = next((c for c in live if tuple(c.actions) == wanted), None)
+        if match is not None:
+            match.prob = max(match.prob, top.prob)
+            report.demotions["switch_the_crippled:promoted"] += 1
+            return _promote_candidate(cands, match, "switch_the_crippled", report)
+        report.demotions["switch_the_crippled:injected"] += 1
+        report.note("switch_the_crippled")
+        return [Candidate(actions=wanted, prob=top.prob)] + list(cands)
+    return cands
+
+
 def guard_two_on_one_focus(battle, cands, report) -> list[Candidate]:
     """Prefer two attacks over a near-tied Protect gamble in a clean 2v1."""
     our_live = [
@@ -2991,6 +3175,9 @@ GUARDS = {
     "dominated_attack": guard_dominated_attack,
     "dominated_throat_chop": guard_dominated_throat_chop,
     "dominated_spread": guard_dominated_spread,
+    "drop_free_finish": guard_drop_free_finish,
+    "fake_out_partner_acts": guard_fake_out_partner_acts,
+    "switch_the_crippled": guard_switch_the_crippled,
     "focus_boosted": guard_focus_boosted,
     "keep_our_weather": guard_keep_our_weather,
     "trick_room_counter": guard_trick_room_counter,
@@ -3062,6 +3249,7 @@ GUARD_ORDER = (
     "dominated_attack",
     "dominated_throat_chop",
     "dominated_spread",
+    "drop_free_finish",
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",
@@ -3069,10 +3257,12 @@ GUARD_ORDER = (
     "trick_room_counter",
     "keep_our_weather",
     "trick_room_direction",
+    "fake_out_partner_acts",
     "protect_spam",
     "guaranteed_ko",
     "reserve_weather_mega",
     "severe_attack_drop_switch",
+    "switch_the_crippled",
     "yawn_switch",
     "two_on_one_focus",
     "endgame_progress",

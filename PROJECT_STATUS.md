@@ -1,5 +1,41 @@
 # VGC Bot Project Status
 
+## Ladder read of the doomed-lesson brain: 7-8 (played out 2-8); the user's review -> three opt-in guards, their A/B pre-registered (2026-September 28, 00:40)
+
+`ladder_replays_mc_tactical2_e4` (15 games, 23:21-00:04): **7-8, 5 wins by forfeit
+or inactivity -> played out 2-8**, the weakest read yet; a Pokemon of ours fainted
+before acting in 7 of the 8 losses (2.1 per loss; the read before it 2.8). Not
+promoted; T6tac stays deployed.
+- **The user's review of one loss (vs s9mmow):** "the bot leaf stormed a low hp
+  raichu for no reason killing its spA ... it switched torkoal out but it wouldve
+  been much better to switch out venu cuz of sun + it would get its spA back ...
+  we used fakeout and then protected with the other mon which makes no sense cuz
+  the fake out was for us to attack with the other mon". The decision log
+  confirms all three: turn 7 Leaf Storm -> Raichu 9% (p 0.31) with Sludge Bomb ->
+  Raichu ranked (0.06), both knockouts, dominated_attack never counts the -2;
+  turn 9 Torkoal (7%) switched out while Venusaur (1%, -2 Sp. Atk) stayed to Leaf
+  Storm again (no Venusaur switch ranked); turn 10 Torkoal Protect + Incineroar
+  Fake Out -> Volcarona (0.41), Heat Wave + Fake Out ranked (0.12), the free Garchomp
+  knocked Incineroar out. Turn 8 was a double Protect that bought nothing -- the
+  doomed lesson's flaw: it moves attacks to Protect without asking whether the
+  Protect buys anything (the partner's Fake Out, a double Protect).
+- **Three opt-in guards** (`vgc_bench/src/guards.py`, tests from that game's turns
+  in `unit_tests/test_review_guards_0928.py`): `drop_free_finish` (a self-dropping
+  attack likely to knock out its targets gives way to a ranked drop-free attack of
+  the same Pokemon that knocks them out at least as surely), `fake_out_partner_acts`
+  (our Fake Out beside the partner's Protect gives way to the best-ranked pair with
+  the same Fake Out user and the partner acting), `switch_the_crippled` (when one of
+  ours switches out while the other attacks at -2 or worse in the stat its move uses,
+  the crippled one takes the switch and the other acts with its best-ranked
+  non-switch action; built if not ranked).
+- **Pre-registered A/B** (T6tac, the three together, per-guard firing reported):
+  mirror `--guard drop_free_finish,fake_out_partner_acts,switch_the_crippled`
+  2,000 games (wins close games if the Wilson lower bound > 50%, loses if the upper
+  < 50%); battery `--guards` the same `--without-arm results_brain_ab_tactical1_e4`
+  (better if the pooled lower bound > 0; deploy-eligible if the pooled upper >= 0 and
+  no population below -3pp; the fixes made since that arm ride along). Deployment:
+  the user's call.
+
 ## Ladder read of the doomed-lesson brain (the user's word, 2026-September 27, 20:05)
 
 The user: "yes run 15 ladder games with it". 15 serial games with exactly the
