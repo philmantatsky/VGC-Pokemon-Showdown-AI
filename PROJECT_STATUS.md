@@ -1,5 +1,39 @@
 # VGC Bot Project Status
 
+## Blastoise's moves on ladder: Ice Beam earns its slot; Protect for Fake Out and Dark Pulse for Ice Beam not supported; Aura Sphere for Water Pulse is the swap our games favour (2026-September 28, 10:40)
+
+The user: "how often do we use ice beam on blastoise ... and how often does it
+actually do good damage", then "protect instead of fake out and then dark pulse
+instead of ice beam ... is dark better for blastoise in this meta?". Analysis only
+(`results_analysis/blastoise_set_20260928/blastoise_audit.py` / `.txt`, the 220 T6-era
+ladder games); nothing trained, nothing on the server.
+- **Ice Beam:** 49 of Blastoise's 475 moves (Water Spout 270, Water Pulse 92, Fake
+  Out 64), in 35 of the 169 games Blastoise played; chosen 76 times, and in 22 of
+  those Blastoise fainted before moving. Of the 49: 13 KOs + 13 hits of 50%+ (53%;
+  Water Pulse 41%), 8 at 25-49%, 8 under 25%, 7 into Protect. 10 of the 13 KOs on 4x
+  targets (Salamence 7, Dragonite, Garchomp, Altaria); of the 21 aimed at a 4x-weak
+  target 10 KO'd, 5 hit Protect, 6 hit a switch-in. On its intended target Ice Beam
+  out-powered Water Pulse in 43 of 49 (type x weather x Mega Launcher).
+- **Fake Out:** 54 of 64 flinched their target, 7 hit without a flinch, 2 were
+  blocked by Psychic Terrain, 1 Protected. Blastoise fainted before moving 6 times on
+  turn 1 in 169 games (63 on later turns) -> Protect for Fake Out would give up ~54
+  turn-1 flinches (the expert pilots' turn-1 line) to save few turns: not supported.
+- **Move variants** (the best move of each set at each of Blastoise's 411 attacking
+  turns, real damage calc with Mega Launcher, KOs first then +20% damage; hindsight,
+  not the bot's choices): Dark Pulse for Ice Beam better 49 / worse 41, KOs +25 / -28
+  (gains Sinistcha, Indeedee, Milotic; loses Garchomp 10, Salamence 9) -- a wash that
+  gives up our Garchomp answer (Garchomp rosters 11-29, our worst common one); Dark
+  Pulse for Water Pulse +25 / -18; **Aura Sphere for Water Pulse 59 / 31, KOs +40 /
+  -20** (Kingambit 12, Archaludon 10, Tyranitar 7 -- the sand and rain problem
+  Pokemon: Tyranitar rosters 8-21, Archaludon 11-20); Dark Pulse + Aura Sphere 92 / 54,
+  +59 / -39 (loses Garchomp and Salamence).
+- The set-swap audit's verdict rule let damage outrank a KO; re-run with KOs first (a
+  scratch copy), its Torkoal / Venusaur / Charizard counts are identical, so T6m's
+  numbers stand.
+- **So:** keep Fake Out and Ice Beam; if Blastoise changes, Aura Sphere over Water
+  Pulse, a candidate third team for T6m's clone team tournament (the user's call).
+  Any set change needs a practice cycle before our brain can use it.
+
 ## The openings research re-checked on the 83 ladder games played after it; correction: opponent forfeits are wins (2026-September 28, 10:05)
 
 The user: "take a look at openings research that i had another context make".

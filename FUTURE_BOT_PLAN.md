@@ -123,6 +123,11 @@
   ladder games, its Psychic Terrain premise did not replicate (Indeedee leads 5-11
   -> 9-8) and Support Room lost -14.6 locally. Sand is the hole that holds
   (Tyranitar leads 1-12) -> the T6m route in `TEAM_REVIEW_T6.md` (the user's call).
+- [ ] Blastoise (2026-09-28, `results_analysis/blastoise_set_20260928/`): keep Fake
+  Out (54 of 64 flinched) and Ice Beam (our Garchomp / Salamence KOs); Aura Sphere over
+  Water Pulse scores best in our games (KOs +40 / -20: Kingambit, Archaludon,
+  Tyranitar) -> a third team (T6m + Aura Sphere) in T6m's clone tournament (the
+  user's call).
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.
