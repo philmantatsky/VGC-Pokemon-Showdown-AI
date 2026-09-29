@@ -1,5 +1,26 @@
 # VGC Bot Project Status
 
+## T6 set-variant tournament: T6m beats T6 against sand (+11.2pp [+7.2, +15.2]) and is even on the full pool -> T6m qualifies for a practice cycle (2026-September 28, 23:59)
+
+Resumed at the user's word ("continue this", 22:36, on AC power); 6 arms x 1,000
+games, clean (no retries); read by the pre-registered script
+(`results_analysis/t6variants_20260928/reading.txt`, summaries copied there).
+- **Full pool** (clone pilot, 3,610 teams): T6 46.7%, T6m 48.3% (d +1.6pp [-2.8,
+  +6.0]), T6mAS 47.7% (+1.0 [-3.4, +5.4]) -- no detectable difference.
+- **Sand pool** (371 Tyranitar teams): T6 24.8%, **T6m 36.0% (+11.2pp [+7.2, +15.2],
+  better)**, T6mAS 30.2% (+5.4 [+1.5, +9.3], better).
+- **Decision (pre-registered rule):** both qualify; T6m has the higher full-pool
+  estimate -> **T6m is the practice-cycle candidate** (the user's call).
+- Descriptive, not part of the decision: the gain sits in games where the opponent
+  brought Tyranitar (full pool: T6 21.3% -> T6m 40.2%, T6mAS 33.6%; games without
+  it 49-50% for all three). Aura Sphere for Water Pulse on top of T6m did worse vs
+  sand (30.2 vs 36.0%): the 10:40 audit's hindsight KO counts did not carry over to
+  a pilot choosing its moves -- a caution for such audits.
+- The clone is a human-like pilot, not our brain. In our bot's hands T6m needs the
+  practice cycle first (the 09-27 playbook practice recipe with T6m as our team:
+  T6tac + 983,040 steps, then the tactical re-fit), then the head-to-head vs T6tac on
+  T6 and the battery, before any ladder.
+
 ## T6 set-variant clone tournament pre-registered: T6 / T6m / T6m + Aura Sphere, full pool and sand pool; paused (2026-September 28, 11:02)
 
 The user: "yes start the tournament with all three teams". Local only: no ladder,

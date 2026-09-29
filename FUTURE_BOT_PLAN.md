@@ -128,10 +128,11 @@
   Water Pulse scores best in our games (KOs +40 / -20: Kingambit, Archaludon,
   Tyranitar) -> a third team (T6m + Aura Sphere) in T6m's clone tournament (the
   user's call).
-- [ ] T6 set-variant clone tournament (pre-registered 2026-09-28 11:05, the user's
-  word): T6 / T6m / T6mAS x the full pool and the sand pool, 1,000 games each;
-  reading and decision rule in PROJECT_STATUS. PAUSED 11:10 at the user's word
-  before any arm finished; resume with `./evaluation/run_t6variants_20260928.sh`.
+- [x] T6 set-variant clone tournament (pre-registered 2026-09-28 11:02, run
+  22:36-23:59): sand pool T6 24.8%, T6m 36.0% (+11.2pp [+7.2, +15.2]), T6mAS
+  30.2%; full pool even (T6 46.7, T6m 48.3, T6mAS 47.7) -> T6m qualifies.
+- [ ] Practice cycle on T6m (the user's call): the 09-27 playbook practice recipe
+  with T6m as our team, then the head-to-head vs T6tac and the battery, then ladder.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.

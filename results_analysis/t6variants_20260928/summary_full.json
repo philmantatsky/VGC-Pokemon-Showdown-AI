@@ -1,0 +1,36 @@
+{
+ "pilot": "results_bc/mc_A_20260920/saves_bc/seed1/2.zip",
+ "pool": "data/team_weights_regmc.json",
+ "teams": [
+  {
+   "team": "T6m",
+   "wins": 483,
+   "battles": 1000,
+   "win_rate": 0.483,
+   "wilson_95": [
+    0.4521519062661586,
+    0.5139782082857787
+   ]
+  },
+  {
+   "team": "T6mAS",
+   "wins": 477,
+   "battles": 1000,
+   "win_rate": 0.477,
+   "wilson_95": [
+    0.44618966977096414,
+    0.5079863675640099
+   ]
+  },
+  {
+   "team": "T6",
+   "wins": 467,
+   "battles": 1000,
+   "win_rate": 0.467,
+   "wilson_95": [
+    0.4362625046284455,
+    0.4979900706782564
+   ]
+  }
+ ]
+}

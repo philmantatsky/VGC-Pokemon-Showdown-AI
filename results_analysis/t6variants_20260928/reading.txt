@@ -1,0 +1,16 @@
+== full pool: T6 467/1000 = 46.7%
+   T6m    483/1000 = 48.3%   d +1.6pp [-2.8, +6.0]  no detectable difference
+   T6mAS  477/1000 = 47.7%   d +1.0pp [-3.4, +5.4]  no detectable difference
+== sand pool: T6 248/1000 = 24.8%
+   T6m    360/1000 = 36.0%   d +11.2pp [+7.2, +15.2]  better
+   T6mAS  302/1000 = 30.2%   d +5.4pp [+1.5, +9.3]  better
+
+DECISION: qualifies ['T6m', 'T6mAS'] -> practice cycle candidate T6m
+
+-- descriptive (not part of the decision) --
+   full T6     Tyranitar brought 23/108 = 21.3%     not brought 444/892 = 49.8%
+   full T6m    Tyranitar brought 43/107 = 40.2%     not brought 440/893 = 49.3%
+   full T6mAS  Tyranitar brought 36/107 = 33.6%     not brought 441/893 = 49.4%
+   sand T6     Tyranitar brought 189/832 = 22.7%    not brought 59/168 = 35.1%
+   sand T6m    Tyranitar brought 282/835 = 33.8%    not brought 78/165 = 47.3%
+   sand T6mAS  Tyranitar brought 245/830 = 29.5%    not brought 57/170 = 33.5%
