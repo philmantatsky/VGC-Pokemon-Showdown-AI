@@ -1,0 +1,76 @@
+=== sides that LEAD a Trick Room setter (opponent does not)
+  TR attempted turn 1: 907  up after T1: 905 (100%)
+  what stopped it / other: {"(no click) setter KO'd before moving": 125, '(tried?) <cant:flinch>': 38, '(tried?) <cant:slp>': 12, '(tried?) <cant:Taunt>': 7, '(tried?) <cant:par>': 4, 'clicked but not up (?)': 2, '(tried?) <cant:frz>': 2}
+  TR up T1 -> 482-423 (53% [50,56]) vsElo +4.0pp
+  TR tried but not up T1 -> 2-0 (100% [34,100]) vsElo +50.4pp
+  setter led, TR not clicked T1 -> 713-767 (48% [46,51]) vsElo -2.6pp
+  by opponent archetype: [TR up T1] | [tried, failed] | [not clicked]
+    vs balance          success 109/109 (100%)
+      up: 53-56 (49% [39,58]) vsElo -1.7pp | failed: -
+      no-click: 92-87 (51% [44,59]) vsElo -2.5pp
+    vs psychic_terrain  success 67/67 (100%)
+      up: 34-33 (51% [39,62]) vsElo +1.8pp | failed: -
+      no-click: 72-64 (53% [45,61]) vsElo +1.5pp
+    vs rain             success 95/95 (100%)
+      up: 42-53 (44% [35,54]) vsElo -1.2pp | failed: -
+      no-click: 82-107 (43% [37,51]) vsElo -6.2pp
+    vs sand             success 101/101 (100%)
+      up: 55-46 (54% [45,64]) vsElo +6.1pp | failed: -
+      no-click: 60-78 (43% [35,52]) vsElo -7.2pp
+    vs snow             success 35/35 (100%)
+      up: 26-9 (74% [58,86]) vsElo +21.8pp | failed: -
+      no-click: 28-15 (65% [50,78]) vsElo +13.0pp
+    vs sun              success 99/100 (99%)
+      up: 56-43 (57% [47,66]) vsElo +5.2pp | failed: 1-0 (100% [21,100]) vsElo +63.2pp
+      no-click: 63-87 (42% [34,50]) vsElo -7.8pp
+    vs tailwind         success 265/265 (100%)
+      up: 151-114 (57% [51,63]) vsElo +7.5pp | failed: -
+      no-click: 182-186 (49% [44,55]) vsElo -0.9pp
+    vs tr_splash        success 5/5 (100%)
+      up: 1-4 (20% [4,62]) vsElo -21.2pp | failed: -
+      no-click: 4-2 (67% [30,90]) vsElo +14.3pp
+    vs trick_room       success 129/130 (99%)
+      up: 64-65 (50% [41,58]) vsElo +0.2pp | failed: 1-0 (100% [21,100]) vsElo +37.6pp
+      no-click: 130-141 (48% [42,54]) vsElo -2.3pp
+
+  opponent turn-1 answers to a TR attempt (their lead actions), by success
+    attack -> setter                         TR up  525 / failed    1  (100% up)
+    none of these                            TR up  279 / failed    0  (100% up)
+    Protect                                  TR up   84 / failed    0  (100% up)
+    Fake Out -> partner                      TR up   30 / failed    0  (100% up)
+    Tailwind                                 TR up   16 / failed    0  (100% up)
+    Fake Out -> setter                       TR up    9 / failed    0  (100% up)
+    Sleep Powder                             TR up    6 / failed    0  (100% up)
+    Taunt                                    TR up    5 / failed    0  (100% up)
+    Yawn                                     TR up    5 / failed    0  (100% up)
+    their priority blocked (Armor Tail)      TR up    4 / failed    0  (100% up)
+    Follow Me                                TR up    3 / failed    0  (100% up)
+    Trick Room                               TR up    0 / failed    2  (0% up)
+    Imprison                                 TR up    1 / failed    0  (100% up)
+    Whirlwind                                TR up    1 / failed    0  (100% up)
+    Encore                                   TR up    1 / failed    0  (100% up)
+    Rage Powder                              TR up    1 / failed    0  (100% up)
+
+=== Farigiraf leads (opponent without a setter lead): TR on turn 1
+  attempts 413, up 412 (100%)  up: 224-188 (54% [50,59]) vsElo +5.0pp  failed: 1-0 (100% [21,100]) vsElo +63.2pp
+  their moves blocked on turn 1: {'flinch ': 102, 'slp ': 3, 'ability: Armor Tail Fake Out': 2}
+
+=== BOTH sides lead a Trick Room setter
+  games: 357
+    I hold / they hold -> no room                           211-211 (50% [45,55]) vsElo +0.0pp
+    I click / they hold -> room up (mine)                   72-56 (56% [48,65]) vsElo +7.4pp
+    I hold / they click -> room up (theirs)                 56-72 (44% [35,52]) vsElo -7.4pp
+    I click / they click -> no room                         16-16 (50% [34,66]) vsElo +0.0pp
+    I hold / they click -> no room                          2-0 (100% [34,100]) vsElo +52.5pp
+    I click / they hold -> no room                          0-2 (0% [0,66]) vsElo -52.5pp
+
+=== Fake Out on turn 1 when the opponent leads a Trick Room / Tailwind setter
+  opponent leads a tr_setter:
+    Fake Out the other       56-27 (67% [57,77]) vsElo +15.4pp
+    Fake Out the setter      21-18 (54% [39,68]) vsElo +4.7pp
+  opponent leads a tailwind:
+    Fake Out the setter      179-184 (49% [44,54]) vsElo +0.9pp
+    Fake Out the other       192-173 (53% [47,58]) vsElo +3.5pp
+
+=== one side sets Tailwind turn 1, the other Trick Room turn 1
+    TR side, room up             17-2 (89% [69,97]) vsElo +32.2pp

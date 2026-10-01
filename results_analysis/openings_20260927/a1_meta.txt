@@ -1,0 +1,133 @@
+== primary archetype: corpus rosters n=14864 | our T6-era ladder opponents n=134
+  tailwind          24.5%   ours  18.7% (25)
+  trick_room        22.5%   ours  19.4% (26)
+  rain              10.9%   ours  12.7% (17)
+  sand              10.6%   ours  14.9% (20)
+  psychic_terrain    9.9%   ours  11.2% (15)
+  balance            9.6%   ours  11.2% (15)
+  sun                8.6%   ours   5.2% (7)
+  snow               2.8%   ours   3.7% (5)
+  tr_splash          0.7%   ours   3.0% (4)
+== features (multi-label)
+  tailwind                62.7%   ours  59.0%
+  grassy_terrain          48.3%   ours  38.1%
+  tr_setter               43.4%   ours  54.5%
+  physical_threats>=4     43.2%   ours  22.4%
+  fake_out_users>=2       37.7%   ours  23.1%
+  rock_slide              35.7%   ours  38.8%
+  psychic_terrain         29.1%   ours  32.8%
+  follow_me               24.0%   ours  27.6%
+  wide_guard              17.8%   ours  27.6%
+  sun_setter              17.3%   ours  13.4%
+  rain_setter             16.2%   ours  16.4%
+  encore                  16.0%   ours  23.9%
+  rage_powder             12.5%   ours  18.7%
+  sand_setter             11.4%   ours  16.4%
+  imprison                 5.4%   ours  13.4%
+  snow_setter              4.2%   ours   4.5%
+  perish                   4.1%   ours   8.2%
+  taunt                    3.1%   ours   5.2%
+  electric_terrain         0.4%   ours   2.2%
+== species on rosters (top 40) | led% of games where on roster
+  Rillaboom             48.5%   led   22%
+  Sneasler              44.9%   led   36%
+  Salamence             31.7%   led   33%
+  Incineroar            29.8%   led   39%
+  Kingambit             27.8%   led   31%
+  Basculegion           23.4%   led   24%
+  Indeedee-F            22.4%   led   45%
+  Gholdengo             19.9%   led   39%
+  Floette-Eternal       16.7%   led   31%
+  Farigiraf             14.8%   led   40%
+  Arcanine-Hisui        14.5%   led   32%
+  Golisopod             14.3%   led   30%
+  Garchomp              14.1%   led   32%
+  Charizard             12.8%   led   36%
+  Raichu                12.7%   led   50%
+  Pelipper              12.3%   led   25%
+  Archaludon            11.6%   led   26%
+  Gardevoir             11.2%   led   42%
+  Tyranitar             11.1%   led   24%
+  Milotic               10.2%   led   35%
+  Sylveon               10.1%   led   20%
+  Whimsicott             8.4%   led   41%
+  Excadrill              8.3%   led   31%
+  Indeedee               6.8%   led   29%
+  Staraptor              6.4%   led   33%
+  Volcarona              6.0%   led   39%
+  Armarouge              5.8%   led   42%
+  Froslass               5.5%   led   44%
+  Sinistcha              5.4%   led   11%
+  Swampert               5.1%   led   37%
+  Grimmsnarl             4.6%   led   57%
+  Metagross              4.6%   led   38%
+  Lucario                4.5%   led   45%
+  Torkoal                4.5%   led    8%
+  Venusaur               4.5%   led   30%
+  Kommo-o                4.4%   led   40%
+  Hatterene              4.3%   led   38%
+  Aerodactyl             4.2%   led   39%
+  Gengar                 4.1%   led   55%
+  Dragonite              4.0%   led   35%
+== lead pairs (top 30)
+  Gardevoir + Indeedee-F                    384 (2.6%)
+  Salamence + Sneasler                      313 (2.1%)
+  Gholdengo + Raichu                        233 (1.6%)
+  Kingambit + Sneasler                      223 (1.5%)
+  Rillaboom + Sneasler                      220 (1.5%)
+  Floette-Eternal + Incineroar              201 (1.4%)
+  Floette-Eternal + Rillaboom               188 (1.3%)
+  Excadrill + Tyranitar                     174 (1.2%)
+  Hatterene + Indeedee-F                    171 (1.2%)
+  Kingambit + Salamence                     170 (1.1%)
+  Armarouge + Indeedee-F                    166 (1.1%)
+  Gengar + Incineroar                       155 (1.0%)
+  Rillaboom + Salamence                     151 (1.0%)
+  Gholdengo + Salamence                     150 (1.0%)
+  Gholdengo + Incineroar                    149 (1.0%)
+  Arcanine-Hisui + Raichu                   148 (1.0%)
+  Farigiraf + Incineroar                    146 (1.0%)
+  Incineroar + Salamence                    138 (0.9%)
+  Charizard + Venusaur                      138 (0.9%)
+  Indeedee + Sneasler                       137 (0.9%)
+  Indeedee-F + Sneasler                     132 (0.9%)
+  Arcanine-Hisui + Salamence                121 (0.8%)
+  Floette-Eternal + Sneasler                112 (0.8%)
+  Gholdengo + Rillaboom                     107 (0.7%)
+  Pelipper + Swampert                       105 (0.7%)
+  Incineroar + Lucario                       99 (0.7%)
+  Raichu + Rillaboom                         96 (0.6%)
+  Archaludon + Pelipper                      91 (0.6%)
+  Farigiraf + Golisopod                      91 (0.6%)
+  Basculegion + Sneasler                     88 (0.6%)
+== turn-1 action of the 30 most-led species
+  Sneasler           n=2396: Fake Out 27%, Close Combat 19%, Dire Claw 13%, <switched/no action> 11%, Protect 8%, <cant:flinch> 5%
+  Incineroar         n=1740: Fake Out 36%, <switched/no action> 16%, Parting Shot 16%, <cant:flinch> 12%, Flare Blitz 10%, Throat Chop 4%
+  Rillaboom          n=1606: Fake Out 44%, <switched/no action> 19%, Wood Hammer 14%, <cant:flinch> 8%, U-turn 7%, High Horsepower 4%
+  Salamence          n=1573: Hyper Voice 25%, <switched/no action> 19%, Tailwind 17%, Protect 16%, <cant:flinch> 9%, Double-Edge 6%
+  Indeedee-F         n=1509: Follow Me 37%, Trick Room 20%, Helping Hand 14%, <switched/no action> 13%, Psychic 7%, Protect 2%
+  Kingambit          n=1264: Kowtow Cleave 32%, <switched/no action> 20%, Iron Head 12%, Protect 11%, <cant:flinch> 7%, Swords Dance 7%
+  Gholdengo          n=1156: Nasty Plot 29%, Shadow Ball 23%, Make It Rain 16%, <switched/no action> 14%, Protect 14%, Power Gem 2%
+  Raichu             n= 946: Fake Out 35%, Zap Cannon 33%, Protect 11%, <switched/no action> 9%, <cant:flinch> 4%, Focus Blast 4%
+  Farigiraf          n= 868: Trick Room 48%, <switched/no action> 12%, <cant:Armor Tail> 10%, Psychic 7%, Protect 7%, Helping Hand 5%
+  Basculegion        n= 822: Wave Crash 44%, Flip Turn 24%, <switched/no action> 17%, Protect 5%, Aqua Jet 5%, Last Respects 3%
+  Floette-Eternal    n= 780: Calm Mind 33%, Protect 19%, <switched/no action> 16%, Dazzling Gleam 14%, Moonblast 9%, <cant:flinch> 5%
+  Gardevoir          n= 694: Hyper Voice 41%, Expanding Force 19%, Protect 17%, <switched/no action> 8%, Calm Mind 4%, <cant:flinch> 3%
+  Charizard          n= 691: Heat Wave 32%, Protect 27%, <switched/no action> 14%, Weather Ball 12%, <cant:flinch> 6%, Ancient Power 3%
+  Arcanine-Hisui     n= 690: Flare Blitz 29%, Head Smash 28%, <switched/no action> 17%, Protect 15%, <cant:flinch> 5%, Rock Slide 5%
+  Garchomp           n= 678: <switched/no action> 16%, Protect 11%, Rock Slide 9%, Draco Meteor 9%, Earthquake 9%, <cant:flinch> 8%
+  Golisopod          n= 639: Leech Life 21%, <switched/no action> 16%, Swords Dance 16%, Iron Head 11%, Protect 10%, First Impression 8%
+  Milotic            n= 528: Coil 22%, Scald 22%, <switched/no action> 17%, Icy Wind 15%, <cant:flinch> 7%, Protect 6%
+  Whimsicott         n= 507: Tailwind 43%, Moonblast 16%, Protect 15%, <switched/no action> 10%, <cant:flinch> 5%, Charm 3%
+  Pelipper           n= 463: <switched/no action> 24%, Tailwind 21%, Hurricane 17%, Weather Ball 12%, <cant:flinch> 11%, Protect 5%
+  Archaludon         n= 451: Electro Shot 30%, Protect 19%, Dragon Pulse 17%, <switched/no action> 16%, Flash Cannon 8%, Snarl 4%
+  Tyranitar          n= 402: <switched/no action> 28%, Rock Slide 21%, Protect 19%, Knock Off 18%, Dragon Dance 6%, Low Kick 3%
+  Grimmsnarl         n= 396: Light Screen 34%, Reflect 28%, <cant:flinch> 14%, Parting Shot 7%, <switched/no action> 7%, Spirit Break 6%
+  Excadrill          n= 388: Protect 20%, High Horsepower 17%, Iron Head 16%, <switched/no action> 13%, <cant:flinch> 11%, Rock Slide 10%
+  Armarouge          n= 362: Expanding Force 30%, Armor Cannon 16%, <switched/no action> 15%, Trick Room 14%, Protect 11%, Heat Wave 4%
+  Froslass           n= 353: Aurora Veil 37%, Blizzard 27%, Protect 18%, <switched/no action> 8%, Shadow Ball 8%, Nasty Plot 1%
+  Volcarona          n= 346: Quiver Dance 23%, <switched/no action> 15%, Protect 13%, Struggle Bug 10%, Tailwind 10%, Rage Powder 8%
+  Gengar             n= 335: Protect 34%, Perish Song 24%, Shadow Ball 17%, Sludge Bomb 9%, <switched/no action> 8%, Substitute 4%
+  Staraptor          n= 314: Close Combat 31%, <switched/no action> 15%, Tailwind 15%, Protect 12%, Final Gambit 10%, Brave Bird 7%
+  Sylveon            n= 305: Hyper Voice 51%, <switched/no action> 20%, <cant:flinch> 8%, Detect 6%, Hyper Beam 5%, Calm Mind 4%
+  Lucario            n= 301: Calm Mind 29%, <switched/no action> 12%, Nasty Plot 10%, Protect 10%, Flash Cannon 10%, Aura Sphere 10%

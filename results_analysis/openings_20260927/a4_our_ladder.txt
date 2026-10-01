@@ -1,0 +1,97 @@
+games: 134
+
+== our lead pair (all T6-era brains)
+  Blastoise + Farigiraf            35-30 (54% [42,65])   {'T6_humanpreview1': 3, 'T6_humanpreview1_attackcheck': 16, 'T6_humanpreview1_throatchop': 12, 'T6_humanpreview1_wideguard': 12, 'T6ctx': 11, 'T6tac': 11}
+  Farigiraf + Torkoal              21-29 (42% [29,56])   {'T6': 50}
+  Farigiraf + Incineroar           5-5 (50% [24,76])   {'T6_humanpreview1_attackcheck': 3, 'T6_humanpreview1_throatchop': 2, 'T6_humanpreview1_wideguard': 1, 'T6ctx': 1, 'T6tac': 3}
+  Charizard + Venusaur             1-6 (14% [3,51])   {'T6_humanpreview1_attackcheck': 2, 'T6_humanpreview1_throatchop': 1, 'T6_humanpreview1_wideguard': 1, 'T6ctx': 2, 'T6tac': 1}
+  Torkoal + Venusaur               0-2 (0% [0,66])   {'T6_humanpreview1_wideguard': 1, 'T6ctx': 1}
+
+== our lead x opponent primary archetype
+  Blastoise + Farigiraf
+      trick_room       12-4 (75% [51,90])
+      tailwind         8-3 (73% [43,90])
+      sand             5-5 (50% [24,76])
+      rain             2-4 (33% [10,70])
+      balance          2-4 (33% [10,70])
+      psychic_terrain  4-8 (33% [14,61])
+      sun              0-1 (0% [0,79])
+      snow             1-0 (100% [21,100])
+      tr_splash        1-1 (50% [9,91])
+  Farigiraf + Torkoal
+      trick_room       5-3 (62% [31,86])
+      tailwind         5-5 (50% [24,76])
+      sand             1-7 (12% [2,47])
+      rain             3-4 (43% [16,75])
+      balance          4-1 (80% [38,96])
+      psychic_terrain  0-2 (0% [0,66])
+      sun              1-5 (17% [3,56])
+      snow             2-1 (67% [21,94])
+      tr_splash        0-1 (0% [0,79])
+  Farigiraf + Incineroar
+      tailwind         1-1 (50% [9,91])
+      sand             0-1 (0% [0,79])
+      rain             0-1 (0% [0,79])
+      balance          2-2 (50% [15,85])
+      psychic_terrain  1-0 (100% [21,100])
+      snow             1-0 (100% [21,100])
+  Charizard + Venusaur
+      trick_room       0-2 (0% [0,66])
+      sand             0-1 (0% [0,79])
+      rain             0-3 (0% [0,56])
+      tr_splash        1-0 (100% [21,100])
+
+== opponent feature -> our record (all leads) and by top leads
+  tailwind         33-46 (42% [32,53])         Blast+Farig 20-19 | Farig+Torko 12-19 | Farig+Incin 1-2 | Chari+Venus 0-4
+  tr_setter        35-38 (48% [37,59])         Blast+Farig 24-21 | Farig+Torko 9-12 | Farig+Incin 1-2 | Chari+Venus 1-3
+  rain_setter      8-14 (36% [20,57])          Blast+Farig 3-4 | Farig+Torko 5-5 | Farig+Incin 0-1 | Chari+Venus 0-4
+  sand_setter      6-16 (27% [13,48])          Blast+Farig 5-6 | Farig+Torko 1-8 | Farig+Incin 0-1 | Chari+Venus 0-1
+  psychic_terrain  21-23 (48% [34,62])         Blast+Farig 16-12 | Farig+Torko 4-9 | Farig+Incin 1-1 | Chari+Venus 0-1
+  grassy_terrain   24-27 (47% [34,60])         Blast+Farig 11-7 | Farig+Torko 11-11 | Farig+Incin 2-5 | Chari+Venus 0-2
+  wide_guard       12-25 (32% [20,49])         Blast+Farig 8-9 | Farig+Torko 4-11 | Farig+Incin 0-2 | Chari+Venus 0-3
+  imprison         7-11 (39% [20,61])          Blast+Farig 6-4 | Farig+Torko 1-6 | Farig+Incin 0-1 | Chari+Venus   -  
+  rock_slide       20-32 (38% [26,52])         Blast+Farig 15-10 | Farig+Torko 5-18 | Farig+Incin 0-1 | Chari+Venus 0-3
+  follow_me        22-15 (59% [43,74])         Blast+Farig 14-9 | Farig+Torko 5-5 | Farig+Incin 2-0 | Chari+Venus 1-1
+  rage_powder      7-18 (28% [14,48])          Blast+Farig 5-9 | Farig+Torko 1-7 | Farig+Incin 0-1 | Chari+Venus 1-1
+  encore           15-17 (47% [31,64])         Blast+Farig 5-11 | Farig+Torko 8-5 | Farig+Incin 2-0 | Chari+Venus 0-1
+  taunt            5-2 (71% [36,92])           Blast+Farig 1-1 | Farig+Torko 2-1 | Farig+Incin 1-0 | Chari+Venus 1-0
+  perish           6-5 (55% [28,79])           Blast+Farig 1-4 | Farig+Torko 4-0 | Farig+Incin 1-0 | Chari+Venus 0-1
+  snow_setter      5-1 (83% [44,97])           Blast+Farig 1-0 | Farig+Torko 3-1 | Farig+Incin 1-0 | Chari+Venus   -  
+  sun_setter       8-10 (44% [25,66])          Blast+Farig 5-2 | Farig+Torko 3-6 | Farig+Incin   -   | Chari+Venus 0-2
+  fake_out_users>=2     15-16 (48% [32,65])
+  physical_threats>=4     17-13 (57% [39,73])
+  fire_weak>=2     31-43 (42% [31,53])
+
+== opponent LEAD features (what was actually on the field turn 1) -> our record by our lead
+  opp leads none of these    21-21 (50% [36,64])         Blast+Farig 9-6 | Farig+Torko 9-9 | Farig+Incin 2-2 | Chari+Venus 1-3
+  opp leads Fake Out user    19-19 (50% [35,65])         Blast+Farig 9-7 | Farig+Torko 8-8 | Farig+Incin 2-2 | Chari+Venus 0-1
+  opp leads Tailwind user    14-17 (45% [29,62])         Blast+Farig 10-8 | Farig+Torko 3-6 | Farig+Incin 1-0 | Chari+Venus 0-2
+  opp leads TR setter        13-16 (45% [28,62])         Blast+Farig 10-10 | Farig+Torko 3-5 | Farig+Incin 0-1 | Chari+Venus   -  
+  opp leads Psychic Terrain  5-11 (31% [14,56])          Blast+Farig 4-6 | Farig+Torko 1-4 | Farig+Incin 0-1 | Chari+Venus   -  
+  opp leads redirector       6-9 (40% [20,64])           Blast+Farig 5-5 | Farig+Torko 1-4 | Farig+Incin   -   | Chari+Venus   -  
+  opp leads sand setter      1-9 (10% [2,40])            Blast+Farig 0-3 | Farig+Torko 1-5 | Farig+Incin 0-1 | Chari+Venus   -  
+  opp leads rain setter      1-0 (100% [21,100])         Blast+Farig   -   | Farig+Torko 1-0 | Farig+Incin   -   | Chari+Venus   -  
+
+== our turn-1 actions by lead (T6hp onward: human-preview era)
+  Blastoise + Farigiraf: 35-30 (54% [42,65])
+      Blastoise    Fake Out 31, Water Spout 22, Ice Beam 9, <switch/none 1, Water Pulse 1, <cant:slp 1
+      Farigiraf    Trick Room 58, <cant:move: Imprison 4, <switch/none 2, <cant:move: Taunt 1
+  Farigiraf + Incineroar: 5-5 (50% [24,76])
+      Farigiraf    Trick Room 9, <cant:slp 1
+      Incineroar   Parting Shot 7, Flare Blitz 3
+  Charizard + Venusaur: 1-6 (14% [3,51])
+      Charizard    Heat Wave 4, Protect 2, <cant:slp 1
+      Venusaur     <switch/none 2, Sleep Powder 2, Leaf Storm 2, Sludge Bomb 1
+
+== Trick Room on our side: went up turn 1? and result (games with Farigiraf lead)
+   ours T1      54-46 (54% [44,63])
+   never        2-15 (12% [3,34])
+   theirs T1    3-2 (60% [23,88])
+   ours T2      1-1 (50% [9,91])
+   ours T3      1-0 (100% [21,100])
+
+== first faint on turns 1-2 (ours vs theirs) by our lead
+   Blastoise + Farigiraf            our mon fainted first by T2: 20/65 {'Blastoise': 11, 'Farigiraf': 9}  -> 12-8 (60% [39,78])
+   Farigiraf + Torkoal              our mon fainted first by T2: 17/50 {'Torkoal': 4, 'Farigiraf': 13}  -> 4-13 (24% [10,47])
+   Farigiraf + Incineroar           our mon fainted first by T2: 1/10 {'Incineroar': 1}  -> 1-0 (100% [21,100])
+   Charizard + Venusaur             our mon fainted first by T2: 3/7 {'Venusaur': 2, 'Charizard': 1}  -> 0-3 (0% [0,56])

@@ -144,6 +144,16 @@
 - [ ] Sun lead vs rain (training target).
 - [ ] Next training target (after the ladder read): the two openings still below
   the old Trick Room line on their matchups, rain first.
+- [ ] Opening research (`OPENINGS_RESEARCH_T6.md`, 2026-09-27): playbook draft 2
+  proposals -- Support Room vs Psychic Terrain with a Psychic attacker, turn-2 Rain
+  Dance vs sand, two new openings to practise (Charizard + Farigiraf, Charizard +
+  Incineroar), turn-1 facts for the tactical teacher. (Its Sun Room vs Tailwind and
+  Fake Out reachability flags are already in draft 1.1, `c7b76b2`.)
+- [ ] Team / moveset review (`TEAM_REVIEW_T6.md`, 2026-09-27 evening): clone team
+  tournament with T6, T6m (Torkoal Earth Power over Heat Wave, Charizard Weather
+  Ball over Solar Beam -- the two tweaks our own ladder logs support, 09-28 audit;
+  Incineroar keeps Passho, Venusaur keeps Leaf Storm), T4 and T0-T5 -- T6 has never
+  been in one; then, only if T6m wins there, a practice cycle on T6m (the user's word).
 - [x] Deployment plumbing for a learned preview (in use since 2026-09-24):
   `DEPLOYED.json` fields `learned_preview: true`, `preview_model`,
   `preview_model_sha256`, optional `replay_tag` (fresh replay dirs); all launchers

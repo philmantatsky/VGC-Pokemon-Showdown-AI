@@ -1,0 +1,149 @@
+LOSS T6             2686248172 | us Torko+Farig back Blast/Chari | them Gallade Rillaboom Maushold- Floette-E Volcarona Gholdengo lead Rillaboom+Volcarona
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Volcar:Heat Wave>Torkoa, Rillab:Wood Hammer>Farigi
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Mausho || them: Volcar:Quiver Dance, in:Mausho/Gallad
+      faints<=T3 ['T3:US Farigira', 'T2:them Maushold']  TR T1ourss,T5e  weather T0Sunny(us)  turns 9
+WIN  T6             2686250305 | us Torko+Farig back  | them Gengar Mr. Mime Rillaboom Incineroa Pelipper Golisopod lead Gengar+Incineroa
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Gengar:Shadow Ball>Torkoa, Incine:Flare Blitz>Torkoa
+      T2 us:  || them: 
+      faints<=T3 []  TR T1ourss  weather T0Sunny(us)  turns 2
+LOSS T6             2686250598 | us Torko+Farig back Blast/Chari | them Rillaboom Salamence Steelix Gholdengo Tyranitar Milotic lead Salamence+Tyranitar
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Salame:Draco Meteor>Farigi, Tyrani:Knock Off>Farigi
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Tyrani || them: Tyrani:Protect, Salame:Protect
+      faints<=T3 ['T3:US Farigira']  TR T1ourss,T5e  weather T0Sands(them),T0Sunny(us),T1Sands(them)  turns 7
+LOSS T6             2686256202 | us Torko+Farig back Blast/Chari | them Charizard Kingambit Garchomp Toxapex Trevenant Heliolisk lead Charizard+Heliolisk
+      T1 us: Torkoa:Protect, in:Blasto || them: Heliol:Thunderbolt>Farigi, Chariz:Heat Wave>Farigi
+      T2 us: Blasto:Fake Out>Toxape, Torkoa:Eruption>Toxape || them: Chariz:Protect, in:Toxape
+      faints<=T3 ['T1:US Farigira']  TR   weather T0Sunny(us)  turns 7
+WIN  T6             2686260570 | us Torko+Farig back Blast | them Archaludo Pelipper Golisopod Basculegi Rillaboom Farigiraf lead Farigiraf+Basculegi
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Bascul:Flip Turn>Torkoa, Farigi:Psychic>Torkoa
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Bascul || them: Bascul:Flip Turn>Torkoa, in:Pelipp/Bascul
+      faints<=T3 ['T3:US Torkoal', 'T2:them Farigira']  TR T1ourss,T5e  weather T0Sunny(us),T2RainD(them)  turns 5
+LOSS T6             2686261400 | us Torko+Farig back Blast/Chari | them Gardevoir Golisopod Archaludo Basculegi Indeedee- Pelipper lead Gardevoir+Basculegi
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Bascul:Wave Crash>Farigi, in:Pelipp
+      T2 us: Torkoa:Eruption>Indeed, Farigi:Psychic>Indeed || them: Bascul:Protect, in:Indeed
+      faints<=T3 ['T3:US Torkoal']  TR T1ourss,T5e  weather T0Sunny(us),T1RainD(them)  turns 6
+WIN  T6             2686262887 | us Torko+Farig back Blast | them Sableye Garchomp Sneasler Golisopod Swampert Pelipper lead Pelipper+Garchomp
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Pelipp:Wide Guard, Garcho:Swords Dance
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Pelipp || them: Pelipp:Protect, Garcho:Dragon Claw>Torkoa
+      faints<=T3 ['T3:US Torkoal']  TR T1ourss,T5e  weather T0RainD(them),T0Sunny(us),T4RainD  turns 6
+LOSS T6             2686264398 | us Torko+Farig back Blast/Chari | them Archaludo Pelipper Grimmsnar Glimmora Rillaboom Gholdengo lead Archaludo+Grimmsnar
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Archal:Protect, Grimms:Light Screen
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Pelipp || them: Archal:Electro Shot, in:Pelipp
+      faints<=T3 ['T3:US Farigira']  TR T1ourss,T5e  weather T0Sunny(us),T2RainD(them)  turns 8
+LOSS T6             2686266645 | us Torko+Farig back Chari/Blast | them Lucario Rillaboom Incineroa Pelipper Volcarona Tyranitar lead Tyranitar+Rillaboom
+      T1 us: Torkoa:Protect, in:Chariz || them: Rillab:U-turn>Farigi, Tyrani:Knock Off>Farigi, in:Volcar
+      T2 us: Chariz:Heat Wave>Volcar, Torkoa:Eruption>Volcar || them: Tyrani:Protect, Volcar:Bug Buzz>Torkoa, in:Pelipp
+      faints<=T3 ['T1:US Farigira', 'T2:them Volcaron']  TR   weather T0Sands(them),T0Sunny(us),T1Sands(them),T2Sunny(us),T2RainD(them),T4Sunny(us)  turns 5
+LOSS T6             2686269640 | us Torko+Farig back Blast/Chari | them Gardevoir Golisopod Indeedee- Sneasler Armarouge Basculegi lead Indeedee-+Sneasler
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Sneasl:Rock Slide>Farigi, in:Armaro
+      T2 us: Torkoa:Eruption>Sneasl, Farigi:Psychic>Sneasl, in:Blasto || them: Sneasl:Protect, Armaro:Armor Cannon>Farigi
+      faints<=T3 ['T2:US Farigira', 'T3:them Indeedee', 'T3:them Sneasler']  TR T1ourss,T5e  weather T0Sunny(us)  turns 6
+LOSS T6             2686280570 | us Torko+Farig back Blast/Chari | them Garchomp Sneasler Milotic Torterra Dragonite Heliolisk lead Dragonite+Milotic
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Dragon:Dragon Claw>Farigi, Miloti:Coil
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Dragon || them: Dragon:Protect, Miloti:Hypnosis>Torkoa
+      faints<=T3 []  TR T1ourss,T5e  weather T0Sunny(us)  turns 9
+LOSS T6             2686283679 | us Torko+Farig back Chari/Blast | them Serperior Grapploct Lucario Indeedee- Swampert Pelipper lead Serperior+Grapploct
+      T1 us: Torkoa:Protect || them: Grappl:Circle Throw>Farigi, in:Pelipp
+      T2 us: Chariz:Heat Wave>Grappl, Torkoa:Eruption>Pelipp || them: Pelipp:Wide Guard, Grappl:Circle Throw>Torkoa
+      faints<=T3 []  TR   weather T0Sunny(us),T1RainD(them),T2Sunny(us),T3RainD,T3Sunny(us)  turns 11
+LOSS T6             2686285246 | us Torko+Farig back Blast/Chari | them Golisopod Indeedee- Pelipper Gardevoir Basculegi Sneasler lead Indeedee-+Basculegi
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Indeed:Helping Hand, Bascul:Flip Turn>Torkoa
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Indeed || them: Bascul:Flip Turn>Torkoa, in:Pelipp/Gardev
+      faints<=T3 ['T3:US Torkoal', 'T2:them Indeedee']  TR T1ourss,T5e  weather T0Sunny(us),T2RainD(them)  turns 8
+LOSS T6             2686287322 | us Torko+Farig back Blast/Chari | them Ampharos Sinistcha Araquanid Torkoal Blaziken Indeedee lead Blaziken+Araquanid
+      T1 us: Torkoa:Protect, Farigi:Trick Room || them: Blazik:Rock Slide>Farigi, Araqua:Leech Life>Farigi
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Araqua || them: Blazik:Protect, Araqua:Liquidation>Torkoa
+      faints<=T3 ['T3:US Farigira', 'T3:US Torkoal']  TR T1ourss,T5e  weather T0Sunny(us)  turns 9
+WIN  T6             2686290611 | us Torko+Farig back  | them Metagross Sneasler Rillaboom Indeedee- Pelipper Sylveon lead Metagross+Sneasler
+      T1 us: Torkoa:Protect, Farigi:Trick Room, Farigi:<Armor Tail> || them: Metagr:Protect, Sneasl:Fake Out
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Indeed || them: in:Indeed
+      faints<=T3 ['T2:them Sneasler']  TR T1ourss  weather T0Sunny(us)  turns 2
+WIN  T6_humanprevie 2687129903 | us Blast+Farig back  | them Indeedee- Hatterene Farigiraf Camerupt Incineroa Gallade lead Farigiraf+Incineroa
+      T1 us: Blasto:Ice Beam>Farigi, Farigi:Trick Room || them: Incine:Darkest Lariat>Farigi, Farigi:Trick Room
+      T2 us: Blasto:Water Spout>Incine, Farigi:Rain Dance || them: in:Hatter/Cameru
+      faints<=T3 ['T2:them Farigira', 'T2:them Incinero']  TR T1ourss,T1e,T4ourss,T4e  weather T2RainD  turns 5
+WIN  T6_humanprevie 2687131265 | us Blast+Farig back  | them Garchomp Malamar Arcanine- Sinistcha Sneasler Armarouge lead Malamar+Garchomp
+      T1 us: Blasto:Water Spout>Garcho, Farigi:Trick Room || them: Malama:Superpower>Farigi, Garcho:Earth Power>Farigi
+      T2 us: Farigi:Psychic>Garcho, Blasto:Water Spout>Arcani || them: Garcho:Protect, in:Arcani
+      faints<=T3 ['T3:them Arcanine', 'T3:them Garchomp']  TR T1ourss  weather   turns 4
+LOSS T6_humanprevie 2687970354 | us Chari+Venus back Farig/Torko | them Aggron Sinistcha Grimmsnar Rillaboom Pelipper Hydreigon lead Aggron+Grimmsnar
+      T1 us: Venusa:Sleep Powder>Grimms, Chariz:Heat Wave>Aggron || them: Aggron:Protect, Grimms:Light Screen
+      T2 us: Chariz:Heat Wave>Aggron, Venusa:Leaf Storm>Aggron || them: Aggron:Iron Defense, in:Pelipp
+      faints<=T3 []  TR   weather T1Sunny(us),T2RainD(them)  turns 9
+LOSS T6_humanprevie 2687971839 | us Blast+Farig back Torko/Incin | them Tyranitar Krookodil Torterra Corviknig Garchomp Runerigus lead Corviknig+Runerigus
+      T1 us: Blasto:Fake Out>Corvik, Farigi:Trick Room || them: Runeri:Curse>Blasto, Corvik:<flinch>
+      T2 us: Farigi:Rain Dance, Blasto:Water Spout>Runeri || them: Runeri:Will-O-Wisp>Blasto, Corvik:Bulk Up, in:Tyrani
+      faints<=T3 ['T2:them Runerigu', 'T3:them Corvikni']  TR T1ourss,T5e  weather T2RainD,T2Sands(them),T4RainD,T4Sunny(us)  turns 10
+LOSS T6_humanprevie 2687977655 | us Blast+Farig back Torko/Incin | them Metagross Indeedee- Gliscor Tyranitar Armarouge Excadrill lead Armarouge+Tyranitar
+      T1 us: Blasto:Water Spout>Indeed, Farigi:Trick Room || them: Armaro:Expanding Force>Farigi, in:Indeed
+      T2 us: Farigi:Rain Dance, Blasto:Water Spout>Armaro || them: Indeed:Psyshock>Blasto, in:Tyrani
+      faints<=T3 ['T3:US Blastois', 'T2:them Armaroug']  TR T1ourss,T3e,T4theirss  weather T0Sands(them),T2RainD,T2Sands(them),T3Sunny(us),T4Sands(them)  turns 12
+LOSS T6_humanprevie 2687979475 | us Farig+Incin back Torko/Venus | them Rillaboom Incineroa Basculegi Sneasler Baxcalibu Aegislash lead Sneasler+Baxcalibu
+      T1 us: Incine:Flare Blitz>Incine, Farigi:Trick Room || them: in:Incine/Bascul
+      T2 us: Incine:Flare Blitz>Incine, Farigi:Psychic>Bascul || them: Incine:Parting Shot>Farigi, Bascul:Wave Crash>Farigi, in:Baxcal
+      faints<=T3 []  TR T1ourss,T5e  weather T4Sunny(us)  turns 9
+WIN  T6_humanprevie 2687985298 | us Blast+Farig back Torko | them Golisopod Sableye Slowking- Garchomp Primarina Armarouge lead Sableye+Primarina
+      T1 us: Blasto:Fake Out>Primar, Farigi:Trick Room || them: Sabley:Icy Wind>Farigi, Primar:<flinch>
+      T2 us: Farigi:Rain Dance, Blasto:Water Spout>Sabley || them: Primar:Moonblast>Blasto, in:Goliso
+      faints<=T3 ['T3:US Blastois', 'T2:them Sableye']  TR T1ourss  weather T2RainD,T3Sunny(us)  turns 5
+WIN  T6_humanprevie 2688077931 | us Blast+Farig back Torko | them Indeedee- Armarouge Torkoal Kingambit Gardevoir Vivillon lead Vivillon+Kingambit
+      T1 us: Blasto:Fake Out>Vivill, Farigi:Trick Room || them: Kingam:Kowtow Cleave>Farigi, Vivill:<flinch>
+      T2 us: Blasto:Water Spout>Kingam, in:Torkoa || them: Kingam:Kowtow Cleave>Farigi, in:Indeed
+      faints<=T3 ['T2:US Farigira', 'T2:them Vivillon', 'T3:them Kingambi']  TR T1ourss  weather T2Sunny(us)  turns 3
+LOSS T6_humanprevie 2688079003 | us Blast+Farig back Venus/Torko | them Archaludo Pelipper Grimmsnar Charizard Golisopod Dragapult lead Grimmsnar+Archaludo
+      T1 us: Blasto:Fake Out>Grimms, Farigi:Trick Room || them: Archal:Dragon Pulse>Blasto, Grimms:<flinch>
+      T2 us: Farigi:Rain Dance, Blasto:Water Spout>Archal || them: Archal:Protect, Grimms:Light Screen
+      faints<=T3 []  TR T1ourss,T5e  weather T2RainD  turns 10
+LOSS T6_humanprevie 2688080682 | us Blast+Farig back Torko/Venus | them Indeedee- Blastoise Armarouge Sneasler Sinistcha Golisopod lead Indeedee-+Armarouge
+      T1 us: Blasto:Water Spout>Armaro, Farigi:Trick Room || them: Armaro:Wide Guard, Indeed:Terrain Pulse>Blasto
+      T2 us: Farigi:Psychic>Indeed, in:Torkoa || them: Indeed:Helping Hand, Armaro:Expanding Force>Blasto
+      faints<=T3 ['T2:US Blastois', 'T3:US Farigira', 'T3:them Indeedee']  TR T1ourss  weather T2Sunny(us)  turns 5
+LOSS T6_humanprevie 2688081303 | us Blast+Farig back Torko/Venus | them Staraptor Gengar Armarouge Indeedee- Milotic Dragapult lead Indeedee-+Milotic
+      T1 us: Blasto:Water Spout>Miloti, Farigi:Trick Room || them: Indeed:Follow Me, Miloti:Coil
+      T2 us: Farigi:Rain Dance, Blasto:Water Spout>Miloti || them: Miloti:Hypnosis>Blasto, in:Starap
+      faints<=T3 ['T2:them Indeedee']  TR T1ourss,T5e  weather T2RainD  turns 28
+LOSS T6_humanprevie 2688264483 | us Chari+Venus back Farig/Torko | them Luxray Meganium Aerodacty Archaludo Pelipper Scizor lead Aerodacty+Luxray
+      T1 us: Chariz:Protect, in:Farigi || them: Aeroda:Aerial Ace>Farigi, Luxray:Volt Switch>Chariz
+      T2 us: Chariz:Heat Wave>Pelipp, Farigi:Trick Room || them: Aeroda:Rock Slide>Farigi, Luxray:Volt Switch>Farigi, in:Pelipp
+      faints<=T3 ['T3:them Aerodact']  TR T2ourss  weather T1Sunny(us),T2RainD(them)  turns 14
+WIN  T6_humanprevie 2688270016 | us Blast+Farig back Incin/Torko | them Indeedee- Meganium Tyrantrum Empoleon Cofagrigu Pelipper lead Empoleon+Cofagrigu
+      T1 us: Blasto:Fake Out>Empole, Farigi:Trick Room || them: Cofagr:Trick Room, Empole:<flinch>
+      T2 us: Blasto:Water Spout>Cofagr, Farigi:Trick Room || them: Empole:Flash Cannon>Farigi, Cofagr:Curse>Blasto, in:Indeed
+      faints<=T3 ['T2:them Cofagrig']  TR T1ourss,T1e,T2ourss  weather T3RainD  turns 8
+WIN  T6_humanprevie 2688273052 | us Blast+Farig back Torko/Incin | them Golisopod Indeedee- Gardevoir Armarouge Sneasler Pelipper lead Sneasler+Indeedee-
+      T1 us: Blasto:Water Spout>Sneasl, Farigi:Trick Room || them: Indeed:Follow Me, Sneasl:Throat Chop>Farigi
+      T2 us: Farigi:Psychic>Sneasl, Blasto:Water Spout>Sneasl || them: Sneasl:Protect, Indeed:Terrain Pulse>Blasto
+      faints<=T3 ['T3:them Sneasler', 'T3:them Indeedee']  TR T1ourss,T5e  weather T3RainD(them)  turns 7
+LOSS T6_humanprevie 2688274662 | us Farig+Incin back Torko/Venus | them Grimmsnar Pelipper Archaludo Sinistcha Rillaboom Metagross lead Archaludo+Grimmsnar
+      T1 us: Incine:Parting Shot>Grimms, Farigi:Trick Room, in:Torkoa || them: Grimms:Foul Play>Farigi, in:Pelipp
+      T2 us: Farigi:Helping Hand, Torkoa:Eruption>Pelipp || them: Pelipp:Wide Guard, in:Archal
+      faints<=T3 []  TR T1ourss,T5e  weather T1RainD(them),T1Sunny(us),T4RainD(them)  turns 10
+LOSS T6_humanprevie 2688277788 | us Blast+Farig back Torko/Incin | them Glimmora Mimikyu Tyranitar Steelix Rillaboom Gallade lead Gallade+Rillaboom
+      T1 us: Blasto:Water Spout>Rillab, in:Torkoa || them: Rillab:Wood Hammer>Farigi, Gallad:Night Slash>Blasto
+      T2 us: Torkoa:Eruption>Rillab, in:Incine || them: Rillab:Wood Hammer>Blasto, Gallad:Sacred Sword>Torkoa, in:Tyrani
+      faints<=T3 ['T1:US Farigira', 'T2:US Blastois', 'T3:US Torkoal', 'T2:them Rillaboo', 'T3:them Gallade']  TR   weather T1Sunny(us),T2Sands(them)  turns 4
+WIN  T6ctx          2688390116 | us Blast+Farig back  | them Indeedee- Armarouge Gardevoir Arcanine- Salamence Sneasler lead Arcanine-+Sneasler
+      T1 us: Blasto:Fake Out>Sneasl, Farigi:Trick Room, Farigi:<Armor Tail> || them: Sneasl:Fake Out, Arcani:Head Smash>Blasto
+      T2 us: Farigi:Rain Dance, Blasto:Water Spout>Salame || them: Sneasl:Throat Chop>Farigi, in:Salame
+      faints<=T3 ['T3:them Salamenc', 'T3:them Sneasler']  TR T1ourss  weather T2RainD  turns 5
+LOSS T6ctx          2688395652 | us Chari+Venus back Farig/Torko | them Feraligat Meganium Sneasler Pelipper Archaludo Grimmsnar lead Feraligat+Grimmsnar
+      T1 us: Venusa:Leaf Storm>Ferali, Chariz:Heat Wave>Grimms, in:Farigi || them: Grimms:Light Screen, Ferali:Double-Edge>Chariz
+      T2 us: Venusa:Sludge Bomb>Archal, Farigi:Trick Room || them: Grimms:Reflect, in:Archal
+      faints<=T3 ['T1:US Charizar']  TR T2ourss  weather T1Sunny(us),T3RainD(them),T4Sunny(us)  turns 6
+LOSS T6ctx          2688397019 | us Blast+Farig back Torko/Incin | them Aegislash Staraptor Tyranitar Excadrill Milotic Indeedee lead Tyranitar+Indeedee
+      T1 us: Blasto:Water Spout>Tyrani, Farigi:Trick Room || them: Indeed:Expanding Force>Blasto, Tyrani:Rock Slide>Farigi
+      T2 us: Farigi:Rain Dance, Blasto:Water Pulse>Tyrani || them: Tyrani:Protect, in:Miloti
+      faints<=T3 ['T3:US Blastois']  TR T1ourss,T5e  weather T0Sands(them),T2RainD,T3Sunny(us),T4Sands(them)  turns 8
+WIN  T6tac          2688485828 | us Blast+Farig back  | them Basculegi Pidgeot Chesnaugh Mr. Rime Alcremie Heliolisk lead Chesnaugh+Pidgeot
+      T1 us: Blasto:Fake Out>Pidgeo, Farigi:Trick Room || them: Chesna:Quick Guard, Pidgeo:<flinch>
+      T2 us:  || them: 
+      faints<=T3 []  TR T1ourss  weather   turns 2
+LOSS T6tac          2688486414 | us Blast+Farig back Incin/Torko | them Araquanid Blastoise Indeedee- Pelipper Corviknig Garchomp lead Araquanid+Blastoise
+      T1 us: Blasto:Water Spout>Araqua, Farigi:Trick Room || them: Blasto:Aqua Ring, Araqua:Entrainment
+      T2 us: Farigi:Rain Dance, Blasto:Water Spout>Blasto || them: Araqua:Wide Guard, Blasto:Water Spout>Farigi
+      faints<=T3 ['T3:US Farigira']  TR T1ourss,T5e  weather T2RainD  turns 8
+LOSS T6tac          2688487899 | us Blast+Farig back Torko/Venus | them Archaludo Pelipper Wyrdeer Wigglytuf Golisopod Dragonite lead Wyrdeer+Wigglytuf
+      T1 us: Blasto:Water Spout>Wiggly, Farigi:Trick Room || them: Wyrdee:Skill Swap>Farigi, Wiggly:Hyper Voice>Blasto
+      T2 us: Farigi:Rain Dance, in:Torkoa || them: Wiggly:Dazzling Gleam>Blasto, Wyrdee:Psychic>Blasto
+      faints<=T3 ['T2:US Blastois', 'T3:US Farigira']  TR T1ourss,T5e  weather T2RainD,T2Sunny(us),T3RainD(them)  turns 6
+wide_guard: 12-25

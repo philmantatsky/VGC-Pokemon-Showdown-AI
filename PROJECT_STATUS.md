@@ -92,6 +92,24 @@ ladder games); nothing trained, nothing on the server.
   Pulse, a candidate third team for T6m's clone team tournament (the user's call).
   Any set change needs a practice cycle before our brain can use it.
 
+## Ladder has never had open team sheets (0 of 766 games); how our Reg M-C wins ended (2026-September 28, 10:05)
+
+The user: "check in our ladder games out of all the games with open team sheets how
+many did we win that werent forfeits". Analysis only.
+- **Open team sheets: 0 of 766 saved ladder games** (all 30 `ladder_replays*` folders,
+  Reg M-B and M-C). Every game offered them (`otsrequest`) and the bot accepts
+  (`accept_open_team_sheet=True`; poke-env sends `/acceptopenteamsheets`), but no
+  opponent ever did -- no `|showteam|` line anywhere (the simulator writes one per side
+  when sheets open). **Ladder is 100% closed-sheet: only the hidden-sheet blocks of
+  local mirrors / batteries describe ladder conditions.**
+- **Reg M-C, 295 games, 150-145:** wins played out **64**, by opponent forfeit 82, by
+  opponent inactivity 4; losses 145, all played out (the bot never forfeits or times
+  out). Played-out record 64-145 -- biased low, because only opponents forfeit: at 69 of
+  the 86 forfeit / timeout wins we had more Pokemon left, 17 even (12 by turn 1), 0
+  behind. Counting the 69 as wins and dropping the 17: 133-145 (48%).
+- **T6 era (11 folders, 220 games, 110-110):** played out 46-110; 64 forfeit / timeout
+  wins (51 ahead, 13 even, 0 behind; 7 by turn 1).
+
 ## The openings research re-checked on the 83 ladder games played after it; correction: opponent forfeits are wins (2026-September 28, 10:05)
 
 The user: "take a look at openings research that i had another context make".
@@ -211,6 +229,30 @@ a read, not proof. Tactical fine-tune 3 started at 02:14 (the chain's next step)
   20-game ladder read of T6tac + the three guards started at 01:22
   (`ladder_replays_mc_T6tac_review_guards`).
 
+## Set-swap audit over our own ladder games: two of the four meta tweaks survive (2026-September 28, 00:33)
+
+The user: "can u also check our ladder logs of losses / wins where our inceneroar
+wouldve done better with chople berry and do the rest with the other pokemon too".
+`results_analysis/openings_20260927/setswap_audit.py` (+ `.json` / `.txt`, every moment
+listed) replays the 165 T6-era ladder games through `unit_tests/ladder_position.py`
+and the real damage calculator; analysis only.
+- **Incineroar Chople vs Passho: a wash, keep Passho.** Chople would have avoided 4
+  KOs (+2 maybe) on the first super-effective Fighting hit; Passho did avoid 4 KOs
+  (rain Weather Ball, Liquidation) and kept it out of 16-26 HP four more times; all
+  of these games were losses either way.
+- **Torkoal Earth Power for Heat Wave: modest gain.** Of 298 attacking turns the
+  proposed set was better in 22 and worse in 15; a KO only it had in 10 turns vs 4
+  (Heat Wave's low-HP spread KOs). Earth Power's KOs: Hisuian Arcanine after its Sash
+  (93% hold one), Archaludon, Tyranitar, Incineroar.
+- **Venusaur Earth Power for Leaf Storm: a loss, keep Leaf Storm** (KO-only turns 5
+  vs 7; Leaf Storm KOs Pelipper / Politoed / Milotic in rain).
+- **Charizard Weather Ball for Solar Beam: clear gain** (better in 9 turns, worse in
+  1; KO-only 5 vs 1).
+- **Farigiraf: keep Helping Hand** -- it decided 10 KOs the partner could not get
+  alone (9 in wins).
+- `TEAM_REVIEW_T6.md` updated (section 4b); the proposed tournament's **T6m is now
+  T6 + Charizard Weather Ball + Torkoal Earth Power** only.
+
 ## Pre-registered: tonight's plan under the user's delegation (2026-September 28, 00:25)
 
 The user, going to sleep: "continue training as needed and run ladder whenever u
@@ -309,6 +351,35 @@ knocked out Protected.
   hidden-sheet loss is the one matchup where the usage-based set guesses (which the
   lesson leans on) fit worst: our own unusual sets (Water Spout Blastoise vs the
   meta's Shell Smash, etc.). Ladder and promotion: the user's call.
+
+## Team and moveset review: T6 vs the Reg M-C meta -- `TEAM_REVIEW_T6.md` (2026-September 27, 19:40)
+
+The user: "look up our team and then meta teams and see how it fares based on data we
+could be playing the wrong team ... or maybe even need to tweak our moveset to match
+the meta". Analysis only (the doomed chain owns the machine); nothing trained, run or
+deployed.
+- **Data:** 163 T6-era ladder games (incl. today's two reads), the T6tac battery
+  (6,204), 9,947 human Reg M-C games (this morning's 2,247 web replays through 09-27
+  added, git-ignored in `battle_logs_web_mc_20260927/`), 7,400+ open sheets,
+  Pikalytics sheets, the earlier team tournaments. Scripts / tables:
+  `results_analysis/openings_20260927/team_*`.
+- **Not the wrong team for the meta in human hands:** human rosters with 4+ of our six
+  -0.1pp vs rating (5+: 28-11, +18pp); Farigiraf + Torkoal rosters +4.4pp (126
+  players), Mega Blastoise rosters +4.1pp (184); every major archetype within
+  -1.0..+1.2pp and teams built like each candidate within -1.9..+3.5pp.
+- **But our bot pilots it worse than it piloted T4:** T6 era 78-85, -2.1pp vs rating
+  (163 games) vs T4 27-23, +4.8pp (50); losses concentrate on Volcarona 2-11,
+  Tyranitar 6-18, Sinistcha 4-11, Garchomp 8-19, Pelipper 7-15, Archaludon 7-13, and
+  locally on Politoed rain 62.9%, Hatterene / Camerupt Trick Room 72.7%, sand 73.5%.
+- **Sets:** Torkoal Earth Power over Heat Wave, Incineroar Chople Berry over Passho
+  (Passho sides -7.7pp over 70 players), Venusaur Earth Power over Leaf Storm,
+  Charizard Weather Ball (93% of sheets); Blastoise / Farigiraf are the expert
+  pilots' sets -- keep. A set change needs a practice cycle before it can be judged.
+- **Proposed (not pre-registered, needs the user's word):** a clone team tournament
+  (`evaluation/run_team_tournament.sh`, pilot `results_bc/mc_A_20260920` BEST, pool
+  `data/team_weights_regmc.json`, hidden sheets, seed 83): T6 and T6m (the four
+  tweaks) 600 games each, T4 and T0-T3, T5 300 each, after the doomed chain; T6 has
+  never been in a team tournament.
 
 ## Pre-registered: the doomed-Pokemon lesson (tactical fine-tune 2) (2026-September 27, 18:55)
 
@@ -647,6 +718,39 @@ than 3 physical threats.
 - Running (chain under caffeinate): mirror (2,000) -> battery -> the pre-registered
   hold check and per-card rule -> 15 ladder games
   (`ladder_replays_mc_deployed_T6tac_playbook_t6`).
+
+## Opening research for T6: `OPENINGS_RESEARCH_T6.md` (2026-September 27, 01:40)
+
+The user: "can you research different openings for our bot to play + first move
+strategies that go alongside it or like against which opponents". Research only: no
+code, no runs, nothing wired; the playbook trial pre-registered at 01:20 is untouched.
+- **Evidence:** 7,432 human Reg M-C games at our rating band (median ~1200), our 134
+  T6-era ladder games, two read-only web-research agents (Baltimore Regional Reg M-C,
+  Pikalytics sheets, 1,248 top-ladder replays, the replays of thruxy and dksnnfud --
+  the two strongest pilots of our exact six -- and Champions write-ups), and the
+  Champions engine mod. Scripts and tables: `results_analysis/openings_20260927/`.
+- **Default confirmed:** Water Room with the experts' script (turn 1 Mega + Fake Out +
+  Trick Room, turn 2 Rain Dance + Water Spout, Torkoal on the first faint under the
+  room): ours 35-30 (12-4 vs Trick Room, 8-3 vs Tailwind); humans 10-3 with that turn
+  1; thruxy / dksnnfud 10-1 in their uploaded replays.
+- **Losses concentrate** in Psychic Terrain (4-8; Indeedee lead 5-11), sand (Tyranitar
+  lead 1-9) and rain (8-14); rain + Archaludon has no known winning line for this team
+  (the experts went 1-3).
+- **Draft-2 proposals (to practise and test, section 8 of the doc):** Support Room vs
+  Psychic Terrain teams with a Psychic attacker; vs sand, Incineroar + Venusaur back and
+  turn-2 Rain Dance; two new openings (Charizard + Farigiraf 24-15, Charizard +
+  Incineroar 23-18 in human games); turn-1 facts for the tactical teacher (Fake Out
+  reachability incl. Mold Breaker, Trick Room order and cancellation, Imprison,
+  weather order).
+- **Flags:** draft 1 picked Sun Room for 39 of our 134 ladder opponents (18 of 25
+  Tailwind teams), a lead the brain has not played since the human-opening retraining
+  (0 of 84 ladder games) and the strong pilots never lead; `playbook_opening` could aim
+  Fake Out at unreachable foes; `playbook.set_share(..., item=...)` crashed on
+  `item: null`. All three addressed in draft 1.1 (`c7b76b2`, the playbook session):
+  Water 74 / Support 44 / Sun 16 of our 134 opponents now. Still open: Psychic
+  Terrain teams get Water Room (13 of 15; research says Support Room). Four
+  high-volume mid-ladder accounts (31% of a 15-hour sample) run the Baltimore
+  runner-up team (Charizard-Y, Golisopod, Politoed, Archaludon, Grimmsnarl, Farigiraf).
 
 ## Rain/sand cycle fails its pre-registered test: no weather router, T6tac stays alone (2026-September 27, 01:30)
 

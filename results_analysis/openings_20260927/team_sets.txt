@@ -1,0 +1,160 @@
+
+######## Blastoise: 230 open sheets
+  moves: waterspout* 97%, protect 84%, shellsmash 79%, darkpulse 51%, terrainpulse 47%, aurasphere 16%, fakeout* 14%, icebeam* 4%, dragonpulse 3%, waterpulse* 1%, blizzard 1%, surf 1%
+  items: blastoisinite* 100%
+  sheets with exactly our four moves: 0  -
+  record by move on the sheet (with / without):
+    protect            with 103-90 (53% [46,60])   vsElo  +4.1 | without 13-24 (35% [22,51])    vsElo -14.3
+    shellsmash         with 99-83 (54% [47,61])    vsElo  +5.0 | without 17-31 (35% [23,50])    vsElo -13.3
+    darkpulse          with 55-63 (47% [38,56])    vsElo  -1.9 | without 61-51 (54% [45,63])    vsElo  +4.4
+    terrainpulse       with 60-49 (55% [46,64])    vsElo  +5.5 | without 56-65 (46% [38,55])    vsElo  -2.8
+    aurasphere         with 15-21 (42% [27,58])    vsElo  -8.9 | without 101-93 (52% [45,59])   vsElo  +3.0
+    fakeout*           with 12-20 (38% [23,55])    vsElo -12.7 | without 104-94 (53% [46,59])   vsElo  +3.4
+  record by item:
+    blastoisinite*     116-114 (50% [44,57])  vsElo  +1.1
+
+######## Farigiraf: 1501 open sheets
+  moves: trickroom* 99%, psychic* 62%, protect 58%, helpinghand* 56%, thunderbolt 42%, hypervoice 23%, twinbeam 19%, expandingforce 13%, imprison 7%, nastyplot 7%, roar 2%, raindance* 2%
+  items: sitrusberry* 64%, grassyseed 15%, colburberry 13%, mentalherb 3%, leftovers 2%, lifeorb 1%
+  sheets with exactly our four moves: 21  11-10 (52% [32,72])    vsElo  +0.2
+  record by move on the sheet (with / without):
+    psychic*           with 494-444 (53% [49,56])  vsElo  +2.6 | without 263-300 (47% [43,51])  vsElo  -2.1
+    protect            with 448-417 (52% [48,55])  vsElo  +2.2 | without 309-327 (49% [45,52])  vsElo  -1.1
+    helpinghand*       with 415-424 (49% [46,53])  vsElo  -0.6 | without 342-320 (52% [48,55])  vsElo  +2.6
+    thunderbolt        with 314-318 (50% [46,54])  vsElo  +0.2 | without 443-426 (51% [48,54])  vsElo  +1.2
+    hypervoice         with 191-160 (54% [49,60])  vsElo  +4.4 | without 566-584 (49% [46,52])  vsElo  -0.3
+    twinbeam           with 139-148 (48% [43,54])  vsElo  -1.9 | without 618-596 (51% [48,54])  vsElo  +1.4
+    expandingforce     with 93-106 (47% [40,54])   vsElo  -1.2 | without 664-638 (51% [48,54])  vsElo  +1.1
+    imprison           with 40-62 (39% [30,49])    vsElo -10.4 | without 717-682 (51% [49,54])  vsElo  +1.6
+    nastyplot          with 54-44 (55% [45,65])    vsElo  +6.7 | without 703-700 (50% [47,53])  vsElo  +0.4
+  record by item:
+    sitrusberry*       496-463 (52% [49,55])  vsElo  +2.2
+    grassyseed         115-114 (50% [44,57])  vsElo  +0.6
+    colburberry        82-110 (43% [36,50])   vsElo  -6.5
+    mentalherb         27-20 (57% [43,70])    vsElo  +5.5
+
+######## Charizard: 1462 open sheets
+  moves: protect* 100%, heatwave* 98%, weatherball 93%, solarbeam* 42%, ancientpower* 31%, hurricane 14%, helpinghand 7%, dragonpulse 5%, airslash 4%, flareblitz 1%, overheat 1%, breakingswipe 1%
+  items: charizarditey* 98%, charizarditex 2%
+  sheets with exactly our four moves: 18  4-14 (22% [9,45])      vsElo -23.4
+  record by move on the sheet (with / without):
+    heatwave*          with 746-686 (52% [50,55])  vsElo  +1.4 | without 8-22 (27% [14,44])     vsElo -17.7
+    weatherball        with 709-645 (52% [50,55])  vsElo  +1.6 | without 45-63 (42% [33,51])    vsElo  -7.1
+    solarbeam*         with 320-290 (52% [48,56])  vsElo  +2.2 | without 434-418 (51% [48,54])  vsElo  +0.1
+    ancientpower*      with 229-229 (50% [45,55])  vsElo  +0.5 | without 525-479 (52% [49,55])  vsElo  +1.2
+    hurricane          with 97-101 (49% [42,56])   vsElo  -0.8 | without 657-607 (52% [49,55])  vsElo  +1.3
+    helpinghand        with 57-42 (58% [48,67])    vsElo  +3.3 | without 697-666 (51% [48,54])  vsElo  +0.8
+    dragonpulse        with 39-40 (49% [39,60])    vsElo  -6.3 | without 715-668 (52% [49,54])  vsElo  +1.4
+    airslash           with 30-28 (52% [39,64])    vsElo  -1.2 | without 724-680 (52% [49,54])  vsElo  +1.1
+  record by item:
+    charizarditey*     746-692 (52% [49,54])  vsElo  +1.2
+
+######## Venusaur: 590 open sheets
+  moves: protect* 96%, sludgebomb* 93%, sleeppowder* 69%, earthpower 54%, leafstorm* 50%, gigadrain 20%, energyball 16%, leechseed 2%, solarbeam 1%, substitute 1%, acidspray 1%, growth 0%
+  items: focussash* 35%, lifeorb 34%, widelens 14%, venusaurite 13%, leftovers 3%, occaberry 1%
+  sheets with exactly our four moves: 238  120-118 (50% [44,57])  vsElo  -3.0
+  record by move on the sheet (with / without):
+    protect*           with 285-279 (51% [46,55])  vsElo  -1.8 | without 12-14 (46% [29,65])    vsElo  +4.7
+    sludgebomb*        with 273-273 (50% [46,54])  vsElo  -1.7 | without 24-20 (55% [40,68])    vsElo  +1.2
+    sleeppowder*       with 194-211 (48% [43,53])  vsElo  -4.0 | without 103-82 (56% [48,63])   vsElo  +3.9
+    earthpower         with 163-153 (52% [46,57])  vsElo  +1.0 | without 134-140 (49% [43,55])  vsElo  -4.4
+    leafstorm*         with 151-145 (51% [45,57])  vsElo  -1.1 | without 146-148 (50% [44,55])  vsElo  -1.9
+    gigadrain          with 65-53 (55% [46,64])    vsElo  +2.3 | without 232-240 (49% [45,54])  vsElo  -2.5
+    energyball         with 49-43 (53% [43,63])    vsElo  -0.8 | without 248-250 (50% [45,54])  vsElo  -1.7
+  record by item:
+    focussash*         96-110 (47% [40,53])   vsElo  -4.1
+    lifeorb            112-90 (55% [49,62])   vsElo  +2.3
+    widelens           40-45 (47% [37,58])    vsElo  -6.4
+    venusaurite        37-37 (50% [39,61])    vsElo  +1.8
+
+######## Torkoal: 456 open sheets
+  moves: eruption* 98%, protect* 94%, weatherball* 65%, earthpower 51%, heatwave* 38%, helpinghand 20%, flamethrower 11%, solarbeam 10%, ancientpower 4%, yawn 3%, sunnyday 2%, clearsmog 1%
+  items: charcoal* 95%, lifeorb 2%, leftovers 2%, airballoon 1%, rockyhelmet 0%, heatrock 0%
+  sheets with exactly our four moves: 56  30-26 (54% [41,66])    vsElo  -0.9
+  record by move on the sheet (with / without):
+    protect*           with 219-210 (51% [46,56])  vsElo  +0.2 | without 12-15 (44% [28,63])    vsElo  +0.4
+    weatherball*       with 162-133 (55% [49,60])  vsElo  +4.1 | without 69-92 (43% [35,51])    vsElo  -6.8
+    earthpower         with 118-116 (50% [44,57])  vsElo  +1.1 | without 113-109 (51% [44,57])  vsElo  -0.8
+    heatwave*          with 82-91 (47% [40,55])    vsElo  -1.2 | without 149-134 (53% [47,58])  vsElo  +1.1
+    helpinghand        with 45-45 (50% [40,60])    vsElo  -0.4 | without 186-180 (51% [46,56])  vsElo  +0.4
+    flamethrower       with 27-24 (53% [40,66])    vsElo  -3.0 | without 204-201 (50% [46,55])  vsElo  +0.6
+    solarbeam          with 25-21 (54% [40,68])    vsElo  +2.0 | without 206-204 (50% [45,55])  vsElo  -0.0
+  record by item:
+    charcoal*          224-208 (52% [47,57])  vsElo  +1.1
+
+######## Incineroar: 3186 open sheets
+  moves: fakeout* 99%, flareblitz* 96%, partingshot* 95%, throatchop* 54%, darkestlariat 22%, protect 10%, helpinghand 7%, closecombat 6%, taunt 4%, snarl 4%, willowisp 2%, roar 0%
+  items: sitrusberry 69%, chopleberry 8%, passhoberry* 7%, rockyhelmet 6%, whiteherb 4%, charcoal 3%
+  sheets with exactly our four moves: 1554  828-726 (53% [51,56])  vsElo  +2.8
+  record by move on the sheet (with / without):
+    fakeout*           with 1600-1560 (51% [49,52]) vsElo  +0.8 | without 9-17 (35% [19,54])     vsElo -11.6
+    flareblitz*        with 1544-1510 (51% [49,52]) vsElo  +0.7 | without 65-67 (49% [41,58])    vsElo  +1.2
+    partingshot*       with 1525-1499 (50% [49,52]) vsElo  +0.6 | without 84-78 (52% [44,59])    vsElo  +2.6
+    throatchop*        with 914-816 (53% [50,55])  vsElo  +2.5 | without 695-761 (48% [45,50])  vsElo  -1.4
+    darkestlariat      with 335-363 (48% [44,52])  vsElo  -0.9 | without 1274-1214 (51% [49,53]) vsElo  +1.1
+    protect            with 142-192 (43% [37,48])  vsElo  -5.8 | without 1467-1385 (51% [50,53]) vsElo  +1.5
+    helpinghand        with 124-100 (55% [49,62])  vsElo  +5.0 | without 1485-1477 (50% [48,52]) vsElo  +0.4
+    closecombat        with 90-87 (51% [44,58])    vsElo  +1.1 | without 1519-1490 (50% [49,52]) vsElo  +0.7
+    taunt              with 60-80 (43% [35,51])    vsElo  -5.5 | without 1549-1497 (51% [49,53]) vsElo  +1.0
+    snarl              with 66-59 (53% [44,61])    vsElo  +1.6 | without 1543-1518 (50% [49,52]) vsElo  +0.7
+  record by item:
+    sitrusberry        1115-1078 (51% [49,53]) vsElo  +1.0
+    chopleberry        126-120 (51% [45,57])  vsElo  +0.9
+    passhoberry*       82-127 (39% [33,46])   vsElo  -7.7
+    rockyhelmet        104-94 (53% [46,59])   vsElo  +3.2
+
+######## coverage: usage-weighted effectiveness vs the top-40 meta
+  Blastoise:
+    Water Spout (spread, Water)      super-effective on 18.8% of top-40 usage,
+      resisted by 35.3%  | SE top-20: Incineroar, Charizard, Arcanine-Hisui, Tyranitar
+    Water Pulse (Water)              super-effective on 18.8% of top-40 usage,
+      resisted by 35.3%  | SE top-20: Incineroar, Charizard, Arcanine-Hisui, Tyranitar
+    Ice Beam                         super-effective on 24.4% of top-40 usage,
+      resisted by 34.0%  | SE top-20: Rillaboom, Salamence, Garchomp
+    Dark Pulse                       super-effective on 21.9% of top-40 usage,
+      resisted by 29.9%  | SE top-20: Indeedee-F, Basculegion, Gholdengo, Farigiraf
+    Aura Sphere                      super-effective on 20.6% of top-40 usage,
+      resisted by 41.7%  | SE top-20: Incineroar, Kingambit, Archaludon, Arcanine-Hisui, Tyranitar
+    Dragon Pulse                     super-effective on  9.9% of top-40 usage,
+      resisted by 25.0%  | SE top-20: Salamence, Garchomp
+  Charizard:
+    Heat Wave / Weather Ball (Fire)  super-effective on 28.7% of top-40 usage,
+      resisted by 36.8%  | SE top-20: Rillaboom, Kingambit, Gholdengo, Golisopod
+    Solar Beam                       super-effective on 10.6% of top-40 usage,
+      resisted by 61.2%  | SE top-20: Basculegion, Tyranitar, Milotic
+    Ancient Power                    super-effective on 26.2% of top-40 usage,
+      resisted by 24.7%  | SE top-20: Incineroar, Salamence, Charizard, Arcanine-Hisui, Pelipper
+    Hurricane / Air Slash            super-effective on 22.5% of top-40 usage,
+      resisted by 22.2%  | SE top-20: Rillaboom, Sneasler
+    Dragon Pulse                     super-effective on  9.9% of top-40 usage,
+      resisted by 25.0%  | SE top-20: Salamence, Garchomp
+  Venusaur:
+    Sludge Bomb                      super-effective on 18.7% of top-40 usage,
+      resisted by 38.7%  | SE top-20: Rillaboom, Floette-Eternal, Gardevoir
+    Leaf Storm                       super-effective on 10.6% of top-40 usage,
+      resisted by 61.2%  | SE top-20: Basculegion, Tyranitar, Milotic
+    Earth Power                      super-effective on 38.8% of top-40 usage,
+      resisted by 25.1%  | SE top-20: Sneasler, Incineroar, Kingambit, Gholdengo, Archaludon, Raichu, Arcanine-Hisui, Tyranitar
+  Torkoal:
+    Eruption / Heat Wave             super-effective on 28.7% of top-40 usage,
+      resisted by 36.8%  | SE top-20: Rillaboom, Kingambit, Gholdengo, Golisopod
+    Earth Power                      super-effective on 38.8% of top-40 usage,
+      resisted by 25.1%  | SE top-20: Sneasler, Incineroar, Kingambit, Gholdengo, Archaludon, Raichu, Arcanine-Hisui, Tyranitar
+    Solar Beam                       super-effective on 10.6% of top-40 usage,
+      resisted by 61.2%  | SE top-20: Basculegion, Tyranitar, Milotic
+    Ancient Power                    super-effective on 26.2% of top-40 usage,
+      resisted by 24.7%  | SE top-20: Incineroar, Salamence, Charizard, Arcanine-Hisui, Pelipper
+  Farigiraf:
+    Psychic                          super-effective on 10.6% of top-40 usage,
+      resisted by 38.9%  | SE top-20: Sneasler
+    Thunderbolt                      super-effective on 15.0% of top-40 usage,
+      resisted by 24.2%  | SE top-20: Basculegion, Charizard, Pelipper, Milotic
+    Hyper Voice / Twin Beam          super-effective on  0.0% of top-40 usage,
+      resisted by 30.8%  | SE top-20: 
+  Incineroar:
+    Flare Blitz                      super-effective on 28.7% of top-40 usage,
+      resisted by 36.8%  | SE top-20: Rillaboom, Kingambit, Gholdengo, Golisopod
+    Throat Chop / Darkest Lariat     super-effective on 21.9% of top-40 usage,
+      resisted by 29.9%  | SE top-20: Indeedee-F, Basculegion, Gholdengo, Farigiraf
+    Close Combat                     super-effective on 20.6% of top-40 usage,
+      resisted by 41.7%  | SE top-20: Incineroar, Kingambit, Archaludon, Arcanine-Hisui, Tyranitar

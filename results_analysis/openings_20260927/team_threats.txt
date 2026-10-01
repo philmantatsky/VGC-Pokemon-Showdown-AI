@@ -1,0 +1,77 @@
+T6-era ladder: 78-85 (48% [40,55])  vsElo -2.1pp
+T4 (09-20): 27-23 (54% [40,67]) vsElo +4.8pp
+MB430 (09-09): 13-12 (52% [33,70]) vsElo +0.9pp
+
+== T6-era ladder record by opponent species ON ROSTER / BROUGHT (n>=8)
+  Volcarona        on roster  2-11 ( 15%)  brought  1-5  ( 17%)   | T4 era on roster 8-2
+  Grimmsnarl       on roster  2-6  ( 25%)  brought  2-6  ( 25%)   | T4 era on roster 2-0
+  Tyranitar        on roster  6-18 ( 25%)  brought  6-18 ( 25%)   | T4 era on roster 1-2
+  Whimsicott       on roster  2-6  ( 25%)  brought  1-3  ( 25%)   | T4 era on roster 2-2
+  Sinistcha        on roster  4-11 ( 27%)  brought  2-7  ( 22%)   | T4 era on roster 0-2
+  Corviknight      on roster  3-8  ( 27%)  brought  2-3  ( 40%)   | T4 era on roster 0-2
+  Garchomp         on roster  8-19 ( 30%)  brought  8-14 ( 36%)   | T4 era on roster 3-5
+  Pelipper         on roster  7-15 ( 32%)  brought  4-15 ( 21%)   | T4 era on roster 3-2
+  Metagross        on roster  5-10 ( 33%)  brought  2-2  ( 50%)   | T4 era on roster 2-1
+  Milotic          on roster  8-16 ( 33%)  brought  4-13 ( 24%)   | T4 era on roster 4-4
+  Archaludon       on roster  7-13 ( 35%)  brought  4-11 ( 27%)   | T4 era on roster 1-2
+  Staraptor        on roster  4-7  ( 36%)  brought  2-5  ( 29%)   | T4 era on roster 1-2
+  Charizard        on roster  5-8  ( 38%)  brought  2-4  ( 33%)   | T4 era on roster 4-1
+  Sylveon          on roster  6-9  ( 40%)  brought  2-2  ( 50%)   | T4 era on roster 2-3
+  Gholdengo        on roster 12-17 ( 41%)  brought  5-4  ( 56%)   | T4 era on roster 1-3
+  Indeedee         on roster  8-11 ( 42%)  brought  6-9  ( 40%)   | T4 era on roster 1-6
+  Excadrill        on roster  6-8  ( 43%)  brought  3-4  ( 43%)   | T4 era on roster 1-1
+  Basculegion      on roster  9-11 ( 45%)  brought  6-9  ( 40%)   | T4 era on roster 6-3
+  Golisopod        on roster  9-11 ( 45%)  brought  5-2  ( 71%)   | T4 era on roster 4-2
+  Raichu           on roster 11-12 ( 48%)  brought  5-9  ( 36%)   | T4 era on roster 4-5
+  Rillaboom        on roster 31-32 ( 49%)  brought 12-15 ( 44%)   | T4 era on roster 16-9
+  Aerodactyl       on roster  4-4  ( 50%)  brought  2-4  ( 33%)   | T4 era on roster 2-2
+  Sneasler         on roster 27-24 ( 53%)  brought 19-14 ( 58%)   | T4 era on roster 10-10
+  Gengar           on roster  6-5  ( 55%)  brought  6-2  ( 75%)   | T4 era on roster 2-1
+  Lucario          on roster  6-5  ( 55%)  brought  4-0  (100%)   | T4 era on roster 2-1
+  Arcanine-Hisui   on roster 11-9  ( 55%)  brought 10-8  ( 56%)   | T4 era on roster 0-2
+  Incineroar       on roster 20-16 ( 56%)  brought 12-13 ( 48%)   | T4 era on roster 9-7
+  Kingambit        on roster 15-12 ( 56%)  brought 10-6  ( 62%)   | T4 era on roster 6-4
+  Indeedee-F       on roster 19-15 ( 56%)  brought 17-13 ( 57%)   | T4 era on roster 6-3
+  Farigiraf        on roster  8-6  ( 57%)  brought  7-3  ( 70%)   | T4 era on roster 3-1
+  Gardevoir        on roster 10-7  ( 59%)  brought  5-5  ( 50%)   | T4 era on roster 3-5
+  Salamence        on roster 20-13 ( 61%)  brought 14-10 ( 58%)   | T4 era on roster 5-6
+  Pawmot           on roster  5-3  ( 62%)  brought  5-2  ( 71%)   | T4 era on roster 0-0
+  Armarouge        on roster  7-4  ( 64%)  brought  2-4  ( 33%)   | T4 era on roster 0-1
+  Torkoal          on roster  7-3  ( 70%)  brought  2-1  ( 67%)   | T4 era on roster 5-3
+
+== local battery (T6tac + 8 guards): by category and worst rosters
+games: 6204
+  rain              89.1%  n=1320
+  trick_room        90.5%  n=1320
+  tailwind          92.0%  n=1320
+  grassy_fakeout    93.9%  n=1320
+  balance           98.5%  n=924
+  worst 12 rosters (all populations pooled):
+     62.9% n=132 rain           gengar incineroar rillaboom sneasler politoed archaludon
+     72.7% n=132 trick_room     indeedee hatterene camerupt primarina vanilluxe pawmot
+     73.5% n=132 tailwind       indeedee sneasler tyranitar excadrill corviknight hydreigon
+     81.1% n=132 rain           archaludon basculegion pelipper venusaur charizard grimmsnarl
+     82.6% n=132 tailwind       tyranitar excadrill indeedee corviknight sneasler annihilape
+     84.8% n=132 trick_room     salamence sylveon kingambit arcanine farigiraf sneasler
+     85.6% n=132 grassy_fakeout arcanine sylveon rillaboom salamence kingambit sneasler
+     86.4% n=132 rain           rillaboom sneasler volcarona glimmora swampert pelipper
+     86.4% n=132 rain           baxcalibur sneasler incineroar pelipper golisopod gholdengo
+     87.1% n=132 trick_room     kangaskhan farigiraf indeedee hatterene gallade camerupt
+     87.1% n=132 grassy_fakeout rillaboom milotic kingambit garchomp floette raichu
+     87.9% n=132 rain           toxapex rotom venusaur incineroar politoed garchomp
+  species on the opponent roster -> our local win rate (human-clone populations)
+    camerupt          61.4% (n=88)  vs overall 90.3%
+    politoed          65.2% (n=132)  vs overall 90.3%
+    corviknight       67.0% (n=88)  vs overall 90.3%
+    excadrill         68.2% (n=132)  vs overall 90.3%
+    tyranitar         68.2% (n=132)  vs overall 90.3%
+    hatterene         74.2% (n=132)  vs overall 90.3%
+    indeedee          77.0% (n=352)  vs overall 90.3%
+    annihilape        81.1% (n=132)  vs overall 90.3%
+    gengar            82.4% (n=176)  vs overall 90.3%
+    venusaur          84.1% (n=176)  vs overall 90.3%
+    pawmot            85.0% (n=220)  vs overall 90.3%
+    gardevoir         86.4% (n=132)  vs overall 90.3%
+    archaludon        86.7% (n=264)  vs overall 90.3%
+    sneasler          88.0% (n=880)  vs overall 90.3%
+    gallade           88.6% (n=88)  vs overall 90.3%

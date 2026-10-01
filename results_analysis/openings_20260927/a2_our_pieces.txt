@@ -1,0 +1,148 @@
+=== humans leading each of our species
+
+## Blastoise: on roster 478, led 208: 124-84 (60% [53,66])  vsElo +8.9pp | brought-not-led 11-42 (21% [12,33])  vsElo -23.9pp
+   partners: Indeedee-F 62, Incineroar 38, Farigiraf 25, Sneasler 21, Rillaboom 14, Gengar 5, Sinistcha 4, Armarouge 4, Pelipper 3, Sableye 3
+   turn-1: Shell Smash 42%, Water Spout 14%, Protect 13%, Fake Out 12%, <switched/none> 6%, Dark Pulse 6%, <cant:flinch> 2%, Terrain Pulse 1%
+      Shell Smash                  58-30 (66% [56,75])  vsElo +13.4pp
+      Water Spout                  18-12 (60% [42,75])  vsElo +10.5pp
+      Protect                      17-11 (61% [42,76])  vsElo +10.5pp
+      Fake Out                     13-12 (52% [33,70])  vsElo +3.7pp
+      <switched/none>              6-7 (46% [23,71])  vsElo -2.2pp
+   vs archetype: tailwind 33-20 (62% [49,74]) | trick_room 36-14 (72% [58,83]) | rain 13-12 (52% [33,70]) | balance 13-9 (59% [39,77]) | sun 10-9 (53% [32,73]) | psychic_terrain 6-9 (40% [20,64]) | sand 7-7 (50% [27,73]) | snow 5-4 (56% [27,81]) | tr_splash 1-0 (100% [21,100])
+
+## Farigiraf: on roster 2380, led 958: 478-480 (50% [47,53])  vsElo +0.5pp | brought-not-led 328-303 (52% [48,56])  vsElo +2.5pp
+   partners: Incineroar 166, Golisopod 98, Rillaboom 77, Kingambit 65, Charizard 39, Garchomp 30, Sneasler 29, Salamence 27, Blastoise 25, Staraptor 23
+   turn-1: Trick Room 50%, <switched/none> 12%, Psychic 7%, Protect 6%, Helping Hand 5%, Imprison 3%, Thunderbolt 3%, Nasty Plot 2%
+      Trick Room                   255-220 (54% [49,58])  vsElo +4.3pp
+      <switched/none>              42-76 (36% [28,45])  vsElo -12.2pp
+      Psychic                      39-25 (61% [49,72])  vsElo +8.1pp
+      Protect                      29-33 (47% [35,59])  vsElo -4.0pp
+      Helping Hand                 24-25 (49% [36,63])  vsElo -2.5pp
+   vs archetype: trick_room 110-124 (47% [41,53]) | tailwind 110-94 (54% [47,61]) | psychic_terrain 48-60 (44% [35,54]) | sand 51-57 (47% [38,57]) | sun 52-42 (55% [45,65]) | balance 47-47 (50% [40,60]) | rain 39-49 (44% [34,55]) | snow 20-5 (80% [61,91]) | tr_splash 1-2 (33% [6,79])
+
+## Charizard: on roster 2002, led 727: 387-340 (53% [50,57])  vsElo +2.3pp | brought-not-led 207-272 (43% [39,48])  vsElo -8.0pp
+   partners: Venusaur 151, Garchomp 63, Whimsicott 54, Kingambit 48, Sneasler 41, Incineroar 41, Rillaboom 39, Farigiraf 39, Aerodactyl 36, Grimmsnarl 33
+   turn-1: Heat Wave 32%, Protect 28%, <switched/none> 14%, Weather Ball 12%, <cant:flinch> 6%, Ancient Power 3%, Solar Beam 2%, Air Slash 1%
+      Heat Wave                    141-92 (61% [54,67])  vsElo +9.0pp
+      Protect                      99-101 (50% [43,56])  vsElo -1.7pp
+      <switched/none>              44-56 (44% [35,54])  vsElo -6.4pp
+      Weather Ball                 56-32 (64% [53,73])  vsElo +12.0pp
+      <cant:flinch>                21-26 (45% [31,59])  vsElo -4.7pp
+   vs archetype: trick_room 101-86 (54% [47,61]) | tailwind 86-75 (53% [46,61]) | balance 50-43 (54% [44,64]) | rain 46-45 (51% [40,61]) | psychic_terrain 36-40 (47% [37,58]) | sand 28-24 (54% [41,67]) | sun 23-20 (53% [39,67]) | snow 10-6 (62% [39,82]) | tr_splash 7-1 (88% [53,98])
+
+## Venusaur: on roster 742, led 219: 122-97 (56% [49,62])  vsElo +4.4pp | brought-not-led 70-78 (47% [39,55])  vsElo -6.0pp
+   partners: Charizard 151, Grimmsnarl 8, Whimsicott 7, Torkoal 6, Sableye 5, Indeedee-F 4, Indeedee 4, Empoleon 4, Farigiraf 3, Gardevoir 3
+   turn-1: Sleep Powder 32%, Protect 16%, Sludge Bomb 15%, <cant:flinch> 12%, <switched/none> 11%, Earth Power 7%, Leaf Storm 3%, Energy Ball 3%
+      Sleep Powder                 35-35 (50% [39,61])  vsElo -1.5pp
+      Protect                      21-13 (62% [45,76])  vsElo +8.8pp
+      Sludge Bomb                  17-15 (53% [36,69])  vsElo +3.0pp
+      <cant:flinch>                17-9 (65% [46,81])  vsElo +14.9pp
+      <switched/none>              14-11 (56% [37,73])  vsElo +6.1pp
+   vs archetype: tailwind 30-18 (62% [48,75]) | trick_room 22-19 (54% [39,68]) | rain 15-19 (44% [29,61]) | balance 22-12 (65% [48,79]) | sand 11-10 (52% [32,72]) | psychic_terrain 8-10 (44% [25,66]) | sun 10-7 (59% [36,78]) | tr_splash 3-0 (100% [44,100]) | snow 1-2 (33% [6,79])
+
+## Torkoal: on roster 773, led 66: 34-32 (52% [40,63])  vsElo +3.6pp | brought-not-led 191-208 (48% [43,53])  vsElo -2.2pp
+   partners: Vileplume 11, Farigiraf 11, Indeedee-F 7, Venusaur 6, Gardevoir 4, Armarouge 3, Pyroar 2, Typhlosion-Hisui 2, Incineroar 2, Hatterene 2
+   turn-1: Eruption 23%, <switched/none> 21%, Protect 20%, Helping Hand 9%, Heat Wave 9%, Yawn 6%, Weather Ball 5%, <cant:flinch> 3%
+      Eruption                     8-7 (53% [30,75])  vsElo +7.0pp
+      <switched/none>              7-7 (50% [27,73])  vsElo +0.9pp
+      Protect                      7-6 (54% [29,77])  vsElo +6.3pp
+      Helping Hand                 2-4 (33% [10,70])  vsElo -11.4pp
+      Heat Wave                    3-3 (50% [19,81])  vsElo -0.4pp
+   vs archetype: trick_room 14-9 (61% [41,78]) | tailwind 7-9 (44% [23,67]) | sun 5-5 (50% [24,76]) | psychic_terrain 2-7 (22% [6,55]) | balance 3-1 (75% [30,95]) | sand 2-0 (100% [34,100]) | rain 0-1 (0% [0,79]) | snow 1-0 (100% [21,100])
+
+## Incineroar: on roster 4614, led 1811: 886-925 (49% [47,51])  vsElo -0.7pp | brought-not-led 790-709 (53% [50,55])  vsElo +2.6pp
+   partners: Floette-Eternal 207, Farigiraf 166, Gengar 156, Gholdengo 150, Salamence 143, Lucario 100, Sneasler 78, Garchomp 50, Golisopod 47, Raichu 47
+   turn-1: Fake Out 36%, <switched/none> 16%, Parting Shot 16%, <cant:flinch> 12%, Flare Blitz 9%, Throat Chop 4%, Darkest Lariat 4%, Close Combat 1%
+      Fake Out                     322-334 (49% [45,53])  vsElo -0.4pp
+      <switched/none>              165-124 (57% [51,63])  vsElo +6.1pp
+      Parting Shot                 156-125 (56% [50,61])  vsElo +6.1pp
+      <cant:flinch>                84-131 (39% [33,46])  vsElo -10.4pp
+      Flare Blitz                  67-103 (39% [32,47])  vsElo -10.5pp
+   vs archetype: tailwind 194-213 (48% [43,53]) | trick_room 202-201 (50% [45,55]) | sand 111-103 (52% [45,58]) | rain 107-102 (51% [44,58]) | psychic_terrain 100-104 (49% [42,56]) | sun 70-86 (45% [37,53]) | balance 58-83 (41% [33,49]) | snow 34-26 (57% [44,68]) | tr_splash 10-7 (59% [36,78])
+
+=== human lead pairs drawn from our six
+  Blastoise + Farigiraf: 15-10 (60% [41,77])  vsElo +8.9pp
+  Blastoise + Incineroar: 26-12 (68% [53,81])  vsElo +17.6pp
+  Farigiraf + Charizard: 24-15 (62% [46,75])  vsElo +7.2pp
+  Farigiraf + Torkoal: 7-4 (64% [35,85])  vsElo +7.1pp
+  Farigiraf + Incineroar: 91-75 (55% [47,62])  vsElo +4.8pp
+  Charizard + Venusaur: 81-70 (54% [46,61])  vsElo +2.8pp
+  Charizard + Incineroar: 23-18 (56% [41,70])  vsElo +5.4pp
+  Venusaur + Torkoal: 4-2 (67% [30,90])  vsElo +21.7pp
+
+=== human rosters with >= 3 of our six
+n sides: 420 223-197 (53% [48,58])  vsElo +0.9pp
+  Charizard + Farigiraf + Incineroar: 106
+  Charizard + Incineroar + Venusaur: 95
+  Farigiraf + Incineroar + Torkoal: 52
+  Charizard + Farigiraf + Incineroar + Venusaur: 21
+  Charizard + Farigiraf + Venusaur: 19
+  Blastoise + Farigiraf + Torkoal: 19
+  Charizard + Farigiraf + Incineroar + Torkoal + Venusaur: 19
+  Blastoise + Farigiraf + Incineroar: 17
+  Farigiraf + Torkoal + Venusaur: 14
+  Blastoise + Farigiraf + Incineroar + Torkoal: 12
+  Charizard + Farigiraf + Torkoal: 11
+  Blastoise + Charizard + Farigiraf + Torkoal + Venusaur: 10
+  players: MaxwellBaker 30, i love all turtles 24, gankyburner 19, aqoursfan1 18, SnrubYesthatlldo 18, lordtentacle69 17, VGCPancakes 17, Yuyun<3 16, maxibeasm 13, zPanNuCc1 10, colemarcusvgc 9, Bobbo1 9
+
+  leads of T6-like rosters (lead -> record):
+    Farigiraf + Incineroar                   34-25 (58% [45,69])  vsElo +5.7pp
+    Charizard + Venusaur                     15-18 (45% [30,62])  vsElo -7.5pp
+    Charizard + Garchomp                     10-14 (42% [24,61])  vsElo -10.6pp
+    Blastoise + Farigiraf                    15-8 (65% [45,81])  vsElo +13.2pp
+    Charizard + Farigiraf                    10-6 (62% [39,82])  vsElo +7.2pp
+    Charizard + Sylveon                      10-4 (71% [45,88])  vsElo +16.3pp
+    Charizard + Incineroar                   9-4 (69% [42,87])  vsElo +24.5pp
+    Farigiraf + Rillaboom                    3-8 (27% [10,57])  vsElo -25.1pp
+    Charizard + Rillaboom                    5-6 (45% [21,72])  vsElo -6.0pp
+    Hydreigon + Maushold-Four                7-3 (70% [40,89])  vsElo +11.8pp
+    Farigiraf + Golisopod                    3-6 (33% [12,65])  vsElo -15.5pp
+    Farigiraf + Sylveon                      1-7 (12% [2,47])  vsElo -44.9pp
+    Garchomp + Incineroar                    2-5 (29% [8,64])  vsElo -22.0pp
+    Garchomp + Sylveon                       4-2 (67% [30,90])  vsElo +13.0pp
+    Farigiraf + Indeedee-F                   3-2 (60% [23,88])  vsElo +11.1pp
+
+  T6-like by opponent archetype -> best leads (n>=3)
+   [trick_room] total 53-51 (51% [41,60])  vsElo -1.0pp
+       Charizard + Venusaur                     5-5 (50% [24,76])  vsElo -8.4pp
+       Blastoise + Farigiraf                    6-3 (67% [35,88])  vsElo +11.1pp
+       Farigiraf + Incineroar                   6-3 (67% [35,88])  vsElo +21.7pp
+       Charizard + Farigiraf                    2-3 (40% [12,77])  vsElo -11.6pp
+       Charizard + Incineroar                   2-3 (40% [12,77])  vsElo +4.5pp
+       Charizard + Rillaboom                    2-3 (40% [12,77])  vsElo -18.2pp
+   [tailwind] total 53-39 (58% [47,67])  vsElo +8.1pp
+       Farigiraf + Incineroar                   10-2 (83% [55,95])  vsElo +31.5pp
+       Blastoise + Farigiraf                    4-2 (67% [30,90])  vsElo +23.5pp
+       Charizard + Rillaboom                    3-2 (60% [23,88])  vsElo +17.3pp
+       Charizard + Venusaur                     3-1 (75% [30,95])  vsElo +27.0pp
+       Charizard + Garchomp                     2-1 (67% [21,94])  vsElo +13.2pp
+       Gholdengo + Rillaboom                    1-2 (33% [6,79])  vsElo -31.9pp
+   [balance] total 26-28 (48% [35,61])  vsElo -6.8pp
+       Farigiraf + Incineroar                   3-5 (38% [14,69])  vsElo -22.7pp
+       Charizard + Garchomp                     4-3 (57% [25,84])  vsElo +1.3pp
+       Charizard + Sylveon                      3-1 (75% [30,95])  vsElo +23.6pp
+       Charizard + Venusaur                     0-3 (0% [0,56])  vsElo -50.2pp
+       Charizard + Incineroar                   3-0 (100% [44,100])  vsElo +60.1pp
+   [rain] total 29-21 (58% [44,71])  vsElo +3.9pp
+       Charizard + Venusaur                     1-4 (20% [4,62])  vsElo -26.4pp
+       Charizard + Farigiraf                    4-1 (80% [38,96])  vsElo +19.5pp
+       Charizard + Sylveon                      4-0 (100% [51,100])  vsElo +40.2pp
+       Farigiraf + Incineroar                   1-2 (33% [6,79])  vsElo -12.5pp
+       Charizard + Garchomp                     1-2 (33% [6,79])  vsElo -13.9pp
+       Salamence + Sylveon                      2-1 (67% [21,94])  vsElo -1.7pp
+   [psychic_terrain] total 22-22 (50% [36,64])  vsElo -3.5pp
+       Farigiraf + Incineroar                   5-4 (56% [27,81])  vsElo +2.1pp
+       Charizard + Garchomp                     2-5 (29% [8,64])  vsElo -28.3pp
+       Charizard + Venusaur                     3-2 (60% [23,88])  vsElo +4.0pp
+   [sand] total 19-18 (51% [36,67])  vsElo -0.8pp
+       Farigiraf + Incineroar                   3-2 (60% [23,88])  vsElo +13.3pp
+       Charizard + Sylveon                      2-1 (67% [21,94])  vsElo +5.7pp
+       Charizard + Venusaur                     1-2 (33% [6,79])  vsElo -19.7pp
+       Aerodactyl + Incineroar                  2-1 (67% [21,94])  vsElo +14.0pp
+       Farigiraf + Sylveon                      0-3 (0% [0,56])  vsElo -59.3pp
+   [sun] total 17-15 (53% [36,69])  vsElo +3.0pp
+       Farigiraf + Incineroar                   5-6 (45% [21,72])  vsElo -8.2pp
+       Garchomp + Sylveon                       3-0 (100% [44,100])  vsElo +53.5pp
+   [snow] total 4-2 (67% [30,90])  vsElo +10.5pp
+   [tr_splash] total 0-1 (0% [0,79])  vsElo -49.1pp

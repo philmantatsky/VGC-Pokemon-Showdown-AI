@@ -1,0 +1,161 @@
+
+######## tailwind  (n=3719 rosters)
+  top leads: Salamence + Sneasler 4.9%; Gholdengo + Raichu 4.7%; Rillaboom + Sneasler 3.4%; Kingambit + Sneasler 3.0%; Gholdengo + Salamence 3.0%; Floette-Eternal + Rillaboom 2.7%; Kingambit + Salamence 2.7%; Rillaboom + Salamence 2.7%
+  lead species: Salamence 24%, Sneasler 21%, Gholdengo 18%, Rillaboom 18%, Raichu 14%, Incineroar 14%, Kingambit 12%, Arcanine-Hisui 11%, Floette-Eternal 10%, Basculegion 6%
+    Salamence        <none/switch/cant> 27%, Hyper Voice 27%, Tailwind 18%, Protect 17%, Double-Edge 5%
+    Sneasler         Fake Out 36%, <none/switch/cant> 18%, Close Combat 17%, Dire Claw 9%, Protect 7%
+    Gholdengo        Nasty Plot 29%, Shadow Ball 23%, Make It Rain 16%, <none/switch/cant> 15%, Protect 13%
+    Rillaboom        Fake Out 44%, <none/switch/cant> 26%, Wood Hammer 14%, U-turn 6%, High Horsepower 6%
+    Raichu           Fake Out 40%, Zap Cannon 32%, <none/switch/cant> 15%, Protect 9%, Focus Blast 4%
+    Incineroar       Fake Out 39%, <none/switch/cant> 27%, Parting Shot 16%, Flare Blitz 9%, Throat Chop 5%
+  turn 1: Protect 18% | Fake Out 27% | Tailwind 9% | Trick Room 0% | Wide Guard 0% | setup 15% | a spread move 18%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 407x): Fake Out 79, Close Combat 11, Hyper Voice 9, Wave Crash 5
+    Farigiraf (led vs them 204x): Hyper Voice 19, Kowtow Cleave 14, Close Combat 13, Wood Hammer 9
+    Charizard (led vs them 161x): Fake Out 18, Hyper Voice 8, Power Gem 6, Rock Slide 4
+    Blastoise (led vs them 53x): Shadow Ball 6, Fake Out 3, Kowtow Cleave 2, Aura Sphere 2
+    Venusaur (led vs them 48x): Fake Out 12, Flare Blitz 4, Hyper Voice 2, Dragon Pulse 1
+    Torkoal (led vs them 16x): Wave Crash 2, Kowtow Cleave 2, Knock Off 1, Psychic 1
+
+######## trick_room  (n=3556 rosters)
+  top leads: Hatterene + Indeedee-F 4.8%; Farigiraf + Incineroar 4.7%; Farigiraf + Golisopod 2.8%; Farigiraf + Rillaboom 2.0%; Farigiraf + Kingambit 1.8%; Armarouge + Indeedee-F 1.4%; Aerodactyl + Kingambit 1.3%; Pelipper + Swampert 1.2%
+  lead species: Farigiraf 26%, Indeedee-F 16%, Incineroar 14%, Golisopod 11%, Kingambit 10%, Sneasler 9%, Hatterene 7%, Rillaboom 7%, Pelipper 5%, Salamence 5%
+    Farigiraf        Trick Room 52%, <none/switch/cant> 16%, Protect 7%, Psychic 6%, Helping Hand 5%
+    Indeedee-F       Follow Me 34%, Trick Room 33%, <none/switch/cant> 16%, Helping Hand 9%, Psychic 4%
+    Incineroar       Fake Out 38%, <none/switch/cant> 21%, Parting Shot 14%, Flare Blitz 12%, Darkest Lariat 6%
+    Golisopod        Leech Life 22%, <none/switch/cant> 22%, Swords Dance 17%, Iron Head 12%, Protect 8%
+    Kingambit        Kowtow Cleave 35%, <none/switch/cant> 26%, Iron Head 14%, Protect 10%, Sucker Punch 7%
+    Sneasler         Fake Out 28%, Close Combat 21%, <none/switch/cant> 14%, Dire Claw 14%, Protect 5%
+  turn 1: Protect 15% | Fake Out 13% | Tailwind 4% | Trick Room 25% | Wide Guard 1% | setup 7% | a spread move 15%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 403x): Fake Out 25, Hyper Voice 11, Close Combat 8, Parting Shot 5
+    Farigiraf (led vs them 234x): Trick Room 15, Kowtow Cleave 14, Protect 8, Expanding Force 8
+    Charizard (led vs them 187x): Fake Out 26, Expanding Force 4, Rock Slide 3, Ancient Power 3
+    Blastoise (led vs them 50x): Fake Out 6, Hyper Voice 2, Earthquake 1, Spirit Break 1
+    Venusaur (led vs them 41x): Fake Out 8, Dire Claw 2, Heat Wave 2, Parting Shot 2
+    Torkoal (led vs them 23x): Psychic 1, Simple Beam 1, Shell Smash 1, Earthquake 1
+
+######## rain  (n=1645 rosters)
+  top leads: Gengar + Incineroar 6.3%; Pelipper + Swampert 3.7%; Charizard + Venusaur 3.5%; Archaludon + Pelipper 3.3%; Archaludon + Grimmsnarl 3.3%; Grimmsnarl + Swampert 3.0%; Gardevoir + Indeedee-F 2.7%; Gengar + Rillaboom 2.1%
+  lead species: Archaludon 18%, Pelipper 17%, Grimmsnarl 14%, Golisopod 13%, Gengar 12%, Incineroar 11%, Swampert 11%, Indeedee-F 9%, Rillaboom 9%, Sneasler 9%
+    Archaludon       Electro Shot 31%, <none/switch/cant> 19%, Protect 17%, Dragon Pulse 17%, Flash Cannon 9%
+    Pelipper         <none/switch/cant> 31%, Tailwind 22%, Hurricane 16%, Weather Ball 14%, Protect 7%
+    Grimmsnarl       Light Screen 37%, Reflect 28%, <none/switch/cant> 20%, Parting Shot 7%, Spirit Break 6%
+    Golisopod        <none/switch/cant> 29%, Leech Life 21%, Swords Dance 15%, Protect 12%, Iron Head 9%
+    Gengar           Perish Song 33%, Protect 30%, Shadow Ball 21%, <none/switch/cant> 7%, Sludge Bomb 5%
+    Incineroar       <none/switch/cant> 39%, Fake Out 34%, Parting Shot 17%, Flare Blitz 5%, Throat Chop 2%
+  turn 1: Protect 20% | Fake Out 14% | Tailwind 6% | Trick Room 3% | Wide Guard 1% | setup 6% | a spread move 15%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 209x): Fake Out 26, Flip Turn 7, Hyper Voice 6, Weather Ball 4
+    Charizard (led vs them 91x): Fake Out 9, Heat Wave 3, Wave Crash 2, Parting Shot 2
+    Farigiraf (led vs them 88x): U-turn 5, Weather Ball 4, Parting Shot 4, Leech Life 3
+    Venusaur (led vs them 34x): Ice Punch 4, Parting Shot 3, Heat Wave 2, Fake Out 2
+    Blastoise (led vs them 25x): Expanding Force 1, Heat Wave 1, Make It Rain 1, Sludge Bomb 1
+    Torkoal (led vs them 1x): 
+
+######## sand  (n=1607 rosters)
+  top leads: Excadrill + Tyranitar 10.8%; Gardevoir + Indeedee-F 6.2%; Indeedee + Sneasler 3.5%; Kommo-o + Pidgeot 3.0%; Excadrill + Salamence 3.0%; Milotic + Salamence 2.8%; Salamence + Sneasler 2.7%; Gholdengo + Salamence 1.6%
+  lead species: Excadrill 24%, Tyranitar 24%, Salamence 17%, Sneasler 14%, Indeedee-F 13%, Milotic 9%, Gardevoir 8%, Rillaboom 7%, Kommo-o 7%, Gholdengo 7%
+    Excadrill        <none/switch/cant> 22%, Protect 20%, High Horsepower 17%, Iron Head 17%, Rock Slide 10%
+    Tyranitar        <none/switch/cant> 30%, Rock Slide 22%, Protect 20%, Knock Off 20%, Dragon Dance 6%
+    Salamence        <none/switch/cant> 27%, Hyper Voice 26%, Protect 18%, Tailwind 13%, Double-Edge 7%
+    Sneasler         Close Combat 23%, Dire Claw 21%, Fake Out 18%, <none/switch/cant> 14%, Protect 6%
+    Indeedee-F       Follow Me 38%, Helping Hand 21%, <none/switch/cant> 16%, Trick Room 11%, Heal Pulse 11%
+    Milotic          Scald 30%, <none/switch/cant> 24%, Coil 19%, Icy Wind 15%, Ice Beam 6%
+  turn 1: Protect 22% | Fake Out 7% | Tailwind 8% | Trick Room 2% | Wide Guard 0% | setup 10% | a spread move 28%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 214x): Fake Out 10, Hyper Voice 7, Close Combat 6, High Horsepower 5
+    Farigiraf (led vs them 108x): Knock Off 14, Hyper Voice 6, Trick 5, Wood Hammer 5
+    Charizard (led vs them 52x): Expanding Force 4, Rock Slide 3, Icy Wind 2, Fake Out 2
+    Venusaur (led vs them 21x): Expanding Force 2, Psychic 1, Fake Out 1, Triple Axel 1
+    Blastoise (led vs them 14x): Expanding Force 1, Thunderbolt 1, Shadow Ball 1, Dire Claw 1
+    Torkoal (led vs them 2x): 
+
+######## psychic_terrain  (n=1554 rosters)
+  top leads: Gardevoir + Indeedee-F 10.5%; Armarouge + Indeedee-F 5.9%; Indeedee-F + Sneasler 3.4%; Indeedee + Sneasler 3.4%; Blastoise + Indeedee-F 2.8%; Blastoise + Incineroar 1.7%; Annihilape + Sneasler 1.7%; Salamence + Sneasler 1.7%
+  lead species: Indeedee-F 33%, Sneasler 23%, Gardevoir 21%, Armarouge 12%, Salamence 7%, Incineroar 7%, Blastoise 6%, Indeedee 6%, Kingambit 6%, Basculegion 6%
+    Indeedee-F       Follow Me 42%, Helping Hand 15%, <none/switch/cant> 13%, Trick Room 10%, Psychic 9%
+    Sneasler         Close Combat 25%, Dire Claw 21%, <none/switch/cant> 17%, Protect 15%, Fake Out 8%
+    Gardevoir        Hyper Voice 44%, Protect 18%, Expanding Force 15%, <none/switch/cant> 10%, Calm Mind 6%
+    Armarouge        Expanding Force 34%, <none/switch/cant> 19%, Armor Cannon 17%, Protect 11%, Trick Room 10%
+    Salamence        <none/switch/cant> 27%, Tailwind 22%, Hyper Voice 22%, Double-Edge 9%, Protect 9%
+    Incineroar       Fake Out 28%, <none/switch/cant> 27%, Parting Shot 14%, Darkest Lariat 13%, Flare Blitz 13%
+  turn 1: Protect 18% | Fake Out 6% | Tailwind 6% | Trick Room 6% | Wide Guard 1% | setup 10% | a spread move 28%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 204x): Fake Out 13, Close Combat 10, Hyper Voice 6, Aura Sphere 5
+    Farigiraf (led vs them 108x): Hyper Voice 14, Kowtow Cleave 5, Head Smash 4, Close Combat 3
+    Charizard (led vs them 76x): Hyper Voice 7, Expanding Force 7, Close Combat 2, Fake Out 2
+    Venusaur (led vs them 18x): Fake Out 4, Zap Cannon 2, Dire Claw 1, Icicle Crash 1
+    Blastoise (led vs them 15x): Fake Out 2, Wood Hammer 1, Fissure 1, Expanding Force 1
+    Torkoal (led vs them 9x): Fake Out 1, Hyper Voice 1, Double-Edge 1, Psychic 1
+
+######## balance  (n=1472 rosters)
+  top leads: Floette-Eternal + Incineroar 3.9%; Floette-Eternal + Rillaboom 3.1%; Gholdengo + Raichu 2.9%; Rillaboom + Sneasler 2.5%; Froslass + Sneasler 2.4%; Floette-Eternal + Sneasler 2.2%; Garchomp + Sneasler 2.0%; Kingambit + Sneasler 1.8%
+  lead species: Sneasler 21%, Incineroar 19%, Rillaboom 18%, Floette-Eternal 13%, Raichu 12%, Froslass 12%, Kingambit 11%, Garchomp 10%, Basculegion 8%, Gholdengo 8%
+    Sneasler         Fake Out 35%, <none/switch/cant> 17%, Close Combat 11%, Dire Claw 10%, Coaching 9%
+    Incineroar       Fake Out 33%, <none/switch/cant> 32%, Parting Shot 18%, Flare Blitz 9%, Throat Chop 3%
+    Rillaboom        Fake Out 40%, <none/switch/cant> 31%, Wood Hammer 12%, High Horsepower 6%, U-turn 6%
+    Floette-Eternal  Calm Mind 36%, <none/switch/cant> 25%, Protect 21%, Dazzling Gleam 9%, Moonblast 5%
+    Raichu           Zap Cannon 40%, Fake Out 25%, <none/switch/cant> 16%, Protect 15%, Focus Blast 3%
+    Froslass         Aurora Veil 35%, Blizzard 30%, Protect 19%, Shadow Ball 8%, <none/switch/cant> 7%
+  turn 1: Protect 23% | Fake Out 25% | Tailwind 0% | Trick Room 1% | Wide Guard 0% | setup 17% | a spread move 13%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 141x): Fake Out 31, Wave Crash 5, Muddy Water 4, Head Smash 4
+    Farigiraf (led vs them 94x): Wood Hammer 7, Kowtow Cleave 5, Zap Cannon 5, Draco Meteor 3
+    Charizard (led vs them 93x): Fake Out 11, Rock Slide 4, Zap Cannon 4, Double Shock 3
+    Venusaur (led vs them 34x): Fake Out 8, Acrobatics 2, Flare Blitz 2, Thunder Wave 1
+    Blastoise (led vs them 22x): Shadow Ball 2, U-turn 2, Psychic Fangs 1, Heat Wave 1
+    Torkoal (led vs them 4x): Parting Shot 1, Scale Shot 1, Kowtow Cleave 1
+
+######## sun  (n=1312 rosters)
+  top leads: Charizard + Venusaur 4.3%; Charizard + Garchomp 3.9%; Gardevoir + Indeedee-F 3.3%; Charizard + Whimsicott 3.1%; Charizard + Kingambit 3.0%; Basculegion + Whimsicott 2.9%; Annihilape + Greninja 2.7%; Charizard + Sneasler 2.6%
+  lead species: Charizard 33%, Sneasler 14%, Whimsicott 14%, Garchomp 13%, Kingambit 11%, Basculegion 10%, Incineroar 9%, Rillaboom 8%, Indeedee-F 8%, Gardevoir 6%
+    Charizard        Protect 30%, Heat Wave 27%, <none/switch/cant> 22%, Weather Ball 15%, Solar Beam 2%
+    Sneasler         Fake Out 26%, <none/switch/cant> 16%, Close Combat 15%, Protect 12%, Dire Claw 9%
+    Whimsicott       Tailwind 45%, Protect 21%, Moonblast 17%, <none/switch/cant> 13%, Misty Terrain 2%
+    Garchomp         <none/switch/cant> 30%, Earthquake 15%, Rock Slide 14%, Dragon Claw 10%, Protect 9%
+    Kingambit        <none/switch/cant> 28%, Kowtow Cleave 27%, Iron Head 15%, Swords Dance 14%, Protect 11%
+    Basculegion      Wave Crash 43%, <none/switch/cant> 19%, Flip Turn 17%, Protect 7%, Aqua Jet 7%
+  turn 1: Protect 25% | Fake Out 11% | Tailwind 9% | Trick Room 2% | Wide Guard 0% | setup 5% | a spread move 28%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 156x): Fake Out 15, Wave Crash 6, Close Combat 6, Hyper Voice 5
+    Farigiraf (led vs them 94x): Weather Ball 11, Earthquake 6, Heat Wave 5, Hyper Voice 5
+    Charizard (led vs them 43x): Rock Slide 3, Protect 2, Wave Crash 2, Fake Out 2
+    Blastoise (led vs them 19x): Parting Shot 1, Earthquake 1, Heat Wave 1, Expanding Force 1
+    Venusaur (led vs them 17x): Fake Out 4, Acrobatics 1, Iron Head 1, Hyper Voice 1
+    Torkoal (led vs them 10x): Flip Turn 1, Rock Slide 1, Yawn 1, Protect 1
+
+######## snow  (n=431 rosters)
+  top leads: Incineroar + Lucario 3.9%; Baxcalibur + Sneasler 3.5%; Rillaboom + Sneasler 2.6%; Incineroar + Ninetales-Alola 2.3%; Baxcalibur + Ninetales-Alola 2.3%; Gengar + Incineroar 2.1%; Kingambit + Sneasler 2.1%; Ninetales-Alola + Sneasler 1.9%
+  lead species: Ninetales-Alola 23%, Sneasler 18%, Incineroar 17%, Rillaboom 13%, Baxcalibur 11%, Gholdengo 10%, Lucario 9%, Basculegion 6%, Kingambit 6%, Arcanine-Hisui 6%
+    Ninetales-Alola  Aurora Veil 35%, <none/switch/cant> 26%, Blizzard 21%, Protect 13%, Icy Wind 2%
+    Sneasler         Fake Out 35%, Close Combat 26%, <none/switch/cant> 14%, Dire Claw 5%, Coaching 5%
+    Incineroar       Fake Out 45%, <none/switch/cant> 24%, Flare Blitz 11%, Parting Shot 9%, Throat Chop 5%
+    Rillaboom        Fake Out 55%, <none/switch/cant> 19%, Wood Hammer 10%, U-turn 9%, High Horsepower 3%
+    Baxcalibur       Protect 27%, Swords Dance 25%, <none/switch/cant> 23%, Glaive Rush 8%, Icicle Crash 6%
+    Gholdengo        Nasty Plot 40%, Make It Rain 19%, Protect 14%, Shadow Ball 12%, <none/switch/cant> 9%
+  turn 1: Protect 19% | Fake Out 24% | Tailwind 4% | Trick Room 0% | Wide Guard 0% | setup 18% | a spread move 16%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 60x): Fake Out 21, Close Combat 2, Earthquake 1, Protect 1
+    Farigiraf (led vs them 25x): Blizzard 3, Rising Voltage 1, Discharge 1, Knock Off 1
+    Charizard (led vs them 16x): Blizzard 2, U-turn 1, Flip Turn 1, Glaive Rush 1
+    Blastoise (led vs them 9x): Shadow Ball 2, Lava Plume 1, Taunt 1, Parting Shot 1
+    Venusaur (led vs them 3x): Rock Slide 1
+    Torkoal (led vs them 1x): 
+
+######## tr_splash  (n=104 rosters)
+  top leads: Arcanine-Hisui + Raichu 5.8%; Delphox + Incineroar 5.8%; Gholdengo + Raichu 4.8%; Delphox + Sneasler 3.8%; Froslass + Sneasler 2.9%; Floette-Eternal + Rillaboom 2.9%; Rillaboom + Sneasler 2.9%; Raichu + Weavile 1.9%
+  lead species: Sneasler 20%, Raichu 19%, Incineroar 13%, Delphox 12%, Milotic 12%, Rillaboom 12%, Arcanine-Hisui 9%, Garchomp 8%, Froslass 8%, Floette-Eternal 8%
+    Sneasler         <none/switch/cant> 24%, Fake Out 24%, Coaching 24%, Dire Claw 14%, Close Combat 10%
+    Raichu           Fake Out 35%, Zap Cannon 30%, Protect 15%, <none/switch/cant> 15%, Focus Blast 5%
+    Incineroar       <none/switch/cant> 43%, Parting Shot 21%, Throat Chop 14%, Fake Out 14%, Flare Blitz 7%
+    Delphox          Protect 46%, Nasty Plot 23%, <none/switch/cant> 15%, Psychic 8%, Heat Wave 8%
+    Milotic          Coil 25%, <none/switch/cant> 25%, Scald 17%, Icy Wind 17%, Ice Beam 8%
+    Rillaboom        Fake Out 42%, <none/switch/cant> 25%, Wood Hammer 17%, U-turn 17%
+  turn 1: Protect 22% | Fake Out 23% | Tailwind 1% | Trick Room 1% | Wide Guard 0% | setup 19% | a spread move 11%
+  what they throw at OUR leads on turn 1:
+    Incineroar (led vs them 17x): Fake Out 5, Wood Hammer 1, Parting Shot 1
+    Charizard (led vs them 8x): Stone Axe 2
+    Farigiraf (led vs them 3x): Draco Meteor 1, Throat Chop 1, U-turn 1
+    Venusaur (led vs them 3x): Icicle Crash 1
+    Blastoise (led vs them 1x): 

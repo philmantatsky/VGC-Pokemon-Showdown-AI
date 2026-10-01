@@ -1,0 +1,170 @@
+{
+  "team": "teams/candidates_mc/T6.txt",
+  "source": "PLAYBOOK_T6.md draft 1 (approved by the user 2026-09-27: 'i like them all')",
+  "cards": [
+    {
+      "name": "fast_sun",
+      "why": "they are the Trick Room team, so play fast instead of fighting over the room",
+      "when": {
+        "all": [
+          "tr_setter",
+          "slow_count>=2"
+        ],
+        "none": [
+          "rock_slide",
+          "tailwind",
+          "rain_setter"
+        ]
+      },
+      "lead": [
+        "charizard",
+        "venusaur"
+      ],
+      "back": [
+        "farigiraf",
+        "torkoal"
+      ],
+      "roles": {
+        "charizard": "mega_y_sun_attacker",
+        "venusaur": "fast_sun_sleeper",
+        "farigiraf": "reverse_their_trick_room",
+        "torkoal": "sun_backup"
+      },
+      "turn1": {
+        "mega": "charizard",
+        "status": {
+          "user": "venusaur",
+          "move": "sleeppowder",
+          "target": "trick_room_setter"
+        }
+      },
+      "experimental": true,
+      "experimental_note": "ladder 1-6 as a lead; the 7 ladder rosters its rule flags were won 5-2 with other leads -- not picked until a local test backs it"
+    },
+    {
+      "name": "sun_room",
+      "why": "a clean team that is weak to Fire: Trick Room plus Eruption in sun",
+      "when": {
+        "all": [
+          "fire_weak>=2"
+        ],
+        "none": [
+          "sand_setter",
+          "rain_setter",
+          "wide_guard",
+          "imprison",
+          "psychic_terrain",
+          "tailwind"
+        ]
+      },
+      "lead": [
+        "farigiraf",
+        "torkoal"
+      ],
+      "back": [
+        "blastoise",
+        "incineroar"
+      ],
+      "roles": {
+        "farigiraf": "trick_room_setter",
+        "torkoal": "win_condition",
+        "blastoise": "second_attacker",
+        "incineroar": "pivot_intimidate"
+      },
+      "turn1": {
+        "setter": {
+          "user": "farigiraf",
+          "move": "trickroom"
+        }
+      }
+    },
+    {
+      "name": "support_room",
+      "why": "heavy physical attackers or Fake Out users: Intimidate and Fake Out cover a safe Trick Room",
+      "when": {
+        "any": [
+          "physical_threats>=4",
+          "fake_out_users>=2"
+        ]
+      },
+      "lead": [
+        "incineroar",
+        "farigiraf"
+      ],
+      "back": [
+        "blastoise",
+        "torkoal"
+      ],
+      "back_if": [
+        {
+          "any": [
+            "sand_setter",
+            "wide_guard"
+          ],
+          "back": [
+            "blastoise",
+            "venusaur"
+          ]
+        }
+      ],
+      "roles": {
+        "incineroar": "fake_out_intimidate_pivot",
+        "farigiraf": "trick_room_setter",
+        "blastoise": "win_condition",
+        "torkoal": "second_attacker"
+      },
+      "turn1": {
+        "fake_out": {
+          "user": "incineroar",
+          "target": "setter_or_threat"
+        },
+        "setter": {
+          "user": "farigiraf",
+          "move": "trickroom"
+        }
+      },
+      "experimental": true
+    },
+    {
+      "name": "water_room",
+      "why": "the default: Fake Out plus Trick Room, then Water Spout under the room",
+      "lead": [
+        "blastoise",
+        "farigiraf"
+      ],
+      "back": [
+        "incineroar",
+        "torkoal"
+      ],
+      "back_if": [
+        {
+          "any": [
+            "sand_setter",
+            "wide_guard"
+          ],
+          "back": [
+            "incineroar",
+            "venusaur"
+          ]
+        }
+      ],
+      "roles": {
+        "blastoise": "win_condition",
+        "farigiraf": "trick_room_setter",
+        "incineroar": "pivot_intimidate",
+        "torkoal": "second_attacker"
+      },
+      "turn1": {
+        "mega": "blastoise",
+        "fake_out": {
+          "user": "blastoise",
+          "target": "setter_or_threat"
+        },
+        "setter": {
+          "user": "farigiraf",
+          "move": "trickroom"
+        }
+      }
+    }
+  ]
+}

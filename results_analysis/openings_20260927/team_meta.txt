@@ -1,0 +1,110 @@
+human games: 9947
+sides (high-volume accounts excluded): 19257
+
+== human teams built like each candidate (>=4 of its six on the roster)
+  T6 (ours)                  >=4: 51-47 (52% [42,62])      vsElo  -0.1pp   >=5: 28-11 (72% [56,83])      vsElo +18.2pp
+  T4 sun                     >=4: 103-106 (49% [43,56])    vsElo  -1.9pp   >=5: 34-34 (50% [38,62])      vsElo  -3.8pp
+  T0 MB430                   >=4: 207-201 (51% [46,56])    vsElo  +2.5pp   >=5: 53-78 (40% [32,49])      vsElo  -6.0pp
+  T1 consensus               >=4: 1454-1384 (51% [49,53])  vsElo  +1.3pp   >=5: 476-502 (49% [46,52])    vsElo  -1.5pp
+  T2 TR/PT                   >=4: 185-172 (52% [47,57])    vsElo  +2.2pp   >=5: 45-42 (52% [41,62])      vsElo  +2.2pp
+  T3 PT offense              >=4: 712-743 (49% [46,52])    vsElo  -1.0pp   >=5: 26-25 (51% [38,64])      vsElo  +0.4pp
+  T5 rain                    >=4: 347-314 (52% [49,56])    vsElo  +1.0pp   >=5: 124-93 (57% [50,64])     vsElo  +5.2pp
+  Baltimore #1 sand          >=4: 330-319 (51% [47,55])    vsElo  +1.1pp   >=5: 195-182 (52% [47,57])    vsElo  +2.3pp
+  Baltimore #2 (Scorecard)   >=4: 118-102 (54% [47,60])    vsElo  +3.5pp   >=5: 31-31 (50% [38,62])      vsElo  +2.3pp
+  Raichu/Gholdengo balance   >=4: 592-525 (53% [50,56])    vsElo  +2.8pp   >=5: 268-260 (51% [47,55])    vsElo  +1.7pp
+
+== the high-volume accounts (their team, their record)
+   290-347 (46% [42,49])    vsElo  -4.8pp [(('Archaludon', 'Charizard', 'Farigiraf', 'Golisopod', 'Grimmsnarl', 'Politoed'), 637)]
+   their ratings: min 1122 median 1301 max 1658
+
+== archetype performance (primary label)
+  tailwind         2186-2276 (49% [48,50])  vsElo  -1.0pp  share 23.2%
+  trick_room       2221-2204 (50% [49,52])  vsElo  +0.5pp  share 23.0%
+  rain             1118-1049 (52% [49,54])  vsElo  +1.2pp  share 11.3%
+  psychic_terrain  1013-1026 (50% [48,52])  vsElo  -0.5pp  share 10.6%
+  sand             1030-953 (52% [50,54])   vsElo  +0.8pp  share 10.3%
+  balance          945-954 (50% [48,52])    vsElo  +0.8pp  share 9.9%
+  sun              797-759 (51% [49,54])    vsElo  +0.8pp  share 8.1%
+  snow             279-291 (49% [45,53])    vsElo  +0.2pp  share 3.0%
+  tr_splash        68-88 (44% [36,51])      vsElo  -5.8pp  share 0.8%
+
+== hybrid structures
+  TR setter + sun setter     1055-988 (52% [49,54])   vsElo  +0.6pp
+  TR setter + rain setter    810-855 (49% [46,51])    vsElo  -1.6pp
+  TR setter + Tailwind       2334-2377 (50% [48,51])  vsElo  -1.1pp
+  sun, no TR                 641-635 (50% [47,53])    vsElo  +0.7pp
+  sand                       1125-1024 (52% [50,54])  vsElo  +1.4pp
+  rain, no TR                834-783 (52% [49,54])    vsElo  +1.2pp
+
+== species on roster, vsElo (top 45 by usage)
+  Rillaboom        47.6%  4642-4519 (51% [50,52])  vsElo  +0.8pp
+  Sneasler         42.3%  4052-4093 (50% [49,51])  vsElo  -0.1pp
+  Incineroar       29.4%  2873-2786 (51% [49,52])  vsElo  +0.9pp
+  Salamence        29.2%  2709-2907 (48% [47,50])  vsElo  -1.4pp
+  Kingambit        26.0%  2437-2564 (49% [47,50])  vsElo  -0.9pp
+  Indeedee-F       22.2%  2180-2096 (51% [49,52])  vsElo  +0.4pp
+  Basculegion      21.8%  2082-2108 (50% [48,51])  vsElo  -0.3pp
+  Gholdengo        19.6%  1917-1867 (51% [49,52])  vsElo  +0.3pp
+  Farigiraf        15.8%  1530-1503 (50% [49,52])  vsElo  +0.7pp
+  Garchomp         14.9%  1429-1435 (50% [48,52])  vsElo  +0.1pp
+  Floette-Eternal  14.8%  1502-1353 (53% [51,54])  vsElo  +2.4pp
+  Golisopod        14.8%  1434-1410 (50% [49,52])  vsElo  +0.8pp
+  Raichu           14.2%  1428-1306 (52% [50,54])  vsElo  +2.4pp
+  Arcanine-Hisui   14.0%  1368-1331 (51% [49,53])  vsElo  +0.9pp
+  Archaludon       12.8%  1274-1197 (52% [50,54])  vsElo  +1.0pp
+  Charizard        12.6%  1237-1183 (51% [49,53])  vsElo  +0.6pp
+  Pelipper         12.3%  1186-1179 (50% [48,52])  vsElo  -0.1pp
+  Tyranitar        10.9%  1090-1004 (52% [50,54])  vsElo  +1.2pp
+  Gardevoir        10.6%  1072-971 (52% [50,55])   vsElo  +1.0pp
+  Milotic          10.6%  959-1073 (47% [45,49])   vsElo  -2.1pp
+  Sylveon           9.8%  943-952 (50% [48,52])    vsElo  -0.2pp
+  Whimsicott        8.2%  749-829 (47% [45,50])    vsElo  -2.1pp
+  Excadrill         8.1%  810-748 (52% [50,54])    vsElo  +0.9pp
+  Staraptor         7.2%  689-688 (50% [47,53])    vsElo  -0.1pp
+  Indeedee          6.9%  642-686 (48% [46,51])    vsElo  -1.8pp
+  Volcarona         6.7%  644-651 (50% [47,52])    vsElo  -0.5pp
+  Armarouge         6.0%  571-586 (49% [46,52])    vsElo  -1.5pp
+  Froslass          5.3%  480-540 (47% [44,50])    vsElo  -1.9pp
+  Sinistcha         5.2%  504-493 (51% [47,54])    vsElo  +1.3pp
+  Metagross         5.0%  484-479 (50% [47,53])    vsElo  +1.2pp
+  Swampert          4.9%  505-448 (53% [50,56])    vsElo  +1.5pp
+  Torkoal           4.9%  486-467 (51% [48,54])    vsElo  +1.0pp
+  Politoed          4.8%  458-459 (50% [47,53])    vsElo  -0.3pp
+  Gengar            4.6%  444-450 (50% [46,53])    vsElo  -0.3pp
+  Grimmsnarl        4.6%  452-436 (51% [48,54])    vsElo  +0.6pp
+  Venusaur          4.6%  449-433 (51% [48,54])    vsElo  -0.5pp
+  Kommo-o           4.5%  458-414 (53% [49,56])    vsElo  +0.9pp
+  Lucario           4.4%  405-433 (48% [45,52])    vsElo  -1.0pp
+  Aerodactyl        3.9%  378-365 (51% [47,54])    vsElo  -0.1pp
+  Dragonite         3.8%  391-347 (53% [49,57])    vsElo  +1.9pp
+  Glimmora          3.8%  366-367 (50% [46,54])    vsElo  +0.1pp
+  Hatterene         3.7%  386-336 (53% [50,57])    vsElo  +4.2pp
+  Baxcalibur        3.3%  277-366 (43% [39,47])    vsElo  -4.5pp
+  Annihilape        3.3%  325-307 (51% [48,55])    vsElo  +0.0pp
+  Ninetales-Alola   3.2%  298-309 (49% [45,53])    vsElo  +0.2pp
+
+== best-performing pairs on roster (n>=250), by vsElo
+  Camerupt + Hatterene             185-109 (63% [57,68])    vsElo +12.6pp
+  Charizard + Floette-Eternal      174-117 (60% [54,65])    vsElo +11.3pp
+  Camerupt + Indeedee-F            206-131 (61% [56,66])    vsElo +11.0pp
+  Garchomp + Golisopod             222-151 (60% [54,64])    vsElo +10.4pp
+  Blastoise + Indeedee-F           204-132 (61% [55,66])    vsElo +10.3pp
+  Camerupt + Kingambit             152-101 (60% [54,66])    vsElo  +9.7pp
+  Blastoise + Sneasler             192-133 (59% [54,64])    vsElo  +9.4pp
+  Dragonite + Gholdengo            209-125 (63% [57,68])    vsElo  +9.2pp
+  Hatterene + Kingambit            156-114 (58% [52,64])    vsElo  +7.2pp
+  Blastoise + Incineroar           196-147 (57% [52,62])    vsElo  +7.1pp
+  Dragonite + Floette-Eternal      153-100 (60% [54,66])    vsElo  +6.9pp
+  Charizard + Rillaboom            429-324 (57% [53,60])    vsElo  +6.7pp
+  Corviknight + Tyranitar          225-163 (58% [53,63])    vsElo  +6.3pp
+  Floette-Eternal + Raichu         150-114 (57% [51,63])    vsElo  +6.1pp
+  Arcanine-Hisui + Floette-Eternal 177-132 (57% [52,63])    vsElo  +6.0pp
+  ... worst:
+  Basculegion + Lucario            125-166 (43% [37,49])    vsElo  -8.2pp
+  Armarouge + Kingambit            121-151 (44% [39,50])    vsElo  -7.6pp
+  Baxcalibur + Rillaboom           145-217 (40% [35,45])    vsElo  -7.6pp
+  Charizard + Indeedee-F           135-179 (43% [38,49])    vsElo  -6.5pp
+  Salamence + Volcarona            145-183 (44% [39,50])    vsElo  -6.3pp
+  Kingambit + Staraptor            126-153 (45% [39,51])    vsElo  -5.8pp
+  Kingambit + Volcarona            136-166 (45% [40,51])    vsElo  -5.7pp
+  Golisopod + Sneasler             280-378 (43% [39,46])    vsElo  -5.5pp

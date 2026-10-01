@@ -1,0 +1,72 @@
+165 T6-era ladder games; rebuild failures {'Torkoal:no-calc': 1}
+
+== Incineroar: first super-effective Fighting hit (Chople halves it)
+  L 2687981911 T10 annihilape Drain Punch: 106->0/202 -> survives (~28-40 HP left)
+  L 2688075708 T9 lopunny Drain Punch: 106->0/202 -> survives (~19-33 HP left)
+  L 2688398519 T1 raichu Focus Blast: 202->92/202 -> +55 HP
+  L 2688482546 T6 staraptor Close Combat: 202->0/202 -> maybe survives
+  L 2688579790 T6 archaludon Aura Sphere: 187->145/202 -> +21 HP
+  L 2688581277 T7 annihilape Drain Punch: 202->8/202 -> +97 HP
+  L 2688851684 T6 sneasler Close Combat: 153->0/202 -> survives (~20-40 HP left)
+  L 2688858371 T13 corviknight Body Press: 103->0/202 -> survives (~27-39 HP left)
+== Incineroar: Passho activations (without Passho)
+  L 2687975114 T5 milotic Scald: 202->145/202 -> survives at 88/202
+  W 2687986146 T2 pincurchin Scald: 11->0/202 -> KO'd anyway
+  L 2688075708 T8 basculegion Wave Crash: 160->106/202 -> survives at 52/202
+  L 2688077142 T6 basculegion Wave Crash: 202->132/202 -> survives at 62/202
+  L 2688404317 T6 primarina Hyper Voice: 202->114/202 -> survives at 26/202
+  L 2688483529 T6 greninja Liquidation: 162->72/202 -> would have been KO'd
+  L 2688484440 T10 politoed Weather Ball: 202->90/202 -> would have been KO'd
+  L 2688486414 T4 araquanid Liquidation: 202->67/202 -> would have been KO'd
+  L 2688854379 T11 milotic Muddy Water: 202->157/202 -> survives at 112/202
+  L 2688862227 T10 milotic Scald: 202->111/202 -> survives at 20/202
+  L 2688865368 T4 pelipper Weather Ball: 202->109/202 -> survives at 16/202
+  L 2688867438 T4 pelipper Weather Ball: 197->107/202 -> survives at 17/202
+  L 2688870266 T5 pelipper Weather Ball: 169->82/202 -> would have been KO'd
+
+== torkoal: 298 attacking turns, {'same': 261, 'old set better': 15, 'new set better': 22}
+  only the NEW set had a guaranteed KO: 10 turns
+    L 2686252848 T5 SUNNYDAY vs sneasler/arcaninehisui: used Heat Wave; old weatherball -> arcaninehisui, new earthpower -> arcaninehisui
+    W 2686260570 T3 RAINDANCE vs basculegion/pelipper: used Eruption; old weatherball -> pelipper, new earthpower -> basculegion
+    L 2686264398 T7 RAINDANCE vs archaludon/pelipper: used Eruption; old eruption -> both, new earthpower -> archaludon
+    L 2687975114 T4 SUNNYDAY vs chandelure/milotic: used Eruption; old heatwave -> both, new earthpower -> chandelure
+    L 2687977655 T11 none vs tyranitar: used Heat Wave; old heatwave -> both, new earthpower -> tyranitar
+    L 2687982894 T4 SUNNYDAY vs milotic/arcaninehisui: used Eruption; old eruption -> both, new earthpower -> arcaninehisui
+    L 2688266515 T5 SUNNYDAY vs arcaninehisui/sylveon: used Eruption; old eruption -> both, new earthpower -> arcaninehisui
+    L 2688271574 T12 none vs salamence/incineroar: used Eruption; old eruption -> both, new earthpower -> incineroar
+    L 2688404317 T6 none vs primarina/arcaninehisui: used Heat Wave; old heatwave -> both, new earthpower -> arcaninehisui
+    L 2688476938 T4 SUNNYDAY vs arcaninehisui/hydreigon: used Eruption; old eruption -> both, new earthpower -> arcaninehisui
+  only the OLD set had a guaranteed KO: 4 turns
+    L 2686250598 T5 SANDSTORM vs rillaboom/tyranitar: used Weather Ball; old heatwave -> both, new weatherball -> rillaboom
+    L 2686281845 T2 SANDSTORM vs tyranitar/perrserker: used Heat Wave; old heatwave -> both, new earthpower -> perrserker
+    W 2688269400 T5 SUNNYDAY vs salamence/arcaninehisui: used Heat Wave; old heatwave -> both, new earthpower -> arcaninehisui
+    L 2688475449 T4 SUNNYDAY vs indeedeef/sneasler: used Eruption; old heatwave -> both, new weatherball -> indeedeef
+
+== venusaur: 90 attacking turns, {'same': 63, 'old set better': 15, 'new set better': 12}
+  only the NEW set had a guaranteed KO: 5 turns
+    L 2688079003 T9 SUNNYDAY vs charizard/archaludon: used Sludge Bomb; old sludgebomb -> charizard, new earthpower -> archaludon
+    L 2688080682 T4 SUNNYDAY vs sneasler/armarouge: used Sludge Bomb; old sludgebomb -> armarouge, new earthpower -> armarouge
+    L 2688264483 T10 SUNNYDAY vs archaludon: used Leaf Storm; old leafstorm -> archaludon, new earthpower -> archaludon
+    L 2688264483 T12 none vs archaludon: used Leaf Storm; old leafstorm -> archaludon, new earthpower -> archaludon
+    L 2688264483 T14 none vs archaludon: used Leaf Storm; old leafstorm -> archaludon, new earthpower -> archaludon
+  only the OLD set had a guaranteed KO: 7 turns
+    W 2687964960 T5 SUNNYDAY vs milotic: used Leaf Storm; old leafstorm -> milotic, new sludgebomb -> milotic
+    L 2687967797 T6 RAINDANCE vs politoed/archaludon: used Leaf Storm; old leafstorm -> politoed, new earthpower -> archaludon
+    L 2687970354 T8 RAINDANCE vs aggron/pelipper: used Leaf Storm; old leafstorm -> pelipper, new sludgebomb -> pelipper
+    L 2687984421 T5 SUNNYDAY vs hydreigon/blastoise: used Leaf Storm; old leafstorm -> blastoise, new sludgebomb -> blastoise
+    L 2688487899 T4 RAINDANCE vs pelipper: used Leaf Storm; old leafstorm -> pelipper, new sludgebomb -> pelipper
+    L 2688487899 T5 RAINDANCE vs pelipper/archaludon: used Leaf Storm; old leafstorm -> pelipper, new earthpower -> archaludon
+    L 2688487899 T6 RAINDANCE vs pelipper/archaludon: used Leaf Storm; old leafstorm -> pelipper, new earthpower -> archaludon
+
+== charizard: 55 attacking turns, {'same': 45, 'new set better': 9, 'old set better': 1}
+  only the NEW set had a guaranteed KO: 5 turns
+    L 2686268838 T4 SANDSTORM vs salamence: used Heat Wave; old ancientpower -> salamence, new weatherball -> salamence
+    L 2686283679 T2 SUNNYDAY vs pelipper/grapploct: used Heat Wave; old heatwave -> both, new weatherball -> grapploct
+    L 2686283679 T3 SUNNYDAY vs pelipper/grapploct: used Heat Wave; old heatwave -> both, new weatherball -> grapploct
+    L 2688264483 T2 RAINDANCE vs aerodactyl/pelipper: used Heat Wave; old ancientpower -> pelipper, new weatherball -> aerodactyl
+    L 2688480483 T3 SANDSTORM vs tyranitar/torkoal: used Heat Wave; old ancientpower -> torkoal, new weatherball -> torkoal
+  only the OLD set had a guaranteed KO: 1 turns
+    L 2686278266 T6 none vs annihilape/tyranitar: used Heat Wave; old solarbeam -> tyranitar, new heatwave -> both
+
+== Farigiraf: 84 Helping Hands before a partner attack; KOs needing the boost {'maybe': 9, 'yes': 10, 'no': 23}; decisive ones won 9 / lost 1
+   fainted before acting: 52 (11 in wins)
