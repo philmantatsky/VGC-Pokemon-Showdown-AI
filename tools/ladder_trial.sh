@@ -5,6 +5,7 @@
 # trial's own additions, into the trial's own replay dir. DEPLOYED.json is not
 # changed: a trial is not a promotion.
 # Usage: TRIAL_PLAYBOOK=<playbook.json> TRIAL_GUARDS=<guard,...> \
+#        TRIAL_CHECKPOINT=<brain.zip> TRIAL_TEAM=<team.txt> \
 #          tools/ladder_trial.sh <n_games_total> <replay_dir>
 # - TRIAL_PLAYBOOK: our own plan cards at team preview (--playbook), replacing the
 #   deployed playbook if there is one.
@@ -13,6 +14,9 @@
 # - TRIAL_CHECKPOINT: a candidate brain instead of the deployed one (the user's
 #   word; its sidecar must carry sha256 + requires_knowledge_obs, which
 #   ladder_ourteam.py checks). Everything else stays the deployed configuration.
+# - TRIAL_TEAM: a set variant of the deployed team, for a candidate brain practised
+#   on it (needs TRIAL_CHECKPOINT; the same six species, so the deployed preview
+#   model still applies).
 # Ladder play needs the user's explicit word; tools/ladder_read_loop.sh refuses
 # while a heavy local job or another ladder session runs.
 set -uo pipefail
@@ -29,6 +33,19 @@ esac
 if [ -n "${TRIAL_CHECKPOINT:-}" ]; then
   [ -f "$TRIAL_CHECKPOINT" ] || { echo "LADDER_REFUSED missing checkpoint $TRIAL_CHECKPOINT"; exit 2; }
   CKPT=$TRIAL_CHECKPOINT
+fi
+if [ -n "${TRIAL_TEAM:-}" ]; then
+  [ -n "${TRIAL_CHECKPOINT:-}" ] || { echo "LADDER_REFUSED TRIAL_TEAM needs TRIAL_CHECKPOINT (a brain practised on it)"; exit 2; }
+  [ -f "$TRIAL_TEAM" ] || { echo "LADDER_REFUSED missing team $TRIAL_TEAM"; exit 2; }
+  .venv/bin/python - "$TEAM" "$TRIAL_TEAM" <<'PY' || { echo "LADDER_REFUSED $TRIAL_TEAM is not a set variant of the deployed team"; exit 2; }
+import sys
+from pathlib import Path
+sys.path.insert(0, ".")
+from vgc_bench.src.set_particles import team_roster
+a, b = ({p.species for p in team_roster(Path(f).read_text())} for f in sys.argv[1:3])
+sys.exit(0 if a == b else 1)
+PY
+  TEAM=$TRIAL_TEAM
 fi
 if [ -n "${TRIAL_PLAYBOOK:-}" ]; then
   [ -f "$TRIAL_PLAYBOOK" ] || { echo "LADDER_REFUSED missing playbook $TRIAL_PLAYBOOK"; exit 2; }

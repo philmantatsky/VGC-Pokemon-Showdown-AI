@@ -1,5 +1,50 @@
 # VGC Bot Project Status
 
+## The three review guards DEPLOYED (the user's word); the T6m practice cycle pre-registered; pushed to GitHub (2026-October 1, 23:50)
+
+The user: "add the guards to the bot and start the practice run, im not going to be
+available to give u instructions afterwards but if it does well start 15 ladder
+games and go from there on your own" and "can u also push everything to gh".
+- **Pushed:** `main` to origin (b2683c3..998a2c0, 159 commits; `pre-squash-backup`
+  untouched). Tonight's commits are pushed as they land.
+- **Guards deployed** (an amendment in `results_deployed/DEPLOYED.json`):
+  `guards_extra` += `drop_free_finish`, `fake_out_partner_acts`, `switch_the_crippled`
+  (11 now); `replay_tag` T6tac -> T6tac_guards11 (fresh single-config replay dirs).
+  Evidence: battery +0.26pp [-0.53, +1.03] deploy-eligible, ladder trial 23-17
+  (20-17 without free wins). Brain, team, preview model, sticky corrections unchanged.
+- **The T6m practice cycle, fixed before any training** (`training/t6m_practice_chain.sh`,
+  gate `training/t6m_practice_gate.py`):
+  - **Training** (`training/run_t6_teamvariant_trial.py`, new): from T6tac
+    (`results_tactical1/sft/tactical_e4.zip`, the deployed sha) +983,040 steps on the
+    recipe that made T6ctx (35% human-clone games, human-model previews for both
+    sides, 50% hidden sheets, held-out rosters zeroed; the training command is
+    identical) with ONE change: our team file is `teams/candidates_mc/T6m.txt`. Then
+    the tactical re-fit of the final save on ITS OWN T6m games
+    (`gen_tactical_data.py --checkpoint --team`, new: 8 cells x 250 games; base
+    lessons, lr 1e-4, 4 epochs, the lowest validation CE).
+  - **Pick:** whichever of the two (RL save, re-fit) wins more of its head-to-head --
+    the candidate on T6m against the deployed T6tac on T6, both with the 11 deployed
+    guards and the preview model, 2,000 games each (`mirror_guard_ab.py --a-team`, new).
+  - **Battery:** the pick on T6m vs the deployed brain on T6 with all 11 guards (the
+    arm of `results_guard_ab_review_guards_0928`), 6 populations x 47 held-out
+    rosters x 22 games (`run_guard_ab.py --candidate-plans`, new: the arms may differ
+    in the brain and our team's sets, nothing else).
+  - **"Does well" = the ladder gate:** the battery is deploy-eligible (pooled upper
+    bound >= 0 and no population below -3pp) AND the head-to-head is not lost (Wilson
+    upper bound >= 50%).
+  - **Ladder, only if it does well:** a 15-game serial trial of the pick on T6m with
+    the deployed guards, preview model and sticky corrections (`tools/ladder_trial.sh`
+    with `TRIAL_TEAM`, new), replays in `ladder_replays_mc_t6m1`; continued to 40
+    games unless it wins 4 or fewer of the first 15.
+  - **No promotion by me:** DEPLOYED.json stays T6tac on T6 with the 11 guards;
+    making the T6m brain the bot is the user's call. If the gate holds: no ladder, a
+    write-up, stop.
+  - Descriptive, not part of the gate: the battery's sand rosters, candidate vs
+    reference (the matchup T6m is for).
+- Dry-runs before the start: the training preparation verified; tactical data (2
+  games per cell), a head-to-head (8 games) and one battery cell with the T6m plans
+  ran clean; 648 tests pass, Ruff and Pyright clean on the changed files.
+
 ## T6 set-variant tournament: T6m beats T6 against sand (+11.2pp [+7.2, +15.2]) and is even on the full pool -> T6m qualifies for a practice cycle (2026-September 28, 23:59)
 
 Resumed at the user's word ("continue this", 22:36, on AC power); 6 arms x 1,000

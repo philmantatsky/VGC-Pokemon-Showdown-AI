@@ -31,6 +31,10 @@ both sides, and only the new guards differ.
 --candidate CKPT (with --without-arm and --label) plays another BRAIN on the
 "with" side (2026-09-26: a newly trained save against the deployed brain):
 the arms may then differ in the checkpoint as well; --guards may be empty.
+--candidate-plans PLANS (2026-10-01: a brain practised on T6m, a set variant of
+T6) lets that brain play its own team file -- the same six species, so the
+rosters, the preview model and the opponents are unchanged; the arms then differ
+in the checkpoint and our team's sets, nothing else.
 
 --baseline (2026-09-26, once T6ctx replaced the brain this study was built on)
 plays the DEPLOYED configuration -- deployed brain, every deployed guard -- as
@@ -130,6 +134,18 @@ def same_study(reference: dict, candidate: dict) -> list[str]:
     )
 
 
+def unexplained(differs: list[str], candidate: bool, variant: bool) -> list[str]:
+    """The manifest differences that are not the change under test: a candidate arm
+    differs in its brain, and a candidate on a set variant of the team
+    (--candidate-plans) also in our team's sets."""
+    allowed: set[str] = set()
+    if candidate:
+        allowed |= {"checkpoint", "checkpoint_sha256"}
+        if variant:
+            allowed |= {"plans", "team_sha256"}
+    return [k for k in differs if k not in allowed]
+
+
 def arm_label(path: Path, prior: dict) -> str:
     """The label a completed run's arm files carry (<population>_<label>.jsonl)."""
     if prior.get("arm_label"):
@@ -200,6 +216,13 @@ def main() -> None:
     ap.add_argument("--guards", default="", help="comma-separated opt-in guards")
     ap.add_argument("--candidate", type=Path, default=None, help="another brain")
     ap.add_argument("--label", default=None, help="names the candidate's arm")
+    ap.add_argument(
+        "--candidate-plans",
+        type=Path,
+        default=None,
+        help="the candidate's plans file: a set variant of the reference team "
+        "(same six species) that the candidate brain was practised on",
+    )
     ap.add_argument("--output", type=Path, default=None)
     ap.add_argument(
         "--without-arm",
@@ -230,6 +253,8 @@ def main() -> None:
         raise ValueError(f"need opt-in guards, got {guards} (invalid: {invalid})")
     if args.candidate is not None and (args.without_arm is None or not args.label):
         raise ValueError("--candidate needs --without-arm and --label")
+    if args.candidate_plans is not None and args.candidate is None:
+        raise ValueError("--candidate-plans needs --candidate")
     deployed = json.loads(DEPLOYED.read_text())["deployed"]
     if args.baseline:
         output = args.output or Path(
@@ -302,6 +327,19 @@ def main() -> None:
         raise ValueError("held-out roster selection differs from the reference")
     roster = {p.species for p in team_roster(Path(reference["team"]).read_text())}
     joint_sha = pins["data/joint_sets_regmc.json"]
+    plans = reference["plans"]
+    variant: dict = {}
+    if args.candidate_plans is not None:
+        team = Path(json.loads(args.candidate_plans.read_text())["team"])
+        if {p.species for p in team_roster(team.read_text())} != roster:
+            raise ValueError(f"{team} is not a set variant of {reference['team']}")
+        plans = str(args.candidate_plans)
+        variant = {
+            "reference_plans": reference["plans"],
+            "candidate_team": str(team),
+            "candidate_team_sha256": sha256(team),
+            "candidate_plans_sha256": sha256(args.candidate_plans),
+        }
 
     label = (
         f"deployed_{deployed['replay_tag']}"
@@ -317,8 +355,9 @@ def main() -> None:
             if args.baseline
             else f"deployed configuration + {', '.join(guards)} vs without"
             if args.candidate is None
-            else f"brain {checkpoint} vs the deployed brain, both with "
-            f"{', '.join(base + guards)}"
+            else f"brain {checkpoint}"
+            + (f" on {variant['candidate_team']}" if variant else "")
+            + f" vs the deployed brain, both with {', '.join(base + guards)}"
         ),
         "arm_label": label,
         "playbook": str(args.playbook) if args.playbook else None,
@@ -342,7 +381,8 @@ def main() -> None:
         "checkpoint_sha256": sha256(checkpoint),
         "preview_model": preview["model"],
         "preview_model_sha256": preview["model_sha256"],
-        "plans": reference["plans"],
+        "plans": plans,
+        **variant,
         "populations": populations,
         "matchups": len(matchups),
         "repeats": repeats,
@@ -407,7 +447,7 @@ def main() -> None:
                     "--opponent",
                     opponent,
                     "--plans",
-                    reference["plans"],
+                    plans,
                     "--arms",
                     "policy",
                     "--split",
@@ -448,12 +488,9 @@ def main() -> None:
                     json.loads(ref_arm.with_suffix(".manifest.json").read_text()),
                     json.loads(arm.with_suffix(".manifest.json").read_text()),
                 )
-                if args.candidate is not None:  # the brain is what differs
-                    differs = [
-                        k
-                        for k in differs
-                        if k not in ("checkpoint", "checkpoint_sha256")
-                    ]
+                differs = unexplained(
+                    differs, args.candidate is not None, bool(variant)
+                )
                 if differs:
                     raise ValueError(f"{pop}: arms differ beyond output: {differs}")
                 ref_rows = read_rows(ref_arm)

@@ -11,7 +11,10 @@ on slot 1's played action) -- since 2026-09-27 also the doomed facts (the chance
 of being knocked out before moving, its Protect and wasted actions), and since
 2026-09-28 the Fake Out pairing facts for slot 2 (drain / receive). The
 training target is built later from the network's own distribution, so the
-temperature can change without replaying.
+temperature can change without replaying. --checkpoint / --team record another
+brain on its own team file instead (2026-10-01: a brain practised on T6m, a set
+variant of the deployed team); guards, preview model and opponents stay the
+deployed configuration's, and the "self" opponent is then that brain.
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python training/gen_tactical_data.py --games-per-cell 150
@@ -153,9 +156,16 @@ def main() -> None:
     ap.add_argument("--port", type=int, default=7630)
     ap.add_argument("--output", type=Path, default=Path("results_tactical1/data"))
     ap.add_argument("--cell-timeout", type=float, default=5400)
+    ap.add_argument("--checkpoint", default=None, help="record this brain instead")
+    ap.add_argument("--team", default=None, help="its team file (a set variant)")
     args = ap.parse_args()
     os.chdir(ROOT)
     config = resolve()
+    ckpt = args.checkpoint or config["CKPT"]
+    team = args.team or config["TEAM"]
+    for path in (ckpt, team):
+        if not (ROOT / path).is_file():
+            raise ValueError(f"missing {path}")
     guards = [g for g in config["GUARDS"].split(",") if g]
     rosters = sorted(
         p
@@ -168,13 +178,13 @@ def main() -> None:
     args.output.mkdir(parents=True, exist_ok=True)
     manifest = {
         "purpose": "positions for the tactical teacher (training/tactical_teacher.py)",
-        "checkpoint": config["CKPT"],
-        "checkpoint_sha256": sha256(ROOT / config["CKPT"]),
-        "team": config["TEAM"],
-        "team_sha256": sha256(ROOT / config["TEAM"]),
+        "checkpoint": ckpt,
+        "checkpoint_sha256": sha256(ROOT / ckpt),
+        "team": team,
+        "team_sha256": sha256(ROOT / team),
         "preview_model": config["PREVIEW_MODEL"],
         "guards": guards,
-        "opponents": {k: v[0] or config["CKPT"] for k, v in OPPONENTS.items()},
+        "opponents": {k: v[0] or ckpt for k, v in OPPONENTS.items()},
         "rosters": "teams/reg_mc MC*.txt, train split only",
         "roster_count": len(rosters),
         "games_per_cell": args.games_per_cell,
@@ -221,10 +231,10 @@ def main() -> None:
             ours = RecordingPlayer(
                 account_configuration=fresh_local_account(),
                 deterministic=True,
-                team=RandomTeamBuilder(args.seed, 1, "mc", [ROOT / config["TEAM"]]),
+                team=RandomTeamBuilder(args.seed, 1, "mc", [ROOT / team]),
                 **common,
             )
-            ours.set_policy(ROOT / config["CKPT"], torch.device("mps"))
+            ours.set_policy(ROOT / ckpt, torch.device("mps"))
             if config["PREVIEW_MODEL"]:
                 ours.preview_model_path = ROOT / config["PREVIEW_MODEL"]
                 ours.use_learned_teampreview = True
@@ -240,7 +250,7 @@ def main() -> None:
                 ),
                 **common,
             )
-            foe.set_policy(ROOT / (path or config["CKPT"]), torch.device("cpu"))
+            foe.set_policy(ROOT / (path or ckpt), torch.device("cpu"))
             started = time.monotonic()
             asyncio.run(
                 asyncio.wait_for(

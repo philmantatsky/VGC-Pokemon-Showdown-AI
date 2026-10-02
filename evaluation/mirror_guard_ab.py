@@ -33,7 +33,10 @@ sticky guard corrections (the reranker may not restore a pair a guard corrected
 away; ladder 2026-09-26 game 6). --a-playbook gives side A our own playbook at
 team preview (vgc_bench/src/playbook.py: the plan card for this opponent, its
 four, its leads and the turn-1 script for the opt-in guard playbook_opening --
-pass --guard playbook_opening to play the script too).
+pass --guard playbook_opening to play the script too). --a-team (with
+--a-checkpoint) gives side A a set variant of the deployed team (2026-10-01: a
+brain practised on T6m against the deployed brain on T6); it must have the same
+six species, since both sides share the deployed, team-focused preview model.
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000
@@ -64,6 +67,7 @@ from tools.deployed_config import resolve
 from vgc_bench.src import pokeenv_patches
 from vgc_bench.src.guards import GUARDS, HARD_GUARDS
 from vgc_bench.src.policy_player import PolicyPlayer
+from vgc_bench.src.set_particles import team_roster
 from vgc_bench.src.teams import RandomTeamBuilder
 from vgc_bench.src.utils import format_map, prior_path
 
@@ -111,11 +115,12 @@ def _player(
     mixing: dict | None = None,
     checkpoint: str | None = None,
     extra: dict | None = None,
+    team: str | None = None,
 ):
     player = StudyPlayer(
         account_configuration=fresh_local_account(),
         deterministic=True,
-        team=RandomTeamBuilder(seed, 1, "mc", [ROOT / config["TEAM"]]),
+        team=RandomTeamBuilder(seed, 1, "mc", [ROOT / (team or config["TEAM"])]),
         server_configuration=ServerConfiguration(
             f"ws://localhost:{port}/showdown/websocket",
             "https://play.pokemonshowdown.com/action.php?",
@@ -155,6 +160,13 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def same_species(team_a: Path, team_b: Path) -> bool:
+    """Two team files with the same six species (a set variant of one team)."""
+    return {p.species for p in team_roster(team_a.read_text())} == {
+        p.species for p in team_roster(team_b.read_text())
+    }
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--guard", default="", help="opt-in guard(s), comma-separated")
@@ -164,6 +176,12 @@ def main() -> None:
     ap.add_argument("--a-mixing-min-ratio", type=float, default=0.0)
     ap.add_argument("--a-mixing-keep-corrections", action="store_true")
     ap.add_argument("--a-checkpoint", type=Path, default=None, help="side A's brain")
+    ap.add_argument(
+        "--a-team",
+        type=Path,
+        default=None,
+        help="side A's team: a set variant of the deployed team (same six species)",
+    )
     ap.add_argument(
         "--rerankers",
         action="store_true",
@@ -227,6 +245,15 @@ def main() -> None:
             raise ValueError(f"no checkpoint {args.a_checkpoint}")
         a_checkpoint = str(args.a_checkpoint)
     config = resolve()
+    a_team = None
+    if args.a_team is not None:
+        if a_checkpoint is None:
+            raise ValueError("--a-team needs --a-checkpoint (a brain practised on it)")
+        if not (ROOT / args.a_team).is_file():
+            raise ValueError(f"no team {args.a_team}")
+        if not same_species(ROOT / args.a_team, ROOT / config["TEAM"]):
+            raise ValueError("--a-team must have the deployed team's six species")
+        a_team = str(args.a_team)
     deployed = [g for g in config["GUARDS"].split(",") if g]
     base = [g for g in deployed if g not in guards]
     parts = list(guards)
@@ -238,6 +265,8 @@ def main() -> None:
         )
     if a_checkpoint is not None:
         parts.insert(0, f"brain {a_checkpoint}")
+    if a_team is not None:
+        parts.insert(1, f"team {a_team}")
     if args.a_sticky:
         parts.append("sticky guard corrections")
     if args.a_playbook is not None:
@@ -248,6 +277,8 @@ def main() -> None:
     tag = "_".join(guards) if guards else f"mixing_{args.a_mixing}"
     if a_checkpoint is not None:
         tag = f"brain_{Path(a_checkpoint).stem}"
+    if a_team is not None:
+        tag += f"_team_{Path(a_team).stem}"
     if mixing is not None and guards:
         tag += f"_mixing_{args.a_mixing}"
     if args.a_sticky and not guards and mixing is None and a_checkpoint is None:
@@ -260,8 +291,10 @@ def main() -> None:
     output = args.output or Path(f"results_mirror_{tag}")
     manifest = {
         "question": (
-            f"brain {a_checkpoint} vs the deployed brain, both with the deployed "
-            "guards and preview (head-to-head mirror)"
+            f"brain {a_checkpoint}"
+            + (f" on {a_team}" if a_team else "")
+            + " vs the deployed brain, both with the deployed guards and preview "
+            "(head-to-head mirror)"
             if a_checkpoint is not None and not guards and mixing is None
             else f"deployed bot with {named} vs itself without (mirror)"
         ),
@@ -281,6 +314,8 @@ def main() -> None:
             sha256(ROOT / args.a_playbook) if args.a_playbook else None
         ),
         "a_checkpoint_sha256": sha256(ROOT / a_checkpoint) if a_checkpoint else None,
+        "a_team": a_team,
+        "a_team_sha256": sha256(ROOT / a_team) if a_team else None,
         "checkpoint": config["CKPT"],
         "checkpoint_sha256": sha256(ROOT / config["CKPT"]),
         "team": config["TEAM"],
@@ -335,6 +370,7 @@ def main() -> None:
                 if args.a_playbook is not None
                 else {}
             ),
+            a_team,
         )
         b = _player(
             config,

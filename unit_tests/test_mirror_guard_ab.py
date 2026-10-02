@@ -40,3 +40,13 @@ def test_outcomes_count_ties_as_halves_and_refuse_unfinished_battles():
     battles["d"] = NS(finished=False, won=None, battle_tag="d")
     with pytest.raises(RuntimeError, match="unfinished"):
         _outcomes(NS(battles=battles))
+
+
+def test_side_a_may_only_play_a_set_variant_of_the_deployed_team():
+    """--a-team (2026-10-01): T6m is T6 with two moves changed; T4 is another team."""
+    from evaluation.mirror_guard_ab import ROOT, same_species
+
+    teams = ROOT / "teams/candidates_mc"
+    assert same_species(teams / "T6m.txt", teams / "T6.txt")
+    assert same_species(teams / "T6mAS.txt", teams / "T6.txt")
+    assert not same_species(teams / "T4.txt", teams / "T6.txt")

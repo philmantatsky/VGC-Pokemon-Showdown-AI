@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import json
 
-from evaluation.run_guard_ab import guard_firing, same_study
+from evaluation.run_guard_ab import guard_firing, same_study, unexplained
 
 
 def test_same_study_ignores_only_the_output_path():
@@ -210,3 +210,18 @@ def test_a_guard_arm_plays_the_without_sides_own_brain_file(tmp_path):
     assert without_brain(run, hashlib.sha256(b"weights").hexdigest()) == str(brain)
     with pytest.raises(ValueError, match="not the deployed brain"):
         without_brain(run, "0" * 64)
+
+
+def test_a_candidate_on_a_set_variant_may_differ_in_brain_and_sets_only():
+    """--candidate-plans (2026-10-01, a brain practised on T6m): the arms differ in
+    the checkpoint and our team's sets; anything else still stops the comparison."""
+    differs = ["checkpoint", "checkpoint_sha256", "plans", "team_sha256", "seed"]
+    assert unexplained(differs, candidate=False, variant=False) == differs
+    assert unexplained(differs, candidate=True, variant=False) == [
+        "plans",
+        "team_sha256",
+        "seed",
+    ]
+    assert unexplained(differs, candidate=True, variant=True) == ["seed"]
+    # a guard arm never plays another team
+    assert unexplained(["plans"], candidate=False, variant=True) == ["plans"]

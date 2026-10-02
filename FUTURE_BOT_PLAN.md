@@ -116,7 +116,8 @@
   `fake_out_partner_acts`, `switch_the_crippled`: battery +0.26 [-0.53, +1.03]
   (deploy-eligible), ladder T6tac + guards 23-17 over 40, 20-17 without free wins
   (they fired 3 times).
-  Promotion into `guards_extra`: the user's call.
+  DEPLOYED 2026-10-01 at the user's word ("add the guards to the bot"): 11 guards,
+  replay tag T6tac_guards11.
 - [x] Tactical fine-tunes 3 / 4 from T6tac: mirrors 41.2 / 47.4% (lose), batteries
   +0.34 / +0.61 -> a second tactical round on the brain's own games does not beat it.
 - [x] Draft 2 of the playbook -- dropped 2026-09-28: re-checked on the 83 later
@@ -131,8 +132,11 @@
 - [x] T6 set-variant clone tournament (pre-registered 2026-09-28 11:02, run
   22:36-23:59): sand pool T6 24.8%, T6m 36.0% (+11.2pp [+7.2, +15.2]), T6mAS
   30.2%; full pool even (T6 46.7, T6m 48.3, T6mAS 47.7) -> T6m qualifies.
-- [ ] Practice cycle on T6m (the user's call): the 09-27 playbook practice recipe
-  with T6m as our team, then the head-to-head vs T6tac and the battery, then ladder.
+- [ ] T6m practice cycle (the user's word 2026-10-01, pre-registered 23:50, running:
+  `training/t6m_practice_chain.sh`): T6tac + 983,040 steps with T6m as our team, the
+  tactical re-fit on its own games, head-to-head vs T6tac on T6, the battery; ladder
+  trial (15, then 40) only if the battery is deploy-eligible and the head-to-head
+  is not lost. No promotion without the user.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.
