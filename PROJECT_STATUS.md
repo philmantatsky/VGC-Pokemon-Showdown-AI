@@ -1,6 +1,43 @@
 # VGC Bot Project Status
 
-## T6m practice cycle: level with the deployed bot against the field (+0.34pp), better vs rain, but it LOSES the head-to-head (43.8%) -> gate HOLD, no ladder; two diagnostics pre-registered (2026-October 2, 03:50)
+## T6m diagnostics: every changed configuration loses the head-to-head to T6tac on T6 by 6-9 points; T6m is not yet an improvement in our bot's hands; no ladder played (2026-October 2, 04:50)
+
+Both diagnostics ran 03:44-04:43 (`results_brainv1_t6m_practice1/diagnostics.log`;
+results copied to `results_analysis/t6m_practice_20261002/`), read as fixed at 03:43
+(commit 716133c).
+- **D1, the deployed T6tac on T6m (unpractised) vs T6tac on T6: 41.0% [38.9, 43.2].**
+  Practice effect in this matchup: 43.8 - 41.0 = +2.8pp (about +/-3.1pp: not
+  significant).
+- **D2, the candidate on T6 (its old team) vs T6tac on T6: 41.0% [38.9, 43.2]** (open
+  sheets 35.9%, hidden 46.2%). Its upper bound is below 50%, so by the pre-registered
+  reading the brain itself is weaker on T6 too -- drift or forgetting of its old
+  sets, not separable.
+- **Together** (T6tac on T6 = 50%): the same brain on T6m -9.0; the candidate on T6
+  -9.0; the candidate on T6m -6.2. Each brain plays the team it practised best (the
+  candidate is +2.8 on T6m over its own T6 play and over T6tac's T6m play), and the
+  long-practised T6 configuration still beats the T6m one (983,040 steps of
+  practice) in close games. A structural matchup edge (T6 keeps Solar Beam for the
+  opposing Blastoise) and practice depth cannot be separated with these runs.
+- **Reading:** against the held-out field the candidate on T6m is level with the
+  deployed bot (+0.34pp [-0.98, +1.69]; rain rosters +4.2pp, descriptive), where the
+  bot wins ~92% whatever it plays; in the one close-game instrument we have it is 6
+  points behind; and the clone tournament's sand gain did not show on the 3 held-out
+  sand rosters. T6m is not shown to be an improvement in our bot's hands yet.
+- **State:** DEPLOYED = T6tac on T6 with 11 guards (unchanged since the amendment).
+  Candidate kept, not stamped for ladder: `results_tactical_t6m1/sft/tactical_e4.zip`
+  (sha 5c8e52b9). No ladder games were played tonight; nothing is running.
+- **The user's options:** (1) another practice round on T6m (+983,040 steps from the
+  RL save, re-fit, the same tests; the unpractised 41.0% is now the baseline to
+  beat) -- my recommendation if T6m is worth pursuing; (2) a ladder trial of the
+  candidate anyway (`TRIAL_CHECKPOINT=... TRIAL_TEAM=teams/candidates_mc/T6m.txt
+  tools/ladder_trial.sh 15 ladder_replays_mc_t6m1` after stamping its sidecar): we
+  never meet our own T6 on ladder, but 15-40 games cannot resolve a few points; (3)
+  keep T6 and drop T6m.
+- Lesson for the next team variant: a head-to-head against the old team is one
+  matchup and is confounded by the sets changed -- pre-register the unpractised
+  baseline (D1) as the comparison, not 50%.
+
+## T6m practice cycle: level with the deployed bot against the field (+0.34pp), better vs rain, but it LOSES the head-to-head (43.8%) -> gate HOLD, no ladder; two diagnostics pre-registered (2026-October 2, 03:43)
 
 The chain ran clean 23:47 -> 03:42 (`results_brainv1_t6m_practice1/chain.log`); the
 pre-registered rules were applied by `training/t6m_practice_gate.py`.

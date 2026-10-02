@@ -1,0 +1,4 @@
+candidate (RL save) on T6m vs T6tac on T6: 39.7% [37.6, 41.9] over 2000 (open sheets 39.7%, hidden 39.7%)
+candidate (tactical re-fit, the pick) on T6m vs T6tac on T6: 43.8% [41.6, 46.0] over 2000 (open sheets 44.3%, hidden 43.3%)
+D1: T6tac on T6m (unpractised) vs T6tac on T6: 41.0% [38.9, 43.2] over 2000 (open sheets 43.7%, hidden 38.4%)
+D2: candidate (re-fit) on T6 vs T6tac on T6: 41.0% [38.9, 43.2] over 2000 (open sheets 35.9%, hidden 46.2%)

@@ -135,8 +135,11 @@
 - [x] T6m practice cycle (the user's word 2026-10-01, pre-registered 23:50): battery
   +0.34pp [-0.98, +1.69] (deploy-eligible; rain rosters +4.2pp, the 3 sand rosters
   -1.0pp), head-to-head vs T6tac on T6 LOST 43.8% [41.6, 46.0] -> gate HOLD, no
-  ladder. Candidate `results_tactical_t6m1/sft/tactical_e4.zip` kept; next step
-  (more practice, a ladder trial anyway, or drop T6m) is the user's call.
+  ladder. Diagnostics: T6tac itself on T6m 41.0%, the candidate on T6 41.0% -> each
+  brain is best on its practised team and T6 still wins the close games.
+  Candidate `results_tactical_t6m1/sft/tactical_e4.zip` kept.
+- [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
+  unpractised 41.0% baseline and reach 50%), a ladder trial anyway, or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.
