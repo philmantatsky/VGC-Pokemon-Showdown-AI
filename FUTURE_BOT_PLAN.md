@@ -132,11 +132,11 @@
 - [x] T6 set-variant clone tournament (pre-registered 2026-09-28 11:02, run
   22:36-23:59): sand pool T6 24.8%, T6m 36.0% (+11.2pp [+7.2, +15.2]), T6mAS
   30.2%; full pool even (T6 46.7, T6m 48.3, T6mAS 47.7) -> T6m qualifies.
-- [ ] T6m practice cycle (the user's word 2026-10-01, pre-registered 23:50, running:
-  `training/t6m_practice_chain.sh`): T6tac + 983,040 steps with T6m as our team, the
-  tactical re-fit on its own games, head-to-head vs T6tac on T6, the battery; ladder
-  trial (15, then 40) only if the battery is deploy-eligible and the head-to-head
-  is not lost. No promotion without the user.
+- [x] T6m practice cycle (the user's word 2026-10-01, pre-registered 23:50): battery
+  +0.34pp [-0.98, +1.69] (deploy-eligible; rain rosters +4.2pp, the 3 sand rosters
+  -1.0pp), head-to-head vs T6tac on T6 LOST 43.8% [41.6, 46.0] -> gate HOLD, no
+  ladder. Candidate `results_tactical_t6m1/sft/tactical_e4.zip` kept; next step
+  (more practice, a ladder trial anyway, or drop T6m) is the user's call.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.

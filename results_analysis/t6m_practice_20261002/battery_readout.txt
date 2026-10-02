@@ -1,0 +1,38 @@
+candidate results_brain_ab_t6m1_23101440_tactical (results_tactical_t6m1/sft/tactical_e4.zip)
+reference results_guard_ab_review_guards_0928
+
+== by population (win rate: reference -> candidate)
+   frozen          95.9% -> 94.6%  -1.4pp [-3.8, +1.1]
+   heuristic       90.7% -> 91.1%  +0.4pp [-2.2, +2.9]
+   human_new       92.4% -> 93.2%  +0.9pp [-1.8, +3.8]
+   human_previous  89.6% -> 90.0%  +0.5pp [-3.0, +4.6]
+   rotation1       93.2% -> 95.0%  +1.7pp [-1.1, +4.5]
+   rotation2       94.3% -> 94.2%  -0.1pp [-3.8, +3.5]
+
+== sand rosters (a Sand Stream setter on their team) vs the rest
+   sand   3 rosters,  396 games: 82.1% -> 81.1%  -1.0pp [-11.4, +5.3]
+   rest  44 rosters, 5808 games: 93.4% -> 93.8%  +0.4pp [-0.9, +1.8]
+
+== by roster category
+   balance            98.6% -> 97.5%  -1.1pp [-3.5, +1.0]
+   grassy_fakeout     94.2% -> 93.6%  -0.6pp [-2.4, +1.1]
+   rain               89.3% -> 93.5%  +4.2pp [+0.7, +7.9]
+   tailwind           92.9% -> 93.6%  +0.7pp [-1.1, +2.4]
+   trick_room         90.2% -> 88.3%  -1.9pp [-5.2, +1.1]
+
+== our lead (share of games, win rate): reference | candidate
+   blastoise + farigiraf      83.0%  93.4% | 83.0%  93.2%
+   farigiraf + incineroar     10.6%  89.4% | 10.6%  91.1%
+   charizard + venusaur        6.4%  88.6% |  6.4%  94.4%
+
+== worst and best rosters for the candidate (delta, games per arm)
+   MC1406.txt   trick_room         sand -11.4pp (132)
+   MC1838.txt   trick_room              -8.3pp (132)
+   MC904.txt    grassy_fakeout          -6.8pp (132)
+   MC2994.txt   balance                 -6.8pp (132)
+   MC2610.txt   trick_room              -6.1pp (132)
+   MC304.txt    trick_room              +5.3pp (132)
+   MC1225.txt   rain                    +6.8pp (132)
+   MC107.txt    rain                    +7.6pp (132)
+   MC3557.txt   rain                    +12.1pp (132)
+   MC666.txt    rain                    +14.4pp (132)

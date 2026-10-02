@@ -1,5 +1,40 @@
 # VGC Bot Project Status
 
+## T6m practice cycle: level with the deployed bot against the field (+0.34pp), better vs rain, but it LOSES the head-to-head (43.8%) -> gate HOLD, no ladder; two diagnostics pre-registered (2026-October 2, 03:50)
+
+The chain ran clean 23:47 -> 03:42 (`results_brainv1_t6m_practice1/chain.log`); the
+pre-registered rules were applied by `training/t6m_practice_gate.py`.
+- **Training** (T6tac + 983,040 steps with T6m as our team, 23:47-01:47, ~136 steps/s):
+  ep_rew_mean 0.63 -> 0.79; saves 22,609,920 and 23,101,440. **Tactical re-fit** on
+  its own T6m games (11,190 positions from 2,000 games, which it won 92.3%): teacher
+  agreement 70.2% -> 78.8%, epoch 4 (`results_tactical_t6m1/sft/tactical_e4.zip`,
+  sha 5c8e52b9).
+- **Head-to-head vs the deployed bot** (candidate on T6m, T6tac on T6, 11 guards and
+  the preview model on both sides, 2,000 games each): RL save **39.7% [37.6, 41.9]**,
+  re-fit **43.8% [41.6, 46.0]** (every block 41.8-46.2%) -- both LOSE; the re-fit is
+  the pick.
+- **Battery of the pick** (on T6m vs the deployed brain on T6 with all 11 guards, 6,204
+  held-out games, `results_brain_ab_t6m1_23101440_tactical`): pooled **+0.34pp
+  [-0.98, +1.69]**, worst population -1.4pp -> deploy-eligible, not better.
+- **Gate (pre-registered): HOLD** -- the head-to-head is lost (upper bound 46.0% <
+  50%). No ladder games were played; DEPLOYED.json is unchanged since the guard
+  amendment.
+- Descriptive (`results_analysis/t6m_practice_20261002/battery_readout.txt`): rain
+  rosters **+4.2pp [+0.7, +7.9]** (89.3 -> 93.5%), trick_room -1.9, balance -1.1,
+  grassy Fake Out -0.6, tailwind +0.7; the Charizard + Venusaur lead 88.6 -> 94.4%
+  (6% of games). **The 3 held-out sand rosters: 82.1 -> 81.1% (-1.0pp [-11.4, +5.3])**
+  -- the clone tournament's +11.2pp against sand did not show up in our brain's hands
+  (3 rosters, 396 games: weak evidence either way).
+- **Two diagnostics, fixed before running** (head-to-heads, 2,000 games each, the
+  same harness; they explain the lost head-to-head and trigger nothing):
+  D1 = the deployed T6tac itself on T6m (unpractised) vs T6tac on T6 -> practice
+  effect in this matchup = 43.8% minus D1. D2 = the candidate on T6 (its old team) vs
+  T6tac on T6 -> if its interval reaches 50%, the brain is not weaker in close games
+  and the loss is the T6m-vs-T6 matchup (the team); if its upper bound is below 50%,
+  the brain itself is weaker on T6 too (drift or forgetting, not separable).
+- The first notification waiter (a 10-minute background command) was stopped at its
+  time limit; a log monitor replaced it. The chain itself ran detached throughout.
+
 ## The three review guards DEPLOYED (the user's word); the T6m practice cycle pre-registered; pushed to GitHub (2026-October 1, 23:50)
 
 The user: "add the guards to the bot and start the practice run, im not going to be
