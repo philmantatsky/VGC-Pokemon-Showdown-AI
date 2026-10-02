@@ -1,0 +1,60 @@
+{
+  "question": "brain results_tactical_t6m1/sft/tactical_e4.zip on teams/candidates_mc/T6m.txt vs the deployed brain, both with dominated_attack, dominated_spread, dominated_throat_chop, dominated_weather_ball_weather, focus_boosted, overkill_split, resisted_target, wide_guard, drop_free_finish, fake_out_partner_acts, switch_the_crippled",
+  "arm_label": "candidate_t6m1_23101440_tactical",
+  "playbook": null,
+  "playbook_sha256": null,
+  "extra_guards": [],
+  "extra_guards_scope": "our player only (per-player override)",
+  "base_guards_both_sides": [
+    "dominated_attack",
+    "dominated_spread",
+    "dominated_throat_chop",
+    "dominated_weather_ball_weather",
+    "focus_boosted",
+    "overkill_split",
+    "resisted_target",
+    "wide_guard",
+    "drop_free_finish",
+    "fake_out_partner_acts",
+    "switch_the_crippled"
+  ],
+  "reference_arm": "results_guard_ab_review_guards_0928/<population>_with_drop_free_finish_fake_out_partner_acts_switch_the_crippled.jsonl",
+  "reference_manifest_sha256": "3282e47fbfd18fcf2bc0efe970c0435af483ad302dc1f13ffd72ca84af2ba6e6",
+  "changed_pins_accepted": [
+    "vgc_bench/src/guards.py",
+    "vgc_bench/src/pokeenv_patches.py",
+    "vgc_bench/src/policy_player.py"
+  ],
+  "guards_module_sha256": "168bd2863c1affdee097364bfe3875a0b28ad95a2f5d6e6ee16ea6da8b32a40f",
+  "guard_sources_sha256": {
+    "vgc_bench/src/guards.py": "168bd2863c1affdee097364bfe3875a0b28ad95a2f5d6e6ee16ea6da8b32a40f",
+    "vgc_bench/src/trick_room_guard.py": "a4de097e8f545750439798ce8424655a6a6c54886a65399250f723d76688581f",
+    "vgc_bench/src/pokeenv_patches.py": "fa025b156bd03d5e3413d6b576b1326bbd3082de4e0d58b191d513bb4434f4ff"
+  },
+  "wrapper_sha256": "1779a6fd2cf9e6b1e20e6dd4adf0838e1388fcbbf73d9c792d8d2b97425d707b",
+  "checkpoint": "results_tactical_t6m1/sft/tactical_e4.zip",
+  "checkpoint_sha256": "5c8e52b90d51d457c93e2890249add04fe887a795765debe7bb28604ebd21786",
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
+  "plans": "data/opening_plans_t6m.json",
+  "reference_plans": "data/opening_plans_t6.json",
+  "candidate_team": "teams/candidates_mc/T6m.txt",
+  "candidate_team_sha256": "2c94c8b7232aeb2eb57e5e39211a3a9f3032b314efa3b0db9366afb5e18cfce7",
+  "candidate_plans_sha256": "6e70e8bc13cbde1b493a56a3dbce96fb6f80419efca85635f6088f68f14af115",
+  "populations": [
+    "human_new",
+    "frozen",
+    "rotation1",
+    "rotation2",
+    "human_previous",
+    "heuristic"
+  ],
+  "matchups": 47,
+  "repeats": 11,
+  "seed": 20923,
+  "port": 7610,
+  "delta": "with the extra guards minus without",
+  "battle_rng_paired": false,
+  "uncertainty": "whole-roster bootstrap; pooled = equal-population mean",
+  "decision": "Stop for review. Never promote or start ladder automatically."
+}
