@@ -1,5 +1,23 @@
 # VGC Bot Project Status
 
+## Losing a Pokemon first: when and how (analysis for the user's question, 2026-October 3)
+
+The user: "what do u think for the losing a pokemon problem". Analysis only, the 236
+T6-era ladder games (`results_analysis/early_faints_20261003/early_faints.py|txt`).
+- We lose a Pokemon first in 107 games and win 21% of them (23-84); when they lose
+  one first we win 71% (84-35). 92 of our 107 first faints come on turns 1-3.
+- **73 of those 92 are our two leads -- Blastoise 37, Farigiraf 36 -- and neither set
+  has Protect.** Half fainted before acting that turn (Farigiraf 26 of 36), half were
+  already below 75% HP, and 52 of 92 happened UNDER OUR OWN Trick Room. Only 19 were
+  hit twice that turn: mostly chip on turn 1-2, then a finishing hit.
+- Killing hits: Rillaboom's Wood Hammer 13 (7 on Blastoise, 6 on Farigiraf); on
+  Blastoise Psychic 12 (Expanding Force under Psychic Terrain, Psychic), Normal 7
+  (Hyper Voice), Electric 6 (Zap Cannon); on Farigiraf Dark 9 (Knock Off, Kowtow
+  Cleave, Darkest Lariat), Bug 4. What the bot had chosen for the victim: Trick Room
+  18, Water Spout 16, Water Pulse 14, Psychic 9, Rain Dance 7, Ice Beam 7.
+- Why the doomed lesson (tactical 2-4) could not help much: it only moved mass to a
+  legal Protect, and the two Pokemon that die early have none.
+
 ## Ladder trial of the T6m candidate: 6-9 over the 15 games asked for (7-9 over 16: the restart played one extra); no case for T6m over T6 (2026-October 2, 23:10)
 
 `ladder_replays_mc_t6m1`, 22:17-23:06, serial; the configuration as fixed at 22:20.
