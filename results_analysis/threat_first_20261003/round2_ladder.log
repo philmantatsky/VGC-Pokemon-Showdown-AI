@@ -2,3 +2,62 @@
 [10-03 08:25:00] R2LADDER_START threat_first2 20
 LADDER_START [08:25:01] checkpoint=results_deployed/champion_mc_T6tac.zip team=teams/candidates_mc/T6.txt preview=data/preview_t6_focus_20260923.pt mixing=off sticky=on playbook=off total=20 dir=ladder_replays_mc_T6tac_threat_first2 games_done=0
 SESSION_START 1 [08:25:01] games_done=0 remaining=20 log=ladder_replays_mc_T6tac_threat_first2_20261003_082501_session1.log
+GAME 1/20 wins=1 [08:26:41]
+GAME 2/20 wins=2 [08:28:01]
+GAME 3/20 wins=3 [08:30:42]
+GAME 4/20 wins=3 [08:34:22]
+GAME 5/20 wins=4 [08:35:42]
+GAME 6/20 wins=5 [08:37:22]
+GAME 7/20 wins=5 [08:40:43]
+GAME 8/20 wins=6 [08:43:43]
+GAME 9/20 wins=6 [08:46:23]
+GAME 10/20 wins=7 [08:47:03]
+GAME 11/20 wins=8 [08:48:24]
+GAME 12/20 wins=8 [08:51:44]
+GAME 13/20 wins=9 [08:54:04]
+GAME 14/20 wins=10 [08:56:24]
+GAME 15/20 wins=11 [08:57:45]
+GAME 16/20 wins=11 [09:00:25]
+GAME 17/20 wins=12 [09:02:45]
+GAME 18/20 wins=12 [09:08:06]
+GAME 19/20 wins=12 [09:12:46]
+GAME 20/20 wins=13 [09:17:27]
+SESSION_RECORD 1 poke-env parse errors: none; revealed abilities repaired: 6
+SESSION_RECORD 1 record: 13-7-0
+SESSION_RECORD 1 win rate: 65% over 20 games
+SESSION_END 1 [09:17:27] games_done=20
+LADDER_DONE [09:17:42] games=20 wins=13
+[10-03 09:17:42] R2LADDER_END threat_first2 rc=0
+[10-03 09:17:42] R2LADDER_SKIP doomed_switch (did not pass)
+[10-03 09:17:42] R2LADDER_COMPLETE
+ladder read: 13-7
+GO
+[10-03 09:18:21] TF2_CONTINUE 40
+LADDER_START [09:18:22] checkpoint=results_deployed/champion_mc_T6tac.zip team=teams/candidates_mc/T6.txt preview=data/preview_t6_focus_20260923.pt mixing=off sticky=on playbook=off total=40 dir=ladder_replays_mc_T6tac_threat_first2 games_done=20
+SESSION_START 1 [09:18:22] games_done=20 remaining=20 log=ladder_replays_mc_T6tac_threat_first2_20261003_091822_session1.log
+GAME 21/40 wins=14 [09:21:23]
+GAME 22/40 wins=14 [09:23:03]
+GAME 23/40 wins=15 [09:26:03]
+GAME 24/40 wins=15 [09:30:24]
+GAME 25/40 wins=15 [09:32:04]
+GAME 26/40 wins=15 [09:34:44]
+GAME 27/40 wins=16 [09:38:25]
+GAME 28/40 wins=16 [09:43:25]
+GAME 29/40 wins=16 [09:46:26]
+GAME 30/40 wins=16 [09:49:46]
+GAME 31/40 wins=17 [09:51:27]
+GAME 32/40 wins=18 [09:54:27]
+GAME 33/40 wins=18 [09:57:07]
+GAME 34/40 wins=18 [10:00:48]
+GAME 35/40 wins=19 [10:04:08]
+GAME 36/40 wins=20 [10:05:08]
+GAME 37/40 wins=21 [10:05:29]
+GAME 38/40 wins=21 [10:07:29]
+GAME 39/40 wins=22 [10:09:09]
+GAME 40/40 wins=22 [10:11:50]
+SESSION_RECORD 1 poke-env parse errors: none; revealed abilities repaired: 4
+SESSION_RECORD 1 record: 9-11-0
+SESSION_RECORD 1 win rate: 45% over 20 games
+SESSION_END 1 [10:11:50] games_done=40
+LADDER_DONE [10:12:05] games=40 wins=22
+[10-03 10:12:05] TF2_CONTINUE_END rc=0
