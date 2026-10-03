@@ -1,0 +1,9 @@
+script would change turn 1? / Blastoise's real turn 1:
+  changed Blastoise Fake Out        32 games  won 19-13 (59%)  room up 91%
+  changed Blastoise Ice Beam        17 games  won 11-6 (65%)  room up 88%
+  changed Blastoise Water Spout     42 games  won 22-20 (52%)  room up 74%
+  changed Blastoise other            9 games  won 3-6 (33%)  room up 67%
+  kept    Blastoise Fake Out        44 games  won 24-20 (55%)  room up 98%
+  kept    Blastoise Ice Beam         4 games  won 3-1 (75%)  room up 50%
+  kept    Blastoise Water Spout     43 games  won 16-27 (37%)  room up 60%
+  kept    Blastoise other            5 games  won 3-2 (60%)  room up 60%

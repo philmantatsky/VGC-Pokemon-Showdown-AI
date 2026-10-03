@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## Research while the battery runs: what the turn-1 script can and cannot fix in our own ladder history (2026-October 3, 10:50)
+
+`results_analysis/turn1_script_20261003/` (turn1_history, room_failures, script_audit,
+script_split; .py + .txt), over our 196 T6-era ladder games that led Blastoise +
+Farigiraf (free wins excluded):
+- **Blastoise's turn 1 there:** Water Spout 85 (won 45%), Fake Out 75-76 (56%), Ice Beam
+  21 (67%). The current brain Fakes Out much less: 3/24, 7/29, 7/28 in the last three
+  reads (earlier reads 7/12-9/14).
+- **Our Trick Room went up on turn 1** in 95% of Fake Out games, 67% of Water Spout
+  games; room-up games won 55%, the rest 37%. Water Spout failures: Imprison 10, their
+  own Trick Room 8, Farigiraf knocked out before moving 5, flinch 2.
+- **But the Fake Out vs Water Spout gap is mostly confounding.** The Imprison users were
+  Indeedee 10 (Psychic Terrain), Farigiraf (Armor Tail), Gengar (Ghost), Oranguru
+  (Inner Focus): Fake Out cannot touch any of them, so those games are Water Spout
+  games by necessity. Replaying the script on the real turn-1 positions (with the
+  usage prior on, as on ladder; it correctly skips an opposing Farigiraf): it changes
+  turn 1 in **100 of 198** Water-lead games; the Water Spout games it would change won
+  **52%** (room up 74%) vs 55% (98%) where the bot already Faked Out the scripted
+  target; the Water Spout games it would NOT change (no reachable foe) won **37%**
+  (room up 60%). Of the 43 failed rooms the script changes turn 1 in 19 (Imprison 2 of
+  13).
+- **Expectation for the A/B:** a higher room-up rate in the games it changes, a small
+  win-rate effect (a few points at most) -- below what 80 ladder games can see. The
+  untouched hole is the Fake-Out-proof Trick Room leads (Indeedee / Psychic Terrain,
+  Farigiraf, Ghosts): 43 games at 37%.
+
 ## Pre-registered: the experts' turn 1 alone -- the Water Room turn-1 script on our usual preview; battery, then an alternating ladder A/B if it holds up (2026-October 3, 10:40)
 
 Under the user's delegation ("try new things"; "run ladder if tests are good"), the

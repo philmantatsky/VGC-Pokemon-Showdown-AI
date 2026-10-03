@@ -1,0 +1,24 @@
+all Blastoise + Farigiraf    196 games  won 101-95  ( 52%)  room on t1  82%  Farigiraf down t1-2  18%  Blastoise down t1-2  27%
+  Blastoise t1: Water Spout   85 games  won  38-47  ( 45%)  room on t1  71%  Farigiraf down t1-2  20%  Blastoise down t1-2  28%
+  Blastoise t1: Fake Out      75 games  won  42-33  ( 56%)  room on t1  96%  Farigiraf down t1-2  17%  Blastoise down t1-2  19%
+  Blastoise t1: Ice Beam      21 games  won  14-7   ( 67%)  room on t1  86%  Farigiraf down t1-2  10%  Blastoise down t1-2  14%
+  Blastoise t1: (none)        14 games  won   7-7   ( 50%)  room on t1  79%  Farigiraf down t1-2  14%  Blastoise down t1-2  79%
+  Blastoise t1: Water Pulse    1 games  won   0-1   (  0%)  room on t1   0%  Farigiraf down t1-2 100%  Blastoise down t1-2   0%
+  Fake Out that flinched      65 games  won  36-29  ( 55%)  room on t1  97%  Farigiraf down t1-2  15%  Blastoise down t1-2  18%
+  room up on turn 1          161 games  won  88-73  ( 55%)  room on t1 100%  Farigiraf down t1-2  15%  Blastoise down t1-2  25%
+  room not up on turn 1       35 games  won  13-22  ( 37%)  room on t1   0%  Farigiraf down t1-2  31%  Blastoise down t1-2  31%
+
+per ladder read (Fake Out share of Blastoise's turn 1, record):
+  T6tac_review_guards                          Fake Out  3/24  won 12-12
+  T6tac_threat_first                           Fake Out  7/29  won 12-17
+  T6tac_threat_first2                          Fake Out  7/28  won 18-10
+  deployed_T6_humanpreview1                    Fake Out  0/3   won 2-1
+  deployed_T6_humanpreview1_attackcheck        Fake Out  7/16  won 8-8
+  deployed_T6_humanpreview1_throatchop         Fake Out  8/12  won 6-6
+  deployed_T6_humanpreview1_wideguard          Fake Out  7/12  won 8-4
+  deployed_T6ctx                               Fake Out  4/11  won 6-5
+  deployed_T6tac                               Fake Out  5/11  won 5-6
+  deployed_T6tac_playbook_t6                   Fake Out  9/14  won 10-4
+  practice1_water_t6                           Fake Out 12/14  won 5-9
+  t6m1                                         Fake Out  5/13  won 5-8
+  tactical2_e4                                 Fake Out  1/9   won 4-5

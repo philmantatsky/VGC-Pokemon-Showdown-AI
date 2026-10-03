@@ -1,0 +1,57 @@
+{'games': 198, 'script has a Fake Out step': 145, 'script changes turn 1': 100, 'room up': 155}
+
+room not up, by reason: games / the script has a Fake Out step / it changes turn 1
+  Farigiraf could not move: move: Imprison    13   2   2
+  Farigiraf fainted before moving              7   6   6
+  theirs reversed ours                         7   2   1
+  their Trick Room (ours not set)              7   3   3
+  Farigiraf could not move: flinch             3   3   3
+  Farigiraf could not move: move: Taunt        2   2   2
+  Farigiraf could not move: ability: Armor Tail   2   1   1
+  Farigiraf could not move: slp                1   1   1
+  other                                        1   1   0
+
+examples (read, battle, reason, their leads, script Fake Out target, changed):
+   ('T6tac_review_guards', '2689053747', 'Farigiraf fainted before moving', 'tyranitar + indeedee', None, False)
+   ('T6tac_review_guards', '2689056531', 'Farigiraf could not move: flinch', 'rillaboom + sneasler', 'rillaboom', True)
+   ('T6tac_review_guards', '2689059647', 'Farigiraf could not move: flinch', 'hatterene + milotic', 'hatterene', True)
+   ('T6tac_review_guards', '2689061594', 'Farigiraf could not move: move: Imprison', 'garchomp + indeedee', None, False)
+   ('T6tac_review_guards', '2689122292', 'theirs reversed ours', 'squawkabilly + farigiraf', None, False)
+   ('T6tac_review_guards', '2689123783', 'theirs reversed ours', 'squawkabilly + farigiraf', None, False)
+   ('T6tac_threat_first', '2692088490', 'Farigiraf could not move: move: Taunt', 'sneasler + salamence', 'salamence', True)
+   ('T6tac_threat_first', '2692089663', 'their Trick Room (ours not set)', 'indeedeef + sneasler', None, False)
+   ('T6tac_threat_first', '2692090387', 'Farigiraf could not move: ability: Armor Tail', 'maushold + sneasler', 'maushold', True)
+   ('T6tac_threat_first', '2692099277', 'Farigiraf could not move: move: Imprison', 'meowsticf + indeedee', None, False)
+   ('T6tac_threat_first', '2692099939', 'Farigiraf fainted before moving', 'politoed + raichu', 'politoed', True)
+   ('T6tac_threat_first', '2692104863', 'Farigiraf could not move: move: Imprison', 'gardevoir + indeedeef', None, False)
+   ('T6tac_threat_first', '2692105020', 'their Trick Room (ours not set)', 'gardevoir + indeedeef', None, False)
+   ('T6tac_threat_first', '2692112149', 'Farigiraf fainted before moving', 'archaludon + politoed', 'politoed', True)
+   ('T6tac_threat_first', '2692112669', 'Farigiraf fainted before moving', 'sylveon + arcaninehisui', 'sylveon', True)
+   ('T6tac_threat_first2', '2692168656', 'Farigiraf could not move: move: Imprison', 'indeedee + sneasler', None, False)
+   ('T6tac_threat_first2', '2692173195', 'theirs reversed ours', 'hatterene + weavile', 'hatterene', True)
+   ('T6tac_threat_first2', '2692181836', 'Farigiraf could not move: slp', 'vivillon + blastoise', 'vivillon', True)
+   ('T6tac_threat_first2', '2692187150', 'Farigiraf could not move: flinch', 'toucannon + tinkaton', 'tinkaton', True)
+   ('T6tac_threat_first2', '2692196925', 'their Trick Room (ours not set)', 'indeedeef + gardevoir', None, False)
+   ('deployed_T6_humanpreview1', '2687127802', 'theirs reversed ours', 'snorlax + farigiraf', None, False)
+   ('deployed_T6_humanpreview1', '2687129903', 'theirs reversed ours', 'farigiraf + incineroar', None, False)
+   ('deployed_T6_humanpreview1_attackcheck', '2687969131', 'theirs reversed ours', 'typhlosionhisui + cofagrigus', None, False)
+   ('deployed_T6_humanpreview1_attackcheck', '2687975114', 'Farigiraf could not move: move: Imprison', 'indeedee + milotic', None, False)
+   ('deployed_T6_humanpreview1_attackcheck', '2687981024', 'their Trick Room (ours not set)', 'indeedee + clefable', None, False)
+   ('deployed_T6_humanpreview1_attackcheck', '2687984421', 'Farigiraf could not move: move: Taunt', 'sneasler + blastoise', 'blastoise', True)
+   ('deployed_T6_humanpreview1_throatchop', '2688075265', 'Farigiraf could not move: ability: Armor Tail', 'farigiraf + rillaboom', None, False)
+   ('deployed_T6_humanpreview1_wideguard', '2688265482', 'their Trick Room (ours not set)', 'sneasler + sinistcha', 'sneasler', True)
+   ('deployed_T6_humanpreview1_wideguard', '2688268597', 'Farigiraf could not move: move: Imprison', 'garchomp + indeedeef', None, False)
+   ('deployed_T6_humanpreview1_wideguard', '2688270016', 'theirs reversed ours', 'empoleon + cofagrigus', 'empoleon', False)
+   ('deployed_T6_humanpreview1_wideguard', '2688277788', 'Farigiraf fainted before moving', 'gallade + rillaboom', 'gallade', True)
+   ('deployed_T6ctx', '2688393921', 'their Trick Room (ours not set)', 'whimsicott + staraptor', 'whimsicott', True)
+   ('deployed_T6ctx', '2688401033', 'Farigiraf could not move: move: Imprison', 'pincurchin + oranguru', 'oranguru', True)
+   ('deployed_T6ctx', '2688402099', 'their Trick Room (ours not set)', 'sinistcha + milotic', 'milotic', True)
+   ('deployed_T6ctx', '2688403770', 'Farigiraf could not move: move: Imprison', 'indeedeef + gardevoir', None, False)
+   ('deployed_T6tac', '2688478153', 'Farigiraf fainted before moving', 'absol + vanilluxe', 'absol', True)
+   ('deployed_T6tac_playbook_t6', '2688580759', 'Farigiraf could not move: move: Imprison', 'sneasler + indeedeef', None, False)
+   ('deployed_T6tac_playbook_t6', '2688582948', 'Farigiraf could not move: move: Imprison', 'indeedeef + lycanrocdusk', None, False)
+   ('practice1_water_t6', '2688866857', 'other', 'arcaninehisui + raichu', 'raichu', False)
+   ('t6m1', '2692003258', 'Farigiraf fainted before moving', 'armarouge + torkoal', 'armarouge', True)
+   ('t6m1', '2692007492', 'Farigiraf could not move: move: Imprison', 'raichu + farigiraf', None, False)
+   ('tactical2_e4', '2689018520', 'Farigiraf could not move: move: Imprison', 'gengar + raichu', 'raichu', True)
+   ('tactical2_e4', '2689026409', 'Farigiraf could not move: move: Imprison', 'indeedee + delphox', None, False)
