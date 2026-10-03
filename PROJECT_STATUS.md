@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## threat_first2 passes (battery +0.44pp); its ladder continuation pre-registered; doomed_switch's battery running badly (2026-October 3, 08:00)
+
+- **threat_first2:** mirror 49.9% [47.7, 52.1]; battery **+0.44pp [-0.39, +1.26]**, worst
+  population -1.5pp, 0 errors in 6,204 games, 583 changes in 128 of 564 cells -- cells
+  where it fired **+1.49pp**, where it did not +0.13pp, cells with 3+ changes +0.67pp
+  (threat_first by the same split: -0.30 / -0.04 / +0.00). Gate: **PASS** -> 20 ladder
+  games next (`tools/guard_round2_ladder.sh`).
+- **Fixed now, before its first ladder game:** continue threat_first2's trial to 40
+  games unless it wins 6 or fewer of the first 20 (`tools/threat_first2_continue.sh`),
+  as threat_first's rule.
+- **doomed_switch:** mirror 49.4% [47.2, 51.5]; battery so far human_new -1.2pp,
+  **frozen -5.0pp** (160 / 321 changes per 1,034 games) -- likely to fail the -3pp
+  floor; read when complete.
+
 ## Round 2 ladder step pre-registered (2026-October 3, 06:30)
 
 Before any round-2 battery result exists: each round-2 guard that passes the gate
