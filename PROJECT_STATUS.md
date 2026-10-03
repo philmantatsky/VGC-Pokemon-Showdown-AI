@@ -1,5 +1,38 @@
 # VGC Bot Project Status
 
+## threat_first: a guard against losing a Pokemon early, built and pre-registered; test-and-ladder chain started (2026-October 3, 03:30)
+
+The user: "yes build the guard and test it, then run ladder if tests are good.
+operate on your own until i give next instructions in about 8 hours".
+- **The guard** (`vgc_bench/src/threat_first.py`, registered opt-in in guards.py after
+  `drop_free_finish`; 6 tests in `unit_tests/test_threat_first.py`): when a foe can
+  knock out one of our active Pokemon this turn (its best likely move, revealed plus
+  the most-used set, KOs from our current HP with >= 50% of the roll, accuracy
+  included), and the top pair does not already answer it (an attack that knocks it out
+  first, a Fake Out on it, or the threatened Pokemon Protecting or switching), it
+  promotes the best-ranked pair that keeps the partner's action and replaces one of
+  our plain attacks with an attack of the same Pokemon (same Mega/Tera) that knocks the
+  threat out (>= 85%, a likely Focus Sash at full HP excluded) before the threat's
+  move: higher priority, or certainly faster (certainly slower under Trick Room) over
+  every Champions build of the foe, its possible Mega and a possible Choice Scarf.
+- **Replayed over 1,131 logged ladder decisions** (`results_analysis/threat_first_20261003/
+  firing_audit.py`): the first version moved attacks onto the wrong foe when two foes
+  threatened the same Pokemon, so it now acts only when removing the threat saves the
+  Pokemon, and never moves a single-target attack off a foe that is itself a threat. It
+  then fires on 11 decisions (1.0%), all sensible: Water Spout -> Ice Beam into
+  Rillaboom / Salamence / Serperior, Water Pulse into Gengar / Raichu / Aerodactyl /
+  Glimmora, Farigiraf's Psychic onto a Hisuian Arcanine about to KO it.
+- **Fixed before running** (`tools/threat_first_chain.sh`, gate
+  `evaluation/guard_ladder_gate.py`): mirror `mirror_guard_ab.py --guard threat_first
+  --games 2000` (side A adds the guard to the deployed bot); battery `run_guard_ab.py
+  --guards threat_first --without-arm results_guard_ab_review_guards_0928` (the deployed
+  bot with its 11 guards, 6,204 held-out games). **"Tests are good" = the battery
+  deploy-eligible (pooled upper bound >= 0, no population below -3pp) AND the mirror not
+  lost (upper bound >= 50%) AND guard errors <= 1% of games** -- the review guards' rule.
+  Then a serial ladder trial (`TRIAL_GUARDS=threat_first`, `ladder_replays_mc_T6tac_threat_first`):
+  20 games, continued to 40 unless it wins 6 or fewer. Records reported with free wins
+  excluded. No promotion by me.
+
 ## Losing a Pokemon first: when and how (analysis for the user's question, 2026-October 3)
 
 The user: "what do u think for the losing a pokemon problem". Analysis only, the 236

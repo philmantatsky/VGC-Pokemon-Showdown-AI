@@ -140,6 +140,8 @@
   Candidate `results_tactical_t6m1/sft/tactical_e4.zip` kept.
 - [x] T6m ladder trial at the user's word (2026-10-02): 6-9 over 15 (7-9 over 16, the
   restart added one game); Charizard never brought. No case for T6m over T6.
+- [ ] threat_first (2026-10-03, the user's word): built, pre-registered, chain running
+  (`tools/threat_first_chain.sh`): mirror + battery -> ladder trial 20/40 if good.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a

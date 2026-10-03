@@ -3115,6 +3115,17 @@ def guard_wide_guard(battle, cands, report) -> list[Candidate]:
     return wide_guard(battle, cands, report)
 
 
+def guard_threat_first(battle, cands, report) -> list[Candidate]:
+    """Opt-in: knock out the foe that threatens to knock out one of ours this turn.
+
+    Lives in threat_first.py (it needs the tempo reranker's speed model, which
+    imports this module); imported lazily to avoid the cycle.
+    """
+    from vgc_bench.src.threat_first import guard_threat_first as threat_first
+
+    return threat_first(battle, cands, report)
+
+
 def guard_playbook_opening(battle, cands, report) -> list[Candidate]:
     """Opt-in: play the chosen plan card's turn-1 script (the playbook handoff).
 
@@ -3176,6 +3187,7 @@ GUARDS = {
     "dominated_throat_chop": guard_dominated_throat_chop,
     "dominated_spread": guard_dominated_spread,
     "drop_free_finish": guard_drop_free_finish,
+    "threat_first": guard_threat_first,
     "fake_out_partner_acts": guard_fake_out_partner_acts,
     "switch_the_crippled": guard_switch_the_crippled,
     "focus_boosted": guard_focus_boosted,
@@ -3250,6 +3262,7 @@ GUARD_ORDER = (
     "dominated_throat_chop",
     "dominated_spread",
     "drop_free_finish",
+    "threat_first",
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",
