@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## The turn-1 script alone is NEUTRAL locally and fails the pre-registered floor (human_new -3.6pp) -> no ladder A/B; not recommended (2026-October 3, 11:30)
+
+`results_guard_ab_turn1_script` (the deployed bot + the Water Room turn-1 script on our
+own preview, `playbook_script_only`; vs `results_guard_ab_review_guards_0928`):
+- **Pooled -0.26pp [-1.43, +0.97]**; human_new **-3.58**, frozen -2.13, rotation1 -0.58,
+  rotation2 +1.45, human_previous -0.97, heuristic **+4.26**. It changed turn 1 in
+  **3,293 of 6,204 games (53%)**, 0 playbook / preview errors. Gate (10:40 rules):
+  **HOLD** -- a population below -3pp -> **no ladder A/B** (`TURN1_HOLD`, 11:26).
+- **Split** (`results_analysis/turn1_script_20261003/battery_split.py|txt`): the cells
+  where it changed turn 1 -0.11pp [-2.10, +1.85], where it never did -0.46; the other-
+  lead cells (identical bots on both sides, an A/A check) -0.66 [-2.84, +1.42]. By
+  population in the Blastoise + Farigiraf cells: heuristic +4.55 [+2.21, +6.99], the
+  human-clone populations human_new -4.08 / human_previous -0.47. Early in the run the
+  changed cells were worst against Tailwind (-14pp, 14 cells) and Trick Room archetypes
+  (-9pp): Fake Out on a Tailwind setter spends Blastoise's turn where their Tailwind
+  would not have mattered under our room (ladder history agrees, small: vs Tailwind
+  leads Blastoise's Fake Out 8-8, Ice Beam / other 12-4).
+- **Verdict:** forcing the experts' turn 1 on this brain does not help locally; with the
+  history analysis (10:50: the games it would change won 52% vs 55%, so a small effect
+  at most) I do not recommend a ladder A/B of it. The 09-27 idea stands: a turn-1 plan
+  has to be practised by the brain (plan features + a training cycle), not forced by a
+  guard. The pre-registered floor decided this read (the pooled number alone is
+  neutral); overriding it for a ladder A/B is the user's call.
+- Nothing deployed, DEPLOYED.json untouched; `playbook_script_only` stays as an option
+  (default off).
+
 ## Research while the battery runs: what the turn-1 script can and cannot fix in our own ladder history (2026-October 3, 10:50)
 
 `results_analysis/turn1_script_20261003/` (turn1_history, room_failures, script_audit,

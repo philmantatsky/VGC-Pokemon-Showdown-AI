@@ -1,0 +1,11 @@
+[10-03 10:41:24] TURN1_START
+[10-03 10:41:26] START .venv/bin/python evaluation/run_guard_ab.py --guards playbook_opening --playbook data/playbook_t6_trial.json --playbook-script-only --without-arm results_guard_ab_review_guards_0928 --output results_guard_ab_turn1_script
+[10-03 11:25:54] END rc=0
+[10-03 11:25:56] START .venv/bin/python evaluation/guard_ladder_gate.py script results_guard_ab_turn1_script 0.05
+results_guard_ab_turn1_script: pooled -0.26pp [-1.43, +0.97], worst population -3.6pp
+playbook errors: 0 in 6204 games {}
+learned_preview errors: 0 in 6204 games {}
+playbook_opening changed turn 1 in 3293 of 6204 games (53.1%)
+HOLD: battery: a population at -3.6pp (< -3pp)
+[10-03 11:25:56] END rc=3
+[10-03 11:25:56] TURN1_HOLD no ladder

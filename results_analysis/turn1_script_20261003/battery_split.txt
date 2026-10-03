@@ -1,0 +1,14 @@
+results_guard_ab_turn1_script: 564 cells
+  led Blastoise + Farigiraf    468 cells  delta -0.17pp [-1.65, +1.28]  lost a Pokemon first -0.8pp
+  other leads (A/A check)       96 cells  delta -0.66pp [-2.84, +1.42]  lost a Pokemon first -0.8pp
+  script changed turn 1        325 cells  delta -0.11pp [-2.10, +1.85]  lost a Pokemon first -1.0pp
+  script never changed it      239 cells  delta -0.46pp [-1.67, +0.76]  lost a Pokemon first -0.5pp
+  changed it 3+ times          322 cells  delta -0.03pp [-2.06, +1.95]  lost a Pokemon first -1.0pp
+
+per population, Blastoise + Farigiraf cells:
+  frozen            78 cells  delta -1.86pp [-4.66, +0.35]  lost a Pokemon first -0.7pp
+  heuristic         78 cells  delta +4.55pp [+2.21, +6.99]  lost a Pokemon first -4.3pp
+  human_new         78 cells  delta -4.08pp [-9.79, +1.17]  lost a Pokemon first +2.4pp
+  human_previous    78 cells  delta -0.47pp [-3.61, +3.03]  lost a Pokemon first -0.9pp
+  rotation1         78 cells  delta -0.70pp [-3.61, +1.98]  lost a Pokemon first -2.1pp
+  rotation2         78 cells  delta +1.52pp [-2.21, +5.36]  lost a Pokemon first +0.7pp
