@@ -1,0 +1,10 @@
+== human pilots of our six (T6-like): 37 games, won 25 (68%)
+   lost a Pokemon first: 16 (43%), won 7 of those
+   lost one first on turns 1-3: 13 (35%): {'Incineroar': 4, 'Blastoise': 3, 'Venusaur': 3, 'Charizard': 1, 'Salamence': 1}
+   switched on turn 1 or 2: 20 (54%)
+   turn-1 moves of Blastoise / Farigiraf: {'Farigiraf:Trick Room': 17, 'Blastoise:Fake Out': 8, 'Farigiraf:Helping Hand': 4, 'Blastoise:Water Spout': 2, 'Blastoise:Protect': 1}
+== our bot on T6 / T6m (ladder): 253 games, won 122 (48%)
+   lost a Pokemon first: 132 (52%), won 33 of those
+   lost one first on turns 1-3: 111 (44%): {'Blastoise': 46, 'Farigiraf': 43, 'Torkoal': 10, 'Venusaur': 6, 'Charizard': 5}
+   switched on turn 1 or 2: 105 (42%)
+   turn-1 moves of Blastoise / Farigiraf: {'Farigiraf:Trick Room': 190, 'Blastoise:Fake Out': 67, 'Blastoise:Water Spout': 61, 'Blastoise:Ice Beam': 16, 'Blastoise:Water Pulse': 1}

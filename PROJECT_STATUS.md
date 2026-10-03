@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## threat_first ladder trial: 18-22 over 40 (16-22 without 2 free wins); it fired once (correctly); research: expert pilots of our six protect Farigiraf and Fake Out on turn 1 (2026-October 3, 06:00)
+
+- **Ladder** (`ladder_replays_mc_T6tac_threat_first`, 04:05-05:56, T6tac + 11 guards +
+  threat_first): **18-22**, 2 free wins -> 16-22 (42%); the first 20 were 8-12, so it
+  continued to 40 by the pre-registered rule. We lost a Pokemon first in 21 games and won
+  3 of them. **threat_first changed 1 of 332 decisions**: turn 2 under our room,
+  Blastoise's Water Spout -> Ice Beam on a 49% Rillaboom (Farigiraf's Psychic took it to
+  8%, Ice Beam knocked it out before its Wood Hammer); that game was a win. So the read
+  is essentially the deployed bot with 11 guards (its last 40-game read: 20-17 without
+  free wins); the guard is correct but rare on ladder, and its battery was -0.10pp.
+- **Research, our ladder vs human pilots of our six** (`results_analysis/early_faints_20261003/
+  experts_vs_us.py|txt`; the 37 corpus games where a side brought >= 5 of our six, vs
+  our 253 T6-era ladder games): they win 68% (we 48%); they lose a Pokemon first 43% of
+  games (we 52%) and still win 44% of those (we 25%); they lose one on turns 1-3 in 35%
+  (we 44%) and **never Farigiraf there (0 of 13; ours 43 of 111)**; they switch on turn
+  1-2 in 54% (we 42%); their Blastoise's turn 1 is Fake Out 8 : Water Spout 2 (ours 67 :
+  61). Small human sample, but it points at the same place: protecting the setter on turn
+  1 (Fake Out the biggest threat) and switching more. A turn-1 Fake Out rule cannot be
+  judged by our mirror (the opposing Farigiraf's Armor Tail blocks Fake Out) and the
+  battery measured the playbook's turn-1 script as about neutral -- it would need ladder.
+- Round 2 (threat_first2, doomed_switch) started 05:56 (`tools/guard_round2_chain.sh`).
+
 ## threat_first passes its tests (mirror 49.7%, battery -0.10pp) -> 20-game ladder trial running; round 2 built and pre-registered: threat_first2 and doomed_switch (2026-October 3, 04:10)
 
 - **threat_first results:** mirror **49.7% [47.5, 51.9]** over 2,000 (inconclusive -- it
