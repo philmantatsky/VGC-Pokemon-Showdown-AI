@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## Ladder trial of the T6m candidate at the user's word: 15 games (2026-October 2, 22:20)
+
+The user, after the held gate: "run the ladder trial anyway with 15 games". Fixed now:
+`results_tactical_t6m1/sft/tactical_e4.zip` (sha 5c8e52b9; sidecar stamped:
+knowledge features required, team T6m) on `teams/candidates_mc/T6m.txt`, with
+everything else the deployed configuration (11 guards, the learned preview model,
+sticky corrections, Reg M-C set data) via `TRIAL_CHECKPOINT` / `TRIAL_TEAM
+tools/ladder_trial.sh 15 ladder_replays_mc_t6m1`, serial, under caffeinate. It is a
+read, not a test that can settle a few points; reported with free wins (opponent
+gone by turn 1) excluded and compared with T6tac's reads (7-8; 20-17 with the
+review guards). DEPLOYED.json is not touched; promotion stays the user's call.
+
 ## T6m diagnostics: every changed configuration loses the head-to-head to T6tac on T6 by 6-9 points; T6m is not yet an improvement in our bot's hands; no ladder played (2026-October 2, 04:50)
 
 Both diagnostics ran 03:44-04:43 (`results_brainv1_t6m_practice1/diagnostics.log`;
