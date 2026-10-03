@@ -1,5 +1,37 @@
 # VGC Bot Project Status
 
+## Pre-registered: the T6tac practice cycle -- one more practice round on our own team, then the tactical re-fit (2026-October 3, 13:57)
+
+The user: "add threat_first2 to official bot and do that next training". The
+remaining gap from the early-loss work is play after the first exchange (human
+pilots of our six win 44% of games where they lose a Pokemon first, we 25%), which no
+guard reaches; practice of whole games is the tool. The two latest promotions each
+came from one such round (T6ctx 59.3% vs T6hp, T6tac 58.0% vs T6ctx).
+- **Training** (`training/run_t6tac_practice_trial.py`, `results_brainv1_t6tac_practice1`):
+  the T6ctx recipe unchanged (35% human-clone games, human-model previews for both
+  sides, 50% hidden sheets, reward and shaping unchanged, held-out rosters zeroed) from
+  the deployed brain T6tac (22,118,400) on the deployed team T6: +983,040 steps
+  (-> 23,101,440), saves every 491,520.
+- **Tactical re-fit** (the T6tac recipe): `gen_tactical_data.py` on the final save's own T6
+  games (250 per cell) -> `tactical_sft.py --lessons base --lr 1e-4 --epochs 4`, the
+  lowest-cross-entropy epoch.
+- **Head-to-heads** (2,000 games each, `mirror_guard_ab.py --a-checkpoint`, both sides the
+  deployed setup with the 12 guards): the RL save and the re-fit; the battery plays
+  whichever won more.
+- **Battery** (`run_guard_ab.py --candidate --without-arm results_guard_ab_threat_first2`, the
+  deployed brain with all 12 guards).
+- **Gate** (`training/t6tac_practice_gate.py`, fixed now): "better" = head-to-head Wilson
+  lower bound > 50% (the same team on both sides, so a tie is not enough) AND the
+  battery deploy-eligible (pooled upper >= 0, no population below -3pp).
+- **Ladder only on the user's word:** if the gate passes and
+  `results_brainv1_t6tac_practice1/LADDER_OK` exists, a 15-game trial (continued to 40
+  unless it starts 4-11 or worse) -- the user had not authorized ladder for this cycle
+  when it started. **No promotion by me**; DEPLOYED.json untouched.
+- Chain: `training/t6tac_practice_chain.sh` (detached, caffeinate, ~4 hours by the T6m
+  cycle's timings). Prepared and dry-checked: league built, battery and head-to-head
+  set up against the 12-guard bot; the gate holds on the T6m cycle's results as it
+  should.
+
 ## threat_first2 DEPLOYED at the user's word (12 guards, replay tag T6tac_guards12) (2026-October 3)
 
 The user: "add threat_first2 to official bot and do that next training".
