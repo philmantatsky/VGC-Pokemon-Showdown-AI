@@ -1,5 +1,49 @@
 # VGC Bot Project Status
 
+## Pre-registered: the user's game-review requests -- three guards, open-sheet preview with late re-plan, T6e (Torkoal Earth Power); measured after the practice chain (2026-October 3, 16:03)
+
+The user, after a challenge game with open sheets (challenge_replays_mc_deployed_T6tac_guards12,
+battle 2692336128, lost to Mega Raichu Y / Sylveon / Volcarona / Rillaboom): "i need it to
+also factor in things it knows from open team sheets when it has them, and for the plan to
+change if the opponent accepts open team sheets last second", notes on turns 2, 5, 6 and 7,
+and "remove weather ball for earth power on torkoal". The decision log confirms each note:
+turn 2 Fake Out into a Raichu asleep since last turn beside a recharging Sylveon (ranked 19%
+vs Flare Blitz 16%); turn 5 Venusaur had picked Sludge Bomb on Volcarona (Sleep Powder not
+among its 8 ranked pairs); turn 6 Throat Chop (23%) kept by dominated_throat_chop because
+Volcarona's sheet shows Bug Buzz, the switch to Torkoal ranked 4th (9%); turn 7 Eruption
+(36%) over Heat Wave (12%), which would have knocked out both foes.
+- **Built** (`vgc_bench/src/game_review_1003.py`, tests rebuilt from the game's turns):
+  `wasted_fake_out` (a foe that must recharge, or fell asleep and has not failed a move
+  attempt yet, cannot act -- Champions sleep lasts 2-3 attempts -- so Fake Out gives way to
+  the strongest attack), `throat_chop_main_threat` (the sound block counts only when a sound
+  move is the target's strongest attack on our side, or Parting Shot / Perish Song),
+  `hp_move_after_hits` (Eruption / Water Spout re-scored at the HP left after the foes that
+  move first: a certain order fully, an uncertain one half; spread hits fully, single-target
+  half). Not built yet: the turn-6 sun reset (switch Torkoal in so Chlorophyll outspeeds),
+  a three-step plan.
+- **Built** (`vgc_bench/src/sheet_preview.py`, `PolicyPlayer(sheet_preview=True)`): with their
+  open sheet, the preview model's top 6 plans are re-scored by a turn-1 damage race (with
+  Fake Out and Wide Guard) computed with their sheet's sets MINUS the same race with their
+  species' usual sets (2.0 log-probability per unit of HP), so only what the sheet adds can
+  move a plan; their sheet is written to the decision log. A sheet that arrives after our
+  preview went out on the 20 s wait re-plans and resends a changed `/team` (Showdown
+  replaces a choice until both players have chosen; a late sheet means they have not).
+  Switch: `--sheet-preview`, DEPLOYED.json `sheet_preview` -> the launchers. Default off.
+- **Built:** `teams/candidates_mc/T6e.txt` = T6 with Torkoal Earth Power for Weather Ball
+  (validator passes; manifest entry; `data/opening_plans_t6e.json`).
+- **Measured after the T6tac practice chain** (`tools/review1003_chain.sh`; readings fixed now
+  in `evaluation/review1003_gate.py`):
+  1. the three guards together: 2,000-game mirror + battery vs `results_guard_ab_threat_first2`
+     (the deployed bot, 12 guards). PASS = battery deploy-eligible (pooled upper >= 0, no
+     population below -3pp), mirror upper >= 50%, each guard's errors <= 1%.
+  2. T6e on the deployed brain, unpractised: head-to-head vs the same brain on T6 + battery.
+     PASS (switch now) = battery deploy-eligible AND head-to-head upper >= 50%; else T6e needs
+     a practice round first (the T6m lesson: changed moves cost an unpractised brain).
+  3. the open-sheet preview: battery. PASS = deploy-eligible and preview errors <= 1%;
+     descriptive: open- vs hidden-sheet halves (the hidden half cannot change), how often
+     the plan changed.
+- Deployment is the user's call for each; DEPLOYED.json untouched.
+
 ## Pre-registered: the T6tac practice cycle -- one more practice round on our own team, then the tactical re-fit (2026-October 3, 13:57)
 
 The user: "add threat_first2 to official bot and do that next training". The
