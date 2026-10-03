@@ -1,5 +1,24 @@
 # VGC Bot Project Status
 
+## The T6tac practice cycle FAILS its gate: head-to-head 37.2% / 35.2% vs the deployed bot; battery about neutral (2026-October 3, 18:05)
+
+`training/t6tac_practice_chain.sh` (the user: "do that next training"):
+- **RL save 23,101,440** (T6tac + 983,040 steps of the T6ctx recipe on T6): head-to-head vs the
+  deployed bot (12 guards both sides) **35.2% [33.1, 37.3]**.
+- **Tactical re-fit** (`results_tactical_t6tacp1/sft/tactical_e4.zip`): **37.2% [35.2, 39.4]** ->
+  picked for the battery: **pooled +0.03pp [-0.97, +1.06]** (human_new -0.58, frozen -0.68,
+  rotation1 +1.16, rotation2 +1.45, human_previous -1.06, heuristic -0.10).
+- **Gate: HOLD** (head-to-head not won) -> no ladder, nothing deployed. The chain's idle() before
+  its gate waited on the challenge listener (a ladder_ourteam process the user asked for);
+  stopped by hand at 18:01 and the gate read by hand (logged in its chain.log).
+- **Reading:** practice from the tactical fine-tune washes out what the fine-tune taught: T6tac
+  beat T6ctx 58.0% after one re-fit; 983,040 more RL steps give a brain that wins only 35% against
+  T6tac, and a second re-fit on its own games wins back 2 points. T6m's cycle had the same shape
+  (39.7% -> 43.8%). Against the battery's bots the brains are even, so the loss is in the close,
+  same-team games the head-to-head measures. A next practice cycle should keep the tactical lessons
+  inside training (e.g. an auxiliary loss toward the tactical teacher), not re-fit afterwards --
+  the user's call.
+
 ## Pre-registered: the user's game-review requests -- three guards, open-sheet preview with late re-plan, T6e (Torkoal Earth Power); measured after the practice chain (2026-October 3, 16:03)
 
 The user, after a challenge game with open sheets (challenge_replays_mc_deployed_T6tac_guards12,
