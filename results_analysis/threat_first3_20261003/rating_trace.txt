@@ -1,0 +1,24 @@
+391 Reg M-C ladder games with our rating shown
+games    1-  20: 1000 -> 1099  won 11-9  guards3_20260909
+games   21-  40: 1121 -> 1174  won 11-9  brainv1spec_T4_20260920, guards3_20260909
+games   41-  60: 1195 -> 1270  won 12-8  brainv1spec_T4_20260920
+games   61-  80: 1299 -> 1215  won 8-12  brainv1spec_T4_20260920, deployed_T6
+games   81- 100: 1239 -> 1207  won 9-11  deployed_T6
+games  101- 120: 1184 -> 1064  won 6-14  deployed_T6
+games  121- 140: 1047 -> 1116  won 12-8  deployed_T6, deployed_T6_humanpreview1, deployed_T6_humanpreview1_attackcheck
+games  141- 160: 1147 -> 1127  won 9-11  deployed_T6_humanpreview1_attackcheck, deployed_T6_humanpreview1_throatchop
+games  161- 180: 1099 -> 1194  won 12-8  deployed_T6_humanpreview1_throatchop, deployed_T6_humanpreview1_wideguard
+games  181- 200: 1219 -> 1138  won 8-12  deployed_T6ctx, deployed_T6tac
+games  201- 220: 1119 -> 1142  won 11-9  deployed_T6tac, deployed_T6tac_playbook_t6
+games  221- 240: 1163 -> 1211  won 11-9  deployed_T6tac_playbook_t6, practice1_water_t6
+games  241- 260: 1192 -> 1110  won 8-12  T6tac_review_guards, tactical2_e4
+games  261- 280: 1081 -> 1234  won 13-7  T6tac_review_guards
+games  281- 300: 1212 -> 1237  won 10-10  T6tac_review_guards, t6m1
+games  301- 320: 1213 -> 1278  won 11-9  T6tac_threat_first, t6m1
+games  321- 340: 1259 -> 1103  won 7-13  T6tac_threat_first
+games  341- 360: 1132 -> 1260  won 12-8  T6tac_threat_first, T6tac_threat_first2
+games  361- 380: 1243 -> 1259  won 10-10  T6tac_threat_first2
+games  381- 391: 1236 -> 1289  won 6-5  T6tac_threat_first2
+peak 1353 at game 288 (T6tac_review_guards)
+peak 1339 at game 373 (T6tac_threat_first2)
+peak 1338 at game 287 (T6tac_review_guards)

@@ -1,5 +1,15 @@
 # VGC Bot Project Status
 
+## Rating check: the T6tac era holds the account's Reg M-C highs -- peak 1353 (09-28), 1339 this morning (2026-October 3, 12:10)
+
+`results_analysis/threat_first3_20261003/rating_trace.py|txt` (our rating at the start
+of each of 391 saved Reg M-C ladder games): **peak 1353** at game 288 (T6tac + the
+review guards, 09-28) and **1339** at game 373 (T6tac + 11 guards + threat_first2, this
+morning); latest 1289 before the last game (a loss). Earlier highs: T4 1321 (09-20),
+T6ctx 1282, T6hp 1239. Within any 20 games the rating swings 50-150 points, so this
+is a level, not a trend; but the deployed configuration plays at the account's best
+Reg M-C level so far.
+
 ## Research: how far a threat guard can reach -- the knockout threat is seen in 63% of early first faints, but an answer exists in ~2% of games (2026-October 3, 12:00)
 
 `results_analysis/threat_first3_20261003/` (likely_set_audit, fake_out_reach; .py +
