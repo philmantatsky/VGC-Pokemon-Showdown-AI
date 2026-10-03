@@ -146,7 +146,8 @@
 - [x] Round 2: threat_first2 PASSES (mirror 49.9%, battery +0.44pp [-0.39, +1.26],
   +1.49pp where it fired) -> ladder 22-18 over 40 (3 changes in 345 decisions);
   doomed_switch FAILS (battery -2.97pp [-4.37, -1.74]) -> dropped.
-- [ ] Add threat_first2 to `guards_extra` (supersedes threat_first): the user's call.
+- [x] threat_first2 added to `guards_extra` at the user's word (2026-10-03; 12 guards,
+  replay tag T6tac_guards12).
 - [x] Turn-1 play (the early-loss lever): the Water Room turn-1 script alone on our
   usual preview (`playbook_script_only`, 2026-10-03): battery pooled -0.26pp [-1.43,
   +0.97], human_new -3.58 -> HOLD by the pre-registered floor, no ladder A/B; changed

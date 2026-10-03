@@ -7,7 +7,7 @@
   "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
   "reg": "mc",
   "format": "gen9championsvgc2026regmc",
-  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled",
+  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled,threat_first2",
   "knowledge_obs": true,
   "search": false,
   "set_prior_reg": "mc",
@@ -16,7 +16,7 @@
   "preview_model": "data/preview_t6_focus_20260923.pt",
   "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
   "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
-  "replay_tag": "T6tac_guards11",
+  "replay_tag": "T6tac_guards12",
   "sticky_guard_corrections": true
  },
  "promoted_at": "2026-09-27T01:59:32+00:00",
@@ -105,6 +105,17 @@
    "by": "user 2026-10-01: 'add the guards to the bot and start the practice run'",
    "evidence": "results_guard_ab_review_guards_0928: pooled +0.26pp [-0.53, +1.03] over 6,204 held-out games, deploy-eligible by the pre-registered rule (they fired 306 times); mirror inconclusive (they never fire against our own team); ladder trial T6tac + the three guards 23-17 over 40 serial games (20-17 without free wins; they changed 3 decisions); tests unit_tests/test_review_guards_0928.py rebuilt from the reviewed game's turns",
    "ladder_so_far": "T6tac with the 8 guards: 7-8 over 15 (ladder_replays_mc_deployed_T6tac); trial reads 10-4 (+ Water Room playbook) and 20-17 (+ these three guards), free wins excluded"
+  },
+  {
+   "at": "2026-10-03T18:54:14+00:00",
+   "change": "guards_extra += threat_first2 (knock out, or Fake Out on its first turn, a foe that threatens to KO one of ours before it moves; counts the foe's likely Mega forme); replay_tag T6tac_guards11 -> T6tac_guards12 (fresh single-config replay dirs)",
+   "previous": {
+    "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled",
+    "replay_tag": "T6tac_guards11"
+   },
+   "by": "user 2026-10-03: 'add threat_first2 to official bot and do that next training'",
+   "evidence": "results_guard_ab_threat_first2: pooled +0.44pp [-0.39, +1.26] over 6,204 held-out games, deploy-eligible by the pre-registered rule (worst population -1.5pp, 0 errors; +1.49pp in the cells where it acted); mirror 49.9% [47.7, 52.1] over 2,000 (it rarely fires against our own team); ladder trial T6tac + 11 guards + threat_first2 22-18 over 40 serial games (no free wins; it changed 3 of 345 decisions, each the intended answer); tests unit_tests/test_threat_first2.py",
+   "ladder_so_far": "T6tac + 11 guards: 20-17 (review-guards trial, free wins excluded), 16-22 (+ threat_first), 22-18 (+ threat_first2); account Reg M-C peak 1353 (09-28) and 1339 (10-03 trial)"
   }
  ]
 }

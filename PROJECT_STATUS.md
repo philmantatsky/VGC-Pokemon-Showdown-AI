@@ -1,5 +1,17 @@
 # VGC Bot Project Status
 
+## threat_first2 DEPLOYED at the user's word (12 guards, replay tag T6tac_guards12) (2026-October 3)
+
+The user: "add threat_first2 to official bot and do that next training".
+`results_deployed/DEPLOYED.json`: `guards_extra` += `threat_first2`, `replay_tag`
+T6tac_guards11 -> **T6tac_guards12** (fresh single-config replay dirs), amendment
+recorded with the evidence (battery +0.44pp [-0.39, +1.26], +1.49pp where it acted;
+mirror 49.9%; ladder trial 22-18 over 40, 3 changes in 345 decisions). Brain, team,
+preview model and sticky corrections unchanged. `tools/deployed_config.py` verifies;
+the deployed-config / launcher tests pass. Later guard A/Bs reuse
+`results_guard_ab_threat_first2` as their without side (its guards are now all
+deployed).
+
 ## Rating check: the T6tac era holds the account's Reg M-C highs -- peak 1353 (09-28), 1339 this morning (2026-October 3, 12:10)
 
 `results_analysis/threat_first3_20261003/rating_trace.py|txt` (our rating at the start
