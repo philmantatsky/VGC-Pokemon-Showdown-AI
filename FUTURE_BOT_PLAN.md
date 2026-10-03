@@ -138,8 +138,10 @@
   ladder. Diagnostics: T6tac itself on T6m 41.0%, the candidate on T6 41.0% -> each
   brain is best on its practised team and T6 still wins the close games.
   Candidate `results_tactical_t6m1/sft/tactical_e4.zip` kept.
+- [x] T6m ladder trial at the user's word (2026-10-02): 6-9 over 15 (7-9 over 16, the
+  restart added one game); Charizard never brought. No case for T6m over T6.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
-  unpractised 41.0% baseline and reach 50%), a ladder trial anyway, or drop T6m.
+  unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
   training cycle that practises each card's opening, so the brain plays the plan
   instead of a guard forcing turn 1.

@@ -1,5 +1,28 @@
 # VGC Bot Project Status
 
+## Ladder trial of the T6m candidate: 6-9 over the 15 games asked for (7-9 over 16: the restart played one extra); no case for T6m over T6 (2026-October 2, 23:10)
+
+`ladder_replays_mc_t6m1`, 22:17-23:06, serial; the configuration as fixed at 22:20.
+- **Record: 6-9 over the user's 15** (7-9 over all 16); no free wins -- 5 of the 6
+  wins were opponents quitting from behind at turns 2-5. Opponents median 1177
+  (1098-1313). T6tac's reads: 7-8 alone, 20-17 with the review guards (free wins
+  excluded). 15 games cannot resolve a few points either way.
+- **What happened to the run:** the app stopped the first session after 8 games (its
+  background time limit); relaunched detached, the read loop continued from the
+  saved games. Game 9 straddled the restart (disconnected at turn 4, reconnected with
+  40 s to spare) and was already lost on turn 3 -- Indeedee-F's Trick put a Choice
+  item on Farigiraf, whose locked second Trick Room cancelled our own room. The
+  resumed session finished that game and still played its 7, so a 16th game (a win)
+  was played beyond the 15.
+- **T6m's changes in play:** Charizard was never brought, so Weather Ball on it went
+  untested; Torkoal used Eruption 18 times, Weather Ball 7, Earth Power 5 (into
+  Incineroar and Armarouge, both 2x), Protect 4. Sand teams met once (a win), rain
+  twice (1-1). When the opponent lost a Pokemon first we won 6 of 8; when we did,
+  0 of 7.
+- **Reading:** together with the local evidence (battery level with T6tac, the close
+  games 6 points behind), nothing argues for T6m over T6. DEPLOYED.json unchanged
+  (T6tac on T6 with 11 guards); the T6m candidate stays a candidate.
+
 ## Ladder trial of the T6m candidate at the user's word: 15 games (2026-October 2, 22:20)
 
 The user, after the held gate: "run the ladder trial anyway with 15 games". Fixed now:
