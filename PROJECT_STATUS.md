@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## Overnight summary (the user's 8-hour delegation): threat_first2 is the keeper (battery +0.44pp, ladder 22-18); doomed_switch dropped; the guards fire rarely on ladder -- the early-loss lever is turn-1 play (2026-October 3, 10:15)
+
+- **threat_first2 ladder trial** (`ladder_replays_mc_T6tac_threat_first2`, 08:25-10:12, T6tac
+  + 11 guards + threat_first2; 40 games by the pre-registered continuation): **22-18**,
+  no free wins (first 20: 13-7). We lost a Pokemon first in 17 games and won 3. It
+  changed **3 of 345 decisions** -- the turn-1 Fake Out onto a Rillaboom about to knock
+  out Blastoise (it flinched, the room went up; that game was lost later) and two others.
+- **threat_first ladder trial** (earlier tonight): 18-22 (16-22 without 2 free wins),
+  1 change in 332 decisions (Ice Beam on a 49% Rillaboom under our room; a win).
+- Together the two reads are essentially the deployed bot with its 11 guards: 40-40
+  over 80 games (38-40 without free wins). Neither guard fires often enough on ladder for
+  40 games to see it; the evidence for threat_first2 is local -- battery +0.44pp
+  [-0.39, +1.26], +1.49pp in the cells where it acted -- and every ladder change it
+  made was the intended one.
+- **Verdicts:** threat_first2 passes every gate and supersedes threat_first ->
+  recommended for `guards_extra` (the user's call). doomed_switch failed its battery
+  (-2.97pp [-4.37, -1.74]) -> dropped.
+- **Where early losses really come from:** guards act on a few percent of decisions,
+  while we lose a Pokemon first in about half our games and win a fifth of those. The
+  expert pilots of our six differ in turn-1 play (Blastoise Fake Out : Water Spout = 4 :
+  1, ours 1 : 1; Farigiraf never lost early). The one configuration that forced a turn-1
+  Fake Out + Trick Room script on ladder (T6tac + the Water Room playbook, 2026-09-27)
+  went 10-4 without free wins. Next lever (the user's call): a 40-game ladder A/B of
+  that turn-1 script against the plain deployed bot -- our local instruments cannot
+  judge it (the mirror's Armor Tail blocks Fake Out; the battery field is too weak).
+
 ## doomed_switch FAILS its battery (-2.97pp [-4.37, -1.74]) -> no ladder; threat_first2's 20-game ladder trial started (2026-October 3, 08:25)
 
 - **doomed_switch:** mirror 49.4% [47.2, 51.5]; battery **-2.97pp [-4.37, -1.74]**

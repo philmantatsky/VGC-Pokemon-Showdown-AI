@@ -144,8 +144,11 @@
   [-0.68, +0.48] -> ladder trial 18-22 (16-22 w/o free wins); fired once in 332
   ladder decisions (correctly). Correct but rare; promotion is the user's call.
 - [x] Round 2: threat_first2 PASSES (mirror 49.9%, battery +0.44pp [-0.39, +1.26],
-  +1.49pp where it fired) -> ladder trial running; doomed_switch FAILS (battery -2.97pp
-  [-4.37, -1.74]) -> dropped.
+  +1.49pp where it fired) -> ladder 22-18 over 40 (3 changes in 345 decisions);
+  doomed_switch FAILS (battery -2.97pp [-4.37, -1.74]) -> dropped.
+- [ ] Add threat_first2 to `guards_extra` (supersedes threat_first): the user's call.
+- [ ] Turn-1 play (the early-loss lever): a 40-game ladder A/B of the Water Room
+  turn-1 script (Mega + Fake Out the threat + Trick Room) vs the plain deployed bot.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
