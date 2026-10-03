@@ -67,3 +67,11 @@ def test_rejoin_rejects_other_formats():
     agent: Any = SimpleNamespace()
     with pytest.raises(ValueError, match="Reg M-C"):
         asyncio.run(_rejoin_active_battle_in_loop(agent, "battle-gen9randombattle-1"))
+
+
+def test_challenge_launcher_refuses_heavy_jobs_unless_overridden():
+    """ALLOW_HEAVY=1 (2026-10-03): unranked challenges may share the machine with
+    training; without it the launcher still refuses."""
+    text = SCRIPT.read_text()
+    assert 'if [ "${ALLOW_HEAVY:-}" = 1 ]; then' in text
+    assert "CHALLENGE_REFUSED a heavy local job is running" in text

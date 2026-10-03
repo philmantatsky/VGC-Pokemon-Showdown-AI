@@ -2,8 +2,9 @@
 # Accept direct Pokemon Showdown challenges using the immutable deployed Reg M-C
 # configuration. These are unranked challenge battles, not ladder matchmaking.
 #
-# Usage: tools/challenges_deployed.sh [n_challenges] [replay_dir] [rejoin_battle]
+# Usage: [ALLOW_HEAVY=1] tools/challenges_deployed.sh [n_challenges] [replay_dir] [rejoin_battle]
 # Defaults to a long-lived 1000-challenge listener. Stop it normally with Ctrl-C.
+# It refuses while a heavy local job runs unless ALLOW_HEAVY=1.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -35,10 +36,16 @@ DIR=${DIR_ARG:-challenge_replays_mc_deployed_$REPLAY_TAG}
 }
 
 HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|run_t6_confirmation|run_t6_vs_deployed|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab'
-pgrep -f "$HEAVY" >/dev/null 2>&1 && {
-  echo "CHALLENGE_REFUSED a heavy local job is running"
-  exit 2
-}
+if pgrep -f "$HEAVY" >/dev/null 2>&1; then
+  # ALLOW_HEAVY=1 (the user's word, 2026-10-03): challenge games are unranked, so a
+  # listener may share the machine with training; its moves may come more slowly.
+  if [ "${ALLOW_HEAVY:-}" = 1 ]; then
+    echo "CHALLENGE_WARNING a heavy local job is running; ALLOW_HEAVY=1 starts the listener anyway"
+  else
+    echo "CHALLENGE_REFUSED a heavy local job is running (ALLOW_HEAVY=1 overrides)"
+    exit 2
+  fi
+fi
 pgrep -f "ladder_ourteam[.]py" >/dev/null 2>&1 && {
   echo "CHALLENGE_REFUSED another ladder/challenge session is running"
   exit 2
