@@ -20,6 +20,8 @@
 # - STICKY (env, same source): --sticky-corrections, or empty.
 # - PLAYBOOK (env, same source or tools/ladder_trial.sh): our own plan cards at
 #   team preview (--playbook data/playbook_<team>.json), or empty.
+# - PLAYBOOK_SCRIPT_ONLY (env, tools/ladder_trial.sh): non-empty adds
+#   --playbook-script-only (our usual preview; the card's turn-1 script only).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 CKPT=${1:?checkpoint}; TEAM=${2:?team file}; N=${3:?total games}; DIR=${4:?replay dir}
@@ -48,6 +50,9 @@ PLAYBOOK_ARGS=()
 if [ -n "${PLAYBOOK:-}" ]; then
   [ -f "$PLAYBOOK" ] || { echo "LADDER_REFUSED [$(stamp)] missing playbook $PLAYBOOK"; exit 2; }
   PLAYBOOK_ARGS=(--playbook "$PLAYBOOK")
+  [ -n "${PLAYBOOK_SCRIPT_ONLY:-}" ] && PLAYBOOK_ARGS+=(--playbook-script-only)
+elif [ -n "${PLAYBOOK_SCRIPT_ONLY:-}" ]; then
+  echo "LADDER_REFUSED [$(stamp)] PLAYBOOK_SCRIPT_ONLY needs PLAYBOOK"; exit 2
 fi
 set -a; source "../Laplace-Pokemon-Showdown-AI/.env"; set +a
 mkdir -p "$DIR"
@@ -61,7 +66,7 @@ wins_done() {  # our account name is the replay filename's prefix before " - bat
   done
   echo $n
 }
-echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} sticky=${STICKY:+on} playbook=${PLAYBOOK:-off} total=$N dir=$DIR games_done=$(games_done)"
+echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} sticky=${STICKY:+on} playbook=${PLAYBOOK:-off}${PLAYBOOK_SCRIPT_ONLY:+ (script only)} total=$N dir=$DIR games_done=$(games_done)"
 session=0
 while :; do
   done_n=$(games_done); remaining=$((N - done_n))

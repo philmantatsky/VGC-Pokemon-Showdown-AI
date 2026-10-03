@@ -192,6 +192,7 @@ class PolicyPlayer(Player):
         guard_overrides: dict[str, bool] | None = None,
         sticky_guard_corrections: bool = False,
         playbook_path: str | Path | None = None,
+        playbook_script_only: bool = False,
         *args: Any,
         **kwargs: Any,
     ):
@@ -228,6 +229,11 @@ class PolicyPlayer(Player):
                 The preview model, when set, still supplies the belief about THEIR
                 plan. The card is attached to the battle for the opt-in guard
                 playbook_opening and written to the decision log.
+            playbook_script_only: With playbook_path, keep our usual preview (the
+                preview model's four and leads) and attach the chosen card for its
+                turn-1 script alone, which playbook_opening then plays only when
+                the card's own leads are out (2026-10-03: the experts' Water Room
+                turn 1, Fake Out + Trick Room, tested apart from the card's plan).
             deterministic: If True, always pick the highest-probability action
                 instead of sampling from the distribution.
             preview_model_path: Optional learned bring/lead predictor used to track
@@ -282,6 +288,8 @@ class PolicyPlayer(Player):
         """
         if mixing_mode not in ("off", "opening", "always"):
             raise ValueError(f"unknown mixing_mode {mixing_mode!r}")
+        if playbook_script_only and not playbook_path:
+            raise ValueError("playbook_script_only needs a playbook_path")
         super().__init__(*args, **kwargs)
         self.policy = policy
         # SB3's MultiCategoricalDistribution is stateful. Local exact searches run
@@ -314,6 +322,7 @@ class PolicyPlayer(Player):
         self.guard_overrides: dict[str, bool] = dict(guard_overrides or {})
         self.sticky_guard_corrections = bool(sticky_guard_corrections)
         self.playbook_path = Path(playbook_path) if playbook_path else None
+        self.playbook_script_only = bool(playbook_script_only)
         self._playbook = None
         self.invitee = invitee
         self.preview_model_path = (
@@ -712,8 +721,12 @@ class PolicyPlayer(Player):
                 )
         return sheets
 
-    def _playbook_teampreview(self, battle: DoubleBattle) -> str | None:
-        """Our own plan: the playbook card for this opponent, with its reasons."""
+    def _playbook_teampreview(
+        self, battle: DoubleBattle, script_only: bool = False
+    ) -> str | None:
+        """Our own plan: the playbook card for this opponent, with its reasons.
+        ``script_only`` attaches the card for its turn-1 script and returns None:
+        our four and leads stay the caller's."""
         from vgc_bench.src.playbook import Playbook
 
         try:
@@ -726,13 +739,16 @@ class PolicyPlayer(Player):
             choice = self._playbook.choose(
                 ours, theirs, self._playbook_sheets(battle), battle.format
             )
-            state = self._battle_plans.get(battle.battle_tag)
-            if state is not None:
-                state.own_plan = choice.plan
-            selected = set(choice.plan.bring_indices)
-            for index, pokemon in enumerate(battle.team.values()):
-                pokemon._selected_in_teampreview = index in selected
+            if not script_only:
+                state = self._battle_plans.get(battle.battle_tag)
+                if state is not None:
+                    state.own_plan = choice.plan
+                selected = set(choice.plan.bring_indices)
+                for index, pokemon in enumerate(battle.team.values()):
+                    pokemon._selected_in_teampreview = index in selected
             audit = choice.audit()
+            if script_only:
+                audit["script_only"] = True
             setattr(battle, "_vgc_playbook", audit)
             PolicyPlayer.guard_fire_counts[f"playbook:{choice.card}"] += 1
             if self.decision_log_path is not None:
@@ -744,6 +760,8 @@ class PolicyPlayer(Player):
                         )
                         + "\n"
                     )
+            if script_only:
+                return None
             order = plan_to_showdown_order(choice.plan)
             return "/team " + "".join(str(index) for index in order)
         except Exception as exc:
@@ -752,8 +770,11 @@ class PolicyPlayer(Player):
 
     def _learned_teampreview(self, battle: DoubleBattle) -> str | None:
         """Choose a coherent lead-two/bring-four plan from replay-trained priors."""
+        script_only = getattr(self, "playbook_script_only", False)
         if self.preview_model_path is None:
-            return self._playbook_teampreview(battle) if self.playbook_path else None
+            if self.playbook_path is None:
+                return None
+            return self._playbook_teampreview(battle, script_only)
         try:
             if self._preview_predictor is None:
                 self._preview_predictor = PreviewPredictor.load(self.preview_model_path)
@@ -768,9 +789,12 @@ class PolicyPlayer(Player):
                 own_plan=None, opponent_belief=OpponentBelief(theirs, their_plans)
             )
             if self.playbook_path is not None:
-                # our four and leads from our own playbook; the model above keeps
-                # its job of predicting THEIR plan
-                return self._playbook_teampreview(battle)
+                if not script_only:
+                    # our four and leads from our own playbook; the model above
+                    # keeps its job of predicting THEIR plan
+                    return self._playbook_teampreview(battle)
+                # the card's turn-1 script only; our plan is chosen as usual below
+                self._playbook_teampreview(battle, script_only=True)
             if not self.use_learned_teampreview:
                 # Production only wants the opponent belief; our own plan is chosen
                 # by the champion policy, so computing it here would be waste.

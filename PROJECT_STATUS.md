@@ -1,5 +1,39 @@
 # VGC Bot Project Status
 
+## Pre-registered: the experts' turn 1 alone -- the Water Room turn-1 script on our usual preview; battery, then an alternating ladder A/B if it holds up (2026-October 3, 10:40)
+
+Under the user's delegation ("try new things"; "run ladder if tests are good"), the
+early-loss lever from the overnight summary, separated from the playbook's plan
+choice (which is what lost locally on 09-27; the script alone was about neutral,
+-1.1pp over 924 matching battery games):
+- **Built:** `PolicyPlayer(playbook_script_only=True)` (`ladder_ourteam.py
+  --playbook-script-only`, `TRIAL_SCRIPT_ONLY=1` in `tools/ladder_trial.sh`,
+  `run_guard_ab.py --playbook-script-only`): our four and leads stay the deployed
+  preview model's; the playbook card (`data/playbook_t6_trial.json`: Water Room for
+  every opponent) is attached only for its turn-1 script, which the opt-in guard
+  `playbook_opening` plays only when the preview led the card's own pair, Blastoise +
+  Farigiraf: Mega Blastoise Fake Out (their Trick Room / Tailwind setter, else the
+  biggest threat to Farigiraf; never into Armor Tail / Psychic Terrain / a Ghost) +
+  Farigiraf Trick Room. Other leads are untouched. 6 new tests; 669 pass.
+- **Battery** (`results_guard_ab_turn1_script` vs `results_guard_ab_review_guards_0928`,
+  the deployed bot with its 11 guards): holds up = pooled upper bound >= 0, no
+  population below -3pp, playbook / learned-preview errors <= 1% of games, and the
+  script changed turn 1 in >= 5% of games (else there is nothing to test). Reported:
+  the split by cells where it changed turn 1 vs not. **No mirror:** its opponent is
+  our own team, whose Farigiraf's Armor Tail blocks every Fake Out, so there the
+  script is only "Trick Room into their Trick Room".
+- **If it holds up -- ladder A/B** (`tools/turn1_script_chain.sh`): serial, in
+  alternating 10-game blocks so both arms meet the same rating range: script (S,
+  `ladder_replays_mc_T6tac_turn1_script`) and the unchanged deployed configuration
+  (C, `ladder_replays_mc_T6tac_turn1_control`, `tools/ladder_trial.sh` with no
+  additions), order **S C C S C S S C** (40 + 40, about 3.5 hours). It stops at a
+  block boundary if the user says so (or a `STOP` file in
+  `results_analysis/turn1_script_20261003/`). Reading: each arm's record without
+  free wins and the Newcombe 95% CI of the difference; mechanism: in games we led
+  Blastoise + Farigiraf, the share where we lost a Pokemon on turns 1-3, per arm;
+  how often the script changed turn 1. 80 games cannot show a few points: a read,
+  not proof. **No promotion by me**; DEPLOYED.json untouched.
+
 ## Overnight summary (the user's 8-hour delegation): threat_first2 is the keeper (battery +0.44pp, ladder 22-18); doomed_switch dropped; the guards fire rarely on ladder -- the early-loss lever is turn-1 play (2026-October 3, 10:15)
 
 - **threat_first2 ladder trial** (`ladder_replays_mc_T6tac_threat_first2`, 08:25-10:12, T6tac

@@ -21,6 +21,8 @@ valid). Usage (from the repo root):
 
 --playbook (2026-09-27) makes OUR four and leads come from our own playbook
 (vgc_bench/src/playbook.py); the preview model then only predicts THEIR plan.
+With --playbook-script-only (2026-10-03) the model keeps choosing our four and
+leads, and the chosen card supplies only its turn-1 script.
 
 --extra-guards (2026-09-24) also turns on opt-in guards for OUR player only
 (a per-player override; the opponents keep the study's class-level set). The
@@ -92,9 +94,11 @@ def enable_guards(names: list[str]) -> None:
     opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
 
 
-def enable_playbook(path: Path) -> None:
+def enable_playbook(path: Path, script_only: bool = False) -> None:
     """OUR preview from our own playbook (vgc_bench/src/playbook.py); the preview
-    model installed above keeps predicting the opponent's plan."""
+    model installed above keeps predicting the opponent's plan. ``script_only``
+    keeps the model's own four and leads and takes only the card's turn-1 script
+    (PolicyPlayer playbook_script_only)."""
     if not path.exists():
         raise FileNotFoundError(path)
     original_init = opening_study.StudyPlayer.__init__
@@ -102,6 +106,7 @@ def enable_playbook(path: Path) -> None:
     def __init__(self, *args, **kwargs):
         original_init(self, *args, **kwargs)
         self.playbook_path = path
+        self.playbook_script_only = script_only
         self._playbook = None
 
     opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
@@ -113,9 +118,16 @@ def main() -> None:
     ap.add_argument(
         "--playbook", type=Path, default=None, help="our preview from this playbook"
     )
+    ap.add_argument(
+        "--playbook-script-only",
+        action="store_true",
+        help="with --playbook: the model's own preview, the card's turn-1 script only",
+    )
     ap.add_argument("--extra-guards", default="", help="comma-separated opt-in guards")
     ap.add_argument("study_args", nargs=argparse.REMAINDER)
     args = ap.parse_args()
+    if args.playbook_script_only and args.playbook is None:
+        ap.error("--playbook-script-only needs --playbook")
     rest = args.study_args[1:] if args.study_args[:1] == ["--"] else args.study_args
     install(args.preview_model)
     extra = [name for name in args.extra_guards.split(",") if name]
@@ -123,8 +135,11 @@ def main() -> None:
         enable_guards(extra)
         print(f"extra guards for our side: {', '.join(extra)}", flush=True)
     if args.playbook is not None:
-        enable_playbook(args.playbook)
-        print(f"playbook preview for our side: {args.playbook}", flush=True)
+        enable_playbook(args.playbook, args.playbook_script_only)
+        if args.playbook_script_only:
+            print(f"playbook turn-1 script for our side: {args.playbook}", flush=True)
+        else:
+            print(f"playbook preview for our side: {args.playbook}", flush=True)
     print(f"learned preview for our side: {args.preview_model}", flush=True)
     sys.argv = ["evaluation/opening_study.py", *rest]
     opening_study.main()

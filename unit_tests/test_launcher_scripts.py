@@ -114,3 +114,14 @@ def test_a_trial_is_the_verified_deployment_plus_its_additions():
     assert "TRIAL_TEAM needs TRIAL_CHECKPOINT" in text
     assert "not a set variant of the deployed team" in text
     assert "TEAM=$TRIAL_TEAM" in text
+
+
+def test_a_trial_can_take_the_turn1_script_alone():
+    """TRIAL_SCRIPT_ONLY (2026-10-03): the deployed preview plus the card's turn-1
+    script; the read loop passes --playbook-script-only, never without a playbook."""
+    trial = (ROOT / "tools/ladder_trial.sh").read_text()
+    assert "TRIAL_SCRIPT_ONLY needs TRIAL_PLAYBOOK" in trial
+    assert re.search(r"export\b.*\bPLAYBOOK_SCRIPT_ONLY\b", trial)
+    loop = (ROOT / "tools/ladder_read_loop.sh").read_text()
+    assert "PLAYBOOK_ARGS+=(--playbook-script-only)" in loop
+    assert "PLAYBOOK_SCRIPT_ONLY needs PLAYBOOK" in loop

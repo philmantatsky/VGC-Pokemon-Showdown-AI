@@ -230,3 +230,48 @@ def test_a_ranked_pair_without_the_scripted_mega_is_not_the_script():
     )
     assert out[0].actions == (plain_fake_out + 20, trick_room)
     assert report.demotions["playbook_opening:injected"] == 1
+
+
+SCRIPT_ONLY = {**WATER_ROOM, "lead": ["blastoise", "farigiraf"], "script_only": True}
+
+
+def test_script_only_plays_the_script_when_the_cards_leads_are_out():
+    """playbook_script_only (2026-10-03): our usual preview led the card's own pair."""
+    battle = _whimsicott_lead()
+    setattr(battle, "_vgc_playbook", SCRIPT_ONLY)
+    water_spout = move_action(battle, 0, "waterspout", 0) + 20
+    trick_room = move_action(battle, 1, "trickroom", 0)
+    out, report = run(
+        guard_playbook_opening, battle, [((water_spout, trick_room), 0.7)]
+    )
+    assert out[0].actions == (move_action(battle, 0, "fakeout", 1) + 20, trick_room)
+    assert report.demotions["playbook_opening:injected"] == 1
+
+
+def test_script_only_leaves_other_leads_alone():
+    """Blastoise + Torkoal led: not the card's opening, so no Fake Out is forced
+    (with the full playbook the card's leads always lead)."""
+    battle = position(
+        [
+            "|switch|p1a: Blastoise|Blastoise, L50, M|186/186",
+            "|switch|p1b: Torkoal|Torkoal, L50, M|177/177",
+            "|switch|p2a: Whimsicott|Whimsicott, L50, F|100/100",
+            "|switch|p2b: Staraptor|Staraptor, L50, F|100/100",
+            "|turn|1",
+        ]
+    )
+    setattr(battle, "_vgc_playbook", SCRIPT_ONLY)
+    pairs = [
+        (
+            (
+                move_action(battle, 0, "waterspout", 0) + 20,
+                move_action(battle, 1, "eruption", 0),
+            ),
+            0.7,
+        )
+    ]
+    out, report = run(guard_playbook_opening, battle, pairs)
+    assert out[0].actions == pairs[0][0] and not report.stages
+    setattr(battle, "_vgc_playbook", WATER_ROOM)  # the full card would script it
+    out, report = run(guard_playbook_opening, battle, pairs)
+    assert out[0].actions[0] == move_action(battle, 0, "fakeout", 1) + 20

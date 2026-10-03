@@ -9,6 +9,9 @@
 #          tools/ladder_trial.sh <n_games_total> <replay_dir>
 # - TRIAL_PLAYBOOK: our own plan cards at team preview (--playbook), replacing the
 #   deployed playbook if there is one.
+# - TRIAL_SCRIPT_ONLY: non-empty (needs TRIAL_PLAYBOOK) keeps the deployed preview
+#   (our four and leads) and takes only the card's turn-1 script, which
+#   playbook_opening plays when the card's own leads are out.
 # - TRIAL_GUARDS: opt-in guards added to the deployed ones (e.g. playbook_opening,
 #   the playbook's turn-1 script).
 # - TRIAL_CHECKPOINT: a candidate brain instead of the deployed one (the user's
@@ -51,9 +54,14 @@ if [ -n "${TRIAL_PLAYBOOK:-}" ]; then
   [ -f "$TRIAL_PLAYBOOK" ] || { echo "LADDER_REFUSED missing playbook $TRIAL_PLAYBOOK"; exit 2; }
   PLAYBOOK=$TRIAL_PLAYBOOK
 fi
+PLAYBOOK_SCRIPT_ONLY=
+if [ -n "${TRIAL_SCRIPT_ONLY:-}" ]; then
+  [ -n "${TRIAL_PLAYBOOK:-}" ] || { echo "LADDER_REFUSED TRIAL_SCRIPT_ONLY needs TRIAL_PLAYBOOK"; exit 2; }
+  PLAYBOOK_SCRIPT_ONLY=1
+fi
 if [ -n "${TRIAL_GUARDS:-}" ]; then
   GUARDS="$GUARDS,$TRIAL_GUARDS"
 fi
 export VGC_SET_PRIOR_REG="$SET_PRIOR"
-export PREVIEW_MODEL MIXING STICKY PLAYBOOK
+export PREVIEW_MODEL MIXING STICKY PLAYBOOK PLAYBOOK_SCRIPT_ONLY
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"

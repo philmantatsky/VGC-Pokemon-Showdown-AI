@@ -18,9 +18,11 @@ the card's script on top of the policy's ranking --
 It runs FIRST, so every factual veto after it still applies: a Fake Out blocked by
 Psychic Terrain, Armor Tail or a Ghost type is demoted and the policy's own pick
 comes back. It never acts after turn 1, when Trick Room is already up, or when the
-card's Pokemon did not lead. A scripted pair the policy already ranked is promoted
-with the top pick's weight; otherwise it is built from the script plus the
-policy's own choice for any unscripted slot.
+card's Pokemon did not lead. A ``script_only`` card (PolicyPlayer
+playbook_script_only: our usual preview chose the four and leads) is played only
+when both of the card's leads are out. A scripted pair the policy already ranked
+is promoted with the top pick's weight; otherwise it is built from the script
+plus the policy's own choice for any unscripted slot.
 """
 
 from __future__ import annotations
@@ -251,14 +253,18 @@ def guard_playbook_opening(battle, cands, report) -> list[G.Candidate]:
     live = [c for c in cands if c.demoted_by is None]
     if not live:
         return cands
-    steps = scripted_steps(battle, plan)
-    if not steps:
-        return cands
     ours = {
         _species(mon): pos
         for pos, mon in enumerate(battle.active_pokemon)
         if mon is not None
     }
+    if plan.get("script_only") and not {
+        to_id_str(s) for s in plan.get("lead") or ()
+    } <= set(ours):
+        return cands  # our own preview chose other leads: not the card's opening
+    steps = scripted_steps(battle, plan)
+    if not steps:
+        return cands
     mega_pos = ours.get((plan.get("turn1") or {}).get("mega", ""))
     # the card's Mega is part of the script: a ranked pair without it is not the
     # script (ladder 2026-09-27, playbook trial game 12 promoted a non-Mega Fake Out)

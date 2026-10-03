@@ -9,12 +9,13 @@ import json
 from collections import Counter
 from pathlib import Path
 from types import SimpleNamespace
-from typing import Any
+from typing import Any, cast
 
 import pytest
 from poke_env.battle import Pokemon
 from poke_env.teambuilder import Teambuilder
 
+from vgc_bench.src.opponent_preview import PreviewPlan
 from vgc_bench.src.policy_player import PolicyPlayer
 
 FORMAT = "gen9championsvgc2026regmc"
@@ -108,3 +109,67 @@ def test_a_broken_playbook_falls_back_to_the_normal_preview(tmp_path: Path) -> N
     assert player._learned_teampreview(battle) is None
     assert not hasattr(battle, "_vgc_playbook")
     assert PolicyPlayer.guard_fire_counts["playbook_error:FileNotFoundError"] == 1
+
+
+class _Model:
+    """A stand-in preview model: leads Torkoal + Incineroar, brings Blastoise and
+    Farigiraf behind them."""
+
+    def predict_plans(self, roster, other, top_k):
+        return [PreviewPlan((4, 5), (4, 5, 0, 1), 1.0)]
+
+
+def test_script_only_keeps_our_preview_and_attaches_the_card(tmp_path: Path) -> None:
+    """playbook_script_only (2026-10-03): the model's four and leads are played;
+    the card is attached (marked script_only) for its turn-1 script alone."""
+    player = _player(tmp_path, playbook="data/playbook_t6_trial.json")
+    player.playbook_script_only = True
+    player.preview_model_path = Path("model.pt")
+    player._preview_predictor = cast(Any, _Model())
+    player.use_learned_teampreview = True
+    battle = _battle(
+        _mons(
+            "pelipper",
+            "archaludon",
+            "basculegion",
+            "whimsicott",
+            "gholdengo",
+            "maushold",
+        )
+    )
+    assert player._learned_teampreview(battle) == "/team 5612"  # the model's plan
+    brought = [
+        s for s, m in zip(OURS, battle.team.values()) if m._selected_in_teampreview
+    ]
+    assert sorted(brought) == ["blastoise", "farigiraf", "incineroar", "torkoal"]
+    assert battle._vgc_playbook["card"] == "water_room"
+    assert battle._vgc_playbook["script_only"] is True
+    assert PolicyPlayer.guard_fire_counts["learned_preview"] == 1
+    assert PolicyPlayer.guard_fire_counts["playbook:water_room"] == 1
+
+
+def test_script_only_without_a_preview_model_leaves_the_preview_to_the_policy(
+    tmp_path: Path,
+) -> None:
+    player = _player(tmp_path, playbook="data/playbook_t6_trial.json")
+    player.playbook_script_only = True
+    battle = _battle(
+        _mons(
+            "pelipper",
+            "archaludon",
+            "basculegion",
+            "whimsicott",
+            "gholdengo",
+            "maushold",
+        )
+    )
+    assert player._learned_teampreview(battle) is None
+    assert battle._vgc_playbook["script_only"] is True
+    assert not any(
+        getattr(m, "_selected_in_teampreview", False) for m in battle.team.values()
+    )
+
+
+def test_script_only_needs_a_playbook() -> None:
+    with pytest.raises(ValueError, match="needs a playbook_path"):
+        PolicyPlayer(playbook_script_only=True)

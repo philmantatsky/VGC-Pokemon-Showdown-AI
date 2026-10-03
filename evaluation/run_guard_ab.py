@@ -42,6 +42,11 @@ an arm of its own, with no comparison: the "without" side for later guard and
 brain A/Bs on that brain (--without-arm results_brain_ab_deployed_<replay tag>).
 A reused without side must have played the deployed brain.
 
+--playbook PLAYBOOK plays our four and leads from our own plan cards (with the
+opt-in guard playbook_opening for the card's turn-1 script); with
+--playbook-script-only (2026-10-03) our preview stays the deployed one and the
+card supplies only its turn-1 script, played when the card's own leads are out.
+
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/run_guard_ab.py --guards dominated_attack
   .venv/bin/python evaluation/run_guard_ab.py --guards focus_boosted \
@@ -237,6 +242,11 @@ def main() -> None:
         help="our preview from this playbook (evaluation/learned_preview_study.py)",
     )
     ap.add_argument(
+        "--playbook-script-only",
+        action="store_true",
+        help="with --playbook: our usual preview, the card's turn-1 script only",
+    )
+    ap.add_argument(
         "--baseline",
         action="store_true",
         help="play the deployed configuration as a reference arm (no comparison)",
@@ -255,6 +265,9 @@ def main() -> None:
         raise ValueError("--candidate needs --without-arm and --label")
     if args.candidate_plans is not None and args.candidate is None:
         raise ValueError("--candidate-plans needs --candidate")
+    if args.playbook_script_only and args.playbook is None:
+        raise ValueError("--playbook-script-only needs --playbook")
+    playbook_kind = "playbook_script_" if args.playbook_script_only else "playbook_"
     deployed = json.loads(DEPLOYED.read_text())["deployed"]
     if args.baseline:
         output = args.output or Path(
@@ -264,7 +277,7 @@ def main() -> None:
         output = args.output or Path(f"results_brain_ab_{args.label}")
     elif args.playbook is not None:
         output = args.output or Path(
-            f"results_guard_ab_playbook_{args.playbook.stem}_{'_'.join(guards)}"
+            f"results_guard_ab_{playbook_kind}{args.playbook.stem}_{'_'.join(guards)}"
         )
     else:
         output = args.output or Path(f"results_guard_ab_{'_'.join(guards)}")
@@ -344,7 +357,8 @@ def main() -> None:
     label = (
         f"deployed_{deployed['replay_tag']}"
         if args.baseline
-        else ("playbook_" if args.playbook is not None else "with_") + "_".join(guards)
+        else (playbook_kind if args.playbook is not None else "with_")
+        + "_".join(guards)
         if args.candidate is None
         else f"candidate_{args.label}"
     )
@@ -362,6 +376,7 @@ def main() -> None:
         "arm_label": label,
         "playbook": str(args.playbook) if args.playbook else None,
         "playbook_sha256": sha256(args.playbook) if args.playbook else None,
+        **({"playbook_script_only": True} if args.playbook_script_only else {}),
         "extra_guards": guards,
         "extra_guards_scope": "our player only (per-player override)",
         "base_guards_both_sides": base,
@@ -439,6 +454,7 @@ def main() -> None:
                     "--preview-model",
                     preview["model"],
                     *(["--playbook", str(args.playbook)] if args.playbook else []),
+                    *(["--playbook-script-only"] if args.playbook_script_only else []),
                     "--extra-guards",
                     ",".join(base + guards),
                     "--",

@@ -156,6 +156,8 @@ def record_run_config(
     # recorded only when on, so directories from before the flag stay valid
     if not material.get("sticky_corrections"):
         material.pop("sticky_corrections", None)
+    if not material.get("playbook_script_only"):
+        material.pop("playbook_script_only", None)
     # the plan cards themselves, not just their path: an edited playbook is a
     # different configuration (recorded only when on, like the flag above)
     if material.get("playbook"):
@@ -376,6 +378,16 @@ async def main():
             "and leads, with its reasons in the decision log; add the opt-in guard "
             "playbook_opening to play its turn-1 script. Recorded in run_config.json "
             "with its sha256"
+        ),
+    )
+    ap.add_argument(
+        "--playbook-script-only",
+        action="store_true",
+        help=(
+            "with --playbook: our four and leads come from the usual preview, and "
+            "the chosen card only supplies its turn-1 script, played by "
+            "playbook_opening when the card's own leads are out. Recorded in "
+            "run_config.json"
         ),
     )
     ap.add_argument(
@@ -652,6 +664,8 @@ async def main():
     assert team_path.exists(), f"team not found: {team_path}"
     if args.playbook:
         check_playbook(Path(args.playbook), team_path)
+    elif args.playbook_script_only:
+        raise SystemExit("--playbook-script-only needs --playbook")
     ckpt = Path(args.checkpoint)
     assert ckpt.exists(), f"checkpoint not found: {ckpt}"
     ckpt_sha = hashlib.sha256(ckpt.read_bytes()).hexdigest()
@@ -782,6 +796,7 @@ async def main():
         mixing_keep_corrections=args.mixing_keep_corrections,
         sticky_guard_corrections=args.sticky_corrections,
         playbook_path=Path(args.playbook) if args.playbook else None,
+        playbook_script_only=args.playbook_script_only,
         guard_overrides={
             name.strip(): True for name in args.guards_extra.split(",") if name.strip()
         },

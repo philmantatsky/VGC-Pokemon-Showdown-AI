@@ -71,3 +71,16 @@ def test_extra_guards_reach_our_player_only(monkeypatch: pytest.MonkeyPatch) -> 
         learned_preview_study.enable_guards(["zero_damage"])  # a hard guard
     with pytest.raises(ValueError, match="not opt-in"):
         learned_preview_study.enable_guards(["no_such_guard"])
+
+
+def test_the_playbook_can_supply_the_turn1_script_alone(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(
+        opening_study.StudyPlayer, "__init__", lambda self, *a, **k: None
+    )
+    playbook = tmp_path / "playbook.json"
+    playbook.write_text("{}")
+    learned_preview_study.enable_playbook(playbook, script_only=True)
+    ours = opening_study.StudyPlayer()
+    assert ours.playbook_path == playbook and ours.playbook_script_only

@@ -149,6 +149,9 @@
 - [ ] Add threat_first2 to `guards_extra` (supersedes threat_first): the user's call.
 - [ ] Turn-1 play (the early-loss lever): a 40-game ladder A/B of the Water Room
   turn-1 script (Mega + Fake Out the threat + Trick Room) vs the plain deployed bot.
+  2026-10-03 10:40: built as the script alone on our usual preview
+  (`playbook_script_only`); battery running, then (if it holds up) an alternating
+  S C C S C S S C ladder A/B (`tools/turn1_script_chain.sh`), rules pre-registered.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
