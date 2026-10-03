@@ -1,0 +1,21 @@
+decisions 1131, fired 20 (1.8%), errors {}
+  deployed_T6_humanprevi 2687965700 T6  W rillaboom:woodhammer->blastoise (1.00): ['icebeam>rillaboom', 'eruption'] -> ['incineroar', 'eruption']  victim fainted: False
+  deployed_T6_humanprevi 2687975114 T4  L chandelure:shadowball->blastoise (1.00): ['waterpulse>chandelure', 'eruption'] -> ['incineroar', 'eruption']  victim fainted: True
+  deployed_T6_humanprevi 2688075265 T1  W rillaboom:woodhammer->blastoise (1.00): ['waterspout', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: False
+  deployed_T6_humanprevi 2688084569 T3  W kingambit:kowtowcleave->farigiraf (1.00): ['waterspout', 'psychic>garchomp'] -> ['waterspout', 'incineroar']  victim fainted: False
+  deployed_T6_humanprevi 2688085072 T3  W glaceon:weatherball->farigiraf (0.90): ['psychic>pawmot', 'eruption'] -> ['blastoise', 'eruption']  victim fainted: False
+  deployed_T6_humanprevi 2688264483 T2  L aerodactyl:rockslide->charizard (0.90): ['heatwave', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: False
+  deployed_T6_humanprevi 2688278648 T6  L metagross:ironhead->blastoise (1.00): ['waterpulse>metagross', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: True
+  deployed_T6ctx         2688393921 T2  L rillaboom:woodhammer->blastoise (1.00): ['icebeam>whimsicott', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: False
+  deployed_T6ctx         2688395162 T2  L aerodactyl:rockslide->charizard (0.90): ['heatwave', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: True
+  deployed_T6ctx         2688403770 T2  L indeedeef:expandingforce->blastoise (1.00): ['waterpulse>gardevoir', 'trickroom'] -> ['incineroar', 'trickroom']  victim fainted: True
+  practice1_water_t6     2688854379 T6  L meowscarada:flowertrick->blastoise (1.00): ['waterspout', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: False
+  T6tac_review_guards    2689049160 T1  L rillaboom:woodhammer->blastoise (1.00): ['icebeam>raichu', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: True
+  T6tac_review_guards    2689051543 T3  L indeedeef:expandingforce->blastoise (1.00): ['waterpulse>indeedeef', 'trickroom'] -> ['incineroar', 'trickroom']  victim fainted: True
+  T6tac_review_guards    2689056069 T2  W rillaboom:woodhammer->blastoise (1.00): ['waterspout', 'psychic>rillaboom'] -> ['waterspout', 'incineroar']  victim fainted: True
+  T6tac_review_guards    2689056531 T1  W rillaboom:woodhammer->blastoise (1.00): ['icebeam>rillaboom', 'trickroom'] -> ['torkoal', 'trickroom']  victim fainted: True
+  T6tac_review_guards    2689059647 T5  W rillaboom:grassyglide->blastoise (1.00): ['icebeam>rillaboom', 'eruption'] -> ['venusaur', 'eruption']  victim fainted: True
+  T6tac_review_guards    2689061594 T3  L garchomp:dragonpulse->blastoise (1.00): ['icebeam>garchomp', 'trickroom'] -> ['incineroar', 'trickroom']  victim fainted: True
+  T6tac_review_guards    2689119842 T6  W metagross:psychicfangs->blastoise (1.00): ['waterpulse>metagross', 'trickroom'] -> ['incineroar', 'trickroom']  victim fainted: False
+  T6tac_review_guards    2689119842 T7  W metagross:psychicfangs->blastoise (1.00): ['waterpulse>metagross', 'trickroom'] -> ['incineroar', 'trickroom']  victim fainted: False
+  T6tac_review_guards    2689119842 T8  W metagross:psychicfangs->blastoise (1.00): ['waterpulse>metagross', 'trickroom'] -> ['incineroar', 'trickroom']  victim fainted: True

@@ -1,0 +1,3 @@
+decisions 1131, fired 2 (0.2%), errors {}
+  deployed_T6_humanprevi 2687973471 T1  W rillaboom:woodhammer->blastoise (1.00): ['icebeam>salamence', 'trickroom'] -> ['fakeout>rillaboom', 'trickroom']  victim fainted: False
+  T6tac_review_guards    2689049160 T1  L rillaboom:woodhammer->blastoise (1.00): ['icebeam>raichu', 'trickroom'] -> ['fakeout>rillaboom', 'trickroom']  victim fainted: True

@@ -3,8 +3,8 @@ ladder. Every logged decision of the T6-era ladder games is rebuilt from its
 replay (unit_tests/ladder_position.py) with the logged candidate pairs, and the
 guard runs on them. Prints how often it fires and every change, with what happened
 next in the real game (did the threatened Pokemon faint that turn).
-Run from the repo root:
-    .venv/bin/python results_analysis/threat_first_20261003/firing_audit.py
+Run from the repo root (guard: threat_first, the default, fake_out_threat, threat_first2 or doomed_switch):
+    .venv/bin/python results_analysis/threat_first_20261003/firing_audit.py [guard]
 """
 
 from __future__ import annotations
@@ -25,8 +25,17 @@ from setswap_audit import battle_lines  # noqa: E402
 
 from tools.ladder_loss_profile import extract_log  # noqa: E402
 from unit_tests.ladder_position import position  # noqa: E402
+from vgc_bench.src import doomed_switch  # noqa: E402
+from vgc_bench.src import fake_out_threat  # noqa: E402
+from vgc_bench.src import threat_first2  # noqa: E402
 from vgc_bench.src import guards as G  # noqa: E402
-from vgc_bench.src import threat_first as T  # noqa: E402
+
+GUARD = {
+    "threat_first": G.guard_threat_first,
+    "fake_out_threat": fake_out_threat.guard_fake_out_threat,
+    "threat_first2": threat_first2.guard_threat_first2,
+    "doomed_switch": doomed_switch.guard_doomed_switch,
+}[sys.argv[1] if len(sys.argv) > 1 else "threat_first"]
 
 OUR = "antonius1"
 DIRS = [
@@ -91,7 +100,7 @@ for d in DIRS:
                     continue
                 decisions += 1
                 report = G.GuardReport()
-                out = G.guard_threat_first(battle, cands, report)
+                out = GUARD(battle, cands, report)
             except Exception as exc:
                 errors[type(exc).__name__] += 1
                 continue
@@ -105,10 +114,8 @@ for d in DIRS:
             _, hit = G._move_and_targets(
                 battle, G._decode(battle, out[0].actions[pp], pp), pp
             )
-            threat = next(
-                (t for t in T.threats(battle) if any(f is t[1] for f in hit)),
-                T.threats(battle)[0],
-            )
+            found = threat_first2.threats(battle)
+            threat = next((t for t in found if any(f is t[1] for f in hit)), found[0])
             nxt = "\n".join(
                 lines[turn_at[turn] + 1 : turn_at.get(turn + 1, len(lines))]
             )

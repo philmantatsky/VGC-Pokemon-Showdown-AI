@@ -1,6 +1,41 @@
 # VGC Bot Project Status
 
-## threat_first: a guard against losing a Pokemon early, built and pre-registered; test-and-ladder chain started (2026-October 3, 03:30)
+## threat_first passes its tests (mirror 49.7%, battery -0.10pp) -> 20-game ladder trial running; round 2 built and pre-registered: threat_first2 and doomed_switch (2026-October 3, 04:10)
+
+- **threat_first results:** mirror **49.7% [47.5, 51.9]** over 2,000 (inconclusive -- it
+  changed 3 actions in 2,000 games: our own team rarely creates its situations);
+  battery **-0.10pp [-0.68, +0.48]**, worst population -1.5pp, 0 errors in 6,204 games,
+  355 changes in 120 of 564 cells (cells where it fired -0.30pp, where it did not
+  -0.04pp, cells with 3+ changes +0.00pp: no signal). Gate: **GO** -> the ladder trial
+  (T6tac + 11 guards + threat_first, `ladder_replays_mc_T6tac_threat_first`) started
+  04:05: 20 games, continued to 40 unless it wins 6 or fewer.
+- **Round 2, built during the tests** (opt-in, registered after the battery ended; the
+  running ladder trial does not enable them):
+  - `threat_first2` (`vgc_bench/src/threat_first2.py`, 5 tests): threat_first that
+    counts the foe's likely Mega forme -- a pre-Mega Raichu holding Raichunite Y is
+    judged as Mega Raichu Y, which threat_first missed (Zap Cannon KO'd our Blastoise
+    on turn 1 three times) -- and answers a faster threat with a first-turn Fake Out
+    (or moves a Fake Out from a harmless foe onto the threat); the knockout claim must
+    hold against both formes. Replayed: 11 changes in 1,131 ladder decisions (incl.
+    three turn-1 Fake Outs onto Rillaboom / Mega Raichu).
+  - `doomed_switch` (`vgc_bench/src/doomed_switch.py`, 3 tests): when a foe knocks one
+    of ours out (>= 90%) before it can move, cannot also KO our partner, and nothing in
+    the top pair answers it, switch it to a benched Pokemon taking <= 60% of its HP from
+    that move -- never a Trick Room (or other status) click. Basis: in 66 of 67 turn 1-3
+    first faints a benched Pokemon would have survived the killing hit
+    (`results_analysis/early_faints_20261003/switch_counterfactual.txt`). Replayed: 20
+    changes in 1,131 decisions; in 11 the Pokemon did faint that turn in the real game.
+  - (`fake_out_threat` alone fired twice in 1,131 decisions -- folded into threat_first2.)
+- **Round 2, fixed now** (`tools/guard_round2_chain.sh`, launched after the ladder
+  trial ends; ladder and local runs never share the machine): for each of
+  threat_first2 and doomed_switch alone on the deployed bot, the 2,000-game mirror and
+  the battery vs the deployed bot with its 11 guards, read by the same gate (battery
+  deploy-eligible, mirror upper bound >= 50%, errors <= 1%). A passing guard gets a
+  ladder trial after that; no promotion by me.
+- Heading time of the threat_first pre-registration corrected to its commit time
+  (02:53, commit 4e8a770).
+
+## threat_first: a guard against losing a Pokemon early, built and pre-registered; test-and-ladder chain started (2026-October 3, 02:53)
 
 The user: "yes build the guard and test it, then run ladder if tests are good.
 operate on your own until i give next instructions in about 8 hours".

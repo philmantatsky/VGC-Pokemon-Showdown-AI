@@ -3126,6 +3126,21 @@ def guard_threat_first(battle, cands, report) -> list[Candidate]:
     return threat_first(battle, cands, report)
 
 
+def guard_threat_first2(battle, cands, report) -> list[Candidate]:
+    """Opt-in: threat_first aware of the foe's Mega forme, with a first-turn Fake Out
+    as an answer (threat_first2.py, imported lazily like threat_first)."""
+    from vgc_bench.src.threat_first2 import guard_threat_first2 as threat_first2
+
+    return threat_first2(battle, cands, report)
+
+
+def guard_doomed_switch(battle, cands, report) -> list[Candidate]:
+    """Opt-in: switch out a Pokemon knocked out before it moves (doomed_switch.py)."""
+    from vgc_bench.src.doomed_switch import guard_doomed_switch as doomed_switch
+
+    return doomed_switch(battle, cands, report)
+
+
 def guard_playbook_opening(battle, cands, report) -> list[Candidate]:
     """Opt-in: play the chosen plan card's turn-1 script (the playbook handoff).
 
@@ -3188,6 +3203,8 @@ GUARDS = {
     "dominated_spread": guard_dominated_spread,
     "drop_free_finish": guard_drop_free_finish,
     "threat_first": guard_threat_first,
+    "threat_first2": guard_threat_first2,
+    "doomed_switch": guard_doomed_switch,
     "fake_out_partner_acts": guard_fake_out_partner_acts,
     "switch_the_crippled": guard_switch_the_crippled,
     "focus_boosted": guard_focus_boosted,
@@ -3263,6 +3280,8 @@ GUARD_ORDER = (
     "dominated_spread",
     "drop_free_finish",
     "threat_first",
+    "threat_first2",
+    "doomed_switch",
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",

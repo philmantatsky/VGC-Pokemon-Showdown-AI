@@ -1,0 +1,12 @@
+decisions 1131, fired 11 (1.0%), errors {}
+  deployed_T6_humanprevi 2687973471 T1  W rillaboom:woodhammer->blastoise (1.00): ['icebeam>salamence', 'trickroom'] -> ['fakeout>rillaboom', 'trickroom']  victim fainted: False
+  deployed_T6_humanprevi 2687981911 T3  L serperior:leafstorm->blastoise (0.90): ['waterspout', 'psychic>serperior'] -> ['icebeam>serperior', 'psychic>serperior']  victim fainted: False
+  deployed_T6_humanprevi 2687982894 T1  L raichu:zapcannon->blastoise (1.00): ['fakeout>arcaninehisui', 'trickroom'] -> ['fakeout>raichu', 'trickroom']  victim fainted: False
+  deployed_T6_humanprevi 2687982894 T5  L arcaninehisui:flamethrower->farigiraf (1.00): ['eruption', 'psychic>milotic'] -> ['eruption', 'psychic>arcaninehisui']  victim fainted: False
+  deployed_T6_humanprevi 2688082574 T3  L raichu:zapcannon->blastoise (1.00): ['waterspout', 'psychic>raichu'] -> ['waterpulse>raichu', 'psychic>raichu']  victim fainted: True
+  deployed_T6tac         2688479457 T3  W aerodactyl:dualwingbeat->blastoise (0.90): ['waterspout', 'psychic>aerodactyl'] -> ['waterpulse>aerodactyl', 'psychic>aerodactyl']  victim fainted: False
+  deployed_T6tac_playboo 2688581277 T1  L rillaboom:woodhammer->blastoise (1.00): ['fakeout>salamence', 'trickroom'] -> ['fakeout>rillaboom', 'trickroom']  victim fainted: False
+  tactical2_e4           2689024985 T6  W rillaboom:woodhammer->farigiraf (1.00): ['eruption', 'psychic>rillaboom'] -> ['heatwave', 'psychic>rillaboom']  victim fainted: False
+  T6tac_review_guards    2689059647 T3  W rillaboom:woodhammer->blastoise (1.00): ['waterspout', 'psychic>rillaboom'] -> ['icebeam>rillaboom', 'psychic>rillaboom']  victim fainted: False
+  T6tac_review_guards    2689060876 T5  W arcaninehisui:flamethrower->farigiraf (0.89): ['psychic>whimsicott', 'flareblitz>arcaninehisui'] -> ['psychic>arcaninehisui', 'flareblitz>arcaninehisui']  victim fainted: False
+  T6tac_review_guards    2689117119 T10 L grimmsnarl:foulplay->venusaur (1.00): ['sludgebomb>typhlosionhisui', 'eruption'] -> ['leafstorm>grimmsnarl', 'eruption']  victim fainted: False
