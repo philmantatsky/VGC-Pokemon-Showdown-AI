@@ -1,0 +1,28 @@
+[package]
+name = "vgczero-engine"
+version = "0.1.0"
+edition = "2021"
+description = "Fast Gen 9 Champions VGC doubles battle engine for self-play RL"
+license = "MIT"
+
+[lib]
+name = "vgczero_engine"
+crate-type = ["rlib", "cdylib"]
+
+[features]
+default = []
+python = ["dep:pyo3", "dep:numpy"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+flate2 = "1"
+rayon = "1"
+pyo3 = { version = "0.23", features = ["extension-module", "abi3-py310"], optional = true }
+numpy = { version = "0.23", optional = true }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+debug = 1

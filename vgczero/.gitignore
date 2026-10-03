@@ -1,0 +1,11 @@
+# Rust build output
+engine/target/
+# Pinned Showdown checkout (created by showdown/setup.sh)
+showdown/ps
+# Training runs, checkpoints, scratch
+runs/
+*.pt
+*.so
+*.pyd
+__pycache__/
+.pytest_cache/
