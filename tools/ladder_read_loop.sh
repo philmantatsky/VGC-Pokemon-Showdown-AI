@@ -18,6 +18,7 @@
 #   human-trained preview model chooses our four and leads (--learned_preview).
 # - MIXING (env, same source): ladder_ourteam.py mixed-strategy flags, or empty.
 # - STICKY (env, same source): --sticky-corrections, or empty.
+# - SHEET_PREVIEW (env, same source): --sheet-preview, or empty.
 # - PLAYBOOK (env, same source or tools/ladder_trial.sh): our own plan cards at
 #   team preview (--playbook data/playbook_<team>.json), or empty.
 # - PLAYBOOK_SCRIPT_ONLY (env, tools/ladder_trial.sh): non-empty adds
@@ -45,6 +46,10 @@ fi
 STICKY_ARGS=()
 if [ -n "${STICKY:-}" ]; then
   STICKY_ARGS=(--sticky-corrections)
+fi
+SHEET_ARGS=()
+if [ -n "${SHEET_PREVIEW:-}" ]; then
+  SHEET_ARGS=(--sheet-preview)
 fi
 PLAYBOOK_ARGS=()
 if [ -n "${PLAYBOOK:-}" ]; then
@@ -79,6 +84,7 @@ while :; do
     --guards-extra "$GUARDS" --n_games "$remaining" --replay_dir "$DIR" ${PREVIEW_ARGS[@]+"${PREVIEW_ARGS[@]}"} \
     ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} \
     ${STICKY_ARGS[@]+"${STICKY_ARGS[@]}"} \
+    ${SHEET_ARGS[@]+"${SHEET_ARGS[@]}"} \
     ${PLAYBOOK_ARGS[@]+"${PLAYBOOK_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!; started=$(date +%s); last_games=$done_n; last_change=$started
   while kill -0 $PID 2>/dev/null; do

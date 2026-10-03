@@ -58,6 +58,9 @@ from vgc_bench.src.opponent_tactics import (
     SwitchPredictor,
 )
 from vgc_bench.src.policy import MaskedActorCriticPolicy
+from vgc_bench.src.sheet_preview import TOP_K as SHEET_TOP_K
+from vgc_bench.src.sheet_preview import rerank as sheet_rerank
+from vgc_bench.src.sheet_preview import sheet_open
 from vgc_bench.src.teams import RandomTeamBuilder
 from vgc_bench.src.utils import (
     abilities,
@@ -193,6 +196,7 @@ class PolicyPlayer(Player):
         sticky_guard_corrections: bool = False,
         playbook_path: str | Path | None = None,
         playbook_script_only: bool = False,
+        sheet_preview: bool = False,
         *args: Any,
         **kwargs: Any,
     ):
@@ -234,6 +238,13 @@ class PolicyPlayer(Player):
                 turn-1 script alone, which playbook_opening then plays only when
                 the card's own leads are out (2026-10-03: the experts' Water Room
                 turn 1, Fake Out + Trick Room, tested apart from the card's plan).
+            sheet_preview: With the learned preview and the opponent's open team
+                sheet, choose among the preview model's top plans by how their
+                sheet's sets differ from the usual ones (vgc_bench/src/
+                sheet_preview.py), and re-plan if their sheet arrives after our
+                preview went out (the user, 2026-10-03: "factor in things it knows
+                from open team sheets ... and for the plan to change if the
+                opponent accepts open team sheets last second").
             deterministic: If True, always pick the highest-probability action
                 instead of sampling from the distribution.
             preview_model_path: Optional learned bring/lead predictor used to track
@@ -323,6 +334,7 @@ class PolicyPlayer(Player):
         self.sticky_guard_corrections = bool(sticky_guard_corrections)
         self.playbook_path = Path(playbook_path) if playbook_path else None
         self.playbook_script_only = bool(playbook_script_only)
+        self.sheet_preview = bool(sheet_preview)
         self._playbook = None
         self.invitee = invitee
         self.preview_model_path = (
@@ -405,6 +417,9 @@ class PolicyPlayer(Player):
         self._exact_sessions: dict[str, Any] = {}
         self._open_sheet_battles: set[str] = set()
         self._preview_requests_submitted: set[tuple[str, int | None]] = set()
+        # the last /team order we sent and whether their sheet was known then
+        self._preview_orders: dict[str, str] = {}
+        self._preview_sheet_seen: dict[str, bool] = {}
         self._exact_preview_decisions: dict[str, str] = {}
         self._team_sheet_wait_tasks: dict[
             tuple[str, int | None], asyncio.Task[None]
@@ -476,6 +491,8 @@ class PolicyPlayer(Player):
             if session is not None:
                 session.close()
             self._open_sheet_battles.discard(battle_tag)
+        if saw_opponent_sheet and getattr(self, "sheet_preview", False):
+            await self._replan_after_late_sheet(battle_tag)
         timeout = self.team_sheet_wait_timeout
         if timeout is None or not self.accept_open_team_sheet or self.format_is_bestof:
             return
@@ -768,6 +785,75 @@ class PolicyPlayer(Player):
             PolicyPlayer.guard_fire_counts[f"playbook_error:{type(exc).__name__}"] += 1
             return None
 
+    def _sheet_teampreview(
+        self, predictor: PreviewPredictor, battle, ours, theirs, their_plans
+    ) -> PreviewPlan:
+        """Our plan from the preview model's top plans and their open sheet;
+        the model's top plan if anything fails."""
+        our_plans = predictor.predict_plans(ours, theirs, top_k=SHEET_TOP_K)
+        try:
+            plan, audit = sheet_rerank(battle, our_plans, their_plans)
+        except Exception as exc:
+            PolicyPlayer.guard_fire_counts[
+                f"sheet_preview_error:{type(exc).__name__}"
+            ] += 1
+            return our_plans[0]
+        PolicyPlayer.guard_fire_counts["sheet_preview"] += 1
+        if audit["chosen_rank"] != 1:
+            PolicyPlayer.guard_fire_counts["sheet_preview:changed"] += 1
+        if self.decision_log_path is not None:
+            sheet = {
+                to_id_str(mon.base_species): {
+                    "ability": mon.ability,
+                    "item": mon.item,
+                    "moves": sorted(mon.moves or {}),
+                }
+                for mon in battle.opponent_team.values()
+            }
+            with open(self.decision_log_path, "a") as handle:
+                handle.write(
+                    json.dumps(
+                        {
+                            "battle": battle.battle_tag,
+                            "turn": 0,
+                            "sheet_preview": audit,
+                            "their_sheet": sheet,
+                        },
+                        default=str,
+                    )
+                    + "\n"
+                )
+        return plan
+
+    async def _replan_after_late_sheet(self, battle_tag: str) -> None:
+        """Their sheet arrived after our preview went out on the sheet-wait
+        timeout: re-plan with it and resend if the plan changed. Showdown replaces
+        a choice until both players have chosen, and a late sheet means they have
+        not (once both choose the battle starts, and sheets can no longer be
+        agreed to)."""
+        battle = self._battles.get(battle_tag)
+        if not isinstance(battle, DoubleBattle) or not battle.teampreview:
+            return
+        if self._preview_request_key(battle) not in self._preview_requests_submitted:
+            return  # not chosen yet: the normal path reads the sheet
+        if self._preview_sheet_seen.get(battle_tag, True) or not sheet_open(battle):
+            return
+        previous = self._preview_orders.get(battle_tag)
+        try:
+            order = self.teampreview(battle)
+            if isinstance(order, Awaitable):
+                order = await order
+        except Exception as exc:
+            PolicyPlayer.guard_fire_counts[
+                f"late_sheet_replan_error:{type(exc).__name__}"
+            ] += 1
+            return
+        if not order or order == previous:
+            PolicyPlayer.guard_fire_counts["late_sheet_replan:same"] += 1
+            return
+        PolicyPlayer.guard_fire_counts["late_sheet_replan:changed"] += 1
+        await self.ps_client.send_message(order, battle_tag)
+
     def _learned_teampreview(self, battle: DoubleBattle) -> str | None:
         """Choose a coherent lead-two/bring-four plan from replay-trained priors."""
         script_only = getattr(self, "playbook_script_only", False)
@@ -799,14 +885,26 @@ class PolicyPlayer(Player):
                 # Production only wants the opponent belief; our own plan is chosen
                 # by the champion policy, so computing it here would be waste.
                 return None
-            own_plan = self._preview_predictor.predict_plans(ours, theirs, top_k=1)[0]
+            sheet = getattr(self, "sheet_preview", False) and sheet_open(battle)
+            if sheet:
+                own_plan = self._sheet_teampreview(
+                    self._preview_predictor, battle, ours, theirs, their_plans
+                )
+            else:
+                own_plan = self._preview_predictor.predict_plans(ours, theirs, top_k=1)[
+                    0
+                ]
             self._battle_plans[battle.battle_tag].own_plan = own_plan
             selected = set(own_plan.bring_indices)
             for index, pokemon in enumerate(battle.team.values()):
                 pokemon._selected_in_teampreview = index in selected
             order = plan_to_showdown_order(own_plan)
             PolicyPlayer.guard_fire_counts["learned_preview"] += 1
-            return "/team " + "".join(str(index) for index in order)
+            text = "/team " + "".join(str(index) for index in order)
+            if hasattr(self, "_preview_orders"):
+                self._preview_orders[battle.battle_tag] = text
+                self._preview_sheet_seen[battle.battle_tag] = bool(sheet)
+            return text
         except Exception as exc:
             # Preview must still complete if a checkpoint is missing or a roster uses
             # an unexpected form. Fall back to the already-tested policy preview.

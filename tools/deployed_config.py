@@ -2,7 +2,11 @@
 
 Prints shell assignments (shlex-quoted, for eval) of the deployed configuration:
 CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL, REPLAY_TAG, MIXING,
-STICKY and PLAYBOOK.
+STICKY, PLAYBOOK and SHEET_PREVIEW.
+
+SHEET_PREVIEW is "--sheet-preview" when the deployment has "sheet_preview": true
+(2026-10-03: with the opponent's open team sheet the learned preview chooses among
+its top plans by the sheet, and re-plans if the sheet arrives late), else empty.
 
 PLAYBOOK is empty unless the deployment has our own plan cards (fields playbook,
 playbook_sha256; 2026-09-27, vgc_bench/src/playbook.py): the launchers then pass
@@ -114,6 +118,9 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
     sticky = deployed.get("sticky_guard_corrections", False)
     if not isinstance(sticky, bool):
         raise ValueError("sticky_guard_corrections must be true or false")
+    sheet = deployed.get("sheet_preview", False)
+    if not isinstance(sheet, bool):
+        raise ValueError("sheet_preview must be true or false")
     return {
         "CKPT": deployed["checkpoint"],
         "TEAM": deployed["team"],
@@ -126,6 +133,7 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         "MIXING": mixing_args(deployed),
         "STICKY": "--sticky-corrections" if sticky else "",
         "PLAYBOOK": deployed.get("playbook") or "",
+        "SHEET_PREVIEW": "--sheet-preview" if sheet else "",
     }
 
 

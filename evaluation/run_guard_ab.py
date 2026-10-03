@@ -247,6 +247,11 @@ def main() -> None:
         help="with --playbook: our usual preview, the card's turn-1 script only",
     )
     ap.add_argument(
+        "--sheet-preview",
+        action="store_true",
+        help="our preview reads the opponent's open team sheet (sheet_preview.py)",
+    )
+    ap.add_argument(
         "--baseline",
         action="store_true",
         help="play the deployed configuration as a reference arm (no comparison)",
@@ -259,7 +264,12 @@ def main() -> None:
     invalid = [g for g in guards if g not in GUARDS or g in HARD_GUARDS]
     if args.baseline and (guards or args.candidate is not None or args.without_arm):
         raise ValueError("--baseline plays the deployed configuration alone")
-    if invalid or (not guards and args.candidate is None and not args.baseline):
+    if invalid or (
+        not guards
+        and args.candidate is None
+        and not args.baseline
+        and not args.sheet_preview
+    ):
         raise ValueError(f"need opt-in guards, got {guards} (invalid: {invalid})")
     if args.candidate is not None and (args.without_arm is None or not args.label):
         raise ValueError("--candidate needs --without-arm and --label")
@@ -278,6 +288,10 @@ def main() -> None:
     elif args.playbook is not None:
         output = args.output or Path(
             f"results_guard_ab_{playbook_kind}{args.playbook.stem}_{'_'.join(guards)}"
+        )
+    elif args.sheet_preview:
+        output = args.output or Path(
+            "results_guard_ab_sheet_preview" + "".join(f"_{g}" for g in guards)
         )
     else:
         output = args.output or Path(f"results_guard_ab_{'_'.join(guards)}")
@@ -357,7 +371,13 @@ def main() -> None:
     label = (
         f"deployed_{deployed['replay_tag']}"
         if args.baseline
-        else (playbook_kind if args.playbook is not None else "with_")
+        else (
+            playbook_kind
+            if args.playbook is not None
+            else "sheet_preview_"
+            if args.sheet_preview
+            else "with_"
+        )
         + "_".join(guards)
         if args.candidate is None
         else f"candidate_{args.label}"
@@ -377,6 +397,7 @@ def main() -> None:
         "playbook": str(args.playbook) if args.playbook else None,
         "playbook_sha256": sha256(args.playbook) if args.playbook else None,
         **({"playbook_script_only": True} if args.playbook_script_only else {}),
+        **({"sheet_preview": True} if args.sheet_preview else {}),
         "extra_guards": guards,
         "extra_guards_scope": "our player only (per-player override)",
         "base_guards_both_sides": base,
@@ -455,6 +476,7 @@ def main() -> None:
                     preview["model"],
                     *(["--playbook", str(args.playbook)] if args.playbook else []),
                     *(["--playbook-script-only"] if args.playbook_script_only else []),
+                    *(["--sheet-preview"] if args.sheet_preview else []),
                     "--extra-guards",
                     ",".join(base + guards),
                     "--",

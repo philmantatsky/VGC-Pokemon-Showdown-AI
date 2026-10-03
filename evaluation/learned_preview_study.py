@@ -24,6 +24,10 @@ valid). Usage (from the repo root):
 With --playbook-script-only (2026-10-03) the model keeps choosing our four and
 leads, and the chosen card supplies only its turn-1 script.
 
+--sheet-preview (2026-10-03) lets the opponent's open team sheet choose among the
+model's top plans for our player (PolicyPlayer sheet_preview); hidden-sheet games
+are unchanged.
+
 --extra-guards (2026-09-24) also turns on opt-in guards for OUR player only
 (a per-player override; the opponents keep the study's class-level set). The
 arm manifest records the class-level flags, so the harness records the extras.
@@ -112,6 +116,17 @@ def enable_playbook(path: Path, script_only: bool = False) -> None:
     opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
 
 
+def enable_sheet_preview() -> None:
+    """Our player reads the opponent's open sheet at preview (sheet_preview.py)."""
+    original_init = opening_study.StudyPlayer.__init__
+
+    def __init__(self, *args, **kwargs):
+        original_init(self, *args, **kwargs)
+        self.sheet_preview = True
+
+    opening_study.StudyPlayer.__init__ = __init__  # type: ignore[method-assign]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--preview-model", type=Path, required=True)
@@ -124,6 +139,11 @@ def main() -> None:
         help="with --playbook: the model's own preview, the card's turn-1 script only",
     )
     ap.add_argument("--extra-guards", default="", help="comma-separated opt-in guards")
+    ap.add_argument(
+        "--sheet-preview",
+        action="store_true",
+        help="our preview reads the opponent's open team sheet",
+    )
     ap.add_argument("study_args", nargs=argparse.REMAINDER)
     args = ap.parse_args()
     if args.playbook_script_only and args.playbook is None:
@@ -140,6 +160,9 @@ def main() -> None:
             print(f"playbook turn-1 script for our side: {args.playbook}", flush=True)
         else:
             print(f"playbook preview for our side: {args.playbook}", flush=True)
+    if args.sheet_preview:
+        enable_sheet_preview()
+        print("open-sheet preview for our side", flush=True)
     print(f"learned preview for our side: {args.preview_model}", flush=True)
     sys.argv = ["evaluation/opening_study.py", *rest]
     opening_study.main()

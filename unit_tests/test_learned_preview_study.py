@@ -84,3 +84,15 @@ def test_the_playbook_can_supply_the_turn1_script_alone(
     learned_preview_study.enable_playbook(playbook, script_only=True)
     ours = opening_study.StudyPlayer()
     assert ours.playbook_path == playbook and ours.playbook_script_only
+
+
+def test_the_open_sheet_preview_reaches_our_player_only(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        opening_study.StudyPlayer, "__init__", lambda self, *a, **k: None
+    )
+    learned_preview_study.enable_sheet_preview()
+    ours = opening_study.StudyPlayer()
+    assert ours.sheet_preview is True
+    assert getattr(PolicyPlayer, "sheet_preview", False) is False

@@ -3141,6 +3141,30 @@ def guard_doomed_switch(battle, cands, report) -> list[Candidate]:
     return doomed_switch(battle, cands, report)
 
 
+def guard_wasted_fake_out(battle, cands, report) -> list[Candidate]:
+    """Opt-in: attack instead of Faking Out foes that cannot act this turn
+    (game_review_1003.py, imported lazily like threat_first)."""
+    from vgc_bench.src.game_review_1003 import guard_wasted_fake_out as wasted
+
+    return wasted(battle, cands, report)
+
+
+def guard_throat_chop_main_threat(battle, cands, report) -> list[Candidate]:
+    """Opt-in: Throat Chop's sound block counts only against a main threat
+    (game_review_1003.py)."""
+    from vgc_bench.src.game_review_1003 import guard_throat_chop_main_threat as chop
+
+    return chop(battle, cands, report)
+
+
+def guard_hp_move_after_hits(battle, cands, report) -> list[Candidate]:
+    """Opt-in: Eruption / Water Spout scored at the HP left when they land
+    (game_review_1003.py)."""
+    from vgc_bench.src.game_review_1003 import guard_hp_move_after_hits as hp_move
+
+    return hp_move(battle, cands, report)
+
+
 def guard_playbook_opening(battle, cands, report) -> list[Candidate]:
     """Opt-in: play the chosen plan card's turn-1 script (the playbook handoff).
 
@@ -3205,6 +3229,9 @@ GUARDS = {
     "threat_first": guard_threat_first,
     "threat_first2": guard_threat_first2,
     "doomed_switch": guard_doomed_switch,
+    "wasted_fake_out": guard_wasted_fake_out,
+    "throat_chop_main_threat": guard_throat_chop_main_threat,
+    "hp_move_after_hits": guard_hp_move_after_hits,
     "fake_out_partner_acts": guard_fake_out_partner_acts,
     "switch_the_crippled": guard_switch_the_crippled,
     "focus_boosted": guard_focus_boosted,
@@ -3277,11 +3304,14 @@ GUARD_ORDER = (
     "wide_guard",
     "dominated_attack",
     "dominated_throat_chop",
+    "throat_chop_main_threat",
     "dominated_spread",
+    "hp_move_after_hits",
     "drop_free_finish",
     "threat_first",
     "threat_first2",
     "doomed_switch",
+    "wasted_fake_out",
     "resisted_target",
     "overkill_split",
     "dominated_weather_ball_weather",

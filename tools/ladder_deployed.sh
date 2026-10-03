@@ -18,7 +18,7 @@ export PREVIEW_MODEL
 # non-empty only when DEPLOYED.json turns on mixed-strategy play (ladder_ourteam flags)
 export MIXING
 # non-empty only when DEPLOYED.json keeps guard corrections the reranker would undo
-export STICKY
+export STICKY SHEET_PREVIEW
 # non-empty only when DEPLOYED.json has our own plan cards (playbook, sha-verified)
 export PLAYBOOK
 DIR=${2:-ladder_replays_mc_deployed_$REPLAY_TAG}

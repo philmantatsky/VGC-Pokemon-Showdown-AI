@@ -125,3 +125,23 @@ def test_a_trial_can_take_the_turn1_script_alone():
     loop = (ROOT / "tools/ladder_read_loop.sh").read_text()
     assert "PLAYBOOK_ARGS+=(--playbook-script-only)" in loop
     assert "PLAYBOOK_SCRIPT_ONLY needs PLAYBOOK" in loop
+
+
+@pytest.mark.parametrize(
+    "script",
+    [
+        ROOT / "tools/ladder_read_loop.sh",
+        ROOT / "tools/challenges_deployed.sh",
+        ROOT / "exhibition_mode.sh",
+    ],
+    ids=lambda p: p.name,
+)
+def test_launchers_pass_the_sheet_preview(script):
+    """DEPLOYED.json's sheet_preview (2026-10-03) reaches ladder_ourteam.py."""
+    assert "--sheet-preview" in script.read_text()
+
+
+@pytest.mark.parametrize("name", WRAPPERS)
+def test_the_ladder_wrappers_export_the_sheet_preview(name):
+    text = (ROOT / "tools" / name).read_text()
+    assert re.search(r"export\b.*\bSHEET_PREVIEW\b", text)

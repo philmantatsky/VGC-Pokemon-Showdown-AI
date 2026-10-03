@@ -266,3 +266,12 @@ def test_a_playbook_is_off_unless_deployed_and_verified(tmp_path):
         resolve(wrong, tmp_path)
     with pytest.raises(KeyError):
         resolve(_deployment(tmp_path, playbook="data/playbook_t9.json"), tmp_path)
+
+
+def test_sheet_preview_is_off_unless_the_manifest_turns_it_on(tmp_path):
+    """2026-10-03: their open team sheet shapes our preview only when deployed."""
+    assert resolve(_deployment(tmp_path), tmp_path)["SHEET_PREVIEW"] == ""
+    on = resolve(_deployment(tmp_path, sheet_preview=True), tmp_path)
+    assert on["SHEET_PREVIEW"] == "--sheet-preview"
+    with pytest.raises(ValueError, match="sheet_preview"):
+        resolve(_deployment(tmp_path, sheet_preview="yes"), tmp_path)

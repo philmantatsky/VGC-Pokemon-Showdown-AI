@@ -156,6 +156,8 @@ def record_run_config(
     # recorded only when on, so directories from before the flag stay valid
     if not material.get("sticky_corrections"):
         material.pop("sticky_corrections", None)
+    if not material.get("sheet_preview"):
+        material.pop("sheet_preview", None)
     if not material.get("playbook_script_only"):
         material.pop("playbook_script_only", None)
     # the plan cards themselves, not just their path: an edited playbook is a
@@ -360,6 +362,16 @@ async def main():
         "--mixing-keep-corrections",
         action="store_true",
         help="never mix a pick a guard or the opponent reranker corrected",
+    )
+    ap.add_argument(
+        "--sheet-preview",
+        action="store_true",
+        help=(
+            "with the learned preview and the opponent's open team sheet, choose "
+            "among the preview model's top plans by the sheet, and re-plan if the "
+            "sheet arrives after our preview (vgc_bench/src/sheet_preview.py). "
+            "Recorded in run_config.json"
+        ),
     )
     ap.add_argument(
         "--sticky-corrections",
@@ -795,6 +807,7 @@ async def main():
         mixing_min_ratio=args.mixing_min_ratio,
         mixing_keep_corrections=args.mixing_keep_corrections,
         sticky_guard_corrections=args.sticky_corrections,
+        sheet_preview=args.sheet_preview,
         playbook_path=Path(args.playbook) if args.playbook else None,
         playbook_script_only=args.playbook_script_only,
         guard_overrides={
@@ -879,6 +892,7 @@ async def main():
         f"{args.decision_log or str(Path(args.replay_dir) / 'decisions.jsonl')}"
     )
     print(f"sticky  : {'on' if args.sticky_corrections else 'off'}")
+    print(f"sheets  : {'open-sheet preview on' if args.sheet_preview else 'off'}")
     print(f"playbook: {args.playbook or 'off'}")
     print(f"config  : recorded in {run_config_path}")
 

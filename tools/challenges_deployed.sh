@@ -72,6 +72,10 @@ fi
 if [ -n "${STICKY:-}" ]; then
   EXTRA+=(--sticky-corrections)
 fi
+# their open team sheet shapes our preview, when DEPLOYED.json says so
+if [ -n "${SHEET_PREVIEW:-}" ]; then
+  EXTRA+=(--sheet-preview)
+fi
 # our own plan cards at team preview, when DEPLOYED.json has them
 if [ -n "${PLAYBOOK:-}" ]; then
   EXTRA+=(--playbook "$PLAYBOOK")
