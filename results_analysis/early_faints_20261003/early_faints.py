@@ -169,9 +169,8 @@ f = [g["first"] for g in early]
 n = len(f)
 print(f"   fainted before it acted that turn: {sum(not x['acted'] for x in f)}/{n}")
 print(f"   hit by 2+ opposing attacks that turn: {sum(x['hits'] >= 2 for x in f)}/{n}")
-print(
-    f"   already damaged at the start of the turn (<75% HP): {sum((x['start_hp'] or 1) < 0.75 for x in f)}/{n}"
-)
+damaged = sum((x["start_hp"] or 1) < 0.75 for x in f)
+print(f"   already damaged at the start of the turn (<75% HP): {damaged}/{n}")
 print(f"   under our own Trick Room: {sum(x['our_room'] for x in f)}/{n}")
 print(f"   its set has Protect: {sum(x['has_protect'] for x in f)}/{n}")
 print(
@@ -184,5 +183,6 @@ for s, _ in sp.most_common():
     turns = collections.Counter(x["turn"] for x in xs)
     print(
         f"      {s:11s} {len(xs):3d}: {sum(not x['acted'] for x in xs)} / "
-        f"{sum(x['hits'] >= 2 for x in xs)} / {sum(x['our_room'] for x in xs)} / {dict(sorted(turns.items()))}"
+        f"{sum(x['hits'] >= 2 for x in xs)} / {sum(x['our_room'] for x in xs)} / "
+        f"{dict(sorted(turns.items()))}"
     )
