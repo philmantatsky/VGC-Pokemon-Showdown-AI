@@ -57,5 +57,10 @@
   "source": "teams/candidates_mc/T6m.txt with Blastoise Aura Sphere for Water Pulse (results_analysis/blastoise_set_20260928/, the Blastoise audit), 2026-09-28",
   "exact": false,
   "note": "set variant of T6 for the clone team tournament; passes the gen9championsvgc2026regmc validator"
+ },
+ "T6e": {
+  "source": "teams/candidates_mc/T6.txt with Torkoal Earth Power for Weather Ball (the user, 2026-10-03: 'remove weather ball for earth power on torkoal')",
+  "exact": false,
+  "note": "set variant of T6 (Heat Wave and Eruption kept); passes the gen9championsvgc2026regmc validator"
  }
 }

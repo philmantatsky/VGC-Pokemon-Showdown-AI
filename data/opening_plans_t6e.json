@@ -1,0 +1,29 @@
+{
+ "team": "teams/candidates_mc/T6e.txt",
+ "plans": {
+  "sun": [
+   "charizard",
+   "venusaur",
+   "incineroar",
+   "farigiraf"
+  ],
+  "water_room": [
+   "blastoise",
+   "farigiraf",
+   "torkoal",
+   "venusaur"
+  ],
+  "supported_room": [
+   "incineroar",
+   "farigiraf",
+   "blastoise",
+   "torkoal"
+  ],
+  "sun_water_backup": [
+   "charizard",
+   "venusaur",
+   "blastoise",
+   "farigiraf"
+  ]
+ }
+}
