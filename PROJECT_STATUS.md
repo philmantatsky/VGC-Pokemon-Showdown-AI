@@ -1,5 +1,16 @@
 # VGC Bot Project Status
 
+## Round 2 ladder step pre-registered (2026-October 3, 06:30)
+
+Before any round-2 battery result exists: each round-2 guard that passes the gate
+(`ROUND2_PASS` in `results_analysis/threat_first_20261003/round2.log`) gets a 20-game
+serial ladder trial alone on top of the deployed bot (`TRIAL_GUARDS=<guard>
+tools/ladder_trial.sh 20 ladder_replays_mc_T6tac_<guard>`), threat_first2 first, then
+doomed_switch (`tools/guard_round2_ladder.sh`, started now, waiting for round 2 to
+finish). No continuation rule (time: the user returns around 10:45), no promotion.
+threat_first2's mirror: **49.9% [47.7, 52.1]** (10 changes in 2,000 games); its
+battery is running.
+
 ## threat_first ladder trial: 18-22 over 40 (16-22 without 2 free wins); it fired once (correctly); research: expert pilots of our six protect Farigiraf and Fake Out on turn 1 (2026-October 3, 06:00)
 
 - **Ladder** (`ladder_replays_mc_T6tac_threat_first`, 04:05-05:56, T6tac + 11 guards +
