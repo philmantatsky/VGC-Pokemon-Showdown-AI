@@ -1,5 +1,18 @@
 # VGC Bot Project Status
 
+## doomed_switch FAILS its battery (-2.97pp [-4.37, -1.74]) -> no ladder; threat_first2's 20-game ladder trial started (2026-October 3, 08:25)
+
+- **doomed_switch:** mirror 49.4% [47.2, 51.5]; battery **-2.97pp [-4.37, -1.74]**
+  (worse than the deployed bot), populations {'human_new': -1.2, 'frozen': -5.0, 'rotation1': -4.7, 'rotation2': -2.8, 'human_previous': -3.5, 'heuristic': -0.6}; it changed the pick
+  1613 times in 6,204 games (far more than the ladder replay's 1.8% of
+  decisions suggested). Gate: HOLD, no ladder. Lesson: switching out a Pokemon the
+  calculator calls doomed costs more than it saves -- the predicted KO often does not
+  come (the foe targets or moves differently), and the switch-in takes damage and the
+  tempo is lost. The 66-of-67 "a benched Pokemon survives the hit" counterfactual was
+  hindsight on the turns where the KO did happen.
+- **threat_first2:** its 20-game ladder trial started 08:25
+  (`ladder_replays_mc_T6tac_threat_first2`), continued to 40 by the 08:00 rule.
+
 ## threat_first2 passes (battery +0.44pp); its ladder continuation pre-registered; doomed_switch's battery running badly (2026-October 3, 08:00)
 
 - **threat_first2:** mirror 49.9% [47.7, 52.1]; battery **+0.44pp [-0.39, +1.26]**, worst

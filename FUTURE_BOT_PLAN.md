@@ -143,8 +143,9 @@
 - [x] threat_first (2026-10-03, the user's word): mirror 49.7%, battery -0.10pp
   [-0.68, +0.48] -> ladder trial 18-22 (16-22 w/o free wins); fired once in 332
   ladder decisions (correctly). Correct but rare; promotion is the user's call.
-- [ ] Round 2 (pre-registered): threat_first2 (Mega-aware + first-turn Fake Out) and
-  doomed_switch, mirror + battery each (`tools/guard_round2_chain.sh`).
+- [x] Round 2: threat_first2 PASSES (mirror 49.9%, battery +0.44pp [-0.39, +1.26],
+  +1.49pp where it fired) -> ladder trial running; doomed_switch FAILS (battery -2.97pp
+  [-4.37, -1.74]) -> dropped.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a

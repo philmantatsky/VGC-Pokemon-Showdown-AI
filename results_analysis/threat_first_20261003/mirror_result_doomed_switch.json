@@ -1,0 +1,67 @@
+{
+  "blocks": [
+    {
+      "hidden_sheets": false,
+      "a_challenges": true,
+      "games": 500,
+      "a_wins": 240.0,
+      "ties": 0,
+      "a_win_rate": 0.48,
+      "guard_changed_actions": 291,
+      "changed_by_guard": {
+        "doomed_switch": 291
+      },
+      "elapsed_s": 454.6
+    },
+    {
+      "hidden_sheets": false,
+      "a_challenges": false,
+      "games": 500,
+      "a_wins": 253.0,
+      "ties": 0,
+      "a_win_rate": 0.506,
+      "guard_changed_actions": 287,
+      "changed_by_guard": {
+        "doomed_switch": 287
+      },
+      "elapsed_s": 460.9
+    },
+    {
+      "hidden_sheets": true,
+      "a_challenges": true,
+      "games": 500,
+      "a_wins": 243.0,
+      "ties": 0,
+      "a_win_rate": 0.486,
+      "guard_changed_actions": 223,
+      "changed_by_guard": {
+        "doomed_switch": 223
+      },
+      "elapsed_s": 451.0
+    },
+    {
+      "hidden_sheets": true,
+      "a_challenges": false,
+      "games": 500,
+      "a_wins": 251.0,
+      "ties": 0,
+      "a_win_rate": 0.502,
+      "guard_changed_actions": 254,
+      "changed_by_guard": {
+        "doomed_switch": 254
+      },
+      "elapsed_s": 453.3
+    }
+  ],
+  "games": 2000,
+  "a_wins": 987.0,
+  "ties": 0,
+  "a_win_rate": 0.4935,
+  "wilson_95": [
+    0.4716218569513031,
+    0.5154030655775036
+  ],
+  "guard_changed_actions_per_game": 0.5275,
+  "verdict": "inconclusive",
+  "complete": true
+}

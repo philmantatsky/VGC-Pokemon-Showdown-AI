@@ -857,3 +857,11 @@ threat_first errors: 0 in 6204 games {}
 GO
 [10-03 04:05:31] END rc=0
 [10-03 04:05:31] LADDER_START 20
+[10-03 05:05:33] LADDER_END rc=0
+[10-03 05:05:33] START .venv/bin/python evaluation/guard_ladder_gate.py continue ladder_replays_mc_T6tac_threat_first 20 6
+ladder read: 8-12
+GO
+[10-03 05:05:33] END rc=0
+[10-03 05:05:33] LADDER_CONTINUE 40
+[10-03 05:56:37] LADDER_END rc=0
+[10-03 05:56:37] CHAIN_COMPLETE

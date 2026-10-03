@@ -1,0 +1,4 @@
+[10-03 06:27:29] R2LADDER_WAIT
+[10-03 08:25:00] R2LADDER_START threat_first2 20
+LADDER_START [08:25:01] checkpoint=results_deployed/champion_mc_T6tac.zip team=teams/candidates_mc/T6.txt preview=data/preview_t6_focus_20260923.pt mixing=off sticky=on playbook=off total=20 dir=ladder_replays_mc_T6tac_threat_first2 games_done=0
+SESSION_START 1 [08:25:01] games_done=0 remaining=20 log=ladder_replays_mc_T6tac_threat_first2_20261003_082501_session1.log
