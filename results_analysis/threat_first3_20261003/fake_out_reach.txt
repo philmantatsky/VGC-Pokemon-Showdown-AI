@@ -1,0 +1,7 @@
+turn-1 first faints (ours)                    35
+  killer flagged                              12
+    a lead can Fake Out the killer            7
+      that Fake Out was played                0
+      ranked but not played                   5
+      not even ranked                         2
+    no lead can Fake Out the killer           5

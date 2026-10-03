@@ -1,0 +1,4 @@
+{'early first faints': 123, 'flagged as deployed': 77, 'flagged with likely ability/item': 79}
+newly flagged killers (read, battle, turn, attacker, move):
+   ('deployed_T6_humanpreview1_throatchop', '2688080682', 2, 'p2b: Armarouge', 'expandingforce')
+   ('t6m1', '2692003258', 1, 'p2a: Armarouge', 'armorcannon')

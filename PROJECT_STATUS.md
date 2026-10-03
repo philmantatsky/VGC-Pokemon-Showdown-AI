@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## Research: how far a threat guard can reach -- the knockout threat is seen in 63% of early first faints, but an answer exists in ~2% of games (2026-October 3, 12:00)
+
+`results_analysis/threat_first3_20261003/` (likely_set_audit, fake_out_reach; .py +
+.txt; live settings: usage prior on, Reg M-C format):
+- **Detection is decent:** in 123 first faints of ours on turns 1-3 (T6-era ladder), the
+  deployed threat check (threat_first2.threats) flags the actual killer as a knockout
+  threat to the victim in **77 (63%)**. Assuming the foe's most-likely ability and item
+  from usage (>= 50% of its sets) adds only **2** (both Armarouge).
+- **The miss that prompted it** (threat_first2 trial, battle 2692164095): Farigiraf +
+  Incineroar led into Mega Staraptor + Sylveon; Incineroar Parting Shot, and Sylveon's
+  Hyper Beam knocked out the full-HP Farigiraf before Trick Room. The calculator gave
+  44-52% (unrevealed Pixilate); with Pixilate 78-93%; the rest is Fairy Feather, which
+  poke-env's calculator does not apply to a Pixilate-changed move (it checks the item
+  against the move's original Normal type, damage_calc_gen9.py:949). And Incineroar's
+  Fake Out into Sylveon was not among the ranked pairs at all.
+- **The answer is the bottleneck:** of 35 turn-1 first faints (games with decision
+  logs), the killer was flagged in 12; one of our leads could Fake Out the killer in 7;
+  that Fake Out was played 0 times, ranked but not played 5 (threat_first2's territory),
+  not ranked 2. Our usual leads (Blastoise, Farigiraf) carry no Protect, so beyond
+  Fake Out the answers are switches (doomed_switch failed) or nothing.
+- **Reading:** guard-level fixes for early faints top out around 2% of games -- in line
+  with threat_first2's +0.44pp. No new guard built from this. Bigger levers are
+  structural (a Protect on a lead -- a team question) or the brain's mid-game play
+  (experts win 44% of games after losing a Pokemon first, we 25%; small human sample).
+
 ## The turn-1 script alone is NEUTRAL locally and fails the pre-registered floor (human_new -3.6pp) -> no ladder A/B; not recommended (2026-October 3, 11:30)
 
 `results_guard_ab_turn1_script` (the deployed bot + the Water Room turn-1 script on our
