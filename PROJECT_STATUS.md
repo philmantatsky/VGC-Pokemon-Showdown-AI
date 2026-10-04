@@ -1,5 +1,32 @@
 # VGC Bot Project Status
 
+## PRE-REGISTERED: the 15-game ladder read of the Earth Power candidate, then anchored practice on T6e (2026-October 4, 03:40, before either runs)
+
+- The user (02:56): "no matter better or not run 15 games on ladder and analyze them, do more
+  training afterwards too and also take a look into the vgc other bot thats been going on in a
+  seperate context and see if u can learn anything from it, use your best judgement through the
+  night".
+- **Ladder read** (after `training/t6e_ep_chain.sh` ends; the challenge listener pauses -- same
+  account, ladder is serial): `TRIAL_CHECKPOINT=results_tactical_t6e_ep1/sft/tactical_e4.zip
+  tools/ladder_trial.sh 15 ladder_replays_mc_t6e_ep1` -- the deployed configuration (T6e, 14
+  guards, sticky corrections, learned preview, sheet preview) with the candidate brain. No gate
+  (the user's word: whatever its local result). Analysis: the record, with free wins (turn-1
+  quits) apart; every Earth Power decision (how often Earth Power was the teacher's best attack,
+  and how often the bot clicked it then and when it was worse); guard firings; each loss's
+  turning point (who fainted first, to what).
+- **Anchored practice** (`training/t6e_anchor_chain.sh`, launched once the ladder read ends): the
+  T6ctx practice recipe (+983,040 steps) on T6e with ONE change -- beta * KL(start || policy) in
+  the PPO loss, beta adapted toward 0.10 nats (slot 1 + slot 2; `vgc_bench/src/anchored_ppo.py`,
+  `training/run_t6e_anchor_trial.py`). Why: plain practice from T6tac moved the brain 0.52 nats
+  from its start (slot 1, measured on T6 positions) -- as far as the practice that improved T6hp
+  (0.48) -- over the tactical fine-tune's 0.24-nat lessons, and lost 35.2%. START = the Earth
+  Power candidate if its head-to-head was not lost (upper bound >= 50%) and its battery is
+  deploy-eligible, else T6tac. Gate (`training/t6tac_practice_gate.py go`): head-to-head vs the
+  deployed bot won (Wilson lower bound > 50%) AND the battery vs
+  `results_brain_ab_t6e_unpractised` deploy-eligible -> GO, else HOLD. Also reported: the
+  candidate's drift KL(start || candidate) on the T6e positions (the anchor should hold it near
+  0.1). Deployment: the user's call.
+
 ## PRE-REGISTERED: the Earth Power lesson on T6e (2026-October 4, 02:25, before any run)
 
 - The user: "start the earth power practice training but like its pretty obvious just use ep
