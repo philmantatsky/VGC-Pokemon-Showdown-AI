@@ -187,6 +187,7 @@ impl Battle {
                         match id.as_str() {
                             "wish" => side.wish[slot] = (i(st, "duration") as u8, i(st, "hp") as u16),
                             "healingwish" => side.healing_wish[slot] = true,
+                            "revivalblessing" => side.reviving[slot] = true,
                             _ => return Err(format!("unsupported slot condition {id}")),
                         }
                     }
@@ -421,7 +422,7 @@ impl Battle {
         if let Some(f) = get(mv, "ability_state").get("fallen").and_then(|x| x.as_i64()) {
             v.fallen = f as u8;
         }
-        v.protean = b(get(mv, "ability_state"), "protean");
+        v.protean = b(get(mv, "ability_state"), "protean") || b(get(mv, "ability_state"), "libero");
         // Counter / Mirror Coat / Metal Burst: the last damage taken this turn.
         if let Some(ab) = mv.get("attacked_by").and_then(|x| x.as_array()) {
             for a in ab.iter().rev() {
@@ -629,6 +630,9 @@ impl Battle {
                 }
                 if side.healing_wish[sl] {
                     slots.push(format!("{l}.healingwish:1"));
+                }
+                if side.reviving[sl] {
+                    slots.push(format!("{l}.revivalblessing:1"));
                 }
             }
             slots.sort();

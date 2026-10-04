@@ -171,6 +171,13 @@ function legalFromShowdown(battle) {
 			}
 			if (req.forceSwitch) {
 				const flagged = req.forceSwitch.filter(Boolean).length;
+				if (req.forceSwitch[i] && side.slotConditions[i] && side.slotConditions[i].revivalblessing) {
+					// Revival Blessing: any fainted party member; pass only
+					// when there is no healthy benched Pokemon.
+					const fainted = side.pokemon.filter(q => q.fainted).map(L.teamIdx).sort((x, y) => x - y);
+					slots.push({ moves: [], switches: fainted, mega: false, pass: flagged > bench.length });
+					continue;
+				}
 				slots.push(req.forceSwitch[i] && bench.length ?
 					{ moves: [], switches: bench, mega: false, pass: flagged > bench.length } :
 					{ moves: [], switches: [], mega: false, pass: true });
@@ -418,6 +425,7 @@ async function main() {
 	let compared = 0, skipped = 0, flaggedScen = 0, features = 0, flaggedFeat = 0;
 	const skipWhy = {};
 	const flags = [];
+	const errs = [];
 	const byKind = {};
 	for (const s of scenarios) {
 		const a = sdById.get(s.id), b = enById.get(s.id);
@@ -431,6 +439,7 @@ async function main() {
 			skipped++;
 			const w = 'engine step error: ' + Object.keys(b.errors)[0].replace(/[0-9]+/g, 'N');
 			skipWhy[w] = (skipWhy[w] || 0) + 1;
+			errs.push({ id: s.id, err: Object.keys(b.errors)[0], state: s.state, choices: s.choices, engineChoices: s.engineChoices, serialized: s.serialized });
 			continue;
 		}
 		if (Object.keys(a.errors).length) {
@@ -502,6 +511,7 @@ async function main() {
 		console.log(`wrote fixture ${FIXTURE} (${Math.min(ok.length, FIXTURE_MAX)} turn scenarios)`);
 	}
 	if (DUMP) {
+		fs.writeFileSync(DUMP + '.err.json', JSON.stringify(errs));
 		fs.writeFileSync(DUMP + '.legal.json', JSON.stringify(lBads.map(({ l, bad }) => ({ id: l.id, bad, state: l.state }))));
 		fs.writeFileSync(DUMP, JSON.stringify(flags.map(f => ({ id: f.s.id, key: f.key, p: f.r.p, sd: f.sd, en: f.en, state: f.s.state, choices: f.s.choices, engineChoices: f.s.engineChoices, serialized: f.s.serialized }))));
 	}

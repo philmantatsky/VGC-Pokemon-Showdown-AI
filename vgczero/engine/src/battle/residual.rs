@@ -44,6 +44,10 @@ enum Res {
 
 impl Battle {
     pub(crate) fn run_residual(&mut self) {
+        // Revival Blessing's slot condition (duration 1) ends.
+        for s in 0..2 {
+            self.sides[s].reviving = [false; 2];
+        }
         // HP before residuals, for Emergency Exit.
         let mut hp_before = [0u16; 4];
         for c in 0..4 {

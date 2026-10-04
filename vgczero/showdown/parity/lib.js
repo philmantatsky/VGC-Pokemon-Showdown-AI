@@ -497,8 +497,21 @@ function randomChoice(battle, side, rand, opts = {}) {
 		let avail = bench.length;
 		const slotsOut = [{ kind: 'pass' }, { kind: 'pass' }];
 		// With fewer replacements than flagged slots, which slot passes is a choice.
+		const flagged = req.forceSwitch.filter(Boolean).length;
 		for (const i of rand.shuffle([0, 1])) {
 			if (!req.forceSwitch[i]) continue;
+			if (side.slotConditions[i] && side.slotConditions[i].revivalblessing) {
+				// Revival Blessing: pick a fainted party member (or pass, when
+				// Showdown allows it: no healthy benched Pokemon).
+				const opts3 = side.pokemon.filter(p => p.fainted && !used.has(p));
+				const canPass = flagged > bench.length;
+				const k = rand.int(opts3.length + (canPass ? 1 : 0));
+				if (k < opts3.length) {
+					used.add(opts3[k]);
+					slotsOut[i] = { kind: 'switch', to: teamIdx(opts3[k]), pos: opts3[k].position };
+				}
+				continue;
+			}
 			const opts2 = bench.filter(p => !used.has(p));
 			if (!opts2.length || avail <= 0) continue;
 			const p = rand.pick(opts2);
@@ -533,7 +546,8 @@ function randomChoice(battle, side, rand, opts = {}) {
 				if (a.canMegaEvo) options.push({ kind: 'move', slot, reqIndex: mi, moveid: m.id, targetLoc: loc, target: tt, mega: true });
 			}
 		});
-		if (!a.trapped && !(opts.noSwitch)) {
+		// (A hidden trap, e.g. an unrevealed Shadow Tag, shows as maybeTrapped.)
+		if (!a.trapped && !pokemon.trapped && !(opts.noSwitch)) {
 			for (const p of side.pokemon) {
 				if (!p.isActive && !p.fainted) options.push({ kind: 'switch', to: teamIdx(p), pos: p.position });
 			}

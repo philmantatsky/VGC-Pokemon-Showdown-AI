@@ -24,7 +24,7 @@ impl Battle {
                 }
                 let mut mask = 0u32;
                 for i in 0..6 {
-                    if self.sides[side].can_switch_to(i) {
+                    if self.switch_target_ok(side, slot, i) {
                         mask |= 1 << switch_action(i);
                     }
                 }
@@ -264,7 +264,7 @@ impl Battle {
                     break;
                 }
                 if self.switch_slots[side][slot] && c.slots[slot] == PASS {
-                    if let Some(i) = (0..6).find(|&i| self.sides[side].can_switch_to(i) && !used[i]) {
+                    if let Some(i) = (0..6).find(|&i| self.switch_target_ok(side, slot, i) && !used[i]) {
                         used[i] = true;
                         c.slots[slot] = switch_action(i);
                         switches += 1;

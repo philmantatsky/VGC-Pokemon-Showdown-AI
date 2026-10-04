@@ -350,7 +350,7 @@ impl Battle {
             }
             self.protean(p, am);
             let ok = self.field_move(p, am);
-            self.after_move(p, am, &[], ok);
+            self.after_move(p, am, &[], ok, 0);
             return ok;
         }
 
@@ -1002,7 +1002,34 @@ impl Battle {
                 }
             }
         }
-        // 5. Break protection (Feint) is folded into try_hit.
+        // 5. hitStepBreakProtect (Feint, Phantom Force): after accuracy, remove
+        // the target's protection and its side's Wide / Quick Guard; if
+        // anything broke, the stall counter too.
+        if dex().mv(am.id).breaks_protect {
+            for i in 0..n {
+                if res[i] != Hit::Pending {
+                    continue;
+                }
+                let t = tg[i];
+                let mut broke = false;
+                if self.m(t).vol.protect != ProtectKind::None {
+                    self.mm(t).vol.protect = ProtectKind::None;
+                    broke = true;
+                }
+                let c = &mut self.sides[t.s()].conds;
+                if c.wide_guard || c.quick_guard {
+                    c.wide_guard = false;
+                    c.quick_guard = false;
+                    broke = true;
+                }
+                if broke {
+                    blog!(self, "|-activate|{}|move: {}|[broken]", self.name(t), dex().mv(am.id).name);
+                    let m = self.mm(t);
+                    m.vol.stall_counter = 0;
+                    m.vol.stall_dur = 0;
+                }
+            }
+        }
         let live: Vec<Pos> = (0..n).filter(|&i| res[i] == Hit::Pending).map(|i| tg[i]).collect();
         let any_fail = (0..n).any(|i| res[i] == Hit::Failed);
         if live.is_empty() {
@@ -1258,11 +1285,15 @@ impl Battle {
             }
             hit_no = h;
             // spreadMoveHit for this hit.
-            let dmg = self.spread_move_hit(p, am, targets, &mut self_dropped);
+            let (dmg, subbed) = self.spread_move_hit(p, am, targets, &mut self_dropped);
             for i in 0..n {
                 if let Some(d) = dmg[i] {
                     total_damage[i] += d;
-                    damaged[i] = true;
+                    // A substitute's hit is not damage to the Pokemon
+                    // (no AfterMoveSecondary, no Rage Fist count).
+                    if !subbed[i] {
+                        damaged[i] = true;
+                    }
                     any_hit = true;
                 }
             }
@@ -1279,6 +1310,11 @@ impl Battle {
             }
             if !self.is_live(p) && n == 1 {
                 break;
+            }
+            // Multi-hit moves (and Parental Bond) apply their self effects
+            // (Hammer Arm's Speed drop...) on every hit.
+            if mv.multihit.0 > 0 || parental {
+                self_dropped = false;
             }
         }
         // faintMessages(false, false, !pokemon.hp): Pokemon at 0 HP faint now
@@ -1305,11 +1341,11 @@ impl Battle {
         }
         // After-move-secondary: Eject Button, Red Card, Emergency Exit.
         self.after_move_secondary(p, am, targets, &damaged, &hp_before, total);
-        self.after_move(p, am, targets, any_hit || am.category == Category::Status);
+        self.after_move(p, am, targets, any_hit || am.category == Category::Status, total);
     }
 
     /// One hit against all remaining targets. Returns damage dealt per target.
-    fn spread_move_hit(&mut self, p: Pos, am: &mut ActiveMove, targets: &[Pos], self_dropped: &mut bool) -> [Option<u32>; MAX_TARGETS] {
+    fn spread_move_hit(&mut self, p: Pos, am: &mut ActiveMove, targets: &[Pos], self_dropped: &mut bool) -> ([Option<u32>; MAX_TARGETS], [bool; MAX_TARGETS]) {
         let mv = dex().mv(am.id);
         let n = targets.len();
         let mut out = [None; MAX_TARGETS];
@@ -1479,7 +1515,7 @@ impl Battle {
                 self.emergency_exit(p);
             }
         }
-        out
+        (out, sub_hit)
     }
 
     /// damageCallback moves.
@@ -1983,6 +2019,18 @@ impl Battle {
                 self.sides[p.s()].wish[slot] = (2, amt);
                 return true;
             }
+            MoveFx::RevivalBlessing => {
+                // onTryHit: needs a fainted party member; then the slot
+                // condition and a (non-)switch request to pick it.
+                let s = p.s();
+                if !self.sides[s].mons.iter().any(|m| m.brought && m.fainted) {
+                    blog!(self, "|-fail|{}", self.name(p));
+                    return false;
+                }
+                self.sides[s].reviving[p.i()] = true;
+                self.mm(p).vol.switch_flag = true;
+                return true;
+            }
             MoveFx::HealingWish => {
                 self.sides[p.s()].healing_wish[p.i()] = true;
                 let hp = self.m(p).hp as u32;
@@ -2332,6 +2380,15 @@ impl Battle {
                 }
                 _ => {}
             }
+            // Pickpocket: a contact move's user loses its item to an
+            // item-less target.
+            if self.ab(t) == Ab::Pickpocket && am.flags & flag::CONTACT != 0 && self.is_live(p) && self.m(t).item == 0 && !self.m(t).vol.switch_flag && !self.m(t).vol.force_switch {
+                if let Some(it) = self.take_item(p) {
+                    self.mm(t).item = it;
+                    self.reveal_ability(t);
+                    blog!(self, "|-item|{}|{}|[from] ability: Pickpocket", self.name(t), dex().item(it).name);
+                }
+            }
         }
         // Emergency Exit / Wimp Out.
         if !(am.sheer_force) {
@@ -2369,14 +2426,32 @@ impl Battle {
     }
 
     /// After a move that did something: Life Orb, Throat Spray, Moxie...
-    fn after_move(&mut self, p: Pos, am: &ActiveMove, targets: &[Pos], ok: bool) {
+    fn after_move(&mut self, p: Pos, am: &ActiveMove, targets: &[Pos], ok: bool, total: u32) {
         if !self.is_live(p) {
             // Destiny Bond etc. not needed when the user fainted.
             return;
         }
-        // Life Orb recoil whenever the move connected (AfterMoveSecondarySelf).
+        // AfterMoveSecondarySelf (not with Sheer Force): Magician first
+        // (priority 0), then the user's Life Orb / Shell Bell (priority -1;
+        // an item Magician just took does not act this time).
         let hit_something = targets.iter().any(|&t| t != p);
-        if ok && am.category != Category::Status && self.it(p) == It::LifeOrb && hit_something && !am.sheer_force {
+        let mut stole = false;
+        if ok && hit_something && !am.sheer_force && am.category != Category::Status && self.ab(p) == Ab::Magician && self.m(p).item == 0 {
+            let mut order: Vec<(i32, u64, Pos)> =
+                targets.iter().filter(|&&t| t != p).map(|&t| (self.action_speed(t), self.rng.next_u64(), t)).collect();
+            order.sort_by(|a, b| b.0.cmp(&a.0).then(a.1.cmp(&b.1)));
+            for (_, _, t) in order {
+                if let Some(it) = self.take_item(t) {
+                    self.mm(p).item = it;
+                    self.reveal_ability(p);
+                    blog!(self, "|-item|{}|{}|[from] ability: Magician", self.name(p), dex().item(it).name);
+                    stole = true;
+                    break;
+                }
+            }
+        }
+        // Life Orb recoil whenever the move connected (not after Red Card).
+        if !stole && ok && am.category != Category::Status && self.it(p) == It::LifeOrb && hit_something && !am.sheer_force && !self.m(p).vol.force_switch {
             if self.ab(p) != Ab::MagicGuard {
                 let mh = self.m(p).max_hp as u32;
                 let hp0 = self.m(p).hp as u32;
@@ -2387,7 +2462,10 @@ impl Battle {
                 }
             }
         }
-        // Shell Bell.
+        // Shell Bell: an eighth of the damage dealt.
+        if !stole && ok && total > 0 && self.it(p) == It::ShellBell && !am.sheer_force && !self.m(p).vol.force_switch && self.is_live(p) {
+            self.heal(p, (total / 8).max(1));
+        }
         // Moxie / Eelevate: KO'd a target.
         let kos = targets.iter().filter(|&&t| t != p && !self.is_live(t)).count() as i8;
         if kos > 0 && self.is_live(p) {

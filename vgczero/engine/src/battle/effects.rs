@@ -618,7 +618,8 @@ impl Battle {
             return;
         }
         let m = self.m(p);
-        if (m.hp as u32) * 2 > m.max_hp as u32 || self.unnerved(p) {
+        // onTryEatItem: a healing berry is not eaten under Heal Block.
+        if (m.hp as u32) * 2 > m.max_hp as u32 || self.unnerved(p) || m.vol.heal_block > 0 {
             return;
         }
         let m = self.m(p);
@@ -705,6 +706,29 @@ impl Battle {
         if self.ab(p) == Ab::Unburden {
             self.mm(p).vol.unburden = true;
         }
+    }
+
+    /// Showdown's takeItem (Magician, Pickpocket): the item leaves its holder
+    /// without counting as used (no Recycle), unless it is a Mega Stone.
+    pub fn take_item(&mut self, p: Pos) -> Option<crate::dex::ItemId> {
+        if !self.is_live(p) {
+            return None;
+        }
+        let it = self.m(p).item;
+        if it == 0 || dex().item(it).is_mega_stone {
+            return None;
+        }
+        {
+            let m = self.mm(p);
+            m.item = 0;
+            m.vol.choice_lock = 0;
+            m.reveal.item = true;
+        }
+        if self.ab(p) == Ab::Unburden {
+            self.mm(p).vol.unburden = true;
+        }
+        blog!(self, "|-enditem|{}|{}|[silent]", self.name(p), dex().item(it).name);
+        Some(it)
     }
 
     pub fn consume_item(&mut self, p: Pos) {

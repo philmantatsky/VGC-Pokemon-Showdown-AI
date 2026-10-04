@@ -401,6 +401,7 @@ tag_enum!(MoveFx {
     Rest = "rest",
     Wish = "wish",
     HealingWish = "healingwish",
+    RevivalBlessing = "revivalblessing",
     BatonPass = "batonpass",
     ShedTail = "shedtail",
     Round = "round",

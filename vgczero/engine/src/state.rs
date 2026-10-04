@@ -203,9 +203,11 @@ impl Mon {
         let d = crate::dex::dex();
         let mut pp = [0u8; 4];
         for i in 0..set.n_moves as usize {
-            // Champions PP (scripts.ts calculatePP): (pp / 5 + 1) * 4.
-            let base = d.mv(set.moves[i]).pp as f64;
-            pp[i] = ((base / 5.0 + 1.0) * 4.0).ceil().min(255.0) as u8;
+            // Champions PP (scripts.ts calculatePP): (pp / 5 + 1) * 4, or the
+            // listed PP for noPPBoosts moves.
+            let md = d.mv(set.moves[i]);
+            let base = md.pp as f64;
+            pp[i] = if md.no_pp_boosts { md.pp } else { ((base / 5.0 + 1.0) * 4.0).ceil().min(255.0) as u8 };
         }
         let (can_mega, mega) = match set.mega {
             Some(m) => (true, m),
@@ -341,6 +343,9 @@ pub struct Side {
     pub fainted_last_turn: bool,
     /// Healing Wish waiting for the next Pokemon into each slot.
     pub healing_wish: [bool; 2],
+    /// Revival Blessing used from this slot this turn (slot condition): the
+    /// slot's switch request picks a fainted Pokemon to revive.
+    pub reviving: [bool; 2],
     /// Wish: turns until it lands and HP it restores, per slot.
     pub wish: [(u8, u16); 2],
     /// Open team sheets: the opponent sees moves, items and abilities.

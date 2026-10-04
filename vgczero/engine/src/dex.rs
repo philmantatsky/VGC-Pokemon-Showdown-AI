@@ -455,6 +455,8 @@ pub struct MoveData {
     /// 0 none, 1 always (Explosion), 2 ifHit, 3 always but after (Healing Wish style).
     pub selfdestruct: u8,
     pub breaks_protect: bool,
+    /// `noPPBoosts`: the move keeps its listed PP (Revival Blessing).
+    pub no_pp_boosts: bool,
     pub ignore_evasion: bool,
     pub ignore_defensive: bool,
     pub ignore_immunity: bool,
@@ -952,6 +954,7 @@ fn parse_move(mv: &Value) -> MoveData {
         base_power: n(mv, "basePower") as u16,
         accuracy,
         pp: n(mv, "pp") as u8,
+        no_pp_boosts: b(mv, "noPPBoosts"),
         priority: n(mv, "priority") as i8,
         target: Target::parse(&s(mv, "target")),
         flags,

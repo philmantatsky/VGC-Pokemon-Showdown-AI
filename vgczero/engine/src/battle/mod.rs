@@ -212,6 +212,7 @@ impl Battle {
                 fainted_this_turn: false,
                 fainted_last_turn: false,
                 healing_wish: [false; 2],
+                reviving: [false; 2],
                 wish: [(0, 0); 2],
                 sheet_open: sheet,
                 order: [0, 1, 2, 3, 4, 5],
@@ -366,15 +367,30 @@ impl Battle {
                     self.validate_switch_choice(s, &choices[s])?;
                 }
                 let mut switched = vec![];
+                // A Revival Blessing user that passes keeps its switch flag
+                // (Showdown asks again after the next action).
+                let mut revive_pass = [[false; 2]; 2];
                 for s in 0..2 {
                     for slot in 0..2 {
                         if !self.switch_slots[s][slot] {
                             continue;
                         }
+                        let p = Pos::new(s, slot);
+                        if self.sides[s].reviving[slot] && decode(choices[s].slots[slot]) == SlotAction::Pass && self.is_live(p) {
+                            revive_pass[s][slot] = true;
+                            self.mm(p).vol.switch_flag = false;
+                        }
                         if let SlotAction::Switch(to) = decode(choices[s].slots[slot]) {
                             let p = Pos::new(s, slot);
-                            self.switch_out_in(p, to as usize);
-                            switched.push(p);
+                            if self.sides[s].reviving[slot] {
+                                // Revival Blessing: `to` is the fainted Pokemon to revive.
+                                if let Some(q) = self.revive(p, to as usize) {
+                                    switched.push(q);
+                                }
+                            } else {
+                                self.switch_out_in(p, to as usize);
+                                switched.push(p);
+                            }
                         }
                     }
                 }
@@ -382,6 +398,14 @@ impl Battle {
                 self.phase = Phase::Move;
                 self.run_switch_in(&switched);
                 self.after_actions_check();
+                for s in 0..2 {
+                    for slot in 0..2 {
+                        let p = Pos::new(s, slot);
+                        if revive_pass[s][slot] && self.is_live(p) {
+                            self.mm(p).vol.switch_flag = true;
+                        }
+                    }
+                }
                 if matches!(self.phase, Phase::Switch { .. }) || self.ended() {
                     // A switch-in caused another pending switch (e.g. hazards
                     // triggering Emergency Exit); keep the original timing.
@@ -416,7 +440,7 @@ impl Battle {
             match decode(c.slots[slot]) {
                 SlotAction::Switch(to) => {
                     let to = to as usize;
-                    if !self.sides[s].can_switch_to(to) || used[to] {
+                    if !self.switch_target_ok(s, slot, to) || used[to] {
                         return Err(ChoiceError(format!("side {s} slot {slot}: cannot switch to {to}")));
                     }
                     used[to] = true;
@@ -431,6 +455,53 @@ impl Battle {
             return Err(ChoiceError(format!("side {s}: {switches} switches, {} required", self.forced_switches(s))));
         }
         Ok(())
+    }
+
+    /// A switch request's target for a flagged slot: a healthy benched
+    /// Pokemon, or a fainted one when the slot used Revival Blessing.
+    pub fn switch_target_ok(&self, s: usize, slot: usize, i: usize) -> bool {
+        if self.sides[s].reviving[slot] && matches!(self.phase, Phase::Switch { .. }) {
+            let m = &self.sides[s].mons[i];
+            m.brought && m.fainted
+        } else {
+            self.sides[s].can_switch_to(i)
+        }
+    }
+
+    /// Revival Blessing's action: the fainted Pokemon `to` comes back with
+    /// half its HP; if it is still in an active slot (a fainted ally), it
+    /// switches back in there (instaswitch) and its queued action is dropped.
+    /// Returns that slot, for the switch-in effects.
+    pub(crate) fn revive(&mut self, p: Pos, to: usize) -> Option<Pos> {
+        let s = p.s();
+        self.sides[s].reviving[p.i()] = false;
+        if self.is_live(p) {
+            self.mm(p).vol.switch_flag = false;
+        }
+        {
+            let m = &mut self.sides[s].mons[to];
+            m.fainted = false;
+            m.status = crate::dex::Status::None;
+            m.status_turns = 0;
+            m.hp = (m.max_hp / 2).max(1);
+        }
+        blog!(
+            self,
+            "|-heal|p{}: {}|{}/{}|[from] move: Revival Blessing",
+            s + 1,
+            self.mon_name(s, to),
+            self.sides[s].mons[to].hp,
+            self.sides[s].mons[to].max_hp
+        );
+        for slot in 0..2 {
+            if self.sides[s].active[slot] as usize == to {
+                let q = Pos::new(s, slot);
+                self.queue.remove_where(|a| a.pos == q);
+                self.switch_out_in(q, to);
+                return Some(q);
+            }
+        }
+        None
     }
 
     /// In a switch phase: how many of the side's flagged slots must switch
@@ -733,7 +804,7 @@ impl Battle {
                 }
                 let m = self.m(p);
                 if m.vol.switch_flag {
-                    if self.sides[s].bench_available() > 0 {
+                    if self.sides[s].bench_available() > 0 || self.sides[s].reviving[slot] {
                         slots[s][slot] = true;
                         any = true;
                     } else {
@@ -751,7 +822,8 @@ impl Battle {
             // chooses which slot switches (the other passes).
             for s in 0..2 {
                 for slot in 0..2 {
-                    if slots[s][slot] {
+                    // (A Revival Blessing user keeps its flag until it picks.)
+                    if slots[s][slot] && !self.sides[s].reviving[slot] {
                         let p = Pos::new(s, slot);
                         self.mm(p).vol.switch_flag = false;
                     }
@@ -837,8 +909,20 @@ impl Battle {
             return;
         }
         if let Phase::Switch { .. } = self.phase {
-            // A residual-triggered self-switch is handled like an end-of-turn
-            // replacement.
+            // A residual-triggered self-switch (Emergency Exit) is handled
+            // like an end-of-turn replacement, in the same request as the
+            // fainted slots (Showdown's checkFainted).
+            for s in 0..2 {
+                if self.sides[s].bench_available() == 0 {
+                    continue;
+                }
+                for slot in 0..2 {
+                    let i = self.sides[s].active[slot];
+                    if i == NO_MON || self.sides[s].mons[i as usize].fainted {
+                        self.switch_slots[s][slot] = true;
+                    }
+                }
+            }
             self.phase = Phase::Switch { midturn: false };
             return;
         }
