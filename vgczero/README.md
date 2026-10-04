@@ -50,6 +50,12 @@ python scripts/evolve.py --checkpoint runs/base1/checkpoints/latest.pt --run-dir
 node showdown/validate_team.js runs/base1/evolve/population_latest.json
 ```
 
+Matchup lab (win rate, each side's bring/lead choices, solved team-preview game):
+
+```bash
+python scripts/matchup.py --checkpoint runs/base1/checkpoints/latest.pt --a my_team.txt --b MC2001 --games 400
+```
+
 Tests: `pytest` (Python, from `vgczero/`) and `cargo test --release` (engine).
 
 Search from Python:
