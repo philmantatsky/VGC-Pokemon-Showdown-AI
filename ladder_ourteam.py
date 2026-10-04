@@ -206,6 +206,12 @@ def record_run_config(
         material.pop("sheet_preview", None)
     if not material.get("playbook_script_only"):
         material.pop("playbook_script_only", None)
+    # recorded only when not the default, for the same reason (2026-10-04: the two
+    # search flags made every older directory refuse its next run)
+    if material.get("search_solution") == "risk":
+        material.pop("search_solution", None)
+    if material.get("search_leaf") == "outcome":
+        material.pop("search_leaf", None)
     # the plan cards themselves, not just their path: an edited playbook is a
     # different configuration (recorded only when on, like the flag above)
     if material.get("playbook"):

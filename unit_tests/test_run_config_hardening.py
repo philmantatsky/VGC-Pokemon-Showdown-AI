@@ -136,6 +136,24 @@ class TestRecordRunConfig:
                 tmp_path, _args(sticky_corrections=True), "abc123", "hard"
             )
 
+    def test_search_flags_are_material_only_when_not_default(self, tmp_path):
+        """2026-10-04: --search-solution / --search-leaf entered the material with
+        their defaults, so a directory recorded before them (the running challenge
+        listener's) would have refused its next reconnect restart."""
+        record_run_config(tmp_path, _args(), "abc123", "hard")
+        path = record_run_config(
+            tmp_path,
+            _args(search_solution="risk", search_leaf="outcome"),
+            "abc123",
+            "hard",
+        )
+        material = json.loads(path.read_text())["runs"][-1]["material"]
+        assert "search_solution" not in material and "search_leaf" not in material
+        with pytest.raises(SystemExit, match="search_solution"):
+            record_run_config(tmp_path, _args(search_solution="nash"), "abc123", "hard")
+        with pytest.raises(SystemExit, match="search_leaf"):
+            record_run_config(tmp_path, _args(search_leaf="critic"), "abc123", "hard")
+
     def test_a_playbook_is_material_with_its_sha_only_when_on(self, tmp_path):
         """2026-09-27: the plan cards themselves are the configuration -- an edited
         playbook may not share a replay dir with the one before it."""
