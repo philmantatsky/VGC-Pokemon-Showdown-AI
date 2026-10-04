@@ -97,8 +97,8 @@ changing the state format or the outcome features.
 |---|---|---|
 | damage, random | 294 / 300 exact | 5000 / 5000 exact (seeds 21, 31, 33), 0 / 160000 values differ |
 | damage, every ability and item forced | not run | 4020 / 4020 exact |
-| turn outcomes | 543 / 604 scenarios consistent (61 flagged) | 1784 / 1784 (seed 20), 1311 / 1311 (seed 10), 1280 / 1280 (seed 11), 440 / 440 (seed 7) |
-| request legality | (no check) | 4651 / 4651 decision points (seed 20) |
+| turn outcomes | 543 / 604 scenarios consistent (61 flagged) | 1810 / 1810 (seed 30), 1784 / 1784 (seed 20), 1311 / 1311 (seed 10), 1280 / 1280 (seed 11), 440 / 440 (seed 7) |
+| request legality | (no check) | 4793 / 4793 (seed 30), 4651 / 4651 (seed 20) decision points |
 | teams fully supported | 93.3 % (3362 / 3605) | 98.3 % (3545 / 3605) |
 | `cargo test --test parity` | | 1000 damage cases, 250 turn scenarios, 283 requests: all pass |
 
