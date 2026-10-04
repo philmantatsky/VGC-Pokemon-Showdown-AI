@@ -95,6 +95,7 @@ impl Battle {
                 return;
             }
             m.pp[mslot] -= 1;
+            m.vol.moves_used |= 1 << mslot;
         }
         {
             let m = self.mm(p);
@@ -292,6 +293,15 @@ impl Battle {
 
     /// Returns true if the move "did something" (not a failure).
     fn use_move(&mut self, p: Pos, move_id: MoveId, mslot: usize, target: u8, struggle: bool) -> bool {
+        // Stance Change (onModifyMove): Blade forme for attacks, Shield for King's Shield.
+        if self.ab(p) == Ab::StanceChange && self.m(p).alt_species != 0 {
+            let mv = dex().mv(move_id);
+            if mv.category != Category::Status {
+                self.mm(p).set_alt_forme(true);
+            } else if mv.fx == MoveFx::KingsShield {
+                self.mm(p).set_alt_forme(false);
+            }
+        }
         let mut am = self.make_active_move(p, move_id, mslot, struggle);
         self.resolve_move_type(p, &mut am);
         self.mold_breaker = am.mold_breaker;
@@ -308,10 +318,6 @@ impl Battle {
         // getMoveTargets (retargeting, redirection), before TryMove.
         let field = matches!(am.target, Target::All | Target::FoeSide | Target::AllySide | Target::AllyTeam);
         let (targets, n) = if field { ([p; MAX_TARGETS], 0) } else { self.move_targets_resolved(p, am, target) };
-        if !field && n == 0 {
-            blog!(self, "|-fail|{}|[notarget]", self.name(p));
-            return false;
-        }
         // Pressure: one extra PP per opposing Pressure Pokemon targeted.
         self.pressure_pp(p, am, &targets[..n]);
         // TryMove: Dazzling / Queenly Majesty / Armor Tail (onFoeTryMove).
@@ -319,9 +325,13 @@ impl Battle {
             return false;
         }
 
-        // Two-turn moves: charge turn.
+        // Two-turn moves: charge turn (onTryMove, so even with no target left).
         if self.charge_turn(p, am, target) {
             return true;
+        }
+        if !field && n == 0 {
+            blog!(self, "|-fail|{}|[notarget]", self.name(p));
+            return false;
         }
 
         // Self-destruct style moves faint the user up front.
@@ -361,6 +371,9 @@ impl Battle {
         let ok = self.try_spread_move_hit(p, am, &targets[..n]);
         if !ok {
             self.after_move_fail(p, am);
+        } else if let Some(b) = mv.self_boost_after {
+            // selfBoost: once, after a successful move.
+            self.boost(p, &b, BoostSrc::SelfInflicted);
         }
         ok
     }
@@ -691,8 +704,10 @@ impl Battle {
             MoveFx::HealingWish => self.sides[p.s()].bench_available() > 0,
             MoveFx::Recycle => self.m(p).item == 0 && self.m(p).last_item != 0,
             MoveFx::LastResort => {
+                // Every other move must have been used since switching in.
                 let m = self.m(p);
-                m.n_moves > 1
+                let me = am.mslot as usize;
+                m.n_moves > 1 && (0..m.n_moves as usize).all(|s| s == me || m.vol.moves_used & (1 << s) != 0)
             }
             MoveFx::Counter | MoveFx::MirrorCoat | MoveFx::MetalBurst => {
                 // Damaged by a foe this turn (Mirror Coat: special, Counter: physical).
@@ -1251,34 +1266,13 @@ impl Battle {
             blog!(self, "|-hitcount|{}|{}", self.name(targets[0]), hit_no);
         }
         // Recoil from total damage.
+        // (Steel Beam: half max HP once; on a failed move see after_move_fail.)
         let total: u32 = total_damage.iter().sum();
-        if total > 0 && self.is_live(p) {
-            if mv.recoil.0 > 0 && !matches!(self.ab(p), Ab::RockHead | Ab::MagicGuard) {
-                let r = ((total as f64) * mv.recoil.0 as f64 / mv.recoil.1 as f64).round() as u32;
-                self.damage(p, r.max(1), Some(p), DmgKind::Indirect);
-            }
-            if mv.struggle_recoil || am.struggle {
-                let mh = self.m(p).max_hp as u32;
-                let r = ((mh as f64) / 4.0).round() as u32;
-                self.damage(p, r.max(1), Some(p), DmgKind::SelfCost);
-            }
-        }
-        if mv.mind_blown_recoil && self.is_live(p) {
-            let mh = self.m(p).max_hp as u32;
-            self.damage(p, (mh + 1) / 2, Some(p), DmgKind::SelfCost);
-        }
-        if am.fx == MoveFx::SteelBeam && self.is_live(p) {
-            let mh = self.m(p).max_hp as u32;
-            let r = ((mh as f64) / 2.0).round() as u32;
-            self.damage(p, r, Some(p), DmgKind::SelfCost);
+        if total > 0 {
+            self.apply_recoil(p, am, total);
         }
         // eachEvent('Update') after recoil (Sitrus Berry...).
-        for c in 0..4 {
-            let q = Pos::from_code(c);
-            if self.is_live(q) {
-                self.update_items(q);
-            }
-        }
+        self.update_all();
         // Times attacked (Rage Fist).
         for i in 0..n {
             let t = targets[i];
@@ -1351,8 +1345,21 @@ impl Battle {
                 if self.m(t).vol.substitute == 0 {
                     blog!(self, "|-end|{}|Substitute", self.name(t));
                 }
-                // HIT_SUBSTITUTE: the target takes no further effects.
+                // The substitute's onTryPrimaryHit applies recoil and drain
+                // (rounded up) for the damage it took, right away.
+                if absorbed > 0 {
+                    self.apply_recoil(p, am, absorbed);
+                }
+                if mv.drain.0 > 0 {
+                    let h = ((absorbed as f64) * mv.drain.0 as f64 / mv.drain.1 as f64).ceil() as u32;
+                    self.drain_heal(p, h);
+                }
+                // HIT_SUBSTITUTE: the target takes no further effects (an Air
+                // Balloon still pops: onAfterSubDamage).
                 sub_hit[i] = true;
+                if self.it(t) == It::AirBalloon {
+                    self.consume_item(t);
+                }
                 out[i] = Some(0);
                 continue;
             }
@@ -1370,12 +1377,9 @@ impl Battle {
                 self.damage(p, hp, Some(t), DmgKind::SelfCost);
             }
             // Drain.
-            if mv.drain.0 > 0 && dealt > 0 && self.is_live(p) {
-                let mut h = ((dealt as f64) * mv.drain.0 as f64 / mv.drain.1 as f64).round() as u32;
-                if self.it(p) == It::BigRoot {
-                    h = h * 13 / 10;
-                }
-                self.heal(p, h.max(1));
+            if mv.drain.0 > 0 && dealt > 0 {
+                let h = ((dealt as f64) * mv.drain.0 as f64 / mv.drain.1 as f64).round() as u32;
+                self.drain_heal(p, h);
             }
         }
         // Move effects per target (status moves and damaging moves' main effects).
@@ -1495,8 +1499,11 @@ impl Battle {
         if !sub_hit {
             match am.fx {
                 MoveFx::BugBite => {
-                    if self.is_live(t) && dex().item(self.m(t).item).is_berry {
+                    // Steals and eats the berry (even from a target it knocks out).
+                    let berry = self.m(t).item;
+                    if self.is_live(p) && berry != 0 && dex().item(berry).is_berry {
                         self.remove_item(t);
+                        self.eat_stolen_berry(p, berry);
                     }
                 }
                 MoveFx::ClearSmog => {
@@ -1522,6 +1529,32 @@ impl Battle {
             self.mm(p).vol.switch_flag = true;
         }
         let _ = dealt;
+    }
+
+    /// Bug Bite: the user gets the berry's effect.
+    fn eat_stolen_berry(&mut self, p: Pos, berry: crate::dex::ItemId) {
+        self.mm(p).ate_berry = true;
+        let m = self.m(p);
+        let mh = m.max_hp as u32;
+        match dex().it(berry) {
+            It::SitrusBerry => {
+                self.heal(p, mh / 4);
+            }
+            It::OranBerry => {
+                self.heal(p, 10);
+            }
+            It::LumBerry => {
+                self.cure_status(p);
+                self.mm(p).vol.confusion = 0;
+            }
+            It::ChestoBerry if m.status == Status::Slp => self.cure_status(p),
+            It::CheriBerry if m.status == Status::Par => self.cure_status(p),
+            It::PechaBerry if matches!(m.status, Status::Psn | Status::Tox) => self.cure_status(p),
+            It::RawstBerry if m.status == Status::Brn => self.cure_status(p),
+            It::AspearBerry if m.status == Status::Frz => self.cure_status(p),
+            It::PersimBerry => self.mm(p).vol.confusion = 0,
+            _ => {}
+        }
     }
 
     /// A damaging move's `self` effects that are not stat drops (once).
@@ -1702,7 +1735,10 @@ impl Battle {
                 let mh = self.m(p).max_hp as u32;
                 let cost = mh / 4;
                 self.damage(p, cost, Some(p), DmgKind::SelfCost);
-                self.mm(p).vol.substitute = cost as u16;
+                let m = self.mm(p);
+                m.vol.substitute = cost as u16;
+                // The substitute frees its user from a partial trap.
+                m.vol.partial_trap = 0;
                 return true;
             }
             MoveFx::ShedTail => {
@@ -1739,14 +1775,24 @@ impl Battle {
                 self.mm(t).item = a;
                 self.mm(p).vol.choice_lock = 0;
                 self.mm(t).vol.choice_lock = 0;
+                // takeItem: Unburden activates for whoever had an item taken.
+                if a != 0 && self.ab(p) == Ab::Unburden {
+                    self.mm(p).vol.unburden = true;
+                }
+                if b != 0 && self.ab(t) == Ab::Unburden {
+                    self.mm(t).vol.unburden = true;
+                }
                 self.reveal_item(p);
                 self.reveal_item(t);
                 return true;
             }
             MoveFx::Roost => {
+                // At full HP the heal fails and so does the move (no Roost volatile).
                 let mh = self.m(p).max_hp as u32;
                 let h = self.heal(p, (mh + 1) / 2);
-                self.mm(p).vol.roost = true;
+                if h > 0 {
+                    self.mm(p).vol.roost = true;
+                }
                 return h > 0;
             }
             MoveFx::Soak => {
@@ -1801,7 +1847,7 @@ impl Battle {
                 }
                 let atk = super::calc::boosted(self.m(t).stats[1] as u32, self.m(t).boosts[B_ATK]);
                 self.boost(t, &ups(B_ATK, -1), from);
-                self.heal(p, atk);
+                self.drain_heal(p, atk); // Big Root applies
                 return true;
             }
             MoveFx::HealPulse | MoveFx::FloralHealing => {
@@ -1948,7 +1994,6 @@ impl Battle {
                 let m = self.mm(p);
                 m.item = it;
                 m.last_item = 0;
-                m.vol.unburden = false;
                 return true;
             }
             MoveFx::Curse => {
@@ -2133,6 +2178,11 @@ impl Battle {
         if self.is_live(t) && self.m(t).status == Status::Frz && am.ty == Type::Fire && am.category != Category::Status {
             self.cure_status(t);
         }
+        // Air Balloon pops.
+        if self.m(t).item != 0 && dex().it(self.m(t).item) == It::AirBalloon {
+            blog!(self, "|-enditem|{}|Air Balloon", self.name(t));
+            self.consume_item(t);
+        }
         // The target's onDamagingHit runs even when the hit knocked it out
         // (it faints only after the move).
         let tab = dex().ab(self.m(t).ability);
@@ -2173,7 +2223,9 @@ impl Battle {
                 }
             }
             Ab::ToxicDebris if am.category == Category::Physical => {
-                let c = &mut self.sides[p.s()].conds;
+                // On the attacker's side, or the holder's foes' side if an ally hit it.
+                let side = if p.side == t.side { 1 - t.s() } else { p.s() };
+                let c = &mut self.sides[side].conds;
                 if c.toxic_spikes < 2 {
                     c.toxic_spikes += 1;
                 }
@@ -2345,5 +2397,53 @@ impl Battle {
         if self.is_live(p) && am.fx != MoveFx::DestinyBond {
             self.mm(p).vol.destiny_bond = false;
         }
+        // Steel Beam's onMoveFail: half max HP even when it misses / is blocked.
+        if am.fx == MoveFx::SteelBeam && self.is_live(p) {
+            let mh = self.m(p).max_hp as u32;
+            let hp0 = self.m(p).hp as u32;
+            self.damage(p, (mh + 1) / 2, Some(p), DmgKind::Indirect);
+            if self.is_live(p) && (self.m(p).hp as u32) * 2 <= mh && hp0 * 2 > mh {
+                self.emergency_exit(p);
+            }
+        }
+    }
+
+    /// Showdown's applyRecoilDamage: Struggle (a quarter of max HP), Steel
+    /// Beam (half), recoil moves (a fraction of the damage dealt); then the
+    /// user's Emergency Exit.
+    fn apply_recoil(&mut self, p: Pos, am: &ActiveMove, dealt: u32) {
+        let mv = dex().mv(am.id);
+        if !self.is_live(p) {
+            return;
+        }
+        let mh = self.m(p).max_hp as u32;
+        let hp0 = self.m(p).hp as u32;
+        if mv.struggle_recoil || am.struggle {
+            let r = ((mh as f64) / 4.0).round() as u32;
+            self.damage(p, r.max(1), Some(p), DmgKind::SelfCost);
+        } else if mv.mind_blown_recoil {
+            self.damage(p, (mh + 1) / 2, Some(p), DmgKind::Indirect);
+        } else if mv.recoil.0 > 0 {
+            if matches!(self.ab(p), Ab::RockHead | Ab::MagicGuard) {
+                return;
+            }
+            let r = ((dealt as f64) * mv.recoil.0 as f64 / mv.recoil.1 as f64).round() as u32;
+            self.damage(p, r.max(1), Some(p), DmgKind::Indirect);
+        } else {
+            return;
+        }
+        if self.is_live(p) && (self.m(p).hp as u32) * 2 <= mh && hp0 * 2 > mh {
+            self.emergency_exit(p);
+        }
+    }
+
+    /// A drain heal (`heal(amount, .., 'drain')`): Big Root multiplies it by
+    /// 5324/4096; an amount of 0 heals nothing.
+    pub(crate) fn drain_heal(&mut self, p: Pos, h: u32) -> u32 {
+        if h == 0 || !self.is_live(p) {
+            return 0;
+        }
+        let h = if self.it(p) == It::BigRoot { super::calc::modify(h, 5324, 4096) } else { h };
+        self.heal(p, h)
     }
 }

@@ -52,14 +52,19 @@ const SUB_FIELD: u8 = 5;
 const SUB_ABIL: u8 = 7;
 const SUB_ITEM: u8 = 8;
 
-/// One event handler's modifier with Showdown's handler sort keys.
+/// One event handler's modifier with Showdown's handler sort keys. `holder`
+/// is the position code of the Pokemon holding the effect (its speed sorts
+/// the handler), or NO_HOLDER for field / side effects (speed 0).
 #[derive(Copy, Clone, Debug)]
 struct Hm {
     prio: i16,
+    holder: u8,
     speed: i32,
     sub: u8,
     m: u32,
 }
+
+const NO_HOLDER: u8 = 4;
 
 /// The modifiers an event's handlers apply, chained in Showdown's handler
 /// order (`speedSort`: priority desc, holder speed desc, subOrder asc, exact
@@ -73,20 +78,20 @@ struct Handlers {
 impl Handlers {
     #[inline]
     fn new() -> Handlers {
-        Handlers { v: [Hm { prio: 0, speed: 0, sub: 0, m: 4096 }; 12], n: 0 }
+        Handlers { v: [Hm { prio: 0, holder: NO_HOLDER, speed: 0, sub: 0, m: 4096 }; 12], n: 0 }
     }
     /// chainModify([m, 4096]).
     #[inline]
-    fn add(&mut self, prio: i16, speed: i32, sub: u8, m: u32) {
+    fn add(&mut self, prio: i16, holder: u8, sub: u8, m: u32) {
         if self.n < self.v.len() {
-            self.v[self.n] = Hm { prio, speed, sub, m };
+            self.v[self.n] = Hm { prio, holder, speed: 0, sub, m };
             self.n += 1;
         }
     }
     /// chainModify(num / den).
     #[inline]
-    fn frac(&mut self, prio: i16, speed: i32, sub: u8, num: u32, den: u32) {
-        self.add(prio, speed, sub, (num as u64 * 4096 / den as u64) as u32);
+    fn frac(&mut self, prio: i16, holder: u8, sub: u8, num: u32, den: u32) {
+        self.add(prio, holder, sub, (num as u64 * 4096 / den as u64) as u32);
     }
     fn chain(&mut self, rng: &mut Rng) -> Chain {
         let n = self.n;
@@ -166,6 +171,26 @@ pub struct ActiveMove {
 }
 
 impl Battle {
+    /// Chain an event's handlers in Showdown's order (holder speeds are only
+    /// computed when there is more than one handler).
+    fn chain_handlers(&mut self, h: &mut Handlers) -> Chain {
+        if h.n > 1 {
+            let mut sp = [0i32; 4];
+            let mut have = [false; 4];
+            for k in 0..h.n {
+                let c = h.v[k].holder as usize;
+                if c < 4 {
+                    if !have[c] {
+                        sp[c] = self.action_speed(Pos::from_code(c as u8));
+                        have[c] = true;
+                    }
+                    h.v[k].speed = sp[c];
+                }
+            }
+        }
+        h.chain(&mut self.rng)
+    }
+
     // ---- abilities / items -----------------------------------------------
 
     /// Ability of the Pokemon at `p` (suppression aside).
@@ -191,7 +216,19 @@ impl Battle {
     }
 
     pub fn ability_on_field(&self, a: Ab) -> bool {
-        self.live_positions().any(|q| self.ab(q) == a)
+        let d = dex();
+        for s in 0..2 {
+            for slot in 0..2 {
+                let i = self.sides[s].active[slot];
+                if i != crate::state::NO_MON {
+                    let m = &self.sides[s].mons[i as usize];
+                    if m.alive() && d.ab(m.ability) == a {
+                        return true;
+                    }
+                }
+            }
+        }
+        false
     }
 
     // ---- field -------------------------------------------------------------
@@ -551,8 +588,8 @@ impl Battle {
     pub fn base_power_mods(&mut self, src: Pos, tgt: Pos, am: &ActiveMove, bp: u32) -> u32 {
         let s = *self.m(src);
         let t = *self.m(tgt);
-        let sa = self.action_speed(src);
-        let sd = self.action_speed(tgt);
+        let sa = src.code();
+        let sd = tgt.code();
         let mut h = Handlers::new();
         // The move's own onBasePower (priority 0, held by the user).
         let own = match am.fx {
@@ -604,7 +641,7 @@ impl Battle {
         }
         // Fairy Aura (onAnyBasePower 20): one boost however many auras.
         if am.ty == Type::Fairy && src != tgt && self.ability_on_field(Ab::FairyAura) {
-            h.add(20, 0, SUB_ABIL, 5448);
+            h.add(20, NO_HOLDER, SUB_ABIL, 5448);
         }
         // Dry Skin on the target (onSourceBasePower 17).
         if am.ty == Type::Fire && self.tab(tgt) == Ab::DrySkin {
@@ -634,17 +671,17 @@ impl Battle {
         match self.field.terrain {
             Terrain::Grassy => {
                 if matches!(dex().mv(am.id).id.as_str(), "earthquake" | "bulldoze" | "magnitude") && tgt_grounded {
-                    h.frac(6, 0, SUB_FIELD, 1, 2);
+                    h.frac(6, NO_HOLDER, SUB_FIELD, 1, 2);
                 } else if am.ty == Type::Grass && self.is_grounded(src) {
-                    h.add(6, 0, SUB_FIELD, 5325);
+                    h.add(6, NO_HOLDER, SUB_FIELD, 5325);
                 }
             }
-            Terrain::Psychic if am.ty == Type::Psychic && src_grounded => h.add(6, 0, SUB_FIELD, 5325),
-            Terrain::Electric if am.ty == Type::Electric && src_grounded => h.add(6, 0, SUB_FIELD, 5325),
-            Terrain::Misty if am.ty == Type::Dragon && tgt_grounded => h.frac(6, 0, SUB_FIELD, 1, 2),
+            Terrain::Psychic if am.ty == Type::Psychic && src_grounded => h.add(6, NO_HOLDER, SUB_FIELD, 5325),
+            Terrain::Electric if am.ty == Type::Electric && src_grounded => h.add(6, NO_HOLDER, SUB_FIELD, 5325),
+            Terrain::Misty if am.ty == Type::Dragon && tgt_grounded => h.frac(6, NO_HOLDER, SUB_FIELD, 1, 2),
             _ => {}
         }
-        h.chain(&mut self.rng).apply(bp).max(1)
+        self.chain_handlers(&mut h).apply(bp).max(1)
     }
 
     /// Analytic: no other active Pokemon still has a move action this turn.
@@ -703,8 +740,8 @@ impl Battle {
         // ModifyAtk (physical) / ModifySpA (special) on the user.
         let s = *self.m(src);
         let ab = self.ab(src);
-        let sa = self.action_speed(src);
-        let sd = self.action_speed(tgt);
+        let sa = src.code();
+        let sd = tgt.code();
         // Hustle modifies the stat directly instead of chaining.
         if ab == Ab::Hustle && physical {
             atk = modify(atk, 3, 2);
@@ -738,7 +775,7 @@ impl Battle {
             Ab::WaterBubble if am.ty == Type::Fire => h.frac(5, sd, SUB_ABIL, 1, 2),
             _ => {}
         }
-        atk = h.chain(&mut self.rng).apply(atk);
+        atk = self.chain_handlers(&mut h).apply(atk);
         atk.max(1)
     }
 
@@ -832,8 +869,8 @@ impl Battle {
         }
         // ModifyDamage handlers.
         let t = *self.m(tgt);
-        let sa = self.action_speed(src);
-        let sd = self.action_speed(tgt);
+        let sa = src.code();
+        let sd = tgt.code();
         let mut h = Handlers::new();
         // Screens: side conditions (holder speed 0, subOrder 4).
         if !crit && !am.infiltrates && src != tgt {
@@ -844,7 +881,7 @@ impl Battle {
                 Category::Status => false,
             };
             if screen {
-                h.add(0, 0, SUB_SIDE, 2732);
+                h.add(0, NO_HOLDER, SUB_SIDE, 2732);
             }
         }
         // The user's ability and item.
@@ -893,11 +930,10 @@ impl Battle {
         // Friend Guard on the target's ally (onAnyModifyDamage).
         if let Some(a) = self.live_ally(tgt) {
             if self.tab(a) == Ab::FriendGuard {
-                let sf = self.action_speed(a);
-                h.frac(0, sf, SUB_ABIL, 3, 4);
+                h.frac(0, a.code(), SUB_ABIL, 3, 4);
             }
         }
-        dmg = h.chain(&mut self.rng).apply(dmg);
+        dmg = self.chain_handlers(&mut h).apply(dmg);
         if am.bypass_protect_quarter {
             dmg = modify(dmg, 1, 4);
         }

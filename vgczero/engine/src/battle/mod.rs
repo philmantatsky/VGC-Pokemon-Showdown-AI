@@ -391,6 +391,12 @@ impl Battle {
                     return Ok(());
                 }
                 if midturn {
+                    // The queue is re-sorted after the switch (speeds may have
+                    // changed: weather, Intimidate...).
+                    if self.queue.len > 0 {
+                        self.update_queue_speeds();
+                        self.sort_queue();
+                    }
                     self.run_queue();
                 } else {
                     self.check_end_of_turn_replacements();
@@ -614,20 +620,54 @@ impl Battle {
 
     /// Showdown's speedSort: order asc, priority desc, speed desc; ties shuffled.
     pub(crate) fn sort_queue(&mut self) {
-        let n = self.queue.len;
-        let mut v: Vec<Action> = self.queue.list[..n].iter().filter_map(|x| *x).collect();
-        let key = |a: &Action| (a.order as i64, -(a.priority as i64), -(a.frac as i64), -(a.speed as i64));
-        // Selection sort with random tie resolution (as Showdown does).
-        let mut out: Vec<Action> = Vec::with_capacity(v.len());
-        while !v.is_empty() {
-            let best = v.iter().map(key).min().unwrap();
-            let ties: Vec<usize> = (0..v.len()).filter(|&i| key(&v[i]) == best).collect();
-            let pick = if ties.len() > 1 { ties[self.rng.below(ties.len() as u32) as usize] } else { ties[0] };
-            out.push(v.remove(pick));
+        // Drop empty entries, then an in-place selection sort with random
+        // tie resolution (as Showdown does).
+        let mut n = 0;
+        for i in 0..self.queue.len {
+            if self.queue.list[i].is_some() {
+                self.queue.list[n] = self.queue.list[i];
+                n += 1;
+            }
         }
-        self.queue = Queue::default();
-        for a in out {
-            self.queue.push(a);
+        for i in n..self.queue.len {
+            self.queue.list[i] = None;
+        }
+        self.queue.len = n;
+        #[inline]
+        fn key(a: &Option<Action>) -> (i64, i64, i64, i64) {
+            let a = a.as_ref().unwrap();
+            (a.order as i64, -(a.priority as i64), -(a.frac as i64), -(a.speed as i64))
+        }
+        let list = &mut self.queue.list;
+        for sorted in 0..n {
+            let mut best = key(&list[sorted]);
+            let mut ties = 1u32;
+            for i in sorted + 1..n {
+                let k = key(&list[i]);
+                if k < best {
+                    best = k;
+                    ties = 1;
+                } else if k == best {
+                    ties += 1;
+                }
+            }
+            let rank = if ties > 1 { self.rng.below(ties) } else { 0 };
+            let mut r = 0;
+            let mut idx = sorted;
+            for i in sorted..n {
+                if key(&list[i]) == best {
+                    if r == rank {
+                        idx = i;
+                        break;
+                    }
+                    r += 1;
+                }
+            }
+            let a = list[idx];
+            for j in (sorted..idx).rev() {
+                list[j + 1] = list[j];
+            }
+            list[sorted] = a;
         }
     }
 
@@ -677,20 +717,7 @@ impl Battle {
         if self.ended() {
             return;
         }
-        // eachEvent('Update'): berries, herbs, in speed order.
-        let mut ps: [(i32, Pos); 4] = [(0, Pos::new(0, 0)); 4];
-        let mut n = 0;
-        for c in 0..4 {
-            let p = Pos::from_code(c);
-            if self.is_live(p) {
-                ps[n] = (self.action_speed(p), p);
-                n += 1;
-            }
-        }
-        ps[..n].sort_by(|a, b| b.0.cmp(&a.0));
-        for &(_, p) in &ps[..n] {
-            self.update_items(p);
-        }
+        self.update_all();
         self.process_faints();
         if self.ended() {
             return;

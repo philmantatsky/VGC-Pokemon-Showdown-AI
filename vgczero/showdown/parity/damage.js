@@ -24,6 +24,8 @@ const FIXTURE = arg('--fixture', null);
 let FOCUS = arg('--focus', null);
 const FOCUS_ALL = process.argv.includes('--focus-all');
 const PER = Number(arg('--per', 60));
+// Force this move in every scenario.
+const MOVE = arg('--move', null);
 const tr = Math.trunc;
 
 const WEATHERS = ['raindance', 'sunnyday', 'sandstorm', 'snowscape'];
@@ -175,7 +177,8 @@ function makeScenario(rand, pool, sup, info, k) {
 	// The move.
 	let moveid;
 	const own = src.moveSlots.map(m => m.id).filter(isDamaging);
-	if (own.length && rand.chance(0.75)) moveid = rand.pick(own);
+	if (MOVE) moveid = MOVE;
+	else if (own.length && rand.chance(0.75)) moveid = rand.pick(own);
 	else moveid = rand.pick(info.moves.filter(isDamaging));
 	const snap = snapshotMons(battle);
 	const m = activeMove(battle, src, tgt, moveid);

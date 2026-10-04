@@ -40,6 +40,11 @@ impl Battle {
                             m.status = Status::None;
                             m.status_turns = 0;
                         }
+                        // Zero to Hero: Palafin becomes Palafin-Hero for good.
+                        Ab::ZeroToHero if m.alt_species != 0 && m.species != m.alt_species => {
+                            m.set_alt_forme(true);
+                            m.alt_locked = true;
+                        }
                         _ => {}
                     }
                 }
@@ -57,9 +62,11 @@ impl Battle {
             if !m.fainted {
                 m.boosts = [0; 7];
                 m.vol = Vol::default();
-                // Types / ability revert on switch-out (megas stay mega).
+                // Types / ability revert on switch-out (megas stay mega);
+                // a non-permanent battle forme reverts (Aegislash-Blade).
                 m.types = m.base_types;
                 m.ability = m.base_ability;
+                m.revert_alt_forme();
             }
         }
         self.sides[s].active[p.i()] = to as u8;

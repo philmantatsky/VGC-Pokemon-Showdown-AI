@@ -158,6 +158,7 @@ tag_enum!(Ab {
     SpeedBoost = "speedboost",
     SpicySpray = "spicyspray",
     Stalwart = "stalwart",
+    StanceChange = "stancechange",
     Stamina = "stamina",
     Static = "static",
     Steadfast = "steadfast",
@@ -193,6 +194,7 @@ tag_enum!(Ab {
     WellBakedBody = "wellbakedbody",
     WhiteSmoke = "whitesmoke",
     WimpOut = "wimpout",
+    ZeroToHero = "zerotohero",
     WindRider = "windrider",
 });
 

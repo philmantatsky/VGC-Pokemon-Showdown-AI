@@ -102,6 +102,8 @@ pub struct Vol {
     pub type_changed: bool,
     /// Protean / Libero already changed the type since switching in.
     pub protean: bool,
+    /// Move slots whose PP was used since switching in (Last Resort).
+    pub moves_used: u8,
     pub ability_changed: bool,
     pub transformed: bool,
     pub stall_used_this_turn: bool,
@@ -177,6 +179,15 @@ pub struct Mon {
     pub mega_types: [Type; 2],
     pub mega_stats: [u16; 6],
     pub mega_weight_hg: u32,
+    /// Battle-only forme (Aegislash-Blade, Palafin-Hero): species (0 = none),
+    /// stats, weight; `alt_locked` once the change is permanent (Zero to Hero).
+    pub alt_species: SpeciesId,
+    pub alt_stats: [u16; 6],
+    pub alt_weight_hg: u32,
+    pub alt_locked: bool,
+    /// The set's own stats and weight (to revert a battle-only forme).
+    pub home_stats: [u16; 6],
+    pub home_weight_hg: u32,
     /// Index in the original six-Pokemon team.
     pub team_idx: u8,
     /// What the opponent has seen of this Pokemon.
@@ -233,6 +244,12 @@ impl Mon {
             mega_types: mega.types,
             mega_stats: mega.stats,
             mega_weight_hg: mega.weight_hg,
+            alt_species: set.alt.map(|a| a.species).unwrap_or(0),
+            alt_stats: set.alt.map(|a| a.stats).unwrap_or_default(),
+            alt_weight_hg: set.alt.map(|a| a.weight_hg).unwrap_or(0),
+            alt_locked: false,
+            home_stats: set.stats,
+            home_weight_hg: set.weight_hg,
             team_idx,
             reveal: Reveal::default(),
             ate_berry: false,
@@ -254,6 +271,33 @@ impl Mon {
     #[inline]
     pub fn has_type(&self, t: Type) -> bool {
         self.types[0] == t || self.types[1] == t
+    }
+
+    /// Change into / out of the battle-only forme (HP is unchanged).
+    pub fn set_alt_forme(&mut self, alt: bool) {
+        if self.alt_species == 0 {
+            return;
+        }
+        if alt {
+            self.species = self.alt_species;
+            for k in 1..6 {
+                self.stats[k] = self.alt_stats[k];
+            }
+            self.weight_hg = self.alt_weight_hg;
+        } else {
+            self.species = self.base_species;
+            for k in 1..6 {
+                self.stats[k] = self.home_stats[k];
+            }
+            self.weight_hg = self.home_weight_hg;
+        }
+    }
+
+    /// Back to the set's forme unless the change was permanent (switch-out, faint).
+    pub fn revert_alt_forme(&mut self) {
+        if self.alt_species != 0 && self.species == self.alt_species && !self.alt_locked {
+            self.set_alt_forme(false);
+        }
     }
 
     pub fn move_slot(&self, m: MoveId) -> Option<usize> {

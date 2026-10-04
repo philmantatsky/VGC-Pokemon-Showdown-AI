@@ -329,17 +329,18 @@ impl Battle {
                 self.heal(p, (mh / 16).max(1));
             }
             Res::AquaRing | Res::Ingrain => {
-                let mut amt = (mh / 16).max(1);
-                if self.it(p) == It::BigRoot {
-                    amt = amt * 13 / 10;
-                }
-                self.heal(p, amt);
+                self.drain_heal(p, (mh / 16).max(1));
             }
             Res::LeechSeed => {
+                // Nothing happens if the seeder's slot is empty or fainted;
+                // whoever is in that slot gets the HP.
                 let src = Pos::from_code(self.m(p).vol.leech_seed_src);
+                if !self.is_live(src) {
+                    return;
+                }
                 let dealt = self.damage(p, (mh / 8).max(1), Some(src), DmgKind::Indirect);
                 if dealt > 0 && self.is_live(src) {
-                    self.heal(src, dealt);
+                    self.drain_heal(src, dealt);
                 }
             }
             Res::Poison => {

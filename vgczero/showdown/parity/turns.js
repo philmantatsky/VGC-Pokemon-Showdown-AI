@@ -39,7 +39,13 @@ const ALPHA = Number(arg('--alpha', 1e-6));
 const SHOW = Number(arg('--show', 25));
 const JOBS = Number(arg('--jobs', Math.max(1, Math.min(4, os.cpus().length))));
 const DUMP = arg('--dump', null);
+// Write the compared scenarios with Showdown's outcome counts (and the
+// legality checks) as a gzipped JSON-lines fixture for the Rust tests.
+const FIXTURE = arg('--fixture', null);
+const FIXTURE_MAX = Number(arg('--fixture-max', 250));
 const WORKER = process.argv.includes('--worker');
+// Only teams with one of these species on side 1 (focus a mechanic).
+const REQUIRE = arg('--require', null);
 
 // ---- statistics ----------------------------------------------------------------
 
@@ -226,12 +232,14 @@ function choose(battle, choices) {
 function generate(seed, nBattles) {
 	const pool = L.loadPool();
 	const sup = L.supportedTeams();
+	const req = REQUIRE ? REQUIRE.split(',') : null;
+	const supA = req ? sup.filter(i => pool[i].mons.some(m => req.includes(m.species))) : sup;
 	const rand = new L.Rand(seed);
 	const scenarios = [];
 	const legal = [];
 	let errors = 0;
 	for (let g = 0; g < nBattles; g++) {
-		const ta = pool[rand.pick(sup)], tb = pool[rand.pick(sup)];
+		const ta = pool[rand.pick(supA)], tb = pool[rand.pick(sup)];
 		const teams = [ta, tb];
 		const bseed = rand.seed();
 		let battle = L.newBattle(ta, tb, bseed);
@@ -476,6 +484,22 @@ async function main() {
 		const others = flags.filter(g => g.s === f.s && g !== f).map(g => g.key);
 		if (others.length) console.log(`      also: ${others.slice(0, 10).join(' ')}`);
 		console.log(`      ${f.s.desc}`);
+	}
+	if (FIXTURE) {
+		const zlib = require('zlib');
+		const lines = [];
+		const ok = scenarios.filter(s => {
+			const a = sdById.get(s.id), b = enById.get(s.id);
+			return a && b && !b.err && !Object.keys(b.errors || {}).length && !Object.keys(a.errors).length;
+		});
+		for (const s of ok.slice(0, FIXTURE_MAX)) {
+			lines.push(JSON.stringify({ kind: 'turn', id: s.id, state: s.state, choices: s.engineChoices, runs: RUNS, counts: sdById.get(s.id).counts }));
+		}
+		for (const l of legal.filter((x, i) => i % 4 === 0).slice(0, FIXTURE_MAX * 2)) {
+			lines.push(JSON.stringify({ kind: 'legal', id: l.id, state: l.state, expect: l.expect }));
+		}
+		fs.writeFileSync(FIXTURE, zlib.gzipSync(lines.join('\n') + '\n', { level: 9 }));
+		console.log(`wrote fixture ${FIXTURE} (${Math.min(ok.length, FIXTURE_MAX)} turn scenarios)`);
 	}
 	if (DUMP) {
 		fs.writeFileSync(DUMP + '.legal.json', JSON.stringify(lBads.map(({ l, bad }) => ({ id: l.id, bad, state: l.state }))));

@@ -331,7 +331,7 @@ impl Battle {
 
     /// Lum / Chesto / etc. (Update event).
     pub fn check_status_berry(&mut self, p: Pos) {
-        if !self.is_live(p) || self.unnerved(p) {
+        if !self.is_live(p) {
             return;
         }
         let st = self.m(p).status;
@@ -346,7 +346,7 @@ impl Battle {
             It::PersimBerry => conf,
             _ => false,
         };
-        if cure {
+        if cure && !self.unnerved(p) {
             match self.it(p) {
                 It::LumBerry => {
                     self.cure_status(p);
@@ -610,7 +610,11 @@ impl Battle {
 
     /// Sitrus Berry & co. after HP changes (Update event).
     pub fn check_hp_berry(&mut self, p: Pos) {
-        if !self.is_live(p) || self.unnerved(p) {
+        if !self.is_live(p) || !matches!(self.it(p), It::SitrusBerry | It::OranBerry) {
+            return;
+        }
+        let m = self.m(p);
+        if (m.hp as u32) * 2 > m.max_hp as u32 || self.unnerved(p) {
             return;
         }
         let m = self.m(p);
@@ -626,6 +630,49 @@ impl Battle {
                 self.heal(p, 10);
             }
             _ => {}
+        }
+    }
+
+    /// Does an Update-event item check have anything to do for `p`?
+    #[inline]
+    fn update_pending(&self, p: Pos) -> bool {
+        if !self.is_live(p) {
+            return false;
+        }
+        let m = self.m(p);
+        match self.it(p) {
+            It::SitrusBerry | It::OranBerry => (m.hp as u32) * 2 <= m.max_hp as u32,
+            It::LumBerry => m.status != Status::None || m.vol.confusion > 0,
+            It::ChestoBerry => m.status == Status::Slp,
+            It::CheriBerry => m.status == Status::Par,
+            It::PechaBerry => matches!(m.status, Status::Psn | Status::Tox),
+            It::RawstBerry => m.status == Status::Brn,
+            It::AspearBerry => m.status == Status::Frz,
+            It::PersimBerry => m.vol.confusion > 0,
+            It::WhiteHerb => m.boosts.iter().any(|&x| x < 0),
+            _ => false,
+        }
+    }
+
+    /// eachEvent('Update') over the active Pokemon, in speed order.
+    pub(crate) fn update_all(&mut self) {
+        let mut ps: [(i32, Pos); 4] = [(0, Pos::new(0, 0)); 4];
+        let mut n = 0;
+        for c in 0..4 {
+            let p = Pos::from_code(c);
+            if self.update_pending(p) {
+                ps[n] = (0, p);
+                n += 1;
+            }
+        }
+        if n > 1 {
+            for k in 0..n {
+                ps[k].0 = self.action_speed(ps[k].1);
+            }
+            ps[..n].sort_by(|a, b| b.0.cmp(&a.0));
+        }
+        for k in 0..n {
+            self.update_items(ps[k].1);
         }
     }
 
@@ -675,7 +722,6 @@ impl Battle {
                 }
                 self.mm(a).item = 0;
                 self.mm(p).item = it;
-                self.mm(p).vol.unburden = false;
                 self.reveal_ability(a);
             }
         }
@@ -704,6 +750,7 @@ impl Battle {
             // clearVolatile: ability and types back to the (Mega) forme's own.
             m.ability = m.base_ability;
             m.types = m.base_types;
+            m.revert_alt_forme();
         }
         blog!(self, "|faint|{}", name);
         // The slot stays occupied by the fainted Pokemon until replaced.

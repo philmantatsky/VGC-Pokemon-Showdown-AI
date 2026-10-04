@@ -188,6 +188,7 @@ function exportMon(battle, side, p) {
 	for (const [id, s] of Object.entries(p.volatiles)) vols[id] = effectState(s);
 	return {
 		species: p.species.id,
+		base_species: p.baseSpecies.id,
 		is_mega: !!p.species.isMega,
 		ability: p.ability,
 		base_ability: p.baseAbility,
@@ -206,7 +207,7 @@ function exportMon(battle, side, p) {
 		added_type: p.addedType || '',
 		stats: STATS.map(s => (s === 'hp' ? p.maxhp : p.storedStats[s])),
 		weighthg: p.weighthg,
-		moves: p.moveSlots.map(m => ({ id: m.id, pp: m.pp, maxpp: m.maxpp })),
+		moves: p.moveSlots.map(m => ({ id: m.id, pp: m.pp, maxpp: m.maxpp, used: !!m.used })),
 		base_moves: p.baseMoveSlots.map(m => m.id),
 		// A fainted Pokemon keeps its slot until replaced.
 		active: side.active.includes(p),

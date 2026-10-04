@@ -47,10 +47,8 @@ impl Battle {
         }
         let can_mega = self.can_mega(p);
         if self.must_struggle(p) {
+            // Struggle counts as a locked move: no Mega Evolution.
             mask |= 1 << move_action(0, T_FOE0, false);
-            if can_mega {
-                mask |= 1 << move_action(0, T_FOE0, true);
-            }
         } else {
             for s in 0..m.n_moves as usize {
                 if self.move_disabled(p, s) {

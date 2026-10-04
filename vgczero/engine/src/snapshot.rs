@@ -307,7 +307,12 @@ impl Battle {
             return Err(format!("mega species {sp} differs from the set's mega"));
         }
         if !m.is_mega && m.species != m.base_species {
-            return Err(format!("forme change to {sp} unsupported"));
+            if m.species != m.alt_species || m.alt_species == 0 {
+                return Err(format!("forme change to {sp} unsupported"));
+            }
+            // Zero to Hero's change is permanent (Showdown's baseSpecies changed).
+            m.alt_locked = s(mv, "base_species") == d.sp(m.alt_species).id;
+            m.weight_hg = m.alt_weight_hg;
         }
         let ab = s(mv, "ability");
         m.ability = d.ability_id(ab).ok_or(format!("unknown ability {ab}"))?;
@@ -372,6 +377,9 @@ impl Battle {
             }
             m.pp[k] = i(ms, "pp").clamp(0, 255) as u8;
             m.max_pp[k] = i(ms, "maxpp").clamp(0, 255) as u8;
+            if b(ms, "used") {
+                m.vol.moves_used |= 1 << k;
+            }
         }
         let pos = i(mv, "position");
         m.slot = if b(mv, "active") { pos as i8 } else { -1 };
@@ -413,6 +421,7 @@ impl Battle {
         if let Some(f) = get(mv, "ability_state").get("fallen").and_then(|x| x.as_i64()) {
             v.fallen = f as u8;
         }
+        v.protean = b(get(mv, "ability_state"), "protean");
         // Counter / Mirror Coat / Metal Burst: the last damage taken this turn.
         if let Some(ab) = mv.get("attacked_by").and_then(|x| x.as_array()) {
             for a in ab.iter().rev() {
@@ -758,7 +767,7 @@ impl Battle {
         if v.partial_trap > 0 {
             push(format!("partiallytrapped={}", v.partial_trap));
         }
-        if v.unburden && m.item == 0 {
+        if v.unburden {
             push("unburden=y".into());
         }
         out.sort();
@@ -866,4 +875,203 @@ pub fn target_code(p: Pos, target: Target, loc: i64) -> u8 {
         }
         _ => T_FOE0,
     }
+}
+
+// ---- parity helpers shared by src/bin/parity.rs and tests/parity.rs ---------
+
+/// Per-feature value counts over runs.
+pub type Counts = std::collections::BTreeMap<String, std::collections::BTreeMap<String, u32>>;
+
+/// Engine choice from the JSON `lib.js` `engineChoice` writes.
+pub fn choice_from_json(c: &Value) -> R<crate::actions::Choice> {
+    use crate::actions::{preview_index, Choice};
+    if let Some(po) = c.get("preview_order").and_then(|x| x.as_array()) {
+        let o: Vec<u8> = po.iter().map(|x| x.as_u64().unwrap_or(0) as u8).collect();
+        if o.len() != 4 {
+            return Err("preview_order needs 4".into());
+        }
+        let p = preview_index([o[0], o[1]], [o[2], o[3]]).ok_or("bad preview order")?;
+        return Ok(Choice::preview(p));
+    }
+    let s = c.get("slots").and_then(|x| x.as_array()).ok_or("choice without slots")?;
+    let a = s.first().and_then(|x| x.as_u64()).unwrap_or(0) as u8;
+    let b = s.get(1).and_then(|x| x.as_u64()).unwrap_or(0) as u8;
+    Ok(Choice::slots(a, b))
+}
+
+/// Run the decision `choices` from `state` `runs` times with different seeds
+/// and count the outcome features. Returns (counts, step errors).
+pub fn outcome_counts(state: &Value, choices: &Value, runs: u64, seed0: u64) -> R<(Counts, Counts)> {
+    let base = Battle::from_state_json(state, 1)?;
+    let cs = choices.as_array().ok_or("no choices")?;
+    let ch = [choice_from_json(&cs[0])?, choice_from_json(&cs[1])?];
+    let mut counts = Counts::new();
+    let mut errors = Counts::new();
+    for k in 0..runs {
+        let mut b = base.clone();
+        b.rng = crate::rng::Rng::new(seed0.wrapping_mul(1_000_003).wrapping_add(k));
+        let log0 = b.log_lines.len();
+        if let Err(e) = b.step(ch) {
+            *errors.entry("step".into()).or_default().entry(e.0).or_default() += 1;
+            continue;
+        }
+        for (key, v) in b.outcome_features(log0) {
+            let vs = match v {
+                Value::String(s) => s,
+                other => other.to_string(),
+            };
+            *counts.entry(key).or_default().entry(vs).or_default() += 1;
+        }
+    }
+    Ok((counts, errors))
+}
+
+fn lgamma(x: f64) -> f64 {
+    const C: [f64; 9] = [
+        0.999_999_999_999_809_9,
+        676.520_368_121_885_1,
+        -1_259.139_216_722_402_8,
+        771.323_428_777_653_1,
+        -176.615_029_162_140_6,
+        12.507_343_278_686_905,
+        -0.138_571_095_265_720_12,
+        9.984_369_578_019_572e-6,
+        1.505_632_735_149_311_6e-7,
+    ];
+    if x < 0.5 {
+        return (std::f64::consts::PI / (std::f64::consts::PI * x).sin()).ln() - lgamma(1.0 - x);
+    }
+    let x = x - 1.0;
+    let mut a = C[0];
+    let t = x + 7.5;
+    for (i, c) in C.iter().enumerate().skip(1) {
+        a += c / (x + i as f64);
+    }
+    0.5 * (2.0 * std::f64::consts::PI).ln() + (x + 0.5) * t.ln() - t + a.ln()
+}
+
+/// Upper regularized gamma function Q(s, x).
+fn gamma_q(s: f64, x: f64) -> f64 {
+    if x <= 0.0 {
+        return 1.0;
+    }
+    if x < s + 1.0 {
+        let (mut sum, mut term) = (1.0 / s, 1.0 / s);
+        for n in 1..500 {
+            term *= x / (s + n as f64);
+            sum += term;
+            if term < sum * 1e-15 {
+                break;
+            }
+        }
+        return (1.0 - (-x + s * x.ln() - lgamma(s)).exp() * sum).max(0.0);
+    }
+    let (mut b, mut c) = (x + 1.0 - s, 1e300);
+    let mut d = 1.0 / b;
+    let mut h = d;
+    for i in 1..500 {
+        let an = -(i as f64) * (i as f64 - s);
+        b += 2.0;
+        d = an * d + b;
+        if d.abs() < 1e-300 {
+            d = 1e-300;
+        }
+        c = b + an / c;
+        if c.abs() < 1e-300 {
+            c = 1e-300;
+        }
+        d = 1.0 / d;
+        let del = d * c;
+        h *= del;
+        if (del - 1.0).abs() < 1e-15 {
+            break;
+        }
+    }
+    (-x + s * x.ln() - lgamma(s)).exp() * h
+}
+
+fn ks_p(d: f64, n: f64, m: f64) -> f64 {
+    let ne = n * m / (n + m);
+    let lam = (ne.sqrt() + 0.12 + 0.11 / ne.sqrt()) * d;
+    if lam < 0.2 {
+        return 1.0;
+    }
+    let mut sum = 0.0;
+    for j in 1..=100 {
+        let sign = if j % 2 == 1 { 1.0 } else { -1.0 };
+        let t = 2.0 * sign * (-2.0 * (j * j) as f64 * lam * lam).exp();
+        sum += t;
+        if t.abs() < 1e-12 {
+            break;
+        }
+    }
+    sum.clamp(0.0, 1.0)
+}
+
+/// Homogeneity test of two value-count maps, as turns.js `compareCounts`:
+/// chi-square with rare values pooled, and KS for numeric features.
+/// Returns (p-value, total variation distance).
+pub fn compare_counts(a: &std::collections::BTreeMap<String, u32>, b: &std::collections::BTreeMap<String, u32>) -> (f64, f64) {
+    let na: u32 = a.values().sum();
+    let nb: u32 = b.values().sum();
+    if na == 0 || nb == 0 {
+        return (1.0, 0.0);
+    }
+    let (na, nb) = (na as f64, nb as f64);
+    let mut keys: Vec<&String> = a.keys().chain(b.keys()).collect();
+    keys.sort();
+    keys.dedup();
+    let get = |m: &std::collections::BTreeMap<String, u32>, k: &String| *m.get(k).unwrap_or(&0) as f64;
+    let tvd = keys.iter().map(|k| (get(a, k) / na - get(b, k) / nb).abs()).sum::<f64>() / 2.0;
+    if keys.len() == 1 {
+        return (1.0, 0.0);
+    }
+    let mut cells: Vec<(f64, f64)> = vec![];
+    let (mut ra, mut rb) = (0.0, 0.0);
+    for k in &keys {
+        let (x, y) = (get(a, k), get(b, k));
+        if x + y < 8.0 {
+            ra += x;
+            rb += y;
+        } else {
+            cells.push((x, y));
+        }
+    }
+    if ra + rb > 0.0 {
+        cells.push((ra, rb));
+    }
+    let mut chi2 = 0.0;
+    for &(x, y) in &cells {
+        let p = (x + y) / (na + nb);
+        let (ea, eb) = (na * p, nb * p);
+        if ea > 0.0 {
+            chi2 += (x - ea).powi(2) / ea;
+        }
+        if eb > 0.0 {
+            chi2 += (y - eb).powi(2) / eb;
+        }
+    }
+    let dof = cells.len() as f64 - 1.0;
+    let mut p = if dof <= 0.0 { 1.0 } else { gamma_q(dof / 2.0, chi2 / 2.0) };
+    let mut nums: Vec<(f64, &String)> = vec![];
+    for k in &keys {
+        match k.parse::<f64>() {
+            Ok(v) => nums.push((v, *k)),
+            Err(_) => {
+                nums.clear();
+                break;
+            }
+        }
+    }
+    if nums.len() > 2 {
+        nums.sort_by(|x, y| x.0.partial_cmp(&y.0).unwrap());
+        let (mut ca, mut cb, mut d) = (0.0, 0.0, 0.0f64);
+        for (_, k) in &nums {
+            ca += get(a, k) / na;
+            cb += get(b, k) / nb;
+            d = d.max((ca - cb).abs());
+        }
+        p = p.min(ks_p(d, na, nb));
+    }
+    (p, tvd)
 }
