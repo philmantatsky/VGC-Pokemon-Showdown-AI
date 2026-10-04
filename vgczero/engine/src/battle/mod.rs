@@ -97,6 +97,9 @@ pub struct Action {
 
 pub const MAX_QUEUE: usize = 16;
 
+/// Move action target for an action Encore rewrote: chosen at random on use.
+pub const TARGET_RANDOM: u8 = 3;
+
 #[derive(Copy, Clone, Debug)]
 pub struct Queue {
     pub list: [Option<Action>; MAX_QUEUE],
@@ -399,6 +402,7 @@ impl Battle {
 
     fn validate_switch_choice(&self, s: usize, c: &Choice) -> Result<(), ChoiceError> {
         let mut used = [false; 6];
+        let mut switches = 0;
         for slot in 0..2 {
             if !self.switch_slots[s][slot] {
                 continue;
@@ -410,13 +414,30 @@ impl Battle {
                         return Err(ChoiceError(format!("side {s} slot {slot}: cannot switch to {to}")));
                     }
                     used[to] = true;
+                    switches += 1;
                 }
-                // Flagged slots always have a replacement available (the phase
-                // only flags as many slots as there are bench Pokemon).
+                SlotAction::Pass if self.switch_passes_allowed(s) => {}
                 _ => return Err(ChoiceError(format!("side {s} slot {slot}: expected a switch"))),
             }
         }
+        // As many replacements as possible (Showdown's forcedSwitchesLeft).
+        if switches < self.forced_switches(s) {
+            return Err(ChoiceError(format!("side {s}: {switches} switches, {} required", self.forced_switches(s))));
+        }
         Ok(())
+    }
+
+    /// In a switch phase: how many of the side's flagged slots must switch
+    /// (the rest pass, when there are fewer replacements than slots).
+    pub fn forced_switches(&self, s: usize) -> usize {
+        let flagged = self.switch_slots[s].iter().filter(|&&x| x).count();
+        flagged.min(self.sides[s].bench_available() as usize)
+    }
+
+    /// A flagged slot may pass (Showdown's forcedPassesLeft > 0).
+    pub fn switch_passes_allowed(&self, s: usize) -> bool {
+        let flagged = self.switch_slots[s].iter().filter(|&&x| x).count();
+        flagged > self.sides[s].bench_available() as usize
     }
 
     fn validate_move_choice(&self, s: usize, c: &Choice) -> Result<(), ChoiceError> {
@@ -563,14 +584,31 @@ impl Battle {
         (m.moves[ms.min(m.n_moves.saturating_sub(1) as usize)], ms)
     }
 
+    /// Showdown's getActionSpeed for every queued action: the speed, and for
+    /// moves the priority (ModifyPriority: Grassy Glide, Prankster...).
     pub(crate) fn update_queue_speeds(&mut self) {
         for i in 0..self.queue.len {
             if let Some(mut a) = self.queue.list[i] {
-                if self.sides[a.pos.s()].active[a.pos.i()] == a.mon {
+                if self.sides[a.pos.s()].active[a.pos.i()] == a.mon && self.is_live(a.pos) {
                     a.speed = self.action_speed(a.pos);
+                    if let ActionKind::Move { .. } = a.kind {
+                        let base = dex().mv(a.move_id).priority;
+                        a.priority = self.modify_priority(a.pos, a.move_id, base);
+                    }
                 }
                 self.queue.list[i] = Some(a);
             }
+        }
+    }
+
+    /// Showdown's queue.prioritizeAction: the action goes next (order 3).
+    pub(crate) fn prioritize_action(&mut self, i: usize) {
+        if let Some(mut a) = self.queue.list[i] {
+            for j in (1..=i).rev() {
+                self.queue.list[j] = self.queue.list[j - 1];
+            }
+            a.order = 3;
+            self.queue.list[0] = Some(a);
         }
     }
 
@@ -639,6 +677,24 @@ impl Battle {
         if self.ended() {
             return;
         }
+        // eachEvent('Update'): berries, herbs, in speed order.
+        let mut ps: [(i32, Pos); 4] = [(0, Pos::new(0, 0)); 4];
+        let mut n = 0;
+        for c in 0..4 {
+            let p = Pos::from_code(c);
+            if self.is_live(p) {
+                ps[n] = (self.action_speed(p), p);
+                n += 1;
+            }
+        }
+        ps[..n].sort_by(|a, b| b.0.cmp(&a.0));
+        for &(_, p) in &ps[..n] {
+            self.update_items(p);
+        }
+        self.process_faints();
+        if self.ended() {
+            return;
+        }
         // Mid-turn switches (U-turn, Parting Shot, Emergency Exit, Eject Button).
         let mut any = false;
         let mut slots = [[false; 2]; 2];
@@ -664,15 +720,8 @@ impl Battle {
             }
         }
         if any {
-            // A side with two pending self-switches but one bench Pokemon: the
-            // first (in slot order) gets it.
-            for s in 0..2 {
-                if slots[s][0] && slots[s][1] && self.sides[s].bench_available() < 2 {
-                    slots[s][1] = false;
-                    let p = Pos::new(s, 1);
-                    self.mm(p).vol.switch_flag = false;
-                }
-            }
+            // A side with two pending self-switches but one bench Pokemon
+            // chooses which slot switches (the other passes).
             for s in 0..2 {
                 for slot in 0..2 {
                     if slots[s][slot] {
@@ -749,13 +798,16 @@ impl Battle {
         let mut slots = [[false; 2]; 2];
         let mut any = false;
         for s in 0..2 {
-            let mut avail = self.sides[s].bench_available();
+            // Every fainted slot is flagged if any replacement exists; with
+            // fewer replacements than slots the player picks which pass.
+            if self.sides[s].bench_available() == 0 {
+                continue;
+            }
             for slot in 0..2 {
                 let i = self.sides[s].active[slot];
                 let empty = i == NO_MON || self.sides[s].mons[i as usize].fainted;
-                if empty && avail > 0 {
+                if empty {
                     slots[s][slot] = true;
-                    avail -= 1;
                     any = true;
                 }
             }

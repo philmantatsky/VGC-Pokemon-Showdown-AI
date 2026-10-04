@@ -28,8 +28,8 @@ impl Battle {
                         mask |= 1 << switch_action(i);
                     }
                 }
-                if mask == 0 {
-                    mask = 1 << PASS;
+                if mask == 0 || self.switch_passes_allowed(side) {
+                    mask |= 1 << PASS;
                 }
                 mask
             }
@@ -105,6 +105,12 @@ impl Battle {
         (0..3u8).filter(move |&t| out[t as usize])
     }
 
+    pub(crate) fn partial_trapper_active(&self, p: Pos) -> bool {
+        let v = &self.m(p).vol;
+        let src = Pos::from_code(v.partial_trap_src);
+        self.sides[src.s()].active[src.i()] == v.partial_trap_mon && self.is_live(src)
+    }
+
     pub fn can_mega(&self, p: Pos) -> bool {
         let m = self.m(p);
         m.can_mega && !m.is_mega && !self.sides[p.s()].mega_used && m.item != 0 && dex().item(m.item).is_mega_stone
@@ -156,7 +162,8 @@ impl Battle {
         if matches!(mv.fx, MoveFx::FakeOut | MoveFx::FirstImpression) && v.move_actions > 0 {
             return true;
         }
-        // Imprison: a foe with Imprison that knows this move.
+        // Imprison (onFoeDisableMove): a foe with Imprison that knows this move.
+        // (Within the turn Imprison starts, the move fails at BeforeMove.)
         for q in self.live_foes(p) {
             let f = self.m(q);
             if f.vol.imprison && f.moves[..f.n_moves as usize].contains(&mid) {
@@ -171,7 +178,11 @@ impl Battle {
         if m.has_type(Type::Ghost) || self.ab(p) == Ab::RunAway {
             return false;
         }
-        if m.vol.ingrain || m.vol.no_retreat || m.vol.partial_trap > 0 {
+        if m.vol.ingrain || m.vol.no_retreat {
+            return true;
+        }
+        // Partially trapped while the trapper is still on the field.
+        if m.vol.partial_trap > 0 && self.partial_trapper_active(p) {
             return true;
         }
         for q in self.live_foes(p) {
@@ -201,6 +212,69 @@ impl Battle {
             _ => {}
         }
         pr
+    }
+}
+
+impl Battle {
+    /// A uniformly random legal choice for `side` that also satisfies the
+    /// joint constraints `legal_mask` cannot express per slot: no two slots
+    /// switching to the same Pokemon, at most one Mega Evolution, and as many
+    /// replacements as possible in a switch phase.
+    pub fn random_choice(&self, side: usize, rng: &mut crate::rng::Rng) -> crate::actions::Choice {
+        use crate::actions::{decode, Choice, SlotAction, N_PREVIEW_ACTIONS};
+        use super::RequestKind;
+        let r = self.request(side);
+        match r.kind {
+            RequestKind::TeamPreview => return Choice::preview(rng.below(N_PREVIEW_ACTIONS as u32) as u8),
+            RequestKind::Wait => return Choice::default(),
+            _ => {}
+        }
+        let mut c = Choice::slots(PASS, PASS);
+        let mut used = [false; 6];
+        let mut mega = false;
+        let mut opts = [0u8; 31];
+        for slot in 0..2 {
+            let mask = self.legal_mask(side, slot);
+            let mut n = 0;
+            for a in 0..31u8 {
+                if mask & (1 << a) == 0 {
+                    continue;
+                }
+                let ok = match decode(a) {
+                    SlotAction::Switch(t) => !used[t as usize],
+                    SlotAction::Move { mega: m, .. } => !(m && mega),
+                    SlotAction::Pass => true,
+                };
+                if ok {
+                    opts[n] = a;
+                    n += 1;
+                }
+            }
+            let a = if n == 0 { PASS } else { opts[rng.below(n as u32) as usize] };
+            match decode(a) {
+                SlotAction::Switch(t) => used[t as usize] = true,
+                SlotAction::Move { mega: true, .. } => mega = true,
+                _ => {}
+            }
+            c.slots[slot] = a;
+        }
+        if matches!(self.phase, Phase::Switch { .. }) {
+            // Fill passes until the required number of replacements switch in.
+            let mut switches = c.slots.iter().filter(|&&a| matches!(decode(a), SlotAction::Switch(_))).count();
+            for slot in 0..2 {
+                if switches >= self.forced_switches(side) {
+                    break;
+                }
+                if self.switch_slots[side][slot] && c.slots[slot] == PASS {
+                    if let Some(i) = (0..6).find(|&i| self.sides[side].can_switch_to(i) && !used[i]) {
+                        used[i] = true;
+                        c.slots[slot] = switch_action(i);
+                        switches += 1;
+                    }
+                }
+            }
+        }
+        c
     }
 }
 

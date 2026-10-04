@@ -151,6 +151,28 @@ fn main() {
                 }
             }
         }
+        "turnlog" => {
+            // One run of each input line, printing the engine's log for the step.
+            let seed: u64 = args.get(2).and_then(|s| s.parse().ok()).unwrap_or(1);
+            for line in read_lines() {
+                let id = line.get("id").cloned().unwrap_or(Value::Null);
+                let res = (|| -> Result<Value, String> {
+                    let state = line.get("state").ok_or("no state")?;
+                    let mut b = Battle::from_state_json(state, seed)?;
+                    let cs = line.get("choices").and_then(|x| x.as_array()).ok_or("no choices")?;
+                    let choices = [choice_of(&b, &cs[0])?, choice_of(&b, &cs[1])?];
+                    let log0 = b.log_lines.len();
+                    let before = b.summary();
+                    b.step(choices).map_err(|e| e.0)?;
+                    let log: Vec<String> = b.log_lines[log0..].to_vec();
+                    Ok(json!({"id": id, "before": before, "log": log, "after": b.summary(), "features": b.outcome_features(log0)}))
+                })();
+                match res {
+                    Ok(v) => writeln!(out, "{v}").unwrap(),
+                    Err(e) => writeln!(out, "{}", json!({"id": id, "err": e})).unwrap(),
+                }
+            }
+        }
         "legal" => {
             for line in read_lines() {
                 let id = line.get("id").cloned().unwrap_or(Value::Null);

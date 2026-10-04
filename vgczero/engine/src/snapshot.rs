@@ -265,8 +265,9 @@ impl Battle {
                     "megaEvo" => Action { kind: ActionKind::Mega, pos: p, mon, order: 104, priority: 0, frac: 0, speed, move_id: 0 },
                     _ => {
                         let mid_s = s(a, "move");
-                        let mid = d.move_id(mid_s).ok_or(format!("unknown queued move {mid_s}"))?;
                         let m = &bt.sides[p.s()].mons[mon as usize];
+                        // A recharge turn is a move action for the locked Pokemon.
+                        let mid = if mid_s == "recharge" { m.moves[0] } else { d.move_id(mid_s).ok_or(format!("unknown queued move {mid_s}"))? };
                         let mslot = if mid == d.struggle {
                             0
                         } else {
@@ -391,7 +392,20 @@ impl Battle {
         v.active_turns = i(mv, "active_turns") as u16;
         v.move_actions = i(mv, "active_move_actions") as u16;
         v.newly_switched = b(mv, "newly_switched");
-        v.switch_flag = b(mv, "switch_flag");
+        match get(mv, "switch_flag") {
+            Value::Bool(x) => v.switch_flag = *x,
+            Value::String(x) => {
+                // Showdown stores the move id (or the selfSwitch kind).
+                v.switch_flag = true;
+                let kind = d.move_id(x).map(|mid| d.mv(mid).self_switch).unwrap_or(0);
+                match (x.as_str(), kind) {
+                    ("copyvolatile", _) | (_, 2) => v.switch_copyvolatile = true,
+                    ("shedtail", _) | (_, 3) => v.switch_shedtail = true,
+                    _ => {}
+                }
+            }
+            _ => {}
+        }
         v.force_switch = b(mv, "force_switch_flag");
         if b(mv, "being_called_back") {
             return Err("being called back unsupported".into());
@@ -456,6 +470,11 @@ impl Battle {
                 "substitute" => v.substitute = i(st, "hp") as u16,
                 "twoturnmove" => {
                     let mvid = s(st, "move");
+                    // Without the move's own volatile the attack already
+                    // happened this turn (twoturnmove lingers until residual).
+                    if !vols.contains_key(mvid) {
+                        continue;
+                    }
                     v.charging = slot_of(mvid)? + 1;
                     let tl = vols.get(mvid).map(|x| i(x, "targetLoc")).unwrap_or(0);
                     let p = Pos::new(sidx, pos.max(0) as usize);
@@ -494,6 +513,14 @@ impl Battle {
                 "laserfocus" => v.laser_focus = dur,
                 "tarshot" => v.tar_shot = true,
                 "smackdown" => v.smacked_down = true,
+                "partiallytrapped" => {
+                    v.partial_trap = dur;
+                    v.partial_trap_src = i(st, "sourceSlot").clamp(0, 3) as u8;
+                    v.partial_trap_mon = i(st, "sourceIdx").clamp(0, 5) as u8;
+                    if i(st, "boundDivisor") != 0 && i(st, "boundDivisor") != 8 {
+                        return Err("binding band unsupported".into());
+                    }
+                }
                 _ => return Err(format!("unsupported volatile {id}")),
             }
         }

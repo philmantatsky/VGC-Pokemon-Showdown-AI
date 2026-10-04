@@ -96,7 +96,12 @@ pub struct Vol {
     pub tar_shot: bool,
     pub smacked_down: bool,
     pub partial_trap: u8,
+    /// Position code and team index of the Pokemon that partially trapped us.
+    pub partial_trap_src: u8,
+    pub partial_trap_mon: u8,
     pub type_changed: bool,
+    /// Protean / Libero already changed the type since switching in.
+    pub protean: bool,
     pub ability_changed: bool,
     pub transformed: bool,
     pub stall_used_this_turn: bool,
@@ -187,9 +192,9 @@ impl Mon {
         let d = crate::dex::dex();
         let mut pp = [0u8; 4];
         for i in 0..set.n_moves as usize {
-            // PP ups are maxed: pp * 8 / 5 (Champions caps base PP at 20 already).
-            let base = d.mv(set.moves[i]).pp as u16;
-            pp[i] = (base * 8 / 5).min(255) as u8;
+            // Champions PP (scripts.ts calculatePP): (pp / 5 + 1) * 4.
+            let base = d.mv(set.moves[i]).pp as f64;
+            pp[i] = ((base / 5.0 + 1.0) * 4.0).ceil().min(255.0) as u8;
         }
         let (can_mega, mega) = match set.mega {
             Some(m) => (true, m),

@@ -60,9 +60,6 @@ impl Battle {
                 // Types / ability revert on switch-out (megas stay mega).
                 m.types = m.base_types;
                 m.ability = m.base_ability;
-                if m.status == Status::Tox {
-                    m.status_turns = 0;
-                }
             }
         }
         self.sides[s].active[p.i()] = to as u8;
@@ -72,6 +69,10 @@ impl Battle {
         let m = &mut self.sides[s].mons[to];
         m.slot = p.slot as i8;
         m.vol = Vol::default();
+        // Toxic's counter restarts on switch-in.
+        if m.status == Status::Tox {
+            m.status_turns = 0;
+        }
         m.vol.newly_switched = true;
         m.reveal.seen = true;
         if let Some((boosts, v)) = baton {

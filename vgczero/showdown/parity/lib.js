@@ -120,15 +120,17 @@ function toSet(m) {
 
 function newBattle(teamA, teamB, seed) {
 	const b = new Battle({ formatid: FORMAT, seed: seed || [1, 2, 3, 4] });
-	b.setPlayer('p1', { name: 'p1', team: teamA.mons.map(toSet) });
-	b.setPlayer('p2', { name: 'p2', team: teamB.mons.map(toSet) });
+	// vgczIdx: the set's index in the six-Pokemon team. It survives State
+	// serialization (deserialized battles only keep the brought sets).
+	b.setPlayer('p1', { name: 'p1', team: teamA.mons.map((m, i) => ({ ...toSet(m), vgczIdx: i })) });
+	b.setPlayer('p2', { name: 'p2', team: teamB.mons.map((m, i) => ({ ...toSet(m), vgczIdx: i })) });
 	return b;
 }
 
 /** Index of a Showdown Pokemon in its original six-Pokemon team. */
 function teamIdx(p) {
-	const i = p.side.team.indexOf(p.set);
-	if (i < 0) throw new Error('pokemon not in team');
+	const i = p.set.vgczIdx;
+	if (i === undefined) throw new Error('pokemon set without vgczIdx');
 	return i;
 }
 
@@ -166,7 +168,10 @@ function effectState(st) {
 	for (const [k, v] of Object.entries(st)) {
 		if (['id', 'target', 'effectOrder', 'sourceEffect', 'linkedPokemon', 'linkedStatus'].includes(k)) continue;
 		if (k === 'source') {
-			if (v && v.getSlot) out.sourceSlot = slotStrCode(v.getSlot());
+			if (v && v.getSlot) {
+				out.sourceSlot = slotStrCode(v.getSlot());
+				out.sourceIdx = v.set.vgczIdx;
+			}
 			continue;
 		}
 		if (k === 'sourceSlot') { out.sourceSlot = slotStrCode(v); continue; }
@@ -203,8 +208,9 @@ function exportMon(battle, side, p) {
 		weighthg: p.weighthg,
 		moves: p.moveSlots.map(m => ({ id: m.id, pp: m.pp, maxpp: m.maxpp })),
 		base_moves: p.baseMoveSlots.map(m => m.id),
-		active: !!p.isActive,
-		position: p.isActive ? p.position : -1,
+		// A fainted Pokemon keeps its slot until replaced.
+		active: side.active.includes(p),
+		position: side.active.indexOf(p),
 		volatiles: vols,
 		last_move: p.lastMove ? p.lastMove.id : '',
 		move_this_turn: p.moveThisTurn || '',
@@ -217,7 +223,7 @@ function exportMon(battle, side, p) {
 		stats_raised_this_turn: !!p.statsRaisedThisTurn,
 		stats_lowered_this_turn: !!p.statsLoweredThisTurn,
 		hurt_this_turn: p.hurtThisTurn === null || p.hurtThisTurn === undefined ? null : p.hurtThisTurn,
-		switch_flag: !!p.switchFlag,
+		switch_flag: typeof p.switchFlag === 'string' ? p.switchFlag : !!p.switchFlag,
 		force_switch_flag: !!p.forceSwitchFlag,
 		being_called_back: !!p.beingCalledBack,
 		transformed: !!p.transformed,
@@ -352,6 +358,17 @@ function volString(p) {
 		if (!(id in TRACKED_VOLATILES)) continue;
 		parts.push(`${id}=${TRACKED_VOLATILES[id](s)}`);
 	}
+	// A twoturnmove without its move's volatile is spent (the attack happened;
+	// it lingers until the residual).
+	if (p.volatiles['twoturnmove'] && !p.volatiles[p.volatiles['twoturnmove'].move]) {
+		const k = parts.findIndex(x => x.startsWith('twoturnmove='));
+		if (k >= 0) parts.splice(k, 1);
+	}
+	// A choicelock without a Choice item is stale (removed at the next DisableMove).
+	if (p.volatiles['choicelock'] && !p.getItem().isChoice) {
+		const k = parts.findIndex(x => x.startsWith('choicelock='));
+		if (k >= 0) parts.splice(k, 1);
+	}
 	// The engine keeps one crit stage for Focus Energy / Dragon Cheer.
 	if (p.volatiles['focusenergy'] || p.volatiles['dragoncheer']) parts.push('critstage=y');
 	return parts.sort().join(' ');
@@ -381,14 +398,17 @@ function outcome(battle, logStart) {
 			const k = `${sid}.${teamIdx(p)}`;
 			f[`${k}.hp`] = p.hp;
 			f[`${k}.st`] = p.fainted ? 'fnt' : (p.status || '-');
-			if (p.status === 'slp' || p.status === 'frz') f[`${k}.stt`] = p.statusState.time;
-			if (p.status === 'tox') f[`${k}.stt`] = p.statusState.stage || 0;
+			// (A Pokemon that fainted as the battle ended keeps its old status.)
+			if (!p.fainted && (p.status === 'slp' || p.status === 'frz')) f[`${k}.stt`] = p.statusState.time;
+			if (!p.fainted && p.status === 'tox') f[`${k}.stt`] = p.statusState.stage || 0;
 			f[`${k}.b`] = boostString(p.boosts);
 			f[`${k}.pos`] = p.isActive && !p.fainted ? 'ab'[p.position] : '-';
 			f[`${k}.it`] = p.item || '-';
 			f[`${k}.ab`] = p.ability;
 			f[`${k}.sp`] = p.species.id;
-			f[`${k}.ty`] = p.types.join('/');
+			// '???' (Burn Up, Double Shock) only matters when it is the only type.
+			const tys = p.types.filter(t => t !== '???');
+			f[`${k}.ty`] = tys.length ? tys.join('/') : '???';
 			f[`${k}.v`] = p.isActive ? volString(p) : '';
 			f[`${k}.pp`] = p.moveSlots.map(m => m.pp).join(',');
 		}
@@ -412,7 +432,7 @@ function outcome(battle, logStart) {
 		const order = [];
 		for (const line of battle.log.slice(logStart)) {
 			const m = /^\|(move|cant)\|(p[12][ab]):/.exec(line);
-			if (m && m[1] === 'move' && !line.includes('[from]')) order.push(m[2]);
+			if (m && m[1] === 'move' && (!line.includes('[from]') || line.includes('[from] lockedmove'))) order.push(m[2]);
 		}
 		f.order = order.join(',');
 	}
@@ -447,9 +467,8 @@ function targetLocs(battle, pokemon, targetType, allyDamage) {
 		break;
 	}
 	case 'adjacentAlly': {
-		const ally = side.active[1 - pos];
-		if (ally && !ally.fainted) locs.push(-(2 - pos));
-		else locs.push(0);
+		// The ally slot, even if it fainted (the move then fails).
+		locs.push(-(2 - pos));
 		break;
 	}
 	default:
@@ -475,16 +494,18 @@ function randomChoice(battle, side, rand, opts = {}) {
 	if (req.forceSwitch) {
 		const bench = side.pokemon.filter(p => !p.isActive && !p.fainted);
 		let avail = bench.length;
-		req.forceSwitch.forEach((must, i) => {
-			if (!must) { acts.push({ kind: 'pass' }); return; }
+		const slotsOut = [{ kind: 'pass' }, { kind: 'pass' }];
+		// With fewer replacements than flagged slots, which slot passes is a choice.
+		for (const i of rand.shuffle([0, 1])) {
+			if (!req.forceSwitch[i]) continue;
 			const opts2 = bench.filter(p => !used.has(p));
-			if (!opts2.length || avail <= 0) { acts.push({ kind: 'pass' }); return; }
+			if (!opts2.length || avail <= 0) continue;
 			const p = rand.pick(opts2);
 			used.add(p);
 			avail--;
-			acts.push({ kind: 'switch', to: teamIdx(p), pos: p.position });
-		});
-		return { slots: acts };
+			slotsOut[i] = { kind: 'switch', to: teamIdx(p), pos: p.position };
+		}
+		return { slots: slotsOut.slice(0, req.forceSwitch.length) };
 	}
 	let megaUsed = false;
 	req.active.forEach((a, i) => {
@@ -493,13 +514,22 @@ function randomChoice(battle, side, rand, opts = {}) {
 		const options = [];
 		const moves = a.moves;
 		moves.forEach((m, mi) => {
-			if (m.disabled) return;
+			// Engine move slot: index in the moveset (0 for Struggle / Recharge).
+			const slot = Math.max(0, pokemon.moveSlots.findIndex(x => x.id === m.id));
+			// Hidden-disabled moves (Imprison) look enabled in the last active's
+			// request but are still rejected.
+			if (m.disabled || (pokemon.moveSlots[slot] && pokemon.moveSlots[slot].id === m.id && pokemon.moveSlots[slot].disabled)) return;
+			if (m.pp === undefined) {
+				// Locked move (charging, recharging, Struggle): no target to choose.
+				options.push({ kind: 'move', slot, reqIndex: mi, moveid: m.id, targetLoc: 0, target: 'locked', mega: false });
+				return;
+			}
 			const mv = dex.moves.get(m.id);
 			let tt = m.target || mv.target;
 			const allyDamage = opts.allyDamage && mv.category !== 'Status' ? true : mv.category === 'Status';
 			for (const loc of targetLocs(battle, pokemon, tt, allyDamage)) {
-				options.push({ kind: 'move', slot: mi, moveid: m.id, targetLoc: loc, target: tt, mega: false });
-				if (a.canMegaEvo) options.push({ kind: 'move', slot: mi, moveid: m.id, targetLoc: loc, target: tt, mega: true });
+				options.push({ kind: 'move', slot, reqIndex: mi, moveid: m.id, targetLoc: loc, target: tt, mega: false });
+				if (a.canMegaEvo) options.push({ kind: 'move', slot, reqIndex: mi, moveid: m.id, targetLoc: loc, target: tt, mega: true });
 			}
 		});
 		if (!a.trapped && !(opts.noSwitch)) {
@@ -529,7 +559,7 @@ function choiceString(side, choice) {
 			const p = side.pokemon.find(q => teamIdx(q) === a.to);
 			return `switch ${p.position + 1}`;
 		}
-		let s = `move ${a.slot + 1}`;
+		let s = `move ${(a.reqIndex === undefined ? a.slot : a.reqIndex) + 1}`;
 		if (a.targetLoc) s += ` ${a.targetLoc}`;
 		if (a.mega) s += ' mega';
 		return s;

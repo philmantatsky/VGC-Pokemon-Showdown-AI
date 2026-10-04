@@ -132,11 +132,14 @@ impl Battle {
                 }
             }
         }
+        // Each stat is applied in turn; Defiant / Competitive react to each
+        // stat an opponent lowered (Showdown's AfterEachBoost).
+        let foe_src = src.source().map(|s| s.side != tgt.side).unwrap_or(false);
         let mut changed = false;
         let mut lowered = false;
         let mut raised = false;
         for i in 0..7 {
-            if b[i] == 0 {
+            if b[i] == 0 || !self.is_live(tgt) {
                 continue;
             }
             let m = self.mm(tgt);
@@ -144,14 +147,28 @@ impl Battle {
             let new = (old as i32 + b[i] as i32).clamp(-6, 6) as i8;
             m.boosts[i] = new;
             let delta = new - old;
-            if delta != 0 {
-                changed = true;
-                if delta < 0 {
-                    lowered = true;
-                } else {
-                    raised = true;
+            if delta == 0 {
+                continue;
+            }
+            changed = true;
+            if b[i] < 0 {
+                lowered = true;
+            } else {
+                raised = true;
+            }
+            blog!(self, "|{}|{}|{}|{}", if delta > 0 { "-boost" } else { "-unboost" }, self.name(tgt), STAT_NAMES[i], delta.abs());
+            if b[i] < 0 && foe_src {
+                let up_stat = match self.ab(tgt) {
+                    Ab::Defiant => Some(B_ATK),
+                    Ab::Competitive => Some(B_SPA),
+                    _ => None,
+                };
+                if let Some(st) = up_stat {
+                    self.reveal_ability(tgt);
+                    let mut up = [0i8; 7];
+                    up[st] = 2;
+                    self.boost(tgt, &up, BoostSrc::SelfInflicted);
                 }
-                blog!(self, "|{}|{}|{}|{}", if delta > 0 { "-boost" } else { "-unboost" }, self.name(tgt), STAT_NAMES[i], delta.abs());
             }
         }
         if raised {
@@ -159,26 +176,6 @@ impl Battle {
         }
         if lowered {
             self.mm(tgt).vol.stats_lowered_this_turn = true;
-            // Defiant / Competitive: a stat lowered by an opponent.
-            if let Some(s) = src.source() {
-                if s.side != tgt.side {
-                    match self.ab(tgt) {
-                        Ab::Defiant => {
-                            self.reveal_ability(tgt);
-                            let mut up = [0i8; 7];
-                            up[B_ATK] = 2;
-                            self.boost(tgt, &up, BoostSrc::SelfInflicted);
-                        }
-                        Ab::Competitive => {
-                            self.reveal_ability(tgt);
-                            let mut up = [0i8; 7];
-                            up[B_SPA] = 2;
-                            self.boost(tgt, &up, BoostSrc::SelfInflicted);
-                        }
-                        _ => {}
-                    }
-                }
-            }
             self.check_white_herb(tgt);
         }
         changed
@@ -522,6 +519,19 @@ impl Battle {
                 up[B_SPD] = 1;
                 self.boost(tgt, &up, BoostSrc::SelfInflicted);
             }
+            VolKind::PartiallyTrapped => {
+                // Fire Spin, Whirlpool, Infestation...: 5 or 6 turns.
+                if self.m(tgt).vol.partial_trap > 0 {
+                    return false;
+                }
+                let s = src.unwrap_or(tgt);
+                let mon = self.sides[s.s()].active[s.i()];
+                let dur = self.rng.range(5, 7) as u8;
+                let m = self.mm(tgt);
+                m.vol.partial_trap = dur;
+                m.vol.partial_trap_src = s.code();
+                m.vol.partial_trap_mon = mon;
+            }
             VolKind::Endure => self.mm(tgt).vol.endure = true,
             VolKind::DestinyBond => self.mm(tgt).vol.destiny_bond = true,
             VolKind::Protect => self.mm(tgt).vol.protect = ProtectKind::Protect,
@@ -533,7 +543,6 @@ impl Battle {
             | VolKind::FollowMe
             | VolKind::RagePowder
             | VolKind::ThroatChop
-            | VolKind::PartiallyTrapped
             | VolKind::Unsupported => return false,
         }
         true
@@ -692,6 +701,9 @@ impl Battle {
             m.status = Status::None;
             m.boosts = [0; 7];
             m.vol = Default::default();
+            // clearVolatile: ability and types back to the (Mega) forme's own.
+            m.ability = m.base_ability;
+            m.types = m.base_types;
         }
         blog!(self, "|faint|{}", name);
         // The slot stays occupied by the fainted Pokemon until replaced.

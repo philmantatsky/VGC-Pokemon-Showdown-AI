@@ -23,6 +23,7 @@ enum Res {
     Burn,
     Curse,
     SaltCure,
+    PartialTrap,
     Taunt,
     Encore,
     Disable,
@@ -99,6 +100,9 @@ impl Battle {
             if v.salt_cure {
                 items.push((13, spd, 0, Res::SaltCure, c));
             }
+            if v.partial_trap > 0 {
+                items.push((13, spd, 0, Res::PartialTrap, c));
+            }
             if v.taunt > 0 {
                 items.push((15, spd, 0, Res::Taunt, c));
             }
@@ -146,6 +150,12 @@ impl Battle {
                     continue;
                 }
                 self.residual_mon(kind, p);
+            }
+            // Perish Song faints through its end callback, which Showdown's
+            // fieldEvent does not follow with faintMessages: simultaneous
+            // perishes faint together (the last one decides a double KO).
+            if kind == Res::PerishSong {
+                continue;
             }
             self.check_win_quiet();
         }
@@ -352,9 +362,22 @@ impl Battle {
                 self.damage(p, (mh / 4).max(1), None, DmgKind::Indirect);
             }
             Res::SaltCure => {
+                // Champions: 1/16 (1/8 for Water and Steel types).
                 let m = self.m(p);
-                let frac = if m.has_type(Type::Water) || m.has_type(Type::Steel) { 4 } else { 8 };
+                let frac = if m.has_type(Type::Water) || m.has_type(Type::Steel) { 8 } else { 16 };
                 self.damage(p, (mh / frac).max(1), None, DmgKind::Indirect);
+            }
+            Res::PartialTrap => {
+                // Duration ticks first; then it ends if the trapper left.
+                self.mm(p).vol.partial_trap -= 1;
+                if self.m(p).vol.partial_trap == 0 {
+                    return;
+                }
+                if !self.partial_trapper_active(p) {
+                    self.mm(p).vol.partial_trap = 0;
+                    return;
+                }
+                self.damage(p, (mh / 8).max(1), None, DmgKind::Indirect);
             }
             Res::Taunt => self.mm(p).vol.taunt -= 1,
             Res::Encore => {

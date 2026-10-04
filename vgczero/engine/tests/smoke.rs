@@ -1,5 +1,5 @@
-use vgczero_engine::actions::{decode, Choice, SlotAction, PASS};
-use vgczero_engine::battle::{Battle, BattleConfig, RequestKind};
+use vgczero_engine::actions::Choice;
+use vgczero_engine::battle::{Battle, BattleConfig};
 use vgczero_engine::rng::Rng;
 use vgczero_engine::{load_dex, load_teams, TeamSpec};
 
@@ -10,35 +10,7 @@ pub fn setup() -> Vec<TeamSpec> {
 }
 
 fn random_choice(b: &Battle, side: usize, rng: &mut Rng) -> Choice {
-    let r = b.request(side);
-    match r.kind {
-        RequestKind::TeamPreview => Choice::preview(rng.below(90) as u8),
-        RequestKind::Wait => Choice::default(),
-        _ => {
-            let mut c = Choice::slots(PASS, PASS);
-            let mut used = [false; 6];
-            let mut mega = false;
-            for slot in 0..2 {
-                let mask = b.legal_mask(side, slot);
-                let opts: Vec<u8> = (0..31u8)
-                    .filter(|&a| mask & (1 << a) != 0)
-                    .filter(|&a| match decode(a) {
-                        SlotAction::Switch(t) => !used[t as usize],
-                        SlotAction::Move { mega: m, .. } => !(m && mega),
-                        _ => true,
-                    })
-                    .collect();
-                let a = if opts.is_empty() { PASS } else { opts[rng.below(opts.len() as u32) as usize] };
-                match decode(a) {
-                    SlotAction::Switch(t) => used[t as usize] = true,
-                    SlotAction::Move { mega: true, .. } => mega = true,
-                    _ => {}
-                }
-                c.slots[slot] = a;
-            }
-            c
-        }
-    }
+    b.random_choice(side, rng)
 }
 
 #[test]
