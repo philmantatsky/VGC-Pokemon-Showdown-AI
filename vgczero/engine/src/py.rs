@@ -6,7 +6,7 @@
 //!   ints, floats, field, mask, req = env.observe()
 //!   rewards, dones, errors = env.step(actions)   # actions: uint8 [n, 2, 3]
 
-use std::sync::OnceLock;
+use std::sync::{RwLock, RwLockReadGuard};
 
 use numpy::ndarray::{ArrayView1, ArrayView3};
 use numpy::{IntoPyArray, PyArray1, PyArrayDyn, PyArrayMethods, PyReadonlyArray1, PyReadonlyArray3, PyUntypedArrayMethods};
@@ -23,10 +23,16 @@ use crate::teams::TeamSpec;
 use crate::vecenv::{EnvConfig, VecEnv};
 use crate::worlds;
 
-static TEAMS: OnceLock<Vec<TeamSpec>> = OnceLock::new();
+/// Team registry: the compiled pool, plus teams registered at runtime
+/// (team evolution).
+static TEAMS: RwLock<Vec<TeamSpec>> = RwLock::new(Vec::new());
 
-fn teams() -> PyResult<&'static Vec<TeamSpec>> {
-    TEAMS.get().ok_or_else(|| PyRuntimeError::new_err("call vgczero_engine.load(dex, teams) first"))
+fn teams() -> PyResult<RwLockReadGuard<'static, Vec<TeamSpec>>> {
+    let g = TEAMS.read().map_err(|_| PyRuntimeError::new_err("team registry poisoned"))?;
+    if g.is_empty() {
+        return Err(PyRuntimeError::new_err("call vgczero_engine.load(dex, teams) first"));
+    }
+    Ok(g)
 }
 
 fn to_np<'py, T: numpy::Element>(py: Python<'py>, v: Vec<T>, shape: &[usize]) -> PyResult<Bound<'py, PyArrayDyn<T>>> {
@@ -37,13 +43,38 @@ fn to_np<'py, T: numpy::Element>(py: Python<'py>, v: Vec<T>, shape: &[usize]) ->
 #[pyfunction]
 fn load(dex_path: &str, teams_path: &str) -> PyResult<usize> {
     crate::dex::load_dex(dex_path).map_err(PyRuntimeError::new_err)?;
-    if TEAMS.get().is_none() {
-        let t = crate::teams::load_teams(teams_path).map_err(PyRuntimeError::new_err)?;
-        let _ = TEAMS.set(t);
+    {
+        let mut w = TEAMS.write().map_err(|_| PyRuntimeError::new_err("team registry poisoned"))?;
+        if w.is_empty() {
+            *w = crate::teams::load_teams(teams_path).map_err(PyRuntimeError::new_err)?;
+        }
     }
     let t = teams()?;
-    worlds::init_set_pool(t);
+    worlds::init_set_pool(&t);
     Ok(t.len())
+}
+
+/// Register a new team (compiled-team JSON: {"name", "mons": [6 compiled sets]}).
+/// Returns its index. Unsupported teams are rejected unless allow_unsupported.
+#[pyfunction]
+#[pyo3(signature = (team_json, allow_unsupported=false))]
+fn register_team(team_json: &str, allow_unsupported: bool) -> PyResult<usize> {
+    let v: serde_json::Value = serde_json::from_str(team_json).map_err(|e| PyValueError::new_err(e.to_string()))?;
+    let t = crate::teams::parse_team(&v);
+    if !allow_unsupported && !t.supported() {
+        return Err(PyValueError::new_err(format!("unsupported team: {}", t.unsupported.join("; "))));
+    }
+    let mut w = TEAMS.write().map_err(|_| PyRuntimeError::new_err("team registry poisoned"))?;
+    if w.is_empty() {
+        return Err(PyRuntimeError::new_err("call vgczero_engine.load(dex, teams) first"));
+    }
+    w.push(t);
+    Ok(w.len() - 1)
+}
+
+#[pyfunction]
+fn n_teams() -> PyResult<usize> {
+    Ok(teams()?.len())
 }
 
 #[pyfunction]
@@ -65,7 +96,8 @@ fn team_unsupported_reasons(i: usize) -> PyResult<Vec<String>> {
 #[pyfunction]
 fn team_species(i: usize) -> PyResult<Vec<String>> {
     let d = crate::dex::dex();
-    let t = teams()?.get(i).ok_or_else(|| PyValueError::new_err("bad team"))?;
+    let all = teams()?;
+    let t = all.get(i).ok_or_else(|| PyValueError::new_err("bad team"))?;
     Ok(t.mons.iter().map(|m| d.sp(m.species).name.clone()).collect())
 }
 
@@ -545,6 +577,8 @@ impl PyBattleBatch {
 #[pymodule]
 fn vgczero_engine(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(load, m)?)?;
+    m.add_function(wrap_pyfunction!(register_team, m)?)?;
+    m.add_function(wrap_pyfunction!(n_teams, m)?)?;
     m.add_function(wrap_pyfunction!(team_names, m)?)?;
     m.add_function(wrap_pyfunction!(team_supported, m)?)?;
     m.add_function(wrap_pyfunction!(team_unsupported_reasons, m)?)?;

@@ -44,7 +44,7 @@ log = logging.getLogger("vgczero.live")
 class BattleSession:
     room: str
     tracker: Tracker
-    team_index: int
+    team: dict
     rqid_done: int = -1
     acted_turn: int = -1
     pending: dict | None = None
@@ -54,7 +54,7 @@ class BattleSession:
 
 class Client:
     def __init__(self, agent: Agent, username: str, password: str | None = None, server: str = OFFICIAL_WS,
-                 mode: str = "accept", teams: list[int] | None = None, fmt: str = FORMAT, opponent: str | None = None,
+                 mode: str = "accept", teams: list | None = None, fmt: str = FORMAT, opponent: str | None = None,
                  max_battles: int = 0, ots: str = "reject", log_dir: str | None = None, timer: bool = False,
                  max_concurrent: int = 1):
         self.agent = agent
@@ -69,7 +69,8 @@ class Client:
         self.timer = timer
         self.max_concurrent = max_concurrent
         self.pool = pool()
-        self.teams = teams or [0]
+        # Teams: pool indices or compiled-team dicts (with "mons" and "packed").
+        self.teams = [self.pool.team(t) if isinstance(t, int) else t for t in (teams or [0])]
         self.log_dir = Path(log_dir) if log_dir else None
         if self.log_dir:
             self.log_dir.mkdir(parents=True, exist_ok=True)
@@ -79,7 +80,7 @@ class Client:
         self.ws = None
         self.logged_in = asyncio.Event()
         self.searching = False
-        self.current_team: int | None = None
+        self.current_team: dict | None = None
 
     # ---- connection -------------------------------------------------------------------------
 
@@ -115,12 +116,12 @@ class Client:
         assertion = await loop.run_in_executor(None, fetch)
         await self.send(f"|/trn {name},0,{assertion}")
 
-    def pick_team(self) -> int:
+    def pick_team(self) -> dict:
         self.current_team = random.choice(self.teams)
         return self.current_team
 
     async def set_team(self) -> None:
-        t = self.pool.team(self.pick_team())
+        t = self.pick_team()
         await self.send(f"|/utm {t['packed']}")
 
     async def start_search(self) -> None:
@@ -186,7 +187,7 @@ class Client:
                 return
             self.searching = False
             team = self.current_team if self.current_team is not None else self.pick_team()
-            sess = BattleSession(room, Tracker(self.pool.team(team)), team)
+            sess = BattleSession(room, Tracker(team), team)
             self.battles[room] = sess
             if self.timer:
                 await self.send(f"{room}|/timer on")
@@ -245,7 +246,7 @@ class Client:
         tr = sess.tracker
         me_name = tr.sides[tr.me].name if tr.me else self.username
         won = tr.winner is not None and to_id(tr.winner) == to_id(me_name)
-        res = {"room": sess.room, "won": won, "winner": tr.winner, "turns": tr.turn, "team": self.pool.team(sess.team_index)["name"],
+        res = {"room": sess.room, "won": won, "winner": tr.winner, "turns": tr.turn, "team": sess.team.get("name", ""),
                "opponent": tr.sides[tr.opp].name if tr.me else "", "disagreements": len(self.agent.disagreements),
                "tracker_errors": tr.log[-5:]}
         self.results.append(res)

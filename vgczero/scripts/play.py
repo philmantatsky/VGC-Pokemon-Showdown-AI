@@ -34,6 +34,8 @@ def main() -> None:
     ap.add_argument("--opponent", default=None)
     ap.add_argument("--games", type=int, default=0, help="stop after this many battles (0 = forever)")
     ap.add_argument("--teams", default=None, help="comma-separated pool team names (default: a random supported team)")
+    ap.add_argument("--team-file", default=None, help="evolve.py population JSON; plays its top --team-top teams")
+    ap.add_argument("--team-top", type=int, default=1)
     ap.add_argument("--format", default=FORMAT)
     ap.add_argument("--no-search", action="store_true")
     ap.add_argument("--worlds", type=int, default=16)
@@ -51,7 +53,11 @@ def main() -> None:
     cfg = None if args.no_search else SearchConfig(worlds=args.worlds, k_self=args.k, k_opp=args.k)
     agent = Agent(model, cfg, device=args.device, seed=args.seed)
     p = pool()
-    if args.teams:
+    if args.team_file:
+        import json
+        rows = json.loads(Path(args.team_file).read_text())
+        teams = [r["team"] for r in rows[: args.team_top]]
+    elif args.teams:
         teams = [p.team_index(t.strip()) for t in args.teams.split(",")]
     else:
         teams = [D.supported_teams()[args.seed % len(D.supported_teams())]]
