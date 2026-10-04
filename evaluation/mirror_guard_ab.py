@@ -222,6 +222,12 @@ def main() -> None:
     )
     ap.add_argument("--a-search-budget", type=float, default=8.0)
     ap.add_argument(
+        "--a-search-outcome",
+        type=Path,
+        default=Path("results_outcome_v2h/outcome_value.zip"),
+        help="the outcome-net checkpoint for --a-search-leaf outcome",
+    )
+    ap.add_argument(
         "--a-search-argmax",
         action="store_true",
         help="nash: play the averaged equilibrium's top action instead of sampling",
@@ -341,7 +347,8 @@ def main() -> None:
             "leaf": args.a_search_leaf,
             "sample": not args.a_search_argmax,
             "prior_mix": args.a_search_prior_mix,
-            "outcome_value": "results_outcome_v2h/outcome_value.zip",
+            "outcome_value": str(args.a_search_outcome),
+            "outcome_value_sha256": sha256(ROOT / args.a_search_outcome),
         }
         parts.append(
             f"{args.a_search} exact search ({args.a_search_worlds} worlds, "

@@ -31,7 +31,7 @@ from vgc_bench.src.opponent_preview import PreviewPredictor
 from vgc_bench.src.opponent_tactics import MovePredictor, SwitchPredictor
 from vgc_bench.src.policy_player import PolicyPlayer
 
-FORMAT = "gen9championsvgc2026regmb"
+FORMAT = "gen9championsvgc2026regmb"  # the default; --format for Reg M-C (2026-10-04)
 
 
 def _seed(rng: random.Random) -> list[int]:
@@ -255,6 +255,13 @@ def main() -> None:
     )
     parser.add_argument("--our-team", default="teams/reg_mb/our_team.txt")
     parser.add_argument("--opponent-dir", default="teams/reg_mb")
+    # 2026-10-04 (the matrix search's leaf value for T6ep on T6e): Reg M-C, only the
+    # roster files that match, only the training half of the battery's roster split
+    # (so the held-out battery stays clean), and the deployed bot's moveset prior
+    parser.add_argument("--format", default=FORMAT)
+    parser.add_argument("--opponent-glob", default="*.txt")
+    parser.add_argument("--train-split-only", action="store_true")
+    parser.add_argument("--moveset-prior", action="store_true")
     parser.add_argument(
         "--preview-model", default="data/opponent_preview_top500_regmb.pt"
     )
@@ -327,6 +334,10 @@ def main() -> None:
         "our_team_pool_prob": args.our_team_pool_prob,
         "our_team": str(Path(args.our_team).resolve()),
         "opponent_dir": str(Path(args.opponent_dir).resolve()),
+        "format": args.format,
+        "opponent_glob": args.opponent_glob,
+        "train_split_only": args.train_split_only,
+        "moveset_prior": args.moveset_prior,
         "preview_model": str(Path(args.preview_model).resolve()),
         "move_model": str(Path(args.move_model).resolve()),
         "switch_model": str(Path(args.switch_model).resolve()),
@@ -357,14 +368,20 @@ def main() -> None:
     manifest = json.loads((output / "outcome_manifest.json").read_text())
     completed = {int(game) for game in manifest["completed"]}
     failed = {int(game) for game in manifest["failed"]}
-    opponents = sorted(Path(args.opponent_dir).glob("*.txt"))
+    opponents = sorted(Path(args.opponent_dir).glob(args.opponent_glob))
+    if args.train_split_only:
+        from evaluation.opening_study import roster_split
+
+        opponents = [
+            path for path in opponents if roster_split(path.read_text())[1] == "train"
+        ]
     our_team = Path(args.our_team)
     opponents = [path for path in opponents if path.resolve() != our_team.resolve()]
     if not opponents:
         raise SystemExit("no opponent teams found")
 
     PolicyPlayer.use_knowledge_obs = True
-    PolicyPlayer.use_moveset_prior = False
+    PolicyPlayer.use_moveset_prior = bool(args.moveset_prior)
     champion = PPO.load(args.checkpoint, device=args.device).policy
     from vgc_bench.src.utils import refuse_eval_only_checkpoint
 
@@ -430,7 +447,7 @@ def main() -> None:
             try:
                 node = ExactNode.from_result(
                     bridge.create(
-                        formatid=FORMAT,
+                        formatid=args.format,
                         seed=_seed(rng),
                         p1_name="planner",
                         p2_name="opponent",

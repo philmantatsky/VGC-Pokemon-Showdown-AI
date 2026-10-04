@@ -164,3 +164,33 @@ def test_prior_mix_pulls_the_played_strategy_toward_the_policy():
     assert mixed["b"] == pytest.approx(0.5 * pure["b"] + 0.5 * 0.4, abs=0.02)
     with pytest.raises(ValueError, match="prior_mix"):
         PlannerConfig(nash_prior_mix=1.5)
+
+
+def test_hidden_world_sets_without_a_spread_get_a_real_one():
+    """2026-10-04: Reg M-C set data has no spreads; hidden-world opponents were built
+    with zero stat points (the search lost ~70% of hidden-sheet games)."""
+    from vgc_bench.src.set_particles import (
+        SetParticle,
+        TeamSlot,
+        default_spread,
+        determination_team_text,
+    )
+
+    torkoal = ("eruption", "earthpower", "heatwave", "protect")
+    assert default_spread("torkoal", torkoal) == "Serious:32/0/0/32/0/2"
+    fake_out = ("fakeout", "flareblitz", "partingshot", "throatchop")
+    assert default_spread("incineroar", fake_out) == "Serious:32/32/0/0/0/2"
+    # no damaging move: the higher base attacking stat decides (Farigiraf: SpA)
+    assert default_spread("farigiraf", ("trickroom", "helpinghand")).endswith(
+        "0/32/0/2"
+    )
+    particle = SetParticle("torkoal", "drought", "charcoal", torkoal, None, 1.0, "t")
+    text = determination_team_text(
+        [TeamSlot("torkoal", "Torkoal")], {"torkoal": particle}
+    )
+    assert "EVs: 32 HP / 32 SpA / 2 Spe" in text
+    known = SetParticle(
+        "torkoal", "drought", "charcoal", torkoal, "Quiet:32/0/2/32/0/0", 1.0, "t"
+    )
+    text = determination_team_text([TeamSlot("torkoal", "Torkoal")], {"torkoal": known})
+    assert "EVs: 32 HP / 2 Def / 32 SpA" in text and "Quiet Nature" in text

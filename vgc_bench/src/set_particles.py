@@ -92,6 +92,32 @@ def team_roster(team_text: str) -> tuple[TeamSlot, ...]:
     return tuple(roster)
 
 
+def default_spread(species: str, moves: Sequence[str]) -> str:
+    """A plausible Champions spread ("Nature:HP/Atk/Def/SpA/SpD/Spe") for a set whose
+    spread is unknown.
+
+    2026-10-04: the Reg M-C replay data carries no spreads, so every hidden-world
+    opponent was simulated with a neutral nature and ZERO stat points -- frailer,
+    weaker and differently ordered than any real set. The matrix search lost ~70% of
+    its hidden-sheet games against our own team (open sheets: parity). Like
+    vgc_knowledge.ensure_stats, the live damage features' own assumption: max HP,
+    max in its attacking stat, 2 Speed, neutral nature. The attacking stat follows
+    the set's damaging moves, then the higher base stat (ties: Attack).
+    """
+    data = GenData.from_gen(9)
+    physical = special = 0
+    for move in moves:
+        category = str(data.moves.get(to_id_str(move), {}).get("category", ""))
+        physical += category == "Physical"
+        special += category == "Special"
+    if physical == special:
+        base = data.pokedex.get(to_id_str(species), {}).get("baseStats", {})
+        special = int(base.get("spa", 0) > base.get("atk", 0))
+        physical = 1 - special
+    atk, spa = (32, 0) if physical > special else (0, 32)
+    return f"Serious:32/{atk}/0/{spa}/0/2"
+
+
 def determination_team_text(
     roster: Sequence[TeamSlot], determination: Mapping[str, SetParticle]
 ) -> str:
@@ -110,8 +136,9 @@ def determination_team_text(
             lines.append(f"Ability: {particle.ability}")
         lines.append("Level: 50")
         nature = "Serious"
-        if particle.spread and ":" in particle.spread:
-            candidate_nature, _, values_text = particle.spread.partition(":")
+        spread = particle.spread or default_spread(slot.species, particle.moves)
+        if spread and ":" in spread:
+            candidate_nature, _, values_text = spread.partition(":")
             try:
                 values = [int(value) for value in values_text.split("/")]
             except ValueError:

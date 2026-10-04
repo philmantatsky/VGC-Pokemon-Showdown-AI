@@ -1,5 +1,37 @@
 # VGC Bot Project Status
 
+## Found: the search's hidden worlds built every opponent with ZERO stat points; fixed; V3 pre-registered (2026-October 4, 16:25, before the run)
+
+- **The conservative variant also loses**: `results_mirror_search_nash2` (argmax of 0.5 x
+  equilibrium + 0.5 x policy prior) **313 / 800 = 39.1% [35.8, 42.6]**.
+  - Open sheets 49.0 / 48.5% (the first version: 44.5 / 44.0).
+  - Hidden sheets **30.0 / 29.0%** (35.5 / 31.0).
+  - 94.9% of 8,615 decisions searched; search overrode the brain in 2,504 of 8,179 (31%).
+  - Blending fixes open-sheet play (parity) and does nothing for hidden sheets.
+- **Cause** (`vgc_bench/src/set_particles.py`): the Reg M-C set data has moves, items and
+  abilities but no spreads.
+  - Of the 9-12 particles of each of our six species, 0 carry a spread.
+  - `determination_team_text` then wrote "Serious Nature" and no EVs: every opponent in every
+    world had zero stat points. Our real Torkoal: 32 HP / 32 SpA Quiet.
+  - The search planned against frailer, weaker, differently ordered opponents. With hidden
+    sheets it also guessed their moves and items.
+  - Open sheets do not reveal spreads either, so open-sheet worlds had the same zero investment
+    with the right moves.
+  - The live damage features were never affected: `vgc_knowledge.ensure_stats` already assumes
+    max HP + max attacking stat.
+- **Fix:** `set_particles.default_spread` -- max HP, max in the attacking stat (by the set's
+  damaging moves, else the higher base stat), 2 Speed, neutral nature -- whenever a particle has
+  no spread. It also reaches the exact preview planner and the counterfactual generator, which
+  build worlds the same way. Test in `unit_tests/test_exact_planner_nash.py`.
+- **PRE-REGISTERED V3:** `NAME=search_nash3 EXTRA="--a-search-argmax --a-search-prior-mix 0.5"
+  tools/search_mirror_chain.sh`: V2's settings, so the spread fix is the only change. 800 games,
+  same seeds, same reading (lower bound > 50% wins; upper < 50% loses). Expected if the cause is
+  right: hidden-sheet blocks recover toward the open-sheet level; open-sheet blocks may rise
+  above parity.
+- Prepared but not run: `datagen/generate_outcome_dataset.py --format/--opponent-glob/
+  --train-split-only/--moveset-prior` and `mirror_guard_ab.py --a-search-outcome`, for
+  retraining the outcome-net leaf on T6ep games if the leaf is still the limit after this.
+
 ## The matrix search LOSES as built: 38.8% [35.4, 42.2] over 800 games vs the deployed bot (hidden sheets 31-35%); a conservative variant is next (2026-October 4, 14:00)
 
 - **Result:** `results_mirror_search_nash1_s1..4` (pooled `results_mirror_search_nash1_pooled.json`):
