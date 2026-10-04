@@ -18,7 +18,7 @@ later (`git subtree split -P vgczero`); it reuses the parent repo's team corpus
 | mikumiku37 | Trained on ~1,260 public tournament teams, some spreads guessed | 3,605 validated Reg M-C teams compiled from `teams/reg_mc` (`showdown/compile_teams.js`); 3,362 (93%) currently simulated faithfully. |
 | mikumiku37 | Plays the ten teams that did best in training | `teams.py` (per-team ratings with Wilson bounds, optional focus sampling, top-k export). |
 | mikumiku37 | AlphaZero-style one-turn search: in each of 16 sampled worlds, top-8 joint actions vs opponent's top-8 replies, payoff table from the value net, solved for a mixed strategy | `python/vgczero/search.py` + `matrix_game.py` + engine `worlds.rs` (hidden-set sampling) and `BattleBatch.expand` (all W×K×K children stepped in parallel in Rust). Also searches team preview. |
-| Jaxcalibur | pUCT tree search 4 plies deep, 20,480 rollouts over 32 sampled worlds | Not built yet; the engine's copyable state and batch expansion make deeper search a drop-in (see "Next" below). |
+| Jaxcalibur | pUCT tree search 4 plies deep, 20,480 rollouts over 32 sampled worlds | `python/vgczero/search_tree.py`: open-loop decoupled simultaneous-move pUCT over sampled worlds (fresh world + dice per simulation, policy priors for both players, batched value-net leaves, default depth 4 decision points). `play.py --search tree`. |
 | mikumiku37 | Accepts challenges on Showdown; declines open team sheets | `python/vgczero/live/` + `scripts/play.py`: accept / ladder / challenge modes, open team sheets rejected by default, search or raw policy, every battle logged. Tested bot-vs-bot on a local Showdown server. |
 
 The user's requests on top of that: the team is allowed to change as the bot
@@ -164,12 +164,20 @@ field of meta teams, and keeps the best by Wilson lower bound.
    teams scored by self-play against a meta field; survivors validated by
    Showdown and playable via `play.py --team-file`. `scripts/top_teams.py`
    exports the ten best training teams for ladder rotation.
-8. ⏭ Deeper search (Jaxcalibur-style pUCT over simultaneous moves, or
-   selective deepening of the leaves that matter most for the root value).
+8. ✅ Deeper search (`search_tree.py`, Jaxcalibur-style). Still to measure
+   against the one-turn matrix search at equal compute once a strong network
+   exists; selective deepening of the matrix search's most influential leaves
+   (the Nessie123 idea) is the other candidate.
 9. ⏭ Coverage to ~100% of the pool (selfBoost moves, Revival Blessing, Ally
    Switch, Stance Change, Dragon Darts...).
 
 ## Practical notes
+
+* Pin torch threads (`--threads`, `torch.set_num_threads`) when search or
+  training runs next to the engine's rayon pool on the same cores:
+  oversubscription slowed search ~90x in testing.
+* First from-scratch CPU run (tiny model, 4 shared cores): 23.5% vs the greedy
+  baseline after 8.7k games (random ≈ 8%). Real runs belong on a GPU.
 
 * Gates before laddering, inherited from the antonius1 project's experience:
   head-to-head against the previous checkpoint and against `greedy`, with
