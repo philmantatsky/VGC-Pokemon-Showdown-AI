@@ -349,7 +349,10 @@ def to_torch(ints, floats, field, mask, req, device) -> dict[str, torch.Tensor]:
 def atomic_torch_save(obj, path) -> None:
     """torch.save through a temp file and a rename (a kill mid-save keeps the old file)."""
     tmp = f"{path}.tmp"
-    torch.save(obj, tmp)
+    with open(tmp, "wb") as fh:
+        torch.save(obj, fh)
+        fh.flush()
+        os.fsync(fh.fileno())
     os.replace(tmp, str(path))
 
 

@@ -27,7 +27,10 @@ def write_text_atomic(path, text: str) -> None:
     """Write through a temp file and a rename, so a killed process never leaves a half-written file."""
     path = Path(path)
     tmp = path.with_name(path.name + ".tmp")
-    tmp.write_text(text)
+    with open(tmp, "w") as fh:
+        fh.write(text)
+        fh.flush()
+        os.fsync(fh.fileno())
     os.replace(tmp, path)
 
 

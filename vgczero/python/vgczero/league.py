@@ -61,6 +61,13 @@ class League:
             d = json.loads(p.read_text())
             self.next_id = d["next_id"]
             self.members = {m["id"]: Member(**m) for m in d["members"]}
+            # Snapshots whose file is gone (deleted, or a copied run) cannot be played.
+            self.members = {i: m for i, m in self.members.items() if self._file(m).exists()}
+
+    def _file(self, m: Member) -> Path:
+        # Paths are stored relative to the league directory (older indexes hold absolute
+        # paths; only the file name is used, so a moved or renamed run still loads).
+        return self.root / Path(m.path).name
 
     def save_index(self) -> None:
         d = {"next_id": self.next_id, "members": [asdict(m) for m in self.members.values()]}
@@ -68,23 +75,24 @@ class League:
 
     # ---- membership ------------------------------------------------------------------
 
-    def snapshot(self, model: VGCNet, update: int, tags: list[str] | None = None) -> int:
+    def snapshot(self, model: VGCNet, update: int, tags: list[str] | None = None, keep=()) -> int:
+        """Add a snapshot. `keep`: member ids still in use (active, or mid-game) that must not be evicted."""
         mid = self.next_id
         self.next_id += 1
-        path = self.root / f"snap_{mid:05d}_u{update}.pt"
-        save(model, str(path), {"update": update})
-        self.members[mid] = Member(id=mid, path=str(path), update=update, tags=tags or [])
-        self._evict()
+        name = f"snap_{mid:05d}_u{update}.pt"
+        save(model, str(self.root / name), {"update": update})
+        self.members[mid] = Member(id=mid, path=name, update=update, tags=tags or [])
+        self._evict(set(keep))
         self.save_index()
         return mid
 
-    def _evict(self) -> None:
+    def _evict(self, keep: set[int] | None = None) -> None:
         if len(self.members) <= self.max_size:
             return
-        # Keep the first snapshot and anything tagged "anchor"; drop the
+        # Keep the first snapshot, anything tagged "anchor" and members in use; drop the
         # member the learner beats most reliably, ties to the oldest.
         ids = sorted(self.members)
-        protected = {ids[0]} | {i for i, m in self.members.items() if "anchor" in m.tags}
+        protected = {ids[0]} | {i for i, m in self.members.items() if "anchor" in m.tags} | (keep or set())
         cands = [i for i in ids if i not in protected]
         if not cands:
             return
@@ -92,7 +100,7 @@ class League:
         m = self.members.pop(worst)
         self._cache.pop(worst, None)
         try:
-            Path(m.path).unlink()
+            self._file(m).unlink()
         except OSError:
             pass
 
@@ -121,7 +129,7 @@ class League:
         if mid in self._cache:
             self._cache.move_to_end(mid)
             return self._cache[mid]
-        m = load_model(self.members[mid].path, device=device)
+        m = load_model(str(self._file(self.members[mid])), device=device)
         for p in m.parameters():
             p.requires_grad_(False)
         self._cache[mid] = m

@@ -11,6 +11,13 @@
 set -eu
 cd "$(dirname "$0")/.."
 
+# Keep the Mac awake from the start: setup (first run: package install + engine build) and the
+# speed probes take a while, and a sleeping Mac would wake up in the morning past the deadline.
+# `exec` below keeps this PID, so this also covers the training run.
+if command -v caffeinate >/dev/null 2>&1; then
+  caffeinate -i -s -w $$ &
+fi
+
 say() { printf '\n==> %s\n' "$*"; }
 die() { printf '\nERROR: %s\n' "$*" >&2; exit 1; }
 
@@ -28,6 +35,8 @@ if [ ! -x .venv/bin/python ]; then
   "$BASE" -m venv .venv
 fi
 . .venv/bin/activate
+# A conda base environment left active makes maturin refuse to build ("Both VIRTUAL_ENV and CONDA_PREFIX are set").
+unset CONDA_PREFIX CONDA_DEFAULT_ENV
 python -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)' \
   || die ".venv has Python < 3.10; delete vgczero/.venv and run this again"
 if ! python -c 'import numpy, torch, pytest, websockets' >/dev/null 2>&1 || ! command -v maturin >/dev/null 2>&1; then
@@ -46,7 +55,11 @@ fi
 command -v cargo >/dev/null 2>&1 || die "Rust is not installed. Install it with:
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 then open a new terminal and run this again."
-RV="$(rustc --version | awk '{print $2}')"
+RV="$(rustc --version 2>/dev/null | awk '{print $2}')"
+case "$RV" in
+  [0-9]*.[0-9]*) ;;
+  *) die "rustc did not report a version. Run: rustup default stable" ;;
+esac
 MAJ="${RV%%.*}"
 REST="${RV#*.}"
 MIN="${REST%%.*}"

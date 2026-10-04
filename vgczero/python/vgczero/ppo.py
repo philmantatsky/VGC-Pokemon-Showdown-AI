@@ -141,7 +141,7 @@ class Trainer:
         D.load()
         self.dir = Path(cfg.run_dir)
         (self.dir / "checkpoints").mkdir(parents=True, exist_ok=True)
-        (self.dir / "cfg.json").write_text(json.dumps(asdict(cfg), indent=1))
+        D.write_text_atomic(self.dir / "cfg.json", json.dumps(asdict(cfg), indent=1))
         self.device = pick_device(cfg.device)
         torch.manual_seed(cfg.seed)
         self.rng = random.Random(cfg.seed)
@@ -321,7 +321,7 @@ class Trainer:
             perm = torch.randperm(n)
             for s in range(0, n, c.minibatch):
                 mb = perm[s : s + c.minibatch]
-                o = {k: v[mb].to(self.device, non_blocking=True) for k, v in data.items()}
+                o = {k: v[mb].to(self.device, non_blocking=self.device.type == "cuda") for k, v in data.items()}
                 a = acts[mb].to(self.device)
                 with self._autocast():
                     logp, ent, v = self.model.evaluate(o, a)
@@ -366,10 +366,10 @@ class Trainer:
 
     def save_checkpoint(self) -> None:
         ck = self.dir / "checkpoints"
-        save(self.model, str(ck / "latest.pt"), {"update": self.update, "games_total": self.games_done})
         atomic_torch_save(self.opt.state_dict(), ck / "optim.pt")
         self.team_stats.save(self.dir / "team_stats.json")
         self.league.save_index()
+        save(self.model, str(ck / "latest.pt"), {"update": self.update, "games_total": self.games_done})
 
     def evolve_teams(self) -> None:
         """One evolution generation; survivors join the training pool."""
@@ -410,22 +410,30 @@ class Trainer:
         The first signal finishes the current update and saves; a second one stops at once."""
         c = self.cfg
         end = self.update + (n_updates if n_updates is not None else c.total_updates)
-        deadline = time.time() + hours * 3600 if hours else None
+        deadline = time.time() + hours * 3600 if hours is not None else None
         stop: list[str] = []
+        saving = [False]
 
         def on_signal(signum, _frame):
-            if stop:
-                raise KeyboardInterrupt
             stop.append(signal.Signals(signum).name)
-            print(f"  {stop[0]}: finishing this update, then saving (again to stop now)", flush=True)
+            if saving[0]:
+                return  # never interrupt the final save
+            if len(stop) == 1:
+                print(f"  {stop[0]}: finishing this update, then saving (again to stop sooner)", flush=True)
+            else:
+                raise KeyboardInterrupt
 
         old = {s: signal.signal(s, on_signal) for s in (signal.SIGINT, signal.SIGTERM)}
         try:
-            self._train_loop(end, deadline, stop)
+            try:
+                self._train_loop(end, deadline, stop)
+            except KeyboardInterrupt:
+                print("  stopping mid-update", flush=True)
+            saving[0] = True
+            self.save_checkpoint()
         finally:
             for s, h in old.items():
                 signal.signal(s, h)
-        self.save_checkpoint()
         print(f"saved u{self.update} ({self.games_done} games)", flush=True)
 
     def _train_loop(self, end: int, deadline: float | None, stop: list[str]) -> None:
@@ -441,7 +449,7 @@ class Trainer:
             t2 = time.time()
             self.update += 1
             if self.update % c.league_every == 0:
-                self.league.snapshot(self.model, self.update)
+                self.league.snapshot(self.model, self.update, keep=set(self.active) | set(int(x) for x in self.opp))
             if self.update % c.league_refresh == 0:
                 self.refresh_active()
             if c.team_focus > 0 and self.update % c.team_update_every == 0:

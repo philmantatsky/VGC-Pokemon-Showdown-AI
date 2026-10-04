@@ -45,13 +45,15 @@ tests (5-10 minutes; it tells you how to install Rust or the Xcode tools if they
   or training are running (`--force` overrides). A challenge listener can stay up.
 * trains the `small` model with a minibatch that fits in memory, and probes a few updates on the
   CPU and the GPU (MPS) to keep the faster device.
-* keeps the Mac awake with `caffeinate`, restarts from the last checkpoint if the trainer crashes,
-  and drops to the CPU if MPS fails twice.
+* keeps the Mac awake with `caffeinate` from the first second, restarts from the last checkpoint
+  if the trainer crashes or hangs, and moves to the CPU if MPS fails twice or plays illegal moves.
 * evaluates against the greedy baseline about every 30 minutes, then writes
   `runs/overnight/REPORT.md` with a final evaluation and the best teams.
 
-Keep it plugged in with the lid open (the display can sleep). Ctrl-C stops cleanly: the trainer
-saves, then the report is written. On later nights, `cd ../vgczero-wt/vgczero && git pull && bash
+Keep it plugged in with the lid open (the display can sleep). Closing the Terminal window does not
+stop it. Ctrl-C stops cleanly: the trainer saves, then the report is written (Ctrl-C again skips the
+final evaluations). If the clone is in an iCloud-synced Desktop, pass e.g. `--run-dir ~/vgczero-runs/night`
+so checkpoints are not uploaded all night. On later nights, `cd ../vgczero-wt/vgczero && git pull && bash
 scripts/overnight.sh` keeps improving the same model. Pass `--model tiny` for a faster, smaller model.
 
 * Python: `/usr/bin/python3` is 3.9 and cannot install the engine. Use Homebrew's, python.org's or
