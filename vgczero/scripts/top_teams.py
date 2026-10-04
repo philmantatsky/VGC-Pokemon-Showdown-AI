@@ -32,13 +32,18 @@ def main() -> None:
     ts = TeamStats(stats["pool"])
     ts.load_state(stats)
     p, tb = pool(), TeamBuilder()
+    # Evolved teams were registered after the base pool, in this order.
+    evolved_path = Path(args.run_dir) / "evolved_teams.json"
+    evolved = json.loads(evolved_path.read_text()) if evolved_path.exists() else []
+    n_base = len(p.teams)
     rows = []
     for t, lb, g in ts.top(args.k, args.min_games):
-        team = p.team(t)
+        team = p.team(t) if t < n_base else evolved[t - n_base]
         i = ts.pos[t]
         rows.append({"team": tb.with_text({"name": team["name"], "mons": team["mons"]}), "games": g,
                      "wins": float(ts.wins[i]), "win_rate": float(ts.wins[i] / max(1, ts.games[i])), "lb": lb})
-        print(f"{team['name']:>8}  lb {lb:.3f}  games {g:6d}  " + ", ".join(D.E.team_species(t)))
+        species = ", ".join(m["species"] for m in team["mons"])
+        print(f"{team['name']:>8}  lb {lb:.3f}  games {g:6d}  {species}")
     out = Path(args.out or Path(args.run_dir) / "top_teams.json")
     out.write_text(json.dumps(rows, indent=1))
     print(f"wrote {len(rows)} teams to {out}")

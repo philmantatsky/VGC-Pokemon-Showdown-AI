@@ -63,6 +63,13 @@ class TrainConfig:
     open_sheet_prob: float = 0.5
     turn_limit: int = 100
     teams: str = "supported"
+    # Team evolution during training (0 = off): every N updates, evolve the
+    # best teams and add survivors to the training pool.
+    evolve_every: int = 0
+    evolve_population: int = 8
+    evolve_children: int = 2
+    evolve_games: int = 200
+    evolve_field: int = 64
     # Periodic evaluation against the greedy baseline (0 = off).
     eval_every: int = 0
     eval_games: int = 400
@@ -154,9 +161,18 @@ class Trainer:
             names = D.team_names()
             want = [x.strip() for x in Path(cfg.teams).read_text().split() if x.strip()]
             pool = [names.index(w) for w in want]
+        # Evolved teams from earlier sessions are re-registered in the same
+        # order, so their engine indices (used by TeamStats) are stable.
+        self.evolved_path = self.dir / "evolved_teams.json"
+        self.evolved: list[dict] = json.loads(self.evolved_path.read_text()) if self.evolved_path.exists() else []
+        for t in self.evolved:
+            idx = D.E.register_team(json.dumps({"name": t["name"], "mons": t["mons"]}))
+            if idx not in pool:
+                pool.append(idx)
         self.pool = pool
         self.env = D.E.VecEnv(cfg.n_envs, seed=cfg.seed, team_indices=pool, turn_limit=cfg.turn_limit, open_sheet_prob=cfg.open_sheet_prob)
-        self.team_stats = TeamStats(pool)
+        self.team_stats = TeamStats(list(pool))
+        self.evolver = None
         # Model.
         latest = self.dir / "checkpoints" / "latest.pt"
         self.update = 0
@@ -354,6 +370,40 @@ class Trainer:
         self.team_stats.save(self.dir / "team_stats.json")
         self.league.save_index()
 
+    def evolve_teams(self) -> None:
+        """One evolution generation; survivors join the training pool."""
+        from .evolve import Evolver
+
+        c = self.cfg
+        self.model.eval()
+        ranked = [t for t, _, _ in self.team_stats.top(max(c.evolve_population, c.evolve_field), min_games=20)]
+        ranked += [t for t in self.pool if t not in ranked]
+        if self.evolver is None:
+            self.evolver = Evolver(self.model, ranked[: c.evolve_field], str(self.dir / "evolve"), c.evolve_population,
+                                   c.evolve_children, c.evolve_games, self.device, c.seed + self.update)
+            self.evolver.seed_population(ranked[: c.evolve_population])
+        else:
+            self.evolver.model = self.model
+            self.evolver.field = ranked[: c.evolve_field]
+        self.evolver.step()
+        added = 0
+        for e in self.evolver.pop:
+            if e.index not in self.team_stats.pos:
+                self.team_stats.add(e.index)
+                self.pool.append(e.index)
+                self.evolved.append({"name": e.team["name"], "mons": e.team["mons"]})
+                added += 1
+        if added:
+            self.evolved_path.write_text(json.dumps(self.evolved))
+            # Rebuild the env with the larger pool (running games restart).
+            self.env = D.E.VecEnv(c.n_envs, seed=c.seed + self.update, team_indices=self.pool, turn_limit=c.turn_limit,
+                                  open_sheet_prob=c.open_sheet_prob)
+            if c.team_focus > 0:
+                self.env.set_team_weights(0, self.team_stats.sampling_weights(c.team_focus))
+            self.opp = np.array([self.sample_opp() for _ in range(c.n_envs)], dtype=np.int64)
+            self.obs = self.env.observe()
+        print(f"  evolve u{self.update}: {added} new teams in the training pool ({len(self.pool)} total)")
+
     def train(self, n_updates: int | None = None) -> None:
         c = self.cfg
         end = self.update + (n_updates if n_updates is not None else c.total_updates)
@@ -372,6 +422,8 @@ class Trainer:
                 self.env.set_team_weights(0, self.team_stats.sampling_weights(c.team_focus))
             if self.update % c.save_every == 0:
                 self.save_checkpoint()
+            if c.evolve_every and self.update % c.evolve_every == 0:
+                self.evolve_teams()
             if c.eval_every and self.update % c.eval_every == 0:
                 from .evaluate import play_match
 

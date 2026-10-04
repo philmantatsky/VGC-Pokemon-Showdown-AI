@@ -29,6 +29,16 @@ class TeamStats:
         self.ema = np.full(n, 0.5)
         self.ema_rate = ema
 
+    def add(self, team: int) -> None:
+        """Add a new team (e.g. an evolved one) to the pool."""
+        if int(team) in self.pos:
+            return
+        self.pos[int(team)] = len(self.pool)
+        self.pool.append(int(team))
+        self.games = np.append(self.games, 0.0)
+        self.wins = np.append(self.wins, 0.0)
+        self.ema = np.append(self.ema, 0.5)
+
     def record(self, team: int, score: float) -> None:
         i = self.pos.get(int(team))
         if i is None:
