@@ -147,11 +147,11 @@ def icloud_synced(path: Path) -> bool:
     return False
 
 
-def classify(cmd: str) -> str | None:
-    """'heavy', 'light' or None for one process command line."""
+def classify(cmd: str) -> tuple[str | None, str]:
+    """('heavy' | 'light' | None, the matching script) for one process command line."""
     toks = cmd.split()
     if not toks or Path(toks[0]).name.lower() in WRAPPERS:
-        return None
+        return None, ""
     seen_interp = False
     for t in toks:
         if Path(t).name.lower().startswith(INTERPRETERS):
@@ -159,10 +159,10 @@ def classify(cmd: str) -> str | None:
             continue
         if seen_interp:
             if any(p in t for p in HEAVY):
-                return "heavy"
+                return "heavy", t
             if any(p in t for p in LIGHT):
-                return "light"
-    return None
+                return "light", t
+    return None, ""
 
 
 def other_jobs() -> tuple[list[str], list[str]]:
@@ -172,11 +172,9 @@ def other_jobs() -> tuple[list[str], list[str]]:
         parts = line.strip().split(None, 1)
         if len(parts) != 2 or not parts[0].isdigit() or int(parts[0]) in me:
             continue
-        kind = classify(parts[1])
-        if kind == "heavy":
-            heavy.append(line.strip()[:160])
-        elif kind == "light":
-            light.append(line.strip()[:160])
+        kind, script = classify(parts[1])
+        if kind:
+            (heavy if kind == "heavy" else light).append(f"pid {parts[0]}: {script}")
     return heavy, light
 
 
@@ -631,7 +629,7 @@ class Runner:
         if evals:
             body += ["", "## Win rate against the greedy baseline during training", "",
                      "| update | games played | win rate vs greedy |", "|---:|---:|---:|"]
-            step = max(1, len(evals) // 20)
+            step = -(-len(evals) // 20)  # at most ~20 rows
             shown = evals[::step] + ([evals[-1]] if (len(evals) - 1) % step else [])
             for e in shown:
                 body.append(f"| {e['update']} | {e.get('games_total', 0):,} | {e['vs_greedy']:.3f} |")
