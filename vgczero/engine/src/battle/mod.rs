@@ -16,6 +16,8 @@ mod residual;
 mod switching;
 
 pub use calc::ActiveMove;
+pub use calc::{resist_berry as resist_berry_of, type_booster as type_booster_of};
+pub use legal::is_choice as is_choice_item;
 
 use crate::actions::{decode, preview_table, Choice, SlotAction, PASS};
 use crate::dex::dex;
