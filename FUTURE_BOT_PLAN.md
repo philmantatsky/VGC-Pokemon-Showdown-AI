@@ -187,7 +187,9 @@
   pre-registered 03:40): **HOLD**. Drift 0.098 / 0.068 vs 0.52 / 0.37 unanchored; head-to-head
   51.7% [49.6, 53.9] (open 55.7 / hidden 47.8) vs 35.2% for plain practice; battery -0.34pp.
   The anchor keeps the lessons, but the practice adds nothing over its start.
-- [ ] Deploy the Earth Power candidate (GO): the user's call.
+- [x] **T6ep PROMOTED by the user 2026-10-04** ("make the earth power brain official and start
+  the matrix search"): `results_deployed/champion_mc_T6ep.zip` (sha f92248c6), replay tag
+  T6ep_guards14; T6tac is now an immutable prior champion.
 - [ ] One-turn matrix-game search with mixed strategies on the exact bridge (`simulate_batch`), the
   shared ingredient of the two bots that topped Reg M-C (`RESEARCH_TOP_BOTS.md`).
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the

@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## PROMOTED at the user's word: T6ep (the Earth Power brain) is the deployed brain; matrix search started (2026-October 4, 11:25)
+
+- The user: "make the earth power brain official and start the matrix search".
+- `results_deployed/champion_mc_T6ep.zip` (sha f92248c6, a new file copied from
+  `results_tactical_t6e_ep1/sft/tactical_e4.zip`; sidecar role production). `DEPLOYED.json`:
+  - **Unchanged:** team T6e, the 14 guards, sticky corrections, learned preview, sheet preview.
+  - **New:** replay tag **T6ep_guards14**, evidence (52.8% head-to-head, battery -0.66pp, gate GO,
+    ladder 6-9).
+  - **Archived:** T6tac moves to `previous_deployed`, with its three amendments and ladder
+    record, and to `history`.
+- T6tac (`champion_mc_T6tac.zip`) joins the immutable prior champions. The challenge listener was
+  restarted on T6ep.
+- Matrix search: the plan is next in this log.
+
 ## priority_block's swallowed errors: poke-env's "recharge" move has no priority -> fixed (2026-October 4, 08:10)
 
 - `results_analysis/guard_errors_20261004/priority_block_repro.py`: 1,000 practice-style games

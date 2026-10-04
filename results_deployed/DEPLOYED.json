@@ -1,5 +1,38 @@
 {
  "deployed": {
+  "checkpoint": "results_deployed/champion_mc_T6ep.zip",
+  "sha256": "f92248c6448a522b5d28cd3aac880d286c51838a67d58b030a1f74095fa02595",
+  "source": "results_tactical_t6e_ep1/sft/tactical_e4.zip",
+  "team": "teams/candidates_mc/T6e.txt",
+  "team_sha256": "5d85cac39a8e9facd559ab248679ff73c83e47fd92a91ab95b9a8e14617aa8a8",
+  "reg": "mc",
+  "format": "gen9championsvgc2026regmc",
+  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled,threat_first2,wasted_fake_out,throat_chop_main_threat",
+  "knowledge_obs": true,
+  "search": false,
+  "set_prior_reg": "mc",
+  "set_prior_note": "T6 was fine-tuned with the Reg M-C set data (data/joint_sets_regmc.json)",
+  "learned_preview": true,
+  "preview_model": "data/preview_t6_focus_20260923.pt",
+  "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
+  "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
+  "replay_tag": "T6ep_guards14",
+  "sticky_guard_corrections": true,
+  "sheet_preview": true
+ },
+ "promoted_at": "2026-10-04T16:21:31+00:00",
+ "promoted_by": "user 2026-10-04: 'make the earth power brain official and start the matrix search'",
+ "evidence": {
+  "team": "T6e (unchanged): teams/candidates_mc/T6e.txt (Torkoal Earth Power, deployed 2026-10-03)",
+  "training": "T6tac + the Earth Power focus lesson (training/tactical_sft.py --lessons focus): 4,000 practice games on T6e vs training-role opponents (training/gen_tactical_data.py --focus-moves earthpower: 6,671 Earth Power positions); only positions where Earth Power is a valued attack are taught (the calculator teacher re-spreads the attack mass by damage value, tau 0.1), every other position targets the brain's own distribution; lr 1e-4, epoch 4 of 4 (lowest validation cross-entropy); Earth Power's share of the attack mass when it is the best attack 30.9% -> 49.3%",
+  "head_to_head": "results_mirror_t6e_ep1: 52.8% [50.6, 54.9] over 2,000 games vs T6tac on T6e, both with the 14 deployed guards (hidden sheets 56.4 / 52.4%)",
+  "held_out_battery": "results_brain_ab_t6e_ep1 vs results_brain_ab_t6e_unpractised: pooled -0.66pp [-1.48, +0.15], worst population -1.5pp (deploy-eligible)",
+  "gate": "training/t6e_ep_gate.py: GO (pre-registered 2026-10-04 02:25)",
+  "ladder": "ladder_replays_mc_t6e_ep1: 6-9 over 15 (the user's word); Earth Power clicked 3 of the 4 times it was the best attack, never when worse; losses: losing a Pokemon first 8 of 9, the Venusaur + Torkoal lead 0-3",
+  "decision": "the user's decision",
+  "guards_preview_team": "unchanged from the outgoing deployment (14 guards, sticky corrections, learned preview, sheet preview)"
+ },
+ "previous_deployed": {
   "checkpoint": "results_deployed/champion_mc_T6tac.zip",
   "sha256": "05e822186f9b7d0171bdd02a58f3fbae5ab92a8f0d62fe5c04547adf24164edd",
   "source": "results_tactical1/sft/tactical_e4.zip",
@@ -18,43 +51,62 @@
   "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
   "replay_tag": "T6tac_T6e_guards14",
   "sticky_guard_corrections": true,
-  "sheet_preview": true
- },
- "promoted_at": "2026-09-27T01:59:32+00:00",
- "promoted_by": "user 2026-09-26: 'turn on the sticky fix and make tactical official then more ladder'",
- "evidence": {
-  "team": "T6 (unchanged): teams/candidates_mc/T6.txt",
-  "training": "T6ctx + the tactical fine-tune (training/tactical_sft.py): actor-only, targets = the brain's own distribution with the tactical teacher's facts (training/tactical_teacher.py: certainly-useless actions lose their mass, attack mass re-spread by damage value, tau 0.1), 11,198 positions from 2,000 local games vs training-role opponents (results_tactical1/data), lr 1e-4, epoch 4 of 4 (lowest validation cross-entropy); teacher agreement 64.4% -> 75.8%, useless-action mass 16.3% -> 9.6%",
-  "head_to_head": "results_mirror_tactical1: 58.0% [55.8, 60.2] over 2,000 games vs T6ctx, both with the 8 deployed guards and the learned preview; every block 54.2-60.2%",
-  "held_out_battery": "results_brain_ab_tactical1_e4 vs results_brain_ab_deployed_T6ctx: pooled -0.40pp [-1.61, +0.84] -- no clear change, no population below -3pp; the guards changed its pick 0.98 times per game vs 1.43 for T6ctx (dominated_attack 0.38 vs 0.77)",
-  "sticky_guard_corrections": "results_mirror_sticky_corrections_rerankers: 53.4% [51.2, 55.5] with the ladder's opponent/tempo reranker on both sides (open sheets 57.7%, where it acts ~1 time per game) -- wins close games",
-  "decision": "the user's decision",
-  "guards_preview_team": "unchanged from the outgoing deployment"
- },
- "previous_deployed": {
-  "checkpoint": "results_deployed/champion_mc_T6ctx.zip",
-  "sha256": "5f20cecfb7ba92c9e0547417c69e54b86a4d83daf9097af9fe12a9bab690b049",
-  "source": "results_brainv1_t6_contexts1/saves_fp_xt_hs_wt/reg_mc/seed1/22118400.zip",
-  "team": "teams/candidates_mc/T6.txt",
-  "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
-  "reg": "mc",
-  "format": "gen9championsvgc2026regmc",
-  "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard",
-  "knowledge_obs": true,
-  "search": false,
-  "set_prior_reg": "mc",
-  "set_prior_note": "T6 was fine-tuned with the Reg M-C set data (data/joint_sets_regmc.json)",
-  "learned_preview": true,
-  "preview_model": "data/preview_t6_focus_20260923.pt",
-  "preview_model_sha256": "9b6fcbee85264609f56b86607a52fa1600d1c73b5771d18172bb50e5ed0a310f",
-  "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
-  "replay_tag": "T6ctx",
-  "promoted_at": "2026-09-26T21:56:46+00:00",
-  "promoted_by": "user 2026-09-26: 'make the new brain official'",
-  "amendments": [],
-  "ladder": "6-9 over 15 serial games 2026-09-26 (rating 1219 -> peak 1282 -> ~1150)"
+  "sheet_preview": true,
+  "promoted_at": "2026-09-27T01:59:32+00:00",
+  "promoted_by": "user 2026-09-26: 'turn on the sticky fix and make tactical official then more ladder'",
+  "amendments": [
+   {
+    "at": "2026-10-02T04:38:54+00:00",
+    "change": "guards_extra += drop_free_finish, fake_out_partner_acts, switch_the_crippled (the three guards from the user's 2026-09-28 review of a ladder loss); replay_tag T6tac -> T6tac_guards11 (fresh single-config replay dirs)",
+    "previous": {
+     "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard",
+     "replay_tag": "T6tac"
+    },
+    "by": "user 2026-10-01: 'add the guards to the bot and start the practice run'",
+    "evidence": "results_guard_ab_review_guards_0928: pooled +0.26pp [-0.53, +1.03] over 6,204 held-out games, deploy-eligible by the pre-registered rule (they fired 306 times); mirror inconclusive (they never fire against our own team); ladder trial T6tac + the three guards 23-17 over 40 serial games (20-17 without free wins; they changed 3 decisions); tests unit_tests/test_review_guards_0928.py rebuilt from the reviewed game's turns",
+    "ladder_so_far": "T6tac with the 8 guards: 7-8 over 15 (ladder_replays_mc_deployed_T6tac); trial reads 10-4 (+ Water Room playbook) and 20-17 (+ these three guards), free wins excluded"
+   },
+   {
+    "at": "2026-10-03T18:54:14+00:00",
+    "change": "guards_extra += threat_first2 (knock out, or Fake Out on its first turn, a foe that threatens to KO one of ours before it moves; counts the foe's likely Mega forme); replay_tag T6tac_guards11 -> T6tac_guards12 (fresh single-config replay dirs)",
+    "previous": {
+     "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled",
+     "replay_tag": "T6tac_guards11"
+    },
+    "by": "user 2026-10-03: 'add threat_first2 to official bot and do that next training'",
+    "evidence": "results_guard_ab_threat_first2: pooled +0.44pp [-0.39, +1.26] over 6,204 held-out games, deploy-eligible by the pre-registered rule (worst population -1.5pp, 0 errors; +1.49pp in the cells where it acted); mirror 49.9% [47.7, 52.1] over 2,000 (it rarely fires against our own team); ladder trial T6tac + 11 guards + threat_first2 22-18 over 40 serial games (no free wins; it changed 3 of 345 decisions, each the intended answer); tests unit_tests/test_threat_first2.py",
+    "ladder_so_far": "T6tac + 11 guards: 20-17 (review-guards trial, free wins excluded), 16-22 (+ threat_first), 22-18 (+ threat_first2); account Reg M-C peak 1353 (09-28) and 1339 (10-03 trial)"
+   },
+   {
+    "at": "2026-10-04T04:28:42+00:00",
+    "change": "team T6.txt -> T6e.txt (Torkoal Earth Power for Weather Ball; same six species, same preview model); guards_extra += wasted_fake_out (no Fake Out into a foe that cannot act: asleep on its first sleeping turn or recharging), throat_chop_main_threat (Throat Chop only when the sound move is the foe's main threat, else the stronger attack); sheet_preview on (with the opponent's open team sheet the learned preview re-ranks its top 6 plans by the sheet's sets, and re-plans if the sheet arrives after our preview was sent); replay_tag T6tac_guards12 -> T6tac_T6e_guards14 (fresh single-config replay dirs)",
+    "previous": {
+     "team": "teams/candidates_mc/T6.txt",
+     "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
+     "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled,threat_first2",
+     "sheet_preview": false,
+     "replay_tag": "T6tac_guards12"
+    },
+    "by": "user 2026-10-03: 'keep the guards, keep the team sheet stuff its gonna be useful later, and keep earth power'",
+    "evidence": {
+     "guards": "measured with hp_move_after_spread, which stays off: results_guard_ab_rare_trio pooled -0.55pp [-1.14, +0.06] over 6,204 held-out games, mirror results_mirror_rare_trio 48.6% [46.5, 50.8] (every mirror change was the HP-move guard) -> RARE_TRIO_PASS; throat_chop_main_threat fired 74 times (+0.57pp [-9.09, +9.09] in its 16 cells), wasted_fake_out 3; 7 of 7 ladder replay firings correct (results_analysis/review1003/rare_guard_audit.txt); tests unit_tests/test_game_review_1003.py from the reviewed game's turns",
+     "sheet_preview": "results_guard_ab_sheet_preview pooled -0.52pp [-1.32, +0.27] -> SHEET_PASS (non-regression only: it changed the plan in ~4% of open-sheet games, effect there unmeasured); the late re-plan checked live (checks/late_sheet_live.py); ladder opponents never accept open sheets (0 of 766), so it acts in challenges",
+     "team": "results_brain_ab_t6e_unpractised pooled +0.50pp [-0.52, +1.52] (deploy-eligible); results_mirror_t6e_unpractised head-to-head vs the same brain on T6 43.4% [41.2, 45.5] (hidden-sheet blocks 36-39%) -> T6E_HOLD by the pre-registered rule; deployed by the user's decision; the brain has not practised Earth Power"
+    },
+    "ladder_so_far": "T6tac_guards12 (18:54-now): no ladder games; 1 challenge game (challenge_replays_mc_deployed_T6tac_guards12)"
+   }
+  ],
+  "ladder": "T6tac 2026-09-26 -> 2026-10-04: 7-8 over 15 as deployed with 8 guards; trials 23-17 (+ review guards), 18-22 (+ threat_first), 22-18 (+ threat_first2); account Reg M-C peak 1353 (09-28); on T6e (+14 guards, sheet preview) no ladder games"
  },
  "history": [
+  {
+   "checkpoint": "results_deployed/champion_mc_T6tac.zip",
+   "team": "teams/candidates_mc/T6e.txt",
+   "from": "2026-09-26",
+   "to": "2026-10-04",
+   "set_prior_reg": "mc",
+   "ladder": "T6tac 2026-09-26 -> 2026-10-04: 7-8 over 15 as deployed with 8 guards; trials 23-17 (+ review guards), 18-22 (+ threat_first), 22-18 (+ threat_first2); account Reg M-C peak 1353 (09-28); on T6e (+14 guards, sheet preview) no ladder games"
+  },
   {
    "checkpoint": "results_deployed/champion_mc_T6ctx.zip",
    "team": "teams/candidates_mc/T6.txt",
@@ -95,46 +147,5 @@
   }
  ],
  "rules": "Never overwrite or retrain the deployed checkpoint in place. A new promotion writes a NEW file here and updates this manifest; the old file stays.",
- "amendments": [
-  {
-   "at": "2026-10-02T04:38:54+00:00",
-   "change": "guards_extra += drop_free_finish, fake_out_partner_acts, switch_the_crippled (the three guards from the user's 2026-09-28 review of a ladder loss); replay_tag T6tac -> T6tac_guards11 (fresh single-config replay dirs)",
-   "previous": {
-    "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard",
-    "replay_tag": "T6tac"
-   },
-   "by": "user 2026-10-01: 'add the guards to the bot and start the practice run'",
-   "evidence": "results_guard_ab_review_guards_0928: pooled +0.26pp [-0.53, +1.03] over 6,204 held-out games, deploy-eligible by the pre-registered rule (they fired 306 times); mirror inconclusive (they never fire against our own team); ladder trial T6tac + the three guards 23-17 over 40 serial games (20-17 without free wins; they changed 3 decisions); tests unit_tests/test_review_guards_0928.py rebuilt from the reviewed game's turns",
-   "ladder_so_far": "T6tac with the 8 guards: 7-8 over 15 (ladder_replays_mc_deployed_T6tac); trial reads 10-4 (+ Water Room playbook) and 20-17 (+ these three guards), free wins excluded"
-  },
-  {
-   "at": "2026-10-03T18:54:14+00:00",
-   "change": "guards_extra += threat_first2 (knock out, or Fake Out on its first turn, a foe that threatens to KO one of ours before it moves; counts the foe's likely Mega forme); replay_tag T6tac_guards11 -> T6tac_guards12 (fresh single-config replay dirs)",
-   "previous": {
-    "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled",
-    "replay_tag": "T6tac_guards11"
-   },
-   "by": "user 2026-10-03: 'add threat_first2 to official bot and do that next training'",
-   "evidence": "results_guard_ab_threat_first2: pooled +0.44pp [-0.39, +1.26] over 6,204 held-out games, deploy-eligible by the pre-registered rule (worst population -1.5pp, 0 errors; +1.49pp in the cells where it acted); mirror 49.9% [47.7, 52.1] over 2,000 (it rarely fires against our own team); ladder trial T6tac + 11 guards + threat_first2 22-18 over 40 serial games (no free wins; it changed 3 of 345 decisions, each the intended answer); tests unit_tests/test_threat_first2.py",
-   "ladder_so_far": "T6tac + 11 guards: 20-17 (review-guards trial, free wins excluded), 16-22 (+ threat_first), 22-18 (+ threat_first2); account Reg M-C peak 1353 (09-28) and 1339 (10-03 trial)"
-  },
-  {
-   "at": "2026-10-04T04:28:42+00:00",
-   "change": "team T6.txt -> T6e.txt (Torkoal Earth Power for Weather Ball; same six species, same preview model); guards_extra += wasted_fake_out (no Fake Out into a foe that cannot act: asleep on its first sleeping turn or recharging), throat_chop_main_threat (Throat Chop only when the sound move is the foe's main threat, else the stronger attack); sheet_preview on (with the opponent's open team sheet the learned preview re-ranks its top 6 plans by the sheet's sets, and re-plans if the sheet arrives after our preview was sent); replay_tag T6tac_guards12 -> T6tac_T6e_guards14 (fresh single-config replay dirs)",
-   "previous": {
-    "team": "teams/candidates_mc/T6.txt",
-    "team_sha256": "a326dfd7b2124fa4bb31e59e0300a7d0b954e322877c4f1a9839e63def2f1008",
-    "guards_extra": "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,drop_free_finish,fake_out_partner_acts,switch_the_crippled,threat_first2",
-    "sheet_preview": false,
-    "replay_tag": "T6tac_guards12"
-   },
-   "by": "user 2026-10-03: 'keep the guards, keep the team sheet stuff its gonna be useful later, and keep earth power'",
-   "evidence": {
-    "guards": "measured with hp_move_after_spread, which stays off: results_guard_ab_rare_trio pooled -0.55pp [-1.14, +0.06] over 6,204 held-out games, mirror results_mirror_rare_trio 48.6% [46.5, 50.8] (every mirror change was the HP-move guard) -> RARE_TRIO_PASS; throat_chop_main_threat fired 74 times (+0.57pp [-9.09, +9.09] in its 16 cells), wasted_fake_out 3; 7 of 7 ladder replay firings correct (results_analysis/review1003/rare_guard_audit.txt); tests unit_tests/test_game_review_1003.py from the reviewed game's turns",
-    "sheet_preview": "results_guard_ab_sheet_preview pooled -0.52pp [-1.32, +0.27] -> SHEET_PASS (non-regression only: it changed the plan in ~4% of open-sheet games, effect there unmeasured); the late re-plan checked live (checks/late_sheet_live.py); ladder opponents never accept open sheets (0 of 766), so it acts in challenges",
-    "team": "results_brain_ab_t6e_unpractised pooled +0.50pp [-0.52, +1.52] (deploy-eligible); results_mirror_t6e_unpractised head-to-head vs the same brain on T6 43.4% [41.2, 45.5] (hidden-sheet blocks 36-39%) -> T6E_HOLD by the pre-registered rule; deployed by the user's decision; the brain has not practised Earth Power"
-   },
-   "ladder_so_far": "T6tac_guards12 (18:54-now): no ladder games; 1 challenge game (challenge_replays_mc_deployed_T6tac_guards12)"
-  }
- ]
+ "amendments": []
 }
