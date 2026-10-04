@@ -249,8 +249,12 @@ def _moves_first(
     return 1.0 if low > speed else 0.0 if high < speed else 0.5
 
 
-def expected_loss(battle: DoubleBattle, me: Pokemon, my_move: Move) -> float:
-    """Expected share of our max HP lost to foes that move before us this turn."""
+def expected_loss(
+    battle: DoubleBattle, me: Pokemon, my_move: Move, narrow: bool = False
+) -> float:
+    """Expected share of our max HP lost to foes that move before us this turn.
+    ``narrow`` counts only spread attacks a foe has shown (or its open sheet
+    lists) from a foe that certainly moves first."""
     loss = 0.0
     for foe in battle.opponent_active_pokemon:
         if foe is None or foe.fainted or cannot_act(battle, foe):
@@ -259,11 +263,12 @@ def expected_loss(battle: DoubleBattle, me: Pokemon, my_move: Move) -> float:
             continue
         K.ensure_stats(foe)
         best = 0.0
-        for move in _known_moves(battle, foe):
+        shown = [m for m in (foe.moves or {}).values() if isinstance(m, Move)]
+        for move in shown if narrow else _known_moves(battle, foe):
             if move.category == MoveCategory.STATUS or not move.base_power:
                 continue
             first = _moves_first(battle, me, my_move, foe, move)
-            if first <= 0:
+            if first <= 0 or (narrow and (first < 1.0 or move.target not in SPREAD)):
                 continue
             fraction = K.damage_fraction(battle, foe, me, move)
             if fraction is None:
@@ -287,9 +292,20 @@ def at_hp(mon: Pokemon, fraction: float) -> Generator[None]:
         mon._current_hp = saved
 
 
-def guard_hp_move_after_hits(battle, cands, report) -> list[G.Candidate]:
+def guard_hp_move_after_spread(battle, cands, report) -> list[G.Candidate]:
+    """hp_move_after_hits counting only a shown spread attack from a foe that
+    certainly moves first, without counting our partner's damage in advance
+    (2026-10-03: the broad version expected 49% HP lost where it acted, 32% was;
+    it lost its mirror 46.2% and -0.9pp on the battery)."""
+    return guard_hp_move_after_hits(
+        battle, cands, report, narrow=True, name="hp_move_after_spread"
+    )
+
+
+def guard_hp_move_after_hits(
+    battle, cands, report, narrow: bool = False, name: str = "hp_move_after_hits"
+) -> list[G.Candidate]:
     """Score Eruption / Water Spout at the HP we will have when we move."""
-    name = "hp_move_after_hits"
     live = [candidate for candidate in cands if candidate.demoted_by is None]
     if len(live) < 2:
         return cands
@@ -303,14 +319,17 @@ def guard_hp_move_after_hits(battle, cands, report) -> list[G.Candidate]:
         if not isinstance(move, Move) or move.id not in HP_MOVES:
             continue
         try:
-            loss = expected_loss(battle, me, move)
+            loss = expected_loss(battle, me, move, narrow)
         except Exception:
             report.demotions[f"{name}_error"] += 1
             return cands
         hp_then = float(me.current_hp_fraction or 0.0) - loss
         if loss <= 0 or hp_then <= 0:
             continue  # nothing lands first, or we fall before moving anyway
-        already = G._partner_damage(battle, top.actions, pos)
+        # narrow: the shown spread attack hits our partner too, which may then
+        # never act (turn 7: Incineroar fainted before its Flare Blitz), so its
+        # damage is not counted in advance
+        already = {} if narrow else G._partner_damage(battle, top.actions, pos)
         with at_hp(me, hp_then):
             current = G._attack_value(battle, me, order, pos, already)
             if current is None:

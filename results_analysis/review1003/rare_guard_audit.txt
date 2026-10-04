@@ -1,0 +1,10 @@
+decisions replayed: 2115
+== throat_chop_main_threat: changed 6
+    ('eplays_mc_T6tac_threat_first', '2692089224', 6, ['throatchop>sneasler', 'eruption'], ['flareblitz>sneasler', 'eruption'])
+    ('eplays_mc_T6tac_threat_first', '2692111123', 5, ['throatchop>heliolisk', 'leafstorm>grimmsnarl'], ['flareblitz>heliolisk', 'leafstorm>grimmsnarl'])
+    ('T6_humanpreview1_attackcheck', '2687979475', 5, ['eruption', 'throatchop>baxcalibur'], ['eruption', 'flareblitz>baxcalibur'])
+    ('T6_humanpreview1_attackcheck', '2687979475', 7, ['weatherball>baxcalibur', 'throatchop>sneasler'], ['weatherball>baxcalibur', 'flareblitz>sneasler'])
+    ('T6_humanpreview1_attackcheck', '2687981911', 8, ['heatwave', 'throatchop>annihilape'], ['heatwave', 'flareblitz'])
+    ('s_mc_deployed_T6tac_guards12', '2692336128', 6, ['sludgebomb>rillaboom', 'throatchop>volcarona'], ['sludgebomb>rillaboom', 'flareblitz>volcarona'])
+== wasted_fake_out: changed 1
+    ('s_mc_deployed_T6tac_guards12', '2692336128', 2, ['sludgebomb>sylveon', 'fakeout>raichu'], ['sludgebomb>sylveon', 'flareblitz>raichu'])

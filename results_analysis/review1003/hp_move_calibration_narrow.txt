@@ -1,0 +1,11 @@
+HP-move decisions: 943, the move happened/was attempted: 872
+guard would change the pick: 19 of 943
+  all                  n=872  predicted loss 0.03  actual loss 0.16
+  guard would change   n= 16  predicted loss 0.51  actual loss 0.40
+  guard keeps          n=856  predicted loss 0.02  actual loss 0.16
+swaps right in hindsight (at the real HP when the move landed): 11 of 16
+by predicted loss:
+  predicted 0.00-0.10: n=807 actual 0.14
+  predicted 0.10-0.25: n= 20 actual 0.25
+  predicted 0.25-0.50: n= 31 actual 0.44
+  predicted 0.50-2.00: n= 14 actual 0.62

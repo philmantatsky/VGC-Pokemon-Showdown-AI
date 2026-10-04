@@ -222,3 +222,32 @@ def test_parting_shot_keeps_throat_chop():
         ]
     )
     assert R.sound_main_threat(battle, _mon(battle.opponent_active_pokemon, 0))
+
+
+def test_the_narrow_version_still_catches_turn_7():
+    """hp_move_after_spread counts only Volcarona's shown Heat Wave (it is
+    certainly faster at +1): Torkoal still Heat Waves instead of Erupting."""
+    battle = _turn7()
+    torkoal = _mon(battle.active_pokemon, 0)
+    loss = R.expected_loss(battle, torkoal, torkoal.moves["eruption"], narrow=True)
+    assert 0.3 < loss < 0.7
+    pairs = _turn7_pairs(battle)
+    out, report = run(R.guard_hp_move_after_spread, battle, pairs)
+    assert out[0].actions == pairs[2][0]
+    assert report.demotions["hp_move_after_spread:promoted"] == 1
+
+
+def test_the_narrow_version_ignores_unshown_and_single_target_hits():
+    """Nothing shown yet: the broad guess (usage sets) is not used."""
+    battle = position(
+        [
+            "|switch|p1a: Torkoal|Torkoal, L50, M|177/177",
+            "|switch|p1b: Incineroar|Incineroar, L50, F|202/202",
+            "|switch|p2a: Volcarona|Volcarona, L50, F|100/100",
+            "|switch|p2b: Rillaboom|Rillaboom, L50, F|100/100",
+            "|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Torkoal",
+            "|turn|1",
+        ]
+    )
+    torkoal = _mon(battle.active_pokemon, 0)
+    assert R.expected_loss(battle, torkoal, torkoal.moves["eruption"], narrow=True) == 0
