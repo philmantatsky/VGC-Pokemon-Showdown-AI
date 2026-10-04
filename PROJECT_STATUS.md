@@ -1,5 +1,26 @@
 # VGC Bot Project Status
 
+## The Earth Power lesson PASSES its gate (GO): head-to-head 52.8% [50.6, 54.9] vs the deployed bot, battery -0.66pp [-1.48, +0.15]; the lesson moved but short of its bar (2026-October 4, 04:05)
+
+- `training/t6e_ep_chain.sh` (pre-registered 02:25): 4,000 practice games on T6e (02:25-02:53;
+  22,116 decisions, **6,671 Earth Power positions**, 0 teacher errors) -> the focus fine-tune of
+  T6tac (`results_tactical_t6e_ep1/sft/tactical_e4.zip`, sha f92248c6, epoch 4 = lowest validation
+  cross-entropy; drift on untaught positions 0.008).
+- **Lesson** (728 validation Earth Power positions): agreement with the teacher's best attack
+  82.4% -> 85.9% (bar 91.2%: **not met**). When Earth Power WAS the best attack the brain gave it
+  **30.9% -> 49.3%** of its attack mass (the user's point: it under-used Earth Power); when it was
+  worse, 6.0% -> 10.8%.
+- **Head-to-head** vs the deployed bot (both T6e + 14 guards, `results_mirror_t6e_ep1`): **52.8%
+  [50.6, 54.9]** over 2,000 games -- open sheets 52.6 / 49.6%, hidden sheets **56.4 / 52.4%**
+  (where the unpractised T6e had lost 36-39% to T6).
+- **Battery** vs the deployed brain on T6e (`results_brain_ab_t6e_ep1`): pooled **-0.66pp [-1.48,
+  +0.15]**, worst population -1.5pp -> deploy-eligible.
+- **Gate (`training/t6e_ep_gate.py`): GO** (better = head-to-head won, safe = battery). Deployment:
+  the user's call. Ladder read of 15 games started 04:06 at the user's word
+  (`ladder_replays_mc_t6e_ep1`; the challenge listener is paused for it).
+- Side note: the always-on priority_block guard raised 7 times in the 22,116 practice decisions
+  (counted, not logged); the guard sits out those turns. To investigate when the machine is free.
+
 ## PRE-REGISTERED: the 15-game ladder read of the Earth Power candidate, then anchored practice on T6e (2026-October 4, 03:40, before either runs)
 
 - The user (02:56): "no matter better or not run 15 games on ladder and analyze them, do more

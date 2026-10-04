@@ -177,7 +177,13 @@
   effective ... and it does better damage than the rest of the moves and theres no better switch
   in"): first the Earth Power lesson -- 4,000 practice games on T6e + the focus fine-tune
   (only Earth Power positions taught, the rest anchored), pre-registered GO / NEUTRAL / HOLD
-  (`training/t6e_ep_chain.sh`, `training/t6e_ep_gate.py`).
+  (`training/t6e_ep_chain.sh`, `training/t6e_ep_gate.py`). **GO** (04:05): head-to-head 52.8%
+  [50.6, 54.9] vs the deployed bot, battery -0.66pp [-1.48, +0.15]; Earth Power's share when
+  it is the best attack 31% -> 49%. Ladder read of 15 games running (the user's word).
+- [ ] KL-anchored practice on T6e from the Earth Power candidate (`training/t6e_anchor_chain.sh`,
+  pre-registered 03:40), after the ladder read.
+- [ ] One-turn matrix-game search with mixed strategies on the exact bridge (`simulate_batch`), the
+  shared ingredient of the two bots that topped Reg M-C (`RESEARCH_TOP_BOTS.md`).
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a

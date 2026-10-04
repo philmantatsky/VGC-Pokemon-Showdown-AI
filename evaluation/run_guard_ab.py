@@ -99,6 +99,9 @@ ALLOWED_CHANGED_PINS = {
     "vgc_bench/src/guards.py",
     "vgc_bench/src/pokeenv_patches.py",
     "vgc_bench/src/policy_player.py",
+    # the training entry point (2026-10-04: the KL-anchor flags); no battery game
+    # imports it, so a change there cannot change how either arm plays
+    "vgc_bench/train.py",
 }
 # Everything the extra guards run; hashed into the manifest, re-checked between
 # populations so the code cannot change during a comparison.

@@ -8,6 +8,7 @@ cloning.
 """
 
 import argparse
+import copy
 import os
 from pathlib import Path
 from typing import Any
@@ -15,6 +16,7 @@ from typing import Any
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import SubprocVecEnv
 
+from vgc_bench.src.anchored_ppo import AnchoredPPO
 from vgc_bench.src.callback import Callback
 from vgc_bench.src.env import ShowdownEnv
 from vgc_bench.src.policy import (
@@ -56,6 +58,8 @@ def train(
     fixed_opponent_stems: set[int] | None = None,
     fixed_opponent_fraction: float = 0.2,
     save_interval: int = 983_040,
+    anchor_checkpoint: str | None = None,
+    anchor_kl_target: float = 0.1,
 ):
     """
     Train a Pokemon VGC policy using reinforcement learning.
@@ -206,7 +210,13 @@ def train(
         f"shaping_hp={shaping_hp}",
         flush=True,
     )
-    ppo = PPO(
+    # 2026-10-04: --anchor_checkpoint keeps practice near that brain (a KL anchor,
+    # vgc_bench/src/anchored_ppo.py), so it cannot wash a fine-tune's lessons out
+    anchored = bool(anchor_checkpoint)
+    anchor_kwargs: dict[str, Any] = (
+        {"anchor_kl_target": anchor_kl_target} if anchored else {}
+    )
+    ppo = (AnchoredPPO if anchored else PPO)(
         MaskedActorCriticPolicy,
         env,
         learning_rate=learning_rate,
@@ -223,7 +233,20 @@ def train(
         tensorboard_log=str(output_dir / f"logs_{method}"),
         policy_kwargs=policy_kwargs,
         device=device,
+        **anchor_kwargs,
     )
+    if anchored:
+        assert isinstance(ppo, AnchoredPPO) and anchor_checkpoint
+        anchor = copy.deepcopy(ppo.policy)
+        copied, zeroed, added = load_state_dict_upgraded(
+            anchor, read_policy_state(Path(anchor_checkpoint), ppo.device)
+        )
+        ppo.set_anchor(anchor)
+        print(
+            f"anchor: {anchor_checkpoint} (KL target {anchor_kl_target}; copied "
+            f"{copied}, zero-extended {zeroed}, added {added})",
+            flush=True,
+        )
     num_saved_timesteps = 0
     verify_league_dir(save_dir)
     if save_dir.exists() and any(save_dir.iterdir()):
@@ -461,6 +484,17 @@ if __name__ == "__main__":
     )
     parser.add_argument("--fixed_opponent_fraction", type=float, default=0.2)
     parser.add_argument("--save_interval", type=int, default=983_040)
+    parser.add_argument(
+        "--anchor_checkpoint",
+        default="",
+        help="keep the policy near this brain: beta * KL(anchor || policy) in the loss",
+    )
+    parser.add_argument(
+        "--anchor_kl_target",
+        type=float,
+        default=0.1,
+        help="the anchor KL (slot 1 + slot 2, nats) the adaptive beta aims for",
+    )
     args = parser.parse_args()
     set_global_seed(args.run_id)
     if args.knowledge_obs:
@@ -530,4 +564,6 @@ if __name__ == "__main__":
         },
         fixed_opponent_fraction=args.fixed_opponent_fraction,
         save_interval=args.save_interval,
+        anchor_checkpoint=args.anchor_checkpoint or None,
+        anchor_kl_target=args.anchor_kl_target,
     )
