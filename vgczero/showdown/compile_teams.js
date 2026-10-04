@@ -101,7 +101,12 @@ for (const dir of dirs) {
 			seen.get(key).duplicates.push(path.basename(f, '.txt'));
 			continue;
 		}
-		const entry = { name: path.basename(f, '.txt'), source: file, duplicates: [], mons };
+		const entry = {
+			name: path.basename(f, '.txt'), source: file, duplicates: [], mons,
+			// Showdown export text, so the live client can submit the team.
+			export: Teams.export(team),
+			packed: Teams.pack(team),
+		};
 		seen.set(key, entry);
 		teams.push(entry);
 	}

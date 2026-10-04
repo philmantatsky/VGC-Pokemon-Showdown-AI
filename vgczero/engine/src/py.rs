@@ -333,6 +333,23 @@ impl PyBattle {
         Ok(PyBattle { b: Battle::new([a, b], seed, cfg) })
     }
 
+    /// Battle from an observed-state snapshot (JSON string; see snapshot.rs).
+    #[staticmethod]
+    #[pyo3(signature = (snapshot, seed=0))]
+    fn from_snapshot(snapshot: &str, seed: u64) -> PyResult<PyBattle> {
+        let v: serde_json::Value = serde_json::from_str(snapshot).map_err(|e| PyValueError::new_err(e.to_string()))?;
+        let b = crate::snapshot::battle_from_snapshot(&v, seed).map_err(PyValueError::new_err)?;
+        Ok(PyBattle { b })
+    }
+
+    /// Legal action mask per slot as a list of 31 bools, for both slots.
+    fn legal_masks(&self, side: usize) -> Vec<Vec<bool>> {
+        (0..2).map(|s| {
+            let m = self.b.legal_mask(side, s);
+            (0..N_SLOT_ACTIONS).map(|a| (m >> a) & 1 == 1).collect()
+        }).collect()
+    }
+
     fn clone_battle(&self) -> PyBattle {
         self.clone()
     }
