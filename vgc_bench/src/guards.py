@@ -545,9 +545,17 @@ def resolved_foe_targets(
     return live if len(live) == 1 else []
 
 
+def _move_priority(move: Move) -> int:
+    """A move's base priority; 0 for poke-env's special moves that carry none
+    (2026-10-04: the "recharge" pseudo-move after Hyper Beam has no priority entry,
+    and reading it raised inside priority_block -- 7 times in 22,116 practice
+    decisions, all on opponent bots, since our team has no recharge move)."""
+    return int(move.entry.get("priority", 0) or 0)
+
+
 def _effective_priority(mon: Pokemon | None, move: Move) -> int:
     """Known priority after the common ability modifiers."""
-    priority = int(move.priority or 0)
+    priority = _move_priority(move)
     ability = _norm(mon.ability) if mon is not None else ""
     if ability == "prankster" and move.category == MoveCategory.STATUS:
         priority += 1
@@ -2586,7 +2594,7 @@ def _plain_attack(move: Move) -> bool:
     return (
         move.category != MoveCategory.STATUS
         and float(move.base_power or 0) > 0
-        and move.priority <= 0
+        and _move_priority(move) <= 0
         and not move.self_switch
         and not move.self_destruct
         and not move.damage

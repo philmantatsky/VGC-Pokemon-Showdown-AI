@@ -1165,3 +1165,14 @@ def test_predicted_ko_survival_allows_a_profitable_trade(monkeypatch):
 
     assert ranked[0] is attack
     assert report is None
+
+
+def test_recharge_turn_does_not_break_the_priority_guards():
+    """2026-10-04: poke-env's "recharge" pseudo-move (after Hyper Beam) has no
+    priority entry; reading it raised inside priority_block (counted as
+    priority_block_error, 7 times in 22,116 practice decisions)."""
+    recharge = Move("recharge", gen=9)
+    assert G._move_priority(recharge) == 0
+    assert G._effective_priority(None, recharge) == 0
+    assert G._move_priority(Move("fakeout", gen=9)) == 3
+    assert not G._plain_attack(recharge)

@@ -1,5 +1,18 @@
 # VGC Bot Project Status
 
+## priority_block's swallowed errors: poke-env's "recharge" move has no priority -> fixed (2026-October 4, 08:10)
+
+- `results_analysis/guard_errors_20261004/priority_block_repro.py`: 1,000 practice-style games
+  (5,568 decisions) with the guard wrapped to log its exceptions. One error, logged in
+  `priority_block_errors.txt`: an opponent bot's Sylveon recharging after Hyper Beam. Its only
+  action decodes to poke-env's "recharge" pseudo-move, whose entry has no `priority`, so
+  `_effective_priority` raised `KeyError: 'priority'`.
+- **Our team has no recharge move**, so the deployed bot never hit this. The 7 errors in last
+  night's practice data were opponent-side, and harmless there too: a recharging slot has one
+  legal action.
+- Fix: `guards._move_priority` (0 when the entry carries none), used by `_effective_priority`
+  and `_plain_attack`; test in `unit_tests/test_guard_repairs.py`.
+
 ## KL-anchored practice keeps the lessons (drift 0.10 vs 0.52; 51.7% vs 35.2% for plain practice) but adds nothing on top of its start -> HOLD; the Earth Power candidate stays the night's best brain (2026-October 4, 08:00)
 
 - `training/t6e_anchor_chain.sh` (pre-registered 03:40), from the Earth Power candidate on T6e:

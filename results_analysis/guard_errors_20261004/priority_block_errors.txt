@@ -1,0 +1,24 @@
+=== battle-gen9championsvgc2026regmc-4603916 turn 2
+ours: sylveon pixilate, basculegion adaptability
+foes: blastoise megalauncher, farigiraf armortail
+fields={<Field.TRICK_ROOM: 13>: 1} weather={}
+cand (9, 15) p=0.616 -> ['/choose move 1', '/choose move wavecrash 1']
+cand (9, 16) p=0.091 -> ['/choose move 1', '/choose move wavecrash 2']
+cand (9, 25) p=0.077 -> ['/choose move 1', '/choose move aquajet 1']
+cand (9, 20) p=0.031 -> ['/choose move 1', '/choose move lastrespects 1']
+cand (9, 2) p=0.010 -> ['/choose move 1', '/choose switch Lucario']
+cand (9, 26) p=0.172 -> ['/choose move 1', '/choose move aquajet 2']
+Traceback (most recent call last):
+  File "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/results_analysis/guard_errors_20261004/priority_block_repro.py", line 61, in logged
+    return original(battle, cands, report)
+  File "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/vgc_bench/src/guards.py", line 967, in guard_priority_block
+    if not isinstance(move, Move) or _effective_priority(me, move) <= 0:
+                                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/vgc_bench/src/guards.py", line 550, in _effective_priority
+    priority = int(move.priority or 0)
+                   ^^^^^^^^^^^^^
+  File "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench/.venv/lib/python3.13/site-packages/poke_env/battle/move.py", line 505, in priority
+    return self.entry["priority"]
+           ~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'priority'
+
