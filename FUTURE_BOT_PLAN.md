@@ -179,7 +179,10 @@
   (only Earth Power positions taught, the rest anchored), pre-registered GO / NEUTRAL / HOLD
   (`training/t6e_ep_chain.sh`, `training/t6e_ep_gate.py`). **GO** (04:05): head-to-head 52.8%
   [50.6, 54.9] vs the deployed bot, battery -0.66pp [-1.48, +0.15]; Earth Power's share when
-  it is the best attack 31% -> 49%. Ladder read of 15 games running (the user's word).
+  it is the best attack 31% -> 49%. Ladder read (the user's word): **6-9** over 15. Earth Power
+  was clicked 3 of the 4 times it was the best attack and never when worse. The losses were the
+  old ones: losing a Pokemon first (8 of 9) and the Venusaur + Torkoal lead (0-3).
+- [ ] Lead selection: the learned preview's Venusaur + Torkoal lead went 0-3 here.
 - [ ] KL-anchored practice on T6e from the Earth Power candidate (`training/t6e_anchor_chain.sh`,
   pre-registered 03:40), after the ladder read.
 - [ ] One-turn matrix-game search with mixed strategies on the exact bridge (`simulate_batch`), the

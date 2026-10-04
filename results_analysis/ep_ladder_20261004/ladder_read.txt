@@ -1,0 +1,24 @@
+Ladder read of the Earth Power candidate (results_tactical_t6e_ep1/sft/tactical_e4.zip on T6e + 14 guards), 2026-10-04 04:06-04:47
+
+ 1 W T4  opp  1300 us  1269  first faint them (opponent forfeit) leads Blastoise+Farigiraf  gen9championsvgc2026regmc-2692578261.htm
+ 2 L T7  opp  1289 us  1296  first faint us                      leads Farigiraf+Incineroar  gen9championsvgc2026regmc-2692578699.htm
+ 3 L T9  opp  1326 us  1270  first faint us                      leads Venusaur+Torkoal  gen9championsvgc2026regmc-2692579470-owv
+ 4 L T7  opp  1233 us  1249  first faint us                      leads Farigiraf+Incineroar  gen9championsvgc2026regmc-2692580085.htm
+ 5 W T4  opp  1238 us  1223  first faint -    (opponent forfeit) leads Charizard+Venusaur  gen9championsvgc2026regmc-2692580612-13h
+ 6 L T9  opp  1310 us  1249  first faint us                      leads Blastoise+Farigiraf  gen9championsvgc2026regmc-2692580909.htm
+ 7 W T5  opp  1129 us  1228  first faint them (opponent forfeit) leads Blastoise+Farigiraf  gen9championsvgc2026regmc-2692582217-8rp
+ 8 L T5  opp  1319 us  1246  first faint them                    leads Charizard+Venusaur  gen9championsvgc2026regmc-2692582826.htm
+ 9 L T6  opp  1140 us  1226  first faint us                      leads Venusaur+Torkoal  gen9championsvgc2026regmc-2692583309.htm
+10 W T7  opp  1245 us  1195  first faint them (opponent forfeit) leads Farigiraf+Incineroar  gen9championsvgc2026regmc-2692583921.htm
+11 L T8  opp  1143 us  1224  first faint us                      leads Venusaur+Torkoal  gen9championsvgc2026regmc-2692584537-pku
+12 W T4  opp  1236 us  1193  first faint them                    leads Farigiraf+Incineroar  gen9championsvgc2026regmc-2692585588.htm
+13 L T9  opp  1205 us  1221  first faint us                      leads Blastoise+Farigiraf  gen9championsvgc2026regmc-2692586104-wtw
+14 W T6  opp  1192 us  1195  first faint us   (opponent forfeit) leads Farigiraf+Incineroar  gen9championsvgc2026regmc-2692587489.htm
+15 L T5  opp  1134 us  1220  first faint us                      leads Farigiraf+Incineroar  gen9championsvgc2026regmc-2692588339.htm
+
+Earth Power audit (results_analysis/ep_ladder_20261004/ep_audit.py):
+Torkoal turns with Earth Power valued: 45
+  EP best by > 0.05    n=  3  2/3 attacks were Earth Power; all: {'earthpower': 2, 'eruption': 1}
+  EP best by <= 0.05   n=  1  1/1 attacks were Earth Power; all: {'earthpower': 1}
+  EP worse             n= 41  0/23 attacks were Earth Power; all: {'eruption': 21, 'switched': 5, None: 5, 'protect': 5, 'cant': 3, 'heatwave': 2}
+    missed? gen9championsvgc2026regmc-2692586104-wtw T6 L best earthpower->2 (+0.09) clicked eruption

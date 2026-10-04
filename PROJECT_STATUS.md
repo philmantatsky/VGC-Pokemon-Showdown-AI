@@ -1,5 +1,35 @@
 # VGC Bot Project Status
 
+## Ladder read of the Earth Power candidate: 6-9 over 15 (the user's word); Earth Power right 3 of 4 times it was the best attack; the losses are the old ones -- losing a Pokemon first (8 of 9 losses) and the Venusaur + Torkoal lead (0-3) (2026-October 4, 05:00)
+
+- `ladder_replays_mc_t6e_ep1` (04:06-04:47; table: `results_analysis/ep_ladder_20261004/ladder_read.txt`):
+  **6-9**. Five of the six wins were opponent forfeits on turns 4-7, not turn-1 quits, so all count.
+  Rating 1269 -> about 1220. Opponents 1129-1326; three losses to players rated 1134-1143. No parse
+  errors, no timeouts. The challenge listener was paused for it and restarted at 04:50.
+- **Earth Power** (`ep_audit.py`): 45 Torkoal turns had Earth Power as a valued attack.
+  - It was the teacher's best by more than 0.05 three times; the bot clicked it twice. The miss:
+    game ...586104 turn 6, Eruption when Earth Power was ahead by 0.09.
+  - It was best by 0.05 or less once; clicked.
+  - It was worse 41 times; 0 of those 23 attacks were Earth Power.
+  - Compare the pre-lesson brain's 31% attack share when Earth Power was best. The lesson shows
+    on ladder, but the moment is rare: about one turn in four games.
+  - It played out in two losses: Earth Power into Chandelure (game 8) and into Incineroar (game 11).
+- **Where the games went:**
+  - Losing a Pokemon first: 9 games, 1 win (an opponent forfeit), against 5-1 otherwise.
+  - Leads: **Venusaur + Torkoal 0-3** (games 3, 9 and 11: Torkoal switches out on turn 1,
+    Venusaur is double-targeted, or Farigiraf arrives and falls before setting Trick Room);
+    Farigiraf + Incineroar 3-3; Blastoise + Farigiraf 2-2; Charizard + Venusaur 1-1.
+  - Specific losses:
+    - **Game 6:** a Trick Room war (their Indeedee's Trick Room cancelled ours), plus
+      Expanding Force Mega Alakazam.
+    - **Mega Raichu-Y Zap Cannons:** games 3 and 4.
+    - **Mega Garchomp's Earth Power spam:** games 9 and 11.
+    - **Hisuian Arcanine's Head Smash:** game 15.
+- **Reading:** 6/15 is consistent with anything from about 16% to 68% (95%), so this read cannot
+  overrule the 2,000-game head-to-head (52.8% vs the deployed bot). It confirms that the
+  structural problems are still the early-faint and lead-selection ones from the 10-03 studies.
+  The Earth Power lesson works where it applies. Deployment of the candidate: the user's call.
+
 ## The Earth Power lesson PASSES its gate (GO): head-to-head 52.8% [50.6, 54.9] vs the deployed bot, battery -0.66pp [-1.48, +0.15]; the lesson moved but short of its bar (2026-October 4, 04:05)
 
 - `training/t6e_ep_chain.sh` (pre-registered 02:25): 4,000 practice games on T6e (02:25-02:53;
