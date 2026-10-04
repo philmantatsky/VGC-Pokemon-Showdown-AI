@@ -501,6 +501,23 @@ async def main():
     # planner's own timer in the first serial ladder gate. Eight seconds keeps the
     # complete decision comfortably below ten without weakening the two-second root
     # screen.
+    ap.add_argument(
+        "--search-solution",
+        choices=("risk", "nash"),
+        default="risk",
+        help=(
+            "risk: rank by the risk blend over predicted replies (the original "
+            "search); nash: one-turn matrix game per world, equilibrium strategies "
+            "averaged over worlds and sampled (2026-10-04, RESEARCH_TOP_BOTS.md)"
+        ),
+    )
+    ap.add_argument(
+        "--search-leaf",
+        choices=("outcome", "critic"),
+        default="outcome",
+        help="leaf value of the exact search: the outcome net, or the brain's critic "
+        "+ its shaping potential (2026-10-04)",
+    )
     ap.add_argument("--search_budget", type=float, default=8.0)
     ap.add_argument("--screen_budget", type=float, default=2.0)
     ap.add_argument("--chance_samples", type=int, default=1)
@@ -800,6 +817,7 @@ async def main():
             screen_budget_s=args.screen_budget,
             time_budget_s=args.search_budget,
             max_nodes=5000,
+            solution=args.search_solution,
         )
         ponder_config = PonderConfig(
             budget_s=args.ponder_budget,
@@ -872,6 +890,7 @@ async def main():
         exact_search_config=exact_search_config,
         exact_max_determinizations=args.determinizations,
         exact_search_determinizations=args.search_determinizations,
+        exact_leaf=args.search_leaf,
         exact_min_deep_coverage=args.min_deep_coverage,
         exact_preview_search=args.search and args.planned_preview,
         exact_preview_budget=args.preview_search_budget,
@@ -925,6 +944,7 @@ async def main():
     if args.search:
         print(
             "exact   : "
+            f"solution={args.search_solution} leaf={args.search_leaf} "
             f"depth=2 budget={args.search_budget:g}s "
             f"screen={args.screen_budget:g}s rng={args.chance_samples} "
             f"hidden={args.determinizations} "

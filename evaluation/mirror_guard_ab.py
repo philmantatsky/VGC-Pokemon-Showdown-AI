@@ -37,6 +37,13 @@ pass --guard playbook_opening to play the script too). --a-team (with
 --a-checkpoint) gives side A a set variant of the deployed team (2026-10-01: a
 brain practised on T6m against the deployed brain on T6); it must have the same
 six species, since both sides share the deployed, team-focused preview model.
+--a-search risk|nash (2026-10-04, the user: "start the matrix search") gives side A
+live exact search on every move turn (vgc_bench/src/live_exact.py; nash = the one-turn
+matrix game per world, RESEARCH_TOP_BOTS.md) with --a-search-worlds hidden worlds and
+--a-search-budget seconds; its decisions are audited to <output>/a_decisions.jsonl.
+Search failures fall back to the champion plus guards by design, so they are counted
+and reported, not treated as guard errors. Searched games are slow: run several
+processes with different --seed / --output (--concurrency 1 each) and pool them.
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python evaluation/mirror_guard_ab.py --guard dominated_attack --games 2000
@@ -116,6 +123,7 @@ def _player(
     checkpoint: str | None = None,
     extra: dict | None = None,
     team: str | None = None,
+    concurrency: int = 8,
 ):
     player = StudyPlayer(
         account_configuration=fresh_local_account(),
@@ -127,7 +135,7 @@ def _player(
         ),
         battle_format=format_map["mc"],
         log_level=40,
-        max_concurrent_battles=8,
+        max_concurrent_battles=concurrency,
         accept_open_team_sheet=not hidden,
         open_timeout=None,
         guard_overrides=overrides,
@@ -198,6 +206,27 @@ def main() -> None:
         action="store_true",
         help="side A keeps guard corrections the reranker would undo",
     )
+    ap.add_argument(
+        "--a-search",
+        choices=("off", "risk", "nash"),
+        default="off",
+        help="side A searches every move turn with this solution",
+    )
+    ap.add_argument("--a-search-worlds", type=int, default=4)
+    ap.add_argument(
+        "--a-search-leaf",
+        choices=("critic", "outcome"),
+        default="critic",
+        help="leaf value: the brain's critic + shaping potential, or the August "
+        "outcome net (calibrated on the Reg M-B champion)",
+    )
+    ap.add_argument("--a-search-budget", type=float, default=8.0)
+    ap.add_argument(
+        "--concurrency",
+        type=int,
+        default=8,
+        help="concurrent battles (searching sides share one inference lock: use 1)",
+    )
     ap.add_argument("--games", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=20924)
     ap.add_argument("--port", type=int, default=7610)
@@ -225,6 +254,7 @@ def main() -> None:
         and args.a_checkpoint is None
         and not args.a_sticky
         and args.a_playbook is None
+        and args.a_search == "off"
     ):
         raise ValueError(
             "nothing to compare: give --guard, --a-mixing, --a-checkpoint or --a-sticky"
@@ -288,6 +318,25 @@ def main() -> None:
         tag += ("_" + "_".join(guards)) if guards else ""
     if args.rerankers:
         tag += "_rerankers"
+    search = None
+    if args.a_search != "off":
+        if not 1 <= args.a_search_worlds <= 8 or not 0 < args.a_search_budget <= 9:
+            raise ValueError("--a-search-worlds must be 1-8, the budget in (0, 9]")
+        search = {
+            "solution": args.a_search,
+            "worlds": args.a_search_worlds,
+            "budget_s": args.a_search_budget,
+            "every_turn": True,
+            "leaf": args.a_search_leaf,
+            "outcome_value": "results_outcome_v2h/outcome_value.zip",
+        }
+        parts.append(
+            f"{args.a_search} exact search ({args.a_search_worlds} worlds, "
+            f"{args.a_search_budget:g}s)"
+        )
+        named = ", ".join(parts)
+        if not guards and mixing is None and a_checkpoint is None:
+            tag = f"search_{args.a_search}"
     output = args.output or Path(f"results_mirror_{tag}")
     manifest = {
         "question": (
@@ -304,6 +353,8 @@ def main() -> None:
         "shared_guards": base,
         "a_mixing": mixing,
         "a_checkpoint": a_checkpoint,
+        "a_search": search,
+        "concurrency": args.concurrency,
         "rerankers_both_sides": args.rerankers,
         "reranker_models": {
             k: str(v) for k, v in shared_extra.items() if k.endswith("_path")
@@ -349,6 +400,35 @@ def main() -> None:
     random.seed(args.seed)
     torch.manual_seed(args.seed)
 
+    search_extra: dict = {}
+    if search is not None:
+        from vgc_bench.src.exact_planner import PlannerConfig
+
+        search_extra = {
+            "enable_search": True,
+            "exact_search_config": PlannerConfig(
+                depth=2,
+                root_width=6,
+                opponent_width=6,
+                continuation_width=3,
+                replacement_width=2,
+                chance_samples=1,
+                deep_root_width=4,
+                anytime=True,
+                screen_budget_s=min(2.0, args.a_search_budget),
+                time_budget_s=args.a_search_budget,
+                max_nodes=5000,
+                solution=args.a_search,
+            ),
+            "outcome_value_path": ROOT / search["outcome_value"],
+            "exact_team_path": ROOT / (a_team or config["TEAM"]),
+            "exact_selective_search": False,
+            "exact_max_determinizations": 8,
+            "exact_search_determinizations": args.a_search_worlds,
+            "exact_min_deep_coverage": 0.5,
+            "exact_leaf": args.a_search_leaf,
+            "decision_log_path": output / "a_decisions.jsonl",
+        }
     results = []
     totals = {"wins": 0.0, "games": 0, "ties": 0, "fired": 0}
     for (hidden, a_first), n in zip(BLOCKS, block_sizes(args.games)):
@@ -369,8 +449,10 @@ def main() -> None:
                 {"playbook_path": ROOT / args.a_playbook}
                 if args.a_playbook is not None
                 else {}
-            ),
+            )
+            | search_extra,
             a_team,
+            args.concurrency,
         )
         b = _player(
             config,
@@ -379,6 +461,7 @@ def main() -> None:
             args.port,
             dict.fromkeys(guards, False),
             extra=shared_extra,
+            concurrency=args.concurrency,
         )
         first, second = (a, b) if a_first else (b, a)
         started = time.monotonic()
@@ -397,11 +480,20 @@ def main() -> None:
         if args.a_sticky:  # only side A is sticky
             per_guard["sticky"] = int(counts.get("sticky_correction_kept", 0))
         fired = sum(per_guard.values())
+        # exact-search failures fall back to the champion plus guards by design:
+        # counted and reported below, never a reason to stop
         errors = {
-            k: v for k, v in PolicyPlayer.guard_fire_counts.items() if "error" in k
+            k: v
+            for k, v in PolicyPlayer.guard_fire_counts.items()
+            if "error" in k and not k.startswith("exact_")
         }
         if errors:
             raise RuntimeError(f"guard errors in the mirror: {errors}")
+        search_counts = {
+            k: int(v)
+            for k, v in PolicyPlayer.guard_fire_counts.items()
+            if k.startswith("exact_")
+        }
         results.append(
             {
                 "hidden_sheets": hidden,
@@ -412,6 +504,7 @@ def main() -> None:
                 "a_win_rate": wins / games,
                 "guard_changed_actions": fired,
                 "changed_by_guard": per_guard,
+                "a_search_counts": search_counts,
                 "elapsed_s": round(time.monotonic() - started, 1),
             }
         )

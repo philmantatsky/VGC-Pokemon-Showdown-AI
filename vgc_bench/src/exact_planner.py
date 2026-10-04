@@ -4,16 +4,25 @@ Every edge is resolved by Pokemon Showdown itself.  The learned policy supplies 
 action prior and a leaf value, but it no longer gets to assume that a superficially
 common move is good: the planner ranks the concrete positions produced several turns
 later against plausible opponent responses.
+
+``PlannerConfig(solution="nash")`` (2026-10-04, the user: "start the matrix search")
+plays one turn as the simultaneous-move game it is instead: per hidden-information
+world, the exact payoff table of our candidates x the opponent's likely replies,
+solved for an equilibrium mixed strategy (``matrix_game.solve``), averaged over the
+worlds and sampled -- the recipe of the two bots that topped Reg M-C
+(RESEARCH_TOP_BOTS.md).
 """
 
 from __future__ import annotations
 
 import hashlib
 import math
+import random
 import time
 from dataclasses import dataclass, replace
 from typing import Any, Protocol, Sequence
 
+import numpy as np
 from poke_env.battle import (
     Effect,
     Field,
@@ -31,6 +40,7 @@ from vgc_bench.src.exact_observation import (
     state_to_battle,
 )
 from vgc_bench.src.exact_sim import ExactShowdownBridge, ExactSimulatorError
+from vgc_bench.src.matrix_game import solve as solve_matrix_game
 from vgc_bench.src.tempo_reranker import speed_control_snapshot
 
 
@@ -101,6 +111,17 @@ class PlannerConfig:
     screen_budget_s: float = 2.0
     screen_opponent_width: int = 3
     deep_root_width: int = 2
+    # "risk": rank our actions by the risk blend over predicted replies (above).
+    # "nash": one turn per world as a zero-sum matrix game -- our candidates with at
+    # least nash_min_prior_ratio of the top candidate's prior (the live low-prior
+    # rejection's own ratio) x the opponent's opponent_width likely replies, exact
+    # one-turn children scored by the evaluator, solved by regret matching+; the
+    # strategies are averaged over worlds and sampled (nash_sample) or argmaxed.
+    solution: str = "risk"
+    nash_iters: int = 1000
+    nash_min_prior_ratio: float = 0.10
+    nash_sample: bool = True
+    nash_seed: int | None = None
 
     def __post_init__(self) -> None:
         if self.depth < 1:
@@ -128,6 +149,10 @@ class PlannerConfig:
             abs_tol=1e-6,
         ):
             raise ValueError("risk weights must sum to one")
+        if self.solution not in ("risk", "nash"):
+            raise ValueError("solution must be 'risk' or 'nash'")
+        if self.nash_iters < 1 or not 0 <= self.nash_min_prior_ratio <= 1:
+            raise ValueError("nash_iters must be positive, the prior ratio in [0, 1]")
 
 
 @dataclass(frozen=True)
@@ -275,9 +300,7 @@ def speed_position_value(battle) -> float:
         return 0.0
     room = Field.TRICK_ROOM in battle.fields
     return float(
-        snapshot.trick_room_advantage
-        if room
-        else -snapshot.trick_room_advantage
+        snapshot.trick_room_advantage if room else -snapshot.trick_room_advantage
     )
 
 
@@ -307,9 +330,7 @@ def _status_position_value(battle) -> float:
 
 def _screen_position_value(battle) -> float:
     ours = sum(condition in battle.side_conditions for condition in _SCREENS)
-    theirs = sum(
-        condition in battle.opponent_side_conditions for condition in _SCREENS
-    )
+    theirs = sum(condition in battle.opponent_side_conditions for condition in _SCREENS)
     return (ours - theirs) / len(_SCREENS)
 
 
@@ -374,9 +395,7 @@ def _side_pressure(battle, attackers, defenders) -> float:
 
 def threat_position_value(battle) -> float:
     """Difference in immediate damage/KO pressure for the current active board."""
-    ours = _side_pressure(
-        battle, battle.active_pokemon, battle.opponent_active_pokemon
-    )
+    ours = _side_pressure(battle, battle.active_pokemon, battle.opponent_active_pokemon)
     theirs = _side_pressure(
         battle, battle.opponent_active_pokemon, battle.active_pokemon
     )
@@ -489,9 +508,7 @@ def _choice_signatures(item: RankedChoice) -> set[tuple[int, str]]:
     atoms = [atom.strip() for atom in item.choice.split(",")]
     while len(atoms) < 2:
         atoms.append("pass")
-    return {
-        (slot, _atom_signature(atom)) for slot, atom in enumerate(atoms[:2])
-    }
+    return {(slot, _atom_signature(atom)) for slot, atom in enumerate(atoms[:2])}
 
 
 def _diverse_prefix(
@@ -511,9 +528,7 @@ def _diverse_prefix(
 
     signatures = {id(item): _choice_signatures(item) for item in ranked}
     all_tokens = set().union(*signatures.values())
-    uncovered_moves = {
-        token for token in all_tokens if token[1].startswith("move:")
-    }
+    uncovered_moves = {token for token in all_tokens if token[1].startswith("move:")}
     selected: list[RankedChoice] = []
     selected_ids: set[int] = set()
 
@@ -528,10 +543,7 @@ def _diverse_prefix(
             return False
         best = max(
             candidates,
-            key=lambda item: (
-                len(signatures[id(item)] & uncovered),
-                item.probability,
-            ),
+            key=lambda item: (len(signatures[id(item)] & uncovered), item.probability),
         )
         covered = signatures[id(best)] & uncovered
         if not covered:
@@ -594,13 +606,9 @@ def _diverse_prefix(
         add(best)
         uncovered_actions.difference_update(covered)
     if len(selected) < width:
-        selected.extend(
-            item for item in ranked if id(item) not in selected_ids
-        )
+        selected.extend(item for item in ranked if id(item) not in selected_ids)
     limit = max(width, len(selected_ids))
-    return sorted(
-        selected[:limit], key=lambda item: item.probability, reverse=True
-    )
+    return sorted(selected[:limit], key=lambda item: item.probability, reverse=True)
 
 
 _MOVE_ACCURACY_CACHE: dict[str, float] = {}
@@ -613,8 +621,7 @@ def _move_accuracy(move_id: str) -> float:
             accuracy = Move(move_id, 9).accuracy
             _MOVE_ACCURACY_CACHE[move_id] = (
                 float(accuracy)
-                if isinstance(accuracy, (int, float))
-                and not isinstance(accuracy, bool)
+                if isinstance(accuracy, (int, float)) and not isinstance(accuracy, bool)
                 else 1.0
             )
         except (KeyError, NotImplementedError, ValueError):
@@ -640,9 +647,7 @@ def _lost_unexecuted_move_slots(
         return ()
     atoms = [atom.strip() for atom in choice.split(",")]
     selected_move_slots = {
-        slot
-        for slot, atom in enumerate(atoms[:2])
-        if atom.startswith("move ")
+        slot for slot, atom in enumerate(atoms[:2]) if atom.startswith("move ")
     }
     if not selected_move_slots:
         return ()
@@ -741,12 +746,7 @@ class ExactMultiTurnPlanner:
         return terminal if terminal is not None else float(self.evaluator(node, role))
 
     def _rank(
-        self,
-        node: ExactNode,
-        role: str,
-        width: int,
-        *,
-        guarantee_moves: bool = False,
+        self, node: ExactNode, role: str, width: int, *, guarantee_moves: bool = False
     ) -> list[RankedChoice]:
         choices = self.bridge.choices(node.state, role)
         if not choices:
@@ -759,12 +759,7 @@ class ExactMultiTurnPlanner:
         )
 
     def _rng_seed(
-        self,
-        node: ExactNode,
-        ours: str,
-        theirs: str,
-        sample: int,
-        sample_count: int,
+        self, node: ExactNode, ours: str, theirs: str, sample: int, sample_count: int
     ) -> str | None:
         if sample_count == 1:
             return None
@@ -807,9 +802,7 @@ class ExactMultiTurnPlanner:
             self._truncated = True
             return self._leaf(node, role)
         best = scores[0]
-        margin = (
-            best.score - scores[1].score if len(scores) > 1 else float("inf")
-        )
+        margin = best.score - scores[1].score if len(scores) > 1 else float("inf")
         self._principal_choices[id(node)] = (best.choice, margin)
         return best.score
 
@@ -843,12 +836,10 @@ class ExactMultiTurnPlanner:
                     and node.request_state == "move"
                     and (
                         _choice_has_volatile_accuracy(
-                            our_choice.choice,
-                            self.config.volatile_accuracy_threshold,
+                            our_choice.choice, self.config.volatile_accuracy_threshold
                         )
                         or _choice_has_volatile_accuracy(
-                            their_choice.choice,
-                            self.config.volatile_accuracy_threshold,
+                            their_choice.choice, self.config.volatile_accuracy_threshold
                         )
                     )
                 ):
@@ -902,9 +893,7 @@ class ExactMultiTurnPlanner:
                     result.get("log"), role, ours[i].choice
                 )
                 value = max(
-                    -1.0,
-                    value
-                    - self.config.pre_move_ko_penalty * len(lost_slots),
+                    -1.0, value - self.config.pre_move_ko_penalty * len(lost_slots)
                 )
             principal = self._principal_choices.pop(id(child), None)
             if capture_outcomes:
@@ -913,9 +902,7 @@ class ExactMultiTurnPlanner:
                         root_choice=ours[i].choice,
                         opponent_choice=theirs[j].choice,
                         value=value,
-                        probability=(
-                            theirs[j].probability / float(pair_sample_count)
-                        ),
+                        probability=(theirs[j].probability / float(pair_sample_count)),
                         predicted_node=child,
                         searched_depth=depth,
                     )
@@ -997,11 +984,7 @@ class ExactMultiTurnPlanner:
         )
 
     def _plan_anytime(
-        self,
-        root: ExactNode,
-        role: str,
-        ours: list[RankedChoice],
-        started: float,
+        self, root: ExactNode, role: str, ours: list[RankedChoice], started: float
     ) -> PlanResult:
         """Screen every root move family, then deepen the strongest candidates."""
         hard_deadline = started + self.config.time_budget_s
@@ -1059,10 +1042,7 @@ class ExactMultiTurnPlanner:
         deepened_choices: list[str] = []
         self._deadline = hard_deadline
         full_theirs = self._rank(
-            root,
-            self._opponent(role),
-            self.config.opponent_width,
-            guarantee_moves=True,
+            root, self._opponent(role), self.config.opponent_width, guarantee_moves=True
         )
         for candidate in screened[: self.config.deep_root_width]:
             if (
@@ -1110,6 +1090,72 @@ class ExactMultiTurnPlanner:
             deepened_choices=deepened_choices,
         )
 
+    def _plan_nash(
+        self, root: ExactNode, role: str, ours: list[RankedChoice], started: float
+    ) -> PlanResult:
+        """One turn as a simultaneous-move game: the exact payoff table of our
+        candidates x the opponent's likely replies, solved for an equilibrium.
+
+        Rankings carry our equilibrium weight as ``score`` and the payoff against the
+        opponent's equilibrium as ``expected``; every row is fully evaluated, so all
+        of them count as deepened (depth one).
+        """
+        top = max(item.probability for item in ours)
+        kept = [
+            item
+            for item in ours
+            if item.probability + 1e-12 >= self.config.nash_min_prior_ratio * top
+        ]
+        ours = kept or ours[:1]
+        theirs = self._rank(
+            root, self._opponent(role), self.config.opponent_width, guarantee_moves=True
+        )
+        if not theirs:
+            raise ValueError("no legal exact opponent choices at planner root")
+        first = len(self._captured_outcomes)
+        scored = self._score_actions(root, role, 1, ours, theirs, capture_outcomes=True)
+        if not scored:
+            raise ValueError("the nash payoff table did not complete in its budget")
+        rows = {item.choice: i for i, item in enumerate(ours)}
+        cols = {item.choice: j for j, item in enumerate(theirs)}
+        total = np.zeros((len(ours), len(theirs)))
+        count = np.zeros_like(total)
+        for outcome in self._captured_outcomes[first:]:
+            i, j = rows[outcome.root_choice], cols[outcome.opponent_choice]
+            total[i, j] += outcome.value
+            count[i, j] += 1
+        if (count == 0).any():
+            raise ValueError("the nash payoff table is missing cells")
+        table = total / count
+        strategy, reply, _value = solve_matrix_game(table, iters=self.config.nash_iters)
+        against = table @ reply
+        rankings = sorted(
+            (
+                ActionScore(
+                    choice=item.choice,
+                    actions=item.actions,
+                    score=float(strategy[i]),
+                    expected=float(against[i]),
+                    cvar=float(table[i].min()),
+                    worst=float(table[i].min()),
+                    standard_deviation=float(table[i].std()),
+                    prior=item.probability,
+                    opponent_branches=len(theirs),
+                )
+                for i, item in enumerate(ours)
+            ),
+            key=lambda row: (row.score, row.expected),
+            reverse=True,
+        )
+        return self._result(
+            rankings,
+            started,
+            completed_depth=1,
+            screened_actions=len(ours),
+            deepened_actions=len(ours),
+            deepened_choices=[item.choice for item in ours],
+        )
+
     def plan(self, root: ExactNode, role: str = "p1") -> PlanResult:
         """Rank root actions by exact multi-turn outcomes."""
         started = time.monotonic()
@@ -1124,21 +1170,21 @@ class ExactMultiTurnPlanner:
         terminal = self._terminal(root, role)
         if terminal is not None:
             raise ValueError("cannot plan from an ended battle")
-        ours = self._rank(
-            root, role, self.config.root_width, guarantee_moves=True
-        )
+        ours = self._rank(root, role, self.config.root_width, guarantee_moves=True)
         if not ours:
             raise ValueError("no legal exact choices available at planner root")
+        if self.config.solution == "nash" and root.request_state == "move":
+            result = self._plan_nash(root, role, ours, started)
+            self.continuations = ()
+            self.outcomes = tuple(self._captured_outcomes)
+            return result
         if self.config.anytime and root.request_state == "move":
             result = self._plan_anytime(root, role, ours, started)
             self.continuations = tuple(self._captured_continuations)
             self.outcomes = tuple(self._captured_outcomes)
             return result
         theirs = self._rank(
-            root,
-            self._opponent(role),
-            self.config.opponent_width,
-            guarantee_moves=True,
+            root, self._opponent(role), self.config.opponent_width, guarantee_moves=True
         )
         if not theirs:
             raise ValueError("no legal exact opponent choices at planner root")
@@ -1180,6 +1226,15 @@ def aggregate_plans(
     multi-world Team Preview planning, which runs its own root loop so it can apply
     a different acceptance rule to incomplete worlds.
     """
+    if config.solution == "nash":
+        return _aggregate_nash(
+            results,
+            elapsed_s,
+            config=config,
+            total_probability=total_probability,
+            failed_roots=failed_roots,
+            required_choices=required_choices,
+        )
     completed_probability = sum(probability for probability, _result in results)
     total_probability = (
         completed_probability if total_probability is None else total_probability
@@ -1187,8 +1242,7 @@ def aggregate_plans(
     if total_probability <= 0:
         raise ValueError("determinization probabilities must have positive mass")
     normalized = [
-        (probability / total_probability, result)
-        for probability, result in results
+        (probability / total_probability, result) for probability, result in results
     ]
     by_choice: dict[str, list[tuple[float, ActionScore]]] = {}
     for probability, result in normalized:
@@ -1221,8 +1275,7 @@ def aggregate_plans(
                 worst=worst,
                 standard_deviation=deviation,
                 prior=sum(
-                    probability * outcome.prior
-                    for probability, outcome in outcomes
+                    probability * outcome.prior for probability, outcome in outcomes
                 ),
                 opponent_branches=sum(
                     outcome.opponent_branches for _probability, outcome in outcomes
@@ -1241,31 +1294,23 @@ def aggregate_plans(
         for choice in by_choice
     }
     rankings = [
-        replace(
-            row,
-            depth_coverage=float(depth_coverage.get(row.choice, 0.0)),
-        )
+        replace(row, depth_coverage=float(depth_coverage.get(row.choice, 0.0)))
         for row in rankings
     ]
     if minimum_depth_coverage > 0:
         sufficiently_searched = [
             row
             for row in rankings
-            if depth_coverage.get(row.choice, 0.0) + 1e-9
-            >= minimum_depth_coverage
+            if depth_coverage.get(row.choice, 0.0) + 1e-9 >= minimum_depth_coverage
         ]
         if sufficiently_searched:
-            sufficiently_searched_ids = {
-                row.choice for row in sufficiently_searched
-            }
+            sufficiently_searched_ids = {row.choice for row in sufficiently_searched}
             # Never reject a useful exact search merely because its absolute top
             # row was only deepened in a low-mass hidden world. Prefer the best
             # action whose future was actually searched across enough posterior
             # mass, while retaining every other row for guards and diagnostics.
             rankings = sufficiently_searched + [
-                row
-                for row in rankings
-                if row.choice not in sufficiently_searched_ids
+                row for row in rankings if row.choice not in sufficiently_searched_ids
             ]
     best = rankings[0]
     selected_depth_coverage = depth_coverage.get(best.choice, 0.0)
@@ -1276,11 +1321,7 @@ def aggregate_plans(
         rankings=tuple(rankings),
         nodes=sum(result.nodes for _probability, result in results),
         elapsed_s=elapsed_s,
-        completed_depth=(
-            config.depth
-            if selected_depth_coverage >= 1.0 - 1e-9
-            else 1
-        ),
+        completed_depth=(config.depth if selected_depth_coverage >= 1.0 - 1e-9 else 1),
         truncated=any(result.truncated for _probability, result in results),
         screened_actions=min(
             result.screened_actions for _probability, result in results
@@ -1305,6 +1346,94 @@ def aggregate_plans(
             )
         ),
         selected_depth_coverage=selected_depth_coverage,
+    )
+
+
+def _aggregate_nash(
+    results: list[tuple[float, PlanResult]],
+    elapsed_s: float,
+    *,
+    config: PlannerConfig,
+    total_probability: float | None,
+    failed_roots: int,
+    required_choices: set[str] | None,
+) -> PlanResult:
+    """Average the worlds' equilibrium strategies (by world probability) and sample.
+
+    ``depth_coverage`` is the share of the total world mass whose table contained
+    the action, so the live coverage rule still rejects an action most worlds never
+    evaluated. The sampled action is moved to the front; the rest stay ordered by
+    their averaged weight, which is what live hard guards fall back through.
+    """
+    completed = sum(probability for probability, _result in results)
+    total = completed if total_probability is None else total_probability
+    if completed <= 0 or total <= 0:
+        raise ValueError("determinization probabilities must have positive mass")
+    weight: dict[str, float] = {}
+    expected: dict[str, float] = {}
+    worst: dict[str, float] = {}
+    mass: dict[str, float] = {}
+    prior: dict[str, float] = {}
+    branches: dict[str, int] = {}
+    first: dict[str, ActionScore] = {}
+    for probability, result in results:
+        share = probability / completed
+        for row in result.rankings:
+            weight[row.choice] = weight.get(row.choice, 0.0) + share * row.score
+            expected[row.choice] = expected.get(row.choice, 0.0) + share * row.expected
+            worst[row.choice] = min(worst.get(row.choice, 1.0), row.worst)
+            mass[row.choice] = mass.get(row.choice, 0.0) + share
+            prior[row.choice] = prior.get(row.choice, 0.0) + share * row.prior
+            branches[row.choice] = branches.get(row.choice, 0) + row.opponent_branches
+            first.setdefault(row.choice, row)
+    rankings = [
+        ActionScore(
+            choice=choice,
+            actions=first[choice].actions,
+            score=weight[choice],
+            expected=expected[choice] / mass[choice],
+            cvar=worst[choice],
+            worst=worst[choice],
+            standard_deviation=0.0,
+            prior=prior[choice] / mass[choice],
+            opponent_branches=branches[choice],
+            depth_coverage=mass[choice] * completed / total,
+        )
+        for choice in weight
+        if required_choices is None or choice in required_choices
+    ]
+    if not rankings:
+        raise ValueError("no action survived determinization aggregation")
+    rankings.sort(key=lambda row: (row.score, row.expected), reverse=True)
+    if config.nash_sample and len(rankings) > 1:
+        weights = [max(0.0, row.score) for row in rankings]
+        if sum(weights) > 0:
+            pick = random.Random(config.nash_seed).choices(
+                range(len(rankings)), weights=weights
+            )[0]
+            rankings.insert(0, rankings.pop(pick))
+    best = rankings[0]
+    truncated = any(result.truncated for _probability, result in results)
+    return PlanResult(
+        choice=best.choice,
+        actions=best.actions,
+        score=best.score,
+        rankings=tuple(rankings),
+        nodes=sum(result.nodes for _probability, result in results),
+        elapsed_s=elapsed_s,
+        completed_depth=1,
+        truncated=truncated,
+        screened_actions=min(result.screened_actions for _p, result in results),
+        deepened_actions=sum(result.deepened_actions for _p, result in results),
+        fallback_reason=(
+            "partial_root_failure"
+            if failed_roots
+            else "partial_determinization_search"
+            if truncated
+            else None
+        ),
+        deepened_choices=tuple(sorted(weight)),
+        selected_depth_coverage=best.depth_coverage,
     )
 
 
@@ -1385,8 +1514,7 @@ class ExactDeterminizationPlanner:
                 break
             slice_s = min(9.0, max(0.05, remaining_s / remaining_states))
             screen_s = min(
-                self.config.screen_budget_s / len(roots),
-                max(0.01, slice_s * 0.45),
+                self.config.screen_budget_s / len(roots), max(0.01, slice_s * 0.45)
             )
             planner = ExactMultiTurnPlanner(
                 self.bridge,
@@ -1449,8 +1577,6 @@ class ExactDeterminizationPlanner:
             if continuation.root_choice == aggregate.choice
         )
         self.outcomes = tuple(
-            outcome
-            for outcome in outcomes
-            if outcome.root_choice == aggregate.choice
+            outcome for outcome in outcomes if outcome.root_choice == aggregate.choice
         )
         return aggregate

@@ -1,5 +1,39 @@
 # VGC Bot Project Status
 
+## Matrix search built: nash solution mode in the exact planner, critic leaf, side-A search in the head-to-head tool; first smoke games (2026-October 4, 12:30)
+
+- The user: "start the matrix search". It runs mikumiku37's turn as a matrix game on our exact
+  Showdown bridge (`RESEARCH_TOP_BOTS.md`).
+- **`PlannerConfig(solution="nash")`** (`vgc_bench/src/exact_planner.py`): per hidden-information
+  world, one payoff table of our candidates x the opponent's `opponent_width` likely replies.
+  - Our candidates are those with at least 10% of the top candidate's prior, the live low-prior
+    rule's own ratio, so a sampled pick is never vetoed for that.
+  - The table is built through `_score_actions`: exact one-turn children, common random numbers,
+    the KO penalty, and forced replacements resolved.
+  - It is solved by regret matching+ (`vgc_bench/src/matrix_game.py`). The strategies are averaged
+    over worlds by probability (`_aggregate_nash`) and sampled; every tabled action counts as
+    searched (depth one). Risk mode is unchanged.
+  - Tests: `unit_tests/test_exact_planner_nash.py` (matching pennies, dominance, prior cut,
+    two-world averaging, sampling frequencies).
+- **Leaf value `critic`** (`vgc_bench/src/critic_leaf.py`): the deployed brain's PPO critic plus
+  the shaping potential it was trained with (0.10 faints, 0.05 HP; critic = E[result] - Phi), in
+  place of the August outcome net calibrated on the Reg M-B champion. Selected by
+  `LiveExactSession(leaf=...)` / `PolicyPlayer(exact_leaf=...)`; tests
+  `unit_tests/test_critic_leaf.py`.
+- **Plumbing:**
+  - `ladder_ourteam.py --search-solution risk|nash --search-leaf outcome|critic`; the defaults
+    keep the old search.
+  - `evaluation/mirror_guard_ab.py --a-search nash --a-search-leaf critic --a-search-worlds N
+    --a-search-budget S --concurrency C`: side A searches every move turn and is audited to
+    `a_decisions.jsonl`. Search failures are counted, not fatal; they fall back to the champion
+    plus guards.
+  - `evaluation/search_audit.py` summarises those audits.
+- **Smoke, outcome-net leaf** (4 games, 4 worlds, 8 s, one game at a time): the mechanics work.
+  - 40 of 42 move decisions searched; 2 fell back (`DeterminizationBudgetExhausted`).
+  - Latency: median 2.6 s, p90 7.2 s, max 7.5 s.
+  - Play: the search overrode T6ep's favourite in **18 of 40** decisions, and side A lost all
+    four games -> the outcome-net leaf is suspect. The critic-leaf smoke follows.
+
 ## PROMOTED at the user's word: T6ep (the Earth Power brain) is the deployed brain; matrix search started (2026-October 4, 11:25)
 
 - The user: "make the earth power brain official and start the matrix search".

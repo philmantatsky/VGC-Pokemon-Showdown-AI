@@ -459,6 +459,7 @@ class LiveExactSession:
         ponder_config: PonderConfig | None = None,
         policy_inference_lock=None,
         seed: int = 20260820,
+        leaf: str = "outcome",
     ):
         self.battle_tag = battle_tag
         self.policy = policy
@@ -475,13 +476,9 @@ class LiveExactSession:
         if not 0.0 <= low_prior_override_ratio <= 1.0:
             raise ValueError("low_prior_override_ratio must be within [0, 1]")
         if not 0.0 <= low_prior_override_min_coverage <= 1.0:
-            raise ValueError(
-                "low_prior_override_min_coverage must be within [0, 1]"
-            )
+            raise ValueError("low_prior_override_min_coverage must be within [0, 1]")
         self.low_prior_override_ratio = float(low_prior_override_ratio)
-        self.low_prior_override_min_coverage = float(
-            low_prior_override_min_coverage
-        )
+        self.low_prior_override_min_coverage = float(low_prior_override_min_coverage)
         self.selective_search = bool(selective_search)
         self.enable_ponder = bool(enable_ponder and selective_search)
         self.ponder_config = ponder_config or PonderConfig()
@@ -501,9 +498,20 @@ class LiveExactSession:
             switch_predictor=switch_predictor,
             controlled_role="p1",
         )
-        self.evaluator = outcome_evaluator or OutcomeValueEvaluator.load(
-            outcome_value_path, device=device, mechanics_weight=0.10
-        )
+        # leaf "critic" (2026-10-04, the matrix search): the brain's own value head
+        # plus its shaping potential (vgc_bench/src/critic_leaf.py) instead of the
+        # August outcome net, which was calibrated on the Reg M-B champion and MB430
+        if leaf not in ("outcome", "critic"):
+            raise ValueError("leaf must be 'outcome' or 'critic'")
+        self.leaf = leaf
+        if leaf == "critic":
+            from vgc_bench.src.critic_leaf import CriticLeafEvaluator
+
+            self.evaluator = CriticLeafEvaluator(self.adapter)
+        else:
+            self.evaluator = outcome_evaluator or OutcomeValueEvaluator.load(
+                outcome_value_path, device=device, mechanics_weight=0.10
+            )
         self.config = config or PlannerConfig(
             depth=2,
             root_width=6,
@@ -1072,10 +1080,7 @@ class LiveExactSession:
         return False
 
     def _low_prior_override_rejection(
-        self,
-        battle: DoubleBattle,
-        winner: ActionScore,
-        rankings: Sequence[ActionScore],
+        self, battle: DoubleBattle, winner: ActionScore, rankings: Sequence[ActionScore]
     ) -> dict[str, Any] | None:
         """Reject speculative shallow overrides of a strongly preferred policy line."""
         max_prior = max((max(0.0, float(row.prior)) for row in rankings), default=0.0)
@@ -1225,16 +1230,12 @@ class LiveExactSession:
         # expensive search on the next turn.
         searched_labels = set(self.plan_parent_nodes)
         searched_mass = sum(
-            root.probability
-            for root in self.roots
-            if root.label in searched_labels
+            root.probability for root in self.roots if root.label in searched_labels
         )
         if searched_mass <= 0:
             return 0.0
         matching_mass = sum(
-            root.probability
-            for root in self.roots
-            if root.label in matching_labels
+            root.probability for root in self.roots if root.label in matching_labels
         )
         return min(1.0, matching_mass / searched_mass)
 
@@ -1268,10 +1269,7 @@ class LiveExactSession:
             if all(
                 any(
                     choice_matches_observation(
-                        parent,
-                        "p2",
-                        branch.opponent_choice,
-                        {slot: observed},
+                        parent, "p2", branch.opponent_choice, {slot: observed}
                     )
                     for branch in rows
                 )
@@ -1280,16 +1278,12 @@ class LiveExactSession:
                 matching_labels.add(label)
         searched_labels = set(self.plan_parent_nodes)
         searched_mass = sum(
-            root.probability
-            for root in self.roots
-            if root.label in searched_labels
+            root.probability for root in self.roots if root.label in searched_labels
         )
         if searched_mass <= 0:
             return 0.0
         matching_mass = sum(
-            root.probability
-            for root in self.roots
-            if root.label in matching_labels
+            root.probability for root in self.roots if root.label in matching_labels
         )
         return min(1.0, matching_mass / searched_mass)
 
@@ -1331,16 +1325,12 @@ class LiveExactSession:
             matching_labels.add(outcome.root_label)
         searched_labels = set(self.plan_parent_nodes)
         searched_mass = sum(
-            root.probability
-            for root in self.roots
-            if root.label in searched_labels
+            root.probability for root in self.roots if root.label in searched_labels
         )
         if searched_mass <= 0:
             return 0.0
         matching_mass = sum(
-            root.probability
-            for root in self.roots
-            if root.label in matching_labels
+            root.probability for root in self.roots if root.label in matching_labels
         )
         return min(1.0, matching_mass / searched_mass)
 
@@ -1820,9 +1810,8 @@ class LiveExactSession:
             "major_mechanic",
             "periodic_refresh",
         }
-        if (
-            self.selective_search
-            and self._expected_action_is_quiet(reasons, planned_family_coverage)
+        if self.selective_search and self._expected_action_is_quiet(
+            reasons, planned_family_coverage
         ):
             self.skipped_searches += 1
             self.last_schedule = {
@@ -1860,11 +1849,16 @@ class LiveExactSession:
             self.ponder_parent_nodes = {}
             self.ponder_reference_values = {}
             return None
-        if self.selective_search and (
-            self.planned_continuations
-            or self.planned_outcomes
-            or self.pondered_outcomes
-        ) and self.last_observed_actions and planned_family_coverage < 0.50:
+        if (
+            self.selective_search
+            and (
+                self.planned_continuations
+                or self.planned_outcomes
+                or self.pondered_outcomes
+            )
+            and self.last_observed_actions
+            and planned_family_coverage < 0.50
+        ):
             # The opponent actually chose a move/switch absent from most searched
             # hidden worlds. Ordinary damage-roll drift no longer triggers this.
             reasons.append("unplanned_opponent_action")
@@ -1939,9 +1933,7 @@ class LiveExactSession:
             config=effective_config,
         )
         result = planner.plan(
-            weighted,
-            "p1",
-            minimum_depth_coverage=self.min_deep_coverage,
+            weighted, "p1", minimum_depth_coverage=self.min_deep_coverage
         )
         if result.selected_depth_coverage + 1e-9 < self.min_deep_coverage:
             self.last_result = None
@@ -2287,11 +2279,10 @@ class LiveExactSession:
             "search_determinizations": self.search_determinizations,
             "min_deep_coverage": self.min_deep_coverage,
             "low_prior_override_ratio": self.low_prior_override_ratio,
-            "low_prior_override_min_coverage": (
-                self.low_prior_override_min_coverage
-            ),
+            "low_prior_override_min_coverage": (self.low_prior_override_min_coverage),
             "configuration": asdict(self.config),
             "selective_search": self.selective_search,
+            "leaf": self.leaf,
             "ponder_enabled": self.enable_ponder,
             "ponder_configuration": asdict(self.ponder_config),
             "schedule": self.last_schedule,

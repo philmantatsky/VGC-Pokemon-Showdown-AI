@@ -184,6 +184,7 @@ class PolicyPlayer(Player):
         exact_selective_search: bool = False,
         exact_enable_ponder: bool = False,
         exact_ponder_config: Any | None = None,
+        exact_leaf: str = "outcome",
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -411,6 +412,7 @@ class PolicyPlayer(Player):
         self.exact_selective_search = bool(exact_selective_search)
         self.exact_enable_ponder = bool(exact_enable_ponder)
         self.exact_ponder_config = exact_ponder_config
+        self.exact_leaf = exact_leaf
         self.enable_search = (
             PolicyPlayer.use_search if enable_search is None else bool(enable_search)
         )
@@ -1551,6 +1553,7 @@ class PolicyPlayer(Player):
             enable_ponder=self.exact_enable_ponder,
             ponder_config=self.exact_ponder_config,
             policy_inference_lock=self._exact_policy_lock,
+            leaf=self.exact_leaf,
         )
         self._exact_sessions[battle.battle_tag] = session
         return session
