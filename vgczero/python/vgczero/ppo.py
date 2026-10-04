@@ -63,6 +63,9 @@ class TrainConfig:
     open_sheet_prob: float = 0.5
     turn_limit: int = 100
     teams: str = "supported"
+    # Periodic evaluation against the greedy baseline (0 = off).
+    eval_every: int = 0
+    eval_games: int = 400
     # Bookkeeping.
     save_every: int = 25
     log_every: int = 1
@@ -369,6 +372,17 @@ class Trainer:
                 self.env.set_team_weights(0, self.team_stats.sampling_weights(c.team_focus))
             if self.update % c.save_every == 0:
                 self.save_checkpoint()
+            if c.eval_every and self.update % c.eval_every == 0:
+                from .evaluate import play_match
+
+                self.model.eval()
+                r = play_match(self.model, "greedy", c.eval_games, min(256, c.eval_games), team_indices=self.pool,
+                               seed=self.update, device=self.device)
+                ev = {"update": self.update, "games_total": self.games_done, "vs_greedy": r.win_rate, "vs_greedy_n": r.games,
+                      "elapsed_h": round((time.time() - self.t_start) / 3600, 3)}
+                with open(self.dir / "eval.jsonl", "a") as f:
+                    f.write(json.dumps(ev) + "\n")
+                print(f"  eval u{self.update}: vs greedy {r}")
             decisions = int(ro.valid.sum())
             rec = {
                 "update": self.update,

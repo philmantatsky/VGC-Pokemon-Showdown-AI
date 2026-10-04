@@ -136,15 +136,21 @@ fn encode_mon(b: &Battle, s: usize, i: usize, own: bool, preview: bool, ints: &m
     let know_item = own || sheet || r.item;
     ints[I_ABILITY] = if know_ability { m.ability as i32 } else { unknown_ability() };
     ints[I_ITEM] = if know_item { m.item as i32 } else { unknown_item() };
-    for j in 0..4 {
-        let known = own || sheet || (r.moves >> j) & 1 == 1;
-        ints[I_MOVE0 + j] = if j >= m.n_moves as usize {
-            0
-        } else if known {
-            m.moves[j] as i32
-        } else {
-            unknown_move()
-        };
+    if own {
+        for j in 0..4 {
+            ints[I_MOVE0 + j] = if j < m.n_moves as usize { m.moves[j] as i32 } else { 0 };
+        }
+    } else {
+        // Opponent: known moves in a canonical (id) order, then unknowns, so
+        // the observation does not depend on hidden slot order.
+        let mut known: Vec<i32> = (0..m.n_moves as usize)
+            .filter(|&j| sheet || (r.moves >> j) & 1 == 1)
+            .map(|j| m.moves[j] as i32)
+            .collect();
+        known.sort_unstable();
+        for j in 0..4 {
+            ints[I_MOVE0 + j] = if j < known.len() { known[j] } else { unknown_move() };
+        }
     }
     let visible = own || r.seen;
     ints[I_LAST_MOVE] = if visible && m.active() { m.vol.last_move as i32 } else { 0 };
@@ -199,9 +205,15 @@ fn encode_mon(b: &Battle, s: usize, i: usize, own: bool, preview: bool, ints: &m
     }
     f[35] = m.weight_hg as f32 / 10000.0;
     f[36] = if m.is_mega { 1.0 } else { 0.0 };
-    f[37] = if m.can_mega && !m.is_mega && !b.sides[s].mega_used { 1.0 } else { 0.0 };
-    for j in 0..m.n_moves as usize {
-        f[38 + j] = if own { m.pp[j] as f32 / m.max_pp[j].max(1) as f32 } else { 1.0 };
+    // Holding a Mega Stone is hidden information for the opponent's Pokemon.
+    let mega_visible = own || know_item;
+    f[37] = if mega_visible && m.can_mega && !m.is_mega && !b.sides[s].mega_used { 1.0 } else { 0.0 };
+    for j in 0..4 {
+        f[38 + j] = if own {
+            if j < m.n_moves as usize { m.pp[j] as f32 / m.max_pp[j].max(1) as f32 } else { 0.0 }
+        } else {
+            1.0
+        };
     }
     let p = Pos::new(s, m.slot.max(0) as usize);
     let on_field = m.active() && m.alive() && b.phase != Phase::TeamPreview;

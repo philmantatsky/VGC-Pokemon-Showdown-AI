@@ -70,8 +70,13 @@ impl SetPool {
                         }
                     }
                     if sheet_open || r.ability {
-                        let base_ab = m.base_ability;
-                        let ok = s.ability == base_ab || s.mega.map(|g| g.ability == base_ab).unwrap_or(false);
+                        // Compare like with like: the Mega ability for a Mega,
+                        // the set's own ability otherwise.
+                        let ok = if m.is_mega {
+                            s.mega.map(|g| g.ability == m.base_ability).unwrap_or(false)
+                        } else {
+                            s.ability == m.base_ability
+                        };
                         if !ok {
                             return false;
                         }
@@ -94,15 +99,36 @@ fn resample_mon(src: &Mon, set: &SetSpec) -> Mon {
     m.status_turns = src.status_turns;
     m.boosts = src.boosts;
     m.vol = src.vol;
+    // Revealed moves by identity (slot order differs between sets).
     m.reveal = src.reveal;
+    m.reveal.moves = 0;
+    for j in 0..src.n_moves as usize {
+        if (src.reveal.moves >> j) & 1 == 1 {
+            if let Some(k) = m.move_slot(src.moves[j]) {
+                m.reveal.moves |= 1 << k;
+            }
+        }
+    }
     m.ate_berry = src.ate_berry;
     m.item_knocked = src.item_knocked;
-    // HP: same percentage of the sampled max HP.
+    // HP: the same Champions percentage (floor(100 hp / max), min 1) the
+    // viewer saw, on the sampled max HP.
     if src.fainted || src.hp == 0 {
         m.hp = 0;
     } else {
-        let frac = src.hp as f64 / src.max_hp.max(1) as f64;
-        m.hp = ((frac * m.max_hp as f64).round() as u16).clamp(1, m.max_hp);
+        let mx = m.max_hp as u32;
+        let pct = (100 * src.hp as u32 / src.max_hp.max(1) as u32).max(1);
+        let mut hp = ((pct * mx + 99) / 100).clamp(1, mx);
+        while hp > 1 && (100 * hp / mx).max(1) > pct {
+            hp -= 1;
+        }
+        while hp < mx && (100 * hp / mx).max(1) < pct {
+            hp += 1;
+        }
+        if src.hp == src.max_hp {
+            hp = mx;
+        }
+        m.hp = hp as u16;
     }
     // Item: a known-consumed item stays consumed.
     if src.item == 0 && src.reveal.item {
@@ -121,8 +147,12 @@ fn resample_mon(src: &Mon, set: &SetSpec) -> Mon {
         m.ability = m.mega_ability;
         m.base_ability = m.mega_ability;
         m.is_mega = true;
-    } else if src.vol.ability_changed || src.vol.type_changed {
+    }
+    // Visible in-battle changes (Trace, Skill Swap, Soak...) carry over.
+    if src.vol.ability_changed {
         m.ability = src.ability;
+    }
+    if src.vol.type_changed {
         m.types = src.types;
     }
     // PP: copy for moves the opponent has shown, full otherwise.
