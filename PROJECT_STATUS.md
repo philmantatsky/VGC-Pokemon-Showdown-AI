@@ -1,5 +1,34 @@
 # VGC Bot Project Status
 
+## The three review guards HOLD together (mirror 46.2%, battery -0.90pp), all from hp_move_after_hits; its narrow version and the two rare guards pre-registered for their own test (2026-October 3, 19:16)
+
+- **Readings** (`results_mirror_review1003`, `results_guard_ab_review1003`, gate
+  `evaluation/review1003_gate.py guards` -> **GUARDS_HOLD**): mirror **46.2% [44.1, 48.4]**
+  (changes: hp_move_after_hits 2,529 in 2,000 games, the other two 0); battery **pooled
+  -0.90pp [-1.98, +0.08]**, human_new -2.71 (firings in 6,204 games: hp_move 2,170,
+  throat_chop_main_threat 70, wasted_fake_out 3). Cells where hp_move fired -1.57pp [-3.16,
+  -0.05], fired 3+ times -2.35pp [-4.69, -0.13], never fired +0.12pp: the broad
+  Eruption / Water Spout guard hurts, dose by dose.
+- **Why** (`results_analysis/review1003/hp_move_calibration.py|txt`, 943 logged ladder
+  decisions with Eruption / Water Spout on top): it expects 23% HP lost before the move,
+  16% is; where it swaps, 49% expected vs 32% real. 75% of its ladder swaps were right in
+  hindsight, but it swaps about every other game and those swaps cost.
+- **hp_move_after_spread** (narrow, `vgc_bench/src/game_review_1003.py`): only a spread attack
+  a foe has shown (or its open sheet lists), from a foe that certainly moves first, and our
+  partner's damage not counted in advance (the shown spread attack hits it too; turn 7's
+  Incineroar fainted before its Flare Blitz). Ladder replay: 19 of 943 HP-move decisions,
+  expected 51% vs 40% real where it swaps; it still turns the user's turn-7 Eruption into Heat
+  Wave (test).
+- **Rare guards on 2,115 replayed ladder decisions** (`rare_guard_audit.py|txt`):
+  throat_chop_main_threat changes 6 (Throat Chop -> Flare Blitz on the same target: Sneasler
+  twice -- Dark is resisted --, Heliolisk, Baxcalibur, Annihilape, the user's Volcarona),
+  wasted_fake_out 1 (the user's turn 2): correct in all 7.
+- **Pre-registered now** (after the review chain; rules fixed here): the rare trio
+  wasted_fake_out + throat_chop_main_threat + hp_move_after_spread -- mirror (2,000) + battery vs
+  `results_guard_ab_threat_first2`, the same gate (battery deploy-eligible, mirror upper >=
+  50%, errors <= 1%). For rules this rare the gate is a non-regression check and correctness
+  carries the case. Deployment: the user's call.
+
 ## The T6tac practice cycle FAILS its gate: head-to-head 37.2% / 35.2% vs the deployed bot; battery about neutral (2026-October 3, 18:05)
 
 `training/t6tac_practice_chain.sh` (the user: "do that next training"):
