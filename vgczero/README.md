@@ -35,6 +35,23 @@ python scripts/train.py --run-dir runs/base1 --model base --n-envs 2048 --rollou
 PYTHONPATH=python python -m vgczero.evaluate runs/base1/checkpoints/latest.pt greedy --games 2000
 ```
 
+Play on Showdown (accept challenges with the ten best training teams, search on):
+
+```bash
+python scripts/top_teams.py --run-dir runs/base1 --k 10
+python scripts/play.py --checkpoint runs/base1/checkpoints/latest.pt --username NAME --password PASS \
+    --mode accept --team-file runs/base1/top_teams.json --team-top 10
+```
+
+Evolve teams with a trained policy:
+
+```bash
+python scripts/evolve.py --checkpoint runs/base1/checkpoints/latest.pt --run-dir runs/base1 --generations 20
+node showdown/validate_team.js runs/base1/evolve/population_latest.json
+```
+
+Tests: `pytest` (Python, from `vgczero/`) and `cargo test --release` (engine).
+
 Search from Python:
 
 ```python

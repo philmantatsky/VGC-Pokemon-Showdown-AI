@@ -19,7 +19,7 @@ later (`git subtree split -P vgczero`); it reuses the parent repo's team corpus
 | mikumiku37 | Plays the ten teams that did best in training | `teams.py` (per-team ratings with Wilson bounds, optional focus sampling, top-k export). |
 | mikumiku37 | AlphaZero-style one-turn search: in each of 16 sampled worlds, top-8 joint actions vs opponent's top-8 replies, payoff table from the value net, solved for a mixed strategy | `python/vgczero/search.py` + `matrix_game.py` + engine `worlds.rs` (hidden-set sampling) and `BattleBatch.expand` (all W×K×K children stepped in parallel in Rust). Also searches team preview. |
 | Jaxcalibur | pUCT tree search 4 plies deep, 20,480 rollouts over 32 sampled worlds | Not built yet; the engine's copyable state and batch expansion make deeper search a drop-in (see "Next" below). |
-| mikumiku37 | Accepts challenges on Showdown; declines open team sheets | Live client: next milestone (see below). |
+| mikumiku37 | Accepts challenges on Showdown; declines open team sheets | `python/vgczero/live/` + `scripts/play.py`: accept / ladder / challenge modes, open team sheets rejected by default, search or raw policy, every battle logged. Tested bot-vs-bot on a local Showdown server. |
 
 The user's requests on top of that: the team is allowed to change as the bot
 learns which strategies are better (team ratings now, team evolution next), and
@@ -140,11 +140,13 @@ brought. 16 worlds by default; the author found 4 too noisy and suggests 64-128.
 (both teams in pure self-play) and keeps posterior means, Wilson lower bounds
 and a recent EMA. `team_focus > 0` biases the learner's team sampling toward
 teams that are winning (with a uniform floor so every team keeps being
-explored); `TeamStats.top(10)` is the ladder rotation. Next step is team
-evolution: mutate the best teams (swap a member for another pool set, swap
-items within the item clause, swap moves among pool sets of the same species —
-all guaranteed legal without re-validation) and keep mutants that beat their
-parent in self-play.
+explored); `TeamStats.top(10)` is the ladder rotation (`scripts/top_teams.py`).
+Team evolution (`evolve.py`, `scripts/evolve.py`) mutates the best teams (swap
+a member for another pool set, swap items within the item clause, swap moves or
+EV spreads among pool sets of the same species — legal without re-validation,
+and `showdown/validate_team.js` double-checks), registers mutants with the
+engine at runtime, scores them by self-play with the current policy against a
+field of meta teams, and keeps the best by Wilson lower bound.
 
 ## Milestones
 
@@ -153,10 +155,15 @@ parent in self-play.
 3. ✅ Model, PPO + league, team stats, evaluation.
 4. ✅ One-turn matrix-game search (+ preview search).
 5. 🔄 Parity vs Showdown (damage exact; turn-outcome statistics) and fixes.
-6. ⏭ Live Showdown client: websocket login/challenges, protocol → engine state
-   (own side from the request JSON, opponent from protocol messages + preview),
-   choice strings, open-team-sheet handling, ladder/challenge modes, replay logging.
-7. ⏭ Team evolution on top of team ratings.
+6. ✅ Live Showdown client: websocket login/challenges, protocol → engine
+   snapshot (own side from the request JSON, opponent from protocol messages +
+   preview + placeholder sets), choices masked by the server's request
+   (disagreements logged as a live parity check), open-team-sheet handling,
+   ladder/challenge modes, battle logs.
+7. ✅ Team evolution (`evolve.py`): legal recombination mutants of the best
+   teams scored by self-play against a meta field; survivors validated by
+   Showdown and playable via `play.py --team-file`. `scripts/top_teams.py`
+   exports the ten best training teams for ladder rotation.
 8. ⏭ Deeper search (Jaxcalibur-style pUCT over simultaneous moves, or
    selective deepening of the leaves that matter most for the root value).
 9. ⏭ Coverage to ~100% of the pool (selfBoost moves, Revival Blessing, Ally
