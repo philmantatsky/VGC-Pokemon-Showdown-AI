@@ -7,6 +7,7 @@ Examples
   # the real thing (one GPU)
   python scripts/train.py --run-dir runs/base1 --model base --n-envs 2048 --rollout-steps 32
 Re-running with the same --run-dir resumes from runs/<name>/checkpoints/latest.pt.
+Ctrl-C finishes the current update and saves; press it again to stop at once.
 """
 
 import argparse
@@ -29,9 +30,10 @@ def main() -> None:
             typ = {"int": int, "float": float, "str": str}.get(f.type if isinstance(f.type, str) else f.type.__name__, str)
             ap.add_argument(flag, type=typ, default=f.default)
     ap.add_argument("--updates", type=int, default=None, help="stop after this many updates (default: total_updates)")
+    ap.add_argument("--hours", type=float, default=None, help="stop (and save) after this many hours")
     args = ap.parse_args()
     cfg = TrainConfig(**{f.name: getattr(args, f.name) for f in dataclasses.fields(TrainConfig)})
-    Trainer(cfg).train(args.updates)
+    Trainer(cfg).train(args.updates, args.hours)
 
 
 if __name__ == "__main__":

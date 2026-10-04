@@ -16,6 +16,7 @@ from pathlib import Path
 
 import torch
 
+from . import data as D
 from .model import VGCNet, load_model, save
 
 SELF = -1  # opponent id for "the current policy"
@@ -63,7 +64,7 @@ class League:
 
     def save_index(self) -> None:
         d = {"next_id": self.next_id, "members": [asdict(m) for m in self.members.values()]}
-        self._index_path().write_text(json.dumps(d, indent=1))
+        D.write_text_atomic(self._index_path(), json.dumps(d, indent=1))
 
     # ---- membership ------------------------------------------------------------------
 

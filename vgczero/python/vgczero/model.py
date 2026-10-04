@@ -17,6 +17,7 @@ Heads
 
 from __future__ import annotations
 
+import os
 from dataclasses import asdict, dataclass
 
 import numpy as np
@@ -345,8 +346,15 @@ def to_torch(ints, floats, field, mask, req, device) -> dict[str, torch.Tensor]:
     }
 
 
+def atomic_torch_save(obj, path) -> None:
+    """torch.save through a temp file and a rename (a kill mid-save keeps the old file)."""
+    tmp = f"{path}.tmp"
+    torch.save(obj, tmp)
+    os.replace(tmp, str(path))
+
+
 def save(model: VGCNet, path: str, extra: dict | None = None) -> None:
-    torch.save({"config": model.config_dict(), "state": model.state_dict(), "extra": extra or {}}, path)
+    atomic_torch_save({"config": model.config_dict(), "state": model.state_dict(), "extra": extra or {}}, path)
 
 
 def load_model(path: str, device="cpu") -> VGCNet:

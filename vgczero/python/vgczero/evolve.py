@@ -143,4 +143,4 @@ class Evolver:
             t = self.builder.with_text(e.team)
             rows.append({"team": t, "games": e.games, "wins": e.wins, "win_rate": e.rate(), "lb": e.lb(), "born": e.born})
         (self.out / f"population_gen{self.gen:03d}.json").write_text(json.dumps(rows, indent=1))
-        (self.out / "population_latest.json").write_text(json.dumps(rows, indent=1))
+        D.write_text_atomic(self.out / "population_latest.json", json.dumps(rows, indent=1))

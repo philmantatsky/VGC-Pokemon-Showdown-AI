@@ -29,6 +29,31 @@ A MacBook can run all of it: the engine, tests, parity runs, training of the `ti
 presets, evaluation, search, the matchup lab, team evolution and live play. The full `base` run is a
 GPU job (see the throughput notes in DESIGN.md).
 
+### Overnight training in one command
+
+```bash
+cd "<your clone>"                       # e.g. ~/Desktop/pokemon\ showdown\ bot/vgc-bench
+git fetch origin && git worktree add ../vgczero-wt claude/nice-bohr-mvs9zh
+cd ../vgczero-wt/vgczero
+bash scripts/overnight.sh               # 8 hours; --hours N to change
+```
+
+The first time, it creates `.venv`, installs the Python packages, builds the engine and runs the
+tests (5-10 minutes; it tells you how to install Rust or the Xcode tools if they are missing). Then it:
+
+* checks memory, power and disk space, and refuses to start while antonius1's batteries, mirrors
+  or training are running (`--force` overrides). A challenge listener can stay up.
+* trains the `small` model with a minibatch that fits in memory, and probes a few updates on the
+  CPU and the GPU (MPS) to keep the faster device.
+* keeps the Mac awake with `caffeinate`, restarts from the last checkpoint if the trainer crashes,
+  and drops to the CPU if MPS fails twice.
+* evaluates against the greedy baseline about every 30 minutes, then writes
+  `runs/overnight/REPORT.md` with a final evaluation and the best teams.
+
+Keep it plugged in with the lid open (the display can sleep). Ctrl-C stops cleanly: the trainer
+saves, then the report is written. On later nights, `cd ../vgczero-wt/vgczero && git pull && bash
+scripts/overnight.sh` keeps improving the same model. Pass `--model tiny` for a faster, smaller model.
+
 * Python: `/usr/bin/python3` is 3.9 and cannot install the engine. Use Homebrew's, python.org's or
   uv's Python 3.10+. Run `xcode-select --install` and rustup before `maturin develop`.
 * If this clone is also the working antonius1 checkout, give vgczero its own worktree so the

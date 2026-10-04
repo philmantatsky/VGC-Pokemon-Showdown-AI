@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import functools
+import os
 from pathlib import Path
 
 import numpy as np
@@ -20,6 +21,14 @@ PASS = 0
 N_SLOT_ACTIONS = 31
 N_PREVIEW = 90
 REQ_WAIT, REQ_PREVIEW, REQ_MOVE, REQ_SWITCH = 0, 1, 2, 3
+
+
+def write_text_atomic(path, text: str) -> None:
+    """Write through a temp file and a rename, so a killed process never leaves a half-written file."""
+    path = Path(path)
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(text)
+    os.replace(tmp, path)
 
 
 @functools.lru_cache(maxsize=1)

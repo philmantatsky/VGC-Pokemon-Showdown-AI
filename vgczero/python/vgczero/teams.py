@@ -96,7 +96,7 @@ class TeamStats:
         self.ema = np.array(d["ema"])
 
     def save(self, path: Path) -> None:
-        Path(path).write_text(json.dumps(self.state()))
+        D.write_text_atomic(path, json.dumps(self.state()))
 
     def report(self, k: int = 10) -> str:
         names = D.team_names()

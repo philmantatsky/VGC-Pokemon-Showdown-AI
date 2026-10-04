@@ -17,6 +17,7 @@ import contextlib
 import json
 import math
 import random
+import signal
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -26,7 +27,7 @@ import torch
 
 from . import data as D
 from .league import SELF, League
-from .model import ModelConfig, VGCNet, load_model, pick_device, save, to_torch
+from .model import ModelConfig, VGCNet, atomic_torch_save, load_model, pick_device, save, to_torch
 from .teams import TeamStats
 
 
@@ -167,11 +168,13 @@ class Trainer:
         # Model.
         latest = self.dir / "checkpoints" / "latest.pt"
         self.update = 0
+        games_done = 0
         if latest.exists():
             ck = torch.load(latest, map_location=self.device, weights_only=False)
             self.model = VGCNet(ModelConfig(**ck["config"])).to(self.device)
             self.model.load_state_dict(ck["state"])
             self.update = ck["extra"].get("update", 0)
+            games_done = ck["extra"].get("games_total", 0)
             ts = self.dir / "team_stats.json"
             if ts.exists():
                 self.team_stats.load_state(json.loads(ts.read_text()))
@@ -190,7 +193,7 @@ class Trainer:
         self.opp = np.array([self.sample_opp() for _ in range(cfg.n_envs)], dtype=np.int64)
         self.obs = self.env.observe()
         self.metrics_f = open(self.dir / "metrics.jsonl", "a")
-        self.games_done = 0
+        self.games_done = games_done
         self.t_start = time.time()
         print(f"vgczero: {self.model.n_params()/1e6:.2f}M params on {self.device}; {len(pool)} teams; "
               f"{cfg.n_envs} envs; league {len(self.league.members)}")
@@ -363,8 +366,8 @@ class Trainer:
 
     def save_checkpoint(self) -> None:
         ck = self.dir / "checkpoints"
-        save(self.model, str(ck / "latest.pt"), {"update": self.update})
-        torch.save(self.opt.state_dict(), ck / "optim.pt")
+        save(self.model, str(ck / "latest.pt"), {"update": self.update, "games_total": self.games_done})
+        atomic_torch_save(self.opt.state_dict(), ck / "optim.pt")
         self.team_stats.save(self.dir / "team_stats.json")
         self.league.save_index()
 
@@ -392,7 +395,7 @@ class Trainer:
                 self.evolved.append({"name": e.team["name"], "mons": e.team["mons"]})
                 added += 1
         if added:
-            self.evolved_path.write_text(json.dumps(self.evolved))
+            D.write_text_atomic(self.evolved_path, json.dumps(self.evolved))
             # Rebuild the env with the larger pool (running games restart).
             self.env = D.E.VecEnv(c.n_envs, seed=c.seed + self.update, team_indices=self.pool, turn_limit=c.turn_limit,
                                   open_sheet_prob=c.open_sheet_prob)
@@ -402,10 +405,35 @@ class Trainer:
             self.obs = self.env.observe()
         print(f"  evolve u{self.update}: {added} new teams in the training pool ({len(self.pool)} total)")
 
-    def train(self, n_updates: int | None = None) -> None:
+    def train(self, n_updates: int | None = None, hours: float | None = None) -> None:
+        """Run updates until `n_updates` more are done, `hours` have passed, or SIGINT/SIGTERM.
+        The first signal finishes the current update and saves; a second one stops at once."""
         c = self.cfg
         end = self.update + (n_updates if n_updates is not None else c.total_updates)
-        while self.update < end:
+        deadline = time.time() + hours * 3600 if hours else None
+        stop: list[str] = []
+
+        def on_signal(signum, _frame):
+            if stop:
+                raise KeyboardInterrupt
+            stop.append(signal.Signals(signum).name)
+            print(f"  {stop[0]}: finishing this update, then saving (again to stop now)", flush=True)
+
+        old = {s: signal.signal(s, on_signal) for s in (signal.SIGINT, signal.SIGTERM)}
+        try:
+            self._train_loop(end, deadline, stop)
+        finally:
+            for s, h in old.items():
+                signal.signal(s, h)
+        self.save_checkpoint()
+        print(f"saved u{self.update} ({self.games_done} games)", flush=True)
+
+    def _train_loop(self, end: int, deadline: float | None, stop: list[str]) -> None:
+        c = self.cfg
+        while self.update < end and not stop:
+            if deadline is not None and time.time() >= deadline:
+                print("  time limit reached", flush=True)
+                break
             t0 = time.time()
             ro, st = self.collect()
             t1 = time.time()
@@ -456,9 +484,9 @@ class Trainer:
                     f"u{self.update} games {self.games_done} ({rec['games_per_s']}/s) "
                     f"vsLeague {rec['vs_league_wr']:.3f} turns {rec['turns_per_game']:.1f} "
                     f"ent {rec.get('entropy', 0):.3f} kl {rec.get('kl', 0):.4f} ev {rec.get('explained_var', 0):.2f} "
-                    f"| collect {rec['collect_s']}s update {rec['update_s']}s | league {len(self.league.members)}"
+                    f"| collect {rec['collect_s']}s update {rec['update_s']}s | league {len(self.league.members)}",
+                    flush=True,
                 )
-        self.save_checkpoint()
 
 
 def load_policy(path: str, device: str = "cpu") -> VGCNet:
