@@ -212,6 +212,26 @@ def attack_values(
     return values
 
 
+def focus_actions(
+    battle: DoubleBattle, pos: int, mask_row: np.ndarray, moves: frozenset[str]
+) -> np.ndarray:
+    """Legal actions of ``pos`` whose move id is in ``moves``, over act_len: where a
+    focused lesson teaches (2026-10-04, the user on T6e: "just use ep when its super
+    effective on a pokemon and it does better damage than the rest of the moves and
+    theres no better switch in")."""
+    out = np.zeros(act_len, dtype=bool)
+    me = battle.active_pokemon[pos]
+    if not moves or me is None or me.fainted:
+        return out
+    for action in MOVE_BANDS:
+        if not mask_row[action]:
+            continue
+        move = getattr(G._decode(battle, action, pos), "order", None)
+        if isinstance(move, Move) and move.id in moves:
+            out[action] = True
+    return out
+
+
 def position_facts(
     battle: DoubleBattle, pos: int, mask_row: np.ndarray, partner_action: int | None
 ) -> tuple[np.ndarray, np.ndarray]:

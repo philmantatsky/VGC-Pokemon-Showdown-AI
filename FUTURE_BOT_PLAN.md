@@ -173,6 +173,11 @@
   where the unpractised Earth Power lost the head-to-head (36-39%).
 - [ ] T6e practice inside a cycle that keeps the tactical lessons (auxiliary loss toward the
   tactical teacher), so the brain practises Earth Power instead of only playing it.
+  2026-10-04 (the user: "start the earth power practice training ... just use ep when its super
+  effective ... and it does better damage than the rest of the moves and theres no better switch
+  in"): first the Earth Power lesson -- 4,000 practice games on T6e + the focus fine-tune
+  (only Earth Power positions taught, the rest anchored), pre-registered GO / NEUTRAL / HOLD
+  (`training/t6e_ep_chain.sh`, `training/t6e_ep_gate.py`).
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a

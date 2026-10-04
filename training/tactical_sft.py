@@ -12,6 +12,13 @@ policy. Slot 2 is trained conditioned on slot 1's played action (the joint
 head). Only the actor trains: the critic has its own feature extractor and is
 frozen, so the value function is untouched.
 
+--lessons focus (2026-10-04, the user on T6e: "just use ep when its super effective
+on a pokemon and it does better damage than the rest of the moves and theres no
+better switch in"): the lessons act only where a move recorded as "focus"
+(gen_tactical_data.py --focus-moves, e.g. earthpower) is a valued plain attack --
+there the attack mass goes to the hardest-hitting attack, Earth Power when it is --
+and every other position targets the brain's own distribution (an anchor).
+
 The start checkpoint is never modified: saves go to --output as new files
 (SB3 zips like any training save, loadable by every player). Validation is a
 10% split by battle. Local comparison only: never promotion or ladder.
@@ -56,7 +63,16 @@ def load_data(data_dir: Path) -> dict[str, np.ndarray]:
         with np.load(part, allow_pickle=False) as z:
             for key in z.files:
                 arrays.setdefault(key, []).append(z[key])
+    counts = {k: len(v) for k, v in arrays.items()}
+    if len(set(counts.values())) != 1:  # shards of different recorders: rows misalign
+        raise ValueError(f"shards in {data_dir} record different fields: {counts}")
     return {k: np.concatenate(v) for k, v in arrays.items()}
+
+
+def focus_rows(data: dict[str, np.ndarray]) -> np.ndarray:
+    """(rows x 2) positions where a focus move is a valued plain attack -- where the
+    focus lesson teaches (2026-10-04: Earth Power on T6e)."""
+    return (data["focus"] & ~np.isnan(data["values"])).any(-1)
 
 
 def split_by_battle(battles: np.ndarray, fraction: float = 0.1) -> np.ndarray:
@@ -100,8 +116,11 @@ def build_targets(
     wasted=None,
     drain=None,
     receive=None,
+    only=None,
 ):
-    """Targets for both positions and which rows carry a lesson. With the doomed
+    """Targets for both positions and which rows carry a lesson. ``only`` (rows x
+    2, bool) limits every lesson to those positions (the focus lesson); elsewhere
+    the target stays the brain's own distribution. With the doomed
     facts (data since 2026-09-27) a Pokemon likely knocked out before it moves
     also has that share of its wasted moves' mass moved onto Protect; with the
     pairing facts (since 2026-09-28) slot 2's Protect beside a Fake Out, or its
@@ -111,6 +130,8 @@ def build_targets(
     lesson = np.zeros((len(p0), 2), dtype=bool)
     for i in range(len(p0)):
         for pos, (p, q) in enumerate(((p0, q0), (p1, q1))):
+            if only is not None and not only[i, pos]:
+                continue
             t = target_distribution(p[i], useless[i, pos], values[i, pos], tau)
             if (
                 doomed is not None
@@ -160,6 +181,10 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
     drift_sum = drift_rows = 0.0
     doomed_mass = doomed_rows = 0.0
     pair_mass = pair_rows = 0.0
+    # focus moves (Earth Power): agreement, and the share of the attack mass on them
+    # when they are the teacher's best attack / worse than it by more than 0.02
+    focus_n = focus_agree = 0
+    best_n = best_share = worse_n = worse_share = 0.0
     with torch.no_grad():
         for start in range(0, len(rows), batch):
             idx = rows[start : start + batch]
@@ -176,6 +201,7 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
                 probs = lp.exp().cpu().double().numpy()
                 vals = data["values"][idx, pos]
                 flags = data["useless"][idx, pos]
+                focus = data["focus"][idx, pos] if "focus" in data else None
                 for j in range(len(idx)):
                     row_lesson = lesson[idx[j], pos]
                     if "drain" in data and data["drain"][idx[j], pos].any():
@@ -200,6 +226,23 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
                             top == best or vals[j][best] - vals[j][top] <= 0.02
                         )
                         total += 1
+                    if focus is not None and valued.sum() >= 2:
+                        on_focus = valued & focus[j]
+                        if on_focus.any():
+                            cand = np.flatnonzero(valued)
+                            best = cand[np.argmax(vals[j][cand])]
+                            top = cand[np.argmax(probs[j][cand])]
+                            focus_n += 1
+                            focus_agree += int(
+                                top == best or vals[j][best] - vals[j][top] <= 0.02
+                            )
+                            share = probs[j][on_focus].sum() / probs[j][cand].sum()
+                            if focus[j][best]:
+                                best_n += 1
+                                best_share += float(share)
+                            elif vals[j][best] - vals[j][on_focus].max() > 0.02:
+                                worse_n += 1
+                                worse_share += float(share)
                     if not row_lesson:
                         target = (q0 if pos == 0 else q1)[idx[j]]
                         keep = target > 0
@@ -225,6 +268,12 @@ def evaluate(policy, data, rows, q0, q1, lesson, device, batch=512) -> dict[str,
         # slot 2's Protect beside a Fake Out / Fake Out beside a Protect
         "pair_drain_mass": pair_mass / max(1, pair_rows),
         "pair_rows": pair_rows,
+        "focus_rows": focus_n,
+        "focus_agreement": focus_agree / max(1, focus_n),
+        "focus_best_rows": best_n,
+        "focus_best_share": best_share / max(1, best_n),
+        "focus_worse_rows": worse_n,
+        "focus_worse_share": worse_share / max(1, worse_n),
     }
 
 
@@ -241,11 +290,12 @@ def main() -> None:
     ap.add_argument("--device", default="mps")
     ap.add_argument(
         "--lessons",
-        choices=("all", "base"),
+        choices=("all", "base", "focus"),
         default="all",
         help="base: only the useless-action and attack-value lessons, even when the "
         "data also carries the doomed / Fake Out pairing facts (2026-09-28: both "
-        "brains taught the doomed lesson lost their mirror)",
+        "brains taught the doomed lesson lost their mirror); focus: the base lessons "
+        "only where a recorded focus move (--focus-moves) is a valued attack",
     )
     args = ap.parse_args()
     torch.manual_seed(args.seed)
@@ -268,6 +318,13 @@ def main() -> None:
         frozen, data["obs"], data["mask"], data["played"][:, 0], device
     )
     extra = args.lessons == "all"
+    only = None
+    if args.lessons == "focus":
+        if "focus" not in data:
+            raise ValueError("--lessons focus needs data recorded with --focus-moves")
+        only = focus_rows(data)
+        if not only.any():
+            raise ValueError("no recorded position has a valued focus move")
     q0, q1, lesson = build_targets(
         p0,
         p1,
@@ -279,6 +336,7 @@ def main() -> None:
         data.get("wasted") if extra else None,
         data.get("drain") if extra else None,
         data.get("receive") if extra else None,
+        only=only,
     )
 
     critic = (
@@ -303,6 +361,7 @@ def main() -> None:
         "val_rows": int(len(val_rows)),
         "lesson_rows_pos0": int(lesson[:, 0].sum()),
         "lesson_rows_pos1": int(lesson[:, 1].sum()),
+        "focus_positions": None if only is None else int(only.sum()),
         "doomed_rows": int((data["doomed"] > 0).sum()) if "doomed" in data else 0,
         "args": {k: str(v) for k, v in vars(args).items()},
         "epochs": [],

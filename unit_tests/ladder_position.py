@@ -45,8 +45,14 @@ def champions_stats(mon) -> dict[str, int | None]:
     return stats
 
 
-def position(lines: list[str]) -> DoubleBattle:
+def position(lines: list[str], team: str | None = None) -> DoubleBattle:
+    """``team``: a set variant of T6 (same six, EVs and natures; e.g. T6e)."""
     pokeenv_patches.install()
+    sets = (
+        T6
+        if team is None
+        else Teambuilder.parse_showdown_team((ROOT / team).read_text())
+    )
     battle = DoubleBattle(
         "battle-gen9championsvgc2026regmc-fixture",
         "antonius1",
@@ -54,7 +60,7 @@ def position(lines: list[str]) -> DoubleBattle:
         gen=9,
     )
     battle._player_role = "p1"
-    for mon in T6:  # sets first: the protocol's Mega forms must survive them
+    for mon in sets:  # sets first: the protocol's Mega forms must survive them
         species = mon.species or mon.nickname
         ours = battle.get_pokemon(f"p1: {species}", details=f"{species}, L50")
         ours._update_from_teambuilder(mon)

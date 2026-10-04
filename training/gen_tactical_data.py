@@ -15,6 +15,8 @@ temperature can change without replaying. --checkpoint / --team record another
 brain on its own team file instead (2026-10-01: a brain practised on T6m, a set
 variant of the deployed team); guards, preview model and opponents stay the
 deployed configuration's, and the "self" opponent is then that brain.
+--focus-moves (2026-10-04) also records which legal actions use those moves
+("focus", for tactical_sft.py --lessons focus: the user's Earth Power lesson on T6e).
 
 Usage (from the repo root; a Showdown server must listen on --port):
   .venv/bin/python training/gen_tactical_data.py --games-per-cell 150
@@ -48,7 +50,12 @@ from evaluation.opening_study import (
     roster_split,
 )
 from tools.deployed_config import resolve
-from training.tactical_teacher import doomed_facts, pair_facts, position_facts
+from training.tactical_teacher import (
+    doomed_facts,
+    focus_actions,
+    pair_facts,
+    position_facts,
+)
 from vgc_bench.src import pokeenv_patches
 from vgc_bench.src.guards import GUARDS, HARD_GUARDS
 from vgc_bench.src.policy import MaskedActorCriticPolicy
@@ -77,6 +84,8 @@ def sha256(path: Path) -> str:
 class RecordingPlayer(StudyPlayer):
     """The deployed player; every move decision is recorded with the teacher's facts."""
 
+    focus_moves: frozenset[str] = frozenset()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.records: list[dict] = []
@@ -102,6 +111,8 @@ class RecordingPlayer(StudyPlayer):
             d0, p0, w0 = doomed_facts(battle, 0, row[:act_len])
             d1, p1, w1 = doomed_facts(battle, 1, m1[0, act_len:].numpy(), a0)
             dr1, rc1 = pair_facts(battle, m1[0, act_len:].numpy(), a0)
+            fo0 = focus_actions(battle, 0, row[:act_len], self.focus_moves)
+            fo1 = focus_actions(battle, 1, m1[0, act_len:].numpy(), self.focus_moves)
             none = np.zeros(act_len, dtype=bool)
             self.records.append(
                 {
@@ -119,6 +130,7 @@ class RecordingPlayer(StudyPlayer):
                     "wasted": np.stack([w0, w1]),
                     "drain": np.stack([none, dr1]),
                     "receive": np.stack([none, rc1]),
+                    "focus": np.stack([fo0, fo1]),
                     "turn": int(battle.turn),
                     "battle": battle.battle_tag,
                 }
@@ -143,6 +155,7 @@ def save_shard(path: Path, records: list[dict]) -> int:
         wasted=np.stack([r["wasted"] for r in records]),
         drain=np.stack([r["drain"] for r in records]),
         receive=np.stack([r["receive"] for r in records]),
+        focus=np.stack([r["focus"] for r in records]),
         turn=np.array([r["turn"] for r in records], dtype=np.int16),
         battle=np.array([r["battle"] for r in records]),
     )
@@ -158,7 +171,17 @@ def main() -> None:
     ap.add_argument("--cell-timeout", type=float, default=5400)
     ap.add_argument("--checkpoint", default=None, help="record this brain instead")
     ap.add_argument("--team", default=None, help="its team file (a set variant)")
+    ap.add_argument(
+        "--focus-moves",
+        default="",
+        help="comma-separated move ids whose legal actions are recorded as 'focus'",
+    )
     args = ap.parse_args()
+    focus = frozenset(
+        m.strip().lower().replace(" ", "").replace("-", "")
+        for m in args.focus_moves.split(",")
+        if m.strip()
+    )
     os.chdir(ROOT)
     config = resolve()
     ckpt = args.checkpoint or config["CKPT"]
@@ -192,6 +215,7 @@ def main() -> None:
             f"{k}_{'hidden' if h else 'open'}" for k in OPPONENTS for h in (False, True)
         ],
         "seed": args.seed,
+        "focus_moves": sorted(focus),
         "chunk_obs_len": chunk_obs_len,
         "teacher_sha256": sha256(ROOT / "training/tactical_teacher.py"),
         "guards_sha256": sha256(ROOT / "vgc_bench/src/guards.py"),
@@ -234,6 +258,7 @@ def main() -> None:
                 team=RandomTeamBuilder(args.seed, 1, "mc", [ROOT / team]),
                 **common,
             )
+            ours.focus_moves = focus
             ours.set_policy(ROOT / ckpt, torch.device("mps"))
             if config["PREVIEW_MODEL"]:
                 ours.preview_model_path = ROOT / config["PREVIEW_MODEL"]
@@ -268,6 +293,7 @@ def main() -> None:
                 "games": len(ours.battles),
                 "wins": wins,
                 "decisions": n,
+                "focus_decisions": sum(bool(r["focus"].any()) for r in ours.records),
                 "teacher_errors": ours.teacher_errors,
                 "guard_errors": errors,
                 "minutes": round((time.monotonic() - started) / 60, 1),

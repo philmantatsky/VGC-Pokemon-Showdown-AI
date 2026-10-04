@@ -28,7 +28,7 @@ cd "$(dirname "$0")/.."
 CKPT=${1:?checkpoint}; TEAM=${2:?team file}; N=${3:?total games}; DIR=${4:?replay dir}
 GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
 MAX_SESSIONS=${MAX_SESSIONS:-6}; LOGIN_GRACE=${LOGIN_GRACE:-180}; IDLE_MIN=${IDLE_MIN:-45}
-HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab'
+HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab|gen_tactical_data[.]py|tactical_sft[.]py'
 DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60|Errno 8\]|nodename nor servname|gaierror|ConnectionRefusedError'
 stamp() { date '+%H:%M:%S'; }
 pgrep -f "$HEAVY" >/dev/null 2>&1 && { echo "LADDER_REFUSED [$(stamp)] a heavy local job is running"; exit 2; }

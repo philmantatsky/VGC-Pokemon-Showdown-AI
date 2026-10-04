@@ -70,7 +70,7 @@ if [ "$CHECKPOINT" = "$DEP_CKPT" ] && [ "$TEAM" = "$DEP_TEAM" ]; then
 fi
 GUARDS=${GUARDS:-$DEFAULT_GUARDS}
 LOGIN_GRACE=${LOGIN_GRACE:-120}
-HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab'
+HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab|gen_tactical_data[.]py|tactical_sft[.]py'
 DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60|Errno 8\]|nodename nor servname|gaierror|ConnectionRefusedError'
 mkdir -p exhibition_logs
 

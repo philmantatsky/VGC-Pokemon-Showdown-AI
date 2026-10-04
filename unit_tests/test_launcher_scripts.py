@@ -35,6 +35,8 @@ HEAVY_JOBS = [
     "bash /scratch/human_preview_chain.sh",
     ".venv/bin/python evaluation/mirror_guard_ab.py --guard focus_boosted",
     ".venv/bin/python evaluation/run_guard_ab.py --guards focus_boosted",
+    ".venv/bin/python -u training/gen_tactical_data.py --focus-moves earthpower",
+    ".venv/bin/python -u training/tactical_sft.py --lessons focus",
 ]
 
 

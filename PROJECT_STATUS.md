@@ -1,5 +1,34 @@
 # VGC Bot Project Status
 
+## PRE-REGISTERED: the Earth Power lesson on T6e (2026-October 4, 02:25, before any run)
+
+- The user: "start the earth power practice training but like its pretty obvious just use ep
+  when its super effective on a pokemon and it does better damage than the rest of the moves and
+  theres no better switch in".
+- **Recipe** (`training/t6e_ep_chain.sh`): 4,000 practice games by the deployed bot on T6e
+  against the training-role opponents (`training/gen_tactical_data.py --focus-moves earthpower`:
+  train-split rosters, 8 cells x 500; it records which legal actions are Earth Power) -> fine-tune
+  of the deployed brain T6tac (`training/tactical_sft.py --lessons focus`, lr 1e-4, 4 epochs, the
+  epoch with the lowest validation cross-entropy). The lesson acts ONLY where our Pokemon can
+  click Earth Power as a valued attack: the calculator teacher re-spreads that Pokemon's attack
+  mass by damage value (tau 0.1), so the hardest-hitting attack gets most of it -- Earth Power
+  when super effective and stronger than the rest (e.g. rain vs Incineroar: Earth Power 0.51,
+  Eruption 0.34; sun at full HP: Eruption 1.04 stays first). Attack vs Protect vs switch keeps
+  the brain's own proportions ("no better switch in" stays its call), and every other position
+  targets the brain's own distribution, so nothing else is retrained. Plain RL practice is not
+  run: from T6tac it lost 35.2% / 37.2% (2026-10-03). Smoke run (24 games): 36 of 130 decisions
+  were Earth Power positions; the chain stops if the 4,000 games give fewer than 300.
+- **Readings** (`training/t6e_ep_gate.py`): *lesson* -- on the validation Earth Power positions
+  (>= 100) the brain's disagreements with the teacher's best attack at least halve; *better* --
+  head-to-head vs the deployed bot (both T6e + the 14 guards, `results_mirror_t6e_ep1`, 2,000
+  games) won, Wilson lower bound > 50%; *safe* -- held-out battery vs the deployed brain on T6e
+  (`results_brain_ab_t6e_ep1` vs `results_brain_ab_t6e_unpractised`, both with the 12 guards
+  that arm used) deploy-eligible (pooled upper >= 0, no population < -3pp). **GO** = better and
+  safe; **NEUTRAL** = lesson, safe and the head-to-head not lost (upper >= 50%); **HOLD**
+  otherwise. Deployment and any ladder trial: the user's call either way.
+- Also: the ladder / challenge / exhibition launchers now count `gen_tactical_data.py` and
+  `tactical_sft.py` as heavy jobs (a ladder session cannot start during the practice games).
+
 ## Deployed at the user's word: T6e (Torkoal Earth Power) + 14 guards + the open-sheet preview; the challenge listener now reconnects after a lost connection (2026-October 3, 23:45)
 
 - The user: "keep the guards, keep the team sheet stuff its gonna be useful later, and keep

@@ -38,7 +38,7 @@ DIR=${DIR_ARG:-challenge_replays_mc_deployed_$REPLAY_TAG}
   exit 2
 }
 
-HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|run_t6_confirmation|run_t6_vs_deployed|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab'
+HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|run_t6_confirmation|run_t6_vs_deployed|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab|gen_tactical_data[.]py|tactical_sft[.]py'
 if pgrep -f "$HEAVY" >/dev/null 2>&1; then
   # ALLOW_HEAVY=1 (the user's word, 2026-10-03): challenge games are unranked, so a
   # listener may share the machine with training; its moves may come more slowly.
