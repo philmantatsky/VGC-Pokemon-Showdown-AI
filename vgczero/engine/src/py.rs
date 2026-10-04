@@ -365,12 +365,12 @@ impl PyBattle {
         Ok(PyBattle { b: Battle::new([a, b], seed, cfg) })
     }
 
-    /// Battle from an observed-state snapshot (JSON string; see snapshot.rs).
+    /// Battle from an observed-state snapshot (JSON string; see observed.rs).
     #[staticmethod]
     #[pyo3(signature = (snapshot, seed=0))]
     fn from_snapshot(snapshot: &str, seed: u64) -> PyResult<PyBattle> {
         let v: serde_json::Value = serde_json::from_str(snapshot).map_err(|e| PyValueError::new_err(e.to_string()))?;
-        let b = crate::snapshot::battle_from_snapshot(&v, seed).map_err(PyValueError::new_err)?;
+        let b = crate::observed::battle_from_snapshot(&v, seed).map_err(PyValueError::new_err)?;
         Ok(PyBattle { b })
     }
 
