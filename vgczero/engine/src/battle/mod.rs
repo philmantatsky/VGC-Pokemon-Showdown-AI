@@ -17,7 +17,7 @@ mod switching;
 
 pub use calc::ActiveMove;
 
-use crate::actions::{decode, preview_table, Choice, SlotAction, PASS};
+use crate::actions::{decode, preview_table, switch_action, Choice, SlotAction, PASS};
 use crate::dex::dex;
 use crate::rng::Rng;
 use crate::state::{Field, Mon, Pos, Side, SideConds, NO_MON};
@@ -363,8 +363,10 @@ impl Battle {
                 Ok(())
             }
             Phase::Switch { midturn } => {
+                let mut choices = choices;
                 for s in 0..2 {
                     self.validate_switch_choice(s, &choices[s])?;
+                    self.complete_switch_choice(s, &mut choices[s]);
                 }
                 let mut switched = vec![];
                 // A Revival Blessing user that passes keeps its switch flag
@@ -432,7 +434,6 @@ impl Battle {
 
     fn validate_switch_choice(&self, s: usize, c: &Choice) -> Result<(), ChoiceError> {
         let mut used = [false; 6];
-        let mut switches = 0;
         for slot in 0..2 {
             if !self.switch_slots[s][slot] {
                 continue;
@@ -444,17 +445,41 @@ impl Battle {
                         return Err(ChoiceError(format!("side {s} slot {slot}: cannot switch to {to}")));
                     }
                     used[to] = true;
-                    switches += 1;
                 }
                 SlotAction::Pass if self.switch_passes_allowed(s) => {}
                 _ => return Err(ChoiceError(format!("side {s} slot {slot}: expected a switch"))),
             }
         }
-        // As many replacements as possible (Showdown's forcedSwitchesLeft).
-        if switches < self.forced_switches(s) {
-            return Err(ChoiceError(format!("side {s}: {switches} switches, {} required", self.forced_switches(s))));
-        }
         Ok(())
+    }
+
+    /// Showdown requires as many replacements as possible (forcedSwitchesLeft):
+    /// with two flagged slots and one benched Pokemon, exactly one slot may
+    /// pass. Per-slot legal masks cannot express that, so a choice passing on
+    /// too many slots is completed here: the first passing flagged slot takes
+    /// the first available Pokemon (instead of rejecting the choice).
+    fn complete_switch_choice(&self, s: usize, c: &mut Choice) {
+        let forced = self.forced_switches(s);
+        let mut used = [false; 6];
+        let mut switches = 0;
+        for slot in 0..2 {
+            if let (true, SlotAction::Switch(t)) = (self.switch_slots[s][slot], decode(c.slots[slot])) {
+                used[t as usize] = true;
+                switches += 1;
+            }
+        }
+        for slot in 0..2 {
+            if switches >= forced {
+                break;
+            }
+            if self.switch_slots[s][slot] && decode(c.slots[slot]) == SlotAction::Pass {
+                if let Some(i) = (0..6).find(|&i| self.switch_target_ok(s, slot, i) && !used[i]) {
+                    used[i] = true;
+                    c.slots[slot] = switch_action(i);
+                    switches += 1;
+                }
+            }
+        }
     }
 
     /// A switch request's target for a flagged slot: a healthy benched
