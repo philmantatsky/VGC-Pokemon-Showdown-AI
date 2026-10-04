@@ -1,5 +1,20 @@
 # VGC Bot Project Status
 
+## T6e (Torkoal Earth Power for Weather Ball) on the unpractised deployed brain: battery fine (+0.50pp), head-to-head vs T6 lost 43.4% -> HOLD by the pre-registered rule (2026-October 3, 20:25)
+
+- `results_mirror_t6e_unpractised` (the deployed brain on T6e vs the same brain on T6, both with
+  the 12 guards): **43.4% [41.2, 45.5]** -- open-sheet blocks 49.8% / 48.4%, hidden-sheet blocks
+  **36.4% / 38.8%**.
+- `results_brain_ab_t6e_unpractised` (held-out battery vs the deployed bot): **pooled +0.50pp
+  [-0.52, +1.52]**, worst population -1.2pp (human_new -0.48, frozen +2.13, rotation1 +1.84,
+  rotation2 +0.87, human_previous -0.19, heuristic -1.16); its hidden-sheet halves are fine too
+  (-0.58 .. +1.93), so the hidden-sheet loss is specific to our own team.
+- **Gate (`review1003_gate.py team`): T6E_HOLD** -- by the rule fixed before the run, T6e needs a
+  practice round first. The same shape as T6m (battery +0.34, head-to-head 43.8%): the changed
+  set costs the brain in close games against our own six, not against the other teams. Whether
+  to switch anyway is the user's call (one DEPLOYED.json field); the practice recipe itself just
+  failed (it washes out the tactical fine-tune), so "practise first" needs a better recipe.
+
 ## The three review guards HOLD together (mirror 46.2%, battery -0.90pp), all from hp_move_after_hits; its narrow version and the two rare guards pre-registered for their own test (2026-October 3, 19:16)
 
 - **Readings** (`results_mirror_review1003`, `results_guard_ab_review1003`, gate
