@@ -18,6 +18,7 @@ import torch
 from .. import data as D
 from ..model import VGCNet, to_torch
 from ..search import SearchConfig, search
+from ..search_tree import TreeConfig, TreeSearch
 from .sets import to_id
 from .tracker import Tracker, details_species
 
@@ -40,9 +41,11 @@ def encode_move(slot: int, target: int, mega: bool) -> int:
 
 
 class Agent:
-    def __init__(self, model: VGCNet, search_cfg: SearchConfig | None = None, device="cpu", seed: int = 0, deterministic: bool = False):
+    def __init__(self, model: VGCNet, search_cfg: SearchConfig | None = None, device="cpu", seed: int = 0,
+                 deterministic: bool = False, tree_cfg: TreeConfig | None = None):
         self.model = model
         self.search_cfg = search_cfg
+        self.tree = TreeSearch(model, tree_cfg, device) if tree_cfg is not None else None
         self.device = device
         self.rng = random.Random(seed)
         self.deterministic = deterministic
@@ -177,6 +180,13 @@ class Agent:
         battle = D.E.Battle.from_snapshot(snap, self.rng.getrandbits(48))
         viewer = 0 if tr.me == "p1" else 1
         req = tr.request or {}
+        if self.tree is not None and not req.get("forceSwitch"):
+            c, _, _, _ = self.tree.run(battle, viewer, seed=self.rng.getrandbits(32))
+            if req.get("teamPreview"):
+                return self.choice_string(tr, c)
+            rm = self.request_masks(tr, battle)
+            if rm[0, c[1]] and rm[1, c[2]]:
+                return self.choice_string(tr, c)
         if req.get("teamPreview"):
             if self.search_cfg is not None and self.search_cfg.search_preview:
                 r = search(self.model, battle, viewer, self.search_cfg, seed=self.rng.getrandbits(32), device=self.device)

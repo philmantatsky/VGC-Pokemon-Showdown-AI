@@ -38,6 +38,11 @@ def main() -> None:
     ap.add_argument("--team-top", type=int, default=1)
     ap.add_argument("--format", default=FORMAT)
     ap.add_argument("--no-search", action="store_true")
+    ap.add_argument("--search", choices=["matrix", "tree"], default="matrix",
+                    help="matrix: mikumiku37 one-turn payoff tables; tree: deeper open-loop simultaneous pUCT")
+    ap.add_argument("--simulations", type=int, default=2048)
+    ap.add_argument("--depth", type=int, default=4)
+    ap.add_argument("--threads", type=int, default=0, help="torch threads (0 = default)")
     ap.add_argument("--worlds", type=int, default=16)
     ap.add_argument("--k", type=int, default=8)
     ap.add_argument("--ots", choices=["reject", "accept"], default="reject")
@@ -50,8 +55,17 @@ def main() -> None:
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO, format="%(asctime)s %(name)s %(message)s")
     D.load()
     model = load_model(args.checkpoint, device=args.device)
-    cfg = None if args.no_search else SearchConfig(worlds=args.worlds, k_self=args.k, k_opp=args.k)
-    agent = Agent(model, cfg, device=args.device, seed=args.seed)
+    if args.threads:
+        import torch
+
+        torch.set_num_threads(args.threads)
+    cfg = None if args.no_search or args.search != "matrix" else SearchConfig(worlds=args.worlds, k_self=args.k, k_opp=args.k)
+    tree = None
+    if not args.no_search and args.search == "tree":
+        from vgczero.search_tree import TreeConfig
+
+        tree = TreeConfig(simulations=args.simulations, worlds=args.worlds, depth=args.depth, k=args.k)
+    agent = Agent(model, cfg, device=args.device, seed=args.seed, tree_cfg=tree)
     p = pool()
     if args.team_file:
         import json
