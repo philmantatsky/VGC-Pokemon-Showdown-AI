@@ -3165,6 +3165,14 @@ def guard_hp_move_after_hits(battle, cands, report) -> list[Candidate]:
     return hp_move(battle, cands, report)
 
 
+def guard_hp_move_after_spread(battle, cands, report) -> list[Candidate]:
+    """Opt-in: the narrow hp_move_after_hits -- only a shown spread attack from a
+    foe that certainly moves first (game_review_1003.py)."""
+    from vgc_bench.src.game_review_1003 import guard_hp_move_after_spread as hp_spread
+
+    return hp_spread(battle, cands, report)
+
+
 def guard_playbook_opening(battle, cands, report) -> list[Candidate]:
     """Opt-in: play the chosen plan card's turn-1 script (the playbook handoff).
 
@@ -3232,6 +3240,7 @@ GUARDS = {
     "wasted_fake_out": guard_wasted_fake_out,
     "throat_chop_main_threat": guard_throat_chop_main_threat,
     "hp_move_after_hits": guard_hp_move_after_hits,
+    "hp_move_after_spread": guard_hp_move_after_spread,
     "fake_out_partner_acts": guard_fake_out_partner_acts,
     "switch_the_crippled": guard_switch_the_crippled,
     "focus_boosted": guard_focus_boosted,
@@ -3307,6 +3316,7 @@ GUARD_ORDER = (
     "throat_chop_main_threat",
     "dominated_spread",
     "hp_move_after_hits",
+    "hp_move_after_spread",
     "drop_free_finish",
     "threat_first",
     "threat_first2",

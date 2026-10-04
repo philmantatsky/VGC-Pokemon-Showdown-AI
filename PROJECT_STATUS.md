@@ -1,5 +1,21 @@
 # VGC Bot Project Status
 
+## The open-sheet preview passes its non-regression rule (pooled -0.52pp [-1.32, +0.27]); it changes the plan in ~4% of open-sheet games and its effect there is unmeasured; the rare-guard trio test started (2026-October 3, 21:11)
+
+- `results_guard_ab_sheet_preview` (the deployed bot + `sheet_preview` vs the deployed bot):
+  **pooled -0.52pp [-1.32, +0.27]**, worst population -1.4pp, no preview errors ->
+  **SHEET_PASS** (`review1003_gate.py sheet`, rule fixed before the run).
+- It ran in 506 of 517 open-sheet games per population and changed the plan in 22 (~4%):
+  the same two held-out rosters (MC2566, MC53), 11 games each, in every population. Those 12
+  cells: -3.03pp [-19.70, +12.88] (e.g. MC2566 91% -> 18% vs human_previous but 55% -> 82% vs
+  frozen) -- unmeasured; open-sheet cells it never changed -0.40pp, hidden-sheet cells (it
+  cannot act there: an A/A check) -0.52pp. The late-sheet re-plan was checked live
+  (`checks/late_sheet_live.py`). Open sheets only happen in challenges (ladder opponents never
+  accept), so turning it on is low-stakes either way; the user's call.
+- **Started now:** the rare-guard trio (wasted_fake_out, throat_chop_main_threat,
+  hp_move_after_spread, registered now) by the rules pre-registered at 19:16:
+  `tools/rare_trio_chain.sh` (mirror + battery, gate `review1003_gate.py guards`).
+
 ## T6e (Torkoal Earth Power for Weather Ball) on the unpractised deployed brain: battery fine (+0.50pp), head-to-head vs T6 lost 43.4% -> HOLD by the pre-registered rule (2026-October 3, 20:25)
 
 - `results_mirror_t6e_unpractised` (the deployed brain on T6e vs the same brain on T6, both with
