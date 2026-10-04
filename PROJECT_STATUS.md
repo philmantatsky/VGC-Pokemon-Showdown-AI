@@ -1,5 +1,34 @@
 # VGC Bot Project Status
 
+## The matrix search LOSES as built: 38.8% [35.4, 42.2] over 800 games vs the deployed bot (hidden sheets 31-35%); a conservative variant is next (2026-October 4, 14:00)
+
+- **Result:** `results_mirror_search_nash1_s1..4` (pooled `results_mirror_search_nash1_pooled.json`):
+  side A (T6ep + nash search, critic leaf, 4 worlds, 8 s, sampled) **310 / 800 = 38.8% [35.4,
+  42.2]** -> loses, by the pre-registered reading.
+  - Open sheets 44.5 / 44.0%; **hidden sheets 35.5 / 31.0%**.
+- **Health was fine:** 8,544 side-A move decisions, 94.8% searched; 225 coverage fallbacks, 220
+  error fallbacks (2.6%, mostly hidden-world budget exhaustion); search time p50 3.1 s, p90 7.2 s,
+  max 8.1 s. The search overrode the brain's favourite in **3,521 of 8,099 (43%)** decisions.
+- **Reading:** the mechanics work, but a one-turn table scored by our critic is not a better judge
+  than the brain plus guards, and the hidden-set worlds make it worse.
+  - mikumiku37's search added ~110 Elo on top of a value net trained on 330M games. Ours is the
+    PPO critic of far fewer games -- the open question flagged in `RESEARCH_TOP_BOTS.md`.
+  - Other suspects: sampling a mixed strategy against a deterministic opponent, and reply
+    candidates from the human move model rather than our brain.
+- The chain process exited after its shards without logging; its script had been edited and
+  restored mid-run, a mistake now noted. The shards were complete and were pooled by hand.
+
+## PRE-REGISTERED: the conservative matrix-search variant (2026-October 4, 14:00, before the run)
+
+- `NAME=search_nash2 EXTRA="--a-search-argmax --a-search-prior-mix 0.5" tools/search_mirror_chain.sh`:
+  identical to the first test except that side A plays the **argmax of 0.5 x equilibrium +
+  0.5 x policy prior**, with no sampling. It overrides the brain only where the search
+  disagrees strongly. 800 games (4 x 200), same seeds, same reading.
+- What it separates: if it reaches ~50% or better, the loss came from sampling and from
+  overriding too often; if it still loses clearly, the table itself (leaf value / worlds /
+  reply model) is wrong, and the next step is a better leaf value, not a different solution
+  concept.
+
 ## PRE-REGISTERED: the matrix-search head-to-head (2026-October 4, 11:40, before the run; launched 11:43)
 
 - **Arms** (`tools/search_mirror_chain.sh`):
