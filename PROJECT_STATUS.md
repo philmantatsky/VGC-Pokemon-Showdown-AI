@@ -1,5 +1,27 @@
 # VGC Bot Project Status
 
+## PRE-REGISTERED: the matrix-search head-to-head (2026-October 4, 12:50, before the run)
+
+- **Arms** (`tools/search_mirror_chain.sh`):
+  - Side A: the deployed T6ep + 14 guards + **nash exact search**: critic leaf, 4 hidden worlds,
+    8 s budget, every move turn, the equilibrium sampled.
+  - Side B: the deployed T6ep + 14 guards, no search.
+  - Both on T6e with the deployed preview, over the mirror's four blocks (open / hidden sheets x
+    who challenges).
+- **Scale:** 4 processes x 200 games (seeds 20924 + 1000k, one game at a time per process, one
+  local server), pooled by `evaluation/pool_mirrors.py` -> 800 games.
+- **Reading:**
+  - Pooled Wilson 95% lower bound > 50% -> the search wins close games; a ladder trial is the
+    user's call.
+  - Upper bound < 50% -> it loses; next variants: argmax instead of sampling, or mixing the
+    policy prior in.
+  - Otherwise inconclusive.
+  - **Health**, reported alongside: share of side A's move decisions really searched (expect
+    >= 90%), error fallbacks, and how often search overrode the brain. Latency under 4 parallel
+    processes is not ladder-valid.
+- **Smoke games, not part of the test:** outcome-net leaf 0/4; critic leaf 4/8 (84 of 85
+  decisions searched, p50 2.3 s, overrode the brain 35 of 84).
+
 ## Matrix search built: nash solution mode in the exact planner, critic leaf, side-A search in the head-to-head tool; first smoke games (2026-October 4, 12:30)
 
 - The user: "start the matrix search". It runs mikumiku37's turn as a matrix game on our exact
