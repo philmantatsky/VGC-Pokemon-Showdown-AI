@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## KL-anchored practice keeps the lessons (drift 0.10 vs 0.52; 51.7% vs 35.2% for plain practice) but adds nothing on top of its start -> HOLD; the Earth Power candidate stays the night's best brain (2026-October 4, 08:00)
+
+- `training/t6e_anchor_chain.sh` (pre-registered 03:40), from the Earth Power candidate on T6e:
+  the T6ctx recipe +983,040 steps with beta * KL(start || policy), target 0.10 (04:48-06:46,
+  116 min).
+  - **The anchor held:** KL 0.12-0.15 per update with beta only 0.05-0.11. Final drift on the
+    T6e positions **0.098 / 0.068** (slot 1 / slot 2), top slot-1 action unchanged 80.0%.
+    Plain practice from T6tac had drifted **0.52 / 0.37** (61.7% unchanged).
+- **Head-to-head** vs the deployed bot (`results_mirror_t6e_anchor1`): **51.7% [49.6, 53.9]**.
+  - Open sheets 55.6 / 55.8%, hidden sheets **47.4 / 48.2%**.
+  - Its start, the Earth Power candidate, scored 52.8% (open 51.1, hidden 54.4).
+- **Battery** (`results_brain_ab_t6e_anchor1`): pooled **-0.34pp [-1.24, +0.58]**; populations
+  human_new +0.1, frozen -1.16, rotation1 -0.19, rotation2 +0.1, human_previous -1.35,
+  heuristic +0.48.
+- **Gate (`training/t6tac_practice_gate.py go`): HOLD** -- head-to-head not won.
+- **Reading:**
+  - The anchor removes the washout. Plain practice from a fine-tuned brain fell to 35.2%;
+    anchored practice stays at its start's level.
+  - The practice itself adds no measurable strength from here. It moved strength from
+    hidden-sheet to open-sheet games, which is the wrong direction for a ladder with no open
+    sheets. Past head-to-heads show the same lean in some re-fits (tactical2, tactical4), while
+    the practice that won (T6hp -> T6ctx: 61.2 / 57.4) improved both, so the open-sheet share
+    of practice games (50%) is not clearly the cause.
+- **Recommendation:** the Earth Power candidate (`results_tactical_t6e_ep1/sft/tactical_e4.zip`,
+  GO) is the brain to deploy if the user wants one from tonight. Further practice needs a
+  different lever than more of the same games, e.g. the matrix search (`RESEARCH_TOP_BOTS.md`)
+  or a lead-selection fix.
+
 ## Ladder read of the Earth Power candidate: 6-9 over 15 (the user's word); Earth Power right 3 of 4 times it was the best attack; the losses are the old ones -- losing a Pokemon first (8 of 9 losses) and the Venusaur + Torkoal lead (0-3) (2026-October 4, 05:00)
 
 - `ladder_replays_mc_t6e_ep1` (04:06-04:47; table: `results_analysis/ep_ladder_20261004/ladder_read.txt`):

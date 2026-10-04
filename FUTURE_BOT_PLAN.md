@@ -183,8 +183,11 @@
   was clicked 3 of the 4 times it was the best attack and never when worse. The losses were the
   old ones: losing a Pokemon first (8 of 9) and the Venusaur + Torkoal lead (0-3).
 - [ ] Lead selection: the learned preview's Venusaur + Torkoal lead went 0-3 here.
-- [ ] KL-anchored practice on T6e from the Earth Power candidate (`training/t6e_anchor_chain.sh`,
-  pre-registered 03:40), after the ladder read.
+- [x] KL-anchored practice on T6e from the Earth Power candidate (`training/t6e_anchor_chain.sh`,
+  pre-registered 03:40): **HOLD**. Drift 0.098 / 0.068 vs 0.52 / 0.37 unanchored; head-to-head
+  51.7% [49.6, 53.9] (open 55.7 / hidden 47.8) vs 35.2% for plain practice; battery -0.34pp.
+  The anchor keeps the lessons, but the practice adds nothing over its start.
+- [ ] Deploy the Earth Power candidate (GO): the user's call.
 - [ ] One-turn matrix-game search with mixed strategies on the exact bridge (`simulate_batch`), the
   shared ingredient of the two bots that topped Reg M-C (`RESEARCH_TOP_BOTS.md`).
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
