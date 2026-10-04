@@ -9,3 +9,5 @@ runs/
 *.pyd
 __pycache__/
 .pytest_cache/
+# Test fixtures are data, even when they are logs (the repo root ignores *.log)
+!tests/fixtures/*.log

@@ -24,7 +24,7 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--run-dir", required=True)
     ap.add_argument("--k", type=int, default=10)
-    ap.add_argument("--min-games", type=int, default=200)
+    ap.add_argument("--min-games", type=int, default=200, help="lower it (e.g. 30) for short laptop runs")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
     D.load()
@@ -47,6 +47,10 @@ def main() -> None:
     out = Path(args.out or Path(args.run_dir) / "top_teams.json")
     out.write_text(json.dumps(rows, indent=1))
     print(f"wrote {len(rows)} teams to {out}")
+    if len(rows) < args.k:
+        most = int(ts.games.max()) if len(ts.games) else 0
+        print(f"only {len(rows)} teams have >= {args.min_games} games (most played: {most}); "
+              f"lower --min-games for a short run", file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -4,8 +4,8 @@
   # accept challenges on the main server (search on, 16 worlds)
   python scripts/play.py --checkpoint runs/base1/checkpoints/latest.pt --username NAME --password PASS --mode accept
   # local server test: one bot accepts, the other challenges it
-  python scripts/play.py --checkpoint ... --username botA --server ws://localhost:8000/showdown/websocket --mode accept
-  python scripts/play.py --checkpoint ... --username botB --server ws://localhost:8000/showdown/websocket --mode challenge --opponent botA --games 5
+  python scripts/play.py --checkpoint ... --username botA --server ws://localhost:8123/showdown/websocket --mode accept
+  python scripts/play.py --checkpoint ... --username botB --server ws://localhost:8123/showdown/websocket --mode challenge --opponent botA --games 5
 """
 
 import argparse
@@ -20,7 +20,7 @@ from vgczero import data as D  # noqa: E402
 from vgczero.live.agent import Agent  # noqa: E402
 from vgczero.live.client import FORMAT, OFFICIAL_WS, Client  # noqa: E402
 from vgczero.live.sets import pool  # noqa: E402
-from vgczero.model import load_model  # noqa: E402
+from vgczero.model import load_model, pick_device  # noqa: E402
 from vgczero.search import SearchConfig  # noqa: E402
 
 
@@ -46,7 +46,7 @@ def main() -> None:
     ap.add_argument("--worlds", type=int, default=16)
     ap.add_argument("--k", type=int, default=8)
     ap.add_argument("--ots", choices=["reject", "accept"], default="reject")
-    ap.add_argument("--device", default="cpu")
+    ap.add_argument("--device", default="cpu", help="cpu, mps, cuda or auto (cuda > mps > cpu); cpu suits small batches")
     ap.add_argument("--log-dir", default="runs/live")
     ap.add_argument("--timer", action="store_true")
     ap.add_argument("--seed", type=int, default=0)
@@ -54,6 +54,7 @@ def main() -> None:
     args = ap.parse_args()
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO, format="%(asctime)s %(name)s %(message)s")
     D.load()
+    args.device = pick_device(args.device)
     model = load_model(args.checkpoint, device=args.device)
     if args.threads:
         import torch
@@ -71,6 +72,8 @@ def main() -> None:
         import json
         rows = json.loads(Path(args.team_file).read_text())
         teams = [r["team"] for r in rows[: args.team_top]]
+        if not teams:
+            raise SystemExit(f"{args.team_file} has no teams (top_teams.py --min-games may be too high for this run)")
     elif args.teams:
         teams = [p.team_index(t.strip()) for t in args.teams.split(",")]
     else:

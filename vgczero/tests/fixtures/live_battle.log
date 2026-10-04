@@ -1,0 +1,210 @@
+|init|battle
+|title|vgzbotj vs. vgzboti
+|j|☆vgzbotj
+|j|☆vgzboti
+|t:|1791074684
+|gametype|doubles
+|player|p1|vgzbotj|2|
+|player|p2|vgzboti|1|
+|gen|9
+|tier|[Gen 9 Champions] VGC 2026 Reg M-C
+|rule|Species Clause: Limit one of each Pokémon
+|rule|Item Clause: Limit 1 of each item
+|clearpoke
+|poke|p1|Sneasler, L50, M|
+|poke|p1|Rillaboom, L50, M|
+|poke|p1|Tyranitar, L50, M|
+|poke|p1|Excadrill, L50, F|
+|poke|p1|Gholdengo, L50|
+|poke|p1|Dragonite, L50, F|
+|poke|p2|Metagross, L50|
+|poke|p2|Kleavor, L50, M|
+|poke|p2|Whimsicott, L50, F|
+|poke|p2|Kingambit, L50, M|
+|poke|p2|Basculegion, L50, M|
+|poke|p2|Ninetales-Alola, L50, M|
+|teampreview|4
+|uhtml|otsrequest|<button name="send" value="/acceptopenteamsheets" class="button" style="margin-right: 10px;"><strong>Accept Open Team Sheets</strong></button><button name="send" value="/rejectopenteamsheets" class="button" style="margin-top: 10px"><strong>Deny Open Team Sheets</strong></button>
+|request|{"teamPreview":true,"maxChosenTeamSize":4,"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"157/157","active":true,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":true,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false},{"ident":"p1: Tyranitar","details":"Tyranitar, L50, M","condition":"177/177","active":false,"stats":{"atk":204,"def":130,"spa":103,"spd":120,"spe":113},"moves":["rockslide","knockoff","lowkick","protect"],"baseAbility":"sandstream","item":"tyranitarite","pokeball":"pokeball","ability":"sandstream","commanding":false,"reviving":false},{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"187/187","active":false,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"164/164","active":false,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Dragonite","details":"Dragonite, L50, F","condition":"168/168","active":false,"stats":{"atk":138,"def":115,"spa":152,"spd":120,"spe":145},"moves":["dragonpulse","heatwave","tailwind","protect"],"baseAbility":"multiscale","item":"dragoninite","pokeball":"pokeball","ability":"multiscale","commanding":false,"reviving":false}]},"rqid":2}
+|uhtmlchange|otsrequest|
+|uhtmlchange|otsrequest|
+|
+|t:|1791074686
+|teamsize|p1|4
+|teamsize|p2|4
+|start
+|uhtmlchange|otsrequest|
+|switch|p1a: Excadrill|Excadrill, L50, F|187/187
+|switch|p1b: Gholdengo|Gholdengo, L50|164/164
+|switch|p2a: Metagross|Metagross, L50|100/100
+|switch|p2b: Whimsicott|Whimsicott, L50, F|100/100
+|turn|1
+|request|{"active":[{"moves":[{"move":"Rock Slide","id":"rockslide","pp":12,"maxpp":12,"target":"allAdjacentFoes","disabled":false},{"move":"High Horsepower","id":"highhorsepower","pp":12,"maxpp":12,"target":"normal","disabled":false},{"move":"Iron Head","id":"ironhead","pp":16,"maxpp":16,"target":"normal","disabled":false},{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":16,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":8,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"187/187","active":true,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"164/164","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"157/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false}]},"rqid":4}
+|
+|t:|1791074688
+|detailschange|p2a: Metagross|Metagross-Mega, L50
+|-mega|p2a: Metagross|Metagross|Metagrossite
+|move|p2b: Whimsicott|Encore||[still]
+|-fail|p2b: Whimsicott
+|move|p2a: Metagross|Ice Punch|p1b: Gholdengo
+|-resisted|p1b: Gholdengo|1
+|-damage|p1b: Gholdengo|131/164
+|move|p1a: Excadrill|Iron Head|p2b: Whimsicott
+|-supereffective|p2b: Whimsicott|1
+|-damage|p2b: Whimsicott|0 fnt
+|faint|p2b: Whimsicott
+|move|p1b: Gholdengo|Shadow Ball|p2a: Metagross
+|-supereffective|p2a: Metagross|1
+|-damage|p2a: Metagross|0 fnt
+|faint|p2a: Metagross
+|-damage|p1b: Gholdengo|115/164|[from] item: Life Orb
+|
+|upkeep
+|request|{"wait":true,"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"187/187","active":true,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"115/164","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"157/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false}]},"rqid":6}
+|
+|t:|1791074689
+|switch|p2b: Kingambit|Kingambit, L50, M|100/100
+|switch|p2a: Ninetales|Ninetales-Alola, L50, M|100/100
+|-weather|Snowscape|[from] ability: Snow Warning|[of] p2a: Ninetales
+|turn|2
+|request|{"active":[{"moves":[{"move":"Rock Slide","id":"rockslide","pp":12,"maxpp":12,"target":"allAdjacentFoes","disabled":false},{"move":"High Horsepower","id":"highhorsepower","pp":12,"maxpp":12,"target":"normal","disabled":false},{"move":"Iron Head","id":"ironhead","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":8,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"187/187","active":true,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"115/164","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"157/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false}]},"rqid":8}
+|
+|t:|1791074691
+|move|p2a: Ninetales|Protect|p2a: Ninetales
+|-singleturn|p2a: Ninetales|Protect
+|move|p1a: Excadrill|Iron Head|p2a: Ninetales
+|-activate|p2a: Ninetales|move: Protect
+|move|p1b: Gholdengo|Make It Rain|p2b: Kingambit|[spread] p2b
+|-activate|p2a: Ninetales|move: Protect
+|-resisted|p2b: Kingambit|1
+|-damage|p2b: Kingambit|62/100
+|-unboost|p1b: Gholdengo|spa|2
+|-damage|p1b: Gholdengo|99/164|[from] item: Life Orb
+|move|p2b: Kingambit|Kowtow Cleave|p1a: Excadrill
+|-damage|p1a: Excadrill|52/187
+|
+|-weather|Snowscape|[upkeep]
+|upkeep
+|turn|3
+|request|{"active":[{"moves":[{"move":"Rock Slide","id":"rockslide","pp":12,"maxpp":12,"target":"allAdjacentFoes","disabled":false},{"move":"High Horsepower","id":"highhorsepower","pp":12,"maxpp":12,"target":"normal","disabled":false},{"move":"Iron Head","id":"ironhead","pp":14,"maxpp":16,"target":"normal","disabled":false},{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":7,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"52/187","active":true,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"99/164","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"157/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false}]},"rqid":10}
+|
+|t:|1791074693
+|move|p1a: Excadrill|Protect|p1a: Excadrill
+|-singleturn|p1a: Excadrill|Protect
+|move|p1b: Gholdengo|Protect|p1b: Gholdengo
+|-singleturn|p1b: Gholdengo|Protect
+|move|p2a: Ninetales|Blizzard|p1a: Excadrill|[spread] 
+|-activate|p1a: Excadrill|move: Protect
+|-activate|p1b: Gholdengo|move: Protect
+|move|p2b: Kingambit|Kowtow Cleave|p1a: Excadrill
+|-activate|p1a: Excadrill|move: Protect
+|
+|-weather|Snowscape|[upkeep]
+|upkeep
+|turn|4
+|request|{"active":[{"moves":[{"move":"Rock Slide","id":"rockslide","pp":12,"maxpp":12,"target":"allAdjacentFoes","disabled":false},{"move":"High Horsepower","id":"highhorsepower","pp":12,"maxpp":12,"target":"normal","disabled":false},{"move":"Iron Head","id":"ironhead","pp":14,"maxpp":16,"target":"normal","disabled":false},{"move":"Protect","id":"protect","pp":7,"maxpp":8,"target":"self","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":7,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":7,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"52/187","active":true,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"99/164","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"157/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false}]},"rqid":12}
+|
+|t:|1791074695
+|switch|p1a: Sneasler|Sneasler, L50, M|157/157
+|move|p2a: Ninetales|Blizzard|p1b: Gholdengo|[spread] p1a,p1b
+|-resisted|p1b: Gholdengo|1
+|-damage|p1a: Sneasler|79/157
+|-damage|p1b: Gholdengo|62/164
+|-status|p1b: Gholdengo|frz
+|cant|p1b: Gholdengo|frz
+|move|p2b: Kingambit|Kowtow Cleave|p1a: Sneasler
+|-resisted|p1a: Sneasler|1
+|-damage|p1a: Sneasler|12/157
+|
+|-weather|Snowscape|[upkeep]
+|upkeep
+|turn|5
+|request|{"active":[{"moves":[{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false},{"move":"Dire Claw","id":"direclaw","pp":16,"maxpp":16,"target":"normal","disabled":false},{"move":"Close Combat","id":"closecombat","pp":8,"maxpp":8,"target":"normal","disabled":false},{"move":"Acrobatics","id":"acrobatics","pp":16,"maxpp":16,"target":"any","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":7,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":7,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"12/157","active":true,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"62/164 frz","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"52/187","active":false,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false}]},"rqid":14}
+|
+|t:|1791074697
+|switch|p1a: Excadrill|Excadrill, L50, F|52/187
+|move|p2b: Kingambit|Protect|p2b: Kingambit
+|-singleturn|p2b: Kingambit|Protect
+|move|p2a: Ninetales|Blizzard|p1a: Excadrill|[spread] p1a,p1b
+|-resisted|p1b: Gholdengo|1
+|-damage|p1a: Excadrill|0 fnt
+|-damage|p1b: Gholdengo|29/164 frz
+|faint|p1a: Excadrill
+|cant|p1b: Gholdengo|frz
+|
+|-weather|Snowscape|[upkeep]
+|upkeep
+|request|{"forceSwitch":[true,false],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"0 fnt","active":true,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"29/164 frz","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"12/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false}]},"noCancel":true,"rqid":16}
+|
+|t:|1791074697
+|switch|p1a: Rillaboom|Rillaboom, L50, M|177/177
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Rillaboom
+|turn|6
+|request|{"active":[{"moves":[{"move":"Grassy Glide","id":"grassyglide","pp":20,"maxpp":20,"target":"normal","disabled":false},{"move":"Wood Hammer","id":"woodhammer","pp":16,"maxpp":16,"target":"normal","disabled":false},{"move":"U-turn","id":"uturn","pp":20,"maxpp":20,"target":"normal","disabled":false},{"move":"Fake Out","id":"fakeout","pp":12,"maxpp":12,"target":"normal","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":7,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":7,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"177/177","active":true,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"29/164 frz","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"12/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"grassyseed","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"0 fnt","active":false,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false}]},"rqid":18}
+|
+|t:|1791074700
+|switch|p1b: Sneasler|Sneasler, L50, M|12/157
+|-enditem|p1b: Sneasler|Grassy Seed
+|-boost|p1b: Sneasler|def|1|[from] item: Grassy Seed
+|move|p1a: Rillaboom|Fake Out|p2a: Ninetales
+|-damage|p2a: Ninetales|83/100
+|cant|p2a: Ninetales|flinch
+|move|p2b: Kingambit|Kowtow Cleave|p1a: Rillaboom
+|-damage|p1a: Rillaboom|75/177
+|
+|-weather|none
+|-heal|p1b: Sneasler|21/157|[from] Grassy Terrain
+|-heal|p2a: Ninetales|89/100|[from] Grassy Terrain
+|-heal|p1a: Rillaboom|86/177|[from] Grassy Terrain
+|-heal|p2b: Kingambit|68/100|[from] Grassy Terrain
+|upkeep
+|turn|7
+|request|{"active":[{"moves":[{"move":"Grassy Glide","id":"grassyglide","pp":20,"maxpp":20,"target":"normal","disabled":false},{"move":"Wood Hammer","id":"woodhammer","pp":16,"maxpp":16,"target":"normal","disabled":false},{"move":"U-turn","id":"uturn","pp":20,"maxpp":20,"target":"normal","disabled":false},{"move":"Fake Out","id":"fakeout","pp":11,"maxpp":12,"target":"normal","disabled":true}]},{"moves":[{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false},{"move":"Dire Claw","id":"direclaw","pp":16,"maxpp":16,"target":"normal","disabled":false},{"move":"Close Combat","id":"closecombat","pp":8,"maxpp":8,"target":"normal","disabled":false},{"move":"Acrobatics","id":"acrobatics","pp":16,"maxpp":16,"target":"any","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"86/177","active":true,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"21/157","active":true,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"29/164 frz","active":false,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"0 fnt","active":false,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false}]},"rqid":20}
+|
+|t:|1791074701
+|switch|p1b: Gholdengo|Gholdengo, L50|29/164 frz
+|move|p1a: Rillaboom|Grassy Glide|p2b: Kingambit
+|-resisted|p2b: Kingambit|1
+|-damage|p2b: Kingambit|48/100
+|move|p2a: Ninetales|Blizzard|p1b: Gholdengo|[spread] p1b
+|-miss|p2a: Ninetales|p1a: Rillaboom
+|-resisted|p1b: Gholdengo|1
+|-damage|p1b: Gholdengo|0 fnt
+|faint|p1b: Gholdengo
+|move|p2b: Kingambit|Kowtow Cleave|p1a: Rillaboom
+|-damage|p1a: Rillaboom|0 fnt
+|faint|p1a: Rillaboom
+|
+|-heal|p2a: Ninetales|95/100|[from] Grassy Terrain
+|-heal|p2b: Kingambit|54/100|[from] Grassy Terrain
+|upkeep
+|request|{"forceSwitch":[true,true],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"0 fnt","active":true,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"0 fnt","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"21/157","active":false,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"0 fnt","active":false,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false}]},"noCancel":true,"rqid":22}
+|
+|t:|1791074701
+|switch|p1a: Sneasler|Sneasler, L50, M|21/157
+|turn|8
+|request|{"active":[{"moves":[{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false},{"move":"Dire Claw","id":"direclaw","pp":16,"maxpp":16,"target":"normal","disabled":false},{"move":"Close Combat","id":"closecombat","pp":8,"maxpp":8,"target":"normal","disabled":false},{"move":"Acrobatics","id":"acrobatics","pp":16,"maxpp":16,"target":"any","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":7,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":7,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"21/157","active":true,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"0 fnt","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"0 fnt","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false},{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"0 fnt","active":false,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false}]},"rqid":24}
+|
+|t:|1791074703
+|move|p2b: Kingambit|Protect|p2b: Kingambit
+|-singleturn|p2b: Kingambit|Protect
+|move|p2a: Ninetales|Encore||[still]
+|-fail|p2a: Ninetales
+|move|p1a: Sneasler|Dire Claw|p2a: Ninetales
+|-supereffective|p2a: Ninetales|1
+|-damage|p2a: Ninetales|0 fnt
+|faint|p2a: Ninetales
+|
+|-heal|p1a: Sneasler|30/157|[from] Grassy Terrain
+|-heal|p2b: Kingambit|60/100|[from] Grassy Terrain
+|upkeep
+|turn|9
+|request|{"active":[{"moves":[{"move":"Protect","id":"protect","pp":8,"maxpp":8,"target":"self","disabled":false},{"move":"Dire Claw","id":"direclaw","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Close Combat","id":"closecombat","pp":8,"maxpp":8,"target":"normal","disabled":false},{"move":"Acrobatics","id":"acrobatics","pp":16,"maxpp":16,"target":"any","disabled":false}]},{"moves":[{"move":"Shadow Ball","id":"shadowball","pp":15,"maxpp":16,"target":"normal","disabled":false},{"move":"Make It Rain","id":"makeitrain","pp":7,"maxpp":8,"target":"allAdjacentFoes","disabled":false},{"move":"Nasty Plot","id":"nastyplot","pp":20,"maxpp":20,"target":"self","disabled":false},{"move":"Protect","id":"protect","pp":7,"maxpp":8,"target":"self","disabled":false}]}],"side":{"name":"vgzbotj","id":"p1","pokemon":[{"ident":"p1: Sneasler","details":"Sneasler, L50, M","condition":"30/157","active":true,"stats":{"atk":200,"def":80,"spa":54,"spd":100,"spe":172},"moves":["protect","direclaw","closecombat","acrobatics"],"baseAbility":"unburden","item":"","pokeball":"pokeball","ability":"unburden","commanding":false,"reviving":false},{"ident":"p1: Gholdengo","details":"Gholdengo, L50","condition":"0 fnt","active":true,"stats":{"atk":72,"def":115,"spa":203,"spd":111,"spe":136},"moves":["shadowball","makeitrain","nastyplot","protect"],"baseAbility":"goodasgold","item":"lifeorb","pokeball":"pokeball","ability":"goodasgold","commanding":false,"reviving":false},{"ident":"p1: Rillaboom","details":"Rillaboom, L50, M","condition":"0 fnt","active":false,"stats":{"atk":194,"def":110,"spa":72,"spd":90,"spe":137},"moves":["grassyglide","woodhammer","uturn","fakeout"],"baseAbility":"grassysurge","item":"miracleseed","pokeball":"pokeball","ability":"grassysurge","commanding":false,"reviving":false},{"ident":"p1: Excadrill","details":"Excadrill, L50, F","condition":"0 fnt","active":false,"stats":{"atk":187,"def":80,"spa":63,"spd":85,"spe":154},"moves":["rockslide","highhorsepower","ironhead","protect"],"baseAbility":"sandrush","item":"focussash","pokeball":"pokeball","ability":"sandrush","commanding":false,"reviving":false}]},"rqid":26}
+|
+|t:|1791074705
+|move|p2b: Kingambit|Sucker Punch|p1a: Sneasler
+|-resisted|p1a: Sneasler|1
+|-damage|p1a: Sneasler|0 fnt
+|faint|p1a: Sneasler
+|
+|win|vgzboti

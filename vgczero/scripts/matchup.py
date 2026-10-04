@@ -20,6 +20,7 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
+import torch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
@@ -27,7 +28,7 @@ sys.path.insert(0, str(ROOT / "python"))
 from vgczero import data as D  # noqa: E402
 from vgczero.live.sets import pool  # noqa: E402
 from vgczero.matrix_game import solve  # noqa: E402
-from vgczero.model import load_model, to_torch  # noqa: E402
+from vgczero.model import load_model, pick_device, to_torch  # noqa: E402
 
 
 def resolve_team(spec: str) -> tuple[int, dict]:
@@ -57,6 +58,7 @@ def preview_name(team: dict, opt: np.ndarray) -> str:
     return f"lead {sp[opt[0]]}+{sp[opt[1]]} / back {sp[opt[2]]}+{sp[opt[3]]}"
 
 
+@torch.no_grad()
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--checkpoint", required=True)
@@ -66,10 +68,11 @@ def main() -> None:
     ap.add_argument("--envs", type=int, default=128)
     ap.add_argument("--k", type=int, default=8, help="bring/lead options per side in the preview game")
     ap.add_argument("--worlds", type=int, default=32, help="dice samples per preview payoff cell")
-    ap.add_argument("--device", default="cpu")
+    ap.add_argument("--device", default="cpu", help="cpu, mps, cuda or auto (cuda > mps > cpu); cpu suits small batches")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
     D.load()
+    args.device = pick_device(args.device)
     model = load_model(args.checkpoint, device=args.device)
     ia, ta = resolve_team(args.a)
     ib, tb = resolve_team(args.b)

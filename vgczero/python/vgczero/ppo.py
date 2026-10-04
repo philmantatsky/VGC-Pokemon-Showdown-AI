@@ -13,6 +13,7 @@ of the next decision state when a rollout ends mid-game.
 
 from __future__ import annotations
 
+import contextlib
 import json
 import math
 import random
@@ -25,7 +26,7 @@ import torch
 
 from . import data as D
 from .league import SELF, League
-from .model import ModelConfig, VGCNet, load_model, save, to_torch
+from .model import ModelConfig, VGCNet, load_model, pick_device, save, to_torch
 from .teams import TeamStats
 
 
@@ -77,16 +78,6 @@ class TrainConfig:
     save_every: int = 25
     log_every: int = 1
     bf16: bool = True
-
-
-def pick_device(name: str) -> torch.device:
-    if name != "auto":
-        return torch.device(name)
-    if torch.cuda.is_available():
-        return torch.device("cuda")
-    if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
-        return torch.device("mps")
-    return torch.device("cpu")
 
 
 class Rollout:
@@ -189,7 +180,7 @@ class Trainer:
         self.opt = torch.optim.AdamW(self.model.parameters(), lr=cfg.lr, weight_decay=0.0, eps=1e-5)
         opt_path = self.dir / "checkpoints" / "optim.pt"
         if latest.exists() and opt_path.exists():
-            self.opt.load_state_dict(torch.load(opt_path, map_location=self.device, weights_only=False))
+            self.opt.load_state_dict(torch.load(opt_path, map_location="cpu", weights_only=False))
         self.league = League(self.dir / "league", cfg.league_max, cfg.pfsp_power)
         if not self.league.members:
             self.league.snapshot(self.model, self.update, tags=["anchor"])
@@ -223,6 +214,13 @@ class Trainer:
 
     # ---- rollout ----------------------------------------------------------------------
 
+    def _autocast(self):
+        # bf16 autocast only on CUDA. Older torch (< 2.5) rejects torch.autocast("mps") even when
+        # disabled, so MPS and CPU get a plain fp32 context.
+        if self.cfg.bf16 and self.device.type == "cuda":
+            return torch.autocast("cuda", dtype=torch.bfloat16)
+        return contextlib.nullcontext()
+
     @torch.no_grad()
     def collect(self) -> tuple[Rollout, dict]:
         c, N, T = self.cfg, self.cfg.n_envs, self.cfg.rollout_steps
@@ -241,7 +239,7 @@ class Trainer:
             flat_learner = np.nonzero(learner.reshape(-1))[0]
             if len(flat_learner):
                 sub = {k: v[flat_learner] for k, v in o.items()}
-                with torch.autocast(self.device.type, dtype=torch.bfloat16, enabled=c.bf16 and self.device.type == "cuda"):
+                with self._autocast():
                     a, lp, v = self.model.act(sub)
                 av = acts.reshape(-1, 3)
                 av[flat_learner] = a.cpu().numpy()
@@ -322,7 +320,7 @@ class Trainer:
                 mb = perm[s : s + c.minibatch]
                 o = {k: v[mb].to(self.device, non_blocking=True) for k, v in data.items()}
                 a = acts[mb].to(self.device)
-                with torch.autocast(self.device.type, dtype=torch.bfloat16, enabled=c.bf16 and self.device.type == "cuda"):
+                with self._autocast():
                     logp, ent, v = self.model.evaluate(o, a)
                 logp, ent, v = logp.float(), ent.float(), v.float()
                 adv_mb = advs[mb].to(self.device)

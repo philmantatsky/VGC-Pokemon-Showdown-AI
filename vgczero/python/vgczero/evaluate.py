@@ -14,7 +14,7 @@ import numpy as np
 import torch
 
 from . import data as D
-from .model import VGCNet, to_torch
+from .model import VGCNet, pick_device, to_torch
 from .teams import wilson
 
 
@@ -102,10 +102,11 @@ def main() -> None:
     ap.add_argument("--games", type=int, default=1000)
     ap.add_argument("--envs", type=int, default=256)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--device", default="cpu")
+    ap.add_argument("--device", default="cpu", help="cpu, mps, cuda or auto (cuda > mps > cpu); cpu suits small batches")
     ap.add_argument("--deterministic", action="store_true")
     args = ap.parse_args()
     D.load()
+    args.device = pick_device(args.device)
     load = lambda x: x if x in ("random", "greedy") else load_model(x, device=args.device)
     t = time.time()
     r = play_match(load(args.a), load(args.b), args.games, args.envs, seed=args.seed, device=args.device, deterministic=args.deterministic)

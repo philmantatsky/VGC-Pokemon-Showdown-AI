@@ -103,7 +103,7 @@ Heads:
   (pass / switch to member k / move m × target × Mega). The second slot gets an
   embedding of the first slot's choice, so double-targeting, Protect + attack,
   Fake Out + setup and coordinated switches are representable as joint plans
-  (the antonius1 brain's slot-independence was one of its documented limits).
+  (antonius1 gained the same kind of conditioning with its brain-v1 joint head).
   Joint legality (one Mega, no shared switch target) is masked exactly.
 
 ### Training
@@ -124,7 +124,8 @@ simulation is no longer the bottleneck; network inference is. On a GPU the
 1,900 games/s × ~10 decisions × 2 players ≈ 8 TFLOP/s of inference, roughly
 10-25 TFLOP/s once the PPO backward passes are included -- within an RTX 5090's
 reach in bf16; CPU cores step the engine in parallel (rayon).
-Expect a MacBook (MPS) to run the `small` preset at a fraction of that.
+A MacBook is good for the `tiny`/`small` presets and for development; the README's
+"On a Mac" section has measured memory and speed figures.
 
 ### Search
 
@@ -182,7 +183,9 @@ field of meta teams, and keeps the best by Wilson lower bound.
   training runs next to the engine's rayon pool on the same cores:
   oversubscription slowed search ~90x in testing.
 * First from-scratch CPU run (tiny model, 4 shared cores): 23.5% vs the greedy
-  baseline after 8.7k games (random ≈ 8%). Real runs belong on a GPU.
+  baseline after 8.7k games (random ≈ 8%), 49.5% after 90k games (0.7 h); the
+  final checkpoint (~110k games) scores 44.8% [41.7, 47.9] over 1,000 games.
+  Real runs belong on a GPU.
 
 * Gates before laddering, inherited from the antonius1 project's experience:
   head-to-head against the previous checkpoint and against `greedy`, with

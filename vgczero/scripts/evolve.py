@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
 
 from vgczero import data as D  # noqa: E402
 from vgczero.evolve import Evolver  # noqa: E402
-from vgczero.model import load_model  # noqa: E402
+from vgczero.model import load_model, pick_device  # noqa: E402
 from vgczero.teams import TeamStats  # noqa: E402
 
 
@@ -32,10 +32,11 @@ def main() -> None:
     ap.add_argument("--games", type=int, default=400)
     ap.add_argument("--generations", type=int, default=10)
     ap.add_argument("--field", type=int, default=64, help="opponent field: top-N rated teams (or random supported)")
-    ap.add_argument("--device", default="cpu")
+    ap.add_argument("--device", default="cpu", help="cpu, mps, cuda or auto (cuda > mps > cpu); cpu suits small batches")
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
     D.load()
+    args.device = pick_device(args.device)
     model = load_model(args.checkpoint, device=args.device)
     names = D.team_names()
     supported = D.supported_teams()
