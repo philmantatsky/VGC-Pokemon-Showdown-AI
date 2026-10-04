@@ -1,5 +1,23 @@
 # VGC Bot Project Status
 
+## The rare-guard trio PASSES its rule (battery -0.55pp [-1.14, +0.06], mirror 48.6% [46.5, 50.8]); but the HP-move guard still leans negative where it acts -> recommend the two rare guards only (2026-October 3, 22:25)
+
+- `results_guard_ab_rare_trio` / `results_mirror_rare_trio` (wasted_fake_out +
+  throat_chop_main_threat + hp_move_after_spread vs the deployed bot): battery **pooled -0.55pp
+  [-1.14, +0.06]**, worst population -1.1pp; mirror **48.6% [46.5, 50.8]** -> **RARE_TRIO_PASS**
+  (`review1003_gate.py guards`).
+- **Where each fired** (battery cells): hp_move_after_spread 178 firings in 51 cells **-3.21pp
+  [-7.49, +0.71]**; throat_chop_main_threat 74 in 16 cells +0.57pp [-9.09, +9.09];
+  wasted_fake_out 3 in 2 cells (one or two games); cells where none fired -0.16pp. In the
+  mirror all 1,572 changes were hp_move_after_spread (our own six show many spread attacks
+  from faster Pokemon), and side A won 48.6%.
+- **Reading:** both HP-move guards lean negative wherever they act (broad: -1.57pp cells,
+  mirror 46.2%; narrow: -3.2pp cells, mirror 48.6%), though their swaps look right by the
+  calculator 70-75% of the time -- the shown spread attack often does not come again, and Heat
+  Wave misses 10%. The user's turn-7 read was right for that game; as a standing rule it does
+  not pay. **Recommendation:** add wasted_fake_out and throat_chop_main_threat (rare, 7 of 7
+  correct on the ladder replay, no harm measured); keep both HP-move guards off. The user's call.
+
 ## The open-sheet preview passes its non-regression rule (pooled -0.52pp [-1.32, +0.27]); it changes the plan in ~4% of open-sheet games and its effect there is unmeasured; the rare-guard trio test started (2026-October 3, 21:11)
 
 - `results_guard_ab_sheet_preview` (the deployed bot + `sheet_preview` vs the deployed bot):

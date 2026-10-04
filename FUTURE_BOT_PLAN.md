@@ -157,6 +157,10 @@
   35.2%, tactical re-fit 37.2% head-to-head vs the deployed bot; battery +0.03pp -> HOLD.
   Practice after the tactical fine-tune washes its lessons out; next cycle should keep them
   inside training (auxiliary loss toward the tactical teacher), the user's call.
+- [x] The user's 2026-10-03 game review: three guards (together HOLD -- the broad HP-move guard
+  hurt), the rare trio PASS (wasted_fake_out + throat_chop_main_threat recommended, the HP-move
+  guards off); open-sheet preview + late re-plan PASS (non-regression; changes ~4% of
+  open-sheet plans); T6e HOLD (head-to-head 43.4%, battery +0.50pp). Deployments: the user's call.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
