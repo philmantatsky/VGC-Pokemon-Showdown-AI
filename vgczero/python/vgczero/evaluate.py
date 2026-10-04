@@ -1,7 +1,7 @@
 """Head-to-head evaluation between policies (checkpoints or baselines).
 
 A player is a VGCNet, the string "random" or "greedy" (engine baselines), or a
-callable(obs dict, env, side) -> actions [n, 3]. Sides alternate across envs so
+callable(obs, env, side, rows) -> actions [n, 3]. Sides alternate across envs so
 neither player always has side 0.
 """
 
@@ -50,7 +50,7 @@ def _actions(player, obs_np, env, side: int, rows: np.ndarray, device, determini
         a, _, _ = player.act(o, deterministic=deterministic)
         out[rows] = a.cpu().numpy()
         return out
-    out[rows] = player(obs_np, env, side)[rows]
+    out[rows] = player(obs_np, env, side, rows)[rows]
     return out
 
 
