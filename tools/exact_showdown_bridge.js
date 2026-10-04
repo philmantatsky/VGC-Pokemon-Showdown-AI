@@ -147,10 +147,39 @@ function findPokemon(side, record) {
 	return matches[0];
 }
 
-function applyPokemon(battle, pokemon, record) {
-	if (record.species && id(pokemon.species?.id) !== id(record.species)) {
-		pokemon.setSpecies(battle.dex.species.get(record.species), null, true);
+function applyForme(battle, pokemon, record) {
+	if (!record.species || id(pokemon.species?.id) === id(record.species)) return;
+	const species = battle.dex.species.get(record.species);
+	if (!species.exists) return;
+	const permanent = species.isMega || species.isPrimal;
+	if (!permanent || id(species.baseSpecies) !== id(pokemon.baseSpecies?.baseSpecies)) {
+		pokemon.setSpecies(species, null, true);
+		return;
 	}
+	// A Mega Evolution (or Primal Reversion) the shadow never played -- every shadow
+	// rebuilt after a newly revealed reserve. setSpecies alone left it a transform:
+	// the request still said "Blastoise, L50", so the policy and the critic saw the
+	// base forme at this root and in every child, and the Pokemon reverted on its
+	// first switch. Do what Pokemon#formeChange does, minus the ability's entry
+	// event (its effect on the field is already in the snapshot), and write the two
+	// protocol lines so the rebuilt view replays it.
+	pokemon.setSpecies(species, null);
+	pokemon.baseSpecies = species;
+	pokemon.details = pokemon.getUpdatedDetails();
+	battle.add('detailschange', pokemon, pokemon.details);
+	battle.add(species.isPrimal ? '-primal' : '-mega', pokemon, species.baseSpecies, species.requiredItem);
+	const ability = battle.dex.abilities.get(species.abilities['0']);
+	pokemon.ability = ability.id;
+	pokemon.baseAbility = ability.id;
+	pokemon.abilityState = battle.initEffectState({id: ability.id, target: pokemon});
+	pokemon.formeRegression = true;
+	pokemon.canMegaEvo = false;
+	pokemon.canMegaEvoX = false;
+	pokemon.canMegaEvoY = false;
+}
+
+function applyPokemon(battle, pokemon, record) {
+	applyForme(battle, pokemon, record);
 	if (record.maxhp !== null && record.maxhp !== undefined) {
 		pokemon.maxhp = Number(record.maxhp);
 		pokemon.baseMaxhp = Number(record.maxhp);
@@ -217,6 +246,13 @@ function reconcile(request) {
 			const slot = Number(record.active_slot);
 			const previous = side.active[slot];
 			if (previous !== pokemon) {
+				// The Pokemon may already stand in the shadow's OTHER active slot (the
+				// shadow's replacement entered on the other side, or this is our last
+				// Pokemon in slot b). The two then trade places. Leaving the old slot
+				// untouched put one Pokemon in both slots: every joint choice gave it
+				// two moves, none could be encoded, and search failed in exactly these
+				// endgames (about 3% of all decisions, 2026-10-04).
+				const from = side.active.indexOf(pokemon);
 				const targetPosition = previous ? previous.position : slot;
 				const oldPosition = pokemon.position;
 				side.pokemon[targetPosition] = pokemon;
@@ -225,6 +261,7 @@ function reconcile(request) {
 					side.pokemon[oldPosition] = previous;
 					previous.position = oldPosition;
 				}
+				if (from >= 0 && from !== slot) side.active[from] = previous;
 			}
 			side.active[slot] = pokemon;
 			pokemon.isActive = true;

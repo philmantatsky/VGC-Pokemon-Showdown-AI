@@ -192,6 +192,17 @@
   T6ep_guards14; T6tac is now an immutable prior champion.
 - [ ] One-turn matrix-game search with mixed strategies on the exact bridge (`simulate_batch`), the
   shared ingredient of the two bots that topped Reg M-C (`RESEARCH_TOP_BOTS.md`).
+  - [x] Built (`PlannerConfig(solution="nash")`, critic leaf). V1 38.8%, V2 39.1%, V3 34.9%
+    vs the deployed bot over 800 games each: **loses** -- but those runs did not measure it
+    (next line).
+  - [x] 2026-10-04: the search stack was playing a different game (twelve defects: lost
+    guards, a rebuilt view that never matched the live one, hidden opponents without items,
+    un-evolved Megas, a hard-coded seat, noise-sized overrides). Fixed; a null search now
+    plays the deployed bot's pair in 140 of 140 decisions. Details in PROJECT_STATUS.
+  - [ ] V4 on the fixed stack (anchored game, the bot's own pick as the default; anchor 0.2
+    and 0.07, 600 games each, pre-registered 18:35). Gate for a ladder trial: pooled lower
+    bound > 50%, replicated, then the user's word.
+  - [ ] Oracle arm (real opponent sets in the worlds) once there is an effect to explain.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a

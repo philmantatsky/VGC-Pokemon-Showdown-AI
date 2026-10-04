@@ -56,6 +56,20 @@ def _conditions(values: Mapping, battle: AbstractBattle) -> dict[str, dict]:
     return result
 
 
+def live_roles(battle: object) -> tuple[str, str]:
+    """Our seat and the opponent's in the live protocol, as ``(ours, theirs)``.
+
+    The exact worlds always seat us as p1 and snapshot side 0 is always ours, but the
+    server seats us as either, and every raw protocol event names its actor by the
+    server's seat. Until 2026-10-04 the readers below assumed we were p1: in seat 2
+    each side's move history, items and spent Mega were read from the other side's
+    events.
+    """
+    if getattr(battle, "player_role", None) == "p2":
+        return "p2", "p1"
+    return "p1", "p2"
+
+
 def _actor_matches(event: list[str], nickname: str, role: str | None = None) -> bool:
     if len(event) <= 2:
         return False
@@ -179,7 +193,16 @@ def _public_item(
     *,
     own: bool,
 ) -> str | None:
-    """Repair stale poke-env item fields after Trick, Knock Off, and consumption."""
+    """Repair stale poke-env item fields after Trick, Knock Off, and consumption.
+
+    None means the item is not public, and the shadow keeps what its determinization
+    gave that Pokemon. poke-env's placeholder for an unrevealed item is the string
+    "unknown_item"; until 2026-10-04 it went through as an item of that name, so with
+    hidden sheets every active opponent in every shadow lost its real item (no Focus
+    Sash, berry, Choice item or Life Orb in any searched line).
+    """
+    if to_id_str(fallback or "") == "unknownitem":
+        fallback = None
     item: str | None = to_id_str(fallback or "") if (own or fallback) else None
     for event in getattr(battle, "_replay_data", []):
         if not _actor_matches(event, nickname, role) or len(event) < 4:
@@ -236,7 +259,7 @@ def _pokemon_snapshot(
             }
             for move in pokemon.moves.values()
         ]
-    role = "p1" if own else "p2"
+    role = live_roles(battle)[0 if own else 1]
     last_move, must_recharge, preparing_move = _public_move_state(
         battle, nickname, role
     )
@@ -265,7 +288,11 @@ def _pokemon_snapshot(
             "move": preparing_move,
         }
         parts = (previous_choice_atom or "").split()
-        if len(parts) >= 2 and parts[0] == "move" and to_id_str(parts[1]) == preparing_move:
+        if (
+            len(parts) >= 2
+            and parts[0] == "move"
+            and to_id_str(parts[1]) == preparing_move
+        ):
             targets = [
                 int(part)
                 for part in parts[2:]
@@ -393,7 +420,7 @@ def public_snapshot(
                     ),
                 )
             )
-        role = "p1" if own else "p2"
+        role = live_roles(battle)[0 if own else 1]
         return {
             "pokemon": pokemon_rows,
             "side_conditions": _conditions(
@@ -478,6 +505,8 @@ def apply_public_snapshot(battle: AbstractBattle, snapshot: dict[str, Any]) -> N
     def apply_side(index: int, own: bool) -> None:
         table = battle.team if own else battle.opponent_team
         rows = snapshot["sides"][index]["pokemon"]
+        # exact-world seats (we are always p1 there), not the server's: this view is
+        # rebuilt from an exact state, never from the live protocol
         role = "p1" if own else "p2"
         # Historical shadow logs can leave poke-env's slot dictionary pointing at a
         # different Pokemon even after the public snapshot marks the right object

@@ -164,6 +164,15 @@ def _outcomes(player) -> tuple[float, int, int]:
     return wins, games, ties
 
 
+def _battle_rows(player) -> list[dict]:
+    """Side A's result and length per battle, to line results up with its decision
+    log (a_decisions.jsonl carries the same battle tags)."""
+    return [
+        {"battle": battle.battle_tag, "a_won": battle.won, "turns": int(battle.turn)}
+        for battle in player.battles.values()
+    ]
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -242,6 +251,35 @@ def main() -> None:
         type=float,
         default=0.0,
         help="nash: play (1 - m) * equilibrium + m * policy prior",
+    )
+    ap.add_argument(
+        "--a-search-anchor",
+        type=float,
+        default=0.0,
+        help="nash: solve the game with both sides tied to their priors at this "
+        "temperature (0: the plain equilibrium)",
+    )
+    ap.add_argument(
+        "--a-search-champion",
+        choices=("on", "off"),
+        default="on",
+        help="the pair side A would play without search is always ranked and (with "
+        "--a-search-anchor) the default to beat; off: the raw policy prior only "
+        "(every search run before 2026-10-04)",
+    )
+    ap.add_argument(
+        "--a-search-views",
+        choices=("live", "rebuilt"),
+        default="live",
+        help="side A's view of its search worlds: grown from the live battle, or "
+        "rebuilt from each world's log (every search run before 2026-10-04)",
+    )
+    ap.add_argument(
+        "--a-search-guards",
+        choices=("player", "hard"),
+        default="player",
+        help="guards a searched pick must pass: side A's own stack, or the hard "
+        "guards only (how every search run before 2026-10-04 played)",
     )
     ap.add_argument(
         "--concurrency",
@@ -353,6 +391,10 @@ def main() -> None:
             "oracle_opponent_team": args.a_search_oracle,
             "sample": not args.a_search_argmax,
             "prior_mix": args.a_search_prior_mix,
+            "anchor": args.a_search_anchor,
+            "guards": args.a_search_guards,
+            "champion": args.a_search_champion,
+            "views": args.a_search_views,
             "outcome_value": str(args.a_search_outcome),
             "outcome_value_sha256": sha256(ROOT / args.a_search_outcome),
         }
@@ -447,6 +489,7 @@ def main() -> None:
                 solution=args.a_search,
                 nash_sample=not args.a_search_argmax,
                 nash_prior_mix=args.a_search_prior_mix,
+                nash_anchor=args.a_search_anchor,
             ),
             "outcome_value_path": ROOT / search["outcome_value"],
             "exact_team_path": ROOT / (a_team or config["TEAM"]),
@@ -455,6 +498,9 @@ def main() -> None:
             "exact_search_determinizations": args.a_search_worlds,
             "exact_min_deep_coverage": 0.5,
             "exact_leaf": args.a_search_leaf,
+            "exact_player_guards": args.a_search_guards == "player",
+            "exact_champion_anchor": args.a_search_champion == "on",
+            "exact_live_views": args.a_search_views == "live",
             "exact_oracle_opponent_team": (
                 ROOT / config["TEAM"] if args.a_search_oracle else None
             ),
@@ -537,6 +583,7 @@ def main() -> None:
                 "changed_by_guard": per_guard,
                 "a_search_counts": search_counts,
                 "elapsed_s": round(time.monotonic() - started, 1),
+                "battles": _battle_rows(a),
             }
         )
         totals["wins"] += wins

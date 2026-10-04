@@ -1,0 +1,68 @@
+{
+  "runs": [
+    "results_mirror_search_nash3_s1",
+    "results_mirror_search_nash3_s2",
+    "results_mirror_search_nash3_s3",
+    "results_mirror_search_nash3_s4"
+  ],
+  "complete": true,
+  "games": 800,
+  "a_wins": 279.0,
+  "a_win_rate": 0.34875,
+  "wilson_95": [
+    0.31651897014515795,
+    0.38242669278146835
+  ],
+  "blocks": {
+    "open sheets, A challenges": {
+      "a_wins": 78.0,
+      "games": 200,
+      "a_win_rate": 0.39
+    },
+    "open sheets, B challenges": {
+      "a_wins": 83.0,
+      "games": 200,
+      "a_win_rate": 0.415
+    },
+    "hidden sheets, A challenges": {
+      "a_wins": 60.0,
+      "games": 200,
+      "a_win_rate": 0.3
+    },
+    "hidden sheets, B challenges": {
+      "a_wins": 58.0,
+      "games": 200,
+      "a_win_rate": 0.29
+    }
+  },
+  "search_audit": {
+    "decisions": 8662,
+    "modes": {
+      "search": 8253,
+      "error_fallback": 268,
+      "search_fallback": 141
+    },
+    "fallback_reasons": {
+      "error_fallback:exact_search_error": 268,
+      "search_fallback:selected_action_did_not_reach_required_depth": 98,
+      "search_fallback:live_safe_action_did_not_reach_required_depth": 43
+    },
+    "searched": 8253,
+    "search_changed_policy_favourite": 2652,
+    "search_changed_guarded_policy_choice": null,
+    "search_changed_champion_action": null,
+    "guards_changed_searched_pick": 468,
+    "guard_stages_on_searched_picks": {
+      "guaranteed_ko": 404,
+      "protect_spam": 32,
+      "two_on_one_focus": 30,
+      "zero_damage": 3
+    },
+    "elapsed_s": {
+      "p50": 2.3833269579336047,
+      "p90": 7.213047791970894,
+      "max": 7.973697958048433
+    },
+    "mean_weight_of_chosen": 0.541992858190267
+  }
+}

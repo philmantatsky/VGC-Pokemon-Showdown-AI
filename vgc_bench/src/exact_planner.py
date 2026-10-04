@@ -10,7 +10,9 @@ plays one turn as the simultaneous-move game it is instead: per hidden-informati
 world, the exact payoff table of our candidates x the opponent's likely replies,
 solved for an equilibrium mixed strategy (``matrix_game.solve``), averaged over the
 worlds and sampled -- the recipe of the two bots that topped Reg M-C
-(RESEARCH_TOP_BOTS.md).
+(RESEARCH_TOP_BOTS.md). ``nash_anchor`` ties both sides of that game to their priors
+(``matrix_game.solve_anchored``), so the policy's choice stands unless the tables
+show a payoff edge well above the leaf evaluator's noise.
 """
 
 from __future__ import annotations
@@ -41,6 +43,7 @@ from vgc_bench.src.exact_observation import (
 )
 from vgc_bench.src.exact_sim import ExactShowdownBridge, ExactSimulatorError
 from vgc_bench.src.matrix_game import solve as solve_matrix_game
+from vgc_bench.src.matrix_game import solve_anchored as solve_anchored_game
 from vgc_bench.src.tempo_reranker import speed_control_snapshot
 
 
@@ -125,6 +128,18 @@ class PlannerConfig:
     # weight of the policy prior in the played strategy (vgczero's prior_mix): the
     # averaged equilibrium x is played as (1 - m) * x + m * prior
     nash_prior_mix: float = 0.0
+    # > 0: the anchored game (matrix_game.solve_anchored) instead of the plain one --
+    # each world's table is solved with both sides tied to their priors at this
+    # temperature, and the played strategy is prior x exp(payoff / temperature) with
+    # the payoff averaged over worlds. The plain equilibrium overrode the policy on
+    # payoff edges of a few thousandths (2026-10-04: 31-43% of decisions, and lost).
+    nash_anchor: float = 0.0
+    # Under the anchor, the pair the bot plays WITHOUT search (policy and guards;
+    # ``include`` in the planners) counts as this many times as likely as the raw
+    # policy's favourite. It is the default: leaving it for the favourite takes a
+    # payoff edge of nash_anchor x ln(boost) (0.14 at 0.2), for a pair the policy
+    # likes a quarter as much three times that.
+    nash_champion_boost: float = 2.0
 
     def __post_init__(self) -> None:
         if self.depth < 1:
@@ -158,6 +173,10 @@ class PlannerConfig:
             raise ValueError("nash_iters must be positive, the prior ratio in [0, 1]")
         if not 0 <= self.nash_prior_mix <= 1:
             raise ValueError("nash_prior_mix must be in [0, 1]")
+        if self.nash_anchor < 0 or (self.nash_anchor > 0 and self.nash_prior_mix > 0):
+            raise ValueError("nash_anchor must be >= 0 and replaces nash_prior_mix")
+        if self.nash_champion_boost < 1:
+            raise ValueError("nash_champion_boost must be at least 1")
 
 
 @dataclass(frozen=True)
@@ -751,17 +770,26 @@ class ExactMultiTurnPlanner:
         return terminal if terminal is not None else float(self.evaluator(node, role))
 
     def _rank(
-        self, node: ExactNode, role: str, width: int, *, guarantee_moves: bool = False
+        self,
+        node: ExactNode,
+        role: str,
+        width: int,
+        *,
+        guarantee_moves: bool = False,
+        include: str | None = None,
     ) -> list[RankedChoice]:
+        """The ``width`` most likely diverse choices, plus ``include`` if it is legal
+        and did not make the cut (the pair the bot would play without search)."""
         choices = self.bridge.choices(node.state, role)
         if not choices:
             return []
         ranked = self.prior.rank(node.state, node.requests, role, choices)
         if not ranked:
             ranked = UniformPrior().rank(node.state, node.requests, role, choices)
-        return _normalise(
-            _diverse_prefix(ranked, width, guarantee_moves=guarantee_moves)
-        )
+        prefix = _diverse_prefix(ranked, width, guarantee_moves=guarantee_moves)
+        if include is not None and all(item.choice != include for item in prefix):
+            prefix = [*prefix, *(item for item in ranked if item.choice == include)]
+        return _normalise(prefix)
 
     def _rng_seed(
         self, node: ExactNode, ours: str, theirs: str, sample: int, sample_count: int
@@ -1096,20 +1124,27 @@ class ExactMultiTurnPlanner:
         )
 
     def _plan_nash(
-        self, root: ExactNode, role: str, ours: list[RankedChoice], started: float
+        self,
+        root: ExactNode,
+        role: str,
+        ours: list[RankedChoice],
+        started: float,
+        include_choice: str | None = None,
     ) -> PlanResult:
         """One turn as a simultaneous-move game: the exact payoff table of our
         candidates x the opponent's likely replies, solved for an equilibrium.
 
         Rankings carry our equilibrium weight as ``score`` and the payoff against the
         opponent's equilibrium as ``expected``; every row is fully evaluated, so all
-        of them count as deepened (depth one).
+        of them count as deepened (depth one). With ``nash_anchor`` both strategies
+        are the anchored game's, tied to the two priors.
         """
         top = max(item.probability for item in ours)
         kept = [
             item
             for item in ours
             if item.probability + 1e-12 >= self.config.nash_min_prior_ratio * top
+            or item.choice == include_choice
         ]
         ours = kept or ours[:1]
         theirs = self._rank(
@@ -1132,7 +1167,17 @@ class ExactMultiTurnPlanner:
         if (count == 0).any():
             raise ValueError("the nash payoff table is missing cells")
         table = total / count
-        strategy, reply, _value = solve_matrix_game(table, iters=self.config.nash_iters)
+        if self.config.nash_anchor > 0:
+            strategy, reply, _value = solve_anchored_game(
+                table,
+                np.array([item.probability for item in ours]),
+                np.array([item.probability for item in theirs]),
+                self.config.nash_anchor,
+            )
+        else:
+            strategy, reply, _value = solve_matrix_game(
+                table, iters=self.config.nash_iters
+            )
         against = table @ reply
         rankings = sorted(
             (
@@ -1161,8 +1206,14 @@ class ExactMultiTurnPlanner:
             deepened_choices=[item.choice for item in ours],
         )
 
-    def plan(self, root: ExactNode, role: str = "p1") -> PlanResult:
-        """Rank root actions by exact multi-turn outcomes."""
+    def plan(
+        self, root: ExactNode, role: str = "p1", include_choice: str | None = None
+    ) -> PlanResult:
+        """Rank root actions by exact multi-turn outcomes.
+
+        ``include_choice`` is always among the ranked actions when it is legal here,
+        whatever its prior.
+        """
         started = time.monotonic()
         self._deadline = started + self.config.time_budget_s
         self._nodes = 0
@@ -1175,11 +1226,17 @@ class ExactMultiTurnPlanner:
         terminal = self._terminal(root, role)
         if terminal is not None:
             raise ValueError("cannot plan from an ended battle")
-        ours = self._rank(root, role, self.config.root_width, guarantee_moves=True)
+        ours = self._rank(
+            root,
+            role,
+            self.config.root_width,
+            guarantee_moves=True,
+            include=include_choice,
+        )
         if not ours:
             raise ValueError("no legal exact choices available at planner root")
         if self.config.solution == "nash" and root.request_state == "move":
-            result = self._plan_nash(root, role, ours, started)
+            result = self._plan_nash(root, role, ours, started, include_choice)
             self.continuations = ()
             self.outcomes = tuple(self._captured_outcomes)
             return result
@@ -1224,6 +1281,7 @@ def aggregate_plans(
     failed_roots: int = 0,
     required_choices: set[str] | None = None,
     minimum_depth_coverage: float = 0.0,
+    anchor_choices: set[str] | None = None,
 ) -> PlanResult:
     """Merge per-determinization plans into one risk-weighted ranking.
 
@@ -1239,6 +1297,7 @@ def aggregate_plans(
             total_probability=total_probability,
             failed_roots=failed_roots,
             required_choices=required_choices,
+            anchor_choices=anchor_choices,
         )
     completed_probability = sum(probability for probability, _result in results)
     total_probability = (
@@ -1256,7 +1315,11 @@ def aggregate_plans(
 
     rankings: list[ActionScore] = []
     for choice, outcomes in by_choice.items():
-        if required_choices is not None and choice not in required_choices:
+        if (
+            required_choices is not None
+            and choice not in required_choices
+            and choice not in (anchor_choices or ())
+        ):
             continue
         represented = sum(probability for probability, _score in outcomes)
         # A controlled-side choice should exist in every determinization. Treat a
@@ -1362,6 +1425,7 @@ def _aggregate_nash(
     total_probability: float | None,
     failed_roots: int,
     required_choices: set[str] | None,
+    anchor_choices: set[str] | None = None,
 ) -> PlanResult:
     """Average the worlds' equilibrium strategies (by world probability) and sample.
 
@@ -1391,6 +1455,27 @@ def _aggregate_nash(
             prior[row.choice] = prior.get(row.choice, 0.0) + share * row.prior
             branches[row.choice] = branches.get(row.choice, 0) + row.opponent_branches
             first.setdefault(row.choice, row)
+    if config.nash_anchor > 0:
+        # one strategy for every world we cannot tell apart: the prior reweighted by
+        # each action's world-averaged payoff against that world's anchored reply
+        anchor_prior = {choice: prior[choice] / mass[choice] for choice in weight}
+        if anchor_choices:
+            # The pair the bot plays without search (policy AND guards) is the
+            # default, whatever the raw policy thought of it.
+            default_prior = max(anchor_prior.values()) * config.nash_champion_boost
+            for choice in anchor_choices & anchor_prior.keys():
+                anchor_prior[choice] = max(anchor_prior[choice], default_prior)
+        logit = {
+            choice: math.log(max(anchor_prior[choice], 1e-12))
+            + (expected[choice] / mass[choice]) / config.nash_anchor
+            for choice in weight
+        }
+        peak = max(logit.values())
+        unnormalised = {
+            choice: math.exp(value - peak) for choice, value in logit.items()
+        }
+        scale = sum(unnormalised.values())
+        weight = {choice: value / scale for choice, value in unnormalised.items()}
     if config.nash_prior_mix > 0:
         prior_total = sum(prior[choice] / mass[choice] for choice in weight) or 1.0
         weight = {
@@ -1412,7 +1497,10 @@ def _aggregate_nash(
             depth_coverage=mass[choice] * completed / total,
         )
         for choice in weight
-        if required_choices is None or choice in required_choices
+        # the bot's own pair is known to be submittable whatever root zero ranked
+        if required_choices is None
+        or choice in required_choices
+        or choice in (anchor_choices or ())
     ]
     if not rankings:
         raise ValueError("no action survived determinization aggregation")
@@ -1482,6 +1570,7 @@ class ExactDeterminizationPlanner:
         failed_roots: int = 0,
         required_choices: set[str] | None = None,
         minimum_depth_coverage: float = 0.0,
+        anchor_choices: set[str] | None = None,
     ) -> PlanResult:
         return aggregate_plans(
             results,
@@ -1491,6 +1580,7 @@ class ExactDeterminizationPlanner:
             failed_roots=failed_roots,
             required_choices=required_choices,
             minimum_depth_coverage=minimum_depth_coverage,
+            anchor_choices=anchor_choices,
         )
 
     def plan(
@@ -1498,9 +1588,15 @@ class ExactDeterminizationPlanner:
         roots: Sequence[WeightedExactNode],
         role: str = "p1",
         minimum_depth_coverage: float = 0.0,
+        include: Sequence[str | None] | None = None,
     ) -> PlanResult:
+        """``include`` names, per root, a choice that must be ranked there (the pair
+        the bot would play without search, spelled in that root's own terms); under
+        ``nash_anchor`` it is also the default the search has to beat."""
         if not roots:
             raise ValueError("at least one determinization is required")
+        if include is not None and len(include) != len(roots):
+            raise ValueError("include needs one entry per determinization")
         if len(roots) > 8:
             raise ValueError("hidden search supports at most eight determinizations")
         if not 0 <= minimum_depth_coverage <= 1:
@@ -1540,7 +1636,9 @@ class ExactDeterminizationPlanner:
                 ),
             )
             try:
-                result = planner.plan(weighted.node, role)
+                result = planner.plan(
+                    weighted.node, role, include[index] if include else None
+                )
             except (ExactSimulatorError, ValueError) as exc:
                 failed_roots += 1
                 root_errors.append(f"{weighted.label}: {type(exc).__name__}: {exc}")
@@ -1580,6 +1678,7 @@ class ExactDeterminizationPlanner:
             failed_roots=failed_roots,
             required_choices=required_choices,
             minimum_depth_coverage=minimum_depth_coverage,
+            anchor_choices={choice for choice in include or () if choice} or None,
         )
         if failed_roots:
             aggregate = replace(aggregate, truncated=True)

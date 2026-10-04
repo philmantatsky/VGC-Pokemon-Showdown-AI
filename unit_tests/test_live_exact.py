@@ -284,8 +284,10 @@ def test_observed_actions_match_move_target_and_mega():
         ["", "move", "p2b: Whimsicott", "Tailwind", "p2b: Whimsicott"],
     ]
     observed = observed_opponent_actions(events)
+    # +2 is the opposing side's slot b for both seats (sim/pokemon.ts getAtLoc).
+    # This test pinned the mirrored reading (p1b -> +1) until 2026-10-04.
     assert observed == {
-        0: ObservedAction("move", "weatherball", 1, True),
+        0: ObservedAction("move", "weatherball", 2, True),
         1: ObservedAction("move", "tailwind", None, False),
     }
     node = ExactNode(
@@ -297,13 +299,13 @@ def test_observed_actions_match_move_target_and_mega():
     assert choice_matches_observation(
         node,
         "p2",
-        "move weatherball +1 mega, move tailwind",
+        "move weatherball +2 mega, move tailwind",
         observed,
     )
     assert not choice_matches_observation(
         node,
         "p2",
-        "move weatherball +2 mega, move tailwind",
+        "move weatherball +1 mega, move tailwind",
         observed,
     )
 
@@ -320,7 +322,7 @@ def test_observed_spread_target_matches_targetless_showdown_command():
         turn=1,
         request_state="move",
     )
-    assert observed[1].target == 1
+    assert observed[1].target == 2
     assert choice_matches_observation(
         node,
         "p2",

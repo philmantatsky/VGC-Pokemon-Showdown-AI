@@ -186,6 +186,9 @@ class PolicyPlayer(Player):
         exact_ponder_config: Any | None = None,
         exact_leaf: str = "outcome",
         exact_oracle_opponent_team: str | Path | None = None,
+        exact_player_guards: bool = True,
+        exact_champion_anchor: bool = True,
+        exact_live_views: bool = True,
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -293,6 +296,22 @@ class PolicyPlayer(Player):
             exact_enable_ponder: Expand opponent responses in an isolated simulator
                 after submitting our action, without delaying the live turn.
             exact_ponder_config: Optional ``PonderConfig`` for background expansion.
+            exact_leaf: Leaf evaluator of the exact search: the outcome net or the
+                policy's own critic.
+            exact_oracle_opponent_team: Diagnostic only -- the opponent's real team
+                file for the exact worlds.
+            exact_player_guards: Judge a searched pick with this player's own guard
+                switches as well as the hard guards (default). False restores the
+                hard-guards-only behavior of every search run before 2026-10-04.
+            exact_champion_anchor: Before each searched decision work out the pair
+                this player would submit with search off and hand it to the search,
+                which always ranks it and (anchored nash) treats it as the default
+                to beat; it is also written to the search audit
+                (``champion_actions``). False: the search sees only the raw policy
+                prior, how every search run before 2026-10-04 played.
+            exact_live_views: The search's view of our side grows from the live
+                battle (default); False rebuilds it from each shadow's own log, as
+                before 2026-10-04.
             enable_search: Per-player exact-search switch. ``None`` inherits the
                 class default; evaluations use this to keep opponent players on
                 their own policy while searching several controlled battles.
@@ -414,6 +433,11 @@ class PolicyPlayer(Player):
         self.exact_enable_ponder = bool(exact_enable_ponder)
         self.exact_ponder_config = exact_ponder_config
         self.exact_leaf = exact_leaf
+        # searched picks pass the same guards as unsearched ones (False: hard guards
+        # only, how every search run before 2026-10-04 played)
+        self.exact_player_guards = bool(exact_player_guards)
+        self.exact_champion_anchor = bool(exact_champion_anchor)
+        self.exact_live_views = bool(exact_live_views)
         # diagnostic only: the opponent's real team file for the exact worlds
         self.exact_oracle_opponent_team = (
             Path(exact_oracle_opponent_team)
@@ -1561,6 +1585,7 @@ class PolicyPlayer(Player):
             ponder_config=self.exact_ponder_config,
             policy_inference_lock=self._exact_policy_lock,
             leaf=self.exact_leaf,
+            live_views=getattr(self, "exact_live_views", True),
             oracle_opponent_team_text=(
                 self.exact_oracle_opponent_team.read_text()
                 if self.exact_oracle_opponent_team is not None
@@ -1570,19 +1595,78 @@ class PolicyPlayer(Player):
         self._exact_sessions[battle.battle_tag] = session
         return session
 
+    def _effective_guard_flags(self) -> dict[str, bool] | None:
+        """The guard switches this player plays with: the process-wide profile plus
+        its own overrides (None: every guard)."""
+        guard_flags = PolicyPlayer.guard_flags
+        overrides = getattr(self, "guard_overrides", None)
+        if overrides:
+            guard_flags = {**(guard_flags or {}), **overrides}
+        return guard_flags
+
+    def _champion_reference(self, battle, obs_dict, mask) -> list[int] | None:
+        """The pair this player would submit with search off.
+
+        Runs the real unsearched path -- policy, guards, rerankers, sticky
+        corrections -- with its side effects held back: no counters, no word to the
+        search session, and its decision audit in a file of its own
+        (``<decision log>_champion``). The search is anchored on this pair and the
+        search audit records it. The search's own prior cannot stand in for it: on
+        2026-10-04 the guarded favourite of the searched candidates differed from
+        this pair in 21% of decisions (the guards work on the whole candidate list,
+        the search ranks a handful of it).
+        """
+        counts = PolicyPlayer.guard_fire_counts.copy()
+        seen = PolicyPlayer._decisions_seen
+        saved = (self.enable_search, self.decision_log_path, self._exact_sessions)
+        log = self.decision_log_path
+        self.enable_search = False
+        self.decision_log_path = (
+            log.with_name(f"{log.stem}_champion{log.suffix}") if log else None
+        )
+        self._exact_sessions = {}
+        try:
+            return [int(a) for a in self._guarded_action(battle, obs_dict, mask)]
+        except Exception:
+            return None
+        finally:
+            self.enable_search, self.decision_log_path, self._exact_sessions = saved
+            PolicyPlayer.guard_fire_counts.clear()
+            PolicyPlayer.guard_fire_counts.update(counts)
+            PolicyPlayer._decisions_seen = seen
+
     def _exact_search_action(
-        self, battle: DoubleBattle
+        self, battle: DoubleBattle, champion_actions: list[int] | None = None
     ) -> npt.NDArray[np.int64] | None:
         """Run bounded exact planning and preserve a complete decision audit."""
         from vgc_bench.src import search as _search
-        from vgc_bench.src.live_exact import append_exact_audit
+        from vgc_bench.src.live_exact import (
+            append_exact_audit,
+            canonical_target_actions,
+        )
 
         session = self._live_exact_session(battle)
+        if (
+            getattr(self, "exact_player_guards", True)
+            and PolicyPlayer.use_knowledge_guards
+        ):
+            session.set_player_guards(self._effective_guard_flags())
+        if champion_actions is not None:
+            # the spelling the search ranks (an attack into an empty slot re-aimed)
+            champion_actions = list(canonical_target_actions(battle, champion_actions))
         started = time.monotonic()
-        result = session.plan(battle)
+        result = session.plan(battle, champion_actions)
         elapsed_ms = (time.monotonic() - started) * 1000.0
         _search._record_latency(elapsed_ms)
-        append_exact_audit(self.decision_log_path, battle, session.audit())
+        payload = session.audit()
+        if champion_actions is not None:
+            payload["champion_actions"] = champion_actions
+            payload["actions"] = (
+                [int(action) for action in result.actions]
+                if result is not None and result.actions is not None
+                else None
+            )
+        append_exact_audit(self.decision_log_path, battle, payload)
         if result is None:
             PolicyPlayer.guard_fire_counts["exact_search_skipped"] += 1
             return None
@@ -1644,8 +1728,13 @@ class PolicyPlayer(Player):
         # with the champion (or a separately trained preview model) until genuine
         # planner preview labels clear their own promotion gate.
         if self.enable_search and not battle.teampreview:
+            champion = (
+                self._champion_reference(battle, obs_dict, mask)
+                if getattr(self, "exact_champion_anchor", True)
+                else None
+            )
             try:
-                picked = self._exact_search_action(battle)
+                picked = self._exact_search_action(battle, champion)
                 if picked is not None:
                     self._maybe_report_guards()
                     return picked
@@ -1656,7 +1745,7 @@ class PolicyPlayer(Player):
                 from vgc_bench.src.live_exact import append_exact_audit
 
                 session = self._exact_sessions.get(battle.battle_tag)
-                payload = (
+                payload: dict[str, Any] = (
                     session.audit()
                     if session is not None
                     else {"backend": "live-exact-showdown"}
@@ -1675,6 +1764,9 @@ class PolicyPlayer(Player):
                     "error": str(exc),
                     "traceback": traceback.format_exc(limit=24),
                 }
+                if champion is not None:
+                    payload["champion_actions"] = champion
+                    payload["actions"] = None
                 append_exact_audit(self.decision_log_path, battle, payload)
 
         cands = []
@@ -1706,11 +1798,9 @@ class PolicyPlayer(Player):
             guard_report = None
             guarded_top = raw_top
             if PolicyPlayer.use_knowledge_guards:
-                guard_flags = PolicyPlayer.guard_flags
-                overrides = getattr(self, "guard_overrides", None)
-                if overrides:
-                    guard_flags = {**(guard_flags or {}), **overrides}
-                cands, guard_report = _guards.apply_guards(battle, cands, guard_flags)
+                cands, guard_report = _guards.apply_guards(
+                    battle, cands, self._effective_guard_flags()
+                )
                 guarded_top = tuple(cands[0].actions)
                 PolicyPlayer.guard_fire_counts["guards_ran"] += 1
                 if guard_report.stages:

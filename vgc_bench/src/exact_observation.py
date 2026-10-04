@@ -8,12 +8,13 @@ back into simulator state; directionality is what keeps the planner honest.
 
 from __future__ import annotations
 
+import copy
 import json
 import logging
 import re
 import threading
-from dataclasses import dataclass
-from typing import Any, Iterable
+from dataclasses import dataclass, field
+from typing import Any, Iterable, Sequence
 
 import numpy as np
 import torch
@@ -72,6 +73,38 @@ def _as_stat_list(values: dict[str, int] | None, default: int) -> list[int]:
     return [int(values.get(stat, default)) for stat in _STATS]
 
 
+def _state_species_id(value: object) -> str:
+    """``[Species:blastoisemega]``, how Showdown serializes a species -> its id."""
+    text = str(value or "")
+    if text.startswith("[Species:") and text.endswith("]"):
+        text = text[len("[Species:") : -1]
+    return to_id_str(text)
+
+
+def _restore_battle_state(pokemon: Any, exact: dict[str, Any]) -> None:
+    """Put back what ``_update_from_teambuilder`` just overwrote with the sheet.
+
+    That call resets a Pokemon to its team-sheet self: a Mega returns to its base
+    forme, a spent or knocked-off item comes back, a changed ability reverts. The
+    exact state knows the current forme, item and ability. (Our own side gets its
+    forme from the request afterwards; an open-sheet opponent got nothing, so it was
+    shown un-evolved and still holding its eaten berry until 2026-10-04.)
+    """
+    forme = _state_species_id(exact.get("species"))
+    if forme and forme != to_id_str(pokemon.species):
+        # As poke-env itself applies -mega / detailschange / -formechange: the
+        # forme's stats, types and ability, under the name it already had (our own
+        # side's name then follows the request).
+        try:
+            pokemon._update_from_pokedex(forme, store_species=False)
+        except KeyError:
+            pass
+    if isinstance(exact.get("item"), str):
+        pokemon._item = to_id_str(exact["item"]) or None
+    if exact.get("ability"):
+        pokemon._ability = to_id_str(exact["ability"])
+
+
 def _enrich_team(
     battle: DoubleBattle, state: dict[str, Any], role: str, own: bool
 ) -> None:
@@ -101,6 +134,7 @@ def _enrich_team(
             tera_type=pokemon_set.get("teraType"),
         )
         pokemon._update_from_teambuilder(tb)
+        _restore_battle_state(pokemon, exact)
         pokemon._selected_in_teampreview = True
 
 
@@ -136,7 +170,26 @@ def state_to_battle(
             except (IndexError, json.JSONDecodeError):
                 latest_snapshot = None
         break
-    for line in perspective_lines:
+    _replay(battle, perspective_lines)
+    _enrich_team(battle, state, role, own=True)
+    if reveal_opponent_sets:
+        _enrich_team(battle, state, "p2" if role == "p1" else "p1", own=False)
+    # The private request is authoritative for the active Pokemon's *current* move
+    # slots. Apply it after base-team enrichment so Transform/Imposter is not reset to
+    # Ditto's original Transform-only set.
+    battle.parse_request(request)
+    if latest_snapshot is not None and role == "p1":
+        from vgc_bench.src.live_snapshot import apply_public_snapshot
+
+        apply_public_snapshot(battle, latest_snapshot)
+    _apply_transformed_moves(battle, state, request, role)
+    return battle
+
+
+def _replay(battle: DoubleBattle, lines: Iterable[str]) -> None:
+    """Feed protocol lines to a poke-env battle, tolerating what an exact branch of
+    a sampled hidden world can legitimately get wrong."""
+    for line in lines:
         if not line or "|" not in line:
             continue
         event = line.split("|")
@@ -168,17 +221,11 @@ def state_to_battle(
             # only this stale log-learning assertion keeps the particle evaluable.
             if not _stale_branch_move_conflict(event, exc):
                 raise
-    _enrich_team(battle, state, role, own=True)
-    if reveal_opponent_sets:
-        _enrich_team(battle, state, "p2" if role == "p1" else "p1", own=False)
-    # The private request is authoritative for the active Pokemon's *current* move
-    # slots. Apply it after base-team enrichment so Transform/Imposter is not reset to
-    # Ditto's original Transform-only set.
-    battle.parse_request(request)
-    if latest_snapshot is not None and role == "p1":
-        from vgc_bench.src.live_snapshot import apply_public_snapshot
 
-        apply_public_snapshot(battle, latest_snapshot)
+
+def _apply_transformed_moves(
+    battle: DoubleBattle, state: dict[str, Any], request: dict[str, Any], role: str
+) -> None:
     state_side = state["sides"][int(role[1]) - 1]
     exact_active = {
         int(pokemon.get("position") or 0): pokemon
@@ -199,6 +246,89 @@ def state_to_battle(
             not in SPECIAL_MOVES
         }
         pokemon._moves._transform_moves = MoveSet(transformed)
+
+
+@dataclass
+class LiveAnchor:
+    """The live battle a session's shadows were just reconciled to.
+
+    With it, our side's view of a shadow is the live battle itself (at the root) or
+    a copy of it that has watched the shadow's new protocol (a child), instead of a
+    battle rebuilt from the shadow's own log. The rebuilt view never matched the
+    live one (2026-10-04: 0 of 77 decisions; a median 642 of 12,276 observation
+    cells off): it holds four of our six Pokemon in a different order, forgets which
+    opponents have appeared, and in a shadow recreated mid-battle starts every
+    Pokemon on its first turn in its base forme.
+
+    ``opponent_names`` maps the shadow's name for an opposing Pokemon (its species,
+    as an id) to the nickname the live protocol uses.
+    """
+
+    battle: DoubleBattle
+    opponent_names: dict[str, str] = field(default_factory=dict)
+
+
+_IDENT_RE = re.compile(r"(?<![A-Za-z0-9])p([12])([abc]?): ([^|]*)")
+_SNAPSHOT_MARK = "|vgcsnapshot|"
+
+
+def lines_since_reconcile(log: Sequence[str]) -> list[str] | None:
+    """The protocol a shadow has produced since it was last reconciled to the live
+    battle (None: it never was)."""
+    for index in range(len(log) - 1, -1, -1):
+        if log[index].startswith(_SNAPSHOT_MARK):
+            return list(log[index + 1 :])
+    return None
+
+
+def to_live_line(line: str, anchor: LiveAnchor) -> str:
+    """A shadow's protocol line as the live battle would have received it.
+
+    Shadows seat us as p1 and name every opposing Pokemon by its species; the server
+    may have seated us as p2 and the opponent may use nicknames.
+    """
+    flip = getattr(anchor.battle, "player_role", None) == "p2"
+
+    def rewrite(match: re.Match[str]) -> str:
+        seat, slot, name = match.group(1), match.group(2), match.group(3)
+        if seat == "2":
+            name = anchor.opponent_names.get(to_id_str(name), name)
+        if flip:
+            seat = "1" if seat == "2" else "2"
+        return f"p{seat}{slot}: {name}"
+
+    return _IDENT_RE.sub(rewrite, line)
+
+
+def _to_live_request(request: dict[str, Any], anchor: LiveAnchor) -> dict[str, Any]:
+    if getattr(anchor.battle, "player_role", None) != "p2":
+        return request
+    request = copy.deepcopy(request)
+    side = request.get("side") or {}
+    if side.get("id") == "p1":
+        side["id"] = "p2"
+    for pokemon in side.get("pokemon") or []:
+        ident = str(pokemon.get("ident") or "")
+        if ident.startswith("p1"):
+            pokemon["ident"] = "p2" + ident[2:]
+    return request
+
+
+def live_view(
+    anchor: LiveAnchor, state: dict[str, Any], request: dict[str, Any] | None
+) -> DoubleBattle | None:
+    """Our view of a reconciled shadow, grown from the live battle (None: this state
+    was never reconciled, or has no request for us)."""
+    new_lines = lines_since_reconcile(state.get("log", []))
+    if new_lines is None or request is None:
+        return None
+    if not any(line for line in new_lines):
+        return anchor.battle
+    battle = copy.deepcopy(anchor.battle)
+    ours = perspective_log(new_lines, "p1")
+    _replay(battle, (to_live_line(line, anchor) for line in ours))
+    battle.parse_request(_to_live_request(request, anchor))
+    _apply_transformed_moves(battle, state, request, "p1")
     return battle
 
 
@@ -441,6 +571,9 @@ class ExactPolicyAdapter:
         # opponent prior must only see what a real player would see. Generation
         # toggles this per game to produce both open- and hidden-sheet examples.
         self.reveal_opponent_sets = reveal_opponent_sets
+        # set by a live session before each decision: our side's views then grow
+        # from the live battle (LiveAnchor) instead of being rebuilt from the log
+        self.live_anchor: LiveAnchor | None = None
 
     @staticmethod
     def _roster(state, role: str) -> tuple[str, ...]:
@@ -468,9 +601,13 @@ class ExactPolicyAdapter:
         return ranked
 
     def _inputs(self, state, requests, role):
-        battle = state_to_battle(
-            state, requests, role, reveal_opponent_sets=self.reveal_opponent_sets
-        )
+        battle = None
+        if role == "p1" and self.live_anchor is not None:
+            battle = live_view(self.live_anchor, state, requests[0])
+        if battle is None:
+            battle = state_to_battle(
+                state, requests, role, reveal_opponent_sets=self.reveal_opponent_sets
+            )
         obs = PolicyPlayer.embed_battle(battle, fake_rating=2000)
         mask = np.asarray(DoublesEnv.get_action_mask(battle), dtype=np.float32)
         obs_dict = {

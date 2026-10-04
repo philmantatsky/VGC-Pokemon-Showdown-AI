@@ -26,6 +26,7 @@ from poke_env.environment import DoublesEnv
 
 from vgc_bench.src.exact_observation import (
     ExactPolicyAdapter,
+    LiveAnchor,
     OpponentModelPrior,
     choice_to_actions,
 )
@@ -40,7 +41,7 @@ from vgc_bench.src.exact_planner import (
     WeightedExactNode,
 )
 from vgc_bench.src.exact_sim import ExactShowdownBridge
-from vgc_bench.src.live_snapshot import public_snapshot
+from vgc_bench.src.live_snapshot import live_roles, public_snapshot
 from vgc_bench.src.outcome_value import OutcomeValueEvaluator
 from vgc_bench.src.ponder import (
     BackgroundPonder,
@@ -100,10 +101,10 @@ def _target_location(target: str, role: str, actor_slot: int) -> int | None:
     if target_slot < 0:
         return None
     if target_role != role:
-        # Showdown numbers opposing targets from the submitting player's camera.
-        # Player 2's camera is mirrored: p1b is +1 and p1a is +2.
-        if role == "p2":
-            return 2 - target_slot
+        # +1 is the opposing side's slot a and +2 its slot b for BOTH seats
+        # (sim/pokemon.ts getAtLoc; probed 2026-10-04: p2 submitting "+1" hits p1a).
+        # Until then seat 2's targets were mirrored here, so an observed attack into
+        # our left slot matched the branches that hit our right one.
         return target_slot + 1
     if target_slot == actor_slot:
         return None
@@ -114,6 +115,10 @@ def observed_opponent_actions(
     events: Sequence[Sequence[str]], role: str = "p2"
 ) -> dict[int, ObservedAction]:
     """Recover the opponent's submitted turn atoms from public protocol events.
+
+    ``role`` is the opponent's seat in ``events``: the server's seat for a live
+    battle (``live_roles``), p2 for an exact world. Slots and targets come out
+    relative to the actor, so they read the same in either.
 
     Voluntary switches happen before every move.  Switches after the first move are
     pivots or forced replacements and are deliberately excluded from the original
@@ -275,9 +280,23 @@ def _strategic_state_signature(state: dict[str, Any]) -> tuple[Any, ...]:
     return field_signature, tuple(side_signatures)
 
 
-def _move_order_from_events(events: Sequence[Sequence[str]]) -> list[str]:
+def _mover(actor: str, our_role: str) -> str:
+    """``<exact seat>:<nickname>`` of a protocol actor such as ``p2a: Torkoal``.
+
+    The exact worlds seat us as p1 whatever seat ``our_role`` the server gave us, and
+    the seat keeps a same-named Pokemon on each side (every mirror, any shared
+    species) apart -- by nickname alone the two collapsed into one mover.
+    """
+    position, _, nickname = actor.partition(":")
+    seat = "p1" if position.strip()[:2] == our_role else "p2"
+    return f"{seat}:{to_id_str(nickname)}"
+
+
+def _move_order_from_events(
+    events: Sequence[Sequence[str]], our_role: str = "p1"
+) -> list[str]:
     return [
-        to_id_str(event[2].split(":", 1)[-1])
+        _mover(event[2], our_role)
         for event in events
         if len(event) > 2 and event[1] == "move"
     ]
@@ -288,7 +307,7 @@ def _move_order_from_log(lines: Sequence[str]) -> list[str]:
     for line in lines:
         parts = line.split("|")
         if len(parts) > 2 and parts[1] == "move":
-            order.append(to_id_str(parts[2].split(":", 1)[-1]))
+            order.append(_mover(parts[2], "p1"))
     return order
 
 
@@ -436,6 +455,60 @@ def _opponent_previews(
     return previews
 
 
+GUARD_ADDED = "guard-added"
+
+
+def canonical_target_actions(
+    battle: DoubleBattle, actions: Sequence[int]
+) -> tuple[int, ...]:
+    """The same pair with every attack aimed at an EMPTY opposing slot re-aimed at the
+    one opponent left.
+
+    The policy's mask lets a move target an empty opposing slot, the simulator sends
+    it to the remaining opponent, and the policy spreads its weight over both
+    spellings. The search ranks only the real target, so the bot's pair has to be put
+    in the same spelling to be found among (and compared with) the searched ones.
+    """
+    foes = list(getattr(battle, "opponent_active_pokemon", ()) or ())
+
+    def present(index: int) -> bool:
+        mon = foes[index] if 0 <= index < len(foes) else None
+        return mon is not None and not getattr(mon, "fainted", False)
+
+    out = []
+    for action in actions:
+        action = int(action)
+        if action >= 7:
+            target = (action - 7) % 5 - 2
+            if target in (1, 2) and not present(target - 1) and present(2 - target):
+                action += (3 - target) - target
+        out.append(action)
+    return tuple(out)
+
+
+def _guard_added_row(candidate: Any) -> ActionScore:
+    """A pair a guard put into the ranking itself (a scripted opening, a redirected
+    twin of the top pair), which the search never scored.
+
+    Its depth coverage is negative so no coverage rule accepts it: when a guard puts
+    it on top, the decision goes back to the policy path, whose own guard pass adds
+    the same pair. (With hard guards only this was a KeyError and an error fallback.)
+    """
+    actions = tuple(int(action) for action in candidate.actions)
+    return ActionScore(
+        choice=f"{GUARD_ADDED} {actions}",
+        actions=(actions[0], actions[1]),
+        score=0.0,
+        expected=0.0,
+        cvar=0.0,
+        worst=0.0,
+        standard_deviation=0.0,
+        prior=max(0.0, float(candidate.prob)),
+        opponent_branches=0,
+        depth_coverage=-1.0,
+    )
+
+
 def _particle_mass(determination: dict[str, SetParticle]) -> float:
     mass = 1.0
     for particle in determination.values():
@@ -474,6 +547,7 @@ class LiveExactSession:
         seed: int = 20260820,
         leaf: str = "outcome",
         oracle_opponent_team_text: str | None = None,
+        live_views: bool = True,
     ):
         self.battle_tag = battle_tag
         self.policy = policy
@@ -523,6 +597,15 @@ class LiveExactSession:
         # whether search with a perfect world model beats the brain. Which four were
         # brought stays uncertain.
         self.oracle_opponent_team_text = oracle_opponent_team_text
+        # Which guards judge a searched ranking: the hard set always, plus whatever
+        # the player runs on its unsearched picks once set_player_guards is called.
+        self.player_guards = False
+        self.player_guard_flags: dict[str, bool] | None = None
+        self.last_champion_choice: str | None = None
+        self.champion_actions: tuple[int, ...] | None = None
+        # our side's view of every shadow grows from the live battle (LiveAnchor);
+        # False: rebuilt from the shadow's own log, as before 2026-10-04
+        self.live_views = bool(live_views)
         if leaf == "critic":
             from vgc_bench.src.critic_leaf import CriticLeafEvaluator
 
@@ -595,6 +678,16 @@ class LiveExactSession:
         self.opponent_species_by_nickname: dict[str, str] = {}
         self.opponent_roster_species: set[str] = set()
         self.current_battle: DoubleBattle | None = None
+
+    def set_player_guards(self, flags: dict[str, bool] | None) -> None:
+        """Judge searched rankings with the player's own guard stack as well.
+
+        ``flags`` is what the player hands ``apply_guards`` for an unsearched pick
+        (None: every guard). Until 2026-10-04 a searched pick met only HARD_GUARDS, so
+        with search on the bot played without its opt-in guards on every searched turn.
+        """
+        self.player_guards = True
+        self.player_guard_flags = None if flags is None else dict(flags)
 
     def close(self) -> None:
         if self._ponder_job is not None:
@@ -738,8 +831,9 @@ class LiveExactSession:
                     "item": to_id_str(mon.item) if mon.item else None,
                     "ability": to_id_str(mon.ability) if mon.ability else None,
                 }
+        opponent_role = live_roles(battle)[1]
         for event in getattr(battle, "_replay_data", []):
-            if len(event) < 3 or not event[2].startswith("p2"):
+            if len(event) < 3 or not event[2].startswith(opponent_role):
                 continue
             nickname = to_id_str(event[2].split(":", 1)[-1])
             species = nickname_species.get(nickname)
@@ -820,10 +914,11 @@ class LiveExactSession:
     ) -> None:
         events = getattr(battle, "_replay_data", [])
         recent = events[self.event_cursor :]
-        observed = observed_opponent_actions(recent)
+        our_role, opponent_role = live_roles(battle)
+        observed = observed_opponent_actions(recent, opponent_role)
         self.last_recent_events = list(recent)
         self.last_observed_actions = observed
-        observed_order = _move_order_from_events(recent)
+        observed_order = _move_order_from_events(recent, our_role)
         shared_rng = [
             ",".join(str(self.rng.randrange(1, 65536)) for _ in range(4))
             for _ in range(4)
@@ -937,7 +1032,25 @@ class LiveExactSession:
         else:
             self._advance_and_reconcile(battle, snapshot)
         self._condition_roots(battle)
+        self.adapter.live_anchor = (
+            LiveAnchor(battle, self._opponent_live_names(battle))
+            if getattr(self, "live_views", True)
+            else None
+        )
         self._consume_ponder()
+
+    def _opponent_live_names(self, battle: DoubleBattle) -> dict[str, str]:
+        """Shadow name of each opposing Pokemon (its roster species, as an id) -> the
+        nickname the live protocol calls it by."""
+        names: dict[str, str] = {}
+        for ident, mon in battle.opponent_team.items():
+            nickname = ident.split(":", 1)[-1].strip()
+            species = self.opponent_species_by_nickname.get(
+                to_id_str(nickname)
+            ) or self._canonical_opponent_species(mon)
+            if species and nickname:
+                names.setdefault(species, nickname)
+        return names
 
     def _consume_ponder(self) -> None:
         """Take a finished background result without ever waiting for it."""
@@ -1778,8 +1891,19 @@ class LiveExactSession:
             "expanded_outcomes": len(self.pondered_outcomes),
         }
 
-    def plan(self, battle: DoubleBattle) -> PlanResult | None:
+    def plan(
+        self, battle: DoubleBattle, champion_actions: Sequence[int] | None = None
+    ) -> PlanResult | None:
+        """Search this decision. ``champion_actions`` is the pair the bot would submit
+        without search (policy, guards and all): it is always ranked, and under
+        ``nash_anchor`` it is the default the search has to beat."""
         decision_started = time.monotonic()
+        self.champion_actions = (
+            canonical_target_actions(battle, champion_actions)
+            if champion_actions is not None
+            else None
+        )
+        champion_actions = self.champion_actions
         self.prepare(battle)
         preparation_elapsed_s = time.monotonic() - decision_started
         self.last_result = None
@@ -1960,8 +2084,17 @@ class LiveExactSession:
             evaluator=self.evaluator,
             config=effective_config,
         )
+        champion_choices = self._champion_choices(
+            planning_roots, champion_actions, battle
+        )
+        self.last_champion_choice = next(
+            (choice for choice in champion_choices or () if choice), None
+        )
         result = planner.plan(
-            weighted, "p1", minimum_depth_coverage=self.min_deep_coverage
+            weighted,
+            "p1",
+            minimum_depth_coverage=self.min_deep_coverage,
+            include=champion_choices,
         )
         if result.selected_depth_coverage + 1e-9 < self.min_deep_coverage:
             self.last_result = None
@@ -2000,7 +2133,11 @@ class LiveExactSession:
             self.skipped_searches += 1
             self.last_schedule = {
                 "mode": "search_fallback",
-                "reasons": ["live_safe_action_did_not_reach_required_depth"],
+                "reasons": [
+                    "guard_added_action_was_not_searched"
+                    if winner.choice.startswith(GUARD_ADDED)
+                    else "live_safe_action_did_not_reach_required_depth"
+                ],
                 "selected_choice": winner.choice,
                 "selected_depth_coverage": winner.depth_coverage,
                 "required_depth_coverage": self.min_deep_coverage,
@@ -2018,8 +2155,12 @@ class LiveExactSession:
             self.planned_outcomes = ()
             self.plan_parent_nodes = {}
             return None
-        low_prior_rejection = self._low_prior_override_rejection(
-            battle, winner, rankings
+        # the bot's own pair is not an override, whatever the raw policy thought of
+        # it (a guard may have promoted it from a low prior)
+        low_prior_rejection = (
+            None
+            if self.last_live_guards.get("champion") == "kept"
+            else self._low_prior_override_rejection(battle, winner, rankings)
         )
         if low_prior_rejection is not None:
             self.last_result = None
@@ -2091,6 +2232,34 @@ class LiveExactSession:
         }
         return self.last_result
 
+    def _champion_choices(
+        self,
+        roots: Sequence[LiveRoot],
+        champion_actions: Sequence[int] | None,
+        battle: DoubleBattle,
+    ) -> list[str | None] | None:
+        """The bot's unsearched pair as each root spells it (None where a root cannot
+        express it, e.g. a pair a guard built that the simulator would not accept)."""
+        if champion_actions is None:
+            return None
+        wanted = tuple(int(action) for action in champion_actions)
+        choices: list[str | None] = []
+        for root in roots:
+            found = None
+            try:
+                legal = self.bridge.choices(root.node.state, "p1")
+            except Exception:
+                legal = []
+            for choice in legal:
+                try:
+                    if self._root_live_actions(root, choice, battle) == wanted:
+                        found = choice
+                        break
+                except Exception:
+                    continue
+            choices.append(found)
+        return choices
+
     @staticmethod
     def _strict_live_rejection_reason(
         battle: DoubleBattle, actions: tuple[int, int]
@@ -2159,7 +2328,8 @@ class LiveExactSession:
     def _apply_live_hard_guards(
         self, battle: DoubleBattle, rankings: Sequence[ActionScore]
     ) -> tuple[ActionScore, ...]:
-        """Put the production factual guard stack after exact outcome scoring."""
+        """Put the production guard stack after exact outcome scoring: the hard
+        guards always, and the player's opt-in guards when it has handed them over."""
         from vgc_bench.src.guards import GUARDS, HARD_GUARDS, Candidate, apply_guards
 
         before = rankings[0].choice
@@ -2171,11 +2341,19 @@ class LiveExactSession:
             for row in rankings
         ]
         enabled = {name: name in HARD_GUARDS for name in GUARDS}
+        if getattr(self, "player_guards", False):
+            flags = getattr(self, "player_guard_flags", None)
+            for name in GUARDS:
+                if flags is None or flags.get(name, True):
+                    enabled[name] = True
         guarded, report = apply_guards(battle, candidates, enabled)
         by_actions = {
             tuple(int(action) for action in row.actions): row for row in rankings
         }
-        ordered = tuple(by_actions[candidate.actions] for candidate in guarded)
+        ordered = tuple(
+            by_actions.get(candidate.actions) or _guard_added_row(candidate)
+            for candidate in guarded
+        )
         self.last_live_guards = {
             "changed_pick": ordered[0].choice != before,
             "stages": list(report.stages),
@@ -2213,8 +2391,51 @@ class LiveExactSession:
             "demotions": {},
             "strict_rejections": strict_rejections,
         }
+        champion = getattr(self, "champion_actions", None)
+        default = next(
+            (
+                row
+                for row in mapped
+                if champion is not None and tuple(row.actions or ()) == champion
+            ),
+            None,
+        )
+        if default is not None and mapped[0] is default:
+            # The search agrees with the pair the bot plays anyway. That pair came
+            # out of the whole guard stack on the whole candidate list; running the
+            # stack again on this handful can move it (2026-10-04: it did), so it
+            # stands as it is.
+            self.last_live_guards["champion"] = "kept"
+            return tuple(mapped), illegal
         guarded = self._apply_live_hard_guards(battle, tuple(mapped))
+        self.last_live_guards["policy_choice"] = self._guarded_policy_choice(
+            battle, mapped
+        )
+        if default is not None:
+            if guarded[0] is mapped[0]:
+                self.last_live_guards["champion"] = "overridden"
+            else:
+                # the guards object to the search's override: the bot's own pair
+                # stands, not whatever the stack would promote among these few
+                self.last_live_guards["champion"] = "override_vetoed"
+                guarded = (default, *(row for row in guarded if row is not default))
         return guarded, illegal
+
+    def _guarded_policy_choice(
+        self, battle: DoubleBattle, rankings: Sequence[ActionScore]
+    ) -> str | None:
+        """What the policy and the same guards would pick among these candidates
+        without the search's scores: the audit's reference for whether search changed
+        the move (the raw prior favourite is not what the bot plays -- guards move it).
+        """
+        by_prior = tuple(sorted(rankings, key=lambda row: row.prior, reverse=True))
+        report = self.last_live_guards
+        try:
+            return self._apply_live_hard_guards(battle, by_prior)[0].choice
+        except Exception:
+            return None
+        finally:
+            self.last_live_guards = report
 
     def _live_actions(self, choice: str, battle: DoubleBattle) -> tuple[int, int]:
         errors: list[str] = []
@@ -2311,6 +2532,11 @@ class LiveExactSession:
             "configuration": asdict(self.config),
             "selective_search": self.selective_search,
             "leaf": self.leaf,
+            "guard_scope": (
+                "player" if getattr(self, "player_guards", False) else "hard"
+            ),
+            "champion_choice": getattr(self, "last_champion_choice", None),
+            "views": "live" if getattr(self, "live_views", True) else "rebuilt",
             "ponder_enabled": self.enable_ponder,
             "ponder_configuration": asdict(self.ponder_config),
             "schedule": self.last_schedule,

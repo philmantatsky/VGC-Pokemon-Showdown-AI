@@ -7,7 +7,13 @@ from types import SimpleNamespace as NS
 
 import pytest
 
-from evaluation.mirror_guard_ab import _NoCache, _outcomes, block_sizes, wilson
+from evaluation.mirror_guard_ab import (
+    _battle_rows,
+    _NoCache,
+    _outcomes,
+    block_sizes,
+    wilson,
+)
 
 
 def test_wilson_interval_brackets_the_rate_and_narrows_with_games():
@@ -40,6 +46,17 @@ def test_outcomes_count_ties_as_halves_and_refuse_unfinished_battles():
     battles["d"] = NS(finished=False, won=None, battle_tag="d")
     with pytest.raises(RuntimeError, match="unfinished"):
         _outcomes(NS(battles=battles))
+
+
+def test_battle_rows_carry_each_battles_tag_result_and_length():
+    battles = {
+        "a": NS(finished=True, won=True, battle_tag="battle-a", turn=7),
+        "b": NS(finished=True, won=None, battle_tag="battle-b", turn=12),
+    }
+    assert _battle_rows(NS(battles=battles)) == [
+        {"battle": "battle-a", "a_won": True, "turns": 7},
+        {"battle": "battle-b", "a_won": None, "turns": 12},
+    ]
 
 
 def test_side_a_may_only_play_a_set_variant_of_the_deployed_team():

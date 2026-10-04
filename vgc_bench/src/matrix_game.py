@@ -6,17 +6,22 @@ candidate joint actions against the opponent's likely replies, solved for an
 equilibrium mixed strategy that is then sampled. This is that solver, vectorized
 over a batch of tables (one per hidden-information world), after the 60-line
 version on the vgczero branch (origin/claude/nice-bohr-mvs9zh,
-vgczero/python/vgczero/matrix_game.py). Nothing in the bot uses it yet: the
-exact planner still scores actions by a risk blend over predicted replies.
+vgczero/python/vgczero/matrix_game.py). The exact planner uses it under
+``PlannerConfig(solution="nash")``.
 
 payoff[b, i, j] is the row player's (our) payoff when we play i and the opponent
 plays j. Regret matching+ with linear averaging converges quickly on the small
 tables search produces (6x6 to 8x8).
+
+``solve_anchored`` is the same game with both sides tied to a prior (see its
+docstring): the plain equilibrium moved its weight on payoff differences far below
+the leaf evaluator's noise, which is how the first matrix search lost.
 """
 
 from __future__ import annotations
 
 import numpy as np
+from numpy.typing import ArrayLike
 
 
 def _strategy(regret: np.ndarray, mask: np.ndarray) -> np.ndarray:
@@ -78,3 +83,67 @@ def exploitability(payoff: np.ndarray, x: np.ndarray, y: np.ndarray) -> np.ndarr
     best_col = (-np.einsum("brc,br->bc", p, x)).max(-1)
     v = np.einsum("br,brc,bc->b", x, p, y)
     return (best_row - v) + (best_col + v)
+
+
+def _log_normalize(logits: np.ndarray) -> np.ndarray:
+    shifted = logits - logits.max()
+    return shifted - np.log(np.exp(shifted).sum())
+
+
+def solve_anchored(
+    payoff: ArrayLike,
+    row_prior: ArrayLike,
+    col_prior: ArrayLike,
+    temperature: float,
+    tolerance: float = 1e-9,
+    max_iters: int = 50000,
+) -> tuple[np.ndarray, np.ndarray, float]:
+    """payoff [R, C] -> (x [R], y [C], value): the equilibrium of the game in which
+    each side also pays ``temperature`` x its KL divergence from its prior.
+
+    At the solution x is proportional to ``row_prior * exp((payoff @ y) / temperature)``
+    and y to ``col_prior * exp(-(x @ payoff) / temperature)`` (piKL, Jacob et al. 2022;
+    found by magnetic mirror descent, Sokota et al. 2023, which converges linearly
+    here). ``temperature`` near 0 approaches the plain equilibrium and a large one the
+    priors. What it buys: an action overtakes a preferred one only with a payoff edge
+    of ``temperature * ln(prior ratio)``, so differences smaller than the evaluator's
+    noise leave the prior's choice alone, and the opponent is modelled as its prior
+    leaning toward what hurts us rather than as a perfect adversary.
+    """
+    if temperature <= 0:
+        raise ValueError("the anchor temperature must be positive")
+    a = np.asarray(payoff, dtype=np.float64)
+    if a.ndim != 2:
+        raise ValueError("solve_anchored takes one [R, C] payoff table")
+
+    def log_prior(prior: ArrayLike, size: int) -> np.ndarray:
+        values = np.clip(np.asarray(prior, dtype=np.float64), 0.0, None)
+        if values.shape != (size,) or values.sum() <= 0:
+            raise ValueError("a prior must be one positive weight per action")
+        return np.log(np.clip(values / values.sum(), 1e-12, None))
+
+    log_rho_x = log_prior(row_prior, a.shape[0])
+    log_rho_y = log_prior(col_prior, a.shape[1])
+    # step <= temperature / L^2, L the largest payoff magnitude (payoffs are in
+    # [-1, 1]; a larger table only shrinks the step)
+    scale = max(1.0, float(np.abs(a).max()))
+    eta = min(1.0, temperature / scale**2)
+    shrink = 1.0 / (1.0 + temperature * eta)
+    log_x, log_y = _log_normalize(log_rho_x), _log_normalize(log_rho_y)
+    for _ in range(max_iters):
+        x, y = np.exp(log_x), np.exp(log_y)
+        new_x = _log_normalize(
+            (log_x + temperature * eta * log_rho_x + eta * (a @ y)) * shrink
+        )
+        new_y = _log_normalize(
+            (log_y + temperature * eta * log_rho_y - eta * (x @ a)) * shrink
+        )
+        moved = max(
+            float(np.abs(np.exp(new_x) - x).max()),
+            float(np.abs(np.exp(new_y) - y).max()),
+        )
+        log_x, log_y = new_x, new_y
+        if moved < tolerance:
+            break
+    x, y = np.exp(log_x), np.exp(log_y)
+    return x, y, float(x @ a @ y)

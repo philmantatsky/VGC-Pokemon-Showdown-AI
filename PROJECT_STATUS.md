@@ -1,6 +1,124 @@
 # VGC Bot Project Status
 
-## Found: the search's hidden worlds built every opponent with ZERO stat points; fixed; V3 pre-registered (2026-October 4, 16:25, before the run)
+## Opponent predictor side experiment started (separate session); the challenge listener's restart hazard fixed (2026-October 4, 18:15)
+
+- The user: a predictor of what the opponent clicks each turn (Protect / attack which slot /
+  switch / Mega), learned from thousands of human replays across the rating range, Elo as an
+  input, open or closed sheets, to hand to the deployed bot. **Source of truth:
+  `OPPONENT_PREDICTOR.md`** (design, label rules, splits, and four PRE-REGISTERED readings,
+  committed in 147001a4 before any model was fitted). Nothing is wired into a decision path.
+- **What reconnaissance found** (details and numbers in that file):
+  - The shipped opponent move model is worse than a species -> move frequency table (NLL 3.34
+    vs 1.89 on our own ladder opponents), and its saved weights are the last epoch, not the
+    best (`best_state` is not cloned in the three prior trainers).
+  - Elo bands add nothing at count-table level (-0.0002 +/- 0.0003 nats on held-out players);
+    three state flags add +0.03 to +0.05. Elo is an input with a kill criterion (+0.02 nats).
+  - The public replay feed holds 123,314 Reg M-C rows (76,870 bo1, 46,444 bo3) against 10,004
+    battles on disk.
+- **Running:** `datagen/oppmodel_scrape.py` (detached since 17:09; index done, fetch at ~0.86
+  requests/s, single thread, about 36 h for everything, rating bands taken in turn). Log
+  `battle_logs_feed_mc/scrape.log`; `touch battle_logs_feed_mc/STOP` ends it cleanly; it resumes.
+- **In progress, uncommitted until its audit fixes land:** `vgc_bench/src/oppmodel/` (event
+  reader + event-fed public state shared by training and runtime), then features, dataset,
+  count-table and neural models, scorecard, runtime class.
+- **Listener fix (ec1ca71c):** `--search-solution` / `--search-leaf` entered the run-config
+  material with their defaults at 11:38, after the challenge listener started (11:22). Its
+  directory records neither key, so its next reconnect restart would have stopped with
+  "already records a different configuration" and ended the reconnect loop. They are now
+  recorded only when not the default (`ladder_ourteam.record_run_config`; test in
+  `unit_tests/test_run_config_hardening.py`).
+
+## The search was playing a different game: twelve defects fixed, search rebuilt around the bot's own pick; V3 loses 34.9%; V4 pre-registered (2026-October 4, 18:35, before the run)
+
+- **V3** (`results_mirror_search_nash3_pooled.json`; V2's settings + default spreads):
+  **279 / 800 = 34.9% [31.7, 38.2]** -> loses. Open sheets 39.0 / 41.5%, hidden 30.0 / 29.0%.
+  Not the pre-registered recovery. With what follows, V1-V3 do not measure the matrix search:
+  side A was not playing the deployed bot's game plus search.
+- **How it was found -- the null search.** With the anchor temperature at 1e12 the search can
+  only return the policy's own favourite, so side A should play exactly what side B plays.
+  - It did not: 11 of 52 decisions differed (21%), and side A won 2 of 12 smoke games.
+  - New audit fields made that visible per decision: `champion_actions` (the pair the bot
+    submits with search off, from the real unsearched path with its side effects held back;
+    its own audit goes to `<log>_champion.jsonl`), `actions`, `champion` (kept / overridden /
+    override_vetoed), `policy_choice`, `guard_scope`, `views`.
+  - **After the fixes: 0 of 140 decisions differ** (12 games, `--a-search-anchor 1e12`), no
+    error fallbacks (was ~3% of decisions). The machinery is now neutral.
+- **What the search changed in V1/V2** (16,278 searched decisions): it left the policy's
+  favourite in 43% / 31%; 86% / 92% of the changed slots swap one move for another. V2's top
+  swaps: Ice Beam -> Water Spout 467, Ice Beam -> Water Pulse 347, Throat Chop -> Flare Blitz
+  299. Part of that was the guards' work side A had lost (below), part was noise: battle
+  4605249 turn 3, Ice Beam + Eruption prior 0.512 payoff +0.373 against Water Pulse +
+  Eruption prior 0.117 payoff +0.377 -- the equilibrium played Water Pulse for an edge of 0.004.
+- **The defects, by layer** (tests: `unit_tests/test_live_exact_seat.py` 24,
+  `test_live_views.py` 13, `test_exact_planner_nash.py`, `test_matrix_game.py`):
+  - *Decision.*
+    1. **An equilibrium has no margin**: any payoff edge moves all its weight. Fix: the
+       anchored game (`matrix_game.solve_anchored`, `PlannerConfig.nash_anchor`): both sides
+       pay `temperature x KL(strategy || prior)` (piKL, solved by magnetic mirror descent).
+       An action overtakes a preferred one only with an edge of `temperature x ln(prior
+       ratio)`; the opponent is its prior leaning against us, not a perfect adversary.
+    2. **Searched picks skipped the 14 opt-in guards** (`_apply_live_hard_guards` enabled
+       HARD_GUARDS only): side A played ~95% of its turns without them.
+    3. **The search ranked the raw policy's favourites, not the bot's pick.** The guards work
+       on the whole candidate list; the search ranks a handful, often without the pair the
+       guards would promote. Fix: the champion anchor -- the unsearched pair is always ranked
+       (`include` in the planners) and under the anchor counts as `nash_champion_boost` (2) x
+       the top prior, so leaving it takes an edge of 0.14 at temperature 0.2.
+    4. **Re-running the guard stack on those few rows moved the bot's own pick.** Now: if the
+       search agrees with that pair it stands; if it overrides and the guards object, the
+       bot's pair comes back (not whatever the stack promotes among the few).
+    5. A pair a guard adds itself raised KeyError and cost the whole search step.
+  - *View -- what the policy and the critic were shown inside the search.*
+    6. **The rebuilt view never matched the live one: 0 of 77 decisions, a median 642 of
+       12,276 observation cells off.** It held four of our six Pokemon in another order and
+       forgot which opponents had appeared; in a world recreated mid-battle (after almost
+       every newly revealed reserve) our Mega was shown un-evolved, every Pokemon was on its
+       "first turn", and with hidden sheets a just-switched-in opponent was missing; with
+       open sheets a spent item was shown as held. Fix: **live-anchored views**
+       (`exact_observation.LiveAnchor` / `live_view`): our side's root view is the live
+       battle itself; a child is a copy of it that has watched the world's new protocol
+       (seats and opponent nicknames translated). The policy prior at the root is now the
+       live policy's, exactly.
+  - *World -- the simulated physics.*
+    7. **Hidden sheets: every active opponent lost its item.** poke-env's placeholder
+       "unknown_item" went into the snapshot as an item, and reconcile wrote it over the
+       sampled one: no Focus Sash, berry, Choice item or Life Orb in any hidden-sheet world.
+    8. **A Mega the world never played was a transform**: right stats on the field, but
+       "Blastoise, L50" in every request and reverted on its first switch. Reconcile now does
+       a real forme change (`applyForme` in `tools/exact_showdown_bridge.js`).
+    9. **One Pokemon in both active slots** when it had stood in the world's other slot
+       (our last Pokemon in slot b): every choice gave it two moves and none could be encoded.
+       This was 290 of V2's 296 error fallbacks -- the endgames.
+    10. **The seat was hard-coded.** In seat 2 (every "B challenges" block, about half of
+        ladder games) each side's last move, item changes and spent Mega were read from the
+        OTHER side's events, the opponent's observed action was our own, and set evidence
+        came from our own Pokemon. `live_snapshot.live_roles`.
+    11. **Seat 2's targets were mirrored** (`_target_location`); the simulator numbers the
+        opposing side the same for both seats (now a test against the simulator itself).
+    12. Zero stat points in every world (the previous entry).
+  - 7-11 also applied to the August-September "risk" search runs, including on ladder.
+  - Parity report regenerated on the patched bridge: 1,000 / 1,000 states, 0 mismatches.
+- `mirror_guard_ab.py`: `--a-search-anchor`, `--a-search-guards player|hard`,
+  `--a-search-champion on|off`, `--a-search-views live|rebuilt` (the old behaviours stay
+  reachable); each battle's tag, result and length in `result.json`.
+- **PRE-REGISTERED V4** (6 shards share the machine; V1-V3 had 4). Side A = the deployed bot
+  + nash search on the fixed stack (critic leaf, 4 worlds, 8 s, argmax, champion anchor,
+  player guards, live views); side B = the deployed bot. Two anchor temperatures:
+  - `NAME=search_nash4 SHARDS=3 EXTRA="--a-search-argmax --a-search-anchor 0.2"`: leaving the
+    bot's own pick takes a payoff edge of 0.14 (for the policy's favourite) to 0.6.
+  - `NAME=search_nash4b SHARDS=3 PORT=7613 EXTRA="--a-search-argmax --a-search-anchor 0.07"`:
+    edges of 0.05 to 0.2 -- more overrides.
+  - 600 games each (3 x 200), same seeds. Reading per arm: pooled lower bound > 50% = the
+    search wins; upper bound < 50% = it loses; in between = no detectable difference. Two
+    arms are two chances at a false positive: a lower bound barely above 50% in one arm needs
+    a replication before any claim, and no ladder trial without the user's word.
+  - Reported with it: how often the search left the bot's pick (`champion_outcomes`), the
+    payoff edges of those overrides, overrides against per-battle results, searched share,
+    latency.
+  - Not in this round: the oracle arm (real opponent sets in every world) -- next, once
+    there is an effect to explain.
+
+## Found: the search's hidden worlds built every opponent with ZERO stat points; fixed; V3 pre-registered (2026-October 4, 16:08, before the run; launched 16:10)
 
 - **The conservative variant also loses**: `results_mirror_search_nash2` (argmax of 0.5 x
   equilibrium + 0.5 x policy prior) **313 / 800 = 39.1% [35.8, 42.6]**.

@@ -166,6 +166,139 @@ def test_prior_mix_pulls_the_played_strategy_toward_the_policy():
         PlannerConfig(nash_prior_mix=1.5)
 
 
+B_BY_A_HAIR = {
+    ("a", "x"): 0.373,
+    ("a", "y"): 0.373,
+    ("b", "x"): 0.377,
+    ("b", "y"): 0.377,
+}
+B_WINS = {("a", "x"): -0.845, ("a", "y"): -0.845, ("b", "x"): 1.0, ("b", "y"): 1.0}
+
+
+def test_anchored_game_keeps_the_policy_choice_on_a_noise_sized_edge():
+    """2026-10-04: the plain equilibrium overrode the policy in 31-43% of decisions,
+    mostly on edges like this one, and lost 39% to 61%."""
+    favours_a = _Prior({"a": 0.8, "b": 0.2})
+    plain = _planner({"w": B_BY_A_HAIR}, prior=favours_a).plan(_root("w"))
+    assert plain.choice == "b"
+    anchored = _planner({"w": B_BY_A_HAIR}, prior=favours_a, nash_anchor=0.2)
+    assert anchored.plan(_root("w")).choice == "a"
+    # ... and still takes a line the table shows winning outright
+    found = _planner({"w": B_WINS}, prior=favours_a, nash_anchor=0.2).plan(_root("w"))
+    assert found.choice == "b"
+    assert found.rankings[0].score > 0.99
+    assert found.rankings[0].expected == pytest.approx(1.0)
+
+
+def test_anchored_worlds_share_one_strategy_from_the_averaged_payoffs():
+    import math
+
+    import numpy as np
+
+    from vgc_bench.src.matrix_game import solve_anchored
+
+    result = _worlds(nash_sample=False, nash_anchor=0.2)
+    payoff = {"a": 0.0, "b": 0.0}
+    for share, table in ((0.75, A_DOMINATES), (0.25, B_DOMINATES)):
+        grid = np.array([[table[(r, c)] for c in "xy"] for r in "ab"])
+        _, reply, _ = solve_anchored(grid, [0.6, 0.4], [0.5, 0.5], 0.2)
+        for row, value in zip("ab", grid @ reply):
+            payoff[row] += share * float(value)
+    logits = {
+        "a": math.log(0.6) + payoff["a"] / 0.2,
+        "b": math.log(0.4) + payoff["b"] / 0.2,
+    }
+    total = sum(math.exp(v) for v in logits.values())
+    weights = {row.choice: row.score for row in result.rankings}
+    for choice, logit in logits.items():
+        assert weights[choice] == pytest.approx(math.exp(logit) / total, abs=1e-4)
+    assert result.choice == max(weights, key=lambda choice: weights[choice])
+    assert all(row.depth_coverage == pytest.approx(1.0) for row in result.rankings)
+
+
+EVEN = {("a", "x"): 0.2, ("a", "y"): 0.2, ("b", "x"): 0.2, ("b", "y"): 0.2}
+
+
+def _one_world(table, include=None, **config):
+    bridge: Any = _TableBridge({"w": table})
+    ranker: Any = _Prior({"a": 0.95, "b": 0.05})
+    planner = ExactDeterminizationPlanner(
+        bridge,
+        ranker,
+        evaluator=_score,
+        config=PlannerConfig(
+            solution="nash", nash_sample=False, time_budget_s=5.0, **config
+        ),
+    )
+    return planner.plan([WeightedExactNode(_root("w"), 1.0, "w")], include=include)
+
+
+def test_the_bots_own_pick_is_always_ranked_and_is_the_default_under_the_anchor():
+    """2026-10-04: the bot's unsearched pick (policy AND guards) differed from the
+    guarded favourite of the searched candidates in 21% of decisions, so a search
+    that changed nothing still did not play the deployed bot's game."""
+    # "b" is below the prior-ratio cut and would not be in the table at all
+    assert [row.choice for row in _one_world(EVEN).rankings] == ["a"]
+    plain = _one_world(EVEN, include=["b"])
+    assert {row.choice for row in plain.rankings} == {"a", "b"}
+    # anchored, with no payoff edge either way: the bot's own pick stands
+    assert _one_world(EVEN, include=["b"], nash_anchor=0.2).choice == "b"
+    assert _one_world(EVEN, include=["b"], nash_anchor=1e12).choice == "b"
+    # the raw prior is still reported as it is
+    anchored = _one_world(EVEN, include=["b"], nash_anchor=0.2)
+    assert {row.choice: round(row.prior, 2) for row in anchored.rankings} == {
+        "a": 0.95,
+        "b": 0.05,
+    }
+    # a real edge for the policy's favourite still wins
+    a_wins = {("a", "x"): 1.0, ("a", "y"): 1.0, ("b", "x"): -0.8, ("b", "y"): -0.8}
+    assert _one_world(a_wins, include=["b"], nash_anchor=0.2).choice == "a"
+    # ... a noise-sized one does not (0.004), nor one just under the margin of
+    # anchor x ln(boost) = 0.2 x ln 2 = 0.139
+    for edge, winner in ((0.004, "b"), (0.13, "b"), (0.15, "a")):
+        table = {("a", "x"): 0.2 + edge, ("a", "y"): 0.2 + edge}
+        table.update({("b", "x"): 0.2, ("b", "y"): 0.2})
+        assert _one_world(table, include=["b"], nash_anchor=0.2).choice == winner
+    with pytest.raises(ValueError, match="include"):
+        _one_world(EVEN, include=["a", "b"])
+    with pytest.raises(ValueError, match="boost"):
+        PlannerConfig(nash_champion_boost=0.5)
+
+
+def test_the_bots_own_pick_survives_a_root_zero_that_did_not_rank_it():
+    """Root zero's rows are the only ones the aggregate keeps (a divergent world must
+    not propose an unsubmittable action) -- except the bot's own pair, which is
+    known to be submittable."""
+    bridge: Any = _TableBridge({"w1": EVEN, "w2": EVEN})
+    ranker: Any = _Prior({"a": 0.95, "b": 0.05})
+    planner = ExactDeterminizationPlanner(
+        bridge,
+        ranker,
+        evaluator=_score,
+        config=PlannerConfig(
+            solution="nash", nash_sample=False, nash_anchor=0.2, time_budget_s=5.0
+        ),
+    )
+    roots = [
+        WeightedExactNode(_root("w1"), 0.6, "w1"),
+        WeightedExactNode(_root("w2"), 0.4, "w2"),
+    ]
+    result = planner.plan(roots, include=[None, "b"])
+    rows = {row.choice: row for row in result.rankings}
+    assert set(rows) == {"a", "b"}
+    # ranked in the second world only: it is the default, but not searched enough
+    assert result.choice == "b"
+    assert rows["b"].depth_coverage == pytest.approx(0.4)
+    assert result.selected_depth_coverage == pytest.approx(0.4)
+
+
+def test_anchor_must_be_non_negative_and_replaces_the_prior_mix():
+    with pytest.raises(ValueError, match="nash_anchor"):
+        PlannerConfig(nash_anchor=-0.1)
+    with pytest.raises(ValueError, match="nash_anchor"):
+        PlannerConfig(nash_anchor=0.2, nash_prior_mix=0.5)
+
+
 def test_hidden_world_sets_without_a_spread_get_a_real_one():
     """2026-10-04: Reg M-C set data has no spreads; hidden-world opponents were built
     with zero stat points (the search lost ~70% of hidden-sheet games)."""

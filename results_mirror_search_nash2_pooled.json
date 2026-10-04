@@ -1,0 +1,60 @@
+{
+  "runs": [
+    "results_mirror_search_nash2_s1",
+    "results_mirror_search_nash2_s2",
+    "results_mirror_search_nash2_s3",
+    "results_mirror_search_nash2_s4"
+  ],
+  "complete": true,
+  "games": 800,
+  "a_wins": 313.0,
+  "a_win_rate": 0.39125,
+  "wilson_95": [
+    0.3580278618188228,
+    0.425511581773049
+  ],
+  "blocks": {
+    "open sheets, A challenges": {
+      "a_wins": 98.0,
+      "games": 200,
+      "a_win_rate": 0.49
+    },
+    "open sheets, B challenges": {
+      "a_wins": 97.0,
+      "games": 200,
+      "a_win_rate": 0.485
+    },
+    "hidden sheets, A challenges": {
+      "a_wins": 60.0,
+      "games": 200,
+      "a_win_rate": 0.3
+    },
+    "hidden sheets, B challenges": {
+      "a_wins": 58.0,
+      "games": 200,
+      "a_win_rate": 0.29
+    }
+  },
+  "search_audit": {
+    "decisions": 8615,
+    "modes": {
+      "search": 8179,
+      "search_fallback": 140,
+      "error_fallback": 296
+    },
+    "fallback_reasons": {
+      "error_fallback:exact_search_error": 296,
+      "search_fallback:selected_action_did_not_reach_required_depth": 95,
+      "search_fallback:live_safe_action_did_not_reach_required_depth": 44,
+      "search_fallback:unsupported_low_prior_override": 1
+    },
+    "searched": 8179,
+    "search_changed_policy_favourite": 2504,
+    "elapsed_s": {
+      "p50": 2.959480332909152,
+      "p90": 7.263712666928768,
+      "max": 8.101547832833603
+    },
+    "mean_weight_of_chosen": 0.5596269138438693
+  }
+}

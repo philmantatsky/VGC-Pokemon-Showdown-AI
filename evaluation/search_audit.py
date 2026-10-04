@@ -22,6 +22,13 @@ def summarize(paths: list[Path]) -> dict:
     reasons: collections.Counter[str] = collections.Counter()
     elapsed: list[float] = []
     changed = searched = 0
+    changed_guarded = with_guarded = guard_changed = 0
+    # against the pair the bot would have submitted with search off (logged from
+    # 2026-10-04 as champion_actions; a fallback plays that pair by construction)
+    with_champion = changed_champion = 0
+    champion_change_kinds: collections.Counter[str] = collections.Counter()
+    champion_outcomes: collections.Counter[str] = collections.Counter()
+    stages: collections.Counter[str] = collections.Counter()
     weights: list[float] = []
     for path in paths:
         for line in path.read_text().splitlines():
@@ -32,6 +39,21 @@ def summarize(paths: list[Path]) -> dict:
             schedule = audit.get("schedule") or {}
             mode = schedule.get("mode", "?")
             modes[mode] += 1
+            champion = audit.get("champion_actions")
+            if champion is not None:
+                with_champion += 1
+                played = audit.get("actions")
+                if mode == "search" and played is not None and played != champion:
+                    changed_champion += 1
+                    live = schedule.get("live_guards") or {}
+                    chosen = (audit.get("result") or {}).get("choice")
+                    if live.get("policy_choice") not in (None, chosen):
+                        kind = "the_search_scores"
+                    elif live.get("changed_pick"):
+                        kind = "guards_on_the_searched_ranking"
+                    else:
+                        kind = "rebuilt_view_or_candidate_set"
+                    champion_change_kinds[kind] += 1
             if mode != "search":
                 for reason in schedule.get("reasons") or ["?"]:
                     reasons[f"{mode}:{reason}"] += 1
@@ -45,6 +67,18 @@ def summarize(paths: list[Path]) -> dict:
                 weights.append(float(rankings[0].get("score", 0.0)))
                 favourite = max(rankings, key=lambda r: float(r.get("prior", 0.0)))
                 changed += int(favourite.get("choice") != result.get("choice"))
+            live_guards = schedule.get("live_guards") or {}
+            guard_changed += int(bool(live_guards.get("changed_pick")))
+            if live_guards.get("champion"):
+                champion_outcomes[live_guards["champion"]] += 1
+            stages.update(live_guards.get("stages") or [])
+            # the policy's pick after the same guards (logged from 2026-10-04): what
+            # the bot would have played without the search's scores
+            if live_guards.get("policy_choice") is not None:
+                with_guarded += 1
+                changed_guarded += int(
+                    live_guards["policy_choice"] != result.get("choice")
+                )
     elapsed.sort()
 
     def pct(q: float) -> float | None:
@@ -58,6 +92,23 @@ def summarize(paths: list[Path]) -> dict:
         "fallback_reasons": dict(reasons.most_common(12)),
         "searched": searched,
         "search_changed_policy_favourite": changed,
+        "search_changed_guarded_policy_choice": (
+            {"changed": changed_guarded, "of": with_guarded} if with_guarded else None
+        ),
+        "search_changed_champion_action": (
+            {
+                "changed": changed_champion,
+                "of": with_champion,
+                "by": dict(champion_change_kinds),
+            }
+            if with_champion
+            else None
+        ),
+        # kept: the search agreed with the bot's own pair; overridden: it replaced it
+        # and the guards accepted; override_vetoed: the guards sent it back
+        "champion_outcomes": dict(champion_outcomes) or None,
+        "guards_changed_searched_pick": guard_changed,
+        "guard_stages_on_searched_picks": dict(stages.most_common(12)),
         "elapsed_s": {
             "p50": pct(0.5),
             "p90": pct(0.9),
