@@ -185,6 +185,7 @@ class PolicyPlayer(Player):
         exact_enable_ponder: bool = False,
         exact_ponder_config: Any | None = None,
         exact_leaf: str = "outcome",
+        exact_oracle_opponent_team: str | Path | None = None,
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -413,6 +414,12 @@ class PolicyPlayer(Player):
         self.exact_enable_ponder = bool(exact_enable_ponder)
         self.exact_ponder_config = exact_ponder_config
         self.exact_leaf = exact_leaf
+        # diagnostic only: the opponent's real team file for the exact worlds
+        self.exact_oracle_opponent_team = (
+            Path(exact_oracle_opponent_team)
+            if exact_oracle_opponent_team is not None
+            else None
+        )
         self.enable_search = (
             PolicyPlayer.use_search if enable_search is None else bool(enable_search)
         )
@@ -1554,6 +1561,11 @@ class PolicyPlayer(Player):
             ponder_config=self.exact_ponder_config,
             policy_inference_lock=self._exact_policy_lock,
             leaf=self.exact_leaf,
+            oracle_opponent_team_text=(
+                self.exact_oracle_opponent_team.read_text()
+                if self.exact_oracle_opponent_team is not None
+                else None
+            ),
         )
         self._exact_sessions[battle.battle_tag] = session
         return session

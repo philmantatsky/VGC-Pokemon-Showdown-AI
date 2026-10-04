@@ -194,3 +194,17 @@ def test_hidden_world_sets_without_a_spread_get_a_real_one():
     )
     text = determination_team_text([TeamSlot("torkoal", "Torkoal")], {"torkoal": known})
     assert "EVs: 32 HP / 2 Def / 32 SpA" in text and "Quiet Nature" in text
+
+
+def test_oracle_team_text_follows_the_preview_order():
+    """The oracle diagnostic hands the exact worlds the opponent's real team; its
+    Pokemon must be in team-preview order for the "team 1234" choices to map."""
+    from vgc_bench.src.live_exact import _team_text_in_roster_order
+    from vgc_bench.src.set_particles import TeamSlot
+
+    text = "Torkoal @ Charcoal\n- Eruption\n\nFarigiraf (F) @ Sitrus Berry\n- Psychic\n"
+    roster = [TeamSlot("farigiraf", "Farigiraf"), TeamSlot("torkoal", "Torkoal")]
+    ordered = _team_text_in_roster_order(text, roster)
+    assert ordered.index("Farigiraf") < ordered.index("Torkoal")
+    with pytest.raises(ValueError, match="no"):
+        _team_text_in_roster_order(text, [TeamSlot("venusaur", "Venusaur")])

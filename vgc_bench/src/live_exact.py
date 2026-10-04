@@ -13,6 +13,7 @@ import itertools
 import json
 import math
 import random
+import re
 import time
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
@@ -320,6 +321,18 @@ def _roster_from_battle(battle: DoubleBattle, own: bool) -> tuple[TeamSlot, ...]
     )
 
 
+def _team_text_in_roster_order(team_text: str, roster: Sequence[TeamSlot]) -> str:
+    """A Showdown team export with its Pokemon in ``roster``'s (team preview) order."""
+    blocks = [b for b in re.split(r"\n\s*\n", team_text.strip()) if b.strip()]
+    by_species = {
+        slot.species: block for slot, block in zip(team_roster(team_text), blocks)
+    }
+    missing = [slot.display for slot in roster if slot.species not in by_species]
+    if missing:
+        raise ValueError(f"the oracle team has no {missing}")
+    return "\n\n".join(by_species[slot.species] for slot in roster) + "\n"
+
+
 def _index_by_species(roster: Sequence[TeamSlot]) -> dict[str, int]:
     return {slot.species: index for index, slot in enumerate(roster, start=1)}
 
@@ -460,6 +473,7 @@ class LiveExactSession:
         policy_inference_lock=None,
         seed: int = 20260820,
         leaf: str = "outcome",
+        oracle_opponent_team_text: str | None = None,
     ):
         self.battle_tag = battle_tag
         self.policy = policy
@@ -504,6 +518,11 @@ class LiveExactSession:
         if leaf not in ("outcome", "critic"):
             raise ValueError("leaf must be 'outcome' or 'critic'")
         self.leaf = leaf
+        # DIAGNOSTIC ONLY (2026-10-04): every world is built from the opponent's real
+        # team (sets and spreads), which no ladder game provides -- a local test of
+        # whether search with a perfect world model beats the brain. Which four were
+        # brought stays uncertain.
+        self.oracle_opponent_team_text = oracle_opponent_team_text
         if leaf == "critic":
             from vgc_bench.src.critic_leaf import CriticLeafEvaluator
 
@@ -654,7 +673,13 @@ class LiveExactSession:
                 p1_name="planner",
                 p2_name="opponent",
                 p1_team_text=self.our_team_text,
-                p2_team_text=determination_team_text(opponent_roster, determination),
+                p2_team_text=(
+                    _team_text_in_roster_order(
+                        self.oracle_opponent_team_text, opponent_roster
+                    )
+                    if self.oracle_opponent_team_text
+                    else determination_team_text(opponent_roster, determination)
+                ),
                 p1_preview=p1_preview,
                 p2_preview=p2_preview,
             )
@@ -745,7 +770,10 @@ class LiveExactSession:
                 self.eliminated_roots += 1
                 continue
             compatible = True
-            for species, row in evidence.items():
+            # oracle worlds carry the real sets whatever the sampled particle says
+            oracle = getattr(self, "oracle_opponent_team_text", None)
+            rows = {} if oracle else evidence
+            for species, row in rows.items():
                 particle = root.determination.get(species)
                 if particle is None:
                     compatible = False

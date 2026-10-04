@@ -228,6 +228,11 @@ def main() -> None:
         help="the outcome-net checkpoint for --a-search-leaf outcome",
     )
     ap.add_argument(
+        "--a-search-oracle",
+        action="store_true",
+        help="DIAGNOSTIC: side A's worlds use side B's real team (sets and spreads)",
+    )
+    ap.add_argument(
         "--a-search-argmax",
         action="store_true",
         help="nash: play the averaged equilibrium's top action instead of sampling",
@@ -345,6 +350,7 @@ def main() -> None:
             "budget_s": args.a_search_budget,
             "every_turn": True,
             "leaf": args.a_search_leaf,
+            "oracle_opponent_team": args.a_search_oracle,
             "sample": not args.a_search_argmax,
             "prior_mix": args.a_search_prior_mix,
             "outcome_value": str(args.a_search_outcome),
@@ -449,6 +455,9 @@ def main() -> None:
             "exact_search_determinizations": args.a_search_worlds,
             "exact_min_deep_coverage": 0.5,
             "exact_leaf": args.a_search_leaf,
+            "exact_oracle_opponent_team": (
+                ROOT / config["TEAM"] if args.a_search_oracle else None
+            ),
             "decision_log_path": output / "a_decisions.jsonl",
         }
     results = []
