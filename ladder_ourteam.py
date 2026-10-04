@@ -20,11 +20,14 @@ import hashlib
 import json
 import os
 import re
+from collections.abc import Coroutine
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 from poke_env import AccountConfiguration, ShowdownServerConfiguration
 from poke_env.concurrency import handle_threaded_coroutines
+from poke_env.player import Player
 from torch import device
 
 from vgc_bench.src.policy import MaskedActorCriticPolicy
@@ -84,6 +87,49 @@ async def rejoin_active_battle(
     return await handle_threaded_coroutines(
         _rejoin_active_battle_in_loop(agent, battle_tag, timeout), agent.ps_client.loop
     )
+
+
+# Exit status after a lost server connection (EX_TEMPFAIL): tools/reconnect_loop.sh
+# restarts the challenge listener on it; any other status ends the listener.
+DISCONNECTED_EXIT = 75
+
+
+async def play_until_disconnect(
+    agent: Player, play: Coroutine[Any, Any, Any], poll: float = 5.0
+) -> str | None:
+    """Await ``play`` (accept_challenges or ladder) unless the server connection drops.
+
+    poke-env's listener logs a dropped websocket and stops reading, while
+    accept_challenges / ladder keep waiting for messages that can never arrive
+    (2026-10-03: the challenge listener sat deaf for hours after Showdown closed its
+    connection at 17:52). Returns None when ``play`` finished; after a lost
+    connection it cancels ``play`` and returns the tag of a battle left unfinished
+    ("" if none), for the restarted listener to rejoin.
+    """
+    task = asyncio.ensure_future(play)
+    listening = getattr(agent.ps_client, "_listening_coroutine", None)
+    while not task.done():
+        await asyncio.wait({task}, timeout=poll)
+        if not task.done() and listening is not None and listening.done():
+            task.cancel()
+            await asyncio.wait({task}, timeout=poll)
+            unfinished = [tag for tag, b in agent.battles.items() if not b.finished]
+            return unfinished[-1] if unfinished else ""
+    task.result()  # re-raise what ``play`` raised
+    return None
+
+
+def record_disconnect(replay_dir: Path, unfinished: str) -> Path:
+    """Append a lost connection to <replay_dir>/disconnects.jsonl, where
+    tools/reconnect_loop.sh finds the battle to rejoin."""
+    path = replay_dir / "disconnects.jsonl"
+    entry = {
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "unfinished": unfinished,
+    }
+    with path.open("a") as f:
+        f.write(json.dumps(entry) + "\n")
+    return path
 
 
 def resolve_knowledge_obs(explicit: bool | None, ckpt: Path, ckpt_sha: str) -> bool:
@@ -904,10 +950,12 @@ async def main():
         print(f"rejoin   : {detail}")
     if args.challenges:
         print(f"awaiting {args.n_games} challenge(s)...")
-        await agent.accept_challenges(opponent=None, n_challenges=args.n_games)
+        lost = await play_until_disconnect(
+            agent, agent.accept_challenges(opponent=None, n_challenges=args.n_games)
+        )
     else:
         print(f"laddering {args.n_games} games...")
-        await agent.ladder(n_games=args.n_games)
+        lost = await play_until_disconnect(agent, agent.ladder(n_games=args.n_games))
 
     counts = dict(PolicyPlayer.guard_fire_counts)
     if counts:
@@ -927,6 +975,13 @@ async def main():
     print(f"\nrecord: {wins}-{losses}-{ties}")
     if total:
         print(f"win rate: {wins / total * 100:.0f}% over {total} games")
+    if lost is not None:
+        path = record_disconnect(Path(args.replay_dir), lost)
+        print(
+            "DISCONNECTED the server connection was lost; unfinished battle: "
+            f"{lost or 'none'} (recorded in {path})"
+        )
+        raise SystemExit(DISCONNECTED_EXIT)
 
 
 if __name__ == "__main__":

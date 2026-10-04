@@ -1,5 +1,41 @@
 # VGC Bot Project Status
 
+## Deployed at the user's word: T6e (Torkoal Earth Power) + 14 guards + the open-sheet preview; the challenge listener now reconnects after a lost connection (2026-October 3, 23:45)
+
+- The user: "keep the guards, keep the team sheet stuff its gonna be useful later, and keep
+  earth power". `results_deployed/DEPLOYED.json` amended (third amendment, with the previous
+  values and the evidence): team **`teams/candidates_mc/T6e.txt`** (sha 5d85cac3; T6 with
+  Torkoal's Earth Power for Weather Ball -- same six, same preview model), `guards_extra` +=
+  **wasted_fake_out, throat_chop_main_threat** (14 guards), **`sheet_preview: true`**, replay tag
+  T6tac_guards12 -> **T6tac_T6e_guards14**. The brain stays T6tac (sha 05e82218); both HP-move
+  guards stay off. `tools/deployed_config.py` verifies it; launchers need no change.
+- What each piece rests on -- each measured alone against the 12-guard bot, the combination is
+  unmeasured: the two guards, rare trio battery -0.55pp [-1.14, +0.06] (with the HP-move guard,
+  which drew nearly all the changes), 7 of 7 ladder firings correct; the sheet preview, battery
+  -0.52pp [-1.32, +0.27], non-regression only (acts in challenges, ladder opponents never share
+  sheets); T6e, battery +0.50pp [-0.52, +1.52] but head-to-head vs the same brain on T6 43.4%
+  (hidden-sheet blocks 36-39%) -- HOLD by its pre-registered rule, deployed over it by the user's
+  decision. **What to watch on ladder:** the hidden-sheet games against teams like ours.
+- **Challenge listener fix.** The listener started at 15:20 went deaf at 17:52: Showdown dropped
+  the websocket ("no close frame received or sent"); poke-env logs that and stops reading, but
+  `accept_challenges` keeps waiting, so the process looked alive for six hours.
+  `ladder_ourteam.play_until_disconnect` now watches poke-env's listener and on a lost
+  connection ends the run with **exit 75** and a line in `<replay_dir>/disconnects.jsonl`
+  naming any unfinished battle; **`tools/reconnect_loop.sh`** (which `tools/challenges_deployed.sh`
+  now execs) reruns the listener after 30 s -- after 5 s with `--rejoin-battle` when a battle was
+  open; any other exit ends it, ten short runs in a row give up. Ladder mode exits the same way
+  (`tools/ladder_read_loop.sh` already restarted dead sockets by log pattern and handles it as
+  a session end). Tests `unit_tests/test_reconnect_loop.py` (11: the helper with fakes; the loop
+  with a fake listener -- rejoin, first room once, other exits, give-up, Reg M-C rooms only).
+  Live `checks/disconnect_live.py` (real poke-env players, a throwaway server on 7612 killed
+  with SIGKILL): **returned in 0.0 s while waiting and 0.3 s mid-battle (with the room)**, while
+  the old bare `accept_challenges` was still waiting 3 s after the kill -> PASS. Full suite 710
+  passed, 5 skipped; ruff and pyright clean on the changed files.
+- Listener restarted at 23:30 on the new configuration and at 23:41 on the reconnecting launcher
+  (`challenge_replays_mc_deployed_T6tac_T6e_guards14`, log
+  `results_analysis/challenges_20261003/listener_T6tac_T6e_guards14.log`). Stop it by stopping its
+  `ladder_ourteam.py` process (the loop ends on any exit but 75).
+
 ## The rare-guard trio PASSES its rule (battery -0.55pp [-1.14, +0.06], mirror 48.6% [46.5, 50.8]); but the HP-move guard still leans negative where it acts -> recommend the two rare guards only (2026-October 3, 22:25)
 
 - `results_guard_ab_rare_trio` / `results_mirror_rare_trio` (wasted_fake_out +

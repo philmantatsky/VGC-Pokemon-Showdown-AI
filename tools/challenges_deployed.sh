@@ -3,7 +3,10 @@
 # configuration. These are unranked challenge battles, not ladder matchmaking.
 #
 # Usage: [ALLOW_HEAVY=1] tools/challenges_deployed.sh [n_challenges] [replay_dir] [rejoin_battle]
-# Defaults to a long-lived 1000-challenge listener. Stop it normally with Ctrl-C.
+# Defaults to a long-lived 1000-challenge listener. Stop it normally with Ctrl-C
+# (detached: stop its ladder_ourteam.py process). After a lost server connection it
+# reconnects and rejoins an unfinished battle (tools/reconnect_loop.sh; each restart
+# accepts up to n_challenges again).
 # It refuses while a heavy local job runs unless ALLOW_HEAVY=1.
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -82,11 +85,12 @@ if [ -n "${PLAYBOOK:-}" ]; then
 fi
 if [ -n "$REJOIN" ]; then
   case "$REJOIN" in
-    battle-gen9championsvgc2026regmc-*) EXTRA+=(--rejoin-battle "$REJOIN") ;;
+    battle-gen9championsvgc2026regmc-*) ;;  # the loop passes --rejoin-battle once
     *) echo "CHALLENGE_REFUSED rejoin room is not Reg M-C"; exit 2 ;;
   esac
 fi
-GUARDS="$GUARDS" exec caffeinate -is .venv/bin/python -u ladder_ourteam.py \
+GUARDS="$GUARDS" exec tools/reconnect_loop.sh "$DIR" "$REJOIN" \
+  caffeinate -is .venv/bin/python -u ladder_ourteam.py \
   --checkpoint "$CKPT" \
   --reg mc \
   --our_team "$TEAM" \

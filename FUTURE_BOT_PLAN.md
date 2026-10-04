@@ -161,6 +161,18 @@
   hurt), the rare trio PASS (wasted_fake_out + throat_chop_main_threat recommended, the HP-move
   guards off); open-sheet preview + late re-plan PASS (non-regression; changes ~4% of
   open-sheet plans); T6e HOLD (head-to-head 43.4%, battery +0.50pp). Deployments: the user's call.
+- [x] **Deployed at the user's word** (2026-10-03 night: "keep the guards, keep the team sheet
+  stuff its gonna be useful later, and keep earth power"): team T6e (Torkoal Earth Power), 14
+  guards (+ wasted_fake_out, throat_chop_main_threat), `sheet_preview: true`; replay tag
+  T6tac_T6e_guards14. T6e went in over its HOLD; each piece was measured alone against the
+  12-guard bot, the combination is unmeasured.
+- [x] Challenge listener reconnects after a lost server connection (exit 75 +
+  `tools/reconnect_loop.sh`, rejoins an unfinished battle; live `checks/disconnect_live.py`);
+  it had sat deaf from 17:52 on 2026-10-03.
+- [ ] Ladder read of T6tac_T6e_guards14 (the user's sessions): watch the hidden-sheet games,
+  where the unpractised Earth Power lost the head-to-head (36-39%).
+- [ ] T6e practice inside a cycle that keeps the tactical lessons (auxiliary loss toward the
+  tactical teacher), so the brain practises Earth Power instead of only playing it.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a
