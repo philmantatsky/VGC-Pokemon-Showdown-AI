@@ -164,6 +164,8 @@ impl Battle {
                 self.update_items(p);
             }
         }
+        // White Herb (onAnySwitchIn, priority -2).
+        self.white_herb_all();
     }
 
     fn entry_hazards(&mut self, p: Pos) {

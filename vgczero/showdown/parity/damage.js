@@ -8,6 +8,10 @@
 //
 // Usage: node damage.js [--n 3000] [--seed 1] [--show 20] [--out file.jsonl]
 //                       [--fixture out.jsonl.gz] [--focus ability|item:<id>]
+//                       [--focus-all [--per 60]] [--move <id>]
+// --focus forces one ability / item into every scenario, --focus-all runs
+// --per scenarios for every supported ability and item, --move forces a move.
+// Exit code 1 on any mismatch.
 
 const fs = require('fs');
 const zlib = require('zlib');

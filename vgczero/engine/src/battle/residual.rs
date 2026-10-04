@@ -171,6 +171,8 @@ impl Battle {
                 m.vol.active_turns = m.vol.active_turns.saturating_add(1);
             }
         }
+        // White Herb (residual order 29).
+        self.white_herb_all();
         // Emergency Exit from residual damage.
         for c in 0..4u8 {
             let p = Pos::from_code(c);

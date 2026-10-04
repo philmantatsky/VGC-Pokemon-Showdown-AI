@@ -180,7 +180,6 @@ impl Battle {
         }
         if lowered {
             self.mm(tgt).vol.stats_lowered_this_turn = true;
-            self.check_white_herb(tgt);
         }
         changed
     }
@@ -654,7 +653,6 @@ impl Battle {
             It::RawstBerry => m.status == Status::Brn,
             It::AspearBerry => m.status == Status::Frz,
             It::PersimBerry => m.vol.confusion > 0,
-            It::WhiteHerb => m.boosts.iter().any(|&x| x < 0),
             _ => false,
         }
     }
@@ -685,7 +683,15 @@ impl Battle {
     pub fn update_items(&mut self, p: Pos) {
         self.check_hp_berry(p);
         self.check_status_berry(p);
-        self.check_white_herb(p);
+    }
+
+    /// White Herb has no Update handler: it acts after any switch-in, any
+    /// move, any Mega Evolution, and at the end of the turn, for every active
+    /// holder (so two Intimidates in a row are both undone).
+    pub(crate) fn white_herb_all(&mut self) {
+        for c in 0..4 {
+            self.check_white_herb(Pos::from_code(c));
+        }
     }
 
     // ---- items --------------------------------------------------------------------------
@@ -857,6 +863,7 @@ impl Battle {
         blog!(self, "|-mega|{}", self.name(p));
         // The new ability starts immediately.
         self.ability_start(p);
+        self.white_herb_all();
     }
 
     pub fn reveal_ability(&mut self, p: Pos) {

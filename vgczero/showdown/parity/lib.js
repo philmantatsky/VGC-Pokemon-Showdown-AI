@@ -246,7 +246,16 @@ function exportSide(battle, side) {
 	for (const [id, s] of Object.entries(side.sideConditions)) conds[id] = effectState(s);
 	const slotConds = side.slotConditions.map(sc => {
 		const o = {};
-		for (const [id, s] of Object.entries(sc)) o[id] = effectState(s);
+		for (const [id, s] of Object.entries(sc)) {
+			o[id] = effectState(s);
+			if (id === 'wish' && s.startingTurn !== undefined && s.duration === undefined) {
+				// Gen 9 Wish has no duration: it lands in the residual of turn
+				// startingTurn + 2. Export the residuals left (this turn's
+				// included unless it already ran: end-of-turn switch request).
+				const residualDone = battle.requestState === 'switch' && !battle.queue.list.some(a => a.choice === 'residual');
+				o[id].duration = s.startingTurn + 2 - battle.turn + (residualDone ? 0 : 1);
+			}
+		}
 		return o;
 	});
 	return {

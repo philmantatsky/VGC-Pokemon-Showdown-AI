@@ -351,6 +351,14 @@ impl Battle {
     /// Showdown's runEffectiveness (log2 sum over the target's types).
     pub fn effectiveness(&self, ty: Type, tgt: Pos, am: Option<&ActiveMove>) -> i32 {
         let chart = &dex().chart;
+        // Iron Ball's onEffectiveness: a Ground move against a Flying type is
+        // neutral for each of its types (not grounded by other means).
+        if ty == Type::Ground && self.it(tgt) == It::IronBall && self.types_of(tgt).contains(&Type::Flying) {
+            let m = self.m(tgt);
+            if !(m.vol.ingrain || m.vol.smacked_down || self.field.gravity > 0) {
+                return 0;
+            }
+        }
         let mut total = 0;
         for t in self.types_of(tgt) {
             if t == Type::None {
@@ -961,6 +969,10 @@ impl Battle {
             return true;
         }
         if self.m(tgt).vol.glaive_rush > 0 {
+            return true;
+        }
+        // Toxic from a Poison-type user never misses.
+        if mv.status == crate::dex::Status::Tox && am.category == Category::Status && self.m(src).has_type(Type::Poison) {
             return true;
         }
         let mut acc = am.accuracy as u32;

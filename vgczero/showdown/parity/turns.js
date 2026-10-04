@@ -21,6 +21,12 @@
 //
 // Usage: node turns.js [--battles 60] [--sample 0.35] [--runs 200] [--seed 1]
 //                      [--alpha 1e-6] [--show 25] [--jobs 4] [--dump file]
+//                      [--require species1,species2]   (side 1 brings one of these)
+//                      [--fixture out.jsonl.gz] [--fixture-max 250]
+// --dump writes the flagged scenarios (file), request mismatches
+// (file.legal.json) and engine step errors (file.err.json) for debug.js /
+// debug_hits.js. --fixture records Showdown's outcome counts for
+// engine/tests/parity.rs. Exit code 1 when anything is flagged.
 
 const fs = require('fs');
 const cp = require('child_process');

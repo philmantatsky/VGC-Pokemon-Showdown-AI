@@ -112,6 +112,8 @@ impl Battle {
         if self.is_live(p) {
             self.mm(p).vol.this_move_failed = !ok;
         }
+        // AfterMove: White Herb.
+        self.white_herb_all();
         if dex().mv(move_id).fx == MoveFx::Round {
             self.round_used = true;
             // The next queued Round (either side) moves next.
@@ -956,7 +958,9 @@ impl Battle {
                 continue;
             }
             let si = self.m(t).vol.semi_inv;
-            if si != SemiInv::None && self.ab(p) != Ab::NoGuard && self.tab(t) != Ab::NoGuard {
+            // (Toxic from a Poison type also hits a semi-invulnerable target.)
+            let sure_toxic = dex().mv(am.id).status == Status::Tox && am.category == Category::Status && self.m(p).has_type(Type::Poison);
+            if si != SemiInv::None && self.ab(p) != Ab::NoGuard && self.tab(t) != Ab::NoGuard && !sure_toxic {
                 let hits = match (si, dex().mv(am.id).id.as_str()) {
                     (SemiInv::Air, "hurricane" | "thunder" | "skyuppercut" | "smackdown" | "gust" | "twister" | "thousandarrows") => true,
                     (SemiInv::Underground, "earthquake" | "magnitude" | "fissure") => true,
@@ -1164,6 +1168,9 @@ impl Battle {
             }
             (Ab::FlashFire, Type::Fire) => {
                 self.mm(t).vol.flash_fire = true;
+                // Showdown's Flash Fire sets move.accuracy = true: the rest of
+                // a spread move's targets can no longer be missed.
+                am.accuracy = 0;
                 true
             }
             (Ab::WindRider, _) if am.flags & flag::WIND != 0 => {
@@ -2305,15 +2312,13 @@ impl Battle {
             }
             _ => {}
         }
-        if !self.is_live(p) {
-            return;
-        }
-        // Contact reactions on the attacker.
+        // Contact reactions on the attacker. (A target the hit knocked out
+        // still reacts, and an attacker at 0 HP keeps its Poison Touch: both
+        // faint only after the move.)
         if contact {
-            // (A target the hit knocked out still reacts: it faints after the move.)
             let tab = dex().ab(self.m(t).ability);
             match tab {
-                Ab::RoughSkin | Ab::IronBarbs => {
+                Ab::RoughSkin | Ab::IronBarbs if self.is_live(p) => {
                     let mh = self.m(p).max_hp as u32;
                     self.reveal_ability(t);
                     self.damage(p, (mh / 8).max(1), Some(t), DmgKind::Indirect);
@@ -2335,7 +2340,7 @@ impl Battle {
                 self.damage(p, (mh / 6).max(1), Some(t), DmgKind::Indirect);
             }
             // Poison Touch (attacker's ability).
-            if self.is_live(p) && self.ab(p) == Ab::PoisonTouch && self.is_live(t) && self.rng.chance(3, 10) {
+            if !self.m(p).fainted && self.ab(p) == Ab::PoisonTouch && self.is_live(t) && self.rng.chance(3, 10) {
                 if self.tab(t) != Ab::ShieldDust {
                     self.try_set_status(t, Status::Psn, Some(p));
                 }

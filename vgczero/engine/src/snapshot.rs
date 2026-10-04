@@ -185,7 +185,8 @@ impl Battle {
                 for (slot, o) in slots.iter().enumerate().take(2) {
                     for (id, st) in o.as_object().into_iter().flatten() {
                         match id.as_str() {
-                            "wish" => side.wish[slot] = (i(st, "duration") as u8, i(st, "hp") as u16),
+                            // (Wish HP is maxhp / 2, possibly fractional; heal truncates.)
+                            "wish" => side.wish[slot] = (i(st, "duration").max(0) as u8, st.get("hp").and_then(|x| x.as_f64()).unwrap_or(0.0) as u16),
                             "healingwish" => side.healing_wish[slot] = true,
                             "revivalblessing" => side.reviving[slot] = true,
                             _ => return Err(format!("unsupported slot condition {id}")),
@@ -626,7 +627,8 @@ impl Battle {
             for sl in 0..2 {
                 let l = if sl == 0 { 'a' } else { 'b' };
                 if side.wish[sl].0 > 0 {
-                    slots.push(format!("{l}.wish:{}", side.wish[sl].0));
+                    // (Showdown's gen 9 Wish has no duration: shown as 1.)
+                    slots.push(format!("{l}.wish:1"));
                 }
                 if side.healing_wish[sl] {
                     slots.push(format!("{l}.healingwish:1"));
