@@ -269,7 +269,9 @@ impl Battle {
             bypass_protect_quarter: false,
         };
         am.prankster = self.ab(p) == Ab::Prankster && mv.category == Category::Status;
-        if self.ab(p) == Ab::SheerForce && mv.has_sheer_force_boost {
+        // Sheer Force (onModifyMove): moves with secondaries lose them (and
+        // their `self` effects) and get the 1.3x boost.
+        if self.ab(p) == Ab::SheerForce && !mv.secondaries.is_empty() && !mv.has_sheer_force_boost {
             am.sheer_force = true;
         }
         if mv.fx == MoveFx::ExpandingForce && self.field.terrain == Terrain::Psychic && self.is_grounded(p) {
@@ -1012,7 +1014,7 @@ impl Battle {
     }
 
     /// Type immunity and TryImmunity (powder, Prankster vs Dark, Ground vs airborne...).
-    fn immunity_check(&mut self, p: Pos, t: Pos, am: &ActiveMove) -> bool {
+    pub(crate) fn immunity_check(&mut self, p: Pos, t: Pos, am: &ActiveMove) -> bool {
         let mv = dex().mv(am.id);
         if t == p {
             return true;
@@ -1032,6 +1034,8 @@ impl Battle {
         match am.fx {
             MoveFx::LowKick | MoveFx::GrassKnot | MoveFx::HeavySlam | MoveFx::HeatCrash => true,
             MoveFx::LeechSeed => !self.m(t).has_type(Type::Grass),
+            // Endeavor's onTryImmunity: the user must have less HP.
+            MoveFx::Endeavor => self.m(p).hp < self.m(t).hp,
             _ => true,
         }
     }
@@ -1057,8 +1061,8 @@ impl Battle {
             }
         }
         if am.fx == MoveFx::BeatUp {
-            let side = &self.sides[p.s()];
-            hits = side.mons.iter().filter(|m| m.brought && m.alive() && m.status == Status::None).count().max(1) as u8;
+            let user = self.sides[p.s()].active[p.i()];
+            hits = self.sides[p.s()].beat_up_allies(user).1.max(1) as u8;
         }
         let parental = self.ab(p) == Ab::ParentalBond
             && hits == 1
@@ -1258,7 +1262,7 @@ impl Battle {
         if !*self_dropped && self.is_live(p) && out.iter().take(n).any(|x| x.is_some()) {
             *self_dropped = true;
             if let Some(b) = mv.self_boosts {
-                if !(am.sheer_force && false) {
+                if !am.sheer_force {
                     self.boost(p, &b, BoostSrc::SelfInflicted);
                 }
             }
@@ -1291,7 +1295,7 @@ impl Battle {
     }
 
     /// damageCallback moves.
-    fn fixed_damage(&self, p: Pos, t: Pos, am: &ActiveMove) -> Option<u32> {
+    pub(crate) fn fixed_damage(&self, p: Pos, t: Pos, am: &ActiveMove) -> Option<u32> {
         let s = self.m(p);
         let tm = self.m(t);
         match am.fx {

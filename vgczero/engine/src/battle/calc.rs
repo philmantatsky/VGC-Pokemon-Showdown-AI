@@ -5,7 +5,9 @@ use super::Battle;
 use crate::dex::{
     dex, flag, Category, MoveId, Target, Terrain, Weather, ATK, B_ACC, B_EVA, DEF, SPA, SPD, SPE,
 };
+use crate::dex::Status;
 use crate::kinds::{Ab, It, MoveFx};
+use crate::rng::Rng;
 use crate::state::{Pos, SemiInv};
 use crate::types::Type;
 
@@ -39,6 +41,81 @@ impl Chain {
             return value;
         }
         ((value as u64 * self.0 as u64 + 2047) / 4096) as u32
+    }
+}
+
+// Showdown effect-type subOrders (`Battle.resolvePriority`).
+const SUB_MOVE: u8 = 0;
+const SUB_COND: u8 = 2;
+const SUB_SIDE: u8 = 4;
+const SUB_FIELD: u8 = 5;
+const SUB_ABIL: u8 = 7;
+const SUB_ITEM: u8 = 8;
+
+/// One event handler's modifier with Showdown's handler sort keys.
+#[derive(Copy, Clone, Debug)]
+struct Hm {
+    prio: i16,
+    speed: i32,
+    sub: u8,
+    m: u32,
+}
+
+/// The modifiers an event's handlers apply, chained in Showdown's handler
+/// order (`speedSort`: priority desc, holder speed desc, subOrder asc, exact
+/// ties in random order). The order matters because every chainModify step
+/// rounds.
+struct Handlers {
+    v: [Hm; 12],
+    n: usize,
+}
+
+impl Handlers {
+    #[inline]
+    fn new() -> Handlers {
+        Handlers { v: [Hm { prio: 0, speed: 0, sub: 0, m: 4096 }; 12], n: 0 }
+    }
+    /// chainModify([m, 4096]).
+    #[inline]
+    fn add(&mut self, prio: i16, speed: i32, sub: u8, m: u32) {
+        if self.n < self.v.len() {
+            self.v[self.n] = Hm { prio, speed, sub, m };
+            self.n += 1;
+        }
+    }
+    /// chainModify(num / den).
+    #[inline]
+    fn frac(&mut self, prio: i16, speed: i32, sub: u8, num: u32, den: u32) {
+        self.add(prio, speed, sub, (num as u64 * 4096 / den as u64) as u32);
+    }
+    fn chain(&mut self, rng: &mut Rng) -> Chain {
+        let n = self.n;
+        let mut c = Chain::new();
+        if n == 0 {
+            return c;
+        }
+        if n > 1 {
+            let key = |h: &Hm| (-(h.prio as i32), -(h.speed as i64), h.sub);
+            let v = &mut self.v[..n];
+            v.sort_by_key(key);
+            let mut i = 0;
+            while i < n {
+                let mut j = i + 1;
+                while j < n && key(&v[j]) == key(&v[i]) {
+                    j += 1;
+                }
+                // Shuffle exact ties (Fisher-Yates), like PRNG.shuffle.
+                for k in (i + 1..j).rev() {
+                    let r = i + rng.below((k - i + 1) as u32) as usize;
+                    v.swap(k, r);
+                }
+                i = j;
+            }
+        }
+        for h in &self.v[..n] {
+            c.mul4096(h.m);
+        }
+        c
     }
 }
 
@@ -188,7 +265,7 @@ impl Battle {
             Ab::SlushRush if w == Weather::Snow => c.mul(2, 1),
             Ab::SurgeSurfer if self.field.terrain == Terrain::Electric => c.mul(2, 1),
             Ab::Unburden if m.vol.unburden && m.item == 0 => c.mul(2, 1),
-            Ab::QuickFeet if m.status != crate::dex::Status::None => c.mul(3, 2),
+            Ab::QuickFeet if m.status != Status::None => c.mul(3, 2),
             _ => {}
         }
         match self.it(p) {
@@ -199,10 +276,11 @@ impl Battle {
         if self.sides[p.s()].conds.tailwind > 0 {
             c.mul(2, 1);
         }
-        if m.status == crate::dex::Status::Par && self.ab(p) != Ab::QuickFeet {
-            c.mul(1, 2);
-        }
         spe = c.apply(spe);
+        // Paralysis (priority -101): finalModify, then halve.
+        if m.status == Status::Par && self.ab(p) != Ab::QuickFeet {
+            spe = spe * 50 / 100;
+        }
         spe.min(10000)
     }
 
@@ -318,11 +396,13 @@ impl Battle {
                 }
             }
             MoveFx::RagingBull => {
-                // Tauros-Paldea formes take their own type; others stay Normal.
-                let m = self.m(src);
-                if m.types[1] != Type::None && m.types[0] == Type::Fighting {
-                    am.ty = m.types[1];
-                }
+                // Tauros-Paldea formes use their breed's type; others stay Normal.
+                am.ty = match dex().sp(self.m(src).species).id.as_str() {
+                    "taurospaldeacombat" => Type::Fighting,
+                    "taurospaldeablaze" => Type::Fire,
+                    "taurospaldeaaqua" => Type::Water,
+                    _ => am.ty,
+                };
             }
             MoveFx::BurnUp | MoveFx::DoubleShock => {}
             _ => {}
@@ -408,7 +488,7 @@ impl Battle {
             }
             MoveFx::RageFist => (50 + 50 * s.vol.times_attacked as u32).min(350),
             MoveFx::Hex => {
-                if t.status != crate::dex::Status::None {
+                if t.status != Status::None {
                     bp * 2
                 } else {
                     bp
@@ -431,11 +511,21 @@ impl Battle {
                 }
             }
             MoveFx::TripleAxel => 20 * am.hit as u32,
+            MoveFx::BeatUp => {
+                // 5 + base Attack / 10 of the hit-th party member.
+                let side = &self.sides[src.s()];
+                let (allies, n) = side.beat_up_allies(side.active[src.i()]);
+                let k = (am.hit.max(1) as usize - 1).min(n.saturating_sub(1));
+                // The set's species: a Mega counts as its base forme.
+                let sp = side.mons[allies[k] as usize].base_species;
+                5 + dex().sp(sp).base[1] as u32 / 10
+            }
             MoveFx::Payback => {
-                if t.vol.moved_this_turn || t.vol.newly_switched {
-                    bp * 2
-                } else {
+                // Doubled unless the target just switched in or has yet to move.
+                if t.vol.newly_switched || self.queue.will_move(tgt).is_some() {
                     bp
+                } else {
+                    bp * 2
                 }
             }
             MoveFx::Assurance => {
@@ -456,158 +546,110 @@ impl Battle {
         }
     }
 
-    /// The BasePower event: chained modifiers after the crit roll.
-    pub fn base_power_mods(&self, src: Pos, tgt: Pos, am: &ActiveMove, bp: u32) -> u32 {
-        let s = self.m(src);
-        let t = self.m(tgt);
-        let mut c = Chain::new();
-        // The move's own onBasePower runs first.
-        match am.fx {
-            MoveFx::ExpandingForce => {
-                if self.field.terrain == Terrain::Psychic && self.is_grounded(src) {
-                    c.mul(3, 2);
+    /// The BasePower event, after the crit roll: every handler's modifier,
+    /// chained in Showdown's handler order (priority, holder speed, effect type).
+    pub fn base_power_mods(&mut self, src: Pos, tgt: Pos, am: &ActiveMove, bp: u32) -> u32 {
+        let s = *self.m(src);
+        let t = *self.m(tgt);
+        let sa = self.action_speed(src);
+        let sd = self.action_speed(tgt);
+        let mut h = Handlers::new();
+        // The move's own onBasePower (priority 0, held by the user).
+        let own = match am.fx {
+            MoveFx::ExpandingForce if self.field.terrain == Terrain::Psychic && self.is_grounded(src) => Some((3, 2)),
+            MoveFx::KnockOff if t.item != 0 && !dex().item(t.item).is_mega_stone => Some((3, 2)),
+            MoveFx::Facade if s.status != Status::None && s.status != Status::Slp => Some((2, 1)),
+            MoveFx::Venoshock | MoveFx::BarbBarrage if matches!(t.status, Status::Psn | Status::Tox) => Some((2, 1)),
+            MoveFx::LashOut if s.vol.stats_lowered_this_turn => Some((2, 1)),
+            MoveFx::SolarBeam | MoveFx::SolarBlade
+                if matches!(self.user_weather(src), Weather::Rain | Weather::Sand | Weather::Snow) =>
+            {
+                Some((1, 2))
+            }
+            _ => None,
+        };
+        if let Some((n, d)) = own {
+            h.frac(0, sa, SUB_MOVE, n, d);
+        }
+        // The user's ability.
+        match self.ab(src) {
+            Ab::Technician if bp <= 60 => h.frac(30, sa, SUB_ABIL, 3, 2),
+            Ab::Rivalry if s.gender != 0 && t.gender != 0 => {
+                if s.gender == t.gender {
+                    h.frac(24, sa, SUB_ABIL, 5, 4)
+                } else {
+                    h.frac(24, sa, SUB_ABIL, 3, 4)
                 }
             }
-            MoveFx::KnockOff => {
-                if t.item != 0 && !dex().item(t.item).is_mega_stone {
-                    c.mul(3, 2);
-                }
+            Ab::IronFist if am.flags & flag::PUNCH != 0 => h.add(23, sa, SUB_ABIL, 4915),
+            Ab::ToughClaws if am.flags & flag::CONTACT != 0 => h.add(21, sa, SUB_ABIL, 5325),
+            Ab::SheerForce if am.sheer_force || dex().mv(am.id).has_sheer_force_boost => h.add(21, sa, SUB_ABIL, 5325),
+            Ab::Analytic if !self.any_other_will_move(src) => h.add(21, sa, SUB_ABIL, 5325),
+            Ab::SandForce if self.weather() == Weather::Sand && matches!(am.ty, Type::Rock | Type::Ground | Type::Steel) => {
+                h.add(21, sa, SUB_ABIL, 5325)
             }
-            MoveFx::Facade => {
-                if s.status != crate::dex::Status::None && s.status != crate::dex::Status::Slp {
-                    c.mul(2, 1);
-                }
+            Ab::SupremeOverlord if s.vol.fallen > 0 => {
+                const POW: [u32; 6] = [4096, 4506, 4915, 5325, 5734, 6144];
+                h.add(21, sa, SUB_ABIL, POW[(s.vol.fallen as usize).min(5)])
             }
-            MoveFx::Venoshock | MoveFx::BarbBarrage => {
-                if matches!(t.status, crate::dex::Status::Psn | crate::dex::Status::Tox) {
-                    c.mul(2, 1);
-                }
-            }
-            MoveFx::LashOut => {
-                if s.vol.stats_lowered_this_turn {
-                    c.mul(2, 1);
-                }
-            }
-            MoveFx::SolarBeam | MoveFx::SolarBlade => {
-                let w = self.user_weather(src);
-                if !matches!(w, Weather::None | Weather::Sun) {
-                    c.mul(1, 2);
-                }
-            }
+            Ab::Sharpness if am.flags & flag::SLICING != 0 => h.frac(19, sa, SUB_ABIL, 3, 2),
+            Ab::StrongJaw if am.flags & flag::BITE != 0 => h.frac(19, sa, SUB_ABIL, 3, 2),
+            Ab::MegaLauncher if am.flags & flag::PULSE != 0 => h.frac(19, sa, SUB_ABIL, 3, 2),
+            Ab::PunkRock if am.flags & flag::SOUND != 0 => h.add(7, sa, SUB_ABIL, 5325),
             _ => {}
         }
-        let ab = self.ab(src);
-        let bp_raw = bp;
-        // Technician (priority 30).
-        if ab == Ab::Technician && bp_raw <= 60 {
-            c.mul(3, 2);
-        }
-        // Priority 24: Rivalry.
-        if ab == Ab::Rivalry && s.gender != 0 && t.gender != 0 {
-            if s.gender == t.gender {
-                c.mul(5, 4);
-            } else {
-                c.mul(3, 4);
-            }
-        }
-        // Priority 23: Iron Fist, -ate abilities.
-        if ab == Ab::IronFist && am.flags & flag::PUNCH != 0 {
-            c.mul4096(4915);
-        }
+        // -ate abilities (priority 23, only if they changed the type).
         if am.type_changer {
-            c.mul4096(4915);
+            h.add(23, sa, SUB_ABIL, 4915);
         }
-        // Priority 21: Tough Claws, Sheer Force, Analytic, Sand Force, Supreme Overlord.
-        if ab == Ab::ToughClaws && am.flags & flag::CONTACT != 0 {
-            c.mul4096(5325);
+        // Fairy Aura (onAnyBasePower 20): one boost however many auras.
+        if am.ty == Type::Fairy && src != tgt && self.ability_on_field(Ab::FairyAura) {
+            h.add(20, 0, SUB_ABIL, 5448);
         }
-        if ab == Ab::SheerForce && am.sheer_force {
-            c.mul4096(5325);
+        // Dry Skin on the target (onSourceBasePower 17).
+        if am.ty == Type::Fire && self.tab(tgt) == Ab::DrySkin {
+            h.frac(17, sd, SUB_ABIL, 5, 4);
         }
-        if ab == Ab::Analytic && self.queue.len == 0 {
-            c.mul4096(5325);
-        }
-        if ab == Ab::SandForce
-            && self.weather() == Weather::Sand
-            && matches!(am.ty, Type::Rock | Type::Ground | Type::Steel)
-        {
-            c.mul4096(5325);
-        }
-        if ab == Ab::SupremeOverlord {
-            let fainted = s.vol.fallen as u32;
-            if fainted > 0 {
-                c.mul4096(4096 + 410 * fainted);
-            }
-        }
-        // Priority 20: Fairy Aura (anyone on the field).
-        if am.ty == Type::Fairy && self.ability_on_field(Ab::FairyAura) {
-            c.mul4096(5448);
-        }
-        // Priority 19: Sharpness, Strong Jaw, Mega Launcher.
-        if ab == Ab::Sharpness && am.flags & flag::SLICING != 0 {
-            c.mul(3, 2);
-        }
-        if ab == Ab::StrongJaw && am.flags & flag::BITE != 0 {
-            c.mul(3, 2);
-        }
-        if ab == Ab::MegaLauncher && am.flags & flag::PULSE != 0 {
-            c.mul(3, 2);
-        }
-        // Items: Muscle Band / Wise Glasses (16), type boosters (15).
+        // The user's item.
         match self.it(src) {
-            It::MuscleBand if am.category == Category::Physical => c.mul4096(4505),
-            It::WiseGlasses if am.category == Category::Special => c.mul4096(4505),
+            It::MuscleBand if am.category == Category::Physical => h.add(16, sa, SUB_ITEM, 4505),
+            It::WiseGlasses if am.category == Category::Special => h.add(16, sa, SUB_ITEM, 4505),
             it => {
-                if let Some(t) = type_booster(it) {
-                    if t == am.ty {
-                        c.mul4096(4915);
-                    }
+                if type_booster(it) == Some(am.ty) {
+                    h.add(15, sa, SUB_ITEM, 4915);
                 }
             }
         }
-        // Helping Hand (10).
-        for _ in 0..am.helping_hand {
-            c.mul(3, 2);
+        // Volatiles on the user: Helping Hand (10, one chainModify of 1.5^n), Charge (9).
+        if am.helping_hand > 0 {
+            let mult = 1.5f64.powi(am.helping_hand as i32);
+            h.add(10, sa, SUB_COND, (mult * 4096.0) as u32);
         }
-        // Charge.
         if s.vol.charge && am.ty == Type::Electric {
-            c.mul(2, 1);
+            h.frac(9, sa, SUB_COND, 2, 1);
         }
-        // Punk Rock (7).
-        if ab == Ab::PunkRock && am.flags & flag::SOUND != 0 {
-            c.mul4096(5325);
-        }
-        // Terrain (6).
+        // Terrain (field condition, priority 6).
+        let src_grounded = self.is_grounded(src) && s.vol.semi_inv == SemiInv::None;
+        let tgt_grounded = self.is_grounded(tgt) && t.vol.semi_inv == SemiInv::None;
         match self.field.terrain {
             Terrain::Grassy => {
-                if am.ty == Type::Grass && self.is_grounded(src) && s.vol.semi_inv == SemiInv::None {
-                    c.mul4096(5325);
-                }
-                if matches!(dex().mv(am.id).id.as_str(), "earthquake" | "bulldoze" | "magnitude")
-                    && self.is_grounded(tgt)
-                    && t.vol.semi_inv == SemiInv::None
-                {
-                    c.mul(1, 2);
+                if matches!(dex().mv(am.id).id.as_str(), "earthquake" | "bulldoze" | "magnitude") && tgt_grounded {
+                    h.frac(6, 0, SUB_FIELD, 1, 2);
+                } else if am.ty == Type::Grass && self.is_grounded(src) {
+                    h.add(6, 0, SUB_FIELD, 5325);
                 }
             }
-            Terrain::Psychic => {
-                if am.ty == Type::Psychic && self.is_grounded(src) && s.vol.semi_inv == SemiInv::None {
-                    c.mul4096(5325);
-                }
-            }
-            Terrain::Electric => {
-                if am.ty == Type::Electric && self.is_grounded(src) && s.vol.semi_inv == SemiInv::None {
-                    c.mul4096(5325);
-                }
-            }
-            Terrain::Misty => {
-                if am.ty == Type::Dragon && self.is_grounded(tgt) && t.vol.semi_inv == SemiInv::None {
-                    c.mul(1, 2);
-                }
-            }
-            Terrain::None => {}
+            Terrain::Psychic if am.ty == Type::Psychic && src_grounded => h.add(6, 0, SUB_FIELD, 5325),
+            Terrain::Electric if am.ty == Type::Electric && src_grounded => h.add(6, 0, SUB_FIELD, 5325),
+            Terrain::Misty if am.ty == Type::Dragon && tgt_grounded => h.frac(6, 0, SUB_FIELD, 1, 2),
+            _ => {}
         }
-        c.apply(bp).max(1)
+        h.chain(&mut self.rng).apply(bp).max(1)
+    }
+
+    /// Analytic: no other active Pokemon still has a move action this turn.
+    fn any_other_will_move(&self, p: Pos) -> bool {
+        (0..4).map(Pos::from_code).any(|q| q != p && self.is_live(q) && self.queue.will_move(q).is_some())
     }
 
     // ---- damage ----------------------------------------------------------------
@@ -642,14 +684,14 @@ impl Battle {
     }
 
     /// Attack stat used by a move (getDamage's attacker side), after boosts
-    /// and the ModifyAtk / ModifySpA events.
-    fn attack_stat(&self, src: Pos, tgt: Pos, am: &ActiveMove, crit: bool) -> u32 {
+    /// and the ModifyAtk / ModifySpA event.
+    fn attack_stat(&mut self, src: Pos, tgt: Pos, am: &ActiveMove, crit: bool) -> u32 {
         let mv = dex().mv(am.id);
         let physical = am.category == Category::Physical;
         let atk_holder = if mv.foul_play { tgt } else { src };
         let stat_idx = mv.override_offensive_stat.unwrap_or(if physical { ATK } else { SPA });
-        let h = self.m(atk_holder);
-        let mut boost = h.boosts[stat_idx - 1];
+        let hm = self.m(atk_holder);
+        let mut boost = hm.boosts[stat_idx - 1];
         // Unaware on the target ignores the attacker's boosts.
         if self.tab(tgt) == Ab::Unaware {
             boost = 0;
@@ -657,46 +699,54 @@ impl Battle {
         if crit && boost < 0 {
             boost = 0;
         }
-        let mut atk = boosted(h.stats[stat_idx] as u32, boost);
-        // ModifyAtk / ModifySpA event (by category, holder = user).
-        let s = self.m(src);
+        let mut atk = boosted(hm.stats[stat_idx] as u32, boost);
+        // ModifyAtk (physical) / ModifySpA (special) on the user.
+        let s = *self.m(src);
         let ab = self.ab(src);
-        let mut c = Chain::new();
+        let sa = self.action_speed(src);
+        let sd = self.action_speed(tgt);
+        // Hustle modifies the stat directly instead of chaining.
+        if ab == Ab::Hustle && physical {
+            atk = modify(atk, 3, 2);
+        }
+        let mut h = Handlers::new();
         let low_hp = (s.hp as u32) * 3 <= s.max_hp as u32;
         match ab {
-            Ab::HugePower | Ab::PurePower if physical => c.mul(2, 1),
-            Ab::Guts if physical && s.status != crate::dex::Status::None => c.mul(3, 2),
-            Ab::Hustle if physical => c.mul(3, 2),
-            Ab::Blaze if am.ty == Type::Fire && low_hp => c.mul(3, 2),
-            Ab::Torrent if am.ty == Type::Water && low_hp => c.mul(3, 2),
-            Ab::Overgrow if am.ty == Type::Grass && low_hp => c.mul(3, 2),
-            Ab::Swarm if am.ty == Type::Bug && low_hp => c.mul(3, 2),
-            Ab::FlashFire if s.vol.flash_fire && am.ty == Type::Fire => c.mul(3, 2),
-            Ab::SolarPower if !physical && self.weather() == Weather::Sun => c.mul(3, 2),
-            Ab::WaterBubble if am.ty == Type::Water => c.mul(2, 1),
-            Ab::FireMane if am.ty == Type::Fire => c.mul(3, 2),
+            Ab::HugePower | Ab::PurePower if physical => h.frac(5, sa, SUB_ABIL, 2, 1),
+            Ab::Guts if physical && s.status != Status::None => h.frac(5, sa, SUB_ABIL, 3, 2),
+            Ab::Blaze if am.ty == Type::Fire && low_hp => h.frac(5, sa, SUB_ABIL, 3, 2),
+            Ab::Torrent if am.ty == Type::Water && low_hp => h.frac(5, sa, SUB_ABIL, 3, 2),
+            Ab::Overgrow if am.ty == Type::Grass && low_hp => h.frac(5, sa, SUB_ABIL, 3, 2),
+            Ab::Swarm if am.ty == Type::Bug && low_hp => h.frac(5, sa, SUB_ABIL, 3, 2),
+            Ab::SolarPower if !physical && self.user_weather(src) == Weather::Sun => h.frac(5, sa, SUB_ABIL, 3, 2),
+            Ab::FireMane if am.ty == Type::Fire => h.frac(5, sa, SUB_ABIL, 3, 2),
+            Ab::WaterBubble if am.ty == Type::Water => h.frac(0, sa, SUB_ABIL, 2, 1),
             _ => {}
+        }
+        // Flash Fire's volatile (priority 5).
+        if s.vol.flash_fire && am.ty == Type::Fire && ab == Ab::FlashFire {
+            h.frac(5, sa, SUB_COND, 3, 2);
         }
         match self.it(src) {
-            It::ChoiceBand if physical => c.mul(3, 2),
-            It::ChoiceSpecs if !physical => c.mul(3, 2),
+            It::ChoiceBand if physical => h.frac(1, sa, SUB_ITEM, 3, 2),
+            It::ChoiceSpecs if !physical => h.frac(1, sa, SUB_ITEM, 3, 2),
             _ => {}
         }
-        // Target-side attack modifiers (onSourceModifyAtk).
+        // The target's onSourceModifyAtk / onSourceModifySpA.
         match self.tab(tgt) {
-            Ab::ThickFat if matches!(am.ty, Type::Fire | Type::Ice) => c.mul(1, 2),
-            Ab::WaterBubble if am.ty == Type::Fire => c.mul(1, 2),
+            Ab::ThickFat if matches!(am.ty, Type::Fire | Type::Ice) => h.frac(if physical { 6 } else { 5 }, sd, SUB_ABIL, 1, 2),
+            Ab::WaterBubble if am.ty == Type::Fire => h.frac(5, sd, SUB_ABIL, 1, 2),
             _ => {}
         }
-        atk = c.apply(atk);
+        atk = h.chain(&mut self.rng).apply(atk);
         atk.max(1)
     }
 
-    fn defense_stat(&self, src: Pos, tgt: Pos, am: &ActiveMove, crit: bool) -> u32 {
+    fn defense_stat(&mut self, src: Pos, tgt: Pos, am: &ActiveMove, crit: bool) -> u32 {
         let mv = dex().mv(am.id);
         let physical = am.category == Category::Physical;
         let stat_idx = mv.override_defensive_stat.unwrap_or(if physical { DEF } else { SPD });
-        let t = self.m(tgt);
+        let t = *self.m(tgt);
         let mut boost = t.boosts[stat_idx - 1];
         if mv.ignore_defensive || (self.is_live(src) && self.ab(src) == Ab::Unaware) {
             boost = 0;
@@ -705,18 +755,18 @@ impl Battle {
             boost = 0;
         }
         let mut def = boosted(t.stats[stat_idx] as u32, boost);
-        let mut c = Chain::new();
-        let w = self.weather();
+        // Weather (priority 10) modifies the stat directly. During a Mega Sol
+        // user's move every Pokemon's effective weather is sun.
+        let w = if self.is_live(src) && self.ab(src) == Ab::MegaSol { Weather::Sun } else { self.weather() };
         if stat_idx == SPD && w == Weather::Sand && t.has_type(Type::Rock) {
-            c.mul(3, 2);
+            def = modify(def, 3, 2);
         }
         if stat_idx == DEF && w == Weather::Snow && t.has_type(Type::Ice) {
-            c.mul(3, 2);
+            def = modify(def, 3, 2);
         }
-        if stat_idx == DEF && self.tab(tgt) == Ab::MarvelScale && t.status != crate::dex::Status::None {
-            c.mul(3, 2);
+        if stat_idx == DEF && self.tab(tgt) == Ab::MarvelScale && t.status != Status::None {
+            def = Chain(6144).apply(def);
         }
-        def = c.apply(def);
         def.max(1)
     }
 
@@ -735,13 +785,13 @@ impl Battle {
         Some(self.modify_damage(base, src, tgt, am, crit, roll))
     }
 
-    /// modifyDamage: spread, weather, crit, random, STAB, type, burn, final.
-    pub fn modify_damage(&self, base: u32, src: Pos, tgt: Pos, am: &ActiveMove, crit: bool, roll: u32) -> u32 {
+    /// modifyDamage: spread, weather, crit, random, STAB, type, burn, then the
+    /// ModifyDamage event (chained in Showdown's handler order).
+    pub fn modify_damage(&mut self, base: u32, src: Pos, tgt: Pos, am: &ActiveMove, crit: bool, roll: u32) -> u32 {
         let mut dmg = base + 2;
         if am.spread_hit {
             dmg = modify(dmg, 3, 4);
-        }
-        if am.parental_bond_hit {
+        } else if am.parental_bond_hit {
             dmg = modify(dmg, 1, 4);
         }
         // Weather.
@@ -776,79 +826,78 @@ impl Battle {
             }
         }
         // Burn.
-        let s = self.m(src);
-        if s.status == crate::dex::Status::Brn
-            && am.category == Category::Physical
-            && self.ab(src) != Ab::Guts
-            && am.fx != MoveFx::Facade
-        {
+        let s = *self.m(src);
+        if s.status == Status::Brn && am.category == Category::Physical && self.ab(src) != Ab::Guts && am.fx != MoveFx::Facade {
             dmg = modify(dmg, 1, 2);
         }
-        // Final modifiers (ModifyDamage).
-        let mut c = Chain::new();
-        let t = self.m(tgt);
-        let tside = &self.sides[tgt.s()].conds;
-        let infiltrates = am.infiltrates;
-        if !crit && !infiltrates {
+        // ModifyDamage handlers.
+        let t = *self.m(tgt);
+        let sa = self.action_speed(src);
+        let sd = self.action_speed(tgt);
+        let mut h = Handlers::new();
+        // Screens: side conditions (holder speed 0, subOrder 4).
+        if !crit && !am.infiltrates && src != tgt {
+            let tside = &self.sides[tgt.s()].conds;
             let screen = match am.category {
                 Category::Physical => tside.reflect > 0 || tside.aurora_veil > 0,
                 Category::Special => tside.light_screen > 0 || tside.aurora_veil > 0,
                 Category::Status => false,
             };
             if screen {
-                c.mul4096(2732);
+                h.add(0, 0, SUB_SIDE, 2732);
             }
         }
-        // Attacker: Sniper, Tinted Lens, Life Orb, Expert Belt.
-        let ab = self.ab(src);
-        if ab == Ab::Sniper && crit {
-            c.mul(3, 2);
-        }
-        if ab == Ab::TintedLens && type_mod < 0 {
-            c.mul(2, 1);
-        }
-        match self.it(src) {
-            It::LifeOrb => c.mul4096(5324),
-            It::ExpertBelt if type_mod > 0 => c.mul4096(4915),
+        // The user's ability and item.
+        match self.ab(src) {
+            Ab::Sniper if crit => h.frac(0, sa, SUB_ABIL, 3, 2),
+            Ab::TintedLens if type_mod < 0 => h.frac(0, sa, SUB_ABIL, 2, 1),
             _ => {}
         }
-        // Target: Multiscale, Filter/Solid Rock, Fluffy, Punk Rock, Aura Guard,
-        // Friend Guard on the ally, resist berries, Glaive Rush.
-        let tab = self.tab(tgt);
-        if tab == Ab::Multiscale && t.hp == t.max_hp {
-            c.mul(1, 2);
+        match self.it(src) {
+            It::LifeOrb => h.add(0, sa, SUB_ITEM, 5324),
+            It::ExpertBelt if type_mod > 0 => h.add(0, sa, SUB_ITEM, 4915),
+            _ => {}
         }
-        if matches!(tab, Ab::Filter | Ab::SolidRock) && type_mod > 0 {
-            c.mul(3, 4);
-        }
-        if tab == Ab::Fluffy {
-            if am.flags & flag::CONTACT != 0 && am.ty != Type::Fire {
-                c.mul(1, 2);
+        // The target's ability, item and volatiles (onSourceModifyDamage).
+        match self.tab(tgt) {
+            Ab::Multiscale if t.hp >= t.max_hp => h.frac(0, sd, SUB_ABIL, 1, 2),
+            Ab::Filter | Ab::SolidRock if type_mod > 0 => h.frac(0, sd, SUB_ABIL, 3, 4),
+            Ab::Fluffy => {
+                let contact = am.flags & flag::CONTACT != 0;
+                let fire = am.ty == Type::Fire;
+                if contact && !fire {
+                    h.frac(0, sd, SUB_ABIL, 1, 2);
+                } else if fire && !contact {
+                    h.frac(0, sd, SUB_ABIL, 2, 1);
+                }
             }
-            if am.ty == Type::Fire && am.flags & flag::CONTACT == 0 {
-                c.mul(2, 1);
-            }
-        }
-        if tab == Ab::PunkRock && am.flags & flag::SOUND != 0 {
-            c.mul(1, 2);
-        }
-        if tab == Ab::AuraGuard && am.flags & flag::CONTACT != 0 {
-            c.mul(1, 2);
-        }
-        if let Some(a) = self.live_ally(tgt) {
-            if self.tab(a) == Ab::FriendGuard {
-                c.mul4096(3072);
-            }
+            Ab::PunkRock if am.flags & flag::SOUND != 0 => h.frac(0, sd, SUB_ABIL, 1, 2),
+            Ab::AuraGuard if am.flags & flag::CONTACT != 0 => h.frac(0, sd, SUB_ABIL, 1, 2),
+            _ => {}
         }
         if let Some(bt) = resist_berry(self.it(tgt)) {
-            if bt == am.ty && (type_mod > 0 || bt == Type::Normal) && !self.unnerved(tgt) {
-                c.mul(1, 2);
+            let hit_sub = t.vol.substitute > 0 && am.flags & flag::BYPASSSUB == 0 && !am.infiltrates;
+            if bt == am.ty && (type_mod > 0 || bt == Type::Normal) && !hit_sub && !self.unnerved(tgt) {
+                h.frac(0, sd, SUB_ITEM, 1, 2);
             }
         }
         if t.vol.glaive_rush > 0 {
-            c.mul(2, 1);
+            h.frac(0, sd, SUB_COND, 2, 1);
         }
-        dmg = c.apply(dmg);
+        let mid = dex().mv(am.id).id.as_str();
+        match t.vol.semi_inv {
+            SemiInv::Underground if matches!(mid, "earthquake" | "magnitude") => h.frac(0, sd, SUB_COND, 2, 1),
+            SemiInv::Underwater if matches!(mid, "surf" | "whirlpool") => h.frac(0, sd, SUB_COND, 2, 1),
+            _ => {}
+        }
+        // Friend Guard on the target's ally (onAnyModifyDamage).
+        if let Some(a) = self.live_ally(tgt) {
+            if self.tab(a) == Ab::FriendGuard {
+                let sf = self.action_speed(a);
+                h.frac(0, sf, SUB_ABIL, 3, 4);
+            }
+        }
+        dmg = h.chain(&mut self.rng).apply(dmg);
         if am.bypass_protect_quarter {
             dmg = modify(dmg, 1, 4);
         }

@@ -296,6 +296,10 @@ pub struct Side {
     pub wish: [(u8, u16); 2],
     /// Open team sheets: the opponent sees moves, items and abilities.
     pub sheet_open: bool,
+    /// Team indices in Showdown's party order (`side.pokemon`): the brought
+    /// Pokemon in team-preview order, active slots first; a switch swaps the
+    /// two Pokemon's positions. Used by Beat Up.
+    pub order: [u8; 6],
 }
 
 impl Side {
@@ -317,6 +321,30 @@ impl Side {
 
     pub fn bench_available(&self) -> u8 {
         (0..6).filter(|&i| self.can_switch_to(i)).count() as u8
+    }
+
+    /// Beat Up's hitters in party order: the user, and every other brought
+    /// Pokemon that is not fainted and has no status.
+    pub fn beat_up_allies(&self, user: u8) -> ([u8; 6], usize) {
+        let mut out = [0u8; 6];
+        let mut n = 0;
+        for &i in &self.order {
+            let m = &self.mons[i as usize];
+            if m.brought && (i == user || (!m.fainted && m.hp > 0 && m.status == crate::dex::Status::None)) {
+                out[n] = i;
+                n += 1;
+            }
+        }
+        (out, n)
+    }
+
+    /// Swap two Pokemon's party positions (a switch).
+    pub fn swap_order(&mut self, a: u8, b: u8) {
+        let pa = self.order.iter().position(|&x| x == a);
+        let pb = self.order.iter().position(|&x| x == b);
+        if let (Some(pa), Some(pb)) = (pa, pb) {
+            self.order.swap(pa, pb);
+        }
     }
 
     pub fn alive_brought(&self) -> u8 {

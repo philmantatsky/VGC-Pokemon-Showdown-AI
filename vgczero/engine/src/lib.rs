@@ -9,6 +9,7 @@ pub mod battle;
 pub mod dex;
 pub mod kinds;
 pub mod rng;
+pub mod snapshot;
 pub mod state;
 pub mod teams;
 pub mod types;

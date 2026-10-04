@@ -211,6 +211,7 @@ impl Battle {
                 healing_wish: [false; 2],
                 wish: [(0, 0); 2],
                 sheet_open: sheet,
+                order: [0, 1, 2, 3, 4, 5],
             }
         };
         let mut b = Battle {
@@ -324,6 +325,15 @@ impl Battle {
                         self.sides[s].mons[i as usize].brought = true;
                     }
                     self.sides[s].active = [row[0], row[1]];
+                    let mut order = [row[0], row[1], row[2], row[3], 0, 0];
+                    let mut k = 4;
+                    for i in 0..6u8 {
+                        if !row.contains(&i) {
+                            order[k] = i;
+                            k += 1;
+                        }
+                    }
+                    self.sides[s].order = order;
                     for slot in 0..2 {
                         let mi = row[slot] as usize;
                         self.sides[s].mons[mi].slot = slot as i8;

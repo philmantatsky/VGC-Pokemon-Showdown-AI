@@ -66,6 +66,9 @@ impl Battle {
             }
         }
         self.sides[s].active[p.i()] = to as u8;
+        if old != crate::state::NO_MON {
+            self.sides[s].swap_order(old, to as u8);
+        }
         let m = &mut self.sides[s].mons[to];
         m.slot = p.slot as i8;
         m.vol = Vol::default();
