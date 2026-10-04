@@ -25,6 +25,19 @@
     - **Mega Raichu-Y Zap Cannons:** games 3 and 4.
     - **Mega Garchomp's Earth Power spam:** games 9 and 11.
     - **Hisuian Arcanine's Head Smash:** game 15.
+- **The lead pattern holds over the whole T6 era** (`tools/ladder_loss_profile.py` on all 16
+  T6-family ladder dirs: 356 games, 49.4%):
+
+  | Our lead | Record |
+  |---|---|
+  | Charizard + Venusaur | 7/21 (33%) |
+  | Torkoal + Venusaur | 9/24 (38%) |
+  | Farigiraf + Torkoal | 21/50 (42%) |
+  | Blastoise + Farigiraf | 105/202 (52%) |
+  | Farigiraf + Incineroar | 17/30 (57%) |
+
+  The two pure-sun leads trail by about 2 SE: a candidate for a preview-level test. The
+  brought-four splits are biased by forfeits, since early wins reveal fewer of our Pokemon.
 - **Reading:** 6/15 is consistent with anything from about 16% to 68% (95%), so this read cannot
   overrule the 2,000-game head-to-head (52.8% vs the deployed bot). It confirms that the
   structural problems are still the early-faint and lead-selection ones from the 10-03 studies.

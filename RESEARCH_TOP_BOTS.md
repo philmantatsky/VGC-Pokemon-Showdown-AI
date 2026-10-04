@@ -74,6 +74,24 @@ belong on a GPU". The value today is the infrastructure and the recipe, not a st
    - Dropping the damage calc, usage priors and guards: they replace those with 100x more games.
    - Declining open sheets: the user wants them kept.
 
+## Feasibility of the matrix search here (measured 2026-10-04 05:05)
+
+- **Bridge speed:** the exact Showdown bridge resolved **64 choice pairs from one state in
+  0.13-0.17 s** (2.1-2.6 ms per branch; `simulate_batch` on a real T6e vs MC roster battle,
+  turns 1-3), with training running on the same machine. An 8 x 8 table in 16 worlds is about
+  1,000 branches, roughly 2.4 s of simulation, inside the 8 s budget before leaf evaluation and
+  observation building.
+- **Our planner (`vgc_bench/src/exact_planner.py`) already builds the table**: up to 6 root
+  actions x 6 opponent replies, opponent reply probabilities from the move model, exact child
+  values. It then scores each root action by a risk blend over the predicted replies (60%
+  expectation, 30% CVaR at 25%, 10% worst case) and plays the argmax. That is a best response
+  to a predicted opponent, not an equilibrium.
+- **The smallest experiment:** a `solution="nash"` mode that solves the same table by regret
+  matching (vgczero's `matrix_game.py` is 60 lines), averages strategies across worlds, and
+  samples. Then raise the world count from 2 deep worlds toward 16. The leaf evaluator stays
+  the open question: theirs is a value net trained on 330M games, ours an outcome net plus
+  mechanics value.
+
 ## What this changed tonight
 
 - **Practice failure:** the first lesson was diagnosed before reading vgczero. Practice from a
