@@ -202,16 +202,16 @@ impl Battle {
                 let mut ps: Vec<(i32, u64, Pos)> =
                     self.live_positions().collect::<Vec<_>>().into_iter().map(|p| (self.action_speed(p), self.rng.next_u64(), p)).collect();
                 ps.sort_by(|a, b| b.0.cmp(&a.0).then(a.1.cmp(&b.1)));
+                // eachEvent('Weather') then eachEvent('Update'); Pokemon faint
+                // only after the whole handler (fieldEvent's faintMessages).
                 for (_, _, p) in ps {
                     if !self.is_live(p) {
                         continue;
                     }
                     self.weather_effect(p, w);
-                    self.process_faints();
-                    if self.ended() {
-                        return;
-                    }
                 }
+                self.update_all();
+                self.process_faints();
             }
             Res::Wish => {
                 for s in 0..2 {
@@ -304,7 +304,6 @@ impl Battle {
             }
             Weather::None => {}
         }
-        self.update_items(p);
     }
 
     fn residual_mon(&mut self, kind: Res, p: Pos) {

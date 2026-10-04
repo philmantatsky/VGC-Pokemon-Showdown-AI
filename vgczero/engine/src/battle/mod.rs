@@ -778,6 +778,31 @@ impl Battle {
         self.check_win();
     }
 
+    /// Showdown's faintMessages inside an action: faint every active Pokemon
+    /// at 0 HP, checking for a winner only when asked.
+    pub(crate) fn faint_pending(&mut self, check_win: bool) {
+        for c in 0..4 {
+            let p = Pos::from_code(c);
+            let i = self.sides[p.s()].active[p.i()];
+            if i == NO_MON {
+                continue;
+            }
+            let m = &self.sides[p.s()].mons[i as usize];
+            if m.hp == 0 && !m.fainted {
+                self.faint(p);
+            }
+        }
+        if check_win {
+            self.check_win();
+        }
+    }
+
+    /// `side.foePokemonLeft()`: the foe side still has an unfainted Pokemon.
+    #[inline]
+    pub(crate) fn foe_pokemon_left(&self, side: usize) -> bool {
+        self.sides[1 - side].mons.iter().any(|m| m.brought && !m.fainted)
+    }
+
     pub(crate) fn check_win(&mut self) {
         if self.ended() {
             return;

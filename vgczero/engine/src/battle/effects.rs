@@ -52,6 +52,10 @@ impl Battle {
         if !self.is_live(tgt) {
             return false;
         }
+        // Gen 6+: no boosts once every foe has fainted.
+        if !self.foe_pokemon_left(tgt.s()) {
+            return false;
+        }
         let mut b = *boosts;
         let from_other = match src.source() {
             Some(s) => s != tgt,

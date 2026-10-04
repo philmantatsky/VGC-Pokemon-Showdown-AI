@@ -808,8 +808,27 @@ impl Battle {
                 ok = true;
             }
             MoveFx::PerishSong => {
+                // onHitField: per active Pokemon, Invulnerability, then TryHit
+                // (Soundproof, Good as Gold, Psychic Terrain vs. priority).
                 for q in self.live_positions().collect::<Vec<_>>() {
-                    if self.m(q).vol.perish == 0 && (self.tab(q) != Ab::Soundproof || q == p) {
+                    let si = self.m(q).vol.semi_inv;
+                    if q != p && si != SemiInv::None && self.ab(p) != Ab::NoGuard && self.tab(q) != Ab::NoGuard {
+                        blog!(self, "|-miss|{}|{}", self.name(p), self.name(q));
+                        ok = true;
+                        continue;
+                    }
+                    if q != p && matches!(self.tab(q), Ab::Soundproof | Ab::GoodAsGold) {
+                        self.reveal_ability(q);
+                        blog!(self, "|-immune|{}", self.name(q));
+                        ok = true;
+                        continue;
+                    }
+                    if q.side != p.side && am.priority > 0 && self.field.terrain == Terrain::Psychic && self.is_grounded(q) {
+                        blog!(self, "|-activate|{}|move: Psychic Terrain", self.name(q));
+                        ok = true;
+                        continue;
+                    }
+                    if self.m(q).vol.perish == 0 {
                         self.mm(q).vol.perish = 4;
                         ok = true;
                     }
@@ -1262,6 +1281,9 @@ impl Battle {
                 break;
             }
         }
+        // faintMessages(false, false, !pokemon.hp): Pokemon at 0 HP faint now
+        // (so a later boost sees the foe side's Pokemon left).
+        self.faint_pending(!self.is_live(p));
         if hits > 1 && hit_no > 0 {
             blog!(self, "|-hitcount|{}|{}", self.name(targets[0]), hit_no);
         }
