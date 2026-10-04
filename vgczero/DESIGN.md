@@ -15,7 +15,7 @@ later (`git subtree split -P vgczero`); it reuses the parent repo's team corpus
 | both | Small transformer, ~8.5-8.7M params, trained from scratch | `python/vgczero/model.py`, preset `base` = 8.7M params (`tiny`/`small` presets for laptops and tests). |
 | mikumiku37 | Sees only its own side's view plus static dex data (types, base stats, move data); no damage calc, usage stats or speed resolver | `engine/src/obs.rs` hides everything the player could not know; static dex tables are separate inputs (`static_tables`). |
 | both | PPO self-play against a league of past versions, terminal rewards only | `python/vgczero/ppo.py`, `league.py` (PFSP sampling of snapshots, current-policy self-play share). Reward is +1/-1 at the end, nothing else. |
-| mikumiku37 | Trained on ~1,260 public tournament teams, some spreads guessed | 3,605 validated Reg M-C teams compiled from `teams/reg_mc` (`showdown/compile_teams.js`); 3,362 (93%) currently simulated faithfully. |
+| mikumiku37 | Trained on ~1,260 public tournament teams, some spreads guessed | 3,605 validated Reg M-C teams compiled from `teams/reg_mc` (`showdown/compile_teams.js`); 3,545 (98.3%) simulated faithfully. |
 | mikumiku37 | Plays the ten teams that did best in training | `teams.py` (per-team ratings with Wilson bounds, optional focus sampling, top-k export). |
 | mikumiku37 | AlphaZero-style one-turn search: in each of 16 sampled worlds, top-8 joint actions vs opponent's top-8 replies, payoff table from the value net, solved for a mixed strategy | `python/vgczero/search.py` + `matrix_game.py` + engine `worlds.rs` (hidden-set sampling) and `BattleBatch.expand` (all W×K×K children stepped in parallel in Rust). Also searches team preview. |
 | Jaxcalibur | pUCT tree search 4 plies deep, 20,480 rollouts over 32 sampled worlds | `python/vgczero/search_tree.py`: open-loop decoupled simultaneous-move pUCT over sampled worlds (fresh world + dice per simulation, policy priors for both players, batched value-net leaves, default depth 4 decision points). `play.py --search tree`. |
@@ -57,9 +57,9 @@ scripts/train.py   training CLI
   Showdown callbacks. The engine marks anything with scripted behaviour it does
   not implement as unsupported, and a team is trainable only if all of its
   sets are supported (`cargo run --release --bin bench` prints coverage and the
-  top blockers). Currently 93.3% of teams; the largest blockers are Clanging
-  Scales/Scale Shot (`selfBoost`), Revival Blessing, Stance Change, Dragon Darts,
-  Ally Switch, Zero to Hero.
+  top blockers). Currently 98.3% of teams; the remaining blockers are Dragon
+  Darts (14 teams), Ally Switch (13), Illusion (6), Instruct (5), Transform (4),
+  Sleep Talk (3) and a few rare items.
 * **Showdown's control flow.** Requests (team preview / move / switch / wait),
   the action queue sorted by order/priority/speed with random tie-breaks and
   Gen 8+ re-sorting after every action, mid-turn switch requests (U-turn,
@@ -75,10 +75,14 @@ scripts/train.py   training CLI
   hitting through Protect for 1/4, opponent HP shown as floor(100·hp/maxhp).
 * **Copyable state.** A `Battle` is fixed-size arrays (≈2 KB), so search clones
   it freely; the RNG lives inside the battle.
-* **Correctness.** `showdown/parity/` compares exact damage for all 16 rolls
-  (with/without crits, across weather, terrain, screens, items, abilities) and
-  turn-outcome distributions from real mid-battle Showdown states; see its
-  README for current numbers.
+* **Correctness.** `showdown/parity/` compares the engine with Showdown three
+  ways: exact damage for all 16 rolls with and without crits (5,000/5,000
+  random scenarios on three seeds = 160k values, plus 4,020/4,020 with every
+  ability and item forced in), turn-outcome distributions from real mid-battle
+  Showdown states replayed with many seeds (all scenarios statistically
+  consistent on five seeds, 1,280-1,810 scenarios each), and request legality
+  (4,793/4,793 decision points). `cargo test --release` re-checks against
+  recorded fixtures without Node. See `showdown/parity/README.md`.
 
 ### Observation and network
 
@@ -154,7 +158,8 @@ field of meta teams, and keeps the best by Wilson lower bound.
 2. ✅ Observation encoder, batched env, Python bindings, baselines.
 3. ✅ Model, PPO + league, team stats, evaluation.
 4. ✅ One-turn matrix-game search (+ preview search).
-5. 🔄 Parity vs Showdown (damage exact; turn-outcome statistics) and fixes.
+5. ✅ Parity vs Showdown: damage exact, turn outcomes statistically
+   indistinguishable, request legality identical; ~70 mechanics fixed on the way.
 6. ✅ Live Showdown client: websocket login/challenges, protocol → engine
    snapshot (own side from the request JSON, opponent from protocol messages +
    preview + placeholder sets), choices masked by the server's request
@@ -168,8 +173,8 @@ field of meta teams, and keeps the best by Wilson lower bound.
    against the one-turn matrix search at equal compute once a strong network
    exists; selective deepening of the matrix search's most influential leaves
    (the Nessie123 idea) is the other candidate.
-9. ⏭ Coverage to ~100% of the pool (selfBoost moves, Revival Blessing, Ally
-   Switch, Stance Change, Dragon Darts...).
+9. ⏭ Coverage to 100% of the pool (Dragon Darts, Ally Switch, Illusion,
+   Instruct, Transform, Sleep Talk).
 
 ## Practical notes
 

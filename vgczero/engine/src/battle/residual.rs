@@ -23,6 +23,7 @@ enum Res {
     Burn,
     Curse,
     SaltCure,
+    PartialTrap,
     Taunt,
     Encore,
     Disable,
@@ -43,6 +44,10 @@ enum Res {
 
 impl Battle {
     pub(crate) fn run_residual(&mut self) {
+        // Revival Blessing's slot condition (duration 1) ends.
+        for s in 0..2 {
+            self.sides[s].reviving = [false; 2];
+        }
         // HP before residuals, for Emergency Exit.
         let mut hp_before = [0u16; 4];
         for c in 0..4 {
@@ -99,6 +104,9 @@ impl Battle {
             if v.salt_cure {
                 items.push((13, spd, 0, Res::SaltCure, c));
             }
+            if v.partial_trap > 0 {
+                items.push((13, spd, 0, Res::PartialTrap, c));
+            }
             if v.taunt > 0 {
                 items.push((15, spd, 0, Res::Taunt, c));
             }
@@ -147,6 +155,12 @@ impl Battle {
                 }
                 self.residual_mon(kind, p);
             }
+            // Perish Song faints through its end callback, which Showdown's
+            // fieldEvent does not follow with faintMessages: simultaneous
+            // perishes faint together (the last one decides a double KO).
+            if kind == Res::PerishSong {
+                continue;
+            }
             self.check_win_quiet();
         }
         // Per-turn counters.
@@ -157,6 +171,8 @@ impl Battle {
                 m.vol.active_turns = m.vol.active_turns.saturating_add(1);
             }
         }
+        // White Herb (residual order 29).
+        self.white_herb_all();
         // Emergency Exit from residual damage.
         for c in 0..4u8 {
             let p = Pos::from_code(c);
@@ -192,16 +208,16 @@ impl Battle {
                 let mut ps: Vec<(i32, u64, Pos)> =
                     self.live_positions().collect::<Vec<_>>().into_iter().map(|p| (self.action_speed(p), self.rng.next_u64(), p)).collect();
                 ps.sort_by(|a, b| b.0.cmp(&a.0).then(a.1.cmp(&b.1)));
+                // eachEvent('Weather') then eachEvent('Update'); Pokemon faint
+                // only after the whole handler (fieldEvent's faintMessages).
                 for (_, _, p) in ps {
                     if !self.is_live(p) {
                         continue;
                     }
                     self.weather_effect(p, w);
-                    self.process_faints();
-                    if self.ended() {
-                        return;
-                    }
                 }
+                self.update_all();
+                self.process_faints();
             }
             Res::Wish => {
                 for s in 0..2 {
@@ -294,7 +310,6 @@ impl Battle {
             }
             Weather::None => {}
         }
-        self.update_items(p);
     }
 
     fn residual_mon(&mut self, kind: Res, p: Pos) {
@@ -319,17 +334,18 @@ impl Battle {
                 self.heal(p, (mh / 16).max(1));
             }
             Res::AquaRing | Res::Ingrain => {
-                let mut amt = (mh / 16).max(1);
-                if self.it(p) == It::BigRoot {
-                    amt = amt * 13 / 10;
-                }
-                self.heal(p, amt);
+                self.drain_heal(p, (mh / 16).max(1));
             }
             Res::LeechSeed => {
+                // Nothing happens if the seeder's slot is empty or fainted;
+                // whoever is in that slot gets the HP.
                 let src = Pos::from_code(self.m(p).vol.leech_seed_src);
+                if !self.is_live(src) {
+                    return;
+                }
                 let dealt = self.damage(p, (mh / 8).max(1), Some(src), DmgKind::Indirect);
                 if dealt > 0 && self.is_live(src) {
-                    self.heal(src, dealt);
+                    self.drain_heal(src, dealt);
                 }
             }
             Res::Poison => {
@@ -352,9 +368,22 @@ impl Battle {
                 self.damage(p, (mh / 4).max(1), None, DmgKind::Indirect);
             }
             Res::SaltCure => {
+                // Champions: 1/16 (1/8 for Water and Steel types).
                 let m = self.m(p);
-                let frac = if m.has_type(Type::Water) || m.has_type(Type::Steel) { 4 } else { 8 };
+                let frac = if m.has_type(Type::Water) || m.has_type(Type::Steel) { 8 } else { 16 };
                 self.damage(p, (mh / frac).max(1), None, DmgKind::Indirect);
+            }
+            Res::PartialTrap => {
+                // Duration ticks first; then it ends if the trapper left.
+                self.mm(p).vol.partial_trap -= 1;
+                if self.m(p).vol.partial_trap == 0 {
+                    return;
+                }
+                if !self.partial_trapper_active(p) {
+                    self.mm(p).vol.partial_trap = 0;
+                    return;
+                }
+                self.damage(p, (mh / 8).max(1), None, DmgKind::Indirect);
             }
             Res::Taunt => self.mm(p).vol.taunt -= 1,
             Res::Encore => {

@@ -71,6 +71,10 @@ impl Battle {
                 target = self.random_target_code(p);
             }
         }
+        // An action changed by Encore has no chosen target.
+        if target == crate::battle::TARGET_RANDOM {
+            target = self.random_target_code(p);
+        }
         // Glaive Rush ends when the user next tries to move.
         self.mm(p).vol.glaive_rush = 0;
 
@@ -91,6 +95,7 @@ impl Battle {
                 return;
             }
             m.pp[mslot] -= 1;
+            m.vol.moves_used |= 1 << mslot;
         }
         {
             let m = self.mm(p);
@@ -107,24 +112,17 @@ impl Battle {
         if self.is_live(p) {
             self.mm(p).vol.this_move_failed = !ok;
         }
+        // AfterMove: White Herb.
+        self.white_herb_all();
         if dex().mv(move_id).fx == MoveFx::Round {
             self.round_used = true;
-            // The ally's Round moves next.
-            let ally = p.ally();
+            // The next queued Round (either side) moves next.
             let round = dex().move_id("round");
             if let Some(i) = self.queue.list[..self.queue.len]
                 .iter()
-                .position(|a| a.map(|a| a.pos == ally && Some(a.move_id) == round).unwrap_or(false))
+                .position(|a| a.map(|a| matches!(a.kind, ActionKind::Move { .. }) && Some(a.move_id) == round).unwrap_or(false))
             {
-                let a = self.queue.list[i];
-                for j in (1..=i).rev() {
-                    self.queue.list[j] = self.queue.list[j - 1];
-                }
-                self.queue.list[0] = a;
-                if let Some(mut a0) = self.queue.list[0] {
-                    a0.priority = 127;
-                    self.queue.list[0] = Some(a0);
-                }
+                self.prioritize_action(i);
             }
         }
     }
@@ -191,6 +189,18 @@ impl Battle {
         // Gravity.
         if self.field.gravity > 0 && mv.flags & flag::GRAVITY != 0 {
             return Err(true);
+        }
+        // Imprison (a foe's, priority 4): the move fails if the imprisoner knows it.
+        if move_id != dex().struggle {
+            for q in (0..2).map(|i| p.foe(i)) {
+                if self.is_live(q) {
+                    let f = self.m(q);
+                    if f.vol.imprison && f.moves[..f.n_moves as usize].contains(&move_id) {
+                        blog!(self, "|cant|{}|move: Imprison|{}", self.name(p), mv.name);
+                        return Err(true);
+                    }
+                }
+            }
         }
         // Confusion (3).
         if self.m(p).vol.confusion > 0 {
@@ -269,7 +279,9 @@ impl Battle {
             bypass_protect_quarter: false,
         };
         am.prankster = self.ab(p) == Ab::Prankster && mv.category == Category::Status;
-        if self.ab(p) == Ab::SheerForce && mv.has_sheer_force_boost {
+        // Sheer Force (onModifyMove): moves with secondaries lose them (and
+        // their `self` effects) and get the 1.3x boost.
+        if self.ab(p) == Ab::SheerForce && !mv.secondaries.is_empty() && !mv.has_sheer_force_boost {
             am.sheer_force = true;
         }
         if mv.fx == MoveFx::ExpandingForce && self.field.terrain == Terrain::Psychic && self.is_grounded(p) {
@@ -283,6 +295,15 @@ impl Battle {
 
     /// Returns true if the move "did something" (not a failure).
     fn use_move(&mut self, p: Pos, move_id: MoveId, mslot: usize, target: u8, struggle: bool) -> bool {
+        // Stance Change (onModifyMove): Blade forme for attacks, Shield for King's Shield.
+        if self.ab(p) == Ab::StanceChange && self.m(p).alt_species != 0 {
+            let mv = dex().mv(move_id);
+            if mv.category != Category::Status {
+                self.mm(p).set_alt_forme(true);
+            } else if mv.fx == MoveFx::KingsShield {
+                self.mm(p).set_alt_forme(false);
+            }
+        }
         let mut am = self.make_active_move(p, move_id, mslot, struggle);
         self.resolve_move_type(p, &mut am);
         self.mold_breaker = am.mold_breaker;
@@ -296,28 +317,23 @@ impl Battle {
         let mv = dex().mv(am.id);
         blog!(self, "|move|{}|{}", self.name(p), mv.name);
 
-        // Dazzling / Queenly Majesty / Armor Tail (onFoeTryMove).
-        if am.priority > 0 && !matches!(am.target, Target::FoeSide) {
-            let field_all = am.target == Target::All;
-            let target_pos = self.target_pos(p, target);
-            for q in (0..4).map(Pos::from_code) {
-                if q.side == p.side || !self.is_live(q) {
-                    continue;
-                }
-                if matches!(self.tab(q), Ab::Dazzling | Ab::QueenlyMajesty | Ab::ArmorTail) {
-                    let aimed_at_side = field_all || target_pos.map(|t| t.side == q.side).unwrap_or(false) || am.target.is_spread();
-                    if aimed_at_side && !matches!(dex().mv(am.id).id.as_str(), "perishsong" | "flowershield" | "rototiller") {
-                        self.reveal_ability(q);
-                        blog!(self, "|cant|{}|ability: Armor Tail-like|{}", self.name(q), mv.name);
-                        return false;
-                    }
-                }
-            }
+        // getMoveTargets (retargeting, redirection), before TryMove.
+        let field = matches!(am.target, Target::All | Target::FoeSide | Target::AllySide | Target::AllyTeam);
+        let (targets, n) = if field { ([p; MAX_TARGETS], 0) } else { self.move_targets_resolved(p, am, target) };
+        // Pressure: one extra PP per opposing Pressure Pokemon targeted.
+        self.pressure_pp(p, am, &targets[..n]);
+        // TryMove: Dazzling / Queenly Majesty / Armor Tail (onFoeTryMove).
+        if self.blocked_by_dazzling(p, am, if n > 0 { Some(targets[n - 1]) } else { None }) {
+            return false;
         }
 
-        // Two-turn moves: charge turn.
+        // Two-turn moves: charge turn (onTryMove, so even with no target left).
         if self.charge_turn(p, am, target) {
             return true;
+        }
+        if !field && n == 0 {
+            blog!(self, "|-fail|{}|[notarget]", self.name(p));
+            return false;
         }
 
         // Self-destruct style moves faint the user up front.
@@ -328,17 +344,18 @@ impl Battle {
         }
 
         // Field / side moves.
-        if matches!(am.target, Target::All | Target::FoeSide | Target::AllySide | Target::AllyTeam) {
+        if field {
+            if !self.move_try(p, am, &[p]) {
+                blog!(self, "|-fail|{}", self.name(p));
+                self.after_move_fail(p, am);
+                return false;
+            }
+            self.protean(p, am);
             let ok = self.field_move(p, am);
-            self.after_move(p, am, &[], ok);
+            self.after_move(p, am, &[], ok, 0);
             return ok;
         }
 
-        let (targets, n) = self.move_targets_resolved(p, am, target);
-        if n == 0 {
-            blog!(self, "|-fail|{}|[notarget]", self.name(p));
-            return false;
-        }
         if mv.selfdestruct == 1 {
             let hp = self.m(p).hp as u32;
             self.damage(p, hp, Some(p), DmgKind::SelfCost);
@@ -352,11 +369,92 @@ impl Battle {
             self.after_move_fail(p, am);
             return false;
         }
+        self.protean(p, am);
         let ok = self.try_spread_move_hit(p, am, &targets[..n]);
         if !ok {
             self.after_move_fail(p, am);
+        } else if let Some(b) = mv.self_boost_after {
+            // selfBoost: once, after a successful move.
+            self.boost(p, &b, BoostSrc::SelfInflicted);
         }
         ok
+    }
+
+    /// Protean / Libero (onPrepareHit): once per switch-in, become the move's type.
+    fn protean(&mut self, p: Pos, am: &ActiveMove) {
+        if !self.is_live(p) || !matches!(self.ab(p), Ab::Protean | Ab::Libero) || self.m(p).vol.protean {
+            return;
+        }
+        if am.ty == Type::None || am.struggle {
+            return;
+        }
+        if self.types_of(p) == [am.ty, Type::None] {
+            return;
+        }
+        self.reveal_ability(p);
+        let m = self.mm(p);
+        m.types = [am.ty, Type::None];
+        m.vol.type_changed = true;
+        m.vol.protean = true;
+    }
+
+    /// Pressure (onDeductPP): an extra PP for each opposing Pressure Pokemon
+    /// among the move's targets (all foes for field moves and `mustpressure`
+    /// moves, none for moves aimed at the foe's side).
+    fn pressure_pp(&mut self, p: Pos, am: &ActiveMove, targets: &[Pos]) {
+        if am.struggle {
+            return;
+        }
+        let all_foes = am.target == Target::All || am.flags & flag::MUSTPRESSURE != 0;
+        let mut extra = 0u8;
+        for q in (0..2).map(|i| p.foe(i)) {
+            if !self.is_live(q) || self.ab(q) != Ab::Pressure {
+                continue;
+            }
+            let targeted = if all_foes {
+                true
+            } else if matches!(am.target, Target::FoeSide | Target::AllySide | Target::AllyTeam) {
+                false
+            } else {
+                targets.contains(&q)
+            };
+            if targeted {
+                extra += 1;
+            }
+        }
+        if extra > 0 {
+            let s = am.mslot as usize;
+            let m = self.mm(p);
+            m.pp[s] = m.pp[s].saturating_sub(extra);
+        }
+    }
+
+    /// Dazzling, Queenly Majesty and Armor Tail (onFoeTryMove): a priority
+    /// move whose (last) target is on the holder's side fails. Moves aimed at
+    /// the foe's side are exempt, field-wide moves only if not Perish Song,
+    /// Flower Shield or Rototiller.
+    fn blocked_by_dazzling(&mut self, p: Pos, am: &ActiveMove, last_target: Option<Pos>) -> bool {
+        if am.priority <= 0 {
+            return false;
+        }
+        let exception = matches!(dex().mv(am.id).id.as_str(), "perishsong" | "flowershield" | "rototiller");
+        match am.target {
+            Target::FoeSide => return false,
+            Target::All if !exception => return false,
+            _ => {}
+        }
+        for q in (0..2).map(|i| p.foe(i)) {
+            if !self.is_live(q) || !matches!(self.tab(q), Ab::Dazzling | Ab::QueenlyMajesty | Ab::ArmorTail) {
+                continue;
+            }
+            let aimed = am.target == Target::All || last_target.map(|t| t.side == q.side).unwrap_or(false);
+            if aimed {
+                self.reveal_ability(q);
+                blog!(self, "|cant|{}|ability: Dazzling|{}", self.name(q), dex().mv(am.id).name);
+                return true;
+            }
+        }
+        false
     }
 
     fn target_pos(&self, p: Pos, code: u8) -> Option<Pos> {
@@ -416,29 +514,35 @@ impl Battle {
                 }
             }
             Target::RandomNormal | Target::Scripted => {
-                let c = self.random_target_code(p);
-                let q = p.foe(c as usize);
+                // Counter / Mirror Coat / Metal Burst: the last attacker.
+                let mut q = p.foe(self.random_target_code(p) as usize);
+                if matches!(am.fx, MoveFx::Counter | MoveFx::MirrorCoat | MoveFx::MetalBurst) {
+                    let src = Pos::from_code(self.m(p).vol.last_damage_src);
+                    if src.side != p.side && self.is_live(src) {
+                        q = src;
+                    }
+                } else if am.target == Target::RandomNormal {
+                    q = self.redirect(p, am, q);
+                }
                 if self.is_live(q) {
                     out[0] = q;
                     n = 1;
                 }
             }
             _ => {
-                // Single target: retarget if the chosen foe is gone.
+                // Single target: a fainted foe is replaced by a random foe; a
+                // fainted ally stays the target (the move fails) unless redirected.
                 let mut t = self.target_pos(p, code).unwrap_or(p.foe(0));
-                if !self.is_live(t) {
-                    if t.side == p.side {
-                        return (out, 0);
-                    }
+                if !self.is_live(t) && t.side != p.side {
                     let c = self.random_target_code(p);
                     t = p.foe(c as usize);
                     if !self.is_live(t) {
                         return (out, 0);
                     }
                 }
-                // Redirection (doubles only, not for moves aimed at an ally).
-                if t.side != p.side {
-                    t = self.redirect(p, am, t);
+                t = self.redirect(p, am, t);
+                if !self.is_live(t) {
+                    return (out, 0);
                 }
                 out[0] = t;
                 n = 1;
@@ -447,43 +551,60 @@ impl Battle {
         (out, n)
     }
 
+    /// RedirectTarget (Showdown's priorityEvent, handlers sorted by priority
+    /// then speed): Follow Me / Rage Powder of the user's foes (priority 1,
+    /// also for moves aimed at the user's own ally), then Lightning Rod /
+    /// Storm Drain of any other Pokemon (priority 0).
     fn redirect(&mut self, p: Pos, am: &ActiveMove, t: Pos) -> Pos {
         if matches!(self.ab(p), Ab::Stalwart) {
             return t;
         }
-        // Follow Me / Rage Powder on the target's side.
-        for q in [t, t.ally()] {
+        let powder_immune = self.m(p).has_type(Type::Grass) || self.ab(p) == Ab::Overcoat;
+        let mut best: Option<(i32, Pos)> = None;
+        for q in [p.foe(0), p.foe(1)] {
             if !self.is_live(q) {
                 continue;
             }
             let fm = self.m(q).vol.follow_me;
-            if fm == 1 {
-                return q;
-            }
-            if fm == 2 {
-                // Rage Powder: powder immunity (Grass, Overcoat, Safety Goggles) ignores it.
-                let immune = self.m(p).has_type(Type::Grass) || self.ab(p) == Ab::Overcoat;
-                if !immune {
-                    return q;
+            if fm == 1 || (fm == 2 && !powder_immune) {
+                let sp = self.action_speed(q);
+                let better = match best {
+                    None => true,
+                    Some((bs, _)) => sp > bs || (sp == bs && self.rng.chance(1, 2)),
+                };
+                if better {
+                    best = Some((sp, q));
                 }
             }
         }
-        // Lightning Rod / Storm Drain (any adjacent Pokemon, including the user's ally).
+        if let Some((_, q)) = best {
+            return q;
+        }
         let absorber = match am.ty {
-            Type::Electric => Some(Ab::LightningRod),
-            Type::Water => Some(Ab::StormDrain),
-            _ => None,
+            Type::Electric => Ab::LightningRod,
+            Type::Water => Ab::StormDrain,
+            _ => return t,
         };
-        if let Some(abl) = absorber {
-            if self.is_live(t) && self.tab(t) == abl {
-                return t;
+        let mut best: Option<(i32, Pos)> = None;
+        for c in 0..4 {
+            let q = Pos::from_code(c);
+            if q == p || !self.is_live(q) || self.tab(q) != absorber {
+                continue;
             }
-            for q in [t.ally(), p.ally()] {
-                if q != p && self.is_live(q) && self.tab(q) == abl {
-                    self.reveal_ability(q);
-                    return q;
-                }
+            let sp = self.action_speed(q);
+            let better = match best {
+                None => true,
+                Some((bs, _)) => sp > bs || (sp == bs && self.rng.chance(1, 2)),
+            };
+            if better {
+                best = Some((sp, q));
             }
+        }
+        if let Some((_, q)) = best {
+            if q != t {
+                self.reveal_ability(q);
+            }
+            return q;
         }
         t
     }
@@ -522,6 +643,8 @@ impl Battle {
         if skip {
             return false;
         }
+        // twoturnmove's onStart runs PrepareHit (Protean) on the charge turn.
+        self.protean(p, am);
         let m = self.mm(p);
         m.vol.charging = am.mslot + 1;
         m.vol.charge_target = target as i8;
@@ -583,10 +706,23 @@ impl Battle {
             MoveFx::HealingWish => self.sides[p.s()].bench_available() > 0,
             MoveFx::Recycle => self.m(p).item == 0 && self.m(p).last_item != 0,
             MoveFx::LastResort => {
+                // Every other move must have been used since switching in.
                 let m = self.m(p);
-                m.n_moves > 1
+                let me = am.mslot as usize;
+                m.n_moves > 1 && (0..m.n_moves as usize).all(|s| s == me || m.vol.moves_used & (1 << s) != 0)
             }
-            MoveFx::Counter | MoveFx::MirrorCoat | MoveFx::MetalBurst => self.m(p).vol.last_damage_taken > 0,
+            MoveFx::Counter | MoveFx::MirrorCoat | MoveFx::MetalBurst => {
+                // Damaged by a foe this turn (Mirror Coat: special, Counter: physical).
+                let v = self.m(p).vol;
+                let foe = Pos::from_code(v.last_damage_src).side != p.side;
+                v.last_damage_taken > 0
+                    && foe
+                    && match am.fx {
+                        MoveFx::Counter => v.last_damage_physical,
+                        MoveFx::MirrorCoat => !v.last_damage_physical,
+                        _ => true,
+                    }
+            }
             MoveFx::NoRetreat => !self.m(p).vol.no_retreat,
             MoveFx::DestinyBond => !(self.m(p).vol.last_move_slot == am.mslot && self.m(p).vol.destiny_bond),
             MoveFx::AfterYou | MoveFx::Quash => self.queue.will_move(t0).is_some(),
@@ -674,8 +810,27 @@ impl Battle {
                 ok = true;
             }
             MoveFx::PerishSong => {
+                // onHitField: per active Pokemon, Invulnerability, then TryHit
+                // (Soundproof, Good as Gold, Psychic Terrain vs. priority).
                 for q in self.live_positions().collect::<Vec<_>>() {
-                    if self.m(q).vol.perish == 0 && (self.tab(q) != Ab::Soundproof || q == p) {
+                    let si = self.m(q).vol.semi_inv;
+                    if q != p && si != SemiInv::None && self.ab(p) != Ab::NoGuard && self.tab(q) != Ab::NoGuard {
+                        blog!(self, "|-miss|{}|{}", self.name(p), self.name(q));
+                        ok = true;
+                        continue;
+                    }
+                    if q != p && matches!(self.tab(q), Ab::Soundproof | Ab::GoodAsGold) {
+                        self.reveal_ability(q);
+                        blog!(self, "|-immune|{}", self.name(q));
+                        ok = true;
+                        continue;
+                    }
+                    if q.side != p.side && am.priority > 0 && self.field.terrain == Terrain::Psychic && self.is_grounded(q) {
+                        blog!(self, "|-activate|{}|move: Psychic Terrain", self.name(q));
+                        ok = true;
+                        continue;
+                    }
+                    if self.m(q).vol.perish == 0 {
                         self.mm(q).vol.perish = 4;
                         ok = true;
                     }
@@ -759,7 +914,9 @@ impl Battle {
                 true
             }
             SideCond::WideGuard | SideCond::QuickGuard => {
-                if !self.stall_check(p) {
+                // onTry: anyone still to act (no stall roll; the stall counter
+                // still goes up for the next Protect).
+                if self.queue.len == 0 {
                     return false;
                 }
                 let c = &mut self.sides[side].conds;
@@ -801,7 +958,9 @@ impl Battle {
                 continue;
             }
             let si = self.m(t).vol.semi_inv;
-            if si != SemiInv::None && self.ab(p) != Ab::NoGuard && self.tab(t) != Ab::NoGuard {
+            // (Toxic from a Poison type also hits a semi-invulnerable target.)
+            let sure_toxic = dex().mv(am.id).status == Status::Tox && am.category == Category::Status && self.m(p).has_type(Type::Poison);
+            if si != SemiInv::None && self.ab(p) != Ab::NoGuard && self.tab(t) != Ab::NoGuard && !sure_toxic {
                 let hits = match (si, dex().mv(am.id).id.as_str()) {
                     (SemiInv::Air, "hurricane" | "thunder" | "skyuppercut" | "smackdown" | "gust" | "twister" | "thousandarrows") => true,
                     (SemiInv::Underground, "earthquake" | "magnitude" | "fissure") => true,
@@ -847,7 +1006,34 @@ impl Battle {
                 }
             }
         }
-        // 5. Break protection (Feint) is folded into try_hit.
+        // 5. hitStepBreakProtect (Feint, Phantom Force): after accuracy, remove
+        // the target's protection and its side's Wide / Quick Guard; if
+        // anything broke, the stall counter too.
+        if dex().mv(am.id).breaks_protect {
+            for i in 0..n {
+                if res[i] != Hit::Pending {
+                    continue;
+                }
+                let t = tg[i];
+                let mut broke = false;
+                if self.m(t).vol.protect != ProtectKind::None {
+                    self.mm(t).vol.protect = ProtectKind::None;
+                    broke = true;
+                }
+                let c = &mut self.sides[t.s()].conds;
+                if c.wide_guard || c.quick_guard {
+                    c.wide_guard = false;
+                    c.quick_guard = false;
+                    broke = true;
+                }
+                if broke {
+                    blog!(self, "|-activate|{}|move: {}|[broken]", self.name(t), dex().mv(am.id).name);
+                    let m = self.mm(t);
+                    m.vol.stall_counter = 0;
+                    m.vol.stall_dur = 0;
+                }
+            }
+        }
         let live: Vec<Pos> = (0..n).filter(|&i| res[i] == Hit::Pending).map(|i| tg[i]).collect();
         let any_fail = (0..n).any(|i| res[i] == Hit::Failed);
         if live.is_empty() {
@@ -982,6 +1168,9 @@ impl Battle {
             }
             (Ab::FlashFire, Type::Fire) => {
                 self.mm(t).vol.flash_fire = true;
+                // Showdown's Flash Fire sets move.accuracy = true: the rest of
+                // a spread move's targets can no longer be missed.
+                am.accuracy = 0;
                 true
             }
             (Ab::WindRider, _) if am.flags & flag::WIND != 0 => {
@@ -1012,7 +1201,7 @@ impl Battle {
     }
 
     /// Type immunity and TryImmunity (powder, Prankster vs Dark, Ground vs airborne...).
-    fn immunity_check(&mut self, p: Pos, t: Pos, am: &ActiveMove) -> bool {
+    pub(crate) fn immunity_check(&mut self, p: Pos, t: Pos, am: &ActiveMove) -> bool {
         let mv = dex().mv(am.id);
         if t == p {
             return true;
@@ -1032,6 +1221,8 @@ impl Battle {
         match am.fx {
             MoveFx::LowKick | MoveFx::GrassKnot | MoveFx::HeavySlam | MoveFx::HeatCrash => true,
             MoveFx::LeechSeed => !self.m(t).has_type(Type::Grass),
+            // Endeavor's onTryImmunity: the user must have less HP.
+            MoveFx::Endeavor => self.m(p).hp < self.m(t).hp,
             _ => true,
         }
     }
@@ -1057,14 +1248,18 @@ impl Battle {
             }
         }
         if am.fx == MoveFx::BeatUp {
-            let side = &self.sides[p.s()];
-            hits = side.mons.iter().filter(|m| m.brought && m.alive() && m.status == Status::None).count().max(1) as u8;
+            let user = self.sides[p.s()].active[p.i()];
+            hits = self.sides[p.s()].beat_up_allies(user).1.max(1) as u8;
         }
+        // Parental Bond (onPrepareHit): not for spread, multi-hit, charge or
+        // noparentalbond moves.
         let parental = self.ab(p) == Ab::ParentalBond
             && hits == 1
-            && n == 1
+            && mv.multihit.0 == 0
+            && am.fx != MoveFx::BeatUp
+            && !am.spread_hit
             && am.category != Category::Status
-            && !matches!(am.fx, MoveFx::FinalGambit | MoveFx::Endeavor);
+            && mv.flags & (flag::NOPARENTALBOND | flag::CHARGE | flag::FUTUREMOVE) == 0;
         if parental {
             hits = 2;
         }
@@ -1097,11 +1292,15 @@ impl Battle {
             }
             hit_no = h;
             // spreadMoveHit for this hit.
-            let dmg = self.spread_move_hit(p, am, targets, &mut self_dropped);
+            let (dmg, subbed) = self.spread_move_hit(p, am, targets, &mut self_dropped);
             for i in 0..n {
                 if let Some(d) = dmg[i] {
                     total_damage[i] += d;
-                    damaged[i] = true;
+                    // A substitute's hit is not damage to the Pokemon
+                    // (no AfterMoveSecondary, no Rage Fist count).
+                    if !subbed[i] {
+                        damaged[i] = true;
+                    }
                     any_hit = true;
                 }
             }
@@ -1119,32 +1318,26 @@ impl Battle {
             if !self.is_live(p) && n == 1 {
                 break;
             }
+            // Multi-hit moves (and Parental Bond) apply their self effects
+            // (Hammer Arm's Speed drop...) on every hit.
+            if mv.multihit.0 > 0 || parental {
+                self_dropped = false;
+            }
         }
+        // faintMessages(false, false, !pokemon.hp): Pokemon at 0 HP faint now
+        // (so a later boost sees the foe side's Pokemon left).
+        self.faint_pending(!self.is_live(p));
         if hits > 1 && hit_no > 0 {
             blog!(self, "|-hitcount|{}|{}", self.name(targets[0]), hit_no);
         }
         // Recoil from total damage.
+        // (Steel Beam: half max HP once; on a failed move see after_move_fail.)
         let total: u32 = total_damage.iter().sum();
-        if total > 0 && self.is_live(p) {
-            if mv.recoil.0 > 0 && !matches!(self.ab(p), Ab::RockHead | Ab::MagicGuard) {
-                let r = ((total as f64) * mv.recoil.0 as f64 / mv.recoil.1 as f64).round() as u32;
-                self.damage(p, r.max(1), Some(p), DmgKind::Indirect);
-            }
-            if mv.struggle_recoil || am.struggle {
-                let mh = self.m(p).max_hp as u32;
-                let r = ((mh as f64) / 4.0).round() as u32;
-                self.damage(p, r.max(1), Some(p), DmgKind::SelfCost);
-            }
+        if total > 0 {
+            self.apply_recoil(p, am, total);
         }
-        if mv.mind_blown_recoil && self.is_live(p) {
-            let mh = self.m(p).max_hp as u32;
-            self.damage(p, (mh + 1) / 2, Some(p), DmgKind::SelfCost);
-        }
-        if am.fx == MoveFx::SteelBeam && self.is_live(p) {
-            let mh = self.m(p).max_hp as u32;
-            let r = ((mh as f64) / 2.0).round() as u32;
-            self.damage(p, r, Some(p), DmgKind::SelfCost);
-        }
+        // eachEvent('Update') after recoil (Sitrus Berry...).
+        self.update_all();
         // Times attacked (Rage Fist).
         for i in 0..n {
             let t = targets[i];
@@ -1155,11 +1348,11 @@ impl Battle {
         }
         // After-move-secondary: Eject Button, Red Card, Emergency Exit.
         self.after_move_secondary(p, am, targets, &damaged, &hp_before, total);
-        self.after_move(p, am, targets, any_hit || am.category == Category::Status);
+        self.after_move(p, am, targets, any_hit || am.category == Category::Status, total);
     }
 
     /// One hit against all remaining targets. Returns damage dealt per target.
-    fn spread_move_hit(&mut self, p: Pos, am: &mut ActiveMove, targets: &[Pos], self_dropped: &mut bool) -> [Option<u32>; MAX_TARGETS] {
+    fn spread_move_hit(&mut self, p: Pos, am: &mut ActiveMove, targets: &[Pos], self_dropped: &mut bool) -> ([Option<u32>; MAX_TARGETS], [bool; MAX_TARGETS]) {
         let mv = dex().mv(am.id);
         let n = targets.len();
         let mut out = [None; MAX_TARGETS];
@@ -1191,6 +1384,7 @@ impl Battle {
             dmgs[i] = Some((dmg, crit));
         }
         // Apply damage (substitute absorbs).
+        let mut sub_hit = [false; MAX_TARGETS];
         for i in 0..n {
             let t = targets[i];
             let Some((dmg, crit)) = dmgs[i] else { continue };
@@ -1200,20 +1394,36 @@ impl Battle {
             if crit {
                 blog!(self, "|-crit|{}", self.name(t));
             }
-            // Resist berry is eaten when it weakens the hit.
+            let sub = self.m(t).vol.substitute;
+            let hits_sub = sub > 0 && t != p && am.flags & flag::SOUND == 0 && !am.infiltrates && am.flags & flag::BYPASSSUB == 0;
+            // Resist berry is eaten when it weakens the hit (not through a Substitute).
             if let Some(bt) = super::calc::resist_berry(self.it(t)) {
                 let eff = self.effectiveness(am.ty, t, Some(am));
-                if bt == am.ty && (eff > 0 || bt == Type::Normal) && !self.unnerved(t) {
+                if bt == am.ty && (eff > 0 || bt == Type::Normal) && !self.unnerved(t) && !hits_sub {
                     blog!(self, "|-enditem|{}|berry|[eat]", self.name(t));
                     self.eat_item(t);
                 }
             }
-            let sub = self.m(t).vol.substitute;
-            if sub > 0 && t != p && am.flags & flag::SOUND == 0 && !am.infiltrates && am.flags & flag::BYPASSSUB == 0 {
+            if hits_sub {
                 let absorbed = dmg.min(sub as u32);
                 self.mm(t).vol.substitute -= absorbed as u16;
                 if self.m(t).vol.substitute == 0 {
                     blog!(self, "|-end|{}|Substitute", self.name(t));
+                }
+                // The substitute's onTryPrimaryHit applies recoil and drain
+                // (rounded up) for the damage it took, right away.
+                if absorbed > 0 {
+                    self.apply_recoil(p, am, absorbed);
+                }
+                if mv.drain.0 > 0 {
+                    let h = ((absorbed as f64) * mv.drain.0 as f64 / mv.drain.1 as f64).ceil() as u32;
+                    self.drain_heal(p, h);
+                }
+                // HIT_SUBSTITUTE: the target takes no further effects (an Air
+                // Balloon still pops: onAfterSubDamage).
+                sub_hit[i] = true;
+                if self.it(t) == It::AirBalloon {
+                    self.consume_item(t);
                 }
                 out[i] = Some(0);
                 continue;
@@ -1232,12 +1442,9 @@ impl Battle {
                 self.damage(p, hp, Some(t), DmgKind::SelfCost);
             }
             // Drain.
-            if mv.drain.0 > 0 && dealt > 0 && self.is_live(p) {
-                let mut h = ((dealt as f64) * mv.drain.0 as f64 / mv.drain.1 as f64).round() as u32;
-                if self.it(p) == It::BigRoot {
-                    h = h * 13 / 10;
-                }
-                self.heal(p, h.max(1));
+            if mv.drain.0 > 0 && dealt > 0 {
+                let h = ((dealt as f64) * mv.drain.0 as f64 / mv.drain.1 as f64).round() as u32;
+                self.drain_heal(p, h);
             }
         }
         // Move effects per target (status moves and damaging moves' main effects).
@@ -1249,49 +1456,77 @@ impl Battle {
                 }
                 continue;
             }
-            if out[i].is_none() || !self.is_live(p) && !self.is_live(t) {
+            if out[i].is_none() {
                 continue;
             }
-            self.damaging_move_effects(p, t, am, out[i].unwrap_or(0));
+            self.damaging_move_effects(p, t, am, out[i].unwrap_or(0), sub_hit[i]);
         }
-        // Self drops (Close Combat), once.
-        if !*self_dropped && self.is_live(p) && out.iter().take(n).any(|x| x.is_some()) {
+        // Self drops (Close Combat) and other self effects, once.
+        if !*self_dropped && self.is_live(p) && out.iter().take(n).any(|x| x.is_some()) && am.category != Category::Status {
             *self_dropped = true;
             if let Some(b) = mv.self_boosts {
-                if !(am.sheer_force && false) {
+                if !am.sheer_force {
                     self.boost(p, &b, BoostSrc::SelfInflicted);
                 }
             }
             if let Some(v) = mv.self_volatile {
                 self.add_volatile(p, v, Some(p));
             }
+            self.self_hit_effects(p, am);
+        } else if !*self_dropped && self.is_live(p) && am.category == Category::Status && out.iter().take(n).any(|x| x.is_some()) {
+            *self_dropped = true;
+            if let Some(v) = mv.self_volatile {
+                self.add_volatile(p, v, Some(p));
+            }
         }
-        // Secondaries.
-        if !am.sheer_force {
+        // Secondaries (user effects apply even if the target fainted or a
+        // Substitute took the hit).
+        if !am.sheer_force && am.category != Category::Status {
             for i in 0..n {
-                let t = targets[i];
-                if out[i].is_none() || !self.is_live(t) && am.category != Category::Status {
-                    continue;
-                }
-                if am.category != Category::Status {
-                    self.secondaries(p, t, am);
+                if out[i].is_some() {
+                    self.secondaries(p, targets[i], am, sub_hit[i]);
                 }
             }
         }
-        // On-damaging-hit reactions (contact abilities, items).
+        // Force switch (Dragon Tail, Circle Throw).
+        if mv.force_switch && am.category != Category::Status {
+            for i in 0..n {
+                let t = targets[i];
+                if out[i].is_some() && !sub_hit[i] && self.is_live(t) && self.is_live(p) {
+                    self.mm(t).vol.force_switch = true;
+                }
+            }
+        }
+        // DamagingHit reactions (contact abilities, items); not on a Substitute.
+        let user_hp0 = self.m(p).hp;
         for i in 0..n {
             let t = targets[i];
             if let Some(d) = out[i] {
-                if t != p && am.category != Category::Status {
+                if t != p && am.category != Category::Status && !sub_hit[i] {
                     self.on_damaging_hit(p, t, am, d);
                 }
             }
         }
-        out
+        // AfterHit (Knock Off...).
+        if am.category != Category::Status {
+            for i in 0..n {
+                if out[i].is_some() {
+                    self.after_hit(p, targets[i], am, sub_hit[i]);
+                }
+            }
+        }
+        // The user's Emergency Exit after contact damage.
+        if self.is_live(p) {
+            let max = self.m(p).max_hp as u32;
+            if (self.m(p).hp as u32) * 2 <= max && (user_hp0 as u32) * 2 > max {
+                self.emergency_exit(p);
+            }
+        }
+        (out, sub_hit)
     }
 
     /// damageCallback moves.
-    fn fixed_damage(&self, p: Pos, t: Pos, am: &ActiveMove) -> Option<u32> {
+    pub(crate) fn fixed_damage(&self, p: Pos, t: Pos, am: &ActiveMove) -> Option<u32> {
         let s = self.m(p);
         let tm = self.m(t);
         match am.fx {
@@ -1322,84 +1557,127 @@ impl Battle {
     }
 
     /// Main effects of a damaging move on one target (after damage).
-    fn damaging_move_effects(&mut self, p: Pos, t: Pos, am: &ActiveMove, dealt: u32) {
+    /// runMoveEffects of a damaging move on one target (its onHit, primary
+    /// volatile, self switch). A Substitute hit only switches the user out.
+    fn damaging_move_effects(&mut self, p: Pos, t: Pos, am: &ActiveMove, dealt: u32, sub_hit: bool) {
         let mv = dex().mv(am.id);
-        match am.fx {
-            MoveFx::KnockOff => {
-                if self.is_live(t) && self.m(t).item != 0 && !dex().item(self.m(t).item).is_mega_stone && self.is_live(p) {
-                    blog!(self, "|-enditem|{}|knocked off", self.name(t));
-                    self.mm(t).item_knocked = true;
-                    self.remove_item(t);
+        if !sub_hit {
+            match am.fx {
+                MoveFx::BugBite => {
+                    // Steals and eats the berry (even from a target it knocks out).
+                    let berry = self.m(t).item;
+                    if self.is_live(p) && berry != 0 && dex().item(berry).is_berry {
+                        self.remove_item(t);
+                        self.eat_stolen_berry(p, berry);
+                    }
                 }
-            }
-            MoveFx::BugBite => {
-                if self.is_live(t) && dex().item(self.m(t).item).is_berry {
-                    self.remove_item(t);
+                MoveFx::ClearSmog => {
+                    if self.is_live(t) {
+                        self.mm(t).boosts = [0; 7];
+                    }
                 }
-            }
-            MoveFx::ClearSmog => {
-                if self.is_live(t) {
-                    self.mm(t).boosts = [0; 7];
+                MoveFx::FinalGambit => {
+                    let hp = self.m(p).hp as u32;
+                    self.damage(p, hp, Some(p), DmgKind::SelfCost);
                 }
+                _ => {}
             }
-            MoveFx::StoneAxe => {
-                let c = &mut self.sides[t.s()].conds;
-                c.stealth_rock = true;
-            }
-            MoveFx::CeaselessEdge => {
-                let c = &mut self.sides[t.s()].conds;
-                if c.spikes < 3 {
-                    c.spikes += 1;
-                }
-            }
-            MoveFx::MortalSpin => {
-                let c = &mut self.sides[p.s()].conds;
-                c.stealth_rock = false;
-                c.spikes = 0;
-                c.toxic_spikes = 0;
-                c.sticky_web = false;
-                if self.is_live(t) {
-                    self.try_set_status(t, Status::Psn, Some(p));
-                }
-            }
-            MoveFx::IceSpinner | MoveFx::SteelRoller => {
-                if self.field.terrain != Terrain::None {
-                    self.field.terrain = Terrain::None;
-                    self.field.terrain_turns = 0;
-                }
-            }
-            MoveFx::DoubleShock | MoveFx::BurnUp => {
-                let ty = if am.fx == MoveFx::DoubleShock { Type::Electric } else { Type::Fire };
-                let m = self.mm(p);
-                if m.types[0] == ty {
-                    m.types[0] = if m.types[1] == Type::None { Type::None } else { m.types[1] };
-                    m.types[1] = Type::None;
-                } else if m.types[1] == ty {
-                    m.types[1] = Type::None;
-                }
-                m.vol.type_changed = true;
-            }
-            MoveFx::FinalGambit => {
-                let hp = self.m(p).hp as u32;
-                self.damage(p, hp, Some(p), DmgKind::SelfCost);
-            }
-            _ => {}
-        }
-        // Generic: move-level volatile / status / boosts on damaging moves (rare).
-        if mv.volatile.is_some() && mv.category != Category::Status && self.is_live(t) {
+            // Move-level volatile on damaging moves (Infestation, Whirlpool...).
             if let Some(v) = mv.volatile {
-                self.add_volatile(t, v, Some(p));
+                if mv.category != Category::Status && self.is_live(t) {
+                    self.add_volatile(t, v, Some(p));
+                }
             }
         }
         // Self-switch (U-turn, Flip Turn, Volt Switch).
         if mv.self_switch == 1 && self.is_live(p) && self.sides[p.s()].bench_available() > 0 {
             self.mm(p).vol.switch_flag = true;
         }
-        // Force switch (Dragon Tail / Circle Throw).
-        if mv.force_switch && self.is_live(t) && dealt > 0 && self.m(t).vol.substitute == 0 {
-            self.mm(t).vol.force_switch = true;
-        }
         let _ = dealt;
+    }
+
+    /// Bug Bite: the user gets the berry's effect.
+    fn eat_stolen_berry(&mut self, p: Pos, berry: crate::dex::ItemId) {
+        self.mm(p).ate_berry = true;
+        let m = self.m(p);
+        let mh = m.max_hp as u32;
+        match dex().it(berry) {
+            It::SitrusBerry => {
+                self.heal(p, mh / 4);
+            }
+            It::OranBerry => {
+                self.heal(p, 10);
+            }
+            It::LumBerry => {
+                self.cure_status(p);
+                self.mm(p).vol.confusion = 0;
+            }
+            It::ChestoBerry if m.status == Status::Slp => self.cure_status(p),
+            It::CheriBerry if m.status == Status::Par => self.cure_status(p),
+            It::PechaBerry if matches!(m.status, Status::Psn | Status::Tox) => self.cure_status(p),
+            It::RawstBerry if m.status == Status::Brn => self.cure_status(p),
+            It::AspearBerry if m.status == Status::Frz => self.cure_status(p),
+            It::PersimBerry => self.mm(p).vol.confusion = 0,
+            _ => {}
+        }
+    }
+
+    /// A damaging move's `self` effects that are not stat drops (once).
+    fn self_hit_effects(&mut self, p: Pos, am: &ActiveMove) {
+        if let MoveFx::DoubleShock | MoveFx::BurnUp = am.fx {
+            let ty = if am.fx == MoveFx::DoubleShock { Type::Electric } else { Type::Fire };
+            let m = self.mm(p);
+            if m.types[0] == ty {
+                m.types[0] = if m.types[1] == Type::None { Type::None } else { m.types[1] };
+                m.types[1] = Type::None;
+            } else if m.types[1] == ty {
+                m.types[1] = Type::None;
+            }
+            m.vol.type_changed = true;
+        }
+    }
+
+    /// onAfterHit (after the DamagingHit reactions), and onAfterSubDamage for
+    /// the moves that have it. Runs even if the user or target fainted.
+    fn after_hit(&mut self, p: Pos, t: Pos, am: &ActiveMove, sub_hit: bool) {
+        match am.fx {
+            MoveFx::KnockOff if !sub_hit => {
+                if self.m(t).item != 0 && !dex().item(self.m(t).item).is_mega_stone {
+                    blog!(self, "|-enditem|{}|knocked off", self.name(t));
+                    self.mm(t).item_knocked = true;
+                    self.remove_item(t);
+                }
+            }
+            MoveFx::StoneAxe if self.is_live(p) && !am.sheer_force => {
+                self.sides[t.s()].conds.stealth_rock = true;
+            }
+            MoveFx::CeaselessEdge if self.is_live(p) && !am.sheer_force => {
+                let c = &mut self.sides[t.s()].conds;
+                if c.spikes < 3 {
+                    c.spikes += 1;
+                }
+            }
+            MoveFx::MortalSpin if !am.sheer_force => {
+                // (The poison is a secondary.)
+                let c = &mut self.sides[p.s()].conds;
+                c.stealth_rock = false;
+                c.spikes = 0;
+                c.toxic_spikes = 0;
+                c.sticky_web = false;
+                if self.is_live(p) {
+                    let m = self.mm(p);
+                    m.vol.leech_seed = false;
+                    m.vol.partial_trap = 0;
+                }
+            }
+            MoveFx::IceSpinner | MoveFx::SteelRoller if self.is_live(p) => {
+                if self.field.terrain != Terrain::None {
+                    self.field.terrain = Terrain::None;
+                    self.field.terrain_turns = 0;
+                }
+            }
+            _ => {}
+        }
     }
 
     /// Effects of a status move (or Pollen Puff on an ally) on one target.
@@ -1443,7 +1721,7 @@ impl Battle {
                 return true;
             }
             MoveFx::PartingShot => {
-                let b = mv.boosts.unwrap_or([0, 0, -1, 0, 0, 0, 0]);
+                let b = mv.boosts.unwrap_or([-1, 0, -1, 0, 0, 0, 0]);
                 let mirror = self.tab(t) == Ab::MirrorArmor;
                 let success = self.boost(t, &b, from);
                 if (success || mirror) && self.is_live(p) && self.sides[p.s()].bench_available() > 0 {
@@ -1475,8 +1753,9 @@ impl Battle {
                                 if let Some(mut q) = self.queue.list[i] {
                                     if q.pos == t {
                                         if let ActionKind::Move { .. } = q.kind {
-                                            q.kind = ActionKind::Move { mslot: slot as u8, target: T_FOE0 };
+                                            q.kind = ActionKind::Move { mslot: slot as u8, target: crate::battle::TARGET_RANDOM };
                                             q.move_id = last;
+                                            q.order = 200;
                                             self.queue.list[i] = Some(q);
                                         }
                                     }
@@ -1521,7 +1800,10 @@ impl Battle {
                 let mh = self.m(p).max_hp as u32;
                 let cost = mh / 4;
                 self.damage(p, cost, Some(p), DmgKind::SelfCost);
-                self.mm(p).vol.substitute = cost as u16;
+                let m = self.mm(p);
+                m.vol.substitute = cost as u16;
+                // The substitute frees its user from a partial trap.
+                m.vol.partial_trap = 0;
                 return true;
             }
             MoveFx::ShedTail => {
@@ -1558,14 +1840,24 @@ impl Battle {
                 self.mm(t).item = a;
                 self.mm(p).vol.choice_lock = 0;
                 self.mm(t).vol.choice_lock = 0;
+                // takeItem: Unburden activates for whoever had an item taken.
+                if a != 0 && self.ab(p) == Ab::Unburden {
+                    self.mm(p).vol.unburden = true;
+                }
+                if b != 0 && self.ab(t) == Ab::Unburden {
+                    self.mm(t).vol.unburden = true;
+                }
                 self.reveal_item(p);
                 self.reveal_item(t);
                 return true;
             }
             MoveFx::Roost => {
+                // At full HP the heal fails and so does the move (no Roost volatile).
                 let mh = self.m(p).max_hp as u32;
                 let h = self.heal(p, (mh + 1) / 2);
-                self.mm(p).vol.roost = true;
+                if h > 0 {
+                    self.mm(p).vol.roost = true;
+                }
                 return h > 0;
             }
             MoveFx::Soak => {
@@ -1620,7 +1912,7 @@ impl Battle {
                 }
                 let atk = super::calc::boosted(self.m(t).stats[1] as u32, self.m(t).boosts[B_ATK]);
                 self.boost(t, &ups(B_ATK, -1), from);
-                self.heal(p, atk);
+                self.drain_heal(p, atk); // Big Root applies
                 return true;
             }
             MoveFx::HealPulse | MoveFx::FloralHealing => {
@@ -1734,6 +2026,18 @@ impl Battle {
                 self.sides[p.s()].wish[slot] = (2, amt);
                 return true;
             }
+            MoveFx::RevivalBlessing => {
+                // onTryHit: needs a fainted party member; then the slot
+                // condition and a (non-)switch request to pick it.
+                let s = p.s();
+                if !self.sides[s].mons.iter().any(|m| m.brought && m.fainted) {
+                    blog!(self, "|-fail|{}", self.name(p));
+                    return false;
+                }
+                self.sides[s].reviving[p.i()] = true;
+                self.mm(p).vol.switch_flag = true;
+                return true;
+            }
             MoveFx::HealingWish => {
                 self.sides[p.s()].healing_wish[p.i()] = true;
                 let hp = self.m(p).hp as u32;
@@ -1767,7 +2071,6 @@ impl Battle {
                 let m = self.mm(p);
                 m.item = it;
                 m.last_item = 0;
-                m.vol.unburden = false;
                 return true;
             }
             MoveFx::Curse => {
@@ -1792,24 +2095,12 @@ impl Battle {
                     .iter()
                     .position(|a| a.map(|a| a.pos == t && matches!(a.kind, ActionKind::Move { .. })).unwrap_or(false))
                 {
-                    let a = self.queue.list[i];
                     if am.fx == MoveFx::AfterYou {
-                        for j in (1..=i).rev() {
-                            self.queue.list[j] = self.queue.list[j - 1];
-                        }
-                        if let Some(mut a) = a {
-                            a.priority = 127;
-                            self.queue.list[0] = Some(a);
-                        }
-                    } else {
-                        let len = self.queue.len;
-                        for j in i..len - 1 {
-                            self.queue.list[j] = self.queue.list[j + 1];
-                        }
-                        if let Some(mut a) = a {
-                            a.priority = -128;
-                            self.queue.list[len - 1] = Some(a);
-                        }
+                        self.prioritize_action(i);
+                    } else if let Some(mut a) = self.queue.list[i] {
+                        // Quash: order 201, after every other move.
+                        a.order = 201;
+                        self.queue.list[i] = Some(a);
                     }
                     return true;
                 }
@@ -1882,7 +2173,7 @@ impl Battle {
     }
 
     /// Secondary effects of a damaging move on one target.
-    fn secondaries(&mut self, p: Pos, t: Pos, am: &ActiveMove) {
+    fn secondaries(&mut self, p: Pos, t: Pos, am: &ActiveMove, sub_hit: bool) {
         let mv = dex().mv(am.id);
         if mv.secondaries.is_empty() {
             return;
@@ -1899,10 +2190,7 @@ impl Battle {
                     self.boost(p, &b, BoostSrc::SelfInflicted);
                 }
             }
-            if shielded || !self.is_live(t) {
-                continue;
-            }
-            if self.m(t).vol.substitute > 0 && am.flags & flag::BYPASSSUB == 0 && !am.infiltrates {
+            if shielded || !self.is_live(t) || sub_hit {
                 continue;
             }
             if sec.scripted {
@@ -1938,7 +2226,12 @@ impl Battle {
                 self.try_set_status(t, sec.status, Some(p));
             }
             if let Some(v) = sec.volatile {
-                if v == VolKind::Flinch {
+                if v == VolKind::HealBlock && mv.id == "psychicnoise" {
+                    // Psychic Noise's Heal Block lasts 2 turns.
+                    if self.add_volatile(t, v, Some(p)) {
+                        self.mm(t).vol.heal_block = 2;
+                    }
+                } else if v == VolKind::Flinch {
                     // Flinch only matters if the target has not moved yet.
                     if self.queue.will_move(t).is_some() {
                         self.add_volatile(t, v, Some(p));
@@ -1958,8 +2251,19 @@ impl Battle {
     fn on_damaging_hit(&mut self, p: Pos, t: Pos, am: &ActiveMove, dealt: u32) {
         let _ = dealt;
         let contact = self.makes_contact(p, am);
+        // A Fire-type hit thaws a frozen target.
+        if self.is_live(t) && self.m(t).status == Status::Frz && am.ty == Type::Fire && am.category != Category::Status {
+            self.cure_status(t);
+        }
+        // Air Balloon pops.
+        if self.m(t).item != 0 && dex().it(self.m(t).item) == It::AirBalloon {
+            blog!(self, "|-enditem|{}|Air Balloon", self.name(t));
+            self.consume_item(t);
+        }
+        // The target's onDamagingHit runs even when the hit knocked it out
+        // (it faints only after the move).
+        let tab = dex().ab(self.m(t).ability);
         if self.is_live(t) {
-            let tab = self.ab(t);
             match tab {
                 Ab::Stamina => {
                     self.reveal_ability(t);
@@ -1974,40 +2278,47 @@ impl Battle {
                 Ab::WeakArmor if am.category == Category::Physical => {
                     self.boost(t, &[0, -1, 0, 0, 2, 0, 0], BoostSrc::SelfInflicted);
                 }
-                Ab::CursedBody if self.is_live(p) && self.rng.chance(3, 10) => {
-                    if self.m(p).vol.disable == 0 && am.mslot < 4 && !am.struggle {
-                        let m = self.mm(p);
-                        m.vol.disable = 4;
-                        m.vol.disable_slot = am.mslot;
-                    }
-                }
                 Ab::Electromorphosis => self.mm(t).vol.charge = true,
-                Ab::ToxicDebris if am.category == Category::Physical => {
-                    let c = &mut self.sides[p.s()].conds;
-                    if c.toxic_spikes < 2 {
-                        c.toxic_spikes += 1;
-                    }
-                }
                 Ab::Berserk => {
                     let m = self.m(t);
                     if (m.hp as u32) * 2 <= m.max_hp as u32 && (m.hp as u32 + dealt) * 2 > m.max_hp as u32 {
                         self.boost(t, &ups(B_SPA, 1), BoostSrc::SelfInflicted);
                     }
                 }
-                Ab::CuteCharm if contact && self.rng.chance(3, 10) => {
-                    self.add_volatile(p, VolKind::Attract, Some(t));
-                }
                 _ => {}
             }
         }
-        if !self.is_live(p) {
-            return;
+        match tab {
+            Ab::CursedBody if self.is_live(p) && !am.struggle && self.m(p).vol.disable == 0 && self.rng.chance(3, 10) => {
+                if self.m(p).vol.last_move != 0 {
+                    // Disable lasts 4 turns once the attacker has moved this turn.
+                    if let Some(slot) = self.m(p).move_slot(self.m(p).vol.last_move).filter(|&s| self.m(p).pp[s] > 0) {
+                        let m = self.mm(p);
+                        m.vol.disable = 4;
+                        m.vol.disable_slot = slot as u8;
+                    }
+                }
+            }
+            Ab::ToxicDebris if am.category == Category::Physical => {
+                // On the attacker's side, or the holder's foes' side if an ally hit it.
+                let side = if p.side == t.side { 1 - t.s() } else { p.s() };
+                let c = &mut self.sides[side].conds;
+                if c.toxic_spikes < 2 {
+                    c.toxic_spikes += 1;
+                }
+            }
+            Ab::CuteCharm if contact && self.is_live(p) && self.rng.chance(3, 10) => {
+                self.add_volatile(p, VolKind::Attract, Some(t));
+            }
+            _ => {}
         }
-        // Contact reactions on the attacker.
+        // Contact reactions on the attacker. (A target the hit knocked out
+        // still reacts, and an attacker at 0 HP keeps its Poison Touch: both
+        // faint only after the move.)
         if contact {
-            let tab = if self.is_live(t) || self.m(t).fainted { dex().ab(self.m(t).ability) } else { Ab::Other };
+            let tab = dex().ab(self.m(t).ability);
             match tab {
-                Ab::RoughSkin | Ab::IronBarbs => {
+                Ab::RoughSkin | Ab::IronBarbs if self.is_live(p) => {
                     let mh = self.m(p).max_hp as u32;
                     self.reveal_ability(t);
                     self.damage(p, (mh / 8).max(1), Some(t), DmgKind::Indirect);
@@ -2029,7 +2340,7 @@ impl Battle {
                 self.damage(p, (mh / 6).max(1), Some(t), DmgKind::Indirect);
             }
             // Poison Touch (attacker's ability).
-            if self.is_live(p) && self.ab(p) == Ab::PoisonTouch && self.is_live(t) && self.rng.chance(3, 10) {
+            if !self.m(p).fainted && self.ab(p) == Ab::PoisonTouch && self.is_live(t) && self.rng.chance(3, 10) {
                 if self.tab(t) != Ab::ShieldDust {
                     self.try_set_status(t, Status::Psn, Some(p));
                 }
@@ -2047,6 +2358,14 @@ impl Battle {
 
     /// Eject Button, Red Card, Emergency Exit after the move's hits.
     fn after_move_secondary(&mut self, p: Pos, am: &ActiveMove, targets: &[Pos], damaged: &[bool; MAX_TARGETS], hp_before: &[u16; MAX_TARGETS], _total: u32) {
+        // Scald & co. thaw a frozen target.
+        if dex().mv(am.id).thaws_target {
+            for (i, &t) in targets.iter().enumerate() {
+                if damaged[i] && self.is_live(t) && self.m(t).status == Status::Frz {
+                    self.cure_status(t);
+                }
+            }
+        }
         for (i, &t) in targets.iter().enumerate() {
             if !damaged[i] || t == p || !self.is_live(t) {
                 continue;
@@ -2065,6 +2384,15 @@ impl Battle {
                     self.mm(p).vol.force_switch = true;
                 }
                 _ => {}
+            }
+            // Pickpocket: a contact move's user loses its item to an
+            // item-less target.
+            if self.ab(t) == Ab::Pickpocket && am.flags & flag::CONTACT != 0 && self.is_live(p) && self.m(t).item == 0 && !self.m(t).vol.switch_flag && !self.m(t).vol.force_switch {
+                if let Some(it) = self.take_item(p) {
+                    self.mm(t).item = it;
+                    self.reveal_ability(t);
+                    blog!(self, "|-item|{}|{}|[from] ability: Pickpocket", self.name(t), dex().item(it).name);
+                }
             }
         }
         // Emergency Exit / Wimp Out.
@@ -2103,21 +2431,46 @@ impl Battle {
     }
 
     /// After a move that did something: Life Orb, Throat Spray, Moxie...
-    fn after_move(&mut self, p: Pos, am: &ActiveMove, targets: &[Pos], ok: bool) {
+    fn after_move(&mut self, p: Pos, am: &ActiveMove, targets: &[Pos], ok: bool, total: u32) {
         if !self.is_live(p) {
             // Destiny Bond etc. not needed when the user fainted.
             return;
         }
-        // Life Orb recoil when the move dealt damage.
-        let hit_something = targets.iter().any(|&t| t != p && self.m(t).vol.hurt_this_turn);
-        if ok && am.category != Category::Status && self.it(p) == It::LifeOrb && hit_something && !am.sheer_force {
-            if self.ab(p) != Ab::MagicGuard {
-                let mh = self.m(p).max_hp as u32;
-                self.reveal_item(p);
-                self.damage(p, (mh / 10).max(1), Some(p), DmgKind::Indirect);
+        // AfterMoveSecondarySelf (not with Sheer Force): Magician first
+        // (priority 0), then the user's Life Orb / Shell Bell (priority -1;
+        // an item Magician just took does not act this time).
+        let hit_something = targets.iter().any(|&t| t != p);
+        let mut stole = false;
+        if ok && hit_something && !am.sheer_force && am.category != Category::Status && self.ab(p) == Ab::Magician && self.m(p).item == 0 {
+            let mut order: Vec<(i32, u64, Pos)> =
+                targets.iter().filter(|&&t| t != p).map(|&t| (self.action_speed(t), self.rng.next_u64(), t)).collect();
+            order.sort_by(|a, b| b.0.cmp(&a.0).then(a.1.cmp(&b.1)));
+            for (_, _, t) in order {
+                if let Some(it) = self.take_item(t) {
+                    self.mm(p).item = it;
+                    self.reveal_ability(p);
+                    blog!(self, "|-item|{}|{}|[from] ability: Magician", self.name(p), dex().item(it).name);
+                    stole = true;
+                    break;
+                }
             }
         }
-        // Shell Bell.
+        // Life Orb recoil whenever the move connected (not after Red Card).
+        if !stole && ok && am.category != Category::Status && self.it(p) == It::LifeOrb && hit_something && !am.sheer_force && !self.m(p).vol.force_switch {
+            if self.ab(p) != Ab::MagicGuard {
+                let mh = self.m(p).max_hp as u32;
+                let hp0 = self.m(p).hp as u32;
+                self.reveal_item(p);
+                self.damage(p, (mh / 10).max(1), Some(p), DmgKind::Indirect);
+                if self.is_live(p) && (self.m(p).hp as u32) * 2 <= mh && hp0 * 2 > mh {
+                    self.emergency_exit(p);
+                }
+            }
+        }
+        // Shell Bell: an eighth of the damage dealt.
+        if !stole && ok && total > 0 && self.it(p) == It::ShellBell && !am.sheer_force && !self.m(p).vol.force_switch && self.is_live(p) {
+            self.heal(p, (total / 8).max(1));
+        }
         // Moxie / Eelevate: KO'd a target.
         let kos = targets.iter().filter(|&&t| t != p && !self.is_live(t)).count() as i8;
         if kos > 0 && self.is_live(p) {
@@ -2149,5 +2502,53 @@ impl Battle {
         if self.is_live(p) && am.fx != MoveFx::DestinyBond {
             self.mm(p).vol.destiny_bond = false;
         }
+        // Steel Beam's onMoveFail: half max HP even when it misses / is blocked.
+        if am.fx == MoveFx::SteelBeam && self.is_live(p) {
+            let mh = self.m(p).max_hp as u32;
+            let hp0 = self.m(p).hp as u32;
+            self.damage(p, (mh + 1) / 2, Some(p), DmgKind::Indirect);
+            if self.is_live(p) && (self.m(p).hp as u32) * 2 <= mh && hp0 * 2 > mh {
+                self.emergency_exit(p);
+            }
+        }
+    }
+
+    /// Showdown's applyRecoilDamage: Struggle (a quarter of max HP), Steel
+    /// Beam (half), recoil moves (a fraction of the damage dealt); then the
+    /// user's Emergency Exit.
+    fn apply_recoil(&mut self, p: Pos, am: &ActiveMove, dealt: u32) {
+        let mv = dex().mv(am.id);
+        if !self.is_live(p) {
+            return;
+        }
+        let mh = self.m(p).max_hp as u32;
+        let hp0 = self.m(p).hp as u32;
+        if mv.struggle_recoil || am.struggle {
+            let r = ((mh as f64) / 4.0).round() as u32;
+            self.damage(p, r.max(1), Some(p), DmgKind::SelfCost);
+        } else if mv.mind_blown_recoil {
+            self.damage(p, (mh + 1) / 2, Some(p), DmgKind::Indirect);
+        } else if mv.recoil.0 > 0 {
+            if matches!(self.ab(p), Ab::RockHead | Ab::MagicGuard) {
+                return;
+            }
+            let r = ((dealt as f64) * mv.recoil.0 as f64 / mv.recoil.1 as f64).round() as u32;
+            self.damage(p, r.max(1), Some(p), DmgKind::Indirect);
+        } else {
+            return;
+        }
+        if self.is_live(p) && (self.m(p).hp as u32) * 2 <= mh && hp0 * 2 > mh {
+            self.emergency_exit(p);
+        }
+    }
+
+    /// A drain heal (`heal(amount, .., 'drain')`): Big Root multiplies it by
+    /// 5324/4096; an amount of 0 heals nothing.
+    pub(crate) fn drain_heal(&mut self, p: Pos, h: u32) -> u32 {
+        if h == 0 || !self.is_live(p) {
+            return 0;
+        }
+        let h = if self.it(p) == It::BigRoot { super::calc::modify(h, 5324, 4096) } else { h };
+        self.heal(p, h)
     }
 }

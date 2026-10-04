@@ -96,7 +96,14 @@ pub struct Vol {
     pub tar_shot: bool,
     pub smacked_down: bool,
     pub partial_trap: u8,
+    /// Position code and team index of the Pokemon that partially trapped us.
+    pub partial_trap_src: u8,
+    pub partial_trap_mon: u8,
     pub type_changed: bool,
+    /// Protean / Libero already changed the type since switching in.
+    pub protean: bool,
+    /// Move slots whose PP was used since switching in (Last Resort).
+    pub moves_used: u8,
     pub ability_changed: bool,
     pub transformed: bool,
     pub stall_used_this_turn: bool,
@@ -172,6 +179,15 @@ pub struct Mon {
     pub mega_types: [Type; 2],
     pub mega_stats: [u16; 6],
     pub mega_weight_hg: u32,
+    /// Battle-only forme (Aegislash-Blade, Palafin-Hero): species (0 = none),
+    /// stats, weight; `alt_locked` once the change is permanent (Zero to Hero).
+    pub alt_species: SpeciesId,
+    pub alt_stats: [u16; 6],
+    pub alt_weight_hg: u32,
+    pub alt_locked: bool,
+    /// The set's own stats and weight (to revert a battle-only forme).
+    pub home_stats: [u16; 6],
+    pub home_weight_hg: u32,
     /// Index in the original six-Pokemon team.
     pub team_idx: u8,
     /// What the opponent has seen of this Pokemon.
@@ -187,9 +203,11 @@ impl Mon {
         let d = crate::dex::dex();
         let mut pp = [0u8; 4];
         for i in 0..set.n_moves as usize {
-            // PP ups are maxed: pp * 8 / 5 (Champions caps base PP at 20 already).
-            let base = d.mv(set.moves[i]).pp as u16;
-            pp[i] = (base * 8 / 5).min(255) as u8;
+            // Champions PP (scripts.ts calculatePP): (pp / 5 + 1) * 4, or the
+            // listed PP for noPPBoosts moves.
+            let md = d.mv(set.moves[i]);
+            let base = md.pp as f64;
+            pp[i] = if md.no_pp_boosts { md.pp } else { ((base / 5.0 + 1.0) * 4.0).ceil().min(255.0) as u8 };
         }
         let (can_mega, mega) = match set.mega {
             Some(m) => (true, m),
@@ -228,6 +246,12 @@ impl Mon {
             mega_types: mega.types,
             mega_stats: mega.stats,
             mega_weight_hg: mega.weight_hg,
+            alt_species: set.alt.map(|a| a.species).unwrap_or(0),
+            alt_stats: set.alt.map(|a| a.stats).unwrap_or_default(),
+            alt_weight_hg: set.alt.map(|a| a.weight_hg).unwrap_or(0),
+            alt_locked: false,
+            home_stats: set.stats,
+            home_weight_hg: set.weight_hg,
             team_idx,
             reveal: Reveal::default(),
             ate_berry: false,
@@ -249,6 +273,33 @@ impl Mon {
     #[inline]
     pub fn has_type(&self, t: Type) -> bool {
         self.types[0] == t || self.types[1] == t
+    }
+
+    /// Change into / out of the battle-only forme (HP is unchanged).
+    pub fn set_alt_forme(&mut self, alt: bool) {
+        if self.alt_species == 0 {
+            return;
+        }
+        if alt {
+            self.species = self.alt_species;
+            for k in 1..6 {
+                self.stats[k] = self.alt_stats[k];
+            }
+            self.weight_hg = self.alt_weight_hg;
+        } else {
+            self.species = self.base_species;
+            for k in 1..6 {
+                self.stats[k] = self.home_stats[k];
+            }
+            self.weight_hg = self.home_weight_hg;
+        }
+    }
+
+    /// Back to the set's forme unless the change was permanent (switch-out, faint).
+    pub fn revert_alt_forme(&mut self) {
+        if self.alt_species != 0 && self.species == self.alt_species && !self.alt_locked {
+            self.set_alt_forme(false);
+        }
     }
 
     pub fn move_slot(&self, m: MoveId) -> Option<usize> {
@@ -292,10 +343,17 @@ pub struct Side {
     pub fainted_last_turn: bool,
     /// Healing Wish waiting for the next Pokemon into each slot.
     pub healing_wish: [bool; 2],
+    /// Revival Blessing used from this slot this turn (slot condition): the
+    /// slot's switch request picks a fainted Pokemon to revive.
+    pub reviving: [bool; 2],
     /// Wish: turns until it lands and HP it restores, per slot.
     pub wish: [(u8, u16); 2],
     /// Open team sheets: the opponent sees moves, items and abilities.
     pub sheet_open: bool,
+    /// Team indices in Showdown's party order (`side.pokemon`): the brought
+    /// Pokemon in team-preview order, active slots first; a switch swaps the
+    /// two Pokemon's positions. Used by Beat Up.
+    pub order: [u8; 6],
 }
 
 impl Side {
@@ -317,6 +375,30 @@ impl Side {
 
     pub fn bench_available(&self) -> u8 {
         (0..6).filter(|&i| self.can_switch_to(i)).count() as u8
+    }
+
+    /// Beat Up's hitters in party order: the user, and every other brought
+    /// Pokemon that is not fainted and has no status.
+    pub fn beat_up_allies(&self, user: u8) -> ([u8; 6], usize) {
+        let mut out = [0u8; 6];
+        let mut n = 0;
+        for &i in &self.order {
+            let m = &self.mons[i as usize];
+            if m.brought && (i == user || (!m.fainted && m.hp > 0 && m.status == crate::dex::Status::None)) {
+                out[n] = i;
+                n += 1;
+            }
+        }
+        (out, n)
+    }
+
+    /// Swap two Pokemon's party positions (a switch).
+    pub fn swap_order(&mut self, a: u8, b: u8) {
+        let pa = self.order.iter().position(|&x| x == a);
+        let pb = self.order.iter().position(|&x| x == b);
+        if let (Some(pa), Some(pb)) = (pa, pb) {
+            self.order.swap(pa, pb);
+        }
     }
 
     pub fn alive_brought(&self) -> u8 {

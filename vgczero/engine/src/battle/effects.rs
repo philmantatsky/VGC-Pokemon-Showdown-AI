@@ -52,6 +52,10 @@ impl Battle {
         if !self.is_live(tgt) {
             return false;
         }
+        // Gen 6+: no boosts once every foe has fainted.
+        if !self.foe_pokemon_left(tgt.s()) {
+            return false;
+        }
         let mut b = *boosts;
         let from_other = match src.source() {
             Some(s) => s != tgt,
@@ -132,11 +136,14 @@ impl Battle {
                 }
             }
         }
+        // Each stat is applied in turn; Defiant / Competitive react to each
+        // stat an opponent lowered (Showdown's AfterEachBoost).
+        let foe_src = src.source().map(|s| s.side != tgt.side).unwrap_or(false);
         let mut changed = false;
         let mut lowered = false;
         let mut raised = false;
         for i in 0..7 {
-            if b[i] == 0 {
+            if b[i] == 0 || !self.is_live(tgt) {
                 continue;
             }
             let m = self.mm(tgt);
@@ -144,14 +151,28 @@ impl Battle {
             let new = (old as i32 + b[i] as i32).clamp(-6, 6) as i8;
             m.boosts[i] = new;
             let delta = new - old;
-            if delta != 0 {
-                changed = true;
-                if delta < 0 {
-                    lowered = true;
-                } else {
-                    raised = true;
+            if delta == 0 {
+                continue;
+            }
+            changed = true;
+            if b[i] < 0 {
+                lowered = true;
+            } else {
+                raised = true;
+            }
+            blog!(self, "|{}|{}|{}|{}", if delta > 0 { "-boost" } else { "-unboost" }, self.name(tgt), STAT_NAMES[i], delta.abs());
+            if b[i] < 0 && foe_src {
+                let up_stat = match self.ab(tgt) {
+                    Ab::Defiant => Some(B_ATK),
+                    Ab::Competitive => Some(B_SPA),
+                    _ => None,
+                };
+                if let Some(st) = up_stat {
+                    self.reveal_ability(tgt);
+                    let mut up = [0i8; 7];
+                    up[st] = 2;
+                    self.boost(tgt, &up, BoostSrc::SelfInflicted);
                 }
-                blog!(self, "|{}|{}|{}|{}", if delta > 0 { "-boost" } else { "-unboost" }, self.name(tgt), STAT_NAMES[i], delta.abs());
             }
         }
         if raised {
@@ -159,27 +180,6 @@ impl Battle {
         }
         if lowered {
             self.mm(tgt).vol.stats_lowered_this_turn = true;
-            // Defiant / Competitive: a stat lowered by an opponent.
-            if let Some(s) = src.source() {
-                if s.side != tgt.side {
-                    match self.ab(tgt) {
-                        Ab::Defiant => {
-                            self.reveal_ability(tgt);
-                            let mut up = [0i8; 7];
-                            up[B_ATK] = 2;
-                            self.boost(tgt, &up, BoostSrc::SelfInflicted);
-                        }
-                        Ab::Competitive => {
-                            self.reveal_ability(tgt);
-                            let mut up = [0i8; 7];
-                            up[B_SPA] = 2;
-                            self.boost(tgt, &up, BoostSrc::SelfInflicted);
-                        }
-                        _ => {}
-                    }
-                }
-            }
-            self.check_white_herb(tgt);
         }
         changed
     }
@@ -334,7 +334,7 @@ impl Battle {
 
     /// Lum / Chesto / etc. (Update event).
     pub fn check_status_berry(&mut self, p: Pos) {
-        if !self.is_live(p) || self.unnerved(p) {
+        if !self.is_live(p) {
             return;
         }
         let st = self.m(p).status;
@@ -349,7 +349,7 @@ impl Battle {
             It::PersimBerry => conf,
             _ => false,
         };
-        if cure {
+        if cure && !self.unnerved(p) {
             match self.it(p) {
                 It::LumBerry => {
                     self.cure_status(p);
@@ -522,6 +522,19 @@ impl Battle {
                 up[B_SPD] = 1;
                 self.boost(tgt, &up, BoostSrc::SelfInflicted);
             }
+            VolKind::PartiallyTrapped => {
+                // Fire Spin, Whirlpool, Infestation...: 5 or 6 turns.
+                if self.m(tgt).vol.partial_trap > 0 {
+                    return false;
+                }
+                let s = src.unwrap_or(tgt);
+                let mon = self.sides[s.s()].active[s.i()];
+                let dur = self.rng.range(5, 7) as u8;
+                let m = self.mm(tgt);
+                m.vol.partial_trap = dur;
+                m.vol.partial_trap_src = s.code();
+                m.vol.partial_trap_mon = mon;
+            }
             VolKind::Endure => self.mm(tgt).vol.endure = true,
             VolKind::DestinyBond => self.mm(tgt).vol.destiny_bond = true,
             VolKind::Protect => self.mm(tgt).vol.protect = ProtectKind::Protect,
@@ -533,7 +546,6 @@ impl Battle {
             | VolKind::FollowMe
             | VolKind::RagePowder
             | VolKind::ThroatChop
-            | VolKind::PartiallyTrapped
             | VolKind::Unsupported => return false,
         }
         true
@@ -601,7 +613,12 @@ impl Battle {
 
     /// Sitrus Berry & co. after HP changes (Update event).
     pub fn check_hp_berry(&mut self, p: Pos) {
-        if !self.is_live(p) || self.unnerved(p) {
+        if !self.is_live(p) || !matches!(self.it(p), It::SitrusBerry | It::OranBerry) {
+            return;
+        }
+        let m = self.m(p);
+        // onTryEatItem: a healing berry is not eaten under Heal Block.
+        if (m.hp as u32) * 2 > m.max_hp as u32 || self.unnerved(p) || m.vol.heal_block > 0 {
             return;
         }
         let m = self.m(p);
@@ -620,11 +637,61 @@ impl Battle {
         }
     }
 
+    /// Does an Update-event item check have anything to do for `p`?
+    #[inline]
+    fn update_pending(&self, p: Pos) -> bool {
+        if !self.is_live(p) {
+            return false;
+        }
+        let m = self.m(p);
+        match self.it(p) {
+            It::SitrusBerry | It::OranBerry => (m.hp as u32) * 2 <= m.max_hp as u32,
+            It::LumBerry => m.status != Status::None || m.vol.confusion > 0,
+            It::ChestoBerry => m.status == Status::Slp,
+            It::CheriBerry => m.status == Status::Par,
+            It::PechaBerry => matches!(m.status, Status::Psn | Status::Tox),
+            It::RawstBerry => m.status == Status::Brn,
+            It::AspearBerry => m.status == Status::Frz,
+            It::PersimBerry => m.vol.confusion > 0,
+            _ => false,
+        }
+    }
+
+    /// eachEvent('Update') over the active Pokemon, in speed order.
+    pub(crate) fn update_all(&mut self) {
+        let mut ps: [(i32, Pos); 4] = [(0, Pos::new(0, 0)); 4];
+        let mut n = 0;
+        for c in 0..4 {
+            let p = Pos::from_code(c);
+            if self.update_pending(p) {
+                ps[n] = (0, p);
+                n += 1;
+            }
+        }
+        if n > 1 {
+            for k in 0..n {
+                ps[k].0 = self.action_speed(ps[k].1);
+            }
+            ps[..n].sort_by(|a, b| b.0.cmp(&a.0));
+        }
+        for k in 0..n {
+            self.update_items(ps[k].1);
+        }
+    }
+
     /// All Update-event item checks for one Pokemon.
     pub fn update_items(&mut self, p: Pos) {
         self.check_hp_berry(p);
         self.check_status_berry(p);
-        self.check_white_herb(p);
+    }
+
+    /// White Herb has no Update handler: it acts after any switch-in, any
+    /// move, any Mega Evolution, and at the end of the turn, for every active
+    /// holder (so two Intimidates in a row are both undone).
+    pub(crate) fn white_herb_all(&mut self) {
+        for c in 0..4 {
+            self.check_white_herb(Pos::from_code(c));
+        }
     }
 
     // ---- items --------------------------------------------------------------------------
@@ -647,6 +714,29 @@ impl Battle {
         }
     }
 
+    /// Showdown's takeItem (Magician, Pickpocket): the item leaves its holder
+    /// without counting as used (no Recycle), unless it is a Mega Stone.
+    pub fn take_item(&mut self, p: Pos) -> Option<crate::dex::ItemId> {
+        if !self.is_live(p) {
+            return None;
+        }
+        let it = self.m(p).item;
+        if it == 0 || dex().item(it).is_mega_stone {
+            return None;
+        }
+        {
+            let m = self.mm(p);
+            m.item = 0;
+            m.vol.choice_lock = 0;
+            m.reveal.item = true;
+        }
+        if self.ab(p) == Ab::Unburden {
+            self.mm(p).vol.unburden = true;
+        }
+        blog!(self, "|-enditem|{}|{}|[silent]", self.name(p), dex().item(it).name);
+        Some(it)
+    }
+
     pub fn consume_item(&mut self, p: Pos) {
         self.remove_item(p);
         self.symbiosis(p);
@@ -666,7 +756,6 @@ impl Battle {
                 }
                 self.mm(a).item = 0;
                 self.mm(p).item = it;
-                self.mm(p).vol.unburden = false;
                 self.reveal_ability(a);
             }
         }
@@ -692,6 +781,10 @@ impl Battle {
             m.status = Status::None;
             m.boosts = [0; 7];
             m.vol = Default::default();
+            // clearVolatile: ability and types back to the (Mega) forme's own.
+            m.ability = m.base_ability;
+            m.types = m.base_types;
+            m.revert_alt_forme();
         }
         blog!(self, "|faint|{}", name);
         // The slot stays occupied by the fainted Pokemon until replaced.
@@ -770,6 +863,7 @@ impl Battle {
         blog!(self, "|-mega|{}", self.name(p));
         // The new ability starts immediately.
         self.ability_start(p);
+        self.white_herb_all();
     }
 
     pub fn reveal_ability(&mut self, p: Pos) {

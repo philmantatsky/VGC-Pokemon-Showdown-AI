@@ -56,7 +56,8 @@ Matchup lab (win rate, each side's bring/lead choices, solved team-preview game)
 python scripts/matchup.py --checkpoint runs/base1/checkpoints/latest.pt --a my_team.txt --b MC2001 --games 400
 ```
 
-Tests: `pytest` (Python, from `vgczero/`) and `cargo test --release` (engine).
+Tests: `pytest` (Python, from `vgczero/`) and `cargo test --release` (engine, including Showdown parity
+fixtures). Full parity runs against a live Showdown build: see `showdown/parity/README.md`.
 
 Search from Python:
 

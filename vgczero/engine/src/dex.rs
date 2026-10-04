@@ -438,6 +438,9 @@ pub struct MoveData {
     pub heal: (u16, u16),
     pub secondaries: Vec<Secondary>,
     pub self_boosts: Option<Boosts>,
+    /// `selfBoost`: applied once after the move succeeds (Clanging Scales,
+    /// Scale Shot), not removed by Sheer Force.
+    pub self_boost_after: Option<Boosts>,
     pub self_volatile: Option<VolKind>,
     pub boosts: Option<Boosts>,
     pub status: Status,
@@ -452,6 +455,8 @@ pub struct MoveData {
     /// 0 none, 1 always (Explosion), 2 ifHit, 3 always but after (Healing Wish style).
     pub selfdestruct: u8,
     pub breaks_protect: bool,
+    /// `noPPBoosts`: the move keeps its listed PP (Revival Blessing).
+    pub no_pp_boosts: bool,
     pub ignore_evasion: bool,
     pub ignore_defensive: bool,
     pub ignore_immunity: bool,
@@ -540,6 +545,8 @@ pub struct Dex {
     pub struggle: MoveId,
     /// Confusion self-hit pseudo-move.
     pub confusion_hit: MoveId,
+    /// Nature id -> (raised stat, lowered stat) as stat indices.
+    pub natures: HashMap<String, (Option<usize>, Option<usize>)>,
 }
 
 static DEX: OnceLock<Dex> = OnceLock::new();
@@ -762,7 +769,13 @@ impl Dex {
         let item_by_id = index(items.iter().map(|x| &x.id).collect());
         let ability_by_id = index(abilities.iter().map(|x| &x.id).collect());
 
+        let mut natures = HashMap::new();
+        for n in v.get("natures").and_then(|x| x.as_array()).into_iter().flatten() {
+            natures.insert(s(n, "id"), (stat_index(&s(n, "plus")), stat_index(&s(n, "minus"))));
+        }
+
         Ok(Dex {
+            natures,
             format,
             chart,
             species,
@@ -822,7 +835,7 @@ impl Dex {
 /// Data fields the generic move pipeline does not handle; a move that has any
 /// of them must have a `MoveFx` that does.
 const UNHANDLED_FIELDS: &[&str] = &[
-    "damage", "slotCondition", "selfBoost", "callsMove", "tracksTarget", "multihitType",
+    "damage", "slotCondition", "callsMove", "tracksTarget", "multihitType",
     "overrideDefensivePokemon", "pressureTarget", "nonGhostTarget", "basePowerCallback",
     "smartTarget", "isFutureMove",
 ];
@@ -912,6 +925,11 @@ fn parse_move(mv: &Value) -> MoveData {
     {
         unsupported.push(format!("scripted move {id}: {:?} cond {:?}", callbacks, cond_callbacks));
     }
+    if let Some(sb) = mv.get("selfBoost").and_then(|x| x.as_object()) {
+        if sb.keys().any(|k| k != "boosts") {
+            unsupported.push("field selfBoost".into());
+        }
+    }
     for f in UNHANDLED_FIELDS {
         if mv.get(*f).is_some() && fx == MoveFx::Other {
             unsupported.push(format!("field {f}"));
@@ -936,6 +954,7 @@ fn parse_move(mv: &Value) -> MoveData {
         base_power: n(mv, "basePower") as u16,
         accuracy,
         pp: n(mv, "pp") as u8,
+        no_pp_boosts: b(mv, "noPPBoosts"),
         priority: n(mv, "priority") as i8,
         target: Target::parse(&s(mv, "target")),
         flags,
@@ -948,6 +967,7 @@ fn parse_move(mv: &Value) -> MoveData {
         heal: frac(mv, "heal"),
         secondaries,
         self_boosts: self_obj.and_then(|x| parse_boosts(x.get("boosts"))),
+        self_boost_after: mv.get("selfBoost").and_then(|x| parse_boosts(x.get("boosts"))),
         self_volatile,
         boosts: parse_boosts(mv.get("boosts")),
         status: Status::parse(&s(mv, "status")),

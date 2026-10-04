@@ -40,6 +40,11 @@ impl Battle {
                             m.status = Status::None;
                             m.status_turns = 0;
                         }
+                        // Zero to Hero: Palafin becomes Palafin-Hero for good.
+                        Ab::ZeroToHero if m.alt_species != 0 && m.species != m.alt_species => {
+                            m.set_alt_forme(true);
+                            m.alt_locked = true;
+                        }
                         _ => {}
                     }
                 }
@@ -57,18 +62,24 @@ impl Battle {
             if !m.fainted {
                 m.boosts = [0; 7];
                 m.vol = Vol::default();
-                // Types / ability revert on switch-out (megas stay mega).
+                // Types / ability revert on switch-out (megas stay mega);
+                // a non-permanent battle forme reverts (Aegislash-Blade).
                 m.types = m.base_types;
                 m.ability = m.base_ability;
-                if m.status == Status::Tox {
-                    m.status_turns = 0;
-                }
+                m.revert_alt_forme();
             }
         }
         self.sides[s].active[p.i()] = to as u8;
+        if old != crate::state::NO_MON {
+            self.sides[s].swap_order(old, to as u8);
+        }
         let m = &mut self.sides[s].mons[to];
         m.slot = p.slot as i8;
         m.vol = Vol::default();
+        // Toxic's counter restarts on switch-in.
+        if m.status == Status::Tox {
+            m.status_turns = 0;
+        }
         m.vol.newly_switched = true;
         m.reveal.seen = true;
         if let Some((boosts, v)) = baton {
@@ -153,6 +164,8 @@ impl Battle {
                 self.update_items(p);
             }
         }
+        // White Herb (onAnySwitchIn, priority -2).
+        self.white_herb_all();
     }
 
     fn entry_hazards(&mut self, p: Pos) {

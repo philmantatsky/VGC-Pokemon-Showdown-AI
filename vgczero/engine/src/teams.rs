@@ -15,6 +15,15 @@ pub struct MegaSpec {
     pub weight_hg: u32,
 }
 
+/// A battle-only forme the set can change into (Aegislash-Blade by Stance
+/// Change, Palafin-Hero by Zero to Hero), with its stats for this set.
+#[derive(Copy, Clone, Debug, Default)]
+pub struct AltForme {
+    pub species: SpeciesId,
+    pub stats: [u16; 6],
+    pub weight_hg: u32,
+}
+
 #[derive(Copy, Clone, Debug, Default)]
 pub struct SetSpec {
     pub species: SpeciesId,
@@ -29,6 +38,7 @@ pub struct SetSpec {
     pub gender: u8,
     pub level: u8,
     pub mega: Option<MegaSpec>,
+    pub alt: Option<AltForme>,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -116,7 +126,31 @@ pub fn parse_set(m: &Value, why: &mut Vec<String>) -> SetSpec {
             weight_hg: (mg.get("weightkg").and_then(|x| x.as_f64()).unwrap_or(0.0) * 10.0).round() as u32,
         }
     });
+    // Champions stats (scripts.ts statModify): HP base + EV + 75, others
+    // base + EV + 20 with the nature's 1.1 / 0.9 (truncated).
+    let alt_id = match sid {
+        "aegislash" => Some("aegislashblade"),
+        "palafin" => Some("palafinhero"),
+        _ => None,
+    };
+    let alt = alt_id.and_then(|id| d.species_id(id)).map(|asp| {
+        let base = d.sp(asp).base;
+        let evs = stats_of(m.get("evs"));
+        let nat = d.natures.get(m.get("nature").and_then(|x| x.as_str()).unwrap_or("")).copied().unwrap_or((None, None));
+        let mut st = [0u16; 6];
+        for k in 0..6 {
+            let mut v = base[k] as u32 + evs[k] as u32 + if k == 0 { 75 } else { 20 };
+            if k > 0 && nat.0 == Some(k) {
+                v = v * 110 / 100;
+            } else if k > 0 && nat.1 == Some(k) {
+                v = v * 90 / 100;
+            }
+            st[k] = v as u16;
+        }
+        AltForme { species: asp, stats: st, weight_hg: d.sp(asp).weight_hg }
+    });
     SetSpec {
+        alt,
         species,
         ability,
         item,
