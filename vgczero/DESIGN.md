@@ -12,7 +12,7 @@ later (`git subtree split -P vgczero`); it reuses the parent repo's team corpus
 | Reference bot | Technique | vgczero |
 |---|---|---|
 | mikumiku37 | Custom simulator ~650x faster than Showdown | `engine/` (Rust). Measured here: **~17,600 random games/s on one core vs 25.6 for upstream Showdown on the same workload ≈ 690x** (`engine/src/bin/bench.rs`, `showdown/bench/showdown_speed.js`). |
-| both | Small transformer, ~8.5-8.7M params, trained from scratch | `python/vgczero/model.py`, preset `base` = 7.7M params (`tiny`/`small` presets for laptops and tests). |
+| both | Small transformer, ~8.5-8.7M params, trained from scratch | `python/vgczero/model.py`, preset `base` = 8.7M params (`tiny`/`small` presets for laptops and tests). |
 | mikumiku37 | Sees only its own side's view plus static dex data (types, base stats, move data); no damage calc, usage stats or speed resolver | `engine/src/obs.rs` hides everything the player could not know; static dex tables are separate inputs (`static_tables`). |
 | both | PPO self-play against a league of past versions, terminal rewards only | `python/vgczero/ppo.py`, `league.py` (PFSP sampling of snapshots, current-policy self-play share). Reward is +1/-1 at the end, nothing else. |
 | mikumiku37 | Trained on ~1,260 public tournament teams, some spreads guessed | 3,605 validated Reg M-C teams compiled from `teams/reg_mc` (`showdown/compile_teams.js`); 3,362 (93%) currently simulated faithfully. |
@@ -116,7 +116,7 @@ each side with probability `open_sheet_prob` so the network learns both modes.
 Throughput math for planning: mikumiku37 played ~330M games in 48.3 h on one
 RTX 5090 (≈1,900 games/s). With the engine at ~17.6k random games/s per core,
 simulation is no longer the bottleneck; network inference is. On a GPU the
-`base` model (14 tokens, 7.7M params) costs ~0.2 GFLOP per forward pass, so
+`base` model (14 tokens, 8.7M params) costs ~0.2 GFLOP per forward pass, so
 1,900 games/s × ~10 decisions × 2 players ≈ 8 TFLOP/s of inference, roughly
 10-25 TFLOP/s once the PPO backward passes are included -- within an RTX 5090's
 reach in bf16; CPU cores step the engine in parallel (rayon).

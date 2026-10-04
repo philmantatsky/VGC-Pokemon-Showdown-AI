@@ -34,7 +34,7 @@ class ModelConfig:
     d_model: int = 256
     n_layers: int = 8
     n_heads: int = 8
-    d_ff: int = 1024
+    d_ff: int = 1280
     d_species: int = 64
     d_ability: int = 32
     d_item: int = 32
