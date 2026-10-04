@@ -151,3 +151,16 @@ def test_sampling_follows_the_averaged_strategy():
 def test_unknown_solution_is_refused():
     with pytest.raises(ValueError, match="solution"):
         PlannerConfig(solution="minimax")
+
+
+def test_prior_mix_pulls_the_played_strategy_toward_the_policy():
+    pure = {row.choice: row.score for row in _worlds(nash_sample=False).rankings}
+    mixed = {
+        row.choice: row.score
+        for row in _worlds(nash_sample=False, nash_prior_mix=0.5).rankings
+    }
+    # policy prior a 0.6 / b 0.4; equilibrium average a 0.75 / b 0.25
+    assert mixed["a"] == pytest.approx(0.5 * pure["a"] + 0.5 * 0.6, abs=0.02)
+    assert mixed["b"] == pytest.approx(0.5 * pure["b"] + 0.5 * 0.4, abs=0.02)
+    with pytest.raises(ValueError, match="prior_mix"):
+        PlannerConfig(nash_prior_mix=1.5)

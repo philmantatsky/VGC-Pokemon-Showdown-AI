@@ -1,6 +1,6 @@
 # VGC Bot Project Status
 
-## PRE-REGISTERED: the matrix-search head-to-head (2026-October 4, 12:50, before the run)
+## PRE-REGISTERED: the matrix-search head-to-head (2026-October 4, 11:40, before the run; launched 11:43)
 
 - **Arms** (`tools/search_mirror_chain.sh`):
   - Side A: the deployed T6ep + 14 guards + **nash exact search**: critic leaf, 4 hidden worlds,
@@ -22,7 +22,7 @@
 - **Smoke games, not part of the test:** outcome-net leaf 0/4; critic leaf 4/8 (84 of 85
   decisions searched, p50 2.3 s, overrode the brain 35 of 84).
 
-## Matrix search built: nash solution mode in the exact planner, critic leaf, side-A search in the head-to-head tool; first smoke games (2026-October 4, 12:30)
+## Matrix search built: nash solution mode in the exact planner, critic leaf, side-A search in the head-to-head tool; first smoke games (2026-October 4, 11:30)
 
 - The user: "start the matrix search". It runs mikumiku37's turn as a matrix game on our exact
   Showdown bridge (`RESEARCH_TOP_BOTS.md`).

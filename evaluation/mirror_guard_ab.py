@@ -222,6 +222,17 @@ def main() -> None:
     )
     ap.add_argument("--a-search-budget", type=float, default=8.0)
     ap.add_argument(
+        "--a-search-argmax",
+        action="store_true",
+        help="nash: play the averaged equilibrium's top action instead of sampling",
+    )
+    ap.add_argument(
+        "--a-search-prior-mix",
+        type=float,
+        default=0.0,
+        help="nash: play (1 - m) * equilibrium + m * policy prior",
+    )
+    ap.add_argument(
         "--concurrency",
         type=int,
         default=8,
@@ -328,6 +339,8 @@ def main() -> None:
             "budget_s": args.a_search_budget,
             "every_turn": True,
             "leaf": args.a_search_leaf,
+            "sample": not args.a_search_argmax,
+            "prior_mix": args.a_search_prior_mix,
             "outcome_value": "results_outcome_v2h/outcome_value.zip",
         }
         parts.append(
@@ -419,6 +432,8 @@ def main() -> None:
                 time_budget_s=args.a_search_budget,
                 max_nodes=5000,
                 solution=args.a_search,
+                nash_sample=not args.a_search_argmax,
+                nash_prior_mix=args.a_search_prior_mix,
             ),
             "outcome_value_path": ROOT / search["outcome_value"],
             "exact_team_path": ROOT / (a_team or config["TEAM"]),

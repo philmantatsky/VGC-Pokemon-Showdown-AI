@@ -122,6 +122,9 @@ class PlannerConfig:
     nash_min_prior_ratio: float = 0.10
     nash_sample: bool = True
     nash_seed: int | None = None
+    # weight of the policy prior in the played strategy (vgczero's prior_mix): the
+    # averaged equilibrium x is played as (1 - m) * x + m * prior
+    nash_prior_mix: float = 0.0
 
     def __post_init__(self) -> None:
         if self.depth < 1:
@@ -153,6 +156,8 @@ class PlannerConfig:
             raise ValueError("solution must be 'risk' or 'nash'")
         if self.nash_iters < 1 or not 0 <= self.nash_min_prior_ratio <= 1:
             raise ValueError("nash_iters must be positive, the prior ratio in [0, 1]")
+        if not 0 <= self.nash_prior_mix <= 1:
+            raise ValueError("nash_prior_mix must be in [0, 1]")
 
 
 @dataclass(frozen=True)
@@ -1386,6 +1391,13 @@ def _aggregate_nash(
             prior[row.choice] = prior.get(row.choice, 0.0) + share * row.prior
             branches[row.choice] = branches.get(row.choice, 0) + row.opponent_branches
             first.setdefault(row.choice, row)
+    if config.nash_prior_mix > 0:
+        prior_total = sum(prior[choice] / mass[choice] for choice in weight) or 1.0
+        weight = {
+            choice: (1 - config.nash_prior_mix) * weight[choice]
+            + config.nash_prior_mix * (prior[choice] / mass[choice]) / prior_total
+            for choice in weight
+        }
     rankings = [
         ActionScore(
             choice=choice,
