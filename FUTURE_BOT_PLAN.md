@@ -207,13 +207,15 @@
     ran out of time), and 41% of its decisions compared candidates on a single random
     stream. `--device cpu`, `--a-search-streams`. Every earlier search number measured that
     throttled configuration.
-  - [ ] **V5 (amended 21:30, running overnight from `../vgc-bench-v5`):** four cpu arms, leaf
-    raw / calibrated x streams one / at least 4, anchor 0.07, clock stop 07:30 on 10-05.
-    Gate for a ladder trial (with `--device cpu`): pooled lower bound > 50%, replicated if
-    marginal, then the user's word.
+  - [x] V5 (four cpu arms, launched 21:31) ended after one round as a pilot: the search's
+    copies of the battle read a zeroed threat block in 30% of lookups (the threat cache's key
+    had no object in it). Fixed; the encoder is a third faster with the same bytes
+    (`unit_tests/test_observation_identity.py`).
+  - [ ] **V6 (pre-registered 22:08, overnight from `../vgc-bench-v6` at 19445d0e):** the same
+    2 x 2 (leaf raw / calibrated x streams one / at least 4), anchor 0.07, six shards, clock
+    stop 07:30 on 10-05. Gate for a ladder trial (with `--device cpu`): pooled lower bound
+    > 50%, replicated if marginal, then the user's word.
   - [ ] Oracle arm (real opponent sets in the worlds) once there is an effect to explain.
-  - [ ] Cheaper positions for the search (`PolicyPlayer.embed_battle` is 47% of its time on
-    cpu) -- only with a bit-identity test against the deployed observation.
 - [ ] Opposing Megas keep their pre-Mega stats (2026-10-04; every forme change, open and
   hidden sheets): a stale opposing forme is on the field in 71% of our ladder games and 35% of
   turns; the stored line understates what it does to us by a quarter (real / predicted 1.27;

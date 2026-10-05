@@ -1,5 +1,83 @@
 # VGC Bot Project Status
 
+## The search's copies of the battle read a zeroed threat block (30% of lookups): fixed; encoder a third faster with the same bytes; V5 ended as a pilot, V6 pre-registered (2026-October 4, 22:08, before the run)
+
+- **Found while making the encoder faster** (its identity test failed on a *second* call on
+  the same position). `PolicyPlayer._knowledge_for` and `_threat_for` cache one result per
+  state, and the cached vectors are keyed by `id(pokemon)` -- but the cache key had no
+  object in it. A second battle object in the same state hit the first one's entry, found
+  none of its own Pokemon there and read zeros.
+  - **The exact search:** every leaf is a copy of the live battle. In a 4-game searched
+    probe **3,231 of 10,617 threat lookups (30.4%) returned another object's entry**; 0 of
+    11,178 on the fixed code. All search runs so far (V1-V4, the V5 pilot) valued about a
+    third of their leaves, and ranked many replies, without the threat block.
+  - **The mirror harness** (both players in one process): with the same leads at full HP on
+    turn 1 one side read a zeroed block. The harness already swapped the knowledge cache
+    for `_NoCache` for this reason; the threat cache was missed.
+  - **The ladder bot** has one battle object per process: unaffected, and the fix is
+    identical for it (the key is more specific by a per-object constant).
+  - **Size:** zeroing the block on 310 played-out positions moves the critic by 0.064 on
+    average (sd 0.10, mean +0.03, max 0.43) and the first slot's favourite in 3.2% of
+    positions (none on turns 1-3, 3% on turns 4-6, 8% after) -- so the mirror's turn-1 case
+    was small; the search's 30% was noise of the same order as its override threshold.
+  - **Fix** (`vgc_bench/src/policy_player.py`): the key carries `id(battle)`, and a hit must
+    name every active it is asked for (an address is reused once a copy is gone).
+    `unit_tests/test_observation_identity.py`: a copy reads its own blocks, the same object
+    still reuses its entry, a stale entry at a reused address is not served (all three fail
+    on the old code).
+- **Encoder, same bytes, less time.** `embed_move` read the move's category, target and type
+  once per enum member (38 property reads a move, each walking the move's data entry; the
+  target runs a regex); `embed_pokemon` did the same for types, tera, gender and status and
+  walked all 226 `Effect`s for every Pokemon. Each is read once now, and a Pokemon without
+  volatile effects takes a constant. `ExactPolicyAdapter.rank` updates the joint mask once
+  per first action instead of once per choice. Same load, cpu: **a leaf 3.5 -> 2.2 ms, a
+  ranking 17 -> 7 ms.** The encoding as it stood at 0cb9ed91 is kept verbatim in the test as
+  the reference: every move in the vocabulary (unused and used) and 2,000+ Pokemon tokens
+  of played-out positions (both seats, sheets open and hidden, with and without volatile
+  effects, with a status) encode to the same bytes.
+- **V5 ended as a pilot.** Its four arms were asked to stop after their first round (their
+  own `_STOP` files, 21:49; nothing was killed -- an earlier attempt to kill and relaunch
+  with fewer shards was refused by the permission system). 200 games an arm on the old code
+  (`../vgc-bench-v5`, f40463d2): reported apart, never pooled with V6. No result of it had
+  been read when this was decided.
+  - Its load reading stands: 8 searching shards saturate the machine (load 14-17; a shard
+    is 0.8 core of python + 0.26 of the bridge), and under it the streams arms sat at the
+    time budget in 21% of decisions (6-7% for the one-stream arms).
+- **Null check on the frozen V6 code** (worktree `../vgc-bench-v6` at 19445d0e; cpu, streams
+  4, anchor 1e12): **0 of 93** decisions differ from the bot's own (main tree: 0 of 96).
+  Calibrated + streams smoke: 8 overrides in 82 decisions, expected edge +0.26, realized
+  +0.49 on the four whose reply was in the table, none negative (a smoke).
+- **V6 PRE-REGISTERED (replaces V5; the same question and the same 2 x 2).** Side A = the
+  deployed bot + nash search (critic leaf, 4 worlds, 8 s, argmax, anchor 0.07, champion
+  boost 2, 8 likeliest replies, live views, the player's guards), side B = the deployed
+  bot, both sides' networks on cpu, one battle at a time per process, code 19445d0e.
+
+  | arm (`results_mirror_<name>`) | leaf | streams | shards | port | SEED |
+  |---|---|---|---|---|---|
+  | `search_nash6` | raw | one per world | 1 | 7622 | 60924 |
+  | `search_nash6cal` | calibrated | one per world | 1 | 7623 | 70924 |
+  | `search_nash6s4` | raw | >= 4 | 2 | 7624 | 80924 |
+  | `search_nash6s4cal` | calibrated | >= 4 | 2 | 7625 | 90924 |
+
+  - **Six shards, not eight** (the load reading above); the streams arms play about 1.7x
+    slower, so two shards there and one on the others gives the arms similar game counts.
+    Rounds of 100 games a shard, pooled after every round. The one-stream arms start when
+    the pilot's one-stream arms have ended (about 22:11), the streams arms when the pilot's
+    have (about 22:35), so no more than six search processes ever share the machine.
+  - **Stop by the clock, not by the numbers:** a detached timer touches the four `_STOP`
+    files at 07:30 on 10-05; rounds in play finish; every complete shard counts. Expected:
+    about 1,800-2,400 games an arm.
+  - **Reading (unchanged):** per arm, pooled Wilson lower bound > 50% = the search wins;
+    upper bound < 50% = it loses; otherwise no detectable difference. Four arms are four
+    chances: a lone win whose lower bound is within a point of 50% needs a replication.
+    Factors, each over both levels of the other (difference of pooled rates, 95% Newcombe
+    interval): streams >= 4 vs one; calibrated vs raw. `evaluation/search_arms_report.py`.
+  - Secondary, descriptive: open vs hidden halves; decisions at the budget; overrides and
+    guard send-backs; expected vs realized edges; reply coverage; the pilot's 200 games an
+    arm next to the same arm here.
+  - A winning arm is a candidate for a ladder trial with `--device cpu`, the user's
+    decision. Search stays OFF in the deployed bot; DEPLOYED.json is not touched.
+
 ## Search spent 85% of its time on GPU overhead (cpu is 15x faster for it); 41% of searched decisions saw one run of the dice; V5 amended to four cpu arms (2026-October 4, 21:30, before the run)
 
 - **Found while checking the machine load for V5** (a wall-clock stack sampler around four
