@@ -11,11 +11,13 @@ range, takes the player's Elo as an input, and works with open team sheets and w
 them. The deliverable is an artifact plus a runtime class the deployed bot can call each
 turn.
 
-**Status (2026-10-05 00:30).** Built, reviewed and scored; nothing is wired into the bot.
-The neural predictor beats the count-table bar by 0.20 nats on our own ladder opponents (R1
-passes; 0.27 after retraining on 1.8 times the data), Elo adds 0.002-0.005 nats (R2: it does not stay, ship the Elo-blind model), and the
-existing reranker could not use even a perfect prediction (R4), so a first real use is a
-guard after a shadow-mode period. Details and numbers under "Results" at the bottom.
+**Status (2026-10-05 03:50).** Built, reviewed, scored, and running in **shadow mode**
+on the deployed bot since 03:43 (the user's word): the forecast is logged with every move
+decision and no decision reads it. The neural predictor beats the count-table bar by 0.27
+nats on our own ladder opponents (R1 passes; exact action top-1 43.6%), Elo adds 0.001-0.005
+nats (R2: it does not stay, the model is Elo-blind), and the existing reranker could not use
+even a perfect prediction (R4), so a first real use is a guard, after the shadow log has
+been read. Details and numbers under "Results" at the bottom.
 
 ## What reconnaissance established (2026-10-04, before any code)
 
@@ -197,7 +199,7 @@ the seven intent probabilities, `p_mega`, and `support` (how much training evide
 It also converts to the existing `MovePrediction` / `SwitchPrediction` so the current
 reranker and planner prior can consume it unchanged.
 
-### How it would reach the bot (not built in this pass)
+### How it would reach the bot (step 1 is live since 2026-10-05, see Results)
 
 1. **Shadow mode**: compute the forecast before the search branch in `PolicyPlayer`, write it
    into the decision audit, change nothing. Every ladder session then scores the predictor for
@@ -421,21 +423,107 @@ each model fed by its own build's featurizer.
   reliability defaults to known moves / 4, so a closed-sheet turn does not open the
   reranker's known-set gate.
 
+### Third build: calibration, joint reply coverage, learning-curve tooling (2026-10-05 03:30)
+
+Three more pieces, reviewed (20 findings, 18 fixed with tests; 754 predictor tests).
+
+**Event calibration** (`vgc_bench/src/oppmodel/calibration.py`,
+`training/calibrate_oppmodel.py`; artifacts `results_oppmodel/c_oppnet_v2_blind_cal/`,
+`c_oppnet_v2_cal/`). One monotone map for P(switch) and one for P(Protect | no switch),
+fitted on validation only and applied inside the action distribution, so everything stays
+normalised.
+
+- On held-out players the over-confidence goes: P(switch) >= 0.35 said 49.5% / happened
+  40.2% before, says 46.2% / happens 46.3% after; P(Protect) >= 0.5 said 62.3% / 55.3%,
+  now 60.7% / 60.8%. Fine NLL improves by 0.003 on (a) and (b), intervals below zero.
+- **What the over-confidence was.** It sits in slot-turns whose action is hidden (knocked
+  out before moving, flinch, game ended), which count as "did not switch / did not
+  Protect". Among visible actions alone the uncalibrated model was 3 points high for switch
+  and 4 points LOW for Protect. The maps fit the turn-start event, so after the fit visible
+  actions happen more often than predicted, and fine NLL on visible actions gets slightly
+  worse (+0.002 test, +0.005 ladder) while hidden ones gain 0.04-0.05. Which of the two a
+  guard should read is a decision for whoever writes the guard.
+- **Not demonstrated on our ladder opponents.** The mean bias shrinks (switch +1.4 -> +0.5
+  points, Protect +2.0 -> +1.1) but at the thresholds the gap only changes sign inside the
+  noise (200-300 slot-turns). Our opponents switch less and protect more than the human
+  corpus; a map fitted on human validation cannot fix that. A first-turn term in the switch
+  map helps on test and not on the ladder holdout, and its acceptance rule was changed after
+  test and ladder numbers had been seen. **So the model in shadow mode is the uncalibrated
+  one**, and a calibration for our own opponents should be fitted from the shadow log.
+
+**Joint reply coverage** (`vgc_bench/src/oppmodel/joint.py`, scorecard section; card
+`results_oppmodel/c_scorecard_v2_final/`). How often the opponent's real pair of actions is
+among the predictor's 8 likeliest joint replies, over turns where every acting slot's action
+is fully visible (66% of turns). The joint is the product of the two slots' marginals.
+
+| top-8 coverage | count table | OppNet (Elo-blind) | shipped models |
+|---|---|---|---|
+| ladder holdout, all (1,714 turns) | 46.4% | 62.3% [59.5, 64.9] | 25.8% |
+| ladder, a move not shown before (1,271) | 36.2% | 55.4% [52.3, 58.4] | 20.5% |
+| ladder, every move shown or on the sheet (336) | 93.2% | 90.2% [85.9, 93.8] | 51.2% |
+| test players, all (24,749) | 45.4% | 61.6% [60.9, 62.3] | 29.3% |
+| test, closed sheets (19,386) | 44.0% | 59.0% | 26.0% |
+| test, open sheets (5,363) | 50.7% | 71.0% | 41.4% |
+
+- Top-1 / 4 / 16 / 32 on the ladder holdout: 24.8 / 50.0 / 72.8 / 81.7%. Turn 1 is the
+  hardest (45.6% top-8); with one acting slot it is 98.6%.
+- The binding constraint is the same one the search session measured in its own worlds: a
+  reply that uses a move not shown before is covered 55% of the time, against 83% when no
+  unshown move is involved (sheets not open).
+- What independence loses (test, two acting slots): both Protect happens 1.9 times as often
+  as the product of the marginals says, both attacking the same slot 0.87 times, switch +
+  Protect 1.6 times. A joint head would recover some of this.
+
+**Learning-curve tooling** (builder `--human-fraction`, `training/oppmodel_learning_curve.py`):
+nested random subsamples of one corpus, each built, fitted and scored alike, paired on the
+same ladder games. The real run started 03:47 (`results_oppmodel/lc20261005_curve/`).
+
+### Shadow mode is ON (2026-10-05 03:43, the user: "turn on shadow mode")
+
+- **What runs.** `results_deployed/opponent_forecast_oppnet_v2_blind.pt` (sha 95ffbde2; the
+  Elo-blind model trained on `v2_feed`, uncalibrated) is in `DEPLOYED.json`
+  (`opponent_forecast`, `opponent_forecast_sha256`, an amendment quoting the user). The
+  launchers pass `--opponent-forecast`; the bot computes the forecast at every move decision
+  and writes it into `decisions.jsonl` under `opponent_forecast`. **No decision reads it.**
+- **Where.** `PolicyPlayer._opponent_forecast_record` (called once in `_guarded_action`
+  before the search branch), `_audit_decision`'s payload, `_forget_opponent_forecast` at
+  battle end. The flag is not part of a replay directory's play configuration (it is in
+  `VOLATILE_ARGS`), so `replay_tag` and the directories are unchanged; each run records the
+  artifact's path and sha256 in `run_config.json`.
+- **What it cannot do.** Every failure is counted (`opponent_forecast_failed:*`,
+  `opponent_forecast_unloaded:*`) and the decision goes on; a launch line says
+  `forecast: shadow mode on ...` or `SHADOW MODE NOT SERVING (...)`. A test pins that the
+  record is made, passed to the audit and written, and that no other module mentions it.
+- **Checked.** 18 unit tests (`unit_tests/test_opponent_forecast_shadow.py`), one of them on
+  real `DoubleBattle` objects fed by saved games; the project's default test run: 919 passed,
+  5 skipped; `checks/forecast_shadow_live.py`: two local games with the deployed
+  configuration (one open-sheet, one closed) logged a forecast for its own turn on every move
+  decision, stood down only on the forced replacements, and counted no failure. Runtime
+  equals the offline path on 2,615 of 2,615 saved turns; p99 3.0 ms per call.
+- **Live.** The challenge listener was restarted at 03:43 and reports
+  `forecast: shadow mode on`. Ladder sessions pick it up at their next
+  `tools/ladder_deployed.sh`. No real game has been logged yet.
+- **A record.** `{"turn", "model", "kind", "elo", "own_elo", "sheets", "sheets_reported",
+  "latency_ms", "slots": [per opposing slot: species, ranked actions with probabilities,
+  intents, p_switch, p_protect, p_fake_out, p_attacks (our slot a, b), p_mega, known_moves,
+  support]}`, about 2 kB; `{"stand_down": reason}` at a forced replacement.
+- **To turn it off:** remove `opponent_forecast` and `opponent_forecast_sha256` from
+  `DEPLOYED.json` and restart the listener.
+- **To read it later:** every new ladder game is an out-of-sample test. Score the logged
+  forecasts against what the opponent then did (the same label reader), by sheet state, and
+  fit the calibration for our own opponents from it.
+
 ### Not done, and what is next
 
-- **Not wired into the bot.** The shadow-mode patch (compute the forecast before the search
-  branch in `PolicyPlayer._guarded_action`, write it into the decision audit, one default-off
-  `--opponent-forecast` flag dropped from run-config material when off, sheets handed over
-  only when both are readable) is written out and was exercised on real battle objects, but
-  `policy_player.py` and `ladder_ourteam.py` are untouched. It is the user's call.
-- **Retrain when the download is done** (about 17,400 of 113,000 fetched when v2 was built;
-  the second pass shows the model is data-limited), with a proper learning curve by battle
-  subsampling.
-- **Calibration maps** for the switch and Protect scalars.
-- **Search coverage** in the search session's terms: how often the opponent's real joint
-  reply is among the predictor's top 8, with hidden sheets.
+- **Read the shadow log** once real games exist; then a first guard, with thresholds fixed
+  from the decision-relevance tables beforehand and the usual guard A/B.
+- **Retrain when the download is done** (29,976 of about 113,000 games fetched at 03:48;
+  the second pass shows the model is data-limited). The learning curve now running says
+  whether the last doubling still helps.
+- A joint head for the two slots (the independence table above), and a set prior for
+  unshown moves: both aim at the turns the predictor covers worst.
 - Not measured: the deployed brain played from the opponent's seat as a baseline (needs the
-  brain on a quiet machine); run-to-run noise of the two trainings (one run per arm).
-- Deferred by the review: the three prior trainers still save last-epoch weights
+  brain on a quiet machine).
+- Deferred by the reviews: the three prior trainers still save last-epoch weights
   (`train_move_model.py`, `train_switch_model.py`, `train_preview_model.py`) and
   `opponent_tactics._hp_fraction("50/100g")` returns 1.0. Both touch deployed models' lineage.

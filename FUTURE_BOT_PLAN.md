@@ -10,11 +10,16 @@ ladder, in order:
   (0.002-0.005 nats against 0.02) -> the Elo-blind model. R4 oracle: the opponent reranker
   cannot use a predictor (perfect foresight flips 4.0% [3.3, 4.8] of decisions).
 - [x] Train/serve parity: runtime == offline path on 2,615 of 2,615 turns of our saved games.
-- [ ] Retrain on the fixed trainer and the rebuilt dataset; final scorecard; learning curve.
-- [ ] Calibration maps for the Protect and switch scalars (over-confident at the top).
-- [ ] **Shadow mode** (user's call): log the forecast in the decision audit, change nothing;
-  one default-off flag, dropped from run-config material when off. Read it on real ladder
-  games before anything acts on it.
+- [x] Retrain on the fixed trainer and the rebuilt dataset (10-05): R1 stands (-0.196 on the
+  old data); on 1.8x the battles fine NLL on our ladder opponents 1.672 -> 1.583. Learning
+  curve running; a final retrain waits for the download.
+- [x] Calibration maps built (10-05); not demonstrated on our own opponents, so not deployed.
+  Fit them from the shadow log instead.
+- [x] **Shadow mode ON at the user's word (2026-10-05 03:43):** the forecast is logged with
+  every move decision and read by none (`DEPLOYED.json` `opponent_forecast`;
+  `checks/forecast_shadow_live.py` passed).
+- [ ] Read the shadow log on real ladder games (accuracy and calibration by sheet state)
+  before anything acts on it.
 - [ ] First decision-changing use: an **opt-in guard**, with thresholds fixed from the
   scorecard's decision-relevance tables beforehand, then the usual guard A/B (mirror for
   non-regression only: the mirror opponent is our own bot, which a human-move predictor is not

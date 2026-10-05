@@ -1,5 +1,49 @@
 # VGC Bot Project Status
 
+## Shadow mode ON at the user's word: the opponent predictor's forecast is logged with every move decision, read by none (2026-October 5, 03:50; predictor session)
+
+- The user: "turn on shadow mode". `DEPLOYED.json` gained `opponent_forecast`
+  (`results_deployed/opponent_forecast_oppnet_v2_blind.pt`, sha 95ffbde2, git-ignored like the
+  champion zips), its sha256 and an amendment; brain, team, guards, preview and **replay_tag
+  unchanged**. Commits 3edf3ba8 (wiring), e33f992b (manifest), 47d384a1 (live check).
+- **What it does:** `PolicyPlayer._opponent_forecast_record` runs once per move decision
+  (before the search branch) and the record goes into `decisions.jsonl` as
+  `opponent_forecast` (about 2 kB: per opposing slot the ranked actions, P(switch),
+  P(Protect), P(attacks our slot a / b), ...). At a forced replacement it logs
+  `{"stand_down": "stand_down:mid_turn"}`. No decision reads it; a unit test pins that.
+- **What it cannot do:** stop the bot. A predictor that fails to load or to predict is
+  counted (`opponent_forecast_unloaded:*`, `opponent_forecast_failed:*`) and the decision goes
+  on. The launch log says `forecast: shadow mode on ...` or `SHADOW MODE NOT SERVING (...)`.
+- **Run config:** `--opponent-forecast` is in `VOLATILE_ARGS` (it does not change play), so
+  existing replay directories accept runs with or without it; each run records
+  `{"opponent_forecast": {path, sha256}}`. The listener's 52 material keys are unchanged.
+- **Launchers:** `tools/deployed_config.py` prints `FORECAST` (sha-checked);
+  `challenges_deployed.sh`, `ladder_deployed.sh`, `ladder_read_loop.sh`, `ladder_trial.sh`
+  pass it. `ladder_read_loop.sh` HEAVY also gained `search_roster_ab` (the search session's
+  request).
+- **Checked:** `unit_tests/test_opponent_forecast_shadow.py` (18 tests, one on real
+  `DoubleBattle` objects from saved games); default test run 919 passed, 5 skipped;
+  `checks/forecast_shadow_live.py` on a local server: two games with the deployed
+  configuration (open and closed sheets), a forecast for its own turn on every move decision,
+  stand-downs only at the two forced replacements, nothing counted as failed; runtime ==
+  offline path on 2,615 of 2,615 saved turns, p99 3.0 ms per call.
+- **Live:** the challenge listener was restarted at 03:43 (same replay directory) and reports
+  `forecast: shadow mode on`. A ladder session picks it up at its next
+  `tools/ladder_deployed.sh`. No real game has been logged yet; the first ones are the
+  predictor's next out-of-sample test.
+- **Which model, and why not the calibrated one:** the third build (2e56450b) added event
+  calibration, joint reply coverage and learning-curve tooling (`OPPONENT_PREDICTOR.md`). The
+  calibration is not demonstrated on our own ladder opponents and one of its rules was chosen
+  after held-out numbers had been seen, so the shadow model is the uncalibrated
+  `oppnet_v2_blind`; a calibration for our opponents should come from the shadow log.
+- **Joint reply coverage, for the search:** on our ladder opponents the real joint reply is
+  among the predictor's 8 likeliest in 62.3% [59.5, 64.9] of fully visible turns (count table
+  46.4%, shipped models 25.8%); 55% when the reply uses a move not shown before, 83% otherwise.
+- **To turn it off:** remove the two `opponent_forecast*` fields from `DEPLOYED.json` and
+  restart the listener.
+- Running: the learning curve (`results_oppmodel/lc20261005_curve/`, one niced thread, about
+  100 minutes) and the download (29,976 of about 113,000).
+
 ## PRE-REGISTERED at the user's word: the search against the battery's rosters, to start when V6 ends (2026-October 5, 01:00, before the run and before V6's final numbers)
 
 - **The user (00:55): "run the other teams test when this finishes".** V6 ends by its
