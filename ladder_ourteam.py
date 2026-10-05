@@ -57,6 +57,9 @@ VOLATILE_ARGS = {
     "decision_log",
     "deployment",
     "rejoin_battle",
+    # Shadow mode logs the opponent forecast and changes no decision, so it is not
+    # part of how the bot plays; each run still records the artifact it logged with.
+    "opponent_forecast",
 }
 
 
@@ -191,6 +194,14 @@ def check_playbook(playbook: Path, team: Path) -> None:
         )
 
 
+def sha256_or_missing(path: Path) -> str:
+    """The file's sha256, or "missing" (a record must not stop a run)."""
+    try:
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+    except OSError:
+        return "missing"
+
+
 def record_run_config(
     replay_dir: Path, args: argparse.Namespace, ckpt_sha: str, guard_profile: str
 ) -> Path:
@@ -220,14 +231,19 @@ def record_run_config(
             f"(changed: {', '.join(changed)}).\n"
             "Use a fresh --replay_dir so each directory stays single-config."
         )
-    run_config.setdefault("runs", []).append(
-        {
-            "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "n_games": args.n_games,
-            "challenges": args.challenges,
-            "material": material,
+    run = {
+        "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "n_games": args.n_games,
+        "challenges": args.challenges,
+        "material": material,
+    }
+    forecast = getattr(args, "opponent_forecast", "")
+    if forecast:
+        run["opponent_forecast"] = {
+            "path": str(forecast),
+            "sha256": sha256_or_missing(Path(forecast)),
         }
-    )
+    run_config.setdefault("runs", []).append(run)
     run_config_path.write_text(json.dumps(run_config, indent=1, default=str))
     return run_config_path
 
@@ -473,6 +489,16 @@ def build_parser() -> argparse.ArgumentParser:
             "among the preview model's top plans by the sheet, and re-plan if the "
             "sheet arrives after our preview (vgc_bench/src/sheet_preview.py). "
             "Recorded in run_config.json"
+        ),
+    )
+    ap.add_argument(
+        "--opponent-forecast",
+        default="",
+        help=(
+            "shadow mode: an opponent-predictor artifact (OPPONENT_PREDICTOR.md). Its "
+            "forecast is written into the decision audit at every move decision; no "
+            "decision reads it. Not part of the replay directory's configuration; "
+            "each run records the artifact's path and sha256"
         ),
     )
     ap.add_argument(
@@ -729,6 +755,17 @@ def build_parser() -> argparse.ArgumentParser:
     return ap
 
 
+def forecast_status(agent: Any, path: str) -> str:
+    """One launch line for shadow mode: off, on, or why it is not serving."""
+    if not path:
+        return "off"
+    runtime = getattr(agent, "_opponent_forecaster", None)
+    if runtime is not None and getattr(runtime, "serving", False):
+        return f"shadow mode on, logging {path} (no decision reads it)"
+    why = getattr(runtime, "load_failure", None) or "the predictor did not load"
+    return f"SHADOW MODE NOT SERVING ({why}); the bot plays on without it"
+
+
 async def main():
     args = build_parser().parse_args()
 
@@ -969,6 +1006,7 @@ async def main():
         mixing_keep_corrections=args.mixing_keep_corrections,
         sticky_guard_corrections=args.sticky_corrections,
         sheet_preview=args.sheet_preview,
+        opponent_forecast_path=args.opponent_forecast or None,
         playbook_path=Path(args.playbook) if args.playbook else None,
         playbook_script_only=args.playbook_script_only,
         guard_overrides={
@@ -1060,6 +1098,7 @@ async def main():
     )
     print(f"sticky  : {'on' if args.sticky_corrections else 'off'}")
     print(f"sheets  : {'open-sheet preview on' if args.sheet_preview else 'off'}")
+    print(f"forecast: {forecast_status(agent, args.opponent_forecast)}")
     print(f"playbook: {args.playbook or 'off'}")
     print(f"config  : recorded in {run_config_path}")
 

@@ -207,6 +207,7 @@ class PolicyPlayer(Player):
         playbook_path: str | Path | None = None,
         playbook_script_only: bool = False,
         sheet_preview: bool = False,
+        opponent_forecast_path: str | Path | None = None,
         *args: Any,
         **kwargs: Any,
     ):
@@ -371,6 +372,25 @@ class PolicyPlayer(Player):
         self.playbook_path = Path(playbook_path) if playbook_path else None
         self.playbook_script_only = bool(playbook_script_only)
         self.sheet_preview = bool(sheet_preview)
+        # Shadow mode (2026-10-05, OPPONENT_PREDICTOR.md): the opponent predictor's
+        # forecast is computed at every move decision and written into the decision
+        # audit. No decision reads it, and nothing it does may stop the bot.
+        self.opponent_forecast_path = (
+            Path(opponent_forecast_path) if opponent_forecast_path else None
+        )
+        self._opponent_forecaster: Any = None
+        self._forecast_sheets_noted: set[str] = set()
+        if self.opponent_forecast_path is not None:
+            try:
+                from vgc_bench.src.oppmodel.runtime import OpponentPredictor
+
+                self._opponent_forecaster = OpponentPredictor.load(
+                    self.opponent_forecast_path
+                )
+            except Exception as exc:
+                PolicyPlayer.guard_fire_counts[
+                    f"opponent_forecast_unloaded:{type(exc).__name__}"
+                ] += 1
         self._playbook = None
         self.invitee = invitee
         self.preview_model_path = (
@@ -544,6 +564,7 @@ class PolicyPlayer(Player):
             if session is not None:
                 session.close()
             self._open_sheet_battles.discard(battle_tag)
+            self._forget_opponent_forecast(battle_tag)
         if saw_opponent_sheet and getattr(self, "sheet_preview", False):
             await self._replan_after_late_sheet(battle_tag)
         timeout = self.team_sheet_wait_timeout
@@ -1723,6 +1744,65 @@ class PolicyPlayer(Player):
                 f"exact_record_error:{type(exc).__name__}"
             ] += 1
 
+    def _opponent_forecast_record(self, battle) -> dict[str, Any] | None:
+        """Shadow mode: the opponent forecast for this decision, as audit data.
+
+        Returns None when shadow mode is off or at team preview, the forecast as
+        plain data, or ``{"stand_down": reason}`` when the predictor declines (a
+        forced switch mid-turn, an unreadable stream, ...). It reads the battle's
+        public event stream only; the two team sheets are handed over once, and
+        only when the game is open-sheet and both can be read (one sheet alone is a
+        state the predictor never saw). Nothing here changes a decision and nothing
+        raises: every failure is counted and the decision goes on without it.
+        """
+        runtime = getattr(self, "_opponent_forecaster", None)
+        if runtime is None or getattr(battle, "teampreview", False):
+            return None
+        counts = PolicyPlayer.guard_fire_counts
+        try:
+            tag = battle.battle_tag
+            noted = getattr(self, "_forecast_sheets_noted", None)
+            if noted is None:
+                noted = self._forecast_sheets_noted = set()
+            if tag not in noted:
+                noted.add(tag)
+                if tag in getattr(self, "_open_sheet_battles", ()):
+                    from vgc_bench.src.oppmodel.runtime import sheet_sets_from_team
+
+                    theirs = sheet_sets_from_team(battle.opponent_team)
+                    ours = sheet_sets_from_team(battle.team)
+                    if theirs and ours:
+                        runtime.note_sheets(
+                            battle, True, opponent_sets=theirs, own_sets=ours
+                        )
+                    else:
+                        counts["opponent_forecast_sheets_unread"] += 1
+                else:
+                    runtime.note_sheets(battle, False)
+            forecast, reason = runtime.predict_with_reason(battle)
+            if forecast is None:
+                counts[f"opponent_forecast:{reason or 'none'}"] += 1
+                return {"stand_down": reason}
+            counts["opponent_forecast"] += 1
+            return forecast.to_dict()
+        except Exception as exc:
+            counts[f"opponent_forecast_failed:{type(exc).__name__}"] += 1
+            return None
+
+    def _forget_opponent_forecast(self, battle_tag: str) -> None:
+        """Drop a finished battle's shadow-mode state. Never raises."""
+        try:
+            noted = getattr(self, "_forecast_sheets_noted", None)
+            if noted is not None:
+                noted.discard(battle_tag)
+            runtime = getattr(self, "_opponent_forecaster", None)
+            if runtime is not None:
+                runtime.forget(battle_tag)
+        except Exception as exc:
+            PolicyPlayer.guard_fire_counts[
+                f"opponent_forecast_failed:{type(exc).__name__}"
+            ] += 1
+
     def _guarded_action(self, battle, obs_dict, mask) -> npt.NDArray[np.int64]:
         """Rank joint action pairs, let knowledge guards reorder them, take the best.
 
@@ -1742,6 +1822,9 @@ class PolicyPlayer(Player):
             mask = torch.as_tensor(mask, device=self.policy.device)
         if mask.dim() == 1:
             mask = mask.unsqueeze(0)
+
+        # Shadow mode: logged with the decision below, read by nothing.
+        forecast_record = self._opponent_forecast_record(battle)
 
         # Exact multi-turn search, when enabled. The public-state synchronizer is
         # parity-gated; every simulator error or timeout falls through to the repaired
@@ -1908,7 +1991,12 @@ class PolicyPlayer(Player):
                 )
                 cands, mixing_report = self._apply_mixing(battle, cands, corrected)
             self._audit_decision(
-                battle, cands, opponent_report, guard_report, mixing_report
+                battle,
+                cands,
+                opponent_report,
+                guard_report,
+                mixing_report,
+                forecast_record,
             )
             self._maybe_report_guards()
             action = np.array(cands[0].actions, dtype=np.int64)
@@ -2049,7 +2137,13 @@ class PolicyPlayer(Player):
         return {"kind": "pass"}
 
     def _audit_decision(
-        self, battle, candidates, report, guard_report=None, mixing_report=None
+        self,
+        battle,
+        candidates,
+        report,
+        guard_report=None,
+        mixing_report=None,
+        forecast_record=None,
     ) -> None:
         """Append the chosen pair and its tactical evidence to a JSONL audit.
 
@@ -2092,6 +2186,8 @@ class PolicyPlayer(Player):
                     payload["guards"]["forme_stats"] = guard_report.forme_stats
             if mixing_report is not None:
                 payload["mixing"] = mixing_report
+            if forecast_record is not None:
+                payload["opponent_forecast"] = forecast_record
             if report is not None:
                 payload["reranker"] = {
                     "before": list(report.before),

@@ -21,6 +21,8 @@ export MIXING
 export STICKY SHEET_PREVIEW
 # non-empty only when DEPLOYED.json has our own plan cards (playbook, sha-verified)
 export PLAYBOOK
+# non-empty only when DEPLOYED.json runs the opponent predictor in shadow mode
+export FORECAST
 # the deployed bot does not search: never inherit a trial's flags from the shell
 SEARCH=
 export SEARCH

@@ -60,7 +60,7 @@ source "../Laplace-Pokemon-Showdown-AI/.env"
 set +a
 
 mkdir -p "$DIR"
-echo "CHALLENGE_LISTENER format=$FORMAT team=$(basename "$TEAM") preview=${PREVIEW_MODEL:-policy} limit=$N replays=$DIR"
+echo "CHALLENGE_LISTENER format=$FORMAT team=$(basename "$TEAM") preview=${PREVIEW_MODEL:-policy} forecast=${FORECAST:-off} limit=$N replays=$DIR"
 EXTRA=()
 # a learned, human-trained model chooses our preview when DEPLOYED.json says so
 if [ -n "$PREVIEW_MODEL" ]; then
@@ -82,6 +82,10 @@ fi
 # our own plan cards at team preview, when DEPLOYED.json has them
 if [ -n "${PLAYBOOK:-}" ]; then
   EXTRA+=(--playbook "$PLAYBOOK")
+fi
+# shadow mode: log the opponent forecast with every decision, when DEPLOYED.json has it
+if [ -n "${FORECAST:-}" ]; then
+  EXTRA+=(--opponent-forecast "$FORECAST")
 fi
 if [ -n "$REJOIN" ]; then
   case "$REJOIN" in

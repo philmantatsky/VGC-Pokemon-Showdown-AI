@@ -25,12 +25,15 @@
 #   --playbook-script-only (our usual preview; the card's turn-1 script only).
 # - SEARCH (env, tools/ladder_trial.sh; tools/ladder_deployed.sh sets it empty):
 #   ladder_ourteam.py exact-search flags, or empty. The deployed bot does not search.
+# - FORECAST (env, set by ladder_deployed.sh from DEPLOYED.json): the opponent
+#   predictor's artifact for shadow mode (--opponent-forecast; logged, read by no
+#   decision), or empty.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 CKPT=${1:?checkpoint}; TEAM=${2:?team file}; N=${3:?total games}; DIR=${4:?replay dir}
 GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
 MAX_SESSIONS=${MAX_SESSIONS:-6}; LOGIN_GRACE=${LOGIN_GRACE:-180}; IDLE_MIN=${IDLE_MIN:-45}
-HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|run_guard_ab|gen_tactical_data[.]py|tactical_sft[.]py'
+HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|search_roster_ab|run_guard_ab|gen_tactical_data[.]py|tactical_sft[.]py'
 DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60|Errno 8\]|nodename nor servname|gaierror|ConnectionRefusedError'
 stamp() { date '+%H:%M:%S'; }
 pgrep -f "$HEAVY" >/dev/null 2>&1 && { echo "LADDER_REFUSED [$(stamp)] a heavy local job is running"; exit 2; }
@@ -57,6 +60,11 @@ SEARCH_ARGS=()
 if [ -n "${SEARCH:-}" ]; then
   read -r -a SEARCH_ARGS <<< "$SEARCH"
 fi
+FORECAST_ARGS=()
+if [ -n "${FORECAST:-}" ]; then
+  [ -f "$FORECAST" ] || { echo "LADDER_REFUSED [$(stamp)] missing opponent forecast artifact $FORECAST"; exit 2; }
+  FORECAST_ARGS=(--opponent-forecast "$FORECAST")
+fi
 PLAYBOOK_ARGS=()
 if [ -n "${PLAYBOOK:-}" ]; then
   [ -f "$PLAYBOOK" ] || { echo "LADDER_REFUSED [$(stamp)] missing playbook $PLAYBOOK"; exit 2; }
@@ -77,7 +85,7 @@ wins_done() {  # our account name is the replay filename's prefix before " - bat
   done
   echo $n
 }
-echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} sticky=${STICKY:+on} playbook=${PLAYBOOK:-off}${PLAYBOOK_SCRIPT_ONLY:+ (script only)} search=${SEARCH:-off} total=$N dir=$DIR games_done=$(games_done)"
+echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} sticky=${STICKY:+on} playbook=${PLAYBOOK:-off}${PLAYBOOK_SCRIPT_ONLY:+ (script only)} search=${SEARCH:-off} forecast=${FORECAST:-off} total=$N dir=$DIR games_done=$(games_done)"
 session=0
 while :; do
   done_n=$(games_done); remaining=$((N - done_n))
@@ -92,6 +100,7 @@ while :; do
     ${STICKY_ARGS[@]+"${STICKY_ARGS[@]}"} \
     ${SHEET_ARGS[@]+"${SHEET_ARGS[@]}"} \
     ${SEARCH_ARGS[@]+"${SEARCH_ARGS[@]}"} \
+    ${FORECAST_ARGS[@]+"${FORECAST_ARGS[@]}"} \
     ${PLAYBOOK_ARGS[@]+"${PLAYBOOK_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!; started=$(date +%s); last_games=$done_n; last_change=$started
   while kill -0 $PID 2>/dev/null; do

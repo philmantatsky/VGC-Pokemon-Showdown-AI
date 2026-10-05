@@ -2,7 +2,13 @@
 
 Prints shell assignments (shlex-quoted, for eval) of the deployed configuration:
 CKPT, TEAM, GUARDS, REG, FORMAT, SET_PRIOR, PREVIEW_MODEL, REPLAY_TAG, MIXING,
-STICKY, PLAYBOOK and SHEET_PREVIEW.
+STICKY, PLAYBOOK, SHEET_PREVIEW and FORECAST.
+
+FORECAST is empty unless the deployment runs the opponent predictor in shadow mode
+(fields opponent_forecast, opponent_forecast_sha256; 2026-10-05,
+OPPONENT_PREDICTOR.md): the launchers then pass --opponent-forecast, the bot logs
+the forecast with every move decision and no decision reads it. The artifact is
+sha-checked like the others.
 
 SHEET_PREVIEW is "--sheet-preview" when the deployment has "sheet_preview": true
 (2026-10-03: with the opponent's open team sheet the learned preview chooses among
@@ -104,6 +110,8 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         raise ValueError("preview_model is set but learned_preview is not true")
     if deployed.get("playbook"):
         checks.append(("playbook", "playbook_sha256"))
+    if deployed.get("opponent_forecast"):
+        checks.append(("opponent_forecast", "opponent_forecast_sha256"))
     from vgc_bench.src.guards import GUARDS
 
     unknown = [g for g in deployed["guards_extra"].split(",") if g and g not in GUARDS]
@@ -134,6 +142,7 @@ def resolve(manifest: Path = MANIFEST, root: Path = ROOT) -> dict[str, str]:
         "STICKY": "--sticky-corrections" if sticky else "",
         "PLAYBOOK": deployed.get("playbook") or "",
         "SHEET_PREVIEW": "--sheet-preview" if sheet else "",
+        "FORECAST": deployed.get("opponent_forecast") or "",
     }
 
 

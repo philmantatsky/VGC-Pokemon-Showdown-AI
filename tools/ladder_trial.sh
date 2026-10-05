@@ -79,4 +79,6 @@ if [ -n "${TRIAL_SEARCH:-}" ]; then
 fi
 export VGC_SET_PRIOR_REG="$SET_PRIOR"
 export PREVIEW_MODEL MIXING STICKY PLAYBOOK PLAYBOOK_SCRIPT_ONLY SHEET_PREVIEW SEARCH
+# shadow mode follows the deployed configuration in a trial too (it changes no decision)
+export FORECAST
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"
