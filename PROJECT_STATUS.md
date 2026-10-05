@@ -1,5 +1,82 @@
 # VGC Bot Project Status
 
+## V6 stopped at the user's word after 800 games: 57.5% [54.0, 60.9] together; no arm separated from another (2026-October 4, 23:40)
+
+- **Stopped by the user at 23:39** ("stop it for now"), after a status report that showed
+  the interim table -- so this is NOT the pre-registered clock stop at 07:30, and the stop
+  was not blind to the numbers. It is an interim reading of 200 games an arm (complete
+  shards only; the rounds in play were ended and are not counted), about an eighth of the
+  planned size. Nothing is running from this session; DEPLOYED.json untouched; search off.
+- **The arms** (`results_mirror_search_nash6_arms.json`, `evaluation/search_arms_report.py`;
+  side A = deployed bot + search on cpu, code 19445d0e, side B = deployed bot):
+
+  | arm | A wins | rate | open / hidden sheets | at the budget | overrides |
+  |---|---|---|---|---|---|
+  | raw leaf, one stream | 112 / 200 | 56.0% [49.1, 62.7] | 58.0 / 54.0% | 6.9% | 5.9% |
+  | calibrated, one stream | 114 / 200 | 57.0% [50.1, 63.7] | 53.0 / 61.0% | 6.9% | 6.0% |
+  | raw, streams >= 4 | 111 / 200 | 55.5% [48.6, 62.2] | 55.0 / 56.0% | 14.5% | 5.8% |
+  | calibrated, streams >= 4 | 123 / 200 | 61.5% [54.6, 68.0] | 66.0 / 57.0% | 14.2% | 7.2% |
+  | **all four** | **460 / 800** | **57.5% [54.0, 60.9]** | | | |
+
+  - By the pre-registered per-arm reading two arms are above 50% (one of them by a tenth of
+    a point) and two are not; four arms at 200 games each cannot be ranked. The factors:
+    streams >= 4 vs one +2.0 points [-4.8, +8.8]; calibrated vs raw +3.5 [-3.3, +10.3].
+    **Nothing separates the arms.**
+  - What does stand out is the level: every search run on the cpu-and-fixed stack is above
+    50% -- these four arms, and the V5 pilot's four (441 / 800 = 55.1% on the code before
+    the threat-cache fix). Together 901 / 1,600 = 56.3%. Against 35-39% for V1-V3 and
+    50.7 / 54.5% for V4. Still one matchup: our own team on both sides.
+  - Expected vs realized edge of the overrides whose reply was in the table: 0.23 / 0.30,
+    0.28 / 0.19, 0.26 / 0.28, 0.24 / 0.25.
+- **Stopping it:** `_STOP` files for the four arms, then the six search processes were
+  ended; each rounds script then stopped its own server, pooled its finished shards and
+  exited. The two 07:30 timers and the idle probe server on 7616 were ended too. The
+  unfinished shards stay on disk next to the finished ones (`../vgc-bench-v6`).
+- **Built tonight and waiting for the user's word** (none of it run): the search against the
+  battery's 47 held-out rosters (`tools/search_roster_arms.sh`); the ladder launcher's
+  search flags (`TRIAL_SEARCH` in `tools/ladder_trial.sh`); three options for a next run
+  (commit 38ad3a89: the bot's own replacement at forced switches, the opponent's pending
+  replacement valued as it stands -- 0.9% of decisions at the budget instead of 14% --
+  and an override that has to clear its own standard error).
+- To continue V6 where it stopped (same names, same seeds, finished shards are skipped):
+  move the four `results_mirror_search_nash6*_STOP` files aside in `../vgc-bench-v6` and
+  relaunch the four commands of the 22:08 entry.
+
+## Opponent predictor: built, reviewed, scored -- beats the count-table bar by 0.20 nats on our ladder opponents; Elo adds nothing; not wired into the bot (2026-October 4, 23:25; separate session)
+
+- Everything is in **`OPPONENT_PREDICTOR.md`** (design, the four readings pre-registered in
+  147001a4 before any model was fitted, and the dated Results). Commits f7fe3535, c3c1f7be.
+  561 experiment tests; ruff and pyright clean.
+- **R1 passes.** On the opponents of our own 401 ladder games (never trained on) the neural
+  predictor scores fine NLL 1.663 against 1.868 for the species x state-flags count table:
+  -0.205 [-0.234, -0.177]; on held-out players -0.196 [-0.205, -0.186].
+  - The review strengthened the bar with a type-effectiveness target layer; against the bar as
+    pre-registered the margins are -0.235 and -0.251.
+  - Exact action (move + target, or switch + destination) top-1 41.8%, top-3 72.5%; the count
+    table 31.4% / 61.8%; the shipped MoveNet + SwitchNet 18.3% / 41.5% (fine NLL 3.61).
+- **R2: Elo does not stay.** 0.002-0.005 nats against a 0.02 bar; the model to ship is the
+  Elo-blind one (`results_oppmodel/oppnet_v1_blind/artifact.pt`).
+- **R3 (descriptive):** "a foe attacks a given one of our two slots" at P >= 0.7 covers 6.9% of
+  cases and is right 80.3% [75.7, 84.8]; Protect at P >= 0.5 covers 5.9%, right 56.8%; switch
+  at P >= 0.35 covers 5.1%, right 38.9%. The last two are over-confident and need a calibration
+  map before a guard reads them.
+- **R4 (earlier today):** perfect foresight flips 4.0% [3.3, 4.8] of 2,631 ladder move
+  decisions through the opponent reranker -> below the 5% bar, that route is closed; a first
+  decision-changing use is an opt-in guard after a shadow-mode period.
+- **Runtime class** `vgc_bench/src/oppmodel/runtime.py`: equals the offline path on 2,615 of
+  2,615 turns of our saved games, including through real `DoubleBattle` objects; p99 1.5 ms
+  (table), 3.6-5.2 ms (neural) on a loaded machine. **Nothing is wired into `PolicyPlayer`**;
+  the shadow-mode patch is written out in the experiment's notes and waits for the user.
+- **Standing:** the two nets were trained before the review fixes (validation still held rows
+  of battles with a ladder-holdout opponent; measured effect 0.004 nats). A retrain on the
+  fixed trainer and a rebuilt dataset follows the search session's morning all-clear.
+- **Found on the way:** ladder is about 8% open-sheet, not 0% (the 09-28 count read saved
+  pages, which never carry `|showteam|`); the three prior trainers save last-epoch weights
+  (`best_state` not cloned); `opponent_tactics._hp_fraction("50/100g")` returns 1.0. The last
+  two touch deployed models' lineage and are not fixed.
+- **Running:** the replay download (`battle_logs_feed_mc/`, about 16,000 of 113,000, 0.85
+  requests/s, `touch battle_logs_feed_mc/STOP` ends it).
+
 ## Ready for the morning, nothing run: the search against the battery's rosters, and the ladder launcher's search flags (2026-October 4, 23:30)
 
 - **`evaluation/search_roster_ab.py` + `tools/search_roster_arms.sh`.** The head-to-head is

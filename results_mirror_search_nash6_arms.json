@@ -1,0 +1,335 @@
+{
+  "root": "../vgc-bench-v6",
+  "arms": {
+    "raw": {
+      "name": "search_nash6",
+      "shards": 2,
+      "a_wins": 112.0,
+      "games": 200,
+      "a_win_rate": 0.56,
+      "wilson_95": [
+        0.4907154834956251,
+        0.6270229957941764
+      ],
+      "verdict": "no detectable difference",
+      "open_sheets": {
+        "a_wins": 58.0,
+        "games": 100,
+        "a_win_rate": 0.58,
+        "wilson_95": [
+          0.4820630799889527,
+          0.672017750814887
+        ]
+      },
+      "hidden_sheets": {
+        "a_wins": 54.0,
+        "games": 100,
+        "a_win_rate": 0.54,
+        "wilson_95": [
+          0.44264685393523856,
+          0.6343935614666815
+        ]
+      },
+      "by_round": {
+        "1": [
+          56.0,
+          100
+        ],
+        "2": [
+          56.0,
+          100
+        ]
+      },
+      "search": {
+        "decisions": 2193,
+        "searched": 2192,
+        "not_searched": {
+          "search_fallback": 1
+        },
+        "seconds_median": 1.0065797499846667,
+        "seconds_p90": 4.485685207881033,
+        "at_budget_share": 0.06934306569343066,
+        "one_stream_share": 0.45666058394160586,
+        "override_share": 0.05885036496350365,
+        "sent_back_by_guards_share": 0.05291970802919708,
+        "override_edges": {
+          "overrides_followed": 116,
+          "mean_expected": 0.2343346586965973,
+          "reply_was_searched": 87,
+          "mean_realized": 0.30015385983837345,
+          "mean_expected_where_realized": 0.24613907135977908,
+          "realized_not_positive": 12
+        },
+        "reply_was_searched": {
+          "open": 0.7900552486187845,
+          "hidden": 0.5903755868544601
+        }
+      }
+    },
+    "cal": {
+      "name": "search_nash6cal",
+      "shards": 2,
+      "a_wins": 114.0,
+      "games": 200,
+      "a_win_rate": 0.57,
+      "wilson_95": [
+        0.500703604055383,
+        0.636657955116052
+      ],
+      "verdict": "wins",
+      "open_sheets": {
+        "a_wins": 53.0,
+        "games": 100,
+        "a_win_rate": 0.53,
+        "wilson_95": [
+          0.4328868313724773,
+          0.6248934801789626
+        ]
+      },
+      "hidden_sheets": {
+        "a_wins": 61.0,
+        "games": 100,
+        "a_win_rate": 0.61,
+        "wilson_95": [
+          0.5120283616749817,
+          0.699832780680298
+        ]
+      },
+      "by_round": {
+        "1": [
+          57.0,
+          100
+        ],
+        "2": [
+          57.0,
+          100
+        ]
+      },
+      "search": {
+        "decisions": 2081,
+        "searched": 2080,
+        "not_searched": {
+          "search_fallback": 1
+        },
+        "seconds_median": 1.0521750000771135,
+        "seconds_p90": 4.694149292074144,
+        "at_budget_share": 0.06923076923076923,
+        "one_stream_share": 0.4326923076923077,
+        "override_share": 0.06009615384615385,
+        "sent_back_by_guards_share": 0.03894230769230769,
+        "override_edges": {
+          "overrides_followed": 110,
+          "mean_expected": 0.27789873856858194,
+          "reply_was_searched": 72,
+          "mean_realized": 0.19152916128808553,
+          "mean_expected_where_realized": 0.29720537983205836,
+          "realized_not_positive": 22
+        },
+        "reply_was_searched": {
+          "open": 0.8654761904761905,
+          "hidden": 0.6317733990147784
+        }
+      }
+    },
+    "s4": {
+      "name": "search_nash6s4",
+      "shards": 2,
+      "a_wins": 111.0,
+      "games": 200,
+      "a_win_rate": 0.555,
+      "wilson_95": [
+        0.4857317563236392,
+        0.6221951830253456
+      ],
+      "verdict": "no detectable difference",
+      "open_sheets": {
+        "a_wins": 55.0,
+        "games": 100,
+        "a_win_rate": 0.55,
+        "wilson_95": [
+          0.45244427031643447,
+          0.6438562489359654
+        ]
+      },
+      "hidden_sheets": {
+        "a_wins": 56.0,
+        "games": 100,
+        "a_win_rate": 0.56,
+        "wilson_95": [
+          0.4622792771125631,
+          0.6532813459903167
+        ]
+      },
+      "by_round": {
+        "1": [
+          111.0,
+          200
+        ]
+      },
+      "search": {
+        "decisions": 2190,
+        "searched": 2186,
+        "not_searched": {
+          "error_fallback": 4
+        },
+        "seconds_median": 1.8565310831181705,
+        "seconds_p90": 7.21866016718559,
+        "at_budget_share": 0.1454711802378774,
+        "one_stream_share": 0.0,
+        "override_share": 0.05763952424519671,
+        "sent_back_by_guards_share": 0.04437328453796889,
+        "override_edges": {
+          "overrides_followed": 107,
+          "mean_expected": 0.2634430345166336,
+          "reply_was_searched": 78,
+          "mean_realized": 0.2808046502580707,
+          "mean_expected_where_realized": 0.27902076953879124,
+          "realized_not_positive": 14
+        },
+        "reply_was_searched": {
+          "open": 0.8154020385050963,
+          "hidden": 0.6670480549199085
+        }
+      }
+    },
+    "s4cal": {
+      "name": "search_nash6s4cal",
+      "shards": 2,
+      "a_wins": 123.0,
+      "games": 200,
+      "a_win_rate": 0.615,
+      "wilson_95": [
+        0.5459973878179245,
+        0.6796680308208618
+      ],
+      "verdict": "wins",
+      "open_sheets": {
+        "a_wins": 66.0,
+        "games": 100,
+        "a_win_rate": 0.66,
+        "wilson_95": [
+          0.5627754565831095,
+          0.74538620502457
+        ]
+      },
+      "hidden_sheets": {
+        "a_wins": 57.0,
+        "games": 100,
+        "a_win_rate": 0.57,
+        "wilson_95": [
+          0.4721521169586435,
+          0.6626686099947162
+        ]
+      },
+      "by_round": {
+        "1": [
+          123.0,
+          200
+        ]
+      },
+      "search": {
+        "decisions": 2128,
+        "searched": 2125,
+        "not_searched": {
+          "error_fallback": 3
+        },
+        "seconds_median": 1.8583069581072778,
+        "seconds_p90": 7.219481415813789,
+        "at_budget_share": 0.14211764705882354,
+        "one_stream_share": 0.0,
+        "override_share": 0.07152941176470588,
+        "sent_back_by_guards_share": 0.04470588235294118,
+        "override_edges": {
+          "overrides_followed": 143,
+          "mean_expected": 0.24425169534023625,
+          "reply_was_searched": 110,
+          "mean_realized": 0.24733886541959108,
+          "mean_expected_where_realized": 0.24847536731797637,
+          "realized_not_positive": 31
+        },
+        "reply_was_searched": {
+          "open": 0.8275862068965517,
+          "hidden": 0.6389228886168911
+        }
+      }
+    }
+  },
+  "factors": {
+    "streams 4 vs 1": {
+      "first": {
+        "arms": [
+          "s4",
+          "s4cal"
+        ],
+        "a_wins": 234.0,
+        "games": 400,
+        "a_win_rate": 0.585,
+        "wilson_95": [
+          0.5361280807400124,
+          0.6322547703580419
+        ]
+      },
+      "second": {
+        "arms": [
+          "raw",
+          "cal"
+        ],
+        "a_wins": 226.0,
+        "games": 400,
+        "a_win_rate": 0.565,
+        "wilson_95": [
+          0.516025173472477,
+          0.6127381832495644
+        ]
+      },
+      "difference": 0.020000000000000018,
+      "interval_95": [
+        -0.04831836233490773,
+        0.08805546969195235
+      ]
+    },
+    "calibrated vs raw": {
+      "first": {
+        "arms": [
+          "cal",
+          "s4cal"
+        ],
+        "a_wins": 237.0,
+        "games": 400,
+        "a_win_rate": 0.5925,
+        "wilson_95": [
+          0.5436874000695945,
+          0.6395527614194646
+        ]
+      },
+      "second": {
+        "arms": [
+          "raw",
+          "s4"
+        ],
+        "a_wins": 223.0,
+        "games": 400,
+        "a_win_rate": 0.5575,
+        "wilson_95": [
+          0.5085070928349432,
+          0.6053989534960934
+        ]
+      },
+      "difference": 0.03500000000000003,
+      "interval_95": [
+        -0.03338844681659865,
+        0.10292839840362003
+      ]
+    }
+  },
+  "all_arms": {
+    "a_wins": 460.0,
+    "games": 800,
+    "a_win_rate": 0.575,
+    "wilson_95": [
+      0.5404654236649771,
+      0.608817718685456
+    ],
+    "verdict": "wins"
+  }
+}

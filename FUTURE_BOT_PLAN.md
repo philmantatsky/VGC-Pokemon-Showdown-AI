@@ -231,10 +231,12 @@ ladder, in order:
     copies of the battle read a zeroed threat block in 30% of lookups (the threat cache's key
     had no object in it). Fixed; the encoder is a third faster with the same bytes
     (`unit_tests/test_observation_identity.py`).
-  - [ ] **V6 (pre-registered 22:08, overnight from `../vgc-bench-v6` at 19445d0e):** the same
-    2 x 2 (leaf raw / calibrated x streams one / at least 4), anchor 0.07, six shards, clock
-    stop 07:30 on 10-05. Gate for a ladder trial (with `--device cpu`): pooled lower bound
-    > 50%, replicated if marginal, then the user's word.
+  - [ ] **V6 (pre-registered 22:08, `../vgc-bench-v6` at 19445d0e):** the same 2 x 2 (leaf raw
+    / calibrated x streams one / at least 4), anchor 0.07, six shards. **Stopped by the user
+    at 23:39 after 800 games** (an interim read, not the clock stop): 56.0 / 57.0 / 55.5 /
+    61.5%, together 57.5% [54.0, 60.9]; no arm separated from another. Resumable. Gate for a
+    ladder trial (with `--device cpu`): pooled lower bound > 50% at the planned size, the
+    rosters below, then the user's word.
   - [ ] **Against other teams** (`evaluation/search_roster_ab.py`,
     `tools/search_roster_arms.sh`; built and smoked 10-04, not run): the deployed bot with and
     without the search against the battery's six opponents on its 47 held-out rosters,
