@@ -79,6 +79,8 @@ from vgc_bench.src.utils import (
 _ZERO_KNOWLEDGE = np.zeros(knowledge_obs_len, dtype=np.float32)
 _ZERO_THREAT = np.zeros(threat_obs_len, dtype=np.float32)
 _ZERO_MOVE_SEM = np.zeros(MOVE_SEM_LEN, dtype=np.float32)
+# a Pokemon with no volatile effect: one zero per Effect, as the walk would give
+_NO_EFFECTS = (0,) * len(Effect)
 
 
 def keep_guard_correction(
@@ -2527,6 +2529,10 @@ class PolicyPlayer(Player):
         state changes mid-turn (a faint, a switch-in on a KO) and a turn-only key
         would serve stale damage numbers for the rest of that turn.
 
+        The vectors are keyed by ``id(pokemon)``, so an entry belongs to ONE battle
+        object: the key carries ``id(battle)`` and a hit must name every active it
+        is asked for (see ``_threat_for``).
+
         Only our actives are computed. Benched mons aren't on the field, so their
         damage numbers are speculative, and scoping to actives is the difference
         between a 29% and a 54% throughput hit (measured).
@@ -2545,12 +2551,13 @@ class PolicyPlayer(Player):
         if not actives or not foes:
             return {}
         fingerprint = (
+            id(battle),
             battle.battle_tag,
             battle.turn,
             tuple((p.species, p.current_hp_fraction) for p in actives + foes),
         )
         cached = PolicyPlayer._knowledge_cache.get(fingerprint)
-        if cached is not None:
+        if cached is not None and all(id(p) in cached for p in actives):
             return cached
 
         from vgc_bench.src import vgc_knowledge as _vk
@@ -2594,6 +2601,15 @@ class PolicyPlayer(Player):
         the fingerprint covers what the block depends on beyond HP -- speed
         stages, first-turn flags, weather/field/Tailwind -- so a mid-turn change
         never serves a stale speed-order bit.
+
+        The vectors are keyed by ``id(pokemon)``, so an entry is only good for the
+        battle object it was computed on. Until 2026-10-04 the key had no object in
+        it: a second object in the same state -- the other side of a mirror with the
+        same leads on turn 1, and above all the exact search's copies of the live
+        battle -- hit the first one's entry, found none of its own Pokemon there and
+        read a zeroed block (30% of all lookups in a searched game). The key now
+        carries ``id(battle)``, and a hit must name every active asked for (an
+        address can be reused once a copy is gone).
         """
         if not PolicyPlayer.knowledge_obs_enabled():
             return {}
@@ -2604,6 +2620,7 @@ class PolicyPlayer(Player):
         if not ours or not theirs:
             return {}
         fingerprint = (
+            id(battle),
             battle.battle_tag,
             battle.turn,
             getattr(battle, "format", None),
@@ -2628,7 +2645,7 @@ class PolicyPlayer(Player):
             SideCondition.TAILWIND in battle.opponent_side_conditions,
         )
         cached = PolicyPlayer._threat_cache.get(fingerprint)
-        if cached is not None:
+        if cached is not None and all(id(p) in cached for p in ours + theirs):
             return cached
 
         from vgc_bench.src import vgc_knowledge as _vk
@@ -2843,8 +2860,9 @@ class PolicyPlayer(Player):
             [move_semantics(m.id) for m in move_list]
             + [_ZERO_MOVE_SEM] * (4 - len(move_list))
         )
-        types = [float(t in pokemon.base_types) for t in PokemonType]
-        tera_type = [float(t == pokemon.tera_type) for t in PokemonType]
+        base_types, tera = pokemon.base_types, pokemon.tera_type  # read once
+        types = [float(t in base_types) for t in PokemonType]
+        tera_type = [float(t == tera) for t in PokemonType]
         base_stats = [s / 255 for s in pokemon.base_stats.values()]
         if from_opponent:
             stats = [-1] * 6
@@ -2863,19 +2881,27 @@ class PolicyPlayer(Player):
                     PolicyPlayer.guard_fire_counts["own_stats_imputed"] += 1
                 raw_stats = pokemon.stats or {}
             stats = [float(raw_stats[name]) / 255 for name in stat_names]
-        gender = [float(g == pokemon.gender) for g in PokemonGender]
+        pokemon_gender = pokemon.gender
+        gender = [float(g == pokemon_gender) for g in PokemonGender]
         weight = pokemon.weight / 1000
         # volatile fields
         hp_frac = pokemon.current_hp_fraction
         revealed = float(pokemon.revealed)
         in_draft = float(pokemon.selected_in_teampreview)
-        status = [float(s == pokemon.status) for s in Status]
+        pokemon_status = pokemon.status
+        status = [float(s == pokemon_status) for s in Status]
         status_counter = pokemon.status_counter / 16
         boosts = [b / 6 for b in pokemon.boosts.values()]
-        effects = [
-            (min(pokemon.effects[e], 8) / 8 if e in pokemon.effects else 0)
-            for e in Effect
-        ]
+        # most Pokemon carry no volatile effect: skip the walk over every Effect
+        active_effects = pokemon.effects
+        effects = (
+            [
+                (min(active_effects[e], 8) / 8 if e in active_effects else 0)
+                for e in Effect
+            ]
+            if active_effects
+            else _NO_EFFECTS
+        )
         first_turn = float(pokemon.first_turn)
         protect_counter = pokemon.protect_counter / 5
         must_recharge = float(pokemon.must_recharge)
@@ -2927,8 +2953,12 @@ class PolicyPlayer(Player):
         # Legacy feature retained for checkpoint compatibility. The correctly scaled
         # value is appended by embed_move_accuracies at the end of each token.
         acc = move.accuracy / 100
-        category = [float(c == move.category) for c in MoveCategory]
-        target = [float(t == move.target) for t in Target]
+        # Read once: each of these properties walks the move's data entry (the
+        # target also runs a regex), and the comprehensions asked for them once per
+        # enum member -- 38 reads a move, a third of a whole observation.
+        move_category, move_target, type_of_move = move.category, move.target, move.type
+        category = [float(c == move_category) for c in MoveCategory]
+        target = [float(t == move_target) for t in Target]
         priority = (move.priority + 7) / 12
         crit_ratio = move.crit_ratio
         drain = move.drain
@@ -2939,7 +2969,7 @@ class PolicyPlayer(Player):
         pp = move.max_pp / 64
         pp_frac = move.current_pp / move.max_pp
         is_last_used = float(move.is_last_used)
-        move_type = [float(t == move.type) for t in PokemonType]
+        move_type = [float(t == type_of_move) for t in PokemonType]
         return np.array(
             [
                 power,

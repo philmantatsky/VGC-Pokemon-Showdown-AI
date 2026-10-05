@@ -643,6 +643,9 @@ class ExactPolicyAdapter:
         encoded: list[
             tuple[str, tuple[int, int], tuple[bool, bool], int]
         ] = []
+        # the joint mask depends on the first slot's action alone: one update per
+        # distinct first action, not one per choice (174 choices share about a dozen)
+        joint_masks: dict[int, Any] = {}
         for choice in choices:
             atoms = _choice_atoms(choice, request, battle, state, role)
             if _choice_targets_empty_slot(atoms, battle):
@@ -672,10 +675,15 @@ class ExactPolicyAdapter:
                     f"exact legal choice {choice!r} maps slot 0 to masked action "
                     f"{actions[0]} for {role}"
                 )
-            first = torch.tensor([[conditioning_first]], device=self.policy.device)
-            joint_mask = self.policy._update_mask(
-                obs_dict["action_mask"], first
-            )[0]
+            joint_mask = joint_masks.get(conditioning_first)
+            if joint_mask is None:
+                first = torch.tensor(
+                    [[conditioning_first]], device=self.policy.device
+                )
+                joint_mask = self.policy._update_mask(
+                    obs_dict["action_mask"], first
+                )[0]
+                joint_masks[conditioning_first] = joint_mask
             if not pass_slots[1] and not bool(joint_mask[act_len + actions[1]]):
                 if live:
                     self.live_masked_choices += 1

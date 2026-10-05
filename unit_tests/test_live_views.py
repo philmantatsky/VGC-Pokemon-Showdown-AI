@@ -529,3 +529,74 @@ def test_a_choice_the_live_battle_masks_is_skipped_not_fatal():
     # the opponent's seat is never a live view: there it still means a bug
     with pytest.raises(ActionEncodingError, match="masked action 15"):
         adapter.rank(state, [request, request], "p2", choices)
+
+
+def test_rank_updates_the_joint_mask_once_per_first_action():
+    """2026-10-04: the mask of the second slot depends on the first slot's action
+    alone, and ``rank`` rebuilt it for every choice -- 174 updates where a dozen do,
+    half of a ranking's time on cpu."""
+    import numpy as np
+    import torch
+    from poke_env.battle import Move
+
+    from vgc_bench.src.exact_observation import ExactPolicyAdapter
+
+    class Counting:
+        device = torch.device("cpu")
+        mask_updates: list[int] = []
+
+        def get_logits(self, obs, actor_grad=False):
+            batch = obs["observation"].shape[0]
+            return torch.zeros((batch, 220)), torch.zeros((batch, 1))
+
+        def _update_mask(self, mask, first):
+            self.mask_updates.append(int(first[0, 0]))
+            return mask
+
+        def get_dist_from_logits(self, logits, _mask, _first=None):
+            probs = torch.full((logits.shape[0], 110), 1.0 / 110.0)
+            return SimpleNamespace(
+                distribution=[
+                    SimpleNamespace(probs=probs),
+                    SimpleNamespace(probs=probs),
+                ]
+            )
+
+    protect, beam = Move("protect", 9), Move("icebeam", 9)
+    foe = SimpleNamespace(fainted=False)
+    both = {"protect": protect, "icebeam": beam}
+    battle = SimpleNamespace(
+        active_pokemon=[
+            SimpleNamespace(moves=both, fainted=False),
+            SimpleNamespace(moves=both, fainted=False),
+        ],
+        opponent_active_pokemon=[foe, foe],
+        available_moves=[[protect, beam], [protect, beam]],
+        team={},
+    )
+    mask = np.zeros(220, dtype=np.float32)
+    for action in (9, 15):  # slot 0: Protect, Ice Beam at the first foe
+        mask[action] = 1.0
+    for action in (9, 15, 16):  # slot 1: Protect, Ice Beam at either foe
+        mask[110 + action] = 1.0
+    obs = {
+        "observation": torch.zeros((1, 1)),
+        "action_mask": torch.as_tensor(mask)[None],
+    }
+    moves = {"moves": [{"id": "protect"}, {"id": "icebeam"}]}
+    request = {"active": [moves, moves]}
+    state = {"sides": [{"pokemon": []}, {"pokemon": []}]}
+    choices = [
+        "move protect, move protect",
+        "move protect, move icebeam +1",
+        "move protect, move icebeam +2",
+        "move icebeam +1, move protect",
+        "move icebeam +1, move icebeam +2",
+    ]
+    policy = Counting()
+    adapter: Any = ExactPolicyAdapter(policy)
+    adapter._inputs = lambda *_args: (battle, np.zeros(1), mask, obs)
+    ranked = adapter.rank(state, [request, request], "p1", choices)
+    assert sorted(item.choice for item in ranked) == sorted(choices)
+    assert policy.mask_updates == [9, 15]  # one per first action, in first-seen order
+    assert len({round(item.probability, 9) for item in ranked}) == 1
