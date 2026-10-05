@@ -38,6 +38,19 @@ prediction still has a gradient.
 and label array. Doubles is symmetric under that renaming, so it is a valid
 augmentation; it is checked against a mirrored snapshot in the unit tests.
 
+Event calibration. An ``OppNetPredictor`` may carry one
+``calibration.EventCalibration`` (fitted on validation after the temperatures
+by ``training/calibrate_oppmodel.py``). ``predict`` then rescales, inside each
+slot's action distribution, the switch pointers and the Protect-family
+candidates so that the two event probabilities are calibrated; targets and the
+Mega head are untouched. It is applied exactly once, in ``predict``, and
+stored in the payload; a payload without one loads as "no calibration". A
+payload WITH one is written as version 2 (without: version 1, unchanged), so
+the model code from before event calibration, which reads version 1 only,
+refuses a calibrated artifact instead of serving it uncalibrated under the
+calibrated name. A map with context terms (turn 1, first turn on the field,
+protected last turn) reads those flags from the feature arrays of the batch.
+
 Runtime contract: ``OppNetPredictor.predict`` and ``swap_slots`` never raise
 (they count under ``counters`` / ``COUNTERS`` and degrade). The constructors,
 ``from_payload`` and the training helpers are offline tools and raise
@@ -57,6 +70,7 @@ import torch
 from torch import Tensor, nn
 from torch.nn import functional as fn
 
+from vgc_bench.src.oppmodel.calibration import EventCalibration, event_context
 from vgc_bench.src.oppmodel.events import (
     INTENT_ATTACK_FOE_A,
     INTENT_ATTACK_FOE_B,
@@ -107,6 +121,11 @@ from vgc_bench.src.oppmodel.features import (
 KIND = "oppnet"
 PAYLOAD_FORMAT = "oppnet-payload"
 PAYLOAD_VERSION = 1
+# A payload that carries an event calibration is written as version 2: the
+# model code from before event calibration reads version 1 only, so it
+# refuses such a file instead of serving it uncalibrated under its name.
+PAYLOAD_VERSION_CALIBRATED = 2
+PAYLOAD_VERSIONS: tuple[int, ...] = (PAYLOAD_VERSION, PAYLOAD_VERSION_CALIBRATED)
 NEG = -1.0e9  # a masked logit: finite, so an all-masked row stays free of NaN
 N_TOKENS = 3 + N_MON  # context, actor side, other side, twelve Pokemon
 N_CAND_BITS = 10  # the CAND_* bits of ``cand_flag``
@@ -1105,6 +1124,12 @@ class OppNetPredictor:
     The predictor maps the "unknown" sheet code to "closed" itself (no training
     example carries it) and, with ``elo_mode='blank'``, blanks both ratings
     before every prediction: that is the Elo-blind model's runtime.
+
+    ``event_calibration`` (a ``calibration.EventCalibration`` or None) is
+    applied to the action probabilities once, after the temperatures, inside
+    ``predict``; ``describe()`` says whether one is in force. The constructor
+    raises ``ValueError`` for anything else, and for a calibration that was
+    fitted after another action temperature than this predictor's.
     """
 
     kind = KIND
@@ -1122,6 +1147,7 @@ class OppNetPredictor:
         batch_size: int = 1024,
         mega_temperature: float = 1.0,
         mega_bias: float = 0.0,
+        event_calibration: EventCalibration | None = None,
     ) -> None:
         self.net = net
         self.featurizer = featurizer
@@ -1130,6 +1156,9 @@ class OppNetPredictor:
         self.target_temperature = _temperature(target_temperature)
         self.mega_temperature = _temperature(mega_temperature)
         self.mega_bias = _offset(mega_bias)
+        self.event_calibration = _event_calibration(
+            event_calibration, self.action_temperature
+        )
         blind = elo_mode == ELO_BLANK or (
             featurizer is not None and featurizer.elo_mode == ELO_BLANK
         )
@@ -1148,18 +1177,42 @@ class OppNetPredictor:
         """The Mega head's own calibration: ``temperature`` and ``bias``."""
         return {"temperature": self.mega_temperature, "bias": self.mega_bias}
 
-    def with_temperatures(
+    @property
+    def event_calibrated(self) -> bool:
+        """Whether ``predict`` rescales the switch / Protect-family events."""
+        found = self.event_calibration
+        return found is not None and not found.is_identity
+
+    def describe(self) -> dict[str, Any]:
+        """Plain metadata: what this predictor applies to the network's logits.
+
+        ``event_calibration`` is None without one, else its
+        ``EventCalibration.describe()`` (the maps, ``applied``, the fit record).
+        """
+        found = self.event_calibration
+        return {
+            "name": self.name,
+            "kind": self.kind,
+            "elo_mode": self.elo_mode,
+            "temperatures": self.temperatures,
+            "mega_calibration": self.mega_calibration,
+            "event_calibrated": self.event_calibrated,
+            "event_calibration": None if found is None else found.describe(),
+        }
+
+    def _twin(
         self,
-        action: float = 1.0,
-        target: float = 1.0,
-        mega: float = 1.0,
-        mega_bias: float = 0.0,
+        action: float,
+        target: float,
+        mega: float,
+        mega_bias: float,
+        event_calibration: EventCalibration | None,
+        name: str | None = None,
     ) -> "OppNetPredictor":
-        """A predictor over the same network and lock, with other temperatures."""
         twin = OppNetPredictor(
             self.net,
             self.featurizer,
-            name=self.name,
+            name=self.name if name is None else name,
             action_temperature=action,
             target_temperature=target,
             elo_mode=self.elo_mode,
@@ -1167,9 +1220,43 @@ class OppNetPredictor:
             batch_size=self.batch_size,
             mega_temperature=mega,
             mega_bias=mega_bias,
+            event_calibration=event_calibration,
         )
         twin._lock = self._lock
         return twin
+
+    def with_temperatures(
+        self,
+        action: float = 1.0,
+        target: float = 1.0,
+        mega: float = 1.0,
+        mega_bias: float = 0.0,
+    ) -> "OppNetPredictor":
+        """A predictor over the same network and lock, with other temperatures.
+
+        The twin carries NO event calibration: one is fitted after a given
+        action temperature and says nothing about another.
+        """
+        return self._twin(action, target, mega, mega_bias, None)
+
+    def with_event_calibration(
+        self, event_calibration: EventCalibration | None, name: str | None = None
+    ) -> "OppNetPredictor":
+        """A predictor over the same network, lock and temperatures that
+        applies ``event_calibration`` (None: none), optionally renamed.
+
+        The calibration REPLACES the one this predictor carries; the two are
+        never composed, so a prediction is never calibrated twice. Raises
+        ``ValueError`` like the constructor.
+        """
+        return self._twin(
+            self.action_temperature,
+            self.target_temperature,
+            self.mega_temperature,
+            self.mega_bias,
+            event_calibration,
+            name,
+        )
 
     def _count(self, name: str) -> None:
         try:
@@ -1229,13 +1316,31 @@ class OppNetPredictor:
         }
         if not all(np.isfinite(value).all() for value in result.values()):
             raise ValueError("non-finite probability")
+        calibration = self.event_calibration
+        if calibration is not None and not calibration.is_identity:
+            # The one place the event calibration is applied. A failure here
+            # (a batch without the context arrays a map's terms need included)
+            # is a failed prediction (counted by ``predict``), never a silent
+            # fall back to the uncalibrated numbers.
+            context = event_context(batch) if calibration.needs_context else None
+            result["action"] = calibration.apply_checked(
+                result["action"], batch["action_mask"], batch["cand_flag"], context
+            ).astype(np.float32)
         return result
 
     def to_payload(self) -> dict[str, Any]:
-        """Plain data and tensors from which ``from_payload`` rebuilds this."""
+        """Plain data and tensors from which ``from_payload`` rebuilds this.
+
+        ``version`` is ``PAYLOAD_VERSION`` (1) without an event calibration,
+        so such a payload is what it always was, and
+        ``PAYLOAD_VERSION_CALIBRATED`` (2) with one: a reader from before
+        event calibration refuses version 2 rather than drop the maps.
+        """
         return {
             "format": PAYLOAD_FORMAT,
-            "version": PAYLOAD_VERSION,
+            "version": PAYLOAD_VERSION
+            if self.event_calibration is None
+            else PAYLOAD_VERSION_CALIBRATED,
             "name": self.name,
             "config": self.net.config.to_dict(),
             "state_dict": clone_state(self.net),
@@ -1246,7 +1351,29 @@ class OppNetPredictor:
             },
             "elo_mode": self.elo_mode,
             "n_parameters": self.net.n_parameters(),
+            # None (version 1), or ``EventCalibration.to_payload()`` (version
+            # 2). Absent in a payload written before event calibration
+            # existed: read as None.
+            "event_calibration": None
+            if self.event_calibration is None
+            else self.event_calibration.to_payload(),
         }
+
+
+def _event_calibration(
+    value: Any, action_temperature: float
+) -> EventCalibration | None:
+    """``value`` as the calibration a predictor may carry. Raises ``ValueError``."""
+    if value is None:
+        return None
+    if not isinstance(value, EventCalibration):
+        raise ValueError(f"not an event calibration: {type(value).__name__}")
+    if not value.fits_temperature(action_temperature):
+        raise ValueError(
+            f"the event calibration was fitted after action temperature "
+            f"{value.action_temperature!r}; this predictor uses {action_temperature!r}"
+        )
+    return value
 
 
 def _temperature(value: Any) -> float:
@@ -1274,14 +1401,32 @@ def from_payload(
 
     The numeric tables come from ``featurizer`` (rebuilt from the same
     artifact), the weights from the payload. The predictor is Elo-blind when
-    the payload or the featurizer says so. Raises ``ValueError`` on a payload
-    that is not one or does not fit the featurizer.
+    the payload or the featurizer says so. A payload without
+    ``event_calibration`` (every one written before it existed) gives a
+    predictor without one; a stored calibration that is damaged, or that was
+    fitted after another action temperature, is an error, never dropped.
+    The version says whether a calibration is carried (1: none, 2: one); a
+    payload whose version and content disagree is refused.
+    Raises ``ValueError`` on a payload that is not one or does not fit the
+    featurizer.
     """
     try:
         if payload["format"] != PAYLOAD_FORMAT:
             raise ValueError(f"payload format {payload['format']!r}")
-        if int(payload["version"]) != PAYLOAD_VERSION:
+        version = int(payload["version"])
+        if version not in PAYLOAD_VERSIONS:
             raise ValueError(f"payload version {payload['version']!r}")
+        carried = payload.get("event_calibration") is not None
+        if carried != (version == PAYLOAD_VERSION_CALIBRATED):
+            raise ValueError(
+                f"payload version {version} "
+                + (
+                    "must not carry an event calibration (a reader of version 1 "
+                    "would drop it)"
+                    if carried
+                    else "must carry an event calibration and holds none"
+                )
+            )
         config = OppNetConfig.from_dict(payload["config"])
         if config.n_cand != featurizer.n_cand:
             raise ValueError("candidate count differs from the featurizer")
@@ -1290,6 +1435,8 @@ def from_payload(
         net.to(device)
         net.eval()
         temperatures = payload.get("temperatures") or {}
+        stored = payload.get("event_calibration")
+        calibration = None if stored is None else EventCalibration.from_payload(stored)
         return OppNetPredictor(
             net,
             featurizer,
@@ -1301,6 +1448,7 @@ def from_payload(
             # Absent in a payload written before the Mega head was calibrated.
             mega_temperature=temperatures.get("mega", 1.0),
             mega_bias=temperatures.get("mega_bias", 0.0),
+            event_calibration=calibration,
         )
     except (KeyError, TypeError, AttributeError, RuntimeError) as exc:
         raise ValueError(f"not an OppNet payload: {exc!r}") from exc

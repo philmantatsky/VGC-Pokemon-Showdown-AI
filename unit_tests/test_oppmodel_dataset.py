@@ -1,14 +1,17 @@
 """Opponent predictor dataset builder: sources, drops, splits, weights, shards.
 
 Everything runs on a tiny synthetic corpus written under ``tmp_path`` with the
-real folder layout. The last tests read the repo's own corpus folders and skip
-when those are absent (they are git-ignored).
+real folder layout. Some tests read the repo's own corpus folders and skip when
+those are absent (they are git-ignored). The last section is the
+``--human-fraction`` subsample of the learning curve.
 """
 
 from __future__ import annotations
 
 import gzip
+import hashlib
 import json
+import os
 import zlib
 from pathlib import Path
 from types import SimpleNamespace
@@ -957,3 +960,489 @@ def test_a_holdout_battle_is_neither_trained_nor_validated_on(tmp_path: Path):
         "p2": expected_foe,
     }
     assert rows[replay_id(32)]["split"] == {"p1": "test", "p2": expected_foe}
+
+
+# --- --human-fraction: the learning curve's subsample -------------------------
+
+# With this seed the rule ALONE would drop both saved own games (and the feed's
+# copy of the ladder game) at both fractions: whatever keeps them is the code.
+SEED = 2
+FRACTIONS = (0.25, 0.5)
+OFFSET = {FMT: 1000, BO3: 5000}  # replay numbers of the fraction corpus
+
+
+def feed_record(number: int, log: str, fmt: str = FMT, when: int = 0) -> dict[str, Any]:
+    return {"id": replay_id(number, fmt), "format": fmt, "uploadtime": when,
+            "rating": 1200, "players": [], "log": log}  # fmt: skip
+
+
+def write_feed(root: Path, records: list[dict[str, Any]]) -> None:
+    """The records as feed shards, one gzip member per game, by format."""
+    for fmt in (FMT, BO3):
+        mine = [record for record in records if record["format"] == fmt]
+        if not mine:
+            continue
+        shard = root / B.FEED_DIR / "logs" / fmt / "part-00000.jsonl.gz"
+        shard.parent.mkdir(parents=True, exist_ok=True)
+        shard.write_bytes(
+            b"".join(
+                gzip.compress((json.dumps(record) + "\n").encode(), mtime=0)
+                for record in mine
+            )
+        )
+
+
+def write_own(root: Path, foe: str, stranger: str) -> None:
+    """A ladder page (the bot is p2) and an unrated one (the bot is p1).
+
+    A page's time is its file's modification time, so that is pinned: two
+    corpora written a moment apart must give the same build.
+    """
+    own = root / "ladder_replays_mc_synthetic"
+    own.mkdir(parents=True)
+    pages = {
+        900: make_log(foe, BOT, exact="p2", ratings=(1180, 1210)),
+        901: make_log(BOT, stranger, exact="p1", rated=False),
+    }
+    for number, log in pages.items():
+        path = own / f"{BOT} - battle-{replay_id(number)}.html"
+        path.write_text(page(log))
+        os.utime(path, (1_790_000_000 + number, 1_790_000_000 + number))
+
+
+class FractionCorpus:
+    """Sixty single games and sixteen series (two or three games each) in the
+    feed, a public copy of the bot's ladder game among them, and two own pages."""
+
+    def __init__(self, root: Path) -> None:
+        self.root = root
+        self.manifests: dict[str, dict[str, Any]] = {}  # filled by the fixture
+        taken: set[str] = {BOT}
+        train = [account(B.SPLIT_TRAIN, taken) for _ in range(6)]
+        others = [
+            account(B.SPLIT_VAL, taken),
+            account(B.SPLIT_TEST, taken),
+            account(B.SPLIT_TRAIN, taken),
+        ]
+        self.foe = account(B.SPLIT_TRAIN, taken)
+        self.stranger = account(B.SPLIT_TRAIN, taken)
+        moves = ("Dragon Claw", "Stomping Tantrum", "Outrage")
+        records: list[dict[str, Any]] = []
+        for n in range(60):
+            when = 10_000 + 50 * n
+            log = make_log(train[n % 6], others[n % 3], when=when, p2_move=moves[n % 3])
+            records.append(feed_record(OFFSET[FMT] + n, log, when=when))
+        number = OFFSET[BO3]
+        for series in range(16):
+            for game in range(1, 3 + series % 2):
+                when = 20_000 + 100 * series + game
+                log = make_log(
+                    train[series % 6],
+                    others[series % 3],
+                    bo3=(str(700 + series), game),
+                    when=when,
+                    sheets=True,
+                )
+                records.append(feed_record(number, log, BO3, when))
+                number += 1
+        # The public copy of the bot's own ladder game, as the feed holds a few.
+        self.copy = feed_record(900, make_log(self.foe, BOT), when=30_000)
+        records.insert(7, self.copy)
+        self.records = records
+        write_feed(root, records)
+        write_own(root, self.foe, self.stranger)
+
+    def build(self, tag: str, **options: Any) -> dict[str, Any]:
+        options.setdefault("log", lambda message: None)
+        return B.build(tag, root=self.root, **options)
+
+    def rows(self, tag: str) -> dict[str, dict[str, Any]]:
+        path = self.root / "results_oppmodel" / tag / "battles.jsonl"
+        return {
+            row["id"]: row for row in map(json.loads, path.read_text().splitlines())
+        }
+
+    def human(self, tag: str) -> set[str]:
+        return {key for key, row in self.rows(tag).items() if not row["own"]}
+
+    def data(self, tag: str, split: str | None = None) -> F.Batch:
+        directory = self.root / "results_oppmodel" / tag
+        return F.load_dataset(directory, None if split is None else [split])[0]
+
+
+@pytest.fixture(scope="module")
+def fraction_corpus(tmp_path_factory: pytest.TempPathFactory) -> FractionCorpus:
+    corpus = FractionCorpus(tmp_path_factory.mktemp("fraction"))
+    corpus.manifests = {"full": corpus.build("full")}
+    for fraction in FRACTIONS:
+        corpus.manifests[f"f{fraction}"] = corpus.build(
+            f"f{fraction}", human_fraction=fraction, fraction_seed=SEED
+        )
+    return corpus
+
+
+def manifest_core(manifest: dict[str, Any]) -> dict[str, Any]:
+    """A manifest without its name, its clocks and the hashes of its inputs."""
+    core = json.loads(json.dumps(manifest))
+    for key in ("tag", "created", "seconds", "inputs", "human_fraction"):
+        core.pop(key, None)
+    core["featurizer"].pop("encode_microseconds_per_example")
+    for key in [key for key in core["headline"] if "fraction" in key]:
+        del core["headline"][key]
+    return core
+
+
+def test_fraction_position_is_a_fixed_function_in_the_unit_interval():
+    group = "gen9championsvgc2026regmc-2690928731"
+    digest = hashlib.sha256(f"3:{group}".encode()).digest()
+    expected = (int.from_bytes(digest[:8], "big") >> 11) / 2**53
+    assert B.fraction_position(group, 3) == expected
+    assert B.fraction_position(group, 3) != B.fraction_position(group, 4)
+    assert B.fraction_keeps(group, expected + 1e-9, 3)
+    assert not B.fraction_keeps(group, expected, 3)  # strictly below the fraction
+    positions = [B.fraction_position(f"g{n}", 0) for n in range(4000)]
+    assert 0.0 <= min(positions) and max(positions) < 1.0
+    # All 53 bits set is the largest position, and it is still below 1.
+    assert ((1 << B.FRACTION_BITS) - 1) / float(1 << B.FRACTION_BITS) < 1.0
+    assert B.FRACTION_HASH == "sha256" and B.FRACTION_HASH in B.FRACTION_RULE
+
+
+def test_fraction_subsamples_are_nested_and_one_keeps_everything():
+    groups = [f"gen9championsvgc2026regmc-{2_690_000_000 + n}" for n in range(6000)]
+    kept = {
+        fraction: {g for g in groups if B.fraction_keeps(g, fraction, 7)}
+        for fraction in (0.125, 0.25, 0.5, 1.0)
+    }
+    assert kept[0.125] < kept[0.25] < kept[0.5] < kept[1.0]
+    assert kept[1.0] == set(groups)
+    for fraction in (0.125, 0.25, 0.5):
+        # 6,000 draws: three standard deviations at 0.5 are 0.019.
+        assert abs(len(kept[fraction]) / len(groups) - fraction) < 0.02
+    other_seed = {g for g in groups if B.fraction_keeps(g, 0.5, 8)}
+    assert other_seed != kept[0.5]
+    assert 0.2 < len(other_seed & kept[0.5]) / len(groups) < 0.3  # independent seeds
+
+
+def test_fraction_does_not_follow_the_scrapers_crc32_order():
+    """2026-10-05: the feed is downloaded in ascending crc32(replay id) order, so
+    a half-finished download holds the low-crc32 ids. A subsample by crc32 of the
+    (prefixed) id then keeps almost all or almost none of them: measured on
+    v2_feed, 93% of the feed games with seed 0 and 7% with seed 1."""
+    ids = [f"gen9championsvgc2026regmc-{2_690_000_000 + n}" for n in range(40_000)]
+    fetched = [i for i in ids if zlib.crc32(i.encode()) < 0.15 * 2**32]
+    assert 5000 < len(fetched) < 7000
+    for seed in (0, 1):
+        share = sum(B.fraction_keeps(i, 0.5, seed) for i in fetched) / len(fetched)
+        assert abs(share - 0.5) < 0.03
+        by_crc = sum(
+            zlib.crc32(f"{seed}:{i}".encode()) / 2**32 < 0.5 for i in fetched
+        ) / len(fetched)
+        assert abs(by_crc - 0.5) > 0.2  # the rule this option must not use
+
+
+def test_log_group_reads_what_the_driver_reads_without_driving():
+    series = f"game-bestof3-{BO3}-77"
+    single = make_log("A", "B")
+    game = make_log("A", "B", bo3=("77", 2))
+    assert B.log_group(single, "one") == "one"
+    assert B.log_group(game, "two") == series
+    mark = next(line for line in game.split("\n") if line.startswith("|uhtml|bestof|"))
+    awkward = {
+        "crlf": game.replace("\n", "\r\n"),
+        "said in chat": single.replace("|gametype", f"|c|☆A|x{mark}\n|gametype"),
+        "two marks, the last one counts": game.replace(
+            "|gametype", mark.replace("-77", "-78") + "\n|gametype"
+        ),
+        "a mark nobody can read": single.replace(
+            "|gametype", "|uhtml|bestof|<h2>soon</h2>\n|gametype"
+        ),
+        "unreadable after a good one": game.replace(
+            "|gametype", "|uhtml|bestof|<h2>soon</h2>\n|gametype"
+        ),
+        "another uhtml": single.replace("|gametype", "|uhtml|other|x\n|gametype"),
+        "empty": "",
+    }
+    expected = {
+        "crlf": series,
+        "said in chat": "id",
+        "two marks, the last one counts": f"game-bestof3-{BO3}-78",
+        "a mark nobody can read": "id",
+        "unreadable after a good one": series,
+        "another uhtml": "id",
+        "empty": "id",
+    }
+    for name, log in awkward.items():
+        driven = P.drive_log(log, "id").series_id or "id"
+        assert B.log_group(log, "id") == driven == expected[name], name
+
+
+def test_fraction_keeps_exactly_the_groups_the_rule_names(
+    fraction_corpus: FractionCorpus,
+):
+    full = fraction_corpus.rows("full")
+    everything = {key for key, row in full.items() if not row["own"]}
+    assert len(everything) == 60 + 40 and len(full) == 102
+    kept = {f: fraction_corpus.human(f"f{f}") for f in FRACTIONS}
+    for fraction in FRACTIONS:
+        by_rule = {
+            key
+            for key in everything
+            if B.fraction_keeps(full[key]["group"], fraction, SEED)
+        }
+        assert kept[fraction] == by_rule
+        assert 0.6 * fraction < len(by_rule) / len(everything) < 1.5 * fraction
+    assert kept[0.25] < kept[0.5] < everything  # nested, and really smaller
+
+
+def test_a_series_is_kept_or_dropped_as_a_whole(fraction_corpus: FractionCorpus):
+    full = fraction_corpus.rows("full")
+    series: dict[str, list[str]] = {}
+    for key, row in full.items():
+        if row["series"]:
+            series.setdefault(row["group"], []).append(key)
+    assert len(series) == 16 and {len(games) for games in series.values()} == {2, 3}
+    for fraction in FRACTIONS:
+        kept = fraction_corpus.human(f"f{fraction}")
+        whole = [all(game in kept for game in games) for games in series.values()]
+        none = [not any(game in kept for game in games) for games in series.values()]
+        assert all(a or b for a, b in zip(whole, none))
+        assert any(whole) and any(none)  # both happen: the check is not empty
+        manifest = fraction_corpus.manifests[f"f{fraction}"]
+        assert manifest["accounts"]["series"] == sum(whole)
+
+
+def test_own_games_are_kept_at_every_fraction(fraction_corpus: FractionCorpus):
+    tags = ["full", *(f"f{f}" for f in FRACTIONS)]
+    own = [
+        {key: row for key, row in fraction_corpus.rows(tag).items() if row["own"]}
+        for tag in tags
+    ]
+    assert [sorted(rows) for rows in own] == [[replay_id(900), replay_id(901)]] * 3
+    # Not by luck: their ids alone are outside both subsamples.
+    assert not any(
+        B.fraction_keeps(replay_id(number), max(FRACTIONS), SEED)
+        for number in (900, 901)
+    )
+    reference = fraction_corpus.data("full", "ladder_holdout")
+    assert len(reference["turn"]) == 2
+    for tag, rows in zip(tags, own):
+        manifest = fraction_corpus.manifests[tag]
+        assert manifest["headline"]["own_games_kept"] == 2
+        assert manifest["headline"]["ladder_holdout_games"] == 1
+        assert manifest["examples"]["by_split"]["ladder_holdout"] == 2
+        # The feed's copy of the ladder game takes the path it takes at F = 1:
+        # dropped as the bot's account, without taking the page's id.
+        assert manifest["battles"]["dropped"] == {"bot_account": 1}
+        assert rows[replay_id(900)]["source"] == "own"
+        data = fraction_corpus.data(tag, "ladder_holdout")
+        # What the opponent did is the same; the row numbers of the battles and
+        # the candidate lists (a smaller repertoire) may differ.
+        for name in ("m_turn", "m_side", "m_actor", "turn", "act_mon", "mon_hp"):
+            assert np.array_equal(data[name], reference[name]), (tag, name)
+        for name in ("y_kind", "y_reason", "y_mega", "y_intent", "y_attack"):
+            assert np.array_equal(data[name], reference[name]), (tag, name)
+
+
+def test_a_fraction_build_is_the_build_of_the_smaller_corpus(
+    fraction_corpus: FractionCorpus, tmp_path: Path
+):
+    """Decided before anything is counted: the same files, byte for byte, as a
+    full build of a corpus that only ever held the kept logs."""
+    fraction = 0.5
+    groups = {key: row["group"] for key, row in fraction_corpus.rows("full").items()}
+    kept = [
+        record
+        for record in fraction_corpus.records
+        if record is fraction_corpus.copy
+        or B.fraction_keeps(groups[record["id"]], fraction, SEED)
+    ]
+    assert len(kept) < len(fraction_corpus.records)
+    write_feed(tmp_path, kept)
+    write_own(tmp_path, fraction_corpus.foe, fraction_corpus.stranger)
+    small = B.build("small", root=tmp_path, log=lambda message: None)
+    sampled = fraction_corpus.manifests[f"f{fraction}"]
+    there = tmp_path / "results_oppmodel" / "small"
+    here = fraction_corpus.root / "results_oppmodel" / f"f{fraction}"
+    names = sorted(path.name for path in here.iterdir())
+    assert names == sorted(path.name for path in there.iterdir())
+    for name in names:
+        if name != "manifest.json":
+            assert (here / name).read_bytes() == (there / name).read_bytes(), name
+    assert manifest_core(sampled) == manifest_core(small)
+    assert "human_fraction" not in small
+    assert sampled["headline"]["human_battles_kept"] == len(kept) - 1
+    assert sampled["battles"]["read"] == {"feed": len(kept), "own": 2}
+
+
+def test_fraction_one_changes_nothing(fraction_corpus: FractionCorpus):
+    full = fraction_corpus.manifests["full"]
+    one = fraction_corpus.build("one", human_fraction=1.0, fraction_seed=99)
+    assert "human_fraction" not in one and "human_fraction" not in full
+    assert not [key for key in one["headline"] if "fraction" in key]
+    assert list(one) == list(full) and list(one["headline"]) == list(full["headline"])
+    assert manifest_core(one) == manifest_core(full)
+    assert one["inputs"] == full["inputs"]
+    root = fraction_corpus.root / "results_oppmodel"
+    names = sorted(path.name for path in (root / "full").iterdir())
+    assert names == sorted(path.name for path in (root / "one").iterdir())
+    for name in names:
+        if name != "manifest.json":
+            assert (root / "one" / name).read_bytes() == (
+                root / "full" / name
+            ).read_bytes(), name
+
+
+def test_fraction_is_decided_by_the_seed(fraction_corpus: FractionCorpus):
+    again = fraction_corpus.build("again", human_fraction=0.5, fraction_seed=SEED)
+    first = fraction_corpus.manifests["f0.5"]
+    assert manifest_core(again) == manifest_core(first)
+    assert again["human_fraction"] == first["human_fraction"]
+    root = fraction_corpus.root / "results_oppmodel"
+    for path in (root / "f0.5").iterdir():
+        if path.name != "manifest.json":
+            assert path.read_bytes() == (root / "again" / path.name).read_bytes()
+    other = fraction_corpus.build("other", human_fraction=0.5, fraction_seed=SEED + 1)
+    assert other["human_fraction"]["seed"] == SEED + 1
+    assert fraction_corpus.human("other") != fraction_corpus.human("f0.5")
+
+
+def test_the_manifest_records_the_fraction(fraction_corpus: FractionCorpus):
+    full = fraction_corpus.manifests["full"]
+    offered = full["battles"]["read"]["feed"]
+    assert offered == 101
+    for fraction in FRACTIONS:
+        manifest = fraction_corpus.manifests[f"f{fraction}"]
+        chosen = manifest["human_fraction"]
+        assert (chosen["fraction"], chosen["seed"]) == (fraction, SEED)
+        assert chosen["hash"] == "sha256" and chosen["rule"] == B.FRACTION_RULE
+        assert chosen["logs_offered"] == offered
+        assert chosen["own_game_copies_exempt"] == 1
+        assert (
+            chosen["logs_kept"] + chosen["logs_dropped"] + 1 == chosen["logs_offered"]
+        )
+        assert chosen["logs_kept"] == len(fraction_corpus.human(f"f{fraction}"))
+        assert chosen["kept_share"] == pytest.approx(
+            chosen["logs_kept"] / 100, abs=1e-6
+        )
+        assert chosen["by_source"] == {
+            "feed": {
+                "kept": chosen["logs_kept"],
+                "dropped": chosen["logs_dropped"],
+                "own_game_copies_exempt": 1,
+            }
+        }
+        assert chosen["groups_kept"] + chosen["groups_dropped"] == 60 + 16
+        assert chosen["group_mismatch"] == 0 and chosen["group_mismatch_examples"] == []
+        headline = manifest["headline"]
+        assert headline["human_fraction"] == fraction
+        assert headline["fraction_seed"] == SEED
+        assert headline["human_logs_kept_by_fraction"] == chosen["logs_kept"]
+        assert headline["human_logs_dropped_by_fraction"] == chosen["logs_dropped"]
+        # Every count is the smaller corpus's: a dropped log was never read.
+        assert manifest["battles"]["read"] == {
+            "feed": chosen["logs_kept"] + 1,
+            "own": 2,
+        }
+        assert headline["human_battles_kept"] == chosen["logs_kept"]
+        assert headline["human_logs_unique"] == chosen["logs_kept"] + 1
+        assert manifest["accounts"]["distinct_accounts"] <= 9
+        on_disk = json.loads(
+            (
+                fraction_corpus.root
+                / "results_oppmodel"
+                / f"f{fraction}"
+                / "manifest.json"
+            ).read_text()
+        )
+        assert on_disk["human_fraction"] == chosen
+        assert list(on_disk)[-1] == "human_fraction"  # appended, nothing reordered
+
+
+def test_the_repertoire_and_the_weights_are_those_of_the_subsample(
+    fraction_corpus: FractionCorpus,
+):
+    root = fraction_corpus.root / "results_oppmodel"
+    full = json.loads((root / "full" / "repertoire.json").read_text())["counts"]
+    half = json.loads((root / "f0.5" / "repertoire.json").read_text())["counts"]
+    assert set(half) <= set(full)
+    assert all(half[key][move] <= full[key][move] for key in half for move in half[key])
+    assert sum(map(sum, (m.values() for m in half.values()))) < sum(
+        map(sum, (m.values() for m in full.values()))
+    )
+    # The account cap counts the battles that are there: one account that is
+    # over a cap of 8 in the whole corpus weighs more in the half.
+    capped = fraction_corpus.build("capped", account_cap=8)
+    capped_half = fraction_corpus.build(
+        "capped_half", account_cap=8, human_fraction=0.5, fraction_seed=SEED
+    )
+    weights = {a["account"]: a["weight"] for a in capped["accounts"]["top_accounts"]}
+    weights_half = {
+        a["account"]: a["weight"] for a in capped_half["accounts"]["top_accounts"]
+    }
+    assert set(weights_half) <= set(weights)
+    assert all(weights_half[name] >= weights[name] for name in weights_half)
+    assert any(weights_half[name] > weights[name] for name in weights_half)
+
+
+def test_the_fraction_is_taken_of_the_limited_logs(fraction_corpus: FractionCorpus):
+    # --limit counts logs per source: the 61 single-game records, then the
+    # first nine games of the series shard.
+    limited = fraction_corpus.build("lim", limit=70)
+    assert limited["battles"]["read"] == {"feed": 70, "own": 2}
+    rows = fraction_corpus.rows("lim")
+    whole = fraction_corpus.human("lim")
+    assert len(whole) == 69 and sum(1 for key in whole if rows[key]["series"]) == 9
+    kept = {}
+    for fraction in FRACTIONS:
+        tag = f"lim{fraction}"
+        manifest = fraction_corpus.build(
+            tag, limit=70, human_fraction=fraction, fraction_seed=SEED
+        )
+        assert manifest["limit"] == 70
+        assert manifest["human_fraction"]["logs_offered"] == 70
+        kept[fraction] = fraction_corpus.human(tag)
+        assert kept[fraction] == {
+            key for key in whole if B.fraction_keeps(rows[key]["group"], fraction, SEED)
+        }
+    assert kept[0.25] < kept[0.5] < whole
+
+
+def test_a_fraction_outside_the_unit_interval_is_refused(
+    fraction_corpus: FractionCorpus,
+):
+    for value in (0.0, -0.25, 1.5, float("nan")):
+        with pytest.raises(SystemExit):
+            fraction_corpus.build("bad", human_fraction=value)
+    assert not (fraction_corpus.root / "results_oppmodel" / "bad").exists()
+    smallest = fraction_corpus.build("tiny", human_fraction=1e-9, fraction_seed=SEED)
+    assert smallest["headline"]["human_battles_kept"] == 0
+    assert smallest["examples"]["by_split"] == {"ladder_holdout": 2, "own_unrated": 2}
+
+
+def test_a_group_read_differently_from_the_driven_one_is_counted(
+    fraction_corpus: FractionCorpus, monkeypatch: pytest.MonkeyPatch
+):
+    """The decision uses the group read off the raw text; the driven battle's
+    group is compared with it afterwards, so a reader that went wrong shows."""
+    monkeypatch.setattr(B, "log_group", lambda log, battle_id: battle_id)
+    manifest = fraction_corpus.build("wrong", human_fraction=0.9, fraction_seed=SEED)
+    chosen = manifest["human_fraction"]
+    series_games = sum(
+        1 for row in fraction_corpus.rows("wrong").values() if row["series"]
+    )
+    assert series_games > 0
+    assert chosen["group_mismatch"] == series_games
+    assert 0 < len(chosen["group_mismatch_examples"]) <= B.DROP_EXAMPLES
+
+
+def test_real_logs_have_the_group_the_driver_finds():
+    reader = B.Corpus(ROOT, B.DEFAULT_FORMATS, ["top_merged", "feed"], limit=150)
+    compared = series = 0
+    for raw in reader:
+        driven = B.drive(raw).series_id or raw.battle_id
+        assert B.log_group(raw.log, raw.battle_id) == driven, raw.battle_id
+        compared += 1
+        series += int(driven != raw.battle_id)
+    if not compared:
+        pytest.skip("no human corpus (battle_logs_*/) on this machine")
+    assert series > 0

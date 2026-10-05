@@ -10,8 +10,10 @@ from __future__ import annotations
 import ast
 import json
 import math
+import os
 from collections import Counter
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import numpy as np
@@ -20,6 +22,7 @@ import pytest
 from evaluation import oppmodel_scorecard as SC
 from vgc_bench.src.oppmodel import events as E
 from vgc_bench.src.oppmodel import features as F
+from vgc_bench.src.oppmodel import joint as J
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASET = ROOT / "results_oppmodel" / "v1_ondisk"
@@ -1306,6 +1309,622 @@ def test_a_failing_predictor_stops_the_run(tmp_path, monkeypatch):
     assert code == 1 and not out.exists()
 
 
+# --- joint reply coverage -------------------------------------------------------
+
+SIXTEENTHS = {0: 8, 1: 3, OTHER: 2, F.switch_index(2, C): 2, F.switch_index(3, C): 1}
+
+
+def coverage_batch() -> F.Batch:
+    """Seven examples in three games; four of them show the whole reply.
+
+    Every slot has an aimed attack (candidate 0), a Protect (candidate 1),
+    OTHER and a bench of two.
+    0: attack at foe a + Protect.            1: switch + attack at foe b (shown).
+    2: one slot on the field, OTHER.         3: attack + a slot that fainted first.
+    4: attack with an uncertain target + Protect.
+    5: both attack foe a with a shown move; slot a also Mega-evolves.
+    6: attack with an uncertain target + a slot that flinched.
+    """
+    batch = blank(7, games=[0, 0, 1, 1, 2, 2, 2])
+    for i in range(7):
+        put(batch, i, 0, bench=(2, 3))
+        if i != 2:
+            put(batch, i, 1, bench=(2, 3))
+    label_move(batch, 0, 0, 0, target=F.T_FOE_A, attack=(1, 0))
+    label_move(batch, 0, 1, 1, target=F.T_AUTO, protect=True)
+    label_switch(batch, 1, 0, 2)
+    label_move(batch, 1, 1, 0, target=F.T_FOE_B, attack=(0, 1))
+    batch["cand_flag"][1, 1, 0] |= F.CAND_REVEALED
+    label_move(batch, 2, 0, OTHER, target=F.T_FOE_A)
+    label_move(batch, 3, 0, 0, target=F.T_FOE_A, attack=(1, 0))
+    label_stopped(batch, 3, 1, (0, OTHER))
+    label_move(batch, 4, 0, 0, target=-1)
+    label_move(batch, 4, 1, 1, target=F.T_AUTO, protect=True)
+    for slot in range(2):
+        label_move(batch, 5, slot, 0, target=F.T_FOE_A, attack=(1, 0))
+        batch["cand_flag"][5, slot, 0] |= F.CAND_SHEET if slot else F.CAND_REVEALED
+    batch["mon_flag"][5, 0, F.FLAG_MEGA_POSSIBLE] = 1
+    batch["y_mega"][5] = (1, 0)
+    label_move(batch, 6, 0, 0, target=-1)
+    label_stopped(batch, 6, 1, (0, OTHER), kind=F.Y_KIND_HIDDEN, reason=E.REASON_FLINCH)
+    batch["m_sheet"][:] = [0, 1, 2, 0, 0, 0, 0]
+    batch["turn"][:] = [1, 2, 2, 2, 2, 2, 2]
+    return batch
+
+
+def dyadic(batch: F.Batch) -> dict[str, np.ndarray]:
+    """One prediction for every slot, in sixteenths, so that products are exact.
+
+    Attack 8 (three quarters at foe a), Protect 3, OTHER 2, the bench 2 and 1:
+    a slot's replies weigh 6, 2, 3, 2, 2, 1 in the order of their index.
+    Slot a Mega-evolves with probability one half.
+    """
+    pred = F.uniform_prediction(batch)
+    pred["action"][:] = 0.0
+    for index, weight in SIXTEENTHS.items():
+        pred["action"][:, :, index] = weight / 16
+    pred["target"][:, :, 0] = 0.0
+    pred["target"][:, :, 0, [F.T_FOE_A, F.T_FOE_B]] = (0.75, 0.25)
+    pred["mega"][:, 0] = 0.5
+    return pred
+
+
+def oracle(batch: F.Batch) -> dict[str, np.ndarray]:
+    """All the mass on what the labels say; uniform where they say nothing."""
+    pred = F.uniform_prediction(batch)
+    n_move = batch["cand_tmask"].shape[-1]
+    for i, slot in zip(*np.nonzero(batch["y_action"] >= 0)):
+        action, target = (
+            int(batch["y_action"][i, slot]),
+            int(batch["y_target"][i, slot]),
+        )
+        pred["action"][i, slot] = 0.0
+        pred["action"][i, slot, action] = 1.0
+        if action < n_move and target >= 0:
+            pred["target"][i, slot, action] = 0.0
+            pred["target"][i, slot, action, target] = 1.0
+    pred["mega"] = (batch["y_mega"] == 1).astype(np.float64)
+    return pred
+
+
+def test_joint_coverage_matches_a_hand_calculation():
+    batch = coverage_batch()
+    found = SC.joint_coverage_set(
+        batch,
+        {"dyadic": dyadic(batch), "uniform": F.uniform_prediction(batch)},
+        resamples=200,
+        seed=1,
+    )
+    assert found["examples"] == 7 and found["games"] == 3
+    assert found["slot_turns"] == {"acting": 13, "not_fully_visible": 4}
+    assert found["counted"] == {"examples": 4, "games": 3}
+    # examples 3 and 6 hold a slot without a free choice (6 also an uncertain
+    # target: counted once, as hidden); example 4 only lacks a target
+    assert found["left_out"] == {
+        "examples": 3,
+        "hidden_action": 2,
+        "target_not_certain": 1,
+    }
+    assert found["truth"] == {
+        "involves_other": 1,
+        "involves_switch": 1,
+        "mega": 1,
+        "mega_not_known": 0,
+    }
+    sizes = {name: row["examples"] for name, row in found["slices"].items()}
+    assert sizes == {
+        SC.SLICE_ALL: 4,
+        "sheet closed": 2,
+        "sheet open": 1,
+        "sheet unknown": 1,
+        SC.SLOTS_TWO: 3,
+        SC.SLOTS_ONE: 1,
+        "turn 1": 1,
+        "turn 2 and later": 3,
+        SC.REPLY_UNSHOWN: 2,  # example 0 (guessed moves) and 2 (OTHER)
+        SC.REPLY_SWITCH: 1,  # example 1: a switch next to a shown move
+        SC.REPLY_SHOWN: 1,  # example 5
+        SC.SHEETS_NOT_OPEN + SC.REPLY_UNSHOWN: 2,
+        SC.SHEETS_NOT_OPEN + SC.REPLY_SWITCH: 0,  # example 1 has an open sheet
+        SC.SHEETS_NOT_OPEN + SC.REPLY_SHOWN: 1,
+        # the last two pooled: the search session's "no move not shown before"
+        SC.SHEETS_NOT_OPEN + SC.REPLY_NO_UNSHOWN: 1,
+    }
+    # The number the README prints as top-8 is the bootstrap's point value: it
+    # is the same quantity as top["8"], for every predictor, variant and slice.
+    for made in found["predictors"].values():
+        for variant in SC.JOINT_VARIANTS:
+            for label, row in made[variant]["slices"].items():
+                if row["examples"]:
+                    assert row["top_interval"]["value"] == row["top"]["8"], label
+    assert found["slices"][SC.SLOTS_ONE]["involves_other"] == 1
+    assert found["slices"][SC.SLICE_ALL] == {
+        "examples": 4,
+        "games": 3,
+        "involves_other": 1,
+    }
+
+    # Without the Mega bit. Two slots: weights (6, 2, 3, 2, 2, 1) x the same,
+    # in 256ths, minus both to one bench Pokemon (4 + 1): 251 are kept.
+    # Ranks: example 0 (attack a, Protect) = 18, after 36 only            -> 1
+    #        example 1 (switch, attack b) = 4: 18 above, 6 equal before   -> 24
+    #        example 2 (OTHER alone) = 2: 6 and 3 above, one 2 before     -> 3
+    #        example 5 (attack a twice) = 36                              -> 0
+    plain = found["predictors"]["dyadic"][SC.JOINT_PLAIN]
+    row = plain["slices"][SC.SLICE_ALL]
+    assert row["examples"] == 4
+    assert row["top"] == {
+        "1": 0.25,
+        "2": 0.5,
+        "4": 0.5,  # example 2 is fourth, but OTHER is never covered
+        "8": 0.5,
+        "16": 0.5,
+        "32": 0.75,
+    }
+    assert row["top_other_as_hit"] == {
+        "1": 0.25,
+        "2": 0.5,
+        "4": 0.75,
+        "8": 0.75,
+        "16": 0.75,
+        "32": 1.0,
+    }
+    # the first eight of a two-slot example: 36, 18, 18 and five of the six 12s
+    assert row["mass_top"] == pytest.approx((3 * 132 / 251 + 1) / 4)
+    assert row["log_prob"] == pytest.approx(
+        (LN(18 / 251) + LN(4 / 251) + LN(2 / 16) + LN(36 / 251)) / 4
+    )
+    assert row["top_interval"]["value"] == 0.5
+    assert row["top_interval"]["low"] <= 0.5 <= row["top_interval"]["high"]
+    assert plain["mass_kept"] == pytest.approx((3 * 251 / 256 + 1) / 4)
+    assert plain["replies_possible"] == pytest.approx((3 * 34 + 6) / 4)
+    assert plain["no_distribution"] == plain["truth_not_possible"] == 0
+    assert plain["decided_by_a_tie"] == 0
+    by_slice = {name: r["top"]["2"] for name, r in plain["slices"].items()}
+    assert by_slice["sheet closed"] == 1.0 and by_slice["sheet open"] == 0.0
+    assert by_slice[SC.REPLY_UNSHOWN] == 0.5 and by_slice[SC.REPLY_SHOWN] == 1.0
+    assert by_slice[SC.SLOTS_ONE] == 0.0
+    assert plain["slices"][SC.SLOTS_ONE]["top_other_as_hit"]["4"] == 1.0
+    assert plain["slices"][SC.SLOTS_ONE]["mass_top"] == pytest.approx(1.0)
+    # a slice inside one game has no interval; an empty one has nothing
+    assert plain["slices"]["sheet open"]["top_interval"] == {
+        "value": 0.0,
+        "low": None,
+        "high": None,
+    }
+    empty = plain["slices"][SC.SHEETS_NOT_OPEN + SC.REPLY_SWITCH]
+    assert empty["examples"] == 0 and empty["top"]["8"] is None
+    assert empty["mass_top"] is None and empty["top_interval"]["value"] is None
+
+    # With the Mega bit only example 5 changes: slot a can Mega-evolve (one
+    # half). "Nobody" and "slot a" both give 18 to (attack a, attack a), and
+    # "nobody" comes first: the truth, with the Mega Evolution, is second.
+    mega = found["predictors"]["dyadic"][SC.JOINT_MEGA]
+    row = mega["slices"][SC.SLICE_ALL]
+    assert row["top"]["1"] == 0.0 and row["top"]["2"] == 0.5
+    assert row["top"]["32"] == 0.75 and row["top_other_as_hit"]["32"] == 1.0
+    kept = 251 / 2 + 13 * 16 / 2  # nobody: all; slot a: the rows where a moves
+    assert mega["mass_kept"] == pytest.approx((2 * 251 / 256 + 1 + kept / 256) / 4)
+    assert row["log_prob"] == pytest.approx(
+        (LN(18 / 251) + LN(4 / 251) + LN(2 / 16) + LN(18 / kept)) / 4
+    )
+    # 18, 18, four 9s and two of the 6s
+    assert row["mass_top"] == pytest.approx((2 * 132 / 251 + 1 + 84 / kept) / 4)
+    assert mega["slices"][SC.REPLY_SHOWN]["top"]["1"] == 0.0
+    assert plain["slices"][SC.REPLY_SHOWN]["top"]["1"] == 1.0
+    assert mega["decided_by_a_tie"] == 0
+
+    # The uniform prediction: the six replies of a slot weigh 1, 1, 2, 2, 2, 2,
+    # so 14 joint replies stand above every one of these truths: none is in
+    # the first eight, whatever the order of equal replies.
+    row = found["predictors"]["uniform"][SC.JOINT_PLAIN]
+    assert row["decided_by_a_tie"] == 0
+    two = row["slices"][SC.SLOTS_TWO]["top"]
+    # example 0 is the first of the sixteen replies that weigh 2: place 14
+    assert two["8"] == 0.0 and two["16"] == pytest.approx(1 / 3) and two["32"] == 1.0
+    json.dumps(SC._plain(found), allow_nan=False)
+
+    # A predictor for which every reply of a slot is as likely as any other:
+    # all 34 joint replies are equal, and a place among the first eight is
+    # decided by their order alone. The card counts those examples.
+    level = F.uniform_prediction(batch)
+    level["action"][:] = 0.0
+    level["action"][:, :, 0] = 2 / 6  # split in two halves by its two targets
+    for index in (1, OTHER, F.switch_index(2, C), F.switch_index(3, C)):
+        level["action"][:, :, index] = 1 / 6
+    found = SC.joint_coverage_set(batch, {"level": level}, resamples=0)
+    made = found["predictors"]["level"][SC.JOINT_PLAIN]
+    assert made["decided_by_a_tie"] == 3  # the three examples with two slots
+    # by index: example 5 is the first reply, example 0 the third, example 1
+    # the 26th; example 2 (OTHER alone) is fourth of six
+    row = made["slices"][SC.SLICE_ALL]
+    assert row["top"]["1"] == 0.25 and row["top"]["2"] == 0.25
+    assert row["top"]["4"] == row["top"]["16"] == 0.5 and row["top"]["32"] == 0.75
+    assert row["top_other_as_hit"]["2"] == 0.25 and row["top_other_as_hit"]["4"] == 0.75
+    assert row["top_interval"] == {"value": 0.5, "low": None, "high": None}
+
+
+def test_an_oracle_covers_every_counted_example_but_never_other():
+    batch = coverage_batch()
+    found = SC.joint_coverage_set(batch, {"oracle": oracle(batch)}, resamples=50)
+    for variant in SC.JOINT_VARIANTS:
+        made = found["predictors"]["oracle"][variant]
+        assert made["truth_not_possible"] == 0 and made["no_distribution"] == 0
+        for label, row in made["slices"].items():
+            if not row["examples"]:
+                continue
+            share = found["slices"][label]["involves_other"] / row["examples"]
+            for k in SC.JOINT_KS:
+                # first everywhere; a reply through OTHER is still not covered
+                assert row["top_other_as_hit"][str(k)] == 1.0, (variant, label, k)
+                assert row["top"][str(k)] == pytest.approx(1.0 - share)
+            assert row["mass_top"] == pytest.approx(1.0)
+            assert row["log_prob"] == pytest.approx(0.0, abs=1e-12)
+    rows = found["predictors"]["oracle"][SC.JOINT_PLAIN]["slices"]
+    assert rows[SC.SLICE_ALL]["top"]["1"] == 0.75  # example 2 is OTHER
+    assert rows[SC.SLOTS_TWO]["top"]["1"] == 1.0
+    assert rows[SC.SLOTS_ONE]["top"]["32"] == 0.0
+    # without the OTHER example the oracle is at 100%
+    batch["y_action"][2, 0], batch["y_set"][2, 0] = 0, 0
+    batch["y_set"][2, 0, 0] = 1
+    found = SC.joint_coverage_set(batch, {"oracle": oracle(batch)}, resamples=0)
+    row = found["predictors"]["oracle"][SC.JOINT_MEGA]["slices"][SC.SLICE_ALL]
+    assert found["truth"]["involves_other"] == 0
+    assert row["top"] == {str(k): 1.0 for k in SC.JOINT_KS}
+    assert row["top_interval"] == {"value": 1.0, "low": None, "high": None}
+
+
+def test_joint_slices_partition_the_examples_within_each_family():
+    batch = coverage_batch()
+    truth = J.true_replies(batch)
+    masks = SC.joint_slices(batch, truth)
+    assert list(masks)[0] == SC.SLICE_ALL and masks[SC.SLICE_ALL].all()
+    families = {
+        "sheet ": list(SC.SLICE_SHEETS),
+        "slots: ": [SC.SLOTS_TWO, SC.SLOTS_ONE],
+        "turn ": list(SC.SLICE_TURNS),
+        "reply: ": list(SC.REPLY_CLASSES),
+        SC.SHEETS_NOT_OPEN: [SC.SHEETS_NOT_OPEN + name for name in SC.REPLY_CLASSES],
+    }
+    pooled = SC.SHEETS_NOT_OPEN + SC.REPLY_NO_UNSHOWN
+    assert sorted(masks) == sorted(
+        [SC.SLICE_ALL, pooled, *(name for names in families.values() for name in names)]
+    )
+    # Not a family of its own: the last two reply classes among sheets not
+    # open, together. With "a move not shown before" it splits those in two.
+    assert np.array_equal(
+        masks[pooled],
+        masks[SC.SHEETS_NOT_OPEN + SC.REPLY_SWITCH]
+        | masks[SC.SHEETS_NOT_OPEN + SC.REPLY_SHOWN],
+    )
+    assert np.array_equal(
+        masks[pooled] | masks[SC.SHEETS_NOT_OPEN + SC.REPLY_UNSHOWN],
+        ~masks["sheet open"],
+    )
+    assert not (masks[pooled] & masks[SC.SHEETS_NOT_OPEN + SC.REPLY_UNSHOWN]).any()
+    assert masks[pooled].tolist() == [False] * 5 + [True, False]
+    for prefix, names in families.items():
+        assert all(name.startswith(prefix) for name in names)
+        total = np.sum([masks[name].astype(int) for name in names], axis=0)
+        whole = ~masks["sheet open"] if prefix == SC.SHEETS_NOT_OPEN else True
+        # every example in exactly one slice of the family
+        assert np.array_equal(total, np.ones(7, dtype=int) * whole), prefix
+    assert masks[SC.SLOTS_ONE].tolist() == [False, False, True] + [False] * 4
+    # the order of the classes: a move not shown before wins over a switch
+    batch["cand_flag"][1, 1, 0] = F.CAND_VALID | ATTACK
+    masks = SC.joint_slices(batch, J.true_replies(batch))
+    assert masks[SC.REPLY_UNSHOWN][1] and not masks[SC.REPLY_SWITCH][1]
+
+
+def test_joint_coverage_is_monotone_in_k_and_refuses_what_it_cannot_read():
+    batch = coverage_batch()
+    rng = np.random.default_rng(3)
+    noisy = F.uniform_prediction(batch)
+    noisy["action"] = noisy["action"] * rng.random(noisy["action"].shape)
+    noisy["target"] = noisy["target"] * rng.random(noisy["target"].shape)
+    kept = {name: value.copy() for name, value in noisy.items()}
+    labels = {name: value.copy() for name, value in batch.items()}
+    found = SC.joint_coverage_set(batch, {"noisy": noisy}, resamples=20)
+    for variant in SC.JOINT_VARIANTS:
+        for row in found["predictors"]["noisy"][variant]["slices"].values():
+            if not row["examples"]:
+                continue
+            strict = [row["top"][str(k)] for k in SC.JOINT_KS]
+            lenient = [row["top_other_as_hit"][str(k)] for k in SC.JOINT_KS]
+            assert strict == sorted(strict) and lenient == sorted(lenient)
+            assert all(a <= b for a, b in zip(strict, lenient))
+            assert row["top_interval"]["value"] == row["top"][str(SC.JOINT_K)]
+            assert 0.0 <= row["mass_top"] <= 1.0 + 1e-12 and row["log_prob"] <= 0.0
+    # nothing it was given has changed
+    for name, value in noisy.items():
+        assert np.array_equal(value, kept[name]), name
+    for name, value in batch.items():
+        assert np.array_equal(value, labels[name]), name
+    # the ranking is handed the feature arrays only
+    seen: list[set[str]] = []
+    real = J.joint_replies
+
+    def watched(pred: Any, masks: Any, **more: Any) -> Any:
+        seen.append(set(masks))
+        return real(pred, masks, **more)
+
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(SC.J, "joint_replies", watched)
+        SC.joint_coverage_set(batch, {"noisy": noisy}, resamples=0)
+    assert len(seen) == len(SC.JOINT_VARIANTS)
+    for names in seen:
+        assert not [name for name in names if name.startswith(("y_", "m_"))]
+        assert {"action_mask", "cand_tmask", "act_mon", "mon_flag"} <= names
+    with pytest.raises(SC.ScorecardError, match="joint replies"):
+        SC.joint_coverage_set(
+            batch, {"short": {**noisy, "action": noisy["action"][:, :, :3]}}
+        )
+    unlabelled = {k: v for k, v in batch.items() if k != "y_action"}
+    with pytest.raises(SC.ScorecardError, match="labels"):
+        SC.joint_coverage_set(unlabelled, {"noisy": noisy})
+    J.COUNTERS.clear()
+
+
+def test_the_ninth_reply_is_not_in_the_top_eight_of_the_interval_either():
+    """``top_interval`` is counted by its own line of the bootstrap. A truth at
+    rank 8 (the ninth reply) is the case that tells ``< 8`` from ``<= 8``."""
+    batch = coverage_batch()
+    truth = J.true_replies(batch)
+    visible = truth["visible"]
+    told = {name: values[visible] for name, values in truth.items()}
+    masks = SC.features_only(F.take(batch, visible))
+    chosen = None
+    for seed in range(400):
+        rng = np.random.default_rng(seed)
+        noisy = F.uniform_prediction(batch)
+        noisy["action"] = noisy["action"] * rng.random(noisy["action"].shape)
+        noisy["target"] = noisy["target"] * rng.random(noisy["target"].shape)
+        own = {name: value[visible] for name, value in noisy.items()}
+        made = J.joint_replies(own, masks, k=SC.JOINT_K, truth=told)
+        ninth = (made.rank == SC.JOINT_K) & ~told["other"].any(-1)
+        if ninth.any() and made.ties.max() == 0:
+            chosen = (noisy, made, ninth)
+            break
+    assert chosen is not None, "no seed puts a truth at rank 8"
+    noisy, made, ninth = chosen
+    other = told["other"].any(-1)
+    want = float(((made.rank >= 0) & (made.rank < SC.JOINT_K) & ~other).mean())
+    lenient = float(((made.rank >= 0) & (made.rank <= SC.JOINT_K) & ~other).mean())
+    assert lenient == pytest.approx(want + ninth.sum() / len(ninth))
+    found = SC.joint_coverage_set(batch, {"noisy": noisy}, resamples=40, seed=2)
+    row = found["predictors"]["noisy"][SC.JOINT_PLAIN]["slices"][SC.SLICE_ALL]
+    assert row["top"]["8"] == pytest.approx(want)
+    assert row["top_interval"]["value"] == pytest.approx(want)
+    assert row["top_interval"]["value"] < lenient
+    for variant in SC.JOINT_VARIANTS:
+        rows = found["predictors"]["noisy"][variant]["slices"]
+        for label, row in rows.items():
+            if row["examples"]:
+                assert row["top_interval"]["value"] == row["top"]["8"], label
+    J.COUNTERS.clear()
+
+
+def pair_batch() -> tuple[F.Batch, dict[str, np.ndarray], Any]:
+    """Six examples whose two slots' intent classes are set by hand, one
+    prediction for every slot, and the intent class of the two candidates.
+
+    Intents (slot a, slot b): 0 Protect + Protect, 1 Protect + attack on foe a,
+    2 attack a + attack a, 3 attack a + attack b; 4 has one slot on the field
+    and 5 an unknown intent: neither is a row.
+    """
+    protect, foe_a, foe_b = (
+        E.INTENT_CLASSES.index(name)
+        for name in (E.INTENT_PROTECT, E.INTENT_ATTACK_FOE_A, E.INTENT_ATTACK_FOE_B)
+    )
+    batch = blank(6, games=[0, 0, 1, 1, 2, 2])
+    pairs = [(protect, protect), (protect, foe_a), (foe_a, foe_a), (foe_a, foe_b)]
+    for i in range(6):
+        put(batch, i, 0, bench=(2,))
+        if i != 4:
+            put(batch, i, 1, bench=(2,))
+    for i, pair in enumerate(pairs):
+        batch["y_intent"][i] = pair
+    batch["y_intent"][4, 0] = protect
+    batch["y_intent"][5] = (foe_a, -1)
+    # per slot: attack 1/2 (three quarters at foe a), Protect 1/4, OTHER 1/8,
+    # the one switch 1/8
+    pred = F.uniform_prediction(batch)
+    pred["action"][:] = 0.0
+    for index, weight in ((0, 0.5), (1, 0.25), (OTHER, 0.125)):
+        pred["action"][:, :, index] = weight
+    pred["action"][:, :, F.switch_index(2, C)] = 0.125
+    pred["target"][:, :, 0] = 0.0
+    pred["target"][:, :, 0, [F.T_FOE_A, F.T_FOE_B]] = (0.75, 0.25)
+    intent = np.full((32, F.N_TARGET), -1, dtype=np.int64)
+    intent[11, F.T_FOE_A], intent[11, F.T_FOE_B] = foe_a, foe_b  # candidate 0
+    intent[12, :] = protect  # candidate 1
+    return batch, pred, SimpleNamespace(move_intent=intent)
+
+
+def test_pair_dependence_matches_a_hand_calculation():
+    batch, pred, tables = pair_batch()
+    found = SC.pair_dependence(batch, {"flat": pred}, tables)
+    assert found["examples"] == 4
+    assert list(found["events"]) == list(SC.PAIR_EVENTS)
+    both_protect, both_switch, mixed, same, apart, guard_attack = SC.PAIR_EVENTS
+    # Slot a: Protect 2/4, attack a 2/4. Slot b: Protect 1/4, attack a 2/4,
+    # attack b 1/4. Each event happened once in four turns, or never.
+    want = {
+        both_protect: (0.25, 0.5 * 0.25),
+        both_switch: (0.0, 0.0),
+        mixed: (0.0, 0.0),
+        same: (0.25, 0.5 * 0.5),
+        apart: (0.25, 0.5 * 0.25),
+        guard_attack: (0.25, 0.5 * 0.5 + 0.5 * 0.25 + 0.5 * 0.25),
+    }
+    for label, (observed, product) in want.items():
+        row = found["events"][label]
+        assert row["observed"] == pytest.approx(observed), label
+        assert row["product_of_observed_marginals"] == pytest.approx(product), label
+        if product:
+            assert row["ratio"] == pytest.approx(observed / product), label
+        else:
+            assert row["ratio"] is None
+    assert found["events"][both_protect]["ratio"] == pytest.approx(2.0)
+    assert found["events"][guard_attack]["ratio"] == pytest.approx(0.5)
+    # The predictor's own product, the same for every turn: switch 1/8,
+    # Protect 1/4, attack a 3/8, attack b 1/8 per slot.
+    made = found["predictors"]["flat"]
+    products = {
+        both_protect: 0.25 * 0.25,
+        both_switch: 0.125 * 0.125,
+        mixed: 2 * 0.125 * 0.25,
+        same: 0.375**2 + 0.125**2,
+        apart: 2 * 0.375 * 0.125,
+        guard_attack: 2 * 0.25 * (0.375 + 0.125),
+    }
+    for label, product in products.items():
+        assert made[label]["product"] == pytest.approx(product), label
+        assert made[label]["ratio"] == pytest.approx(want[label][0] / product), label
+    assert made[both_protect]["ratio"] == pytest.approx(4.0)  # twice too rare
+    assert made[both_switch]["ratio"] == 0.0
+    # The product is taken turn by turn and then averaged, not the product of
+    # two averages: a predictor that says "Protect" on the turns where both
+    # did (examples 0 and 1 here) and "attack" on the others.
+    sure = {name: value.copy() for name, value in pred.items()}
+    sure["action"][:2, :, 0], sure["action"][:2, :, 1] = 0.25, 0.5
+    turned = SC.pair_dependence(batch, {"sure": sure}, tables)["predictors"]["sure"]
+    assert turned[both_protect]["product"] == pytest.approx(
+        (2 * 0.5 * 0.5 + 2 * 0.25 * 0.25) / 4
+    )
+    assert turned[both_protect]["product"] > ((0.5 + 0.25) / 2) ** 2
+    # a predictor whose intent classes cannot be read is left out, not guessed
+    short = {**pred, "action": pred["action"][:, :, :3]}
+    assert SC.pair_dependence(batch, {"short": short}, tables)["predictors"] == {}
+    F.COUNTERS.clear()
+    # nothing with two known intents: an empty block
+    none = dict(batch, y_intent=np.full_like(batch["y_intent"], -1))
+    assert SC.pair_dependence(none, {"flat": pred}, tables) == {
+        "examples": 0,
+        "events": {},
+        "predictors": {},
+    }
+
+
+def test_the_coverage_section_sizes_the_factorisation_only_with_tables():
+    batch, pred, tables = pair_batch()
+    for i in range(6):  # a visible reply for every slot on the field
+        for slot in range(2):
+            if batch["act_mon"][i, slot] >= 0:
+                label_move(batch, i, slot, 1, target=F.T_AUTO, protect=True)
+    without = SC.joint_coverage_set(batch, {"flat": pred}, resamples=0)
+    assert "dependence" not in without
+    found = SC.joint_coverage_set(batch, {"flat": pred}, resamples=0, tables=tables)
+    assert found["counted"]["examples"] == 6
+    assert found["dependence"] == SC.pair_dependence(batch, {"flat": pred}, tables)
+    assert found["dependence"]["examples"] == 4
+    # everything else of the set is what it is without the tables
+    assert {k: v for k, v in found.items() if k != "dependence"} == without
+    card = {
+        SC.JOINT_KEY: {
+            "ks": list(SC.JOINT_KS),
+            "k": SC.JOINT_K,
+            "variants": SC.JOINT_VARIANT_TEXT,
+            "definitions": SC.JOINT_DEFINITIONS,
+            "sets": {SC.SET_TEST: found},
+        },
+        "order": ["flat"],
+        "set_labels": SC.SET_LABELS,
+    }
+    text = "\n".join(SC.joint_lines(card))
+    assert "What the factorisation loses. The joint above" in text
+    assert "On the 4 counted turns with two acting slots" in text
+    assert "| pair event | happened |" in text
+    assert "| both use a Protect-family move | 25.00% | 12.50% (2.00) |" in text
+    assert "6.25% (4.00)" in text
+    card[SC.JOINT_KEY]["sets"][SC.SET_TEST] = without
+    bare = "\n".join(SC.joint_lines(card))
+    assert "| pair event |" not in bare and "The joint above" not in bare
+    J.COUNTERS.clear()
+
+
+def test_render_only_leaves_an_unchanged_readme_alone(tmp_path, monkeypatch, capsys):
+    """Looking at an old card must not make it look new: --render-only writes
+    the README only when the text it renders differs from the file."""
+    make_card(tmp_path, monkeypatch)
+    readme = tmp_path / SC.CARD_MD
+    text = readme.read_text(encoding="utf-8")
+    old = 1_600_000_000
+    os.utime(readme, (old, old))
+    capsys.readouterr()
+    assert SC.main(["--out", str(tmp_path), "--render-only"]) == 0
+    assert "not rewritten" in capsys.readouterr().out
+    assert readme.stat().st_mtime == old and readme.read_text(encoding="utf-8") == text
+    # a README that differs is rewritten, a missing one is written
+    readme.write_text(text + "stale", encoding="utf-8")
+    os.utime(readme, (old, old))
+    assert SC.main(["--out", str(tmp_path), "--render-only"]) == 0
+    assert "wrote" in capsys.readouterr().out
+    assert readme.read_text(encoding="utf-8") == text and readme.stat().st_mtime > old
+    assert SC.write_if_changed(readme, text) is False
+    assert SC.write_if_changed(tmp_path / "new.md", "x") is True
+    assert (tmp_path / "new.md").read_text(encoding="utf-8") == "x"
+
+
+def _settled(card: dict[str, Any]) -> dict[str, Any]:
+    """A card without what differs between two runs of the same thing."""
+    out = json.loads(json.dumps(card))
+    for key in ("created", "seconds", SC.JOINT_KEY):
+        out.pop(key, None)
+    for found in out["sets"].values():
+        for row in found.get("predictors", {}).values():
+            for key in ("predict_seconds", "microseconds_per_example"):
+                row.get("sanity", {}).pop(key, None)
+    return out
+
+
+def test_the_joint_section_changes_no_other_key_of_the_card(tmp_path, monkeypatch):
+    card = make_card(tmp_path / "with", monkeypatch)
+    bare = make_card(tmp_path / "without", monkeypatch, "--no-joint")
+    assert SC.JOINT_KEY in card and SC.JOINT_KEY not in bare
+    assert set(card) - set(bare) == {SC.JOINT_KEY}
+    assert _settled(card) == _settled(bare)
+    assert card["version"] == bare["version"] == SC.VERSION
+
+    section = card[SC.JOINT_KEY]
+    assert section["ks"] == list(SC.JOINT_KS) and section["k"] == SC.JOINT_K
+    assert list(section["sets"]) == list(SC.JOINT_SETS)
+    assert set(section["variants"]) == set(SC.JOINT_VARIANTS)
+    assert set(section["definitions"]) == set(SC.JOINT_DEFINITIONS)
+    for set_name in SC.JOINT_SETS:
+        found = section["sets"][set_name]
+        # one slot acts in every synthetic example and its action is visible
+        assert found["examples"] == card["sets"][set_name]["examples"]
+        assert found["counted"]["examples"] == found["examples"]
+        assert found["left_out"]["examples"] == 0
+        assert found["resamples"] == card["settings"]["resamples"]
+        assert set(found["predictors"]) == set(card["order"])
+
+    readme = (tmp_path / "with" / SC.CARD_MD).read_text(encoding="utf-8")
+    plain = (tmp_path / "without" / SC.CARD_MD).read_text(encoding="utf-8")
+    assert "## Joint reply coverage" in readme
+    assert "## Joint reply coverage" not in plain
+    for text in (
+        "the model's own factorisation",
+        "not the search session's measure",
+        "OTHER as a hit",
+        "mass of the top 8",
+        "top-8 [95%]",
+        "Left out: 0 (0.0%)",
+        "reply: a move not shown before",
+        "With the Mega bit",
+    ):
+        assert text in readme, text
+    # the section is one block of the README: without it the rest is the
+    # README of the same card without the key (an older card renders as before)
+    block = "\n".join(SC.joint_lines(card)) + "\n"
+    assert block in readme
+    older = {key: value for key, value in card.items() if key != SC.JOINT_KEY}
+    assert SC.render_readme(older) == readme.replace(block, "")
+    assert SC.joint_lines(older) == []
+    assert SC.render_readme(bare) == plain
+
+
 # --- hygiene --------------------------------------------------------------------
 
 
@@ -1402,6 +2021,27 @@ def test_real_tables_through_the_whole_scorecard(tmp_path):
     assert "legacy" not in card["predictors"]
     readme = (tmp_path / SC.CARD_MD).read_text(encoding="utf-8")
     assert "first 400 examples" in readme and "## R3" in readme
+    # joint reply coverage on the real labels and tables
+    assert "## Joint reply coverage" in readme
+    for name in SC.JOINT_SETS:
+        found = card[SC.JOINT_KEY]["sets"][name]
+        counted = found["counted"]["examples"]
+        assert found["examples"] == 400 and 200 < counted < 400
+        assert found["left_out"]["examples"] == 400 - counted
+        assert (
+            found["left_out"]["hidden_action"] + found["left_out"]["target_not_certain"]
+            == 400 - counted
+        )
+        for made in found["predictors"].values():
+            for variant in SC.JOINT_VARIANTS:
+                assert made[variant]["truth_not_possible"] == 0
+                assert made[variant]["no_distribution"] == 0
+                row = made[variant]["slices"][SC.SLICE_ALL]
+                shares = [row["top"][str(k)] for k in SC.JOINT_KS]
+                assert shares == sorted(shares) and 0.05 < shares[-1] <= 1.0
+                assert row["top"]["8"] <= row["top_other_as_hit"]["8"]
+                low, high = row["top_interval"]["low"], row["top_interval"]["high"]
+                assert low <= row["top"]["8"] <= high
 
 
 @pytest.mark.skipif(

@@ -61,9 +61,37 @@ Featurizer.load reads), manifest.json.
                                              2 unknown: what is KNOWN of the
                                              actor's sheet (own games: audit)
 
+--human-fraction F (0 < F <= 1, default 1.0) with --fraction-seed S builds the
+dataset of a random SUBSAMPLE of the human corpus, for a learning curve: a human
+log is kept iff position(S, group) < F, where group is the log's best-of-three
+series marker, else its replay id, and position is the first 53 bits of
+sha256(f"{S}:{group}") as a fraction of 2**53 (``fraction_position``). So a
+series is kept or dropped as a whole, and the corpora of one seed are nested
+(the 25% one is inside the 50% one). NOT crc32, which the splits use modulo 10:
+the feed scraper downloads in ascending crc32(replay id) order
+(``oppmodel_scrape._shuffle_key``), so until the download is complete the feed
+games on disk are the low-crc32 ones, and crc32 of an id behind a fixed prefix
+is that same value XOR a constant. Measured on the 26,847 human battles of
+v2_feed, "crc32(f'{S}:{id}') / 2**32 < 0.5" keeps 93% of the feed games with
+seed 0 and 7% with seed 1 (77.5% and 22.8% of all battles), and 60% of the
+oldest tenth of battles against 90% of the newest: a sample by source and
+upload time, the confound a learning curve is there to remove. The decision is
+made before pass 1 drives or counts the log, from the marker line of the raw
+text alone, so the repertoire, the account-cap weights, the splits, the time
+slice and every count of the manifest are those of the smaller corpus: the
+build of "we only had this much data". The bot's own saved games are always
+kept (the ladder holdout is the same games at every fraction), and a
+human-source copy of one of them is never subsampled either: it takes the path
+it takes at F = 1. With --limit, the fraction is taken of the limited logs. The
+manifest gets a ``human_fraction`` block (fraction, seed, logs offered / kept /
+dropped) and its headline the same numbers; at F = 1 nothing is added and the
+output is byte for byte what it was before the option existed.
+
     nice -n 19 .venv/bin/python datagen/oppmodel_build_dataset.py --tag v1_ondisk
     nice -n 19 .venv/bin/python datagen/oppmodel_build_dataset.py --tag smoke \
         --sources web,own --limit 200
+    nice -n 19 .venv/bin/python datagen/oppmodel_build_dataset.py --tag v2_f25 \
+        --human-fraction 0.25 --fraction-seed 0
 """
 
 import os as _os
@@ -133,6 +161,7 @@ from vgc_bench.src.oppmodel.features import (
 from vgc_bench.src.oppmodel.public_state import (
     RATED_LADDER,
     DriveResult,
+    drive_events,
     drive_log,
     rewrite_event,
 )
@@ -180,6 +209,18 @@ SHARD_SIZE = 50_000
 DROP_EXAMPLES = 5
 
 _OWN_NAME = re.compile(r"^(?P<player>.+?) - battle-(?P<id>[a-z0-9]+-\d+)")
+# A best-of-three game says so on a line of this type; see ``log_group``.
+_SERIES_MARK = "|uhtml|bestof|"
+_SERIES_LINE = re.compile(r"^\|uhtml\|bestof\|.*$", re.MULTILINE)
+FRACTION_HASH = "sha256"
+FRACTION_BITS = 53  # a float holds 53 bits exactly, so a position is never 1.0
+FRACTION_RULE = (
+    "a human log is kept iff position < fraction, position = the first 53 bits "
+    "of sha256(f'{seed}:{group}') / 2**53; group is the log's best-of-three "
+    "series marker, else its replay id; decided from the raw text before pass 1 "
+    "drives or counts the log; the bot's own saved games and human-source copies "
+    "of them are never subsampled"
+)
 _AUDIT_BATTLE = re.compile(r"battle-([a-z0-9]+-\d+)")
 _SHEET_NAMES = {SHEET_CLOSED: "closed", SHEET_OPEN: "open"}
 # ``m_sheet``: what is KNOWN about the game's sheets, whatever the stream showed.
@@ -222,6 +263,46 @@ def cap_weights(battles: Mapping[str, int], cap: int = ACCOUNT_CAP) -> dict[str,
         account: (1.0 if count <= cap else cap / count)
         for account, count in battles.items()
     }
+
+
+def fraction_position(group: str, seed: int = 0) -> float:
+    """Where a group sits in [0, 1): a fixed function of its id and the seed.
+
+    The first 53 bits of ``sha256(f"{seed}:{group}")`` over ``2**53``, which a
+    float holds exactly, so the value is never 1.0. A cryptographic hash and
+    not crc32 on purpose: the feed on disk is itself a selection by crc32 of
+    the replay id (see the module text), and the subsample must not follow it.
+    """
+    digest = hashlib.sha256(f"{seed}:{group}".encode("utf-8")).digest()
+    return (int.from_bytes(digest[:8], "big") >> (64 - FRACTION_BITS)) / float(
+        1 << FRACTION_BITS
+    )
+
+
+def fraction_keeps(group: str, fraction: float, seed: int = 0) -> bool:
+    """Whether a group (a series, or a single battle) is in the subsample.
+
+    ``fraction_position(group, seed) < fraction``: the subsamples of one seed
+    are nested, and ``fraction = 1`` keeps everything.
+    """
+    return fraction_position(group, seed) < fraction
+
+
+def log_group(log: str, battle_id: str) -> str:
+    """The group of a raw log WITHOUT driving it: its series marker, else its id.
+
+    Equal to ``result.series_id or battle_id`` of the driven log, which is
+    ``BattleMeta.group``: the driver reads the marker off ``|uhtml|bestof|``
+    lines and off nothing else, and exactly those lines are handed to the same
+    reader here (the last one wins there, so it does here). A log without such
+    a line, which is every single game, costs one substring search.
+    """
+    if _SERIES_MARK not in log:
+        return battle_id
+    marks = split_log("\n".join(_SERIES_LINE.findall(log)))
+    if not marks:
+        return battle_id
+    return drive_events(marks, battle_id).series_id or battle_id
 
 
 def time_slice_groups(
@@ -330,6 +411,90 @@ class BattleMeta:
             "time_slice": self.time_slice,
             "split": {side: SPLITS[code] for side, code in self.split.items()},
             "weight": {side: round(value, 6) for side, value in self.weight.items()},
+        }
+
+
+@dataclass
+class HumanFraction:
+    """The ``--human-fraction`` subsample: decides, and counts what it decided.
+
+    ``keeps`` is asked once per log of pass 1, before the log is driven or
+    counted. ``own_ids`` are the replay ids of the bot's saved pages: a
+    human-source copy of one is let through untouched, so whether the page
+    then enters the ladder holdout never depends on the fraction.
+    """
+
+    fraction: float = 1.0
+    seed: int = 0
+    own_ids: frozenset[str] = frozenset()
+    kept: Counter[str] = field(default_factory=Counter)
+    dropped: Counter[str] = field(default_factory=Counter)
+    exempt: Counter[str] = field(default_factory=Counter)
+    groups_kept: set[str] = field(default_factory=set)
+    groups_dropped: set[str] = field(default_factory=set)
+    group_mismatch: int = 0
+    mismatch_examples: list[str] = field(default_factory=list)
+    _scanned: dict[str, str] = field(default_factory=dict)
+
+    @property
+    def active(self) -> bool:
+        return self.fraction < 1.0
+
+    def keeps(self, raw: RawBattle) -> bool:
+        if not self.active or raw.own:
+            return True
+        if raw.battle_id in self.own_ids:
+            self.exempt[raw.source] += 1
+            return True
+        group = log_group(raw.log, raw.battle_id)
+        keep = fraction_keeps(group, self.fraction, self.seed)
+        if keep:
+            self.kept[raw.source] += 1
+            self.groups_kept.add(group)
+            self._scanned[raw.battle_id] = group
+        else:
+            self.dropped[raw.source] += 1
+            self.groups_dropped.add(group)
+        return keep
+
+    def check(self, raw: RawBattle, group: str) -> None:
+        """Compare the group of a kept, DRIVEN battle with the one decided on.
+
+        They are equal by construction; a difference would mean a series was
+        subsampled by the wrong id, so it is counted and shown in the manifest.
+        """
+        scanned = self._scanned.get(raw.battle_id)
+        if scanned is not None and scanned != group:
+            self.group_mismatch += 1
+            if len(self.mismatch_examples) < DROP_EXAMPLES:
+                self.mismatch_examples.append(raw.battle_id)
+
+    def summary(self) -> dict[str, Any]:
+        kept, dropped = sum(self.kept.values()), sum(self.dropped.values())
+        exempt = sum(self.exempt.values())
+        return {
+            "fraction": self.fraction,
+            "seed": self.seed,
+            "hash": FRACTION_HASH,
+            "rule": FRACTION_RULE,
+            "logs_offered": kept + dropped + exempt,
+            "logs_kept": kept,
+            "logs_dropped": dropped,
+            "own_game_copies_exempt": exempt,
+            "kept_share": round(kept / (kept + dropped), 6) if kept + dropped else None,
+            "by_source": {
+                source: {
+                    "kept": self.kept[source],
+                    "dropped": self.dropped[source],
+                    "own_game_copies_exempt": self.exempt[source],
+                }
+                for source in SOURCES
+                if self.kept[source] or self.dropped[source] or self.exempt[source]
+            },
+            "groups_kept": len(self.groups_kept),
+            "groups_dropped": len(self.groups_dropped),
+            "group_mismatch": self.group_mismatch,
+            "group_mismatch_examples": list(self.mismatch_examples),
         }
 
 
@@ -771,7 +936,12 @@ class Pass1:
     counters: Counter[str]
 
 
-def run_pass1(corpus: Corpus, bots: set[str], clone_ids: set[str]) -> Pass1:
+def run_pass1(
+    corpus: Corpus,
+    bots: set[str],
+    clone_ids: set[str],
+    fraction: HumanFraction | None = None,
+) -> Pass1:
     out = Pass1(
         [],
         {},
@@ -786,6 +956,10 @@ def run_pass1(corpus: Corpus, bots: set[str], clone_ids: set[str]) -> Pass1:
     )
     seen: set[str] = set()
     for raw in corpus:
+        # The subsample is decided first: a log it leaves out is not read as
+        # far as this build is concerned (not counted, not driven, no id taken).
+        if fraction is not None and not fraction.keeps(raw):
+            continue
         out.read[raw.source] += 1
         if raw.battle_id in seen:
             out.duplicates[raw.source] += 1
@@ -851,6 +1025,8 @@ def run_pass1(corpus: Corpus, bots: set[str], clone_ids: set[str]) -> Pass1:
         )
         out.metas.append(meta)
         out.by_id[meta.battle_id] = meta
+        if fraction is not None:
+            fraction.check(raw, meta.group)
     return out
 
 
@@ -1213,9 +1389,17 @@ def build(
     shard_size: int = SHARD_SIZE,
     account_cap: int = ACCOUNT_CAP,
     overwrite: bool = False,
+    human_fraction: float = 1.0,
+    fraction_seed: int = 0,
     log: Callable[[str], None] = print,
 ) -> dict[str, Any]:
-    """Build the dataset under ``<out_root>/<tag>/`` and return its manifest."""
+    """Build the dataset under ``<out_root>/<tag>/`` and return its manifest.
+
+    ``human_fraction`` below 1 builds the dataset of a random subsample of the
+    human corpus (see the module text); at 1 ``fraction_seed`` has no effect.
+    """
+    if not 0.0 < human_fraction <= 1.0:
+        raise SystemExit(f"--human-fraction must be in (0, 1], got {human_fraction!r}")
     started = time.time()
     signature = dex_signature()
     if not signature.get("dex_available"):
@@ -1230,7 +1414,14 @@ def build(
     corpus = Corpus(root, formats, sources, limit)
     bots = corpus.bot_accounts()
     clone_ids = corpus.clone_corpus_ids()
-    first = run_pass1(corpus, bots, clone_ids)
+    fraction: HumanFraction | None = None
+    if human_fraction < 1.0:
+        fraction = HumanFraction(
+            float(human_fraction),
+            int(fraction_seed),
+            frozenset(battle_id for _, _, battle_id in corpus.own_pages()),
+        )
+    first = run_pass1(corpus, bots, clone_ids, fraction)
     info = assign_splits(first.metas, account_cap)
     repertoire = build_repertoire(first.metas)
     featurizer = Featurizer.build(repertoire, n_cand)
@@ -1242,6 +1433,16 @@ def build(
         f"{sum(first.drops.values()):,} dropped, "
         f"{sum(first.duplicates.values()):,} duplicate ids ({pass1_seconds:.0f}s)"
     )
+    if fraction is not None:
+        chosen = fraction.summary()
+        decided = chosen["logs_kept"] + chosen["logs_dropped"]
+        groups = chosen["groups_kept"] + chosen["groups_dropped"]
+        log(
+            f"human fraction {fraction.fraction:g} (seed {fraction.seed}): kept "
+            f"{chosen['logs_kept']:,} of {decided:,} human logs before pass 1 "
+            f"({chosen['groups_kept']:,} of {groups:,} groups); "
+            f"group mismatches {chosen['group_mismatch']}"
+        )
 
     stats = Stats()
     shards: list[dict[str, Any]] = []
@@ -1422,6 +1623,18 @@ def build(
             "encode": round(encode_seconds, 1),
         },
     }
+    if fraction is not None:
+        # Added only for a subsample: a full build's manifest is unchanged.
+        chosen = fraction.summary()
+        manifest["human_fraction"] = chosen
+        manifest["headline"].update(
+            {
+                "human_fraction": chosen["fraction"],
+                "fraction_seed": chosen["seed"],
+                "human_logs_kept_by_fraction": chosen["logs_kept"],
+                "human_logs_dropped_by_fraction": chosen["logs_dropped"],
+            }
+        )
     (out_dir / "manifest.json").write_text(
         json.dumps(manifest, indent=1), encoding="utf-8"
     )
@@ -1450,6 +1663,19 @@ def main() -> None:
     parser.add_argument(
         "--out-root", default=None, help="default: results_oppmodel/ in the repo"
     )
+    parser.add_argument(
+        "--human-fraction",
+        type=float,
+        default=1.0,
+        help="keep this share of the human corpus, chosen by series / battle id "
+        "(0 < F <= 1; the bot's own games are always kept); for a learning curve",
+    )
+    parser.add_argument(
+        "--fraction-seed",
+        type=int,
+        default=0,
+        help="seed of --human-fraction; one seed gives nested subsamples",
+    )
     args = parser.parse_args()
     manifest = build(
         args.tag,
@@ -1460,6 +1686,8 @@ def main() -> None:
         n_cand=args.n_cand,
         shard_size=args.shard_size,
         overwrite=args.overwrite,
+        human_fraction=args.human_fraction,
+        fraction_seed=args.fraction_seed,
     )
     print(json.dumps(manifest["headline"], indent=1))
     print(json.dumps({"other_rate": manifest["other_rate"]["all"]}, indent=1))

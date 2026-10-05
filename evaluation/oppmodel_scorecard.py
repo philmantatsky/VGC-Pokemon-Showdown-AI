@@ -83,6 +83,28 @@ difference there should be judged by the wider account interval. Slices (sheet
 state, bo1 / bo3, turn 1 / later, the actor's rating band, four active Pokemon
 or fewer) are descriptive, never a gate.
 
+Joint reply coverage (descriptive; ``joint_coverage`` in the card, sets (a) and
+(b); ``--no-joint`` leaves it out). The measure a search asks for: how often
+the reply a player made with BOTH slots is among the K joint replies a
+predictor ranks highest (K = 1, 2, 4, 8, 16, 32), the mean probability on its
+first 8, and the mean log-probability of the true joint reply. The joint is
+built by ``oppmodel.joint`` as the product of the two slots' predictions, the
+model's own factorisation, with what the rules forbid removed and the rest
+renormalised; without the Mega bit (the headline) and with it. Counted are the
+examples where every slot on the field shows its whole action (the move and a
+certain target, or the switch and its destination); an example with a hidden
+action in either slot is left out. A true reply that used a move outside the
+candidates (the OTHER bucket) is counted as NOT covered at every K, and as
+covered through the bucket in a second column. Top-8 has a game-clustered
+interval from a bootstrap of its own; nothing else in the card is touched.
+Next to the three reply classes among hidden sheets the section gives their
+pooled complement, "no move not shown before" (a switch or every move shown):
+with "a move not shown before" it is the two-way split a search session
+reports. ``dependence`` sizes what the product of the two slots loses: for a
+few pair events (both Protect, both switch, both attack the same slot, ...)
+the observed rate on the counted two-slot turns against the product of the
+observed marginal rates and against each predictor's own product.
+
 Outputs: ``<out>/scorecard.json`` (everything) and ``<out>/README.md``, which
 is rendered from the JSON only (``--render-only`` rewrites it). The card's
 ``warnings`` list names anything that weakens the reading (an artifact fitted
@@ -122,8 +144,12 @@ from typing import Any
 import numpy as np
 
 from vgc_bench.src.oppmodel import features as F
+from vgc_bench.src.oppmodel import joint as J
 from vgc_bench.src.oppmodel.artifact import load_predictor
 from vgc_bench.src.oppmodel.events import (
+    INTENT_ATTACK_FOE_A,
+    INTENT_ATTACK_FOE_B,
+    INTENT_CLASSES,
     INTENT_PROTECT,
     INTENT_SWITCH,
     REASON_OVERRIDDEN,
@@ -265,6 +291,127 @@ DEFINITIONS = {
     "sanity": "max_abs_change = largest change normalising makes; floor_hits = "
     "labels whose probability was at or below the floor",
     "slices.games": "games with at least one labelled slot-turn in the slice",
+}
+
+# Joint reply coverage: a section of its own, with its own bootstrap.
+JOINT_KEY = "joint_coverage"
+JOINT_KS: tuple[int, ...] = (1, 2, 4, 8, 16, 32)
+JOINT_K = 8  # the list length a search keeps: the interval and the mass are for it
+JOINT_PLAIN = "without_mega"
+JOINT_MEGA = "with_mega"
+JOINT_VARIANTS: tuple[str, ...] = (JOINT_PLAIN, JOINT_MEGA)
+JOINT_VARIANT_TEXT = {
+    JOINT_PLAIN: {
+        "short": "without the Mega bit",
+        "text": "Without the Mega bit (the headline): a joint reply is the two "
+        "slots' actions.",
+    },
+    JOINT_MEGA: {
+        "short": "with the Mega bit",
+        "text": "With the Mega bit: a joint reply must also name who "
+        "Mega-evolves (nobody, slot a or slot b).",
+    },
+}
+JOINT_SETS: tuple[str, ...] = GATED_SETS
+SLICE_SHEETS: tuple[str, ...] = ("sheet closed", "sheet open", "sheet unknown")
+SLICE_TURNS: tuple[str, ...] = ("turn 1", "turn 2 and later")
+SLOTS_TWO = "slots: two acting"
+SLOTS_ONE = "slots: one acting"
+REPLY_UNSHOWN = "reply: a move not shown before"
+REPLY_SWITCH = "reply: a switch, no move not shown before"
+REPLY_SHOWN = "reply: every move shown or on the sheet"
+REPLY_CLASSES: tuple[str, ...] = (REPLY_UNSHOWN, REPLY_SWITCH, REPLY_SHOWN)
+# The last two classes together: with REPLY_UNSHOWN the two-way split of a
+# search session's hidden-sheet readings (a reply that needs a move nobody has
+# seen, or one that does not).
+REPLY_NO_UNSHOWN = "reply: no move not shown before (a switch, or every move shown)"
+SHEETS_NOT_OPEN = "sheets not open, "
+# Pair events of a turn with two acting slots, as intent classes of (slot a,
+# slot b): what the product of the two slots' predictions gets wrong when the
+# two choices go together. Descriptive.
+_I = {name: index for index, name in enumerate(INTENT_CLASSES)}
+PAIR_EVENTS: dict[str, tuple[tuple[int, int], ...]] = {
+    "both use a Protect-family move": ((_I[INTENT_PROTECT], _I[INTENT_PROTECT]),),
+    "both switch": ((_I[INTENT_SWITCH], _I[INTENT_SWITCH]),),
+    "one switches, the other uses a Protect-family move": (
+        (_I[INTENT_SWITCH], _I[INTENT_PROTECT]),
+        (_I[INTENT_PROTECT], _I[INTENT_SWITCH]),
+    ),
+    "both attack the same opposing slot": (
+        (_I[INTENT_ATTACK_FOE_A], _I[INTENT_ATTACK_FOE_A]),
+        (_I[INTENT_ATTACK_FOE_B], _I[INTENT_ATTACK_FOE_B]),
+    ),
+    "they attack different opposing slots": (
+        (_I[INTENT_ATTACK_FOE_A], _I[INTENT_ATTACK_FOE_B]),
+        (_I[INTENT_ATTACK_FOE_B], _I[INTENT_ATTACK_FOE_A]),
+    ),
+    "one uses a Protect-family move, the other attacks one opposing slot": (
+        (_I[INTENT_PROTECT], _I[INTENT_ATTACK_FOE_A]),
+        (_I[INTENT_PROTECT], _I[INTENT_ATTACK_FOE_B]),
+        (_I[INTENT_ATTACK_FOE_A], _I[INTENT_PROTECT]),
+        (_I[INTENT_ATTACK_FOE_B], _I[INTENT_PROTECT]),
+    ),
+}
+JOINT_DEFINITIONS = {
+    "example": "One example is one player's turn; the reply is what that player "
+    "chose for every Pokemon they had on the field (two slots, or one).",
+    "joint": "The predictors answer for each slot on its own. The probability "
+    "of a joint reply is the product of the two slots' probabilities: this is "
+    "the model's own factorisation, it holds no dependence between the two "
+    "choices. What the rules forbid is removed (both slots switching to the "
+    "same bench Pokemon; with the Mega bit also two Mega Evolutions, a switch "
+    "together with a Mega Evolution, and a Mega Evolution the public state "
+    "rules out) and the rest is renormalised.",
+    "space": "A slot's reply is a candidate move with its target class, a "
+    "switch with its destination, or OTHER: some move outside the candidates, "
+    "as one bucket. OTHER holds a place in the ranking, but a true reply that "
+    "involves OTHER is counted as NOT covered at every K, because nobody can "
+    "play 'some other move'. The column 'OTHER as a hit' counts the bucket "
+    "instead; what a consumer gets lies between the two.",
+    "counted": "Counted are the examples where every slot on the field shows "
+    "its whole action: the move and, where it is aimed, a target that is "
+    "certain, or the switch and its destination. An example with a hidden "
+    "action in either slot is left out. Those are not a random part of the "
+    "turns (a slot that fainted or flinched before it moved), so the numbers "
+    "describe turns where both actions were seen.",
+    "top": "Top-K: share of counted examples whose true reply is among the K "
+    "most probable joint replies. Replies with exactly the same probability "
+    "keep a fixed order (Mega state, slot a, slot b).",
+    "mass": f"Mass of the top {JOINT_K}: the mean probability a predictor puts "
+    f"on its own first {JOINT_K} joint replies.",
+    "log_prob": "Mean log p: the mean natural log of the probability of the "
+    "true joint reply (where the truth is OTHER, of the bucket), floored at "
+    "the card's probability floor.",
+    "interval": f"The bracket after top-{JOINT_K} is a 95% percentile interval "
+    "from resampling whole games.",
+    "slices": "Sheet state is the recorded one; a predictor reads an unknown "
+    "sheet as closed. 'A move not shown before': at least one slot used a "
+    "move that Pokemon had not shown in this battle and that is not on an "
+    "open sheet (a guessed candidate, or OTHER). 'A switch': no such move, "
+    "and at least one slot switched. 'Every move shown or on the sheet': the "
+    "rest. 'Sheets not open' are those three among the examples whose sheet "
+    "is closed or unknown, and 'no move not shown before' is the last two of "
+    "them together.",
+    "dependence": "What the factorisation loses: for pair events of the "
+    "counted turns with two acting slots whose two intent classes are known, "
+    "the observed rate, the product of the two slots' observed marginal rates "
+    "(the data's own dependence: a ratio of 1 would be independence) and each "
+    "predictor's own product (the mean of p_a x p_b over the same turns). The "
+    "counted turns are those where both actions were seen, which hold more "
+    "switches and Protect moves than turn starts do, so part of every ratio "
+    "against a predictor is that selection and not dependence.",
+    "search": "This is not the search session's measure. There the unit is a "
+    "legal Showdown choice string (move, target and Mega in one) inside one "
+    "world whose hidden sets were sampled, and the opponent model is the "
+    "bot's own brain in mirror games. Here it is what human players did, "
+    "over the public action space: a move the predictor did not list is the "
+    "OTHER bucket and can never be covered ('involves OTHER' says how often "
+    "that is), and a move the player does not aim has the one target class "
+    "'auto'. The search session splits its hidden-sheet decisions in two: the "
+    "reply held a move never shown before, or it did not. The rows that "
+    "correspond here are 'sheets not open, a move not shown before' and "
+    "'sheets not open, no move not shown before'; the second pools switches "
+    "with replies whose every move was shown, as theirs does.",
 }
 
 VERDICT_PASS = "passes"
@@ -1175,6 +1322,294 @@ def score_set(
     return out
 
 
+# --- joint reply coverage -------------------------------------------------------
+
+
+def joint_slices(
+    batch: Mapping[str, np.ndarray], truth: Mapping[str, np.ndarray]
+) -> dict[str, np.ndarray]:
+    """Per-example masks of the coverage section; ``all`` first. Descriptive.
+
+    ``truth`` is ``joint.true_replies(batch)``. Four families that each
+    partition the examples: the recorded sheet state, two acting slots or one,
+    turn 1 or later, and the class of the reply (``REPLY_CLASSES``: a move not
+    shown before in either slot; else a switch in either slot; else every
+    slot used a move it had shown or that is on its open sheet). A fifth
+    family holds the same three classes among the examples whose sheet is not
+    open (closed or unknown): a partition of those. One more mask, not part
+    of a partition: sheets not open and no move not shown before
+    (``REPLY_NO_UNSHOWN``, the last two classes pooled).
+    """
+    base = slice_masks(batch)
+    out: dict[str, np.ndarray] = {SLICE_ALL: base[SLICE_ALL]}
+    for name in SLICE_SHEETS:
+        out[name] = base[name]
+    two = np.asarray(truth["active"]).astype(bool).all(-1)
+    out[SLOTS_TWO], out[SLOTS_ONE] = two, ~two
+    for name in SLICE_TURNS:
+        out[name] = base[name]
+    unshown = np.asarray(truth["unshown"]).astype(bool).any(-1)
+    switch = np.asarray(truth["switch"]).astype(bool).any(-1) & ~unshown
+    classes = dict(zip(REPLY_CLASSES, (unshown, switch, ~unshown & ~switch)))
+    out.update(classes)
+    closed = ~base["sheet open"]
+    for name, mask in classes.items():
+        out[SHEETS_NOT_OPEN + name] = closed & mask
+    out[SHEETS_NOT_OPEN + REPLY_NO_UNSHOWN] = closed & ~unshown
+    return out
+
+
+def pair_dependence(
+    batch: Mapping[str, np.ndarray],
+    preds: Mapping[str, Mapping[str, np.ndarray]],
+    tables: F.Tables,
+) -> dict[str, Any]:
+    """How far the two slots' choices are from independent, by pair event.
+
+    ``batch`` holds the counted examples only (with labels); ``preds`` the
+    predictions on the same rows. Rows: two acting slots whose intent classes
+    the labels give. Per event of ``PAIR_EVENTS``: the observed rate, the
+    product of the two slots' observed marginal rates and their ratio (the
+    data's own dependence), and per predictor the mean of its own product
+    over the same rows with the ratio observed / product. Descriptive; a
+    predictor whose intent probabilities cannot be read is left out.
+    """
+    intent = np.asarray(batch["y_intent"]).astype(np.int64)
+    rows = (np.asarray(batch["act_mon"]) >= 0).all(-1) & (intent >= 0).all(-1)
+    count = int(rows.sum())
+    out: dict[str, Any] = {"examples": count, "events": {}, "predictors": {}}
+    if count == 0:
+        return out
+    first, second = intent[rows, 0], intent[rows, 1]
+    width = len(INTENT_CLASSES)
+    rate_a = np.bincount(first, minlength=width)[:width] / count
+    rate_b = np.bincount(second, minlength=width)[:width] / count
+    observed: dict[str, float] = {}
+    for label, pairs in PAIR_EVENTS.items():
+        hit = np.zeros(count, dtype=bool)
+        for a, b in pairs:
+            hit |= (first == a) & (second == b)
+        observed[label] = float(hit.mean())
+        apart = float(sum(rate_a[a] * rate_b[b] for a, b in pairs))
+        out["events"][label] = {
+            "observed": observed[label],
+            "product_of_observed_marginals": apart,
+            "ratio": observed[label] / apart if apart > 0 else None,
+        }
+    part = F.take(batch, rows)
+    for name, pred in preds.items():
+        own = {key: np.asarray(value)[rows] for key, value in pred.items()}
+        probs = F.intent_probs(own, part, tables)
+        if probs is None:
+            continue
+        found: dict[str, Any] = {}
+        for label, pairs in PAIR_EVENTS.items():
+            product = float(
+                sum((probs[:, 0, a] * probs[:, 1, b]).mean() for a, b in pairs)
+            )
+            found[label] = {
+                "product": product,
+                "ratio": observed[label] / product if product > 0 else None,
+            }
+        out["predictors"][name] = found
+    return out
+
+
+def _coverage_row(
+    mask: np.ndarray,
+    rank: np.ndarray,
+    other: np.ndarray,
+    mass: np.ndarray,
+    log_prob: np.ndarray,
+) -> dict[str, Any]:
+    """The plain means of one slice: top-K both ways, mass, log-probability."""
+    size = int(mask.sum())
+    found = rank >= 0
+    row: dict[str, Any] = {"examples": size, "top": {}, "top_other_as_hit": {}}
+    for k in JOINT_KS:
+        inside = found & (rank < k)
+        row["top"][str(k)] = float((inside & ~other)[mask].mean()) if size else None
+        row["top_other_as_hit"][str(k)] = float(inside[mask].mean()) if size else None
+    row["mass_top"] = float(mass[mask].mean()) if size else None
+    row["log_prob"] = float(log_prob[mask].mean()) if size else None
+    return row
+
+
+def joint_coverage_set(
+    batch: Mapping[str, np.ndarray],
+    preds: Mapping[str, Mapping[str, np.ndarray]],
+    *,
+    resamples: int = DEFAULT_RESAMPLES,
+    seed: int = DEFAULT_SEED,
+    floor: float = F.PROBABILITY_FLOOR,
+    tables: F.Tables | None = None,
+) -> dict[str, Any]:
+    """Joint reply coverage of every predictor on one evaluation set.
+
+    ``batch`` carries labels and ``m_battle``; ``preds[name]`` is a predictor's
+    raw prediction on it. The labels decide which examples count and what the
+    true reply was (``joint.true_replies``); a prediction is only ranked
+    (``joint.joint_replies``, on the feature arrays alone). An example whose
+    possible replies carry no probability, or whose true reply is not a
+    possible one, is a miss and is counted under ``no_distribution`` /
+    ``truth_not_possible``. The bootstrap is this function's own: it shares
+    nothing with ``score_set``.
+
+    Per predictor and variant (``JOINT_VARIANTS``) and per slice
+    (``joint_slices``): ``top[K]`` (a true reply that involves OTHER is a
+    miss), ``top_other_as_hit[K]`` (the bucket counts), ``top_interval`` (top
+    ``JOINT_K`` with its 95% interval over resampled games; no interval for a
+    slice inside one game), ``mass_top`` (mean mass of the first ``JOINT_K``
+    replies) and ``log_prob`` (mean log-probability of the true reply, floored).
+    ``left_out`` splits the examples that are not counted into those with a
+    slot that shows no free choice (``hidden_action``: hidden, stopped before
+    acting, or forced) and those where only a target is not certain. With
+    ``tables`` (the featurizer's, for the intent class of a move) the result
+    also holds ``dependence``: ``pair_dependence`` on the counted examples.
+    """
+    truth = J.true_replies(batch)
+    if not truth:
+        raise ScorecardError(
+            f"the labels cannot be read as joint replies ({dict(J.COUNTERS)})"
+        )
+    n = int(np.asarray(batch["action_mask"]).shape[0])
+    active = truth["active"]
+    unknown = active & (truth["reply"] == J.UNKNOWN)
+    hidden = active & (np.asarray(batch["y_action"]).astype(np.int64) < 0)
+    visible = truth["visible"]
+    count = int(visible.sum())
+    part = F.take(batch, visible)
+    # The ranking is given the masks only: no label, no bookkeeping array.
+    masks = features_only(part)
+    told = {name: values[visible] for name, values in truth.items()}
+    other = told["other"].any(-1)
+    slices = {name: mask[visible] for name, mask in joint_slices(batch, truth).items()}
+    sums = GameSums(np.asarray(part["m_battle"]))
+    for label, mask in slices.items():
+        sums.count(("n", label), mask)
+
+    rows: dict[tuple[str, str], dict[str, Any]] = {}
+    for name, pred in preds.items():
+        own = {key: np.asarray(value)[visible] for key, value in pred.items()}
+        for variant in JOINT_VARIANTS:
+            made = J.joint_replies(
+                own, masks, k=JOINT_K, mega=variant == JOINT_MEGA, truth=told
+            )
+            if made.n != count:
+                raise ScorecardError(
+                    f"{name}: the prediction cannot be read as joint replies "
+                    f"({dict(J.COUNTERS)})"
+                )
+            found = made.rank >= 0
+            hit = found & (made.rank < JOINT_K) & ~other
+            log_prob = np.log(np.maximum(made.prob_true, floor))
+            mass = made.mass()
+            for label, mask in slices.items():
+                sums.count(("hit", name, variant, label), hit & mask)
+            rows[(name, variant)] = {
+                "no_distribution": int((~made.ok).sum()),
+                "truth_not_possible": int((made.ok & ~found).sum()),
+                # the truth's place in the first JOINT_K hangs on the order of
+                # replies with exactly its probability
+                "decided_by_a_tie": int(
+                    (
+                        found
+                        & (made.above < JOINT_K)
+                        & (made.above + made.ties >= JOINT_K)
+                    ).sum()
+                ),
+                "replies_possible": float(made.size.mean()) if count else None,
+                "mass_kept": float(made.kept.mean()) if count else None,
+                "slices": {
+                    label: _coverage_row(mask, made.rank, other, mass, log_prob)
+                    for label, mask in slices.items()
+                },
+            }
+    draws = sums.draws(resamples, seed)
+
+    def games_in(label: str) -> int:
+        return int((sums.column(("n", label)) > 0).sum())
+
+    out: dict[str, Any] = {
+        "examples": n,
+        "games": GameSums(np.asarray(batch["m_battle"])).n_games,
+        "slot_turns": {
+            "acting": int(active.sum()),
+            "not_fully_visible": int(unknown.sum()),
+        },
+        "counted": {"examples": count, "games": games_in(SLICE_ALL)},
+        "left_out": {
+            "examples": n - count,
+            "hidden_action": int(hidden.any(-1).sum()),
+            "target_not_certain": int((unknown.any(-1) & ~hidden.any(-1)).sum()),
+        },
+        "truth": {
+            "involves_other": int(other.sum()),
+            "involves_switch": int(told["switch"].any(-1).sum()),
+            "mega": int(np.isin(told["mega"], (J.MEGA_A, J.MEGA_B)).sum()),
+            "mega_not_known": int((told["mega"] == J.UNKNOWN).sum()),
+        },
+        "slices": {
+            label: {
+                "examples": int(mask.sum()),
+                "games": games_in(label),
+                "involves_other": int((mask & other).sum()),
+            }
+            for label, mask in slices.items()
+        },
+        "resamples": draws.resamples,
+        "predictors": {},
+    }
+    for (name, variant), row in rows.items():
+        for label in slices:
+            found = draws.ratio(("hit", name, variant, label), ("n", label))
+            if games_in(label) < 2:  # one game resampled is that game again
+                found["low"] = found["high"] = None
+            row["slices"][label]["top_interval"] = found
+        out["predictors"].setdefault(name, {})[variant] = row
+    if tables is not None:
+        counted = {
+            name: {key: np.asarray(value)[visible] for key, value in pred.items()}
+            for name, pred in preds.items()
+        }
+        out["dependence"] = pair_dependence(part, counted, tables)
+    return out
+
+
+def joint_coverage(
+    batches: Mapping[str, Mapping[str, np.ndarray]],
+    preds: Mapping[str, Mapping[str, Mapping[str, np.ndarray]]],
+    *,
+    resamples: int = DEFAULT_RESAMPLES,
+    seed: int = DEFAULT_SEED,
+    log: Log = say,
+    tables: F.Tables | None = None,
+) -> dict[str, Any]:
+    """The card's ``joint_coverage`` section: ``joint_coverage_set`` per set."""
+    out: dict[str, Any] = {
+        "ks": list(JOINT_KS),
+        "k": JOINT_K,
+        "variants": {key: dict(text) for key, text in JOINT_VARIANT_TEXT.items()},
+        "definitions": dict(JOINT_DEFINITIONS),
+        "sets": {},
+    }
+    for set_name, batch in batches.items():
+        if len(batch["turn"]) == 0:
+            out["sets"][set_name] = {"examples": 0, "games": 0, "predictors": {}}
+            continue
+        started = time.perf_counter()
+        found = joint_coverage_set(
+            batch, preds[set_name], resamples=resamples, seed=seed, tables=tables
+        )
+        out["sets"][set_name] = found
+        log(
+            f"joint reply coverage on {set_name}: {found['counted']['examples']} of "
+            f"{found['examples']} examples counted, "
+            f"{time.perf_counter() - started:.1f} s"
+        )
+    return out
+
+
 # --- loading --------------------------------------------------------------------
 
 
@@ -1783,6 +2218,17 @@ def _run(args: argparse.Namespace, out: Path, log: Log) -> dict[str, Any]:
         info["counters"] = dict(getattr(entry.predictor, "counters", {}) or {})
         card["predictors"][entry.name] = info
     _verdicts(card, entries, pair)
+    if not getattr(args, "no_joint", False):
+        # A section of its own: it reads the predictions and the labels, and
+        # changes no other key of the card.
+        card[JOINT_KEY] = joint_coverage(
+            {name: base[name] for name in JOINT_SETS},
+            {name: preds[name] for name in JOINT_SETS},
+            resamples=args.resamples,
+            seed=args.seed,
+            log=log,
+            tables=featurizer.tables,
+        )
     card["warnings"] = warnings_of(card)
     card["seconds"] = round(time.time() - started, 1)
 
@@ -1888,6 +2334,202 @@ def r2_lines(card: Mapping[str, Any]) -> list[str]:
             + ", ".join(r2["does_not_read_elo"])
             + "."
         )
+    return lines
+
+
+def _share(found: Mapping[str, Any] | None) -> str:
+    """``value [low, high]`` of a ratio, as percentages."""
+    if not found or found.get("value") is None:
+        return "-"
+    if found.get("low") is None or found.get("high") is None:
+        return _percent(found["value"])
+    return (
+        f"{_percent(found['value'])} [{_percent(found['low'])}, "
+        f"{_percent(found['high'])}]"
+    )
+
+
+def _of(count: Any, total: Any) -> str:
+    """``count (share of total)``."""
+    if not total:
+        return f"{int(count or 0):,}"
+    return f"{int(count or 0):,} ({_percent(int(count or 0) / int(total))})"
+
+
+def joint_lines(card: Mapping[str, Any]) -> list[str]:
+    """The "Joint reply coverage" section; nothing for a card without it."""
+    section = card.get(JOINT_KEY)
+    if not section:
+        return []
+    order = list(card["order"])
+    ks = [str(k) for k in section["ks"]]
+    main = str(section["k"])
+    lines = ["## Joint reply coverage", ""]
+    lines += [
+        "How often the reply a player made with both slots is among the joint "
+        "replies a predictor ranks highest. Descriptive: nothing here is a gate.",
+        "",
+        *(f"- {text}" for text in section["definitions"].values()),
+        "",
+    ]
+    for set_name, found in section["sets"].items():
+        lines += [f"### {card['set_labels'].get(set_name, set_name)}", ""]
+        if not found.get("examples"):
+            lines += ["No examples.", ""]
+            continue
+        counted, left, told = found["counted"], found["left_out"], found["truth"]
+        slots = found["slot_turns"]
+        lines += [
+            f"Counted: {_of(counted['examples'], found['examples'])} of "
+            f"{found['examples']:,} examples, in {counted['games']:,} of "
+            f"{found['games']:,} games. Left out: "
+            f"{_of(left['examples'], found['examples'])}; "
+            f"{left['hidden_action']:,} with a slot that shows no free choice "
+            "(hidden, stopped before it acted, or forced) and "
+            f"{left['target_not_certain']:,} more with a move whose target is not "
+            "certain. Per slot-turn, "
+            f"{_of(slots['not_fully_visible'], slots['acting'])} of "
+            f"{slots['acting']:,} are not fully visible. Among the counted "
+            "examples the true reply involves OTHER in "
+            f"{_of(told['involves_other'], counted['examples'])}, a switch in "
+            f"{_of(told['involves_switch'], counted['examples'])} and a Mega "
+            f"Evolution in {_of(told['mega'], counted['examples'])}.",
+            "",
+        ]
+        notes: list[list[Any]] = []
+        for variant, wording in section["variants"].items():
+            rows = []
+            for name in order:
+                made = (found["predictors"].get(name) or {}).get(variant)
+                if not made:
+                    continue
+                row = made["slices"][SLICE_ALL]
+                rows.append(
+                    [name]
+                    + [
+                        _share(row["top_interval"])
+                        if k == main
+                        else _percent(row["top"][k])
+                        for k in ks
+                    ]
+                    + [
+                        _percent(row["top_other_as_hit"][main]),
+                        _percent(row["mass_top"]),
+                        _number(row["log_prob"], 3),
+                    ]
+                )
+                odd = [
+                    int(made.get(key) or 0)
+                    for key in (
+                        "no_distribution",
+                        "truth_not_possible",
+                        "decided_by_a_tie",
+                    )
+                ]
+                if any(odd):
+                    notes.append(
+                        [name, wording["short"], *(f"{value:,}" for value in odd)]
+                    )
+            lines += [wording["text"], ""]
+            lines += _table(
+                ["predictor"]
+                + [f"top-{k} [95%]" if k == main else f"top-{k}" for k in ks]
+                + [
+                    f"top-{main}, OTHER as a hit",
+                    f"mass of the top {main}",
+                    "mean log p",
+                ],
+                rows,
+            )
+        if notes:
+            lines += [
+                "Examples counted as misses because the predictor gave no "
+                "probability to any possible reply, or because the true reply is "
+                "not a possible one; and examples whose place inside or outside "
+                f"the top {main} hangs on the fixed order of replies with exactly "
+                "the same probability (predictors without a row have none):",
+                "",
+            ]
+            lines += _table(
+                [
+                    "predictor",
+                    "joint",
+                    "no probability",
+                    "truth not possible",
+                    f"a tie decides top-{main}",
+                ],
+                notes,
+            )
+        lines += [
+            f"Top-{main} by slice, without the Mega bit [95%] (thin slices are "
+            f"noise; the other K, the Mega bit and the mass are in `{CARD_JSON}`):",
+            "",
+        ]
+        rows = []
+        for label, size in found["slices"].items():
+            if not size["examples"]:
+                continue
+            cells = []
+            for name in order:
+                made = (found["predictors"].get(name) or {}).get(JOINT_PLAIN) or {}
+                row = (made.get("slices") or {}).get(label) or {}
+                cells.append(_share(row.get("top_interval")))
+            rows.append(
+                [
+                    label,
+                    f"{size['examples']:,}",
+                    f"{size['games']:,}",
+                    _percent(size["involves_other"] / size["examples"]),
+                    *cells,
+                ]
+            )
+        lines += _table(["slice", "examples", "games", "involves OTHER", *order], rows)
+        depends = found.get("dependence") or {}
+        if depends.get("events"):
+            lines += [
+                "What the factorisation loses. The joint above is the product of "
+                "the two slots' predictions, so it holds none of the dependence "
+                f"between them. On the {depends['examples']:,} counted turns with "
+                "two acting slots: how often each pair event happened, against "
+                "the product of the two slots' observed marginal rates (1.00 "
+                "would be independence in the data) and against each "
+                "predictor's own product (above 1: the predictor's joint puts "
+                "too little on the event). The counted turns hold more switches "
+                "and Protect moves than turn starts do, so a ratio against a "
+                "predictor is partly that selection.",
+                "",
+            ]
+            rows = []
+            for label, row in depends["events"].items():
+                cells = []
+                for name in order:
+                    made = ((depends.get("predictors") or {}).get(name) or {}).get(
+                        label
+                    ) or {}
+                    cells.append(
+                        f"{_percent(made.get('product'), 2)} "
+                        f"({_number(made.get('ratio'), 2)})"
+                        if made
+                        else "-"
+                    )
+                rows.append(
+                    [
+                        label,
+                        _percent(row.get("observed"), 2),
+                        f"{_percent(row.get('product_of_observed_marginals'), 2)} "
+                        f"({_number(row.get('ratio'), 2)})",
+                        *cells,
+                    ]
+                )
+            lines += _table(
+                [
+                    "pair event",
+                    "happened",
+                    "product of the observed marginals (ratio)",
+                    *(f"{name}: its product (ratio)" for name in order),
+                ],
+                rows,
+            )
     return lines
 
 
@@ -2336,6 +2978,7 @@ def render_readme(card: Mapping[str, Any]) -> str:
             ]
         lines += _table(header, rows)
 
+    lines += joint_lines(card)
     lines += [
         "## Sanity of the predictions",
         "",
@@ -2525,6 +3168,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--note", default=None, help="a line printed at the top of the README"
     )
     parser.add_argument(
+        "--no-joint",
+        action="store_true",
+        help="leave the joint reply coverage section out",
+    )
+    parser.add_argument(
         "--render-only",
         action="store_true",
         help=f"rewrite {CARD_MD} from an existing {CARD_JSON}",
@@ -2537,18 +3185,38 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def write_if_changed(path: Path, text: str) -> bool:
+    """Write ``text`` to ``path`` unless the file already holds exactly it.
+
+    Returns whether it wrote. Re-rendering a report whose text is already on
+    disk then leaves the file alone, modification time included: a look at an
+    old scorecard does not make it look like a new one.
+    """
+    try:
+        if path.is_file() and path.read_text(encoding="utf-8") == text:
+            return False
+    except (OSError, UnicodeDecodeError):
+        pass
+    path.write_text(text, encoding="utf-8")
+    return True
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     out = Path(args.out)
     if args.render_only:
         try:
             card = json.loads((out / CARD_JSON).read_text(encoding="utf-8"))
-            (out / CARD_MD).write_text(render_readme(card), encoding="utf-8")
+            wrote = write_if_changed(out / CARD_MD, render_readme(card))
         except Exception as exc:
             reason = " ".join(f"{type(exc).__name__}: {exc}".split())
             say(f"SCORECARD_FAILED cannot render {out / CARD_JSON}: {reason}")
             return 1
-        say(f"wrote {out / CARD_MD}")
+        say(
+            f"wrote {out / CARD_MD}"
+            if wrote
+            else f"{out / CARD_MD} is already what the JSON renders to: not rewritten"
+        )
         return 0
     try:
         card = run(args)
