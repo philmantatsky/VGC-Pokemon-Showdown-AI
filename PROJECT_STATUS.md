@@ -92,7 +92,7 @@
   estimated in the forme it came in with. **Confirmed, and wider than reported:**
   - open sheets too (`_update_from_teambuilder` + `impute_stats` freeze the same line), and
     every forme change, not only Megas (Palafin-Hero: 11 ladder turns; Aegislash);
-  - Mega Blastoise Special Attack 137 for 187, Mega Charizard Y 161 for 211, Mega Raichu Y 142
+  - Mega Blastoise Special Attack 137 for 187, Mega Charizard Y 161 for 211, Mega Raichu Y 110
     for 212, Mega Charizard X Attack 104 for 182, Mega Gengar Speed 132 for 152;
   - `stats_were_synthesized` reads False for such a line; our own side is fine (the server's
     request carries the Mega's stats);
@@ -186,8 +186,8 @@
     (poke-env writes the sheet's numbers, `ensure_stats` tops them up and keeps each stat's
     multiplier: the opposing Blastoise reads Special Attack 150, Speed 90), so it never was
     "exactly the neutral estimate" and was not recognised. Fixed: the recognition recovers the
-    nature from the stale line and the replacement keeps it (Mega Blastoise 205 / 90, its real
-    numbers); three more tests, one on the live line. The probe after the fix: open 103
+    nature from the stale line and the replacement keeps it (Mega Blastoise 205 / 90; the real
+    ones are 205 / 88); three more tests, one on the live line. The probe after the fix: open 103
     corrections and 3 changed picks, hidden 128 and 6. Hidden-sheet lines are untouched by this
     -- the ladder audit's summary is identical, and so are tonight's two hidden-sheet blocks --
     but tonight's two open-sheet blocks compared the bot with itself. **The gate's mirror is
@@ -225,7 +225,11 @@
 - **What this leaves open (the user's call):** the larger half is the brain's own view of an
   opposing Mega's damage, which this entry does not touch. Options: (a) guards only (this
   entry, after its gates); (b) the observation as well, which needs a fine-tune on the
-  corrected inputs and its own ablation on the deployed brain first; (c) nothing.
+  corrected inputs and its own ablation on the deployed brain first; (c) nothing. A cheap
+  first reading for (b), not built: the deployed brain with the two blocks computed on the
+  right lines and nothing retrained, mirror and battery against itself (an opt-in switch around
+  the observation, about an hour of code, two hours of machine). If that does not lose, (b)
+  needs no fine-tune; if it loses, the fine-tune is the price.
 - **Second lead, checked: where a reranker runs without sticky corrections.** The mechanism
   is as reported (`opponent_reranker.rerank_candidates`: with any evidence it re-sorts the
   eligible pairs by log policy ratio plus utilities, so a pair a guard promoted starts behind
