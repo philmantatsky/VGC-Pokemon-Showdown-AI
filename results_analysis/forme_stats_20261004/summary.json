@@ -1,0 +1,609 @@
+{
+ "games": 404,
+ "turns": 2620,
+ "exposure": {
+  "games_with_a_stale_foe_on_the_field": 286,
+  "share_of_games": 0.7079207920792079,
+  "turns_with_a_stale_foe_on_the_field": 904,
+  "share_of_turns": 0.3450381679389313,
+  "by_species": {
+   "salamencemega": {
+    "turns": 110,
+    "games": 32
+   },
+   "garchompmega": {
+    "turns": 91,
+    "games": 21
+   },
+   "gardevoirmega": {
+    "turns": 90,
+    "games": 30
+   },
+   "raichumegay": {
+    "turns": 88,
+    "games": 29
+   },
+   "tyranitarmega": {
+    "turns": 78,
+    "games": 21
+   },
+   "charizardmegay": {
+    "turns": 46,
+    "games": 13
+   },
+   "gengarmega": {
+    "turns": 35,
+    "games": 13
+   },
+   "golisopodmega": {
+    "turns": 27,
+    "games": 11
+   },
+   "baxcaliburmega": {
+    "turns": 26,
+    "games": 8
+   },
+   "floettemega": {
+    "turns": 25,
+    "games": 6
+   },
+   "metagrossmega": {
+    "turns": 24,
+    "games": 7
+   },
+   "swampertmega": {
+    "turns": 22,
+    "games": 5
+   },
+   "meowsticfmega": {
+    "turns": 18,
+    "games": 4
+   },
+   "blastoisemega": {
+    "turns": 17,
+    "games": 4
+   },
+   "dragonitemega": {
+    "turns": 16,
+    "games": 7
+   },
+   "alakazammega": {
+    "turns": 16,
+    "games": 5
+   },
+   "staraptormega": {
+    "turns": 16,
+    "games": 6
+   },
+   "aerodactylmega": {
+    "turns": 16,
+    "games": 7
+   },
+   "sableyemega": {
+    "turns": 13,
+    "games": 1
+   },
+   "delphoxmega": {
+    "turns": 12,
+    "games": 4
+   },
+   "lucariomega": {
+    "turns": 12,
+    "games": 7
+   },
+   "palafinhero": {
+    "turns": 11,
+    "games": 3
+   },
+   "cameruptmega": {
+    "turns": 10,
+    "games": 6
+   },
+   "blazikenmega": {
+    "turns": 10,
+    "games": 2
+   },
+   "froslassmega": {
+    "turns": 10,
+    "games": 4
+   },
+   "aggronmega": {
+    "turns": 8,
+    "games": 2
+   },
+   "pyroarmega": {
+    "turns": 7,
+    "games": 2
+   },
+   "absolmega": {
+    "turns": 7,
+    "games": 5
+   },
+   "glimmoramega": {
+    "turns": 6,
+    "games": 2
+   },
+   "ampharosmega": {
+    "turns": 6,
+    "games": 1
+   },
+   "gallademega": {
+    "turns": 6,
+    "games": 1
+   },
+   "eelektrossmega": {
+    "turns": 5,
+    "games": 2
+   },
+   "chesnaughtmega": {
+    "turns": 4,
+    "games": 1
+   },
+   "raichumegax": {
+    "turns": 3,
+    "games": 3
+   },
+   "dragalgemega": {
+    "turns": 2,
+    "games": 1
+   },
+   "emboarmega": {
+    "turns": 2,
+    "games": 1
+   },
+   "clefablemega": {
+    "turns": 2,
+    "games": 1
+   },
+   "chimechomega": {
+    "turns": 2,
+    "games": 1
+   },
+   "drampamega": {
+    "turns": 1,
+    "games": 1
+   },
+   "falinksmega": {
+    "turns": 1,
+    "games": 1
+   },
+   "lopunnymega": {
+    "turns": 1,
+    "games": 1
+   },
+   "skarmorymega": {
+    "turns": 1,
+    "games": 1
+   },
+   "feraligatrmega": {
+    "turns": 1,
+    "games": 1
+   },
+   "pidgeotmega": {
+    "turns": 1,
+    "games": 1
+   },
+   "mawilemega": {
+    "turns": 1,
+    "games": 1
+   },
+   "abomasnowmega": {
+    "turns": 1,
+    "games": 1
+   }
+  }
+ },
+ "accuracy": {
+  "by_foe": {
+   "stale_foe_stored_line": {
+    "hits": 155,
+    "median_real_over_predicted": 1.271186440677966,
+    "mean_abs_log_error": 0.29081154919032787,
+    "inside_range": 0.13548387096774195,
+    "real_below_range": 0.04516129032258064,
+    "real_above_range": 0.8193548387096774
+   },
+   "stale_foe_right_line": {
+    "hits": 155,
+    "median_real_over_predicted": 1.0066225165562914,
+    "mean_abs_log_error": 0.13722663704642463,
+    "inside_range": 0.49032258064516127,
+    "real_below_range": 0.1870967741935484,
+    "real_above_range": 0.3225806451612903
+   },
+   "right_line_closer": 0.864516129032258,
+   "control_foe_not_stale": {
+    "hits": 456,
+    "median_real_over_predicted": 1.0102136529442418,
+    "mean_abs_log_error": 0.15994198288356673,
+    "inside_range": 0.44956140350877194,
+    "real_below_range": 0.29605263157894735,
+    "real_above_range": 0.2543859649122807
+   }
+  },
+  "into_foe": {
+   "stale_foe_stored_line": {
+    "hits": 132,
+    "median_real_over_predicted": 0.9138431677018635,
+    "mean_abs_log_error": 0.2166830642818925,
+    "inside_range": 0.48484848484848486,
+    "real_below_range": 0.4090909090909091,
+    "real_above_range": 0.10606060606060606
+   },
+   "stale_foe_right_line": {
+    "hits": 132,
+    "median_real_over_predicted": 1.057502826683896,
+    "mean_abs_log_error": 0.16700879683678893,
+    "inside_range": 0.5606060606060606,
+    "real_below_range": 0.17424242424242425,
+    "real_above_range": 0.26515151515151514
+   },
+   "right_line_closer": 0.5,
+   "control_foe_not_stale": {
+    "hits": 484,
+    "median_real_over_predicted": 0.9733720527045769,
+    "mean_abs_log_error": 0.16820447973973313,
+    "inside_range": 0.5247933884297521,
+    "real_below_range": 0.2644628099173554,
+    "real_above_range": 0.21074380165289255
+   }
+  }
+ },
+ "decisions": {
+  "records": {
+   "ok": 2641,
+   "one_candidate": 1,
+   "decode_mismatch": 4
+  },
+  "replayed_guard_stage_equals_logged": {
+   "all": 0.9916698220371072,
+   "where_a_guard_fired_live": 0.9748743718592965,
+   "decisions": 2641
+  },
+  "marker_disagreements": 0,
+  "deployed_extras": [
+   "resisted_target",
+   "overkill_split",
+   "dominated_weather_ball_weather",
+   "dominated_attack",
+   "dominated_throat_chop",
+   "dominated_spread",
+   "focus_boosted",
+   "wide_guard",
+   "drop_free_finish",
+   "fake_out_partner_acts",
+   "switch_the_crippled",
+   "threat_first2",
+   "wasted_fake_out",
+   "throat_chop_main_threat"
+  ],
+  "all_directories": {
+   "move_decisions": 2641,
+   "games": 404,
+   "exposed": 917,
+   "exposed_share": 0.3472169632714881,
+   "guard_pick_changed": 36,
+   "guard_pick_changed_share_of_all": 0.013631200302915562,
+   "guard_pick_changed_share_of_exposed": 0.03925845147219193,
+   "guard_pick_changed_per_game": 0.0891089108910891,
+   "final_pick_changed_after_reranker_and_sticky": 36,
+   "reranker_would_also_move_if_it_used_the_right_lines": 0,
+   "stages_that_differ_on_changed_picks": {
+    "guaranteed_ko": 10,
+    "dominated_spread": 9,
+    "dominated_attack": 6,
+    "threat_first2": 4,
+    "dominated_throat_chop": 4,
+    "drop_free_finish": 2,
+    "resisted_target": 1,
+    "focus_boosted": 1
+   },
+   "each_guard_alone_verdict_moved": {
+    "dominated_spread": 10,
+    "guaranteed_ko": 8,
+    "dominated_attack": 7,
+    "threat_first2": 5,
+    "dominated_throat_chop": 5,
+    "throat_chop_main_threat": 5,
+    "focus_boosted": 2,
+    "drop_free_finish": 2,
+    "resisted_target": 1
+   },
+   "each_guard_alone_top_moved": {
+    "dominated_spread": 10,
+    "guaranteed_ko": 8,
+    "dominated_attack": 7,
+    "threat_first2": 5,
+    "dominated_throat_chop": 5,
+    "throat_chop_main_threat": 5,
+    "focus_boosted": 2,
+    "drop_free_finish": 2,
+    "resisted_target": 1
+   },
+   "our_pokemon_knocked_out_that_turn": {
+    "can_be_koed": {
+     "stored no, right no": {
+      "pokemon": 835,
+      "fainted": 97,
+      "rate": 0.11616766467065869
+     },
+     "stored no, right yes": {
+      "pokemon": 85,
+      "fainted": 17,
+      "rate": 0.2
+     },
+     "stored yes, right yes": {
+      "pokemon": 721,
+      "fainted": 315,
+      "rate": 0.4368932038834951
+     }
+    },
+    "expected_ko": {
+     "stored no, right no": {
+      "pokemon": 1099,
+      "fainted": 169,
+      "rate": 0.1537761601455869
+     },
+     "stored no, right yes": {
+      "pokemon": 76,
+      "fainted": 24,
+      "rate": 0.3157894736842105
+     },
+     "stored yes, right no": {
+      "pokemon": 1,
+      "fainted": 0,
+      "rate": 0.0
+     },
+     "stored yes, right yes": {
+      "pokemon": 465,
+      "fainted": 236,
+      "rate": 0.5075268817204301
+     }
+    }
+   },
+   "stale_foe_knocked_out_that_turn_by_minimum_roll_claim": {
+    "stored KO, right KO": {
+     "foes": 333,
+     "fainted": 105,
+     "rate": 0.3153153153153153
+    },
+    "stored KO, right no KO": {
+     "foes": 46,
+     "fainted": 10,
+     "rate": 0.21739130434782608
+    },
+    "stored no KO, right no KO": {
+     "foes": 385,
+     "fainted": 24,
+     "rate": 0.06233766233766234
+    }
+   },
+   "observation_if_recomputed": {
+    "decisions": 917,
+    "any_float_moved": 0.9803707742639041,
+    "any_flag_flipped": 0.42639040348964014,
+    "mean_floats_moved": 8.306434023991276,
+    "mean_floats_in_the_blocks": 73.66630316248637,
+    "mean_flag_flips": 0.7589967284623773,
+    "mean_largest_move": 0.4906501841031608
+   }
+  },
+  "t6_family_directories": {
+   "move_decisions": 2235,
+   "games": 328,
+   "exposed": 789,
+   "exposed_share": 0.3530201342281879,
+   "guard_pick_changed": 31,
+   "guard_pick_changed_share_of_all": 0.013870246085011185,
+   "guard_pick_changed_share_of_exposed": 0.03929024081115336,
+   "guard_pick_changed_per_game": 0.09451219512195122,
+   "final_pick_changed_after_reranker_and_sticky": 31,
+   "reranker_would_also_move_if_it_used_the_right_lines": 0,
+   "stages_that_differ_on_changed_picks": {
+    "guaranteed_ko": 9,
+    "dominated_spread": 9,
+    "dominated_attack": 5,
+    "dominated_throat_chop": 4,
+    "drop_free_finish": 2,
+    "resisted_target": 1,
+    "focus_boosted": 1,
+    "threat_first2": 1
+   },
+   "each_guard_alone_verdict_moved": {
+    "dominated_spread": 10,
+    "guaranteed_ko": 7,
+    "dominated_attack": 6,
+    "dominated_throat_chop": 5,
+    "throat_chop_main_threat": 5,
+    "threat_first2": 2,
+    "focus_boosted": 2,
+    "drop_free_finish": 2,
+    "resisted_target": 1
+   },
+   "each_guard_alone_top_moved": {
+    "dominated_spread": 10,
+    "guaranteed_ko": 7,
+    "dominated_attack": 6,
+    "dominated_throat_chop": 5,
+    "throat_chop_main_threat": 5,
+    "threat_first2": 2,
+    "focus_boosted": 2,
+    "drop_free_finish": 2,
+    "resisted_target": 1
+   },
+   "our_pokemon_knocked_out_that_turn": {
+    "can_be_koed": {
+     "stored no, right no": {
+      "pokemon": 703,
+      "fainted": 74,
+      "rate": 0.10526315789473684
+     },
+     "stored no, right yes": {
+      "pokemon": 79,
+      "fainted": 16,
+      "rate": 0.20253164556962025
+     },
+     "stored yes, right yes": {
+      "pokemon": 635,
+      "fainted": 272,
+      "rate": 0.4283464566929134
+     }
+    },
+    "expected_ko": {
+     "stored no, right no": {
+      "pokemon": 938,
+      "fainted": 134,
+      "rate": 0.14285714285714285
+     },
+     "stored no, right yes": {
+      "pokemon": 65,
+      "fainted": 18,
+      "rate": 0.27692307692307694
+     },
+     "stored yes, right no": {
+      "pokemon": 1,
+      "fainted": 0,
+      "rate": 0.0
+     },
+     "stored yes, right yes": {
+      "pokemon": 413,
+      "fainted": 210,
+      "rate": 0.5084745762711864
+     }
+    }
+   },
+   "stale_foe_knocked_out_that_turn_by_minimum_roll_claim": {
+    "stored KO, right KO": {
+     "foes": 292,
+     "fainted": 89,
+     "rate": 0.3047945205479452
+    },
+    "stored KO, right no KO": {
+     "foes": 37,
+     "fainted": 7,
+     "rate": 0.1891891891891892
+    },
+    "stored no KO, right no KO": {
+     "foes": 332,
+     "fainted": 21,
+     "rate": 0.06325301204819277
+    }
+   },
+   "observation_if_recomputed": {
+    "decisions": 789,
+    "any_float_moved": 0.9771863117870723,
+    "any_flag_flipped": 0.40811153358681873,
+    "mean_floats_moved": 8.20532319391635,
+    "mean_floats_in_the_blocks": 74.00760456273764,
+    "mean_flag_flips": 0.6552598225602028,
+    "mean_largest_move": 0.47169768623299474
+   }
+  },
+  "todays_team_t6e_directories": {
+   "move_decisions": 95,
+   "games": 15,
+   "exposed": 45,
+   "exposed_share": 0.47368421052631576,
+   "guard_pick_changed": 1,
+   "guard_pick_changed_share_of_all": 0.010526315789473684,
+   "guard_pick_changed_share_of_exposed": 0.022222222222222223,
+   "guard_pick_changed_per_game": 0.06666666666666667,
+   "final_pick_changed_after_reranker_and_sticky": 1,
+   "reranker_would_also_move_if_it_used_the_right_lines": 0,
+   "stages_that_differ_on_changed_picks": {
+    "dominated_spread": 1
+   },
+   "each_guard_alone_verdict_moved": {
+    "dominated_spread": 1
+   },
+   "each_guard_alone_top_moved": {
+    "dominated_spread": 1
+   },
+   "our_pokemon_knocked_out_that_turn": {
+    "can_be_koed": {
+     "stored no, right no": {
+      "pokemon": 41,
+      "fainted": 5,
+      "rate": 0.12195121951219512
+     },
+     "stored no, right yes": {
+      "pokemon": 10,
+      "fainted": 3,
+      "rate": 0.3
+     },
+     "stored yes, right yes": {
+      "pokemon": 31,
+      "fainted": 10,
+      "rate": 0.3225806451612903
+     }
+    },
+    "expected_ko": {
+     "stored no, right no": {
+      "pokemon": 58,
+      "fainted": 7,
+      "rate": 0.1206896551724138
+     },
+     "stored no, right yes": {
+      "pokemon": 6,
+      "fainted": 5,
+      "rate": 0.8333333333333334
+     },
+     "stored yes, right yes": {
+      "pokemon": 18,
+      "fainted": 6,
+      "rate": 0.3333333333333333
+     }
+    }
+   },
+   "stale_foe_knocked_out_that_turn_by_minimum_roll_claim": {
+    "stored KO, right KO": {
+     "foes": 15,
+     "fainted": 2,
+     "rate": 0.13333333333333333
+    },
+    "stored KO, right no KO": {
+     "foes": 3,
+     "fainted": 0,
+     "rate": 0.0
+    },
+    "stored no KO, right no KO": {
+     "foes": 18,
+     "fainted": 0,
+     "rate": 0.0
+    }
+   },
+   "observation_if_recomputed": {
+    "decisions": 45,
+    "any_float_moved": 0.9555555555555556,
+    "any_flag_flipped": 0.5555555555555556,
+    "mean_floats_moved": 7.511111111111111,
+    "mean_floats_in_the_blocks": 74.13333333333334,
+    "mean_flag_flips": 0.8888888888888888,
+    "mean_largest_move": 0.5834011839495765
+   }
+  },
+  "exposed_only": {
+   "count": 917
+  }
+ },
+ "timings_ms": {
+  "stack_plain": {
+   "n": 1495,
+   "median": 3.697665873914957,
+   "p90": 4.967124899849296
+  },
+  "stack_forme_stats": {
+   "n": 1495,
+   "median": 7.427207892760634,
+   "p90": 9.944416116923094
+  }
+ },
+ "counters": {
+  "games": 408,
+  "hit_dropped:attacker_or_board_changed": 2684,
+  "hit_dropped:defender_changed_or_crit": 616,
+  "hit_dropped:knock_out": 785,
+  "hit_dropped:multi_hit": 10,
+  "hit_dropped:no_hp_drop": 2
+ }
+}

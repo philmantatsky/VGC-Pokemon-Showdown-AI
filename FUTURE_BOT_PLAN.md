@@ -203,6 +203,31 @@
     and 0.07, 600 games each, pre-registered 18:35). Gate for a ladder trial: pooled lower
     bound > 50%, replicated, then the user's word.
   - [ ] Oracle arm (real opponent sets in the worlds) once there is an effect to explain.
+- [ ] Opposing Megas keep their pre-Mega stats (2026-10-04; every forme change, open and
+  hidden sheets): a stale opposing forme is on the field in 71% of our ladder games and 35% of
+  turns; the stored line understates what it does to us by a quarter (real / predicted 1.27;
+  1.01 with the right line, 1.01 for ordinary foes). Details and the audit in PROJECT_STATUS.
+  - [x] Reproduced (`unit_tests/test_forme_stats.py`) and measured before any change
+    (`evaluation/forme_stats_audit.py`, `results_analysis/forme_stats_20261004/`): with the
+    right numbers the 14-guard stack changes 36 of 2,641 logged picks (1.4%, 0.09 per game).
+  - [x] Opt-in guard-profile entry `forme_stats` (guards only; the stored line is back after
+    the stack, so the observation is as trained; `vgc_knowledge.py` untouched). Default off.
+  - [ ] Its gate (pre-registered 21:00, the opt-in guard rule): mirror not lost (upper bound
+    >= 50%) AND the held-out battery deploy-eligible (pooled upper >= 0, no population below
+    -3pp, errors <= 1%): `evaluation/guard_ladder_gate.py go results_guard_ab_forme_stats
+    results_mirror_forme_stats forme_stats`. Mirror tonight; the battery after the search
+    session's V5 frees the machine (about 07:45). At one changed pick in eleven games neither
+    can show a gain -- only that it is not broken.
+  - [ ] The user's decision after the gate: `guards_extra += forme_stats` (a ladder trial first
+    through `tools/ladder_trial.sh`).
+  - [ ] The larger half, the brain's own inputs: the knowledge / threat blocks would move in
+    98% of exposed decisions. Correcting them needs a fine-tune on the corrected observation and
+    an ablation on the deployed brain first (the 09-23 rule). The user's call.
+- [ ] Gates versus the ladder bot's last stage (found 2026-10-04): the held-out battery and
+  every chained mirror run without the opponent / tempo reranker; `eval_counterfactual.py` (gate
+  battery, rollout gate, team tournament) runs both rerankers and cannot take sticky
+  corrections; `exhibition_mode.sh` drops sticky for a non-deployed checkpoint or team. The
+  user's call whether the gates should play the deployed last stage.
 - [ ] T6m, the user's call: another practice round (+983,040 steps; beat the
   unpractised 41.0% baseline and reach 50%) or drop T6m.
 - [ ] The real handoff: plan features at the token tail (card, roles, targets) and a

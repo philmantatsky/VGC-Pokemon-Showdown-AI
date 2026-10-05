@@ -1,0 +1,360 @@
+games 404, turns 2620; a stale opposing forme on the field in 286 games (70.8%) and 904 turns (34.5%)
+    salamencemega      110 turns in 32 games
+    garchompmega        91 turns in 21 games
+    gardevoirmega       90 turns in 30 games
+    raichumegay         88 turns in 29 games
+    tyranitarmega       78 turns in 21 games
+    charizardmegay      46 turns in 13 games
+    gengarmega          35 turns in 13 games
+    golisopodmega       27 turns in 11 games
+    baxcaliburmega      26 turns in 8 games
+    floettemega         25 turns in 6 games
+    metagrossmega       24 turns in 7 games
+    swampertmega        22 turns in 5 games
+    meowsticfmega       18 turns in 4 games
+    blastoisemega       17 turns in 4 games
+    dragonitemega       16 turns in 7 games
+    alakazammega        16 turns in 5 games
+    staraptormega       16 turns in 6 games
+    aerodactylmega      16 turns in 7 games
+    sableyemega         13 turns in 1 games
+    delphoxmega         12 turns in 4 games
+    lucariomega         12 turns in 7 games
+    palafinhero         11 turns in 3 games
+    cameruptmega        10 turns in 6 games
+    blazikenmega        10 turns in 2 games
+    froslassmega        10 turns in 4 games
+
+accuracy: real damage / middle of the calculator's range
+  hits BY the foe on ours:
+    stale forme, stored line: n= 155 median 1.27  |log error| 0.291  inside range 13.5%  real above 81.9%  below 4.5%
+    stale forme, right line : n= 155 median 1.01  |log error| 0.137  inside range 49.0%  real above 32.3%  below 18.7%
+    control (forme right)   : n= 456 median 1.01  |log error| 0.160  inside range 45.0%  real above 25.4%  below 29.6%
+    right line closer: 86.5%
+  our hits INTO the foe:
+    stale forme, stored line: n= 132 median 0.91  |log error| 0.217  inside range 48.5%  real above 10.6%  below 40.9%
+    stale forme, right line : n= 132 median 1.06  |log error| 0.167  inside range 56.1%  real above 26.5%  below 17.4%
+    control (forme right)   : n= 484 median 0.97  |log error| 0.168  inside range 52.5%  real above 21.1%  below 26.4%
+    right line closer: 50.0%
+
+replayed guard stage == logged: 99.2% of 2641 decisions (97.5% where a guard fired live)
+all_directories: 2641 move decisions in 404 games, exposed 917 (34.7%); guard pick changes 36 (1.4% of all, 3.9% of exposed, 0.09 per game); final pick changes 36; reranker would also move 0
+    stages: {'guaranteed_ko': 10, 'dominated_spread': 9, 'dominated_attack': 6, 'threat_first2': 4, 'dominated_throat_chop': 4, 'drop_free_finish': 2, 'resisted_target': 1, 'focus_boosted': 1}
+    alone, verdict: {'dominated_spread': 10, 'guaranteed_ko': 8, 'dominated_attack': 7, 'threat_first2': 5, 'dominated_throat_chop': 5, 'throat_chop_main_threat': 5, 'focus_boosted': 2, 'drop_free_finish': 2, 'resisted_target': 1}
+    alone, top:     {'dominated_spread': 10, 'guaranteed_ko': 8, 'dominated_attack': 7, 'threat_first2': 5, 'dominated_throat_chop': 5, 'throat_chop_main_threat': 5, 'focus_boosted': 2, 'drop_free_finish': 2, 'resisted_target': 1}
+    observation:    {'decisions': 917, 'any_float_moved': 0.9803707742639041, 'any_flag_flipped': 0.42639040348964014, 'mean_floats_moved': 8.306434023991276, 'mean_floats_in_the_blocks': 73.66630316248637, 'mean_flag_flips': 0.7589967284623773, 'mean_largest_move': 0.4906501841031608}
+    the stale foe our played pair attacked went down that turn, by whether the pair's minimum rolls remove its HP:
+        stored KO, right KO         105 of  333  (31.5%)
+        stored KO, right no KO       10 of   46  (21.7%)
+        stored no KO, right no KO    24 of  385  (6.2%)
+    our Pokemon went down that turn, by 'can_be_koed':
+        stored no, right no        97 of  835  (11.6%)
+        stored no, right yes       17 of   85  (20.0%)
+        stored yes, right yes     315 of  721  (43.7%)
+    our Pokemon went down that turn, by 'expected_ko':
+        stored no, right no       169 of 1099  (15.4%)
+        stored no, right yes       24 of   76  (31.6%)
+        stored yes, right no        0 of    1  (0.0%)
+        stored yes, right yes     236 of  465  (50.8%)
+t6_family_directories: 2235 move decisions in 328 games, exposed 789 (35.3%); guard pick changes 31 (1.4% of all, 3.9% of exposed, 0.09 per game); final pick changes 31; reranker would also move 0
+    stages: {'guaranteed_ko': 9, 'dominated_spread': 9, 'dominated_attack': 5, 'dominated_throat_chop': 4, 'drop_free_finish': 2, 'resisted_target': 1, 'focus_boosted': 1, 'threat_first2': 1}
+    alone, verdict: {'dominated_spread': 10, 'guaranteed_ko': 7, 'dominated_attack': 6, 'dominated_throat_chop': 5, 'throat_chop_main_threat': 5, 'threat_first2': 2, 'focus_boosted': 2, 'drop_free_finish': 2, 'resisted_target': 1}
+    alone, top:     {'dominated_spread': 10, 'guaranteed_ko': 7, 'dominated_attack': 6, 'dominated_throat_chop': 5, 'throat_chop_main_threat': 5, 'threat_first2': 2, 'focus_boosted': 2, 'drop_free_finish': 2, 'resisted_target': 1}
+    observation:    {'decisions': 789, 'any_float_moved': 0.9771863117870723, 'any_flag_flipped': 0.40811153358681873, 'mean_floats_moved': 8.20532319391635, 'mean_floats_in_the_blocks': 74.00760456273764, 'mean_flag_flips': 0.6552598225602028, 'mean_largest_move': 0.47169768623299474}
+    the stale foe our played pair attacked went down that turn, by whether the pair's minimum rolls remove its HP:
+        stored KO, right KO          89 of  292  (30.5%)
+        stored KO, right no KO        7 of   37  (18.9%)
+        stored no KO, right no KO    21 of  332  (6.3%)
+    our Pokemon went down that turn, by 'can_be_koed':
+        stored no, right no        74 of  703  (10.5%)
+        stored no, right yes       16 of   79  (20.3%)
+        stored yes, right yes     272 of  635  (42.8%)
+    our Pokemon went down that turn, by 'expected_ko':
+        stored no, right no       134 of  938  (14.3%)
+        stored no, right yes       18 of   65  (27.7%)
+        stored yes, right no        0 of    1  (0.0%)
+        stored yes, right yes     210 of  413  (50.8%)
+todays_team_t6e_directories: 95 move decisions in 15 games, exposed 45 (47.4%); guard pick changes 1 (1.1% of all, 2.2% of exposed, 0.07 per game); final pick changes 1; reranker would also move 0
+    stages: {'dominated_spread': 1}
+    alone, verdict: {'dominated_spread': 1}
+    alone, top:     {'dominated_spread': 1}
+    observation:    {'decisions': 45, 'any_float_moved': 0.9555555555555556, 'any_flag_flipped': 0.5555555555555556, 'mean_floats_moved': 7.511111111111111, 'mean_floats_in_the_blocks': 74.13333333333334, 'mean_flag_flips': 0.8888888888888888, 'mean_largest_move': 0.5834011839495765}
+    the stale foe our played pair attacked went down that turn, by whether the pair's minimum rolls remove its HP:
+        stored KO, right KO           2 of   15  (13.3%)
+        stored KO, right no KO        0 of    3  (0.0%)
+        stored no KO, right no KO     0 of   18  (0.0%)
+    our Pokemon went down that turn, by 'can_be_koed':
+        stored no, right no         5 of   41  (12.2%)
+        stored no, right yes        3 of   10  (30.0%)
+        stored yes, right yes      10 of   31  (32.3%)
+    our Pokemon went down that turn, by 'expected_ko':
+        stored no, right no         7 of   58  (12.1%)
+        stored no, right yes        5 of    6  (83.3%)
+        stored yes, right yes       6 of   18  (33.3%)
+timings (ms): {'stack_plain': {'n': 1495, 'median': 3.697665873914957, 'p90': 4.967124899849296}, 'stack_forme_stats': {'n': 1495, 'median': 7.427207892760634, 'p90': 9.944416116923094}}
+
+every guard-stage pick change (dir, game, turn, result, stale foes):
+  replays_mc_T6tac_review_guards 2689051543 T4  L gardevoirmega          ['eruption', 'psychic>gardevoir'] -> ['protect', 'psychic>gardevoir']  ['guaranteed_ko']
+      played ['eruption', 'psychic>gardevoir']; fainted that turn: ['p1: Farigiraf', 'p1: Torkoal']
+      old: eruption into indeedeef (HP 0.87): stored [0.525, 0.616], right [0.525, 0.616]
+      old: eruption into gardevoirmega (HP 0.82): stored [0.726, 0.857], right [0.623, 0.743]
+      old: psychic into gardevoirmega (HP 0.82): stored [0.183, 0.217], right [0.16, 0.189]
+      new: psychic into gardevoirmega (HP 0.82): stored [0.183, 0.217], right [0.16, 0.189]
+  replays_mc_T6tac_review_guards 2689059647 T9  W dragonitemega          ['sludgebomb>dragonite', 'weatherball'] -> ['sludgebomb>dragonite', 'heatwave']  ['guaranteed_ko']
+      played ['sludgebomb>dragonite', 'weatherball']; fainted that turn: ['p1: Dragonite']
+      old: sludgebomb into dragonitemega (HP 0.56): stored [0.364, 0.429], right [0.293, 0.354]
+      old: weatherball into dragonitemega (HP 0.56): stored [0.273, 0.318], right [0.222, 0.263]
+      new: sludgebomb into dragonitemega (HP 0.56): stored [0.364, 0.429], right [0.293, 0.354]
+      new: heatwave into dragonitemega (HP 0.56): stored [0.303, 0.364], right [0.253, 0.298]
+  replays_mc_T6tac_review_guards 2689122763 T6  W charizardmegay         ['waterspout', 'trickroom'] -> ['waterpulse>whimsicott', 'trickroom']  ['dominated_spread']
+      played ['waterspout', 'trickroom']; fainted that turn: ['p1: Blastoise', 'p1: Farigiraf']
+      old: waterspout into charizardmegay (HP 0.84): stored [0.357, 0.422], right [0.27, 0.324]
+      old: waterspout into whimsicott (HP 0.13): stored [0.108, 0.126], right [0.108, 0.126]
+      old: trickroom into charizardmegay (HP 0.84): stored [0.0, 0.0], right [0.0, 0.0]
+      old: trickroom into whimsicott (HP 0.13): stored [0.0, 0.0], right [0.0, 0.0]
+      new: waterpulse into whimsicott (HP 0.13): stored [0.162, 0.192], right [0.162, 0.192]
+      new: trickroom into charizardmegay (HP 0.84): stored [0.0, 0.0], right [0.0, 0.0]
+      new: trickroom into whimsicott (HP 0.13): stored [0.0, 0.0], right [0.0, 0.0]
+  _replays_mc_T6tac_threat_first 2692090968 T7  L floettemega            ['sludgebomb>floetteeternal', 'eruption'] -> ['sludgebomb>incineroar', 'eruption']  ['guaranteed_ko']
+      played ['sludgebomb>floetteeternal', 'eruption']; fainted that turn: ['p1: Incineroar']
+      old: sludgebomb into floettemega (HP 0.45): stored [0.331, 0.398], right [0.276, 0.343]
+      old: eruption into floettemega (HP 0.45): stored [0.188, 0.232], right [0.171, 0.204]
+      old: eruption into incineroar (HP 0.01): stored [0.223, 0.267], right [0.223, 0.267]
+      new: sludgebomb into incineroar (HP 0.01): stored [0.386, 0.46], right [0.386, 0.46]
+      new: eruption into floettemega (HP 0.45): stored [0.188, 0.232], right [0.171, 0.204]
+      new: eruption into incineroar (HP 0.01): stored [0.223, 0.267], right [0.223, 0.267]
+  _replays_mc_T6tac_threat_first 2692100802 T15 L sableyemega            ['leafstorm>sableye', 'weatherball>overqwil'] -> ['leafstorm>sableye', 'heatwave']  ['dominated_attack']
+      played ['leafstorm>sableye', 'weatherball>overqwil']; fainted that turn: []
+      old: leafstorm into sableyemega (HP 0.76): stored [0.917, 1.089], right [0.58, 0.688]
+      old: weatherball into overqwil (HP 1.0): stored [0.781, 0.922], right [0.781, 0.922]
+      new: leafstorm into sableyemega (HP 0.76): stored [0.917, 1.089], right [0.58, 0.688]
+      new: heatwave into overqwil (HP 1.0): stored [0.661, 0.781], right [0.661, 0.781]
+      new: heatwave into sableyemega (HP 0.76): stored [0.809, 0.955], right [0.516, 0.611]
+  _replays_mc_T6tac_threat_first 2692100802 T16 L sableyemega            ['sludgebomb>sableye', 'heatwave'] -> ['leafstorm>sableye', 'heatwave']  ['dominated_attack']
+      played ['sludgebomb>sableye', 'heatwave']; fainted that turn: ['p1: Torkoal']
+      old: sludgebomb into sableyemega (HP 0.76): stored [0.318, 0.376], right [0.197, 0.236]
+      old: heatwave into overqwil (HP 0.72): stored [0.438, 0.521], right [0.438, 0.521]
+      old: heatwave into sableyemega (HP 0.76): stored [0.535, 0.637], right [0.344, 0.408]
+      new: leafstorm into sableyemega (HP 0.76): stored [0.917, 1.089], right [0.58, 0.688]
+      new: heatwave into overqwil (HP 0.72): stored [0.438, 0.521], right [0.438, 0.521]
+      new: heatwave into sableyemega (HP 0.76): stored [0.535, 0.637], right [0.344, 0.408]
+  _replays_mc_T6tac_threat_first 2692104863 T2  L gardevoirmega          ['waterspout', 'trickroom'] -> ['waterpulse>indeedeef', 'trickroom']  ['dominated_spread']
+      played ['waterspout', 'trickroom']; fainted that turn: ['p1: Blastoise', 'p1: Farigiraf']
+      old: waterspout into gardevoirmega (HP 0.77): stored [0.189, 0.229], right [0.171, 0.206]
+      old: waterspout into indeedeef (HP 0.79): stored [0.203, 0.243], right [0.203, 0.243]
+      old: trickroom into gardevoirmega (HP 0.77): stored [0.0, 0.0], right [0.0, 0.0]
+      old: trickroom into indeedeef (HP 0.79): stored [0.0, 0.0], right [0.0, 0.0]
+      new: waterpulse into indeedeef (HP 0.79): stored [0.475, 0.559], right [0.475, 0.559]
+      new: trickroom into gardevoirmega (HP 0.77): stored [0.0, 0.0], right [0.0, 0.0]
+      new: trickroom into indeedeef (HP 0.79): stored [0.0, 0.0], right [0.0, 0.0]
+  _replays_mc_T6tac_threat_first 2692104863 T2  L gardevoirmega          ['waterspout', 'raindance'] -> ['waterpulse>indeedeef', 'raindance']  ['dominated_spread']
+      played ['waterspout', 'raindance']; fainted that turn: ['p1: Blastoise', 'p1: Farigiraf']
+      old: waterspout into gardevoirmega (HP 0.77): stored [0.189, 0.229], right [0.171, 0.206]
+      old: waterspout into indeedeef (HP 0.79): stored [0.203, 0.243], right [0.203, 0.243]
+      old: raindance into gardevoirmega (HP 0.77): stored [0.0, 0.0], right [0.0, 0.0]
+      old: raindance into indeedeef (HP 0.79): stored [0.0, 0.0], right [0.0, 0.0]
+      new: waterpulse into indeedeef (HP 0.79): stored [0.475, 0.559], right [0.475, 0.559]
+      new: raindance into gardevoirmega (HP 0.77): stored [0.0, 0.0], right [0.0, 0.0]
+      new: raindance into indeedeef (HP 0.79): stored [0.0, 0.0], right [0.0, 0.0]
+  replays_mc_T6tac_threat_first2 2692164095 T3  L staraptormega          ['leafstorm>staraptor', 'eruption'] -> ['sludgebomb>staraptor', 'eruption']  ['dominated_attack']
+      played ['leafstorm>staraptor', 'eruption']; fainted that turn: ['p1: Torkoal']
+      old: leafstorm into staraptormega (HP 1.0): stored [0.266, 0.312], right [0.193, 0.229]
+      old: eruption into staraptormega (HP 1.0): stored [0.75, 0.891], right [0.536, 0.641]
+      old: eruption into gholdengo (HP 1.0): stored [1.608, 1.897], right [1.608, 1.897]
+      new: sludgebomb into staraptormega (HP 1.0): stored [0.375, 0.443], right [0.271, 0.328]
+      new: eruption into staraptormega (HP 1.0): stored [0.75, 0.891], right [0.536, 0.641]
+      new: eruption into gholdengo (HP 1.0): stored [1.608, 1.897], right [1.608, 1.897]
+  replays_mc_T6tac_threat_first2 2692179511 T5  W tyranitarmega          ['waterspout', 'incineroar'] -> ['waterpulse>tyranitar', 'incineroar']  ['dominated_spread']
+      played ['waterspout', 'incineroar']; fainted that turn: ['p1: Blastoise']
+      old: waterspout into corviknight (HP 0.07): stored [0.18, 0.22], right [0.18, 0.22]
+      old: waterspout into tyranitarmega (HP 0.62): stored [0.319, 0.386], right [0.29, 0.348]
+      new: waterpulse into tyranitarmega (HP 0.62): stored [1.256, 1.488], right [1.072, 1.275]
+  replays_mc_T6tac_threat_first2 2692201839 T2  L pyroarmega             ['heatwave', 'trickroom'] -> ['ancientpower>pyroar', 'trickroom']  ['dominated_spread']
+      played ['heatwave', 'trickroom']; fainted that turn: ['p2: Farigiraf']
+      old: heatwave into pyroarmega (HP 0.5): stored [0.415, 0.492], right [0.342, 0.404]
+      old: heatwave into torkoal (HP 1.0): stored [0.441, 0.52], right [0.441, 0.52]
+      old: trickroom into pyroarmega (HP 0.5): stored [0.0, 0.0], right [0.0, 0.0]
+      old: trickroom into torkoal (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+      new: ancientpower into pyroarmega (HP 0.5): stored [0.642, 0.756], right [0.518, 0.611]
+      new: trickroom into pyroarmega (HP 0.5): stored [0.0, 0.0], right [0.0, 0.0]
+      new: trickroom into torkoal (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+  ays_mc_brainv1spec_T4_20260920 2684832727 T4  W aerodactylmega         ['fakeout>milotic', 'hypervoice'] -> ['fakeout>aerodactyl', 'hypervoice']  ['guaranteed_ko']
+      played ['fakeout>milotic', 'hypervoice']; fainted that turn: []
+      old: fakeout into milotic (HP 0.59): stored [0.129, 0.153], right [0.129, 0.153]
+      old: hypervoice into milotic (HP 0.59): stored [0.282, 0.332], right [0.282, 0.332]
+      old: hypervoice into aerodactylmega (HP 0.43): stored [0.455, 0.545], right [0.374, 0.449]
+      new: fakeout into aerodactylmega (HP 0.43): stored [0.08, 0.096], right [0.064, 0.075]
+      new: hypervoice into milotic (HP 0.59): stored [0.282, 0.332], right [0.282, 0.332]
+      new: hypervoice into aerodactylmega (HP 0.43): stored [0.455, 0.545], right [0.374, 0.449]
+  ays_mc_brainv1spec_T4_20260920 2684836198 T3  L raichumegay            ['rockslide', 'flareblitz>rillaboom'] -> ['rockslide', 'fakeout>raichu']  ['threat_first2']
+      played ['rockslide', 'flareblitz>rillaboom']; fainted that turn: []
+      old: rockslide into rillaboom (HP 1.0): stored [0.188, 0.222], right [0.188, 0.222]
+      old: rockslide into raichumegay (HP 1.0): stored [0.335, 0.401], right [0.335, 0.401]
+      old: flareblitz into rillaboom (HP 1.0): stored [1.507, 1.778], right [1.507, 1.778]
+      new: rockslide into rillaboom (HP 1.0): stored [0.188, 0.222], right [0.188, 0.222]
+      new: rockslide into raichumegay (HP 1.0): stored [0.335, 0.401], right [0.335, 0.401]
+      new: fakeout into raichumegay (HP 1.0): stored [0.204, 0.246], right [0.204, 0.246]
+  ays_mc_brainv1spec_T4_20260920 2684839615 T6  L ampharosmega           ['detect', 'fakeout>toxapex'] -> ['detect', 'fakeout>ampharos']  ['threat_first2']
+      played ['hypervoice', 'fakeout>toxapex']; fainted that turn: ['p2: Toxapex']
+      old: fakeout into toxapex (HP 0.14): stored [0.102, 0.121], right [0.102, 0.121]
+      new: fakeout into ampharosmega (HP 1.0): stored [0.122, 0.147], right [0.107, 0.127]
+  ays_mc_brainv1spec_T4_20260920 2684859126 T9  L salamencemega          ['rockslide', 'ancientpower>milotic'] -> ['rockslide', 'heatwave']  ['dominated_attack']
+      played ['rockslide', 'ancientpower>milotic']; fainted that turn: ['p2: Charizard']
+      old: rockslide into salamencemega (HP 0.29): stored [0.426, 0.505], right [0.277, 0.337]
+      old: rockslide into milotic (HP 0.86): stored [0.109, 0.129], right [0.109, 0.129]
+      old: ancientpower into milotic (HP 0.86): stored [0.183, 0.218], right [0.183, 0.218]
+      new: rockslide into salamencemega (HP 0.29): stored [0.426, 0.505], right [0.277, 0.337]
+      new: rockslide into milotic (HP 0.86): stored [0.109, 0.129], right [0.109, 0.129]
+      new: heatwave into salamencemega (HP 0.29): stored [0.228, 0.267], right [0.208, 0.248]
+      new: heatwave into milotic (HP 0.86): stored [0.158, 0.188], right [0.158, 0.188]
+  ladder_replays_mc_deployed_T6  2686250598 T5  L tyranitarmega          ['weatherball>tyranitar', 'waterspout'] -> ['heatwave', 'waterspout']  ['guaranteed_ko']
+      played ['weatherball>tyranitar', 'waterspout']; fainted that turn: ['p2: Torkoal']
+      old: weatherball into tyranitarmega (HP 0.78): stored [0.232, 0.275], right [0.198, 0.237]
+      old: waterspout into rillaboom (HP 1.0): stored [0.324, 0.386], right [0.324, 0.386]
+      old: waterspout into tyranitarmega (HP 0.78): stored [0.647, 0.783], right [0.56, 0.667]
+      new: heatwave into rillaboom (HP 1.0): stored [1.159, 1.372], right [1.159, 1.372]
+      new: heatwave into tyranitarmega (HP 0.78): stored [0.145, 0.174], right [0.121, 0.145]
+      new: waterspout into rillaboom (HP 1.0): stored [0.324, 0.386], right [0.324, 0.386]
+      new: waterspout into tyranitarmega (HP 0.78): stored [0.647, 0.783], right [0.56, 0.667]
+  ladder_replays_mc_deployed_T6  2686256202 T5  L charizardmegay         ['weatherball>charizard', 'heatwave'] -> ['eruption', 'heatwave']  ['guaranteed_ko']
+      played ['weatherball>charizard', 'heatwave']; fainted that turn: ['p2: Charizard']
+      old: weatherball into charizardmegay (HP 0.31): stored [0.324, 0.389], right [0.254, 0.303]
+      old: heatwave into charizardmegay (HP 0.31): stored [0.276, 0.324], right [0.211, 0.254]
+      old: heatwave into toxapex (HP 0.59): stored [0.21, 0.248], right [0.21, 0.248]
+      new: eruption into charizardmegay (HP 0.31): stored [0.178, 0.216], right [0.141, 0.168]
+      new: eruption into toxapex (HP 0.59): stored [0.14, 0.172], right [0.14, 0.172]
+      new: heatwave into charizardmegay (HP 0.31): stored [0.276, 0.324], right [0.211, 0.254]
+      new: heatwave into toxapex (HP 0.59): stored [0.21, 0.248], right [0.21, 0.248]
+  ladder_replays_mc_deployed_T6  2686279222 T3  L charizardmegay         ['eruption', 'heatwave+mega'] -> ['weatherball>garchomp', 'heatwave+mega']  ['guaranteed_ko']
+      played ['eruption', 'heatwave+mega']; fainted that turn: ['p2: Garchomp']
+      old: eruption into charizardmegay (HP 0.18): stored [0.227, 0.265], right [0.173, 0.205]
+      old: eruption into garchomp (HP 0.5): stored [0.195, 0.228], right [0.195, 0.228]
+      old: heatwave into charizardmegay (HP 0.18): stored [0.276, 0.324], right [0.211, 0.254]
+      old: heatwave into garchomp (HP 0.5): stored [0.237, 0.279], right [0.237, 0.279]
+      new: weatherball into garchomp (HP 0.5): stored [0.279, 0.335], right [0.279, 0.335]
+      new: heatwave into charizardmegay (HP 0.18): stored [0.276, 0.324], right [0.211, 0.254]
+      new: heatwave into garchomp (HP 0.5): stored [0.237, 0.279], right [0.237, 0.279]
+  d_T6_humanpreview1_attackcheck 2687969131 T4  L gengarmega             ['waterpulse>gengar', 'trickroom'] -> ['waterspout', 'trickroom']  ['dominated_attack']
+      played ['waterpulse>gengar', 'trickroom']; fainted that turn: ['p2: Farigiraf']
+      old: waterpulse into gengarmega (HP 0.72): stored [0.653, 0.778], right [0.545, 0.647]
+      old: trickroom into cofagrigus (HP 0.05): stored [0.0, 0.0], right [0.0, 0.0]
+      old: trickroom into gengarmega (HP 0.72): stored [0.0, 0.0], right [0.0, 0.0]
+      new: waterspout into cofagrigus (HP 0.05): stored [0.188, 0.224], right [0.188, 0.224]
+      new: waterspout into gengarmega (HP 0.72): stored [0.251, 0.293], right [0.204, 0.251]
+      new: trickroom into cofagrigus (HP 0.05): stored [0.0, 0.0], right [0.0, 0.0]
+      new: trickroom into gengarmega (HP 0.72): stored [0.0, 0.0], right [0.0, 0.0]
+  d_T6_humanpreview1_attackcheck 2687971839 T7  L tyranitarmega          ['weatherball', 'flareblitz'] -> ['weatherball', 'throatchop>tyranitar']  ['dominated_throat_chop']
+      played ['weatherball', 'throatchop>tyranitar']; fainted that turn: []
+      old: weatherball into tyranitarmega (HP 0.85): stored [0.232, 0.275], right [0.198, 0.237]
+      old: flareblitz into tyranitarmega (HP 0.85): stored [0.174, 0.203], right [0.13, 0.159]
+      new: weatherball into tyranitarmega (HP 0.85): stored [0.232, 0.275], right [0.198, 0.237]
+      new: throatchop into tyranitarmega (HP 0.85): stored [0.116, 0.14], right [0.087, 0.106]
+  d_T6_humanpreview1_attackcheck 2687971839 T9  L tyranitarmega          ['?', 'flareblitz'] -> ['?', 'throatchop>tyranitar']  ['dominated_throat_chop']
+      played ['?', 'throatchop>tyranitar']; fainted that turn: []
+      old: flareblitz into tyranitarmega (HP 0.59): stored [0.174, 0.203], right [0.13, 0.159]
+      new: throatchop into tyranitarmega (HP 0.59): stored [0.116, 0.14], right [0.087, 0.106]
+  d_T6_humanpreview1_attackcheck 2687971839 T10 L tyranitarmega          ['?', 'flareblitz'] -> ['?', 'throatchop>tyranitar']  ['dominated_throat_chop']
+      played ['?', 'throatchop>tyranitar']; fainted that turn: ['p2: Incineroar']
+      old: flareblitz into tyranitarmega (HP 0.59): stored [0.174, 0.203], right [0.13, 0.159]
+      new: throatchop into tyranitarmega (HP 0.59): stored [0.116, 0.14], right [0.087, 0.106]
+  d_T6_humanpreview1_attackcheck 2687979475 T5  L baxcaliburmega         ['eruption', 'throatchop>baxcalibur'] -> ['eruption', 'flareblitz>baxcalibur']  ['dominated_throat_chop']
+      played ['eruption', 'throatchop>baxcalibur']; fainted that turn: []
+      old: eruption into baxcaliburmega (HP 0.83): stored [0.721, 0.856], right [0.64, 0.757]
+      old: eruption into incineroar (HP 0.65): stored [0.386, 0.455], right [0.386, 0.455]
+      old: throatchop into baxcaliburmega (HP 0.83): stored [0.126, 0.153], right [0.108, 0.126]
+      new: eruption into baxcaliburmega (HP 0.83): stored [0.721, 0.856], right [0.64, 0.757]
+      new: eruption into incineroar (HP 0.65): stored [0.386, 0.455], right [0.386, 0.455]
+      new: flareblitz into baxcaliburmega (HP 0.83): stored [0.288, 0.342], right [0.234, 0.284]
+  yed_T6_humanpreview1_wideguard 2688268597 T6  L salamencemega          ['weatherball>salamence', 'flareblitz>salamence'] -> ['heatwave', 'flareblitz>salamence']  ['dominated_attack']
+      played ['weatherball>salamence', 'flareblitz>salamence']; fainted that turn: ['p1: Incineroar', 'p1: Torkoal']
+      old: weatherball into salamencemega (HP 0.64): stored [0.317, 0.376], right [0.292, 0.342]
+      old: flareblitz into salamencemega (HP 0.64): stored [0.347, 0.411], right [0.233, 0.277]
+      new: heatwave into salamencemega (HP 0.64): stored [0.267, 0.322], right [0.243, 0.287]
+      new: heatwave into dragonite (HP 0.79): stored [0.227, 0.273], right [0.227, 0.273]
+      new: flareblitz into salamencemega (HP 0.64): stored [0.347, 0.411], right [0.233, 0.277]
+  dder_replays_mc_deployed_T6tac 2688482546 T5  L staraptormega          ['throatchop>skeledirge', 'eruption'] -> ['throatchop>staraptor', 'eruption']  ['guaranteed_ko']
+      played ['throatchop>skeledirge', 'eruption']; fainted that turn: []
+      old: throatchop into skeledirge (HP 1.0): stored [0.493, 0.597], right [0.493, 0.597]
+      old: eruption into skeledirge (HP 1.0): stored [0.427, 0.502], right [0.427, 0.502]
+      old: eruption into staraptormega (HP 0.91): stored [1.109, 1.312], right [0.812, 0.958]
+      new: throatchop into staraptormega (HP 0.91): stored [0.177, 0.214], right [0.135, 0.161]
+      new: eruption into skeledirge (HP 1.0): stored [0.427, 0.502], right [0.427, 0.502]
+      new: eruption into staraptormega (HP 0.91): stored [1.109, 1.312], right [0.812, 0.958]
+  dder_replays_mc_deployed_T6tac 2688482546 T6  L staraptormega          ['throatchop>skeledirge', 'eruption'] -> ['throatchop>staraptor', 'eruption']  ['guaranteed_ko']
+      played ['throatchop>skeledirge', 'eruption']; fainted that turn: ['p1: Skeledirge', 'p2: Incineroar']
+      old: throatchop into skeledirge (HP 0.07): stored [0.493, 0.597], right [0.493, 0.597]
+      old: eruption into skeledirge (HP 0.07): stored [0.427, 0.502], right [0.427, 0.502]
+      old: eruption into staraptormega (HP 0.91): stored [1.109, 1.312], right [0.812, 0.958]
+      new: throatchop into staraptormega (HP 0.91): stored [0.177, 0.214], right [0.135, 0.161]
+      new: eruption into skeledirge (HP 0.07): stored [0.427, 0.502], right [0.427, 0.502]
+      new: eruption into staraptormega (HP 0.91): stored [1.109, 1.312], right [0.812, 0.958]
+  dder_replays_mc_deployed_T6tac 2688486414 T5  L blastoisemega          ['waterspout', 'throatchop>blastoise'] -> ['waterpulse>indeedeef', 'throatchop>blastoise']  ['dominated_spread']
+      played ['waterspout', 'throatchop>blastoise']; fainted that turn: ['p1: Incineroar', 'p2: Indeedee']
+      old: waterspout into indeedeef (HP 1.0): stored [0.362, 0.429], right [0.362, 0.429]
+      old: waterspout into blastoisemega (HP 0.45): stored [0.172, 0.204], right [0.156, 0.183]
+      old: throatchop into blastoisemega (HP 0.45): stored [0.28, 0.339], right [0.242, 0.29]
+      new: waterpulse into indeedeef (HP 1.0): stored [0.712, 0.836], right [0.712, 0.836]
+      new: throatchop into blastoisemega (HP 0.45): stored [0.28, 0.339], right [0.242, 0.29]
+  _mc_deployed_T6tac_playbook_t6 2688579790 T3  L salamencemega          ['waterspout+mega', 'flareblitz>salamence'] -> ['icebeam+mega>salamence', 'flareblitz>archaludon']  ['dominated_spread', 'resisted_target']
+      played ['waterspout+mega', 'flareblitz>salamence']; fainted that turn: []
+      old: waterspout into salamencemega (HP 0.43): stored [0.119, 0.139], right [0.104, 0.124]
+      old: waterspout into archaludon (HP 0.53): stored [0.137, 0.168], right [0.137, 0.168]
+      old: flareblitz into salamencemega (HP 0.43): stored [0.347, 0.411], right [0.233, 0.277]
+      new: icebeam into salamencemega (HP 0.43): stored [1.01, 1.208], right [0.931, 1.109]
+      new: flareblitz into archaludon (HP 0.53): stored [0.325, 0.386], right [0.325, 0.386]
+  er_replays_mc_guards3_20260909 2678496960 T5  L lucariomega            ['dragonclaw>rillaboom', '?'] -> ['earthquake', '?']  ['threat_first2']
+      played ['dragonclaw>rillaboom', '?']; fainted that turn: ['p2: Garchomp']
+      old: dragonclaw into rillaboom (HP 0.84): stored [0.353, 0.42], right [0.353, 0.42]
+      new: earthquake into rillaboom (HP 0.84): stored [0.082, 0.101], right [0.082, 0.101]
+      new: earthquake into lucariomega (HP 0.36): stored [0.475, 0.576], right [0.384, 0.475]
+  _replays_mc_practice1_water_t6 2688865368 T7  L garchompmega           ['sludgebomb>garchomp', '?'] -> ['leafstorm>garchomp', '?']  ['drop_free_finish']
+      played ['leafstorm>garchomp', '?']; fainted that turn: ['p1: Garchomp', 'p2: Venusaur']
+      old: sludgebomb into garchompmega (HP 0.18): stored [0.186, 0.223], right [0.172, 0.205]
+      new: leafstorm into garchompmega (HP 0.18): stored [0.544, 0.642], right [0.502, 0.591]
+  _replays_mc_practice1_water_t6 2688870266 T7  L gardevoirmega          ['flareblitz', 'sludgebomb'] -> ['flareblitz', 'leafstorm>gardevoir']  ['drop_free_finish']
+      played ['flareblitz', 'leafstorm>gardevoir']; fainted that turn: ['p2: Incineroar', 'p2: Venusaur']
+      old: flareblitz into gardevoirmega (HP 0.5): stored [0.623, 0.743], right [0.623, 0.743]
+      old: sludgebomb into gardevoirmega (HP 0.5): stored [0.72, 0.857], right [0.629, 0.754]
+      new: flareblitz into gardevoirmega (HP 0.5): stored [0.623, 0.743], right [0.623, 0.743]
+      new: leafstorm into gardevoirmega (HP 0.5): stored [0.52, 0.617], right [0.451, 0.537]
+  ladder_replays_mc_t6e_ep1      2692582217 T2  W charizardmegay         ['waterspout', 'raindance'] -> ['icebeam>whimsicott', 'raindance']  ['dominated_spread']
+      played ['waterspout', 'raindance']; fainted that turn: []
+      old: waterspout into charizardmegay (HP 0.89): stored [0.649, 0.778], right [0.519, 0.616]
+      old: waterspout into whimsicott (HP 1.0): stored [0.198, 0.24], right [0.198, 0.24]
+      old: raindance into charizardmegay (HP 0.89): stored [0.0, 0.0], right [0.0, 0.0]
+      old: raindance into whimsicott (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+      new: icebeam into whimsicott (HP 1.0): stored [0.874, 1.042], right [0.874, 1.042]
+      new: raindance into charizardmegay (HP 0.89): stored [0.0, 0.0], right [0.0, 0.0]
+      new: raindance into whimsicott (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+  ladder_replays_mc_t6m1         2692000025 T2  L golisopodmega          ['waterspout', 'raindance'] -> ['waterpulse>aerodactyl', 'raindance']  ['dominated_spread']
+      played ['waterspout', 'raindance']; fainted that turn: []
+      old: waterspout into aerodactyl (HP 0.92): stored [0.717, 0.866], right [0.717, 0.866]
+      old: waterspout into golisopodmega (HP 1.0): stored [0.319, 0.379], right [0.253, 0.302]
+      old: raindance into aerodactyl (HP 0.92): stored [0.0, 0.0], right [0.0, 0.0]
+      old: raindance into golisopodmega (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+      new: waterpulse into aerodactyl (HP 0.92): stored [1.166, 1.39], right [1.166, 1.39]
+      new: raindance into aerodactyl (HP 0.92): stored [0.0, 0.0], right [0.0, 0.0]
+      new: raindance into golisopodmega (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+  ladder_replays_mc_t6m1         2692000025 T4  L golisopodmega          ['waterpulse>golisopod', 'psychic>milotic'] -> ['waterpulse>milotic', 'psychic>milotic']  ['focus_boosted']
+      played ['waterpulse>golisopod', 'psychic>milotic']; fainted that turn: ['p2: Blastoise']
+      old: waterpulse into golisopodmega (HP 1.0): stored [0.78, 0.923], right [0.61, 0.725]
+      old: psychic into milotic (HP 0.49): stored [0.342, 0.406], right [0.342, 0.406]
+      new: waterpulse into milotic (HP 0.49): stored [0.401, 0.475], right [0.401, 0.475]
+      new: psychic into milotic (HP 0.49): stored [0.342, 0.406], right [0.342, 0.406]
+  ladder_replays_mc_t6m1         2692009136 T2  L pyroarmega             ['waterspout', 'raindance'] -> ['waterpulse>pyroar', 'raindance']  ['threat_first2']
+      played ['waterspout', 'raindance']; fainted that turn: []
+      old: waterspout into pyroarmega (HP 0.84): stored [0.974, 1.161], right [0.788, 0.943]
+      old: waterspout into sylveon (HP 1.0): stored [0.267, 0.317], right [0.267, 0.317]
+      old: raindance into pyroarmega (HP 0.84): stored [0.0, 0.0], right [0.0, 0.0]
+      old: raindance into sylveon (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+      new: waterpulse into pyroarmega (HP 0.84): stored [1.254, 1.492], right [1.026, 1.212]
+      new: raindance into pyroarmega (HP 0.84): stored [0.0, 0.0], right [0.0, 0.0]
+      new: raindance into sylveon (HP 1.0): stored [0.0, 0.0], right [0.0, 0.0]
+  ladder_replays_mc_tactical2_e4 2689019123 T7  W salamencemega          ['eruption', 'flareblitz>salamence'] -> ['eruption', 'flareblitz>scrafty']  ['guaranteed_ko']
+      played ['eruption', 'flareblitz>salamence']; fainted that turn: ['p1: Incineroar', 'p2: Scrafty']
+      old: eruption into scrafty (HP 0.08): stored [1.105, 1.308], right [1.105, 1.308]
+      old: eruption into salamencemega (HP 0.72): stored [0.421, 0.5], right [0.386, 0.455]
+      old: flareblitz into salamencemega (HP 0.72): stored [0.347, 0.411], right [0.233, 0.277]
+      new: eruption into scrafty (HP 0.08): stored [1.105, 1.308], right [1.105, 1.308]
+      new: eruption into salamencemega (HP 0.72): stored [0.421, 0.5], right [0.386, 0.455]
+      new: flareblitz into scrafty (HP 0.08): stored [0.907, 1.07], right [0.907, 1.07]

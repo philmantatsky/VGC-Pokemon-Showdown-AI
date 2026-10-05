@@ -1,5 +1,124 @@
 # VGC Bot Project Status
 
+## Opposing Megas keep their pre-Mega stats: confirmed, measured on 404 ladder games; opt-in `forme_stats` (guards only) built; mirror pre-registered (2026-October 4, 21:00, before the run)
+
+- **The lead** (from the opponent-predictor session, by reading): `vgc_knowledge.ensure_stats`
+  gives an opposing Pokemon a stat estimate (32 HP, 32 in the better attack, 2 Speed, neutral
+  nature) the first time a calculation needs one and returns early afterwards. poke-env
+  updates `base_stats` on `-mega` / `detailschange` / `-formechange` but not `stats`, and the
+  live bot runs the calculator against every active foe at every decision, so a foe is always
+  estimated in the forme it came in with. **Confirmed, and wider than reported:**
+  - open sheets too (`_update_from_teambuilder` + `impute_stats` freeze the same line), and
+    every forme change, not only Megas (Palafin-Hero: 11 ladder turns; Aegislash);
+  - Mega Blastoise Special Attack 137 for 187, Mega Charizard Y 161 for 211, Mega Raichu Y 142
+    for 212, Mega Charizard X Attack 104 for 182, Mega Gengar Speed 132 for 152;
+  - `stats_were_synthesized` reads False for such a line; our own side is fine (the server's
+    request carries the Mega's stats);
+  - the replay audits of 10-03 could not see it: a position rebuilt in one go estimates the
+    foe AFTER its Mega (`unit_tests/test_forme_stats.py`, the "two answers" test).
+- **Measured before changing anything** (`evaluation/forme_stats_audit.py` ->
+  `results_analysis/forme_stats_20261004/`: every saved Reg M-C game rebuilt turn by turn as
+  the live bot held it, on the opponent-predictor session's `Position`; one core, 40 s):
+  - *Exposure.* A stale opposing forme is on the field in **286 of 404 games (70.8%) and 904
+    of 2,620 turns (34.5%)**; in 917 of 2,641 logged move decisions (34.7%). Most turns: Mega
+    Salamence 110, Garchomp 91, Gardevoir 90, Raichu Y 88, Tyranitar 78, Charizard Y 46.
+  - *Accuracy against what really happened* (clean hits only -- no crit, multi-hit, knock-out,
+    resist berry, Helping Hand, or change of the board or of either Pokemon earlier in the
+    turn; real damage / middle of the calculator's range):
+    - hits BY the stale foe on ours, n=155: stored line **1.27** (the real damage is above
+      the whole range in 82% of hits), right line **1.01**, control (opposing Pokemon whose
+      forme is right, n=456) 1.01; the right line is the closer one in 86.5% of hits;
+    - our hits INTO it, n=132: stored 0.91, right 1.06, control (n=484) 0.97; mean |log
+      error| 0.217 -> 0.167 (control 0.168); the right line is closer in 50%.
+    The stored line understates what an opposing Mega does to us by a quarter; with the right
+    line a Mega is estimated as well as any other Pokemon.
+  - *Decisions* (the logged candidates through today's 14-guard profile, stored numbers
+    against the right ones; the replay reproduces the logged guard stage in 99.2% of
+    decisions, 97.5% where a guard fired): **36 picks change -- 1.4% of move decisions, 3.9%
+    of the exposed ones, 0.09 per game** (the T6-family directories alone: 31 of 2,235, the
+    same rates). By guard: guaranteed_ko 10, dominated_spread 9, dominated_attack 6,
+    threat_first2 4, dominated_throat_chop 4, drop_free_finish 2, resisted_target 1,
+    focus_boosted 1. The reranker and sticky corrections after the guards undo none of them
+    and would change no further pick if they used the right numbers too. A lower bound: the
+    audit keeps 8 of up to 64 candidates. Every change is listed in `report.txt` with the
+    damage ranges on both lines, what was played and who fainted.
+  - *Were the flipped verdicts right?* They are borderline cases and the games sit between
+    the two answers. The stale foe our played pair attacked went down that turn in 31.5% of
+    the 333 cases where both lines called the pair's minimum rolls a knock-out, **21.7% of the
+    46 where only the stored line did**, 6.2% of the 385 where neither did. One of ours went
+    down in 11.6% of 835 cases where neither line said a foe could knock it out, **20.0% of
+    the 85 where only the right line said so**, 43.7% of 721 where both did (the knowledge
+    block's "expected knock-out": 15.4%, **31.6% of 76**, 50.8%).
+  - *The observation, if it were recomputed too* (it is NOT): the knowledge and threat
+    blocks would move in 98% of exposed decisions (8.3 of ~74 floats on average; the largest
+    move averages 0.49 of a health bar) and a 0/1 fact would flip in 43% of them. That is a
+    third of all decisions with inputs no brain has seen. The token also carries the foe's
+    base stats, which DO follow the Mega, so the brain may have learned to read the stale
+    damage numbers beside them.
+- **Built, default off: the guard-profile entry `forme_stats`** (`vgc_bench/src/forme_stats.py`,
+  `guards.apply_guards`). With it on, the guard stack runs on the estimate for the forme each
+  opposing Pokemon is in; the stored line (the same dict object) is back when `apply_guards`
+  returns, so the observation and everything else read what they always read.
+  - Only an opponent's line is replaced, and only when it is exactly `ensure_stats`' estimate
+    for another forme of the same Pokemon (computed by `ensure_stats` itself on a stat-less
+    copy, so the two cannot drift). A Transform is left alone.
+  - It is a name in `GUARDS` (a no-op placeholder), so `--guards-extra`, `--guard`,
+    `run_guard_ab.py --guards`, `tools/ladder_trial.sh` and `DEPLOYED.json` take it without a
+    launcher change. Strictly opt-in: "every guard" (`enabled=None`) does not turn it on; the
+    search session made searched picks follow the same rule (7fe46162).
+  - Never silent: every decision in which a line was replaced counts
+    `forme_stats:corrected`, the stack also runs once on the stored numbers (on copies), and a
+    different pick is noted as the stage `forme_stats` (the mirror's and the battery's
+    "changed actions"); the decision audit records the species and the pick the stored
+    numbers made. Cost: 3.5 ms -> 7.0 ms per exposed decision.
+  - `vgc_knowledge.py` is byte-identical (it is a pin of the battery's reference arm), the
+    default path is unchanged, **`DEPLOYED.json` is not touched and the deployed bot plays as
+    before.** 25 tests (`unit_tests/test_forme_stats.py`): the defect, the recognition
+    (Megas, Floette-Eternal, Aegislash both ways, a returning Mega, lines that are not ours),
+    the swap and its restore after an error, the opt-in, two end-to-end positions (threat_first2
+    answers an evolved Raichu; a knock-out Mega Gengar survives is no longer promoted), the
+    observation blocks identical before and after, the audit record. The suite passes (1,267).
+- **Pre-registered** (the opt-in guard rule of 09-28 / 10-03, `evaluation/guard_ladder_gate.py
+  go <battery> <mirror> forme_stats`):
+  1. **Mirror, tonight** (the window before the search session's V5 starts at 21:45):
+     `mirror_guard_ab.py --guard forme_stats --games 2000 --port 7620` -- the deployed T6ep
+     setup on both sides, side A with the entry. Not lost if the Wilson upper bound >= 50%;
+     "wins close games" only if the lower bound > 50%. Also read: corrections and changed
+     picks per game (the whole candidate list this time), by block. The tool stops on any
+     guard error. Killed at 21:40 if unfinished (then it is not a result).
+  2. **Held-out battery, not tonight** (V5 needs a quiet machine until about 07:45):
+     `run_guard_ab.py --guards forme_stats --without-arm results_brain_ab_t6e_ep1` (6,204
+     games; `--prepare-only` passes). Deploy-eligible if the pooled upper bound >= 0 and no
+     population is below -3pp; guard errors within 1% of the games.
+  3. GO for a ladder trial = both hold. Adding it to `guards_extra` is the user's decision.
+  - **Power, stated before the run:** at about one changed pick in eleven ladder games neither
+    run can see the effect of the change itself (the mirror's Megas are our own two, so its
+    rate will differ); they can show it is not broken and does not lose. The case for the
+    entry is the accuracy reading above, not a win rate.
+- **What this leaves open (the user's call):** the larger half is the brain's own view of an
+  opposing Mega's damage, which this entry does not touch. Options: (a) guards only (this
+  entry, after its gates); (b) the observation as well, which needs a fine-tune on the
+  corrected inputs and its own ablation on the deployed brain first; (c) nothing.
+- **Second lead, checked: where a reranker runs without sticky corrections.** The mechanism
+  is as reported (`opponent_reranker.rerank_candidates`: with any evidence it re-sorts the
+  eligible pairs by log policy ratio plus utilities, so a pair a guard promoted starts behind
+  the one it replaced). The deployed launchers pass sticky (`ladder_deployed.sh`,
+  `challenges_deployed.sh`, `ladder_trial.sh`). Reranker on, sticky off:
+  1. `evaluation/eval_counterfactual.py` `_player` -- both rerankers hard-coded on, no way to
+     pass sticky: the gate battery (`run_gate_battery.py`), `run_rollout_gate.py`, the team
+     tournament / grid / confirmation scripts, the league verdict scripts, the guard and
+     mixing probes;
+  2. `ladder_ourteam.py` run bare (rerankers default on, `--sticky-corrections` default off):
+     `tools/ladder_read_loop.sh` called directly without `STICKY`, and `exhibition_mode.sh`
+     with a `CHECKPOINT` / `TEAM` override (it takes sticky only for the deployed pair);
+  3. `mirror_guard_ab.py --rerankers`: side B always, side A unless `--a-sticky` (no chain
+     passes `--rerankers`).
+  - The larger gap is the other way round: the held-out battery (`run_guard_ab.py` ->
+    `opening_study`) and every chained mirror run with **no reranker stage at all**, so
+    neither current gate plays the ladder bot's reranker + sticky stage. Guard promotions
+    always stand there, as they do on ladder with sticky on; what the gates do not see is the
+    reranker's own picks. Nothing changed; reported for the user.
+
 ## V4: the fixed search no longer loses (50.7% and 54.5%); V5 pre-registered for the night (2026-October 4, 20:45, before the run)
 
 - **V4 results** (pre-registered 18:35; side A = deployed bot + nash search on the stack as

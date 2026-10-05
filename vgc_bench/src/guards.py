@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import os
 from collections import Counter
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 import numpy as np
 import torch
@@ -40,6 +40,7 @@ from poke_env.battle import (
 from poke_env.data import GenData
 from poke_env.environment import DoublesEnv
 
+from vgc_bench.src import forme_stats
 from vgc_bench.src import vgc_knowledge as K
 
 # Moves that auto-fail unless it is this Pokemon's first turn out.
@@ -486,6 +487,9 @@ class GuardReport:
     stages: list[str] = field(default_factory=list)
     vetoed: set[tuple[int, int]] = field(default_factory=set)
     demotions: Counter[str] = field(default_factory=Counter)
+    # forme_stats (opt-in): the opposing Pokemon whose stat estimate was replaced for
+    # this decision, and the pair the old numbers picked when the pick differs
+    forme_stats: dict[str, object] | None = None
 
     def note(self, name: str) -> None:
         if name not in self.stages:
@@ -3220,7 +3224,22 @@ def guard_trick_room_direction(battle, cands, report) -> list[Candidate]:
     return trick_room_direction(battle, cands, report)
 
 
+# Not a rule: a switch of the guard profile. On, the whole stack calculates with the
+# stat estimate for the forme each opposing Pokemon is in now (forme_stats.py: an
+# opposing Mega otherwise keeps its pre-Mega numbers for the rest of the game).
+# Strictly opt-in: "every guard" (enabled=None) does not turn it on.
+FORME_STATS = "forme_stats"
+
+
+def guard_forme_stats(battle, cands, report) -> list[Candidate]:
+    """Does nothing itself: the entry gives the switch a name the guard profile,
+    the launchers and DEPLOYED.json know, and apply_guards reads it. Opt-in: not in
+    HARD_GUARDS until it passes its A/B."""
+    return cands
+
+
 GUARDS = {
+    FORME_STATS: guard_forme_stats,
     "playbook_opening": guard_playbook_opening,
     "zero_damage": guard_zero_damage,
     "first_turn": guard_first_turn,
@@ -3304,6 +3323,8 @@ HARD_GUARDS = frozenset(
 # moment the team changes. Guard value is team-specific -- check firing counts against
 # YOUR team before concluding a rule is worthless.
 GUARD_ORDER = (
+    # the profile switch (a no-op here; apply_guards reads it before the stack runs)
+    FORME_STATS,
     # first, so every factual veto below still judges the scripted pair
     "playbook_opening",
     "zero_damage",
@@ -3350,11 +3371,12 @@ GUARD_ORDER = (
 )
 
 
-def apply_guards(
-    battle: DoubleBattle, cands: list[Candidate], enabled: dict[str, bool] | None = None
-) -> tuple[list[Candidate], GuardReport]:
-    """Run the stack in order: hard vetoes first, soft reranks last."""
-    report = GuardReport()
+def _run_guards(
+    battle: DoubleBattle,
+    cands: list[Candidate],
+    enabled: dict[str, bool] | None,
+    report: GuardReport,
+) -> list[Candidate]:
     for name in GUARD_ORDER:
         if enabled is not None and not enabled.get(name, True):
             continue
@@ -3364,4 +3386,37 @@ def apply_guards(
             cands = GUARDS[name](battle, cands, report)
         except Exception:
             report.note(f"{name}_error")
+    return cands
+
+
+def apply_guards(
+    battle: DoubleBattle, cands: list[Candidate], enabled: dict[str, bool] | None = None
+) -> tuple[list[Candidate], GuardReport]:
+    """Run the stack in order: hard vetoes first, soft reranks last.
+
+    With the profile entry ``forme_stats`` on, and an opposing Pokemon whose stat
+    estimate was made for another of its formes, the stack runs on the estimate for
+    the forme it is in; the old line is back when this returns, so the observation
+    keeps the numbers the brain was trained on.
+    """
+    report = GuardReport()
+    stale: list[tuple[Pokemon, forme_stats.Stats]] = []
+    if enabled is not None and enabled.get(FORME_STATS, False):
+        try:
+            stale = forme_stats.find(battle)
+        except Exception:
+            report.note(f"{FORME_STATS}_error")
+    if not stale:
+        return _run_guards(battle, cands, enabled, report), report
+    # First the same stack on the numbers as they were, on copies and with a report
+    # of its own: only to record whether the right estimate changed the pick. A
+    # switch that silently did nothing would otherwise read as a tie.
+    old = _run_guards(battle, [replace(c) for c in cands], enabled, GuardReport())
+    with forme_stats.swapped(stale):
+        cands = _run_guards(battle, cands, enabled, report)
+    report.demotions[f"{FORME_STATS}:corrected"] += 1
+    report.forme_stats = {"corrected": [mon.species for mon, _ in stale]}
+    if old and cands and old[0].actions != cands[0].actions:
+        report.note(FORME_STATS)
+        report.forme_stats["old_pick"] = list(old[0].actions)
     return cands, report

@@ -83,6 +83,8 @@ GUARD_SOURCES = (
     "vgc_bench/src/guards.py",
     "vgc_bench/src/trick_room_guard.py",
     "vgc_bench/src/pokeenv_patches.py",
+    # the profile switch forme_stats (2026-10-04): what the guards calculate with
+    "vgc_bench/src/forme_stats.py",
 )
 
 

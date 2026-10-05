@@ -2073,6 +2073,8 @@ class PolicyPlayer(Player):
                         list(actions) for actions in sorted(guard_report.vetoed)
                     ],
                 }
+                if getattr(guard_report, "forme_stats", None) is not None:
+                    payload["guards"]["forme_stats"] = guard_report.forme_stats
             if mixing_report is not None:
                 payload["mixing"] = mixing_report
             if report is not None:
