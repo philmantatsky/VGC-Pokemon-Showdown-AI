@@ -230,4 +230,76 @@ result exists yet.
 
 ## Results
 
-(none yet)
+### Corrections to the notes above (2026-10-04 20:00, from the build)
+
+- **Ladder is not always closed-sheet.** A saved replay page is rebuilt from
+  `battle._replay_data`, which never contains `|showteam|`, so "0 of 406 saved games had open
+  sheets" measured nothing. The bot's decision audit (`preview_shadow.open_sheet`) says 10
+  open and 116 closed among the 126 games with a record (7.9%); 2 of the bot's 11 public
+  replays show both sheets. `PublicSnapshot.sheet_open` is therefore `True / False / None`,
+  and a player-view stream is `None` until the caller says. No training example carries
+  "unknown"; evaluation and serving map it to closed (`features.sheet_unknown_as_closed`).
+- **Label fields added by the audit:** `target_forced` (one foe stood at turn start: the
+  target is not a choice, 8,882 rows), reason `overridden` (a same-turn Encore replaced the
+  click: 317 rows, hidden), `forced` (Struggle). A dex-aimed move logged with `[spread]`
+  (Expanding Force in Psychic Terrain, 2,264 rows) is `auto` / spread attack.
+- **Split names in the dataset:** `train`, `val`, `test`, `ladder_holdout`, `own_unrated`,
+  `excluded_holdout_player`, `excluded_clone`. Accounts are hashed by the server's user id,
+  not the display name (77 accounts appear under more than one display name). The repertoire
+  is keyed by the forme that owns the moveset, so regional formes are not merged.
+
+### Foundation: audited, train/serve parity holds (2026-10-04)
+
+`events.py` + `public_state.py`, three independent audits, 25 findings (0 blockers, 6 major),
+23 fixed each with a test that fails without the fix. 292 experiment tests pass; ruff and
+pyright clean; no bare assert in library code. `evaluation/oppmodel_parity.py` exits 0:
+
+- Live path vs offline path on 408 saved own pages (bot p1 in 219, p2 in 189), 2,620 turns,
+  three feeding modes including a mid-game reconnect: 0 snapshot mismatches, 0 exact-HP
+  strings left after the rewrite.
+- Spectator vs player view of the same battle (the bot's 11 public replays, 84 turns, 140
+  bot-side HP strings): identical once sheets are treated the same on both sides.
+- Seat symmetry on 1,500 human logs (9,924 turns, 38,120 actions): 0 mismatches.
+  `drive_log` 1.4 ms per log.
+- Label census on that sample: move 74.3%, voluntary switch 10.0%, hidden 3.1%, no action
+  seen 12.6%; targets untrusted 7.1%.
+
+### Dataset `results_oppmodel/v1_ondisk` (2026-10-04, feed still downloading)
+
+- 15,558 battles kept (15,155 human, of which 5,453 already from the feed; 403 own), 208,487
+  examples, 397,440 slot-turns, 15.6% censored (47,838 of those carry a set loss).
+- Examples: train 121,016, val 20,020, test 20,628, ladder holdout 2,598 (401 games, 395
+  opponents), excluded holdout-player 18,396, excluded clone 25,812.
+- 8,911 accounts; 38 over the 60-battle cap. Three of the six heaviest accounts are opponents
+  of the bot, so the holdout rule removes all their battles from training.
+- True move outside the 12 candidates (closed sheets): train 1.1%, test 1.9%, ladder holdout
+  2.2% (recorded closed) / 3.0% (sheet state not recorded).
+- Floors through the scoring code, no model fitted: uniform over legal actions, fine NLL
+  2.58 / 2.64 / 2.77 (val / test / ladder holdout); species prior with a constant switch rate
+  and uniform targets 2.17 / 2.20 / 2.27, action top-1 30.0 / 30.0 / 28.3%.
+- A rebuild under a new tag follows when the download is done.
+
+### R4 — oracle ceiling: the reranker cannot use a predictor (2026-10-04)
+
+`evaluation/oppmodel_oracle.py`, `results_oppmodel/oracle/` (13 s, CPU only). The count
+reproduces: 3,433 audited records = 250 preview + 552 forced replacement + **2,631 move
+decisions** in 403 battles; 2,624 rebuilt; the replay reproduces the played pick in 99.0%.
+
+- **Perfect foresight flips 106 decisions = 4.0% [3.3, 4.8]**, below the pre-registered 5%.
+  By the reading fixed above: this consumer cannot use any predictor; the first
+  decision-changing use must be a guard.
+- Only 53 flips (2.0%) need the true action: mostly "Protect the slot about to be hit" (24)
+  and "retarget away from a slot that switches" (15). 31 more also happen when the gates are
+  opened with no information at all, and 22 are replay mismatches.
+- With the gates at their normal values the true action flips 28 decisions (1.1%).
+- The reranker has no term for a true Protect (593 known) and cannot use a switch into a
+  Pokemon it has not seen (260 of 378).
+- Hindsight on a one-turn damage exchange: the 106 flips are not clearly better (+0.052
+  [-0.028, +0.129]); the 53 that need the truth are (+0.141 [+0.045, +0.234]).
+- Limit: where both opposing actions are visible (1,677 decisions) the share is 4.5%
+  [3.6, 5.6], which reaches the bar. Flips are counted, not played out.
+
+### R1-R3 — models
+
+(pending: count tables and scorecard next; the neural model trains after the matrix-search
+session's latency-sensitive runs end)
