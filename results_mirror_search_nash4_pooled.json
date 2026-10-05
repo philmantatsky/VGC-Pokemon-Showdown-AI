@@ -1,0 +1,87 @@
+{
+  "runs": [
+    "results_mirror_search_nash4_s1",
+    "results_mirror_search_nash4_s2",
+    "results_mirror_search_nash4_s3"
+  ],
+  "complete": true,
+  "games": 600,
+  "a_wins": 304.0,
+  "a_win_rate": 0.5066666666666667,
+  "wilson_95": [
+    0.46674691211223174,
+    0.5465015954433922
+  ],
+  "blocks": {
+    "open sheets, A challenges": {
+      "a_wins": 81.0,
+      "games": 150,
+      "a_win_rate": 0.54
+    },
+    "open sheets, B challenges": {
+      "a_wins": 75.0,
+      "games": 150,
+      "a_win_rate": 0.5
+    },
+    "hidden sheets, A challenges": {
+      "a_wins": 71.0,
+      "games": 150,
+      "a_win_rate": 0.47333333333333333
+    },
+    "hidden sheets, B challenges": {
+      "a_wins": 77.0,
+      "games": 150,
+      "a_win_rate": 0.5133333333333333
+    }
+  },
+  "search_audit": {
+    "decisions": 6535,
+    "modes": {
+      "search": 6510,
+      "error_fallback": 17,
+      "search_fallback": 8
+    },
+    "fallback_reasons": {
+      "error_fallback:exact_search_error": 17,
+      "search_fallback:selected_action_did_not_reach_required_depth": 8
+    },
+    "searched": 6510,
+    "search_changed_policy_favourite": 1835,
+    "search_changed_guarded_policy_choice": {
+      "changed": 96,
+      "of": 214
+    },
+    "search_changed_champion_action": {
+      "changed": 120,
+      "of": 6535,
+      "by": {
+        "the_search_scores": 94,
+        "rebuilt_view_or_candidate_set": 26
+      }
+    },
+    "champion_outcomes": {
+      "kept": 6296,
+      "override_vetoed": 94,
+      "overridden": 120
+    },
+    "override_edges": null,
+    "opponent_reply_was_searched": null,
+    "guards_changed_searched_pick": 94,
+    "guard_stages_on_searched_picks": {
+      "resisted_target": 39,
+      "dominated_spread": 22,
+      "dominated_attack": 22,
+      "guaranteed_ko": 14,
+      "overkill_split": 4,
+      "protect_spam": 3,
+      "dominated_throat_chop": 2,
+      "two_on_one_focus": 1
+    },
+    "elapsed_s": {
+      "p50": 2.585098709212616,
+      "p90": 7.269575500162318,
+      "max": 8.165520417038351
+    },
+    "mean_weight_of_chosen": 0.7854763188490834
+  }
+}

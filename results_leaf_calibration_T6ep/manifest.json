@@ -1,0 +1,25 @@
+{
+  "games": 1600,
+  "seed": 20941,
+  "concurrency": 4,
+  "checkpoint": "results_deployed/champion_mc_T6ep.zip",
+  "team": "teams/candidates_mc/T6e.txt",
+  "guards": [
+    "resisted_target",
+    "overkill_split",
+    "dominated_weather_ball_weather",
+    "dominated_attack",
+    "dominated_throat_chop",
+    "dominated_spread",
+    "focus_boosted",
+    "wide_guard",
+    "drop_free_finish",
+    "fake_out_partner_acts",
+    "switch_the_crippled",
+    "threat_first2",
+    "wasted_fake_out",
+    "throat_chop_main_threat"
+  ],
+  "samples": 14303,
+  "elapsed_s": 1876.5
+}

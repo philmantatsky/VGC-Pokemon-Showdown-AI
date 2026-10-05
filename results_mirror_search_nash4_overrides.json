@@ -1,0 +1,94 @@
+{
+  "runs": [
+    "results_mirror_search_nash4_s1",
+    "results_mirror_search_nash4_s2",
+    "results_mirror_search_nash4_s3"
+  ],
+  "decisions": 6535,
+  "outcomes": {
+    "kept": 6296,
+    "override_vetoed": 94,
+    "overridden": 120,
+    "fallback": 25
+  },
+  "outcomes_by_sheets": {
+    "open": {
+      "kept": 3157,
+      "override_vetoed": 52,
+      "overridden": 80
+    },
+    "hidden": {
+      "kept": 3139,
+      "overridden": 40,
+      "override_vetoed": 42,
+      "fallback": 25
+    }
+  },
+  "overrides": 120,
+  "override_share": 0.018362662586074982,
+  "overrides_per_game": 0.2,
+  "override_payoff_edge": {
+    "p10": 0.20722835821092345,
+    "median": 0.4489117285640708,
+    "p90": 0.6856579261314043,
+    "non_positive": 0,
+    "of": 120
+  },
+  "override_prior_ratio_median": 1.201605196135585,
+  "override_turn_median": 5.0,
+  "changed_slots_by_kind": {
+    "protect": 17,
+    "move": 102,
+    "switch": 36
+  },
+  "top_move_swaps": {
+    "waterspout -> waterpulse": 27,
+    "throatchop -> fakeout": 22,
+    "icebeam -> waterpulse": 17,
+    "throatchop -> flareblitz": 11,
+    "waterpulse -> waterspout": 8,
+    "waterpulse -> icebeam": 5,
+    "heatwave -> earthpower": 5,
+    "flareblitz -> throatchop": 2,
+    "raindance -> helpinghand": 2,
+    "earthpower -> heatwave": 1
+  },
+  "side_a_by_overrides_in_the_game": {
+    "0": {
+      "games": 493,
+      "a_wins": 257.0,
+      "a_win_rate": 0.5212981744421906,
+      "wilson_95": [
+        0.47720707792835776,
+        0.5650599142075665
+      ]
+    },
+    "1": {
+      "games": 95,
+      "a_wins": 41.0,
+      "a_win_rate": 0.43157894736842106,
+      "wilson_95": [
+        0.336556700478959,
+        0.5319197304974721
+      ]
+    },
+    "2": {
+      "games": 11,
+      "a_wins": 5.0,
+      "a_win_rate": 0.45454545454545453,
+      "wilson_95": [
+        0.21270957543988045,
+        0.7199122443100118
+      ]
+    },
+    "3+": {
+      "games": 1,
+      "a_wins": 1.0,
+      "a_win_rate": 1.0,
+      "wilson_95": [
+        0.20654329147389294,
+        1.0
+      ]
+    }
+  }
+}

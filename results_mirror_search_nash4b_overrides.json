@@ -1,0 +1,94 @@
+{
+  "runs": [
+    "results_mirror_search_nash4b_s1",
+    "results_mirror_search_nash4b_s2"
+  ],
+  "decisions": 4348,
+  "outcomes": {
+    "kept": 3864,
+    "overridden": 244,
+    "override_vetoed": 213,
+    "fallback": 27
+  },
+  "outcomes_by_sheets": {
+    "open": {
+      "kept": 1963,
+      "overridden": 158,
+      "override_vetoed": 85
+    },
+    "hidden": {
+      "kept": 1901,
+      "overridden": 86,
+      "override_vetoed": 128,
+      "fallback": 27
+    }
+  },
+  "overrides": 244,
+  "override_share": 0.05611775528978841,
+  "overrides_per_game": 0.61,
+  "override_payoff_edge": {
+    "p10": 0.10624756324137707,
+    "median": 0.2221479246727882,
+    "p90": 0.4366162078376592,
+    "non_positive": 0,
+    "of": 244
+  },
+  "override_prior_ratio_median": 2.8571755435908663,
+  "override_turn_median": 5.0,
+  "changed_slots_by_kind": {
+    "protect": 43,
+    "move": 201,
+    "switch": 53,
+    "target": 6
+  },
+  "top_move_swaps": {
+    "raindance -> helpinghand": 39,
+    "waterspout -> waterpulse": 37,
+    "throatchop -> flareblitz": 22,
+    "icebeam -> waterpulse": 16,
+    "waterpulse -> waterspout": 16,
+    "throatchop -> fakeout": 15,
+    "waterpulse -> icebeam": 12,
+    "fakeout -> throatchop": 8,
+    "heatwave -> earthpower": 7,
+    "psychic -> helpinghand": 6
+  },
+  "side_a_by_overrides_in_the_game": {
+    "0": {
+      "games": 217,
+      "a_wins": 134.0,
+      "a_win_rate": 0.6175115207373272,
+      "wilson_95": [
+        0.5513363670116275,
+        0.6795983844120174
+      ]
+    },
+    "1": {
+      "games": 130,
+      "a_wins": 56.0,
+      "a_win_rate": 0.4307692307692308,
+      "wilson_95": [
+        0.348839550245185,
+        0.516673115473097
+      ]
+    },
+    "2": {
+      "games": 45,
+      "a_wins": 24.0,
+      "a_win_rate": 0.5333333333333333,
+      "wilson_95": [
+        0.3907720886241046,
+        0.6706509605798527
+      ]
+    },
+    "3+": {
+      "games": 8,
+      "a_wins": 4.0,
+      "a_win_rate": 0.5,
+      "wilson_95": [
+        0.21521252682444186,
+        0.7847874731755582
+      ]
+    }
+  }
+}

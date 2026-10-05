@@ -1,0 +1,86 @@
+{
+  "runs": [
+    "results_mirror_search_nash4b_s1",
+    "results_mirror_search_nash4b_s2"
+  ],
+  "complete": true,
+  "games": 400,
+  "a_wins": 218.0,
+  "a_win_rate": 0.545,
+  "wilson_95": [
+    0.4960015667969213,
+    0.5931422955491075
+  ],
+  "blocks": {
+    "open sheets, A challenges": {
+      "a_wins": 60.0,
+      "games": 100,
+      "a_win_rate": 0.6
+    },
+    "open sheets, B challenges": {
+      "a_wins": 50.0,
+      "games": 100,
+      "a_win_rate": 0.5
+    },
+    "hidden sheets, A challenges": {
+      "a_wins": 55.0,
+      "games": 100,
+      "a_win_rate": 0.55
+    },
+    "hidden sheets, B challenges": {
+      "a_wins": 53.0,
+      "games": 100,
+      "a_win_rate": 0.53
+    }
+  },
+  "search_audit": {
+    "decisions": 4348,
+    "modes": {
+      "search": 4321,
+      "error_fallback": 21,
+      "search_fallback": 6
+    },
+    "fallback_reasons": {
+      "error_fallback:exact_search_error": 21,
+      "search_fallback:selected_action_did_not_reach_required_depth": 6
+    },
+    "searched": 4321,
+    "search_changed_policy_favourite": 1302,
+    "search_changed_guarded_policy_choice": {
+      "changed": 223,
+      "of": 457
+    },
+    "search_changed_champion_action": {
+      "changed": 244,
+      "of": 4348,
+      "by": {
+        "the_search_scores": 216,
+        "rebuilt_view_or_candidate_set": 28
+      }
+    },
+    "champion_outcomes": {
+      "kept": 3864,
+      "overridden": 244,
+      "override_vetoed": 213
+    },
+    "override_edges": null,
+    "opponent_reply_was_searched": null,
+    "guards_changed_searched_pick": 213,
+    "guard_stages_on_searched_picks": {
+      "dominated_attack": 80,
+      "guaranteed_ko": 61,
+      "resisted_target": 58,
+      "dominated_spread": 34,
+      "protect_spam": 13,
+      "overkill_split": 7,
+      "two_on_one_focus": 4,
+      "fake_out_partner_acts": 1
+    },
+    "elapsed_s": {
+      "p50": 2.6084766250569373,
+      "p90": 7.240436832886189,
+      "max": 8.209107833914459
+    },
+    "mean_weight_of_chosen": 0.7857976468897954
+  }
+}

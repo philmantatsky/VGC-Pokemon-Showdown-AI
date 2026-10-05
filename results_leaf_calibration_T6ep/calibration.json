@@ -1,0 +1,214 @@
+{
+  "phases": [
+    {
+      "through_turn": 3,
+      "knots": [
+        [
+          -0.1585,
+          0.1792
+        ],
+        [
+          0.0459,
+          0.3917
+        ],
+        [
+          0.3375,
+          0.4556
+        ],
+        [
+          0.4479,
+          0.4667
+        ],
+        [
+          0.6368,
+          0.5312
+        ],
+        [
+          0.8065,
+          0.5958
+        ],
+        [
+          0.8382,
+          0.6292
+        ]
+      ],
+      "samples": 4800,
+      "a_win_rate": 0.501875,
+      "auc": 0.5517670474185488,
+      "brier_raw_clipped": 0.32033545418070747,
+      "brier_calibrated_held_out": 0.24623771348035944
+    },
+    {
+      "through_turn": 6,
+      "knots": [
+        [
+          -1.0092,
+          0.02
+        ],
+        [
+          -0.7022,
+          0.0293
+        ],
+        [
+          -0.4504,
+          0.1381
+        ],
+        [
+          -0.3248,
+          0.2803
+        ],
+        [
+          -0.2478,
+          0.3389
+        ],
+        [
+          0.0071,
+          0.3985
+        ],
+        [
+          0.2877,
+          0.4603
+        ],
+        [
+          0.4838,
+          0.5091
+        ],
+        [
+          0.6478,
+          0.6025
+        ],
+        [
+          0.734,
+          0.6695
+        ],
+        [
+          0.7964,
+          0.7448
+        ],
+        [
+          0.8574,
+          0.8159
+        ],
+        [
+          0.9128,
+          0.8494
+        ],
+        [
+          0.9712,
+          0.9665
+        ],
+        [
+          1.0207,
+          0.98
+        ],
+        [
+          1.0613,
+          0.98
+        ]
+      ],
+      "samples": 4795,
+      "a_win_rate": 0.5017726798748696,
+      "auc": 0.805310655967866,
+      "brier_raw_clipped": 0.19850316912721294,
+      "brier_calibrated_held_out": 0.17728675919678988
+    },
+    {
+      "through_turn": null,
+      "knots": [
+        [
+          -1.061,
+          0.02
+        ],
+        [
+          -0.8946,
+          0.02
+        ],
+        [
+          -0.7593,
+          0.02
+        ],
+        [
+          -0.5881,
+          0.0255
+        ],
+        [
+          -0.3973,
+          0.0809
+        ],
+        [
+          -0.1775,
+          0.2085
+        ],
+        [
+          0.0739,
+          0.4085
+        ],
+        [
+          0.3391,
+          0.5468
+        ],
+        [
+          0.555,
+          0.634
+        ],
+        [
+          0.693,
+          0.7404
+        ],
+        [
+          0.7947,
+          0.9702
+        ],
+        [
+          0.8944,
+          0.98
+        ],
+        [
+          0.9967,
+          0.98
+        ],
+        [
+          1.1118,
+          0.98
+        ]
+      ],
+      "samples": 4708,
+      "a_win_rate": 0.5076465590484283,
+      "auc": 0.9620773932224072,
+      "brier_raw_clipped": 0.08800290617290903,
+      "brier_calibrated_held_out": 0.07751395958562984
+    }
+  ],
+  "samples": 14303,
+  "battles": 1600,
+  "source": "results_leaf_calibration_T6ep",
+  "phase_bounds": [
+    3,
+    6
+  ],
+  "collected_from": {
+    "games": 1600,
+    "seed": 20941,
+    "concurrency": 4,
+    "checkpoint": "results_deployed/champion_mc_T6ep.zip",
+    "team": "teams/candidates_mc/T6e.txt",
+    "guards": [
+      "resisted_target",
+      "overkill_split",
+      "dominated_weather_ball_weather",
+      "dominated_attack",
+      "dominated_throat_chop",
+      "dominated_spread",
+      "focus_boosted",
+      "wide_guard",
+      "drop_free_finish",
+      "fake_out_partner_acts",
+      "switch_the_crippled",
+      "threat_first2",
+      "wasted_fake_out",
+      "throat_chop_main_threat"
+    ],
+    "samples": 14303,
+    "elapsed_s": 1876.5
+  }
+}

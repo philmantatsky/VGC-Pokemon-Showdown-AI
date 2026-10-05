@@ -1,5 +1,65 @@
 # VGC Bot Project Status
 
+## V4: the fixed search no longer loses (50.7% and 54.5%); V5 pre-registered for the night (2026-October 4, 20:45, before the run)
+
+- **V4 results** (pre-registered 18:35; side A = deployed bot + nash search on the stack as
+  of 18:31, side B = deployed bot):
+  - **Anchor 0.2** (`results_mirror_search_nash4_pooled.json`): **304 / 600 = 50.7% [46.7,
+    54.7]** -> no detectable difference. Open sheets 54.0 / 50.0%, hidden 47.3 / 51.3%. It
+    left the bot's pick in 120 of 6,535 decisions (1.8%; guards sent back another 94).
+  - **Anchor 0.07** (`..._nash4b_pooled.json`, two shards -- the third died at launch):
+    **218 / 400 = 54.5% [49.6, 59.3]** -> no detectable difference by the pre-registered
+    reading (the lower bound is 49.6). Open sheets 60.0 / 50.0%, hidden 55.0 / 53.0%. 244
+    overrides in 4,348 decisions (5.6%); guards sent back 213 more (hidden sheets: 128 sent
+    back against 86 accepted).
+  - Against 38.8%, 39.1% and 34.9% for V1-V3: the twelve defects were the loss. Whether the
+    search now *adds* anything is not shown: +4.5 points on 400 games is inside the noise.
+  - What the 0.07 arm changed (`evaluation/search_override_report.py`): median payoff edge
+    +0.22, median prior ratio 2.9, median turn 5; Rain Dance -> Helping Hand 39, Water
+    Spout -> Water Pulse 37, Throat Chop -> Flare Blitz 22; 53 switches, 43 Protects.
+  - Side A won 61.8% of its 217 games with no override and 43.1% of the 130 with one. That
+    is selection, not effect: the search finds big edges when it is in trouble. Only the
+    pooled rate is the experiment.
+  - Caveats: hidden blocks ran while short probes and a calibration collection shared the
+    machine; V4 lacks every fix listed in the 19:05 entry (pivot replacements failed in it:
+    17 and 21 error fallbacks).
+- **Leaf calibration fitted** (`results_leaf_calibration_T6ep/calibration.json`, sha256
+  a29504a303800327...; 1,600 plain mirror games, 14,303 move decisions, side A won 50.2%):
+  - Turns 1-3: AUC 0.55; Brier 0.320 raw -> 0.246 calibrated (held out; a coin is 0.250).
+    Raw 0.3 to 0.8 means 46-60%.
+  - Turns 4-6: AUC 0.81; Brier 0.199 -> 0.177. Turns 7+: AUC 0.96; 0.088 -> 0.078.
+  - The raw value is about +0.45 too high (raw 0.48 is an even game) and steep at the top
+    (late turns: raw 0.69 wins 74%, 0.79 wins 97%).
+  - 16-game probe with it at anchor 0.07: 10 overrides in 161 decisions (6.2%), 11 sent back;
+    expected edge +0.21, realized edge against the reply that came +0.22 (9 of the 10 had
+    that reply in the table). Side A won 12 of 16 -- a probe, not a result.
+- **Null check on the code V5 runs** (anchor 1e12, 8 likeliest replies): 0 of 147 decisions
+  differ from the bot's own, no fallbacks; with oracle worlds 0 of 82. Real reply searched:
+  96% open, 63% hidden; with oracle sets 97% / 91%.
+- **PRE-REGISTERED V5** (`tools/search_mirror_rounds.sh`; 6 processes; start about 21:45
+  when the other session's CPU training has stopped; about 10 hours). Side A = the deployed
+  bot + nash search on the current stack (everything through commit a89f2e1a: champion
+  anchor, live views, opponent-view snapshot, hidden worlds conditioned on what was shown,
+  pivot fix, **8 likeliest replies**, critic leaf, 4 worlds, 8 s, argmax, anchor 0.07);
+  side B = the deployed bot. Two arms, 3 shards x 200 games x 4 rounds = **2,400 games
+  each**:
+  - `NAME=search_nash5 ... EXTRA="--a-search-argmax --a-search-anchor 0.07
+    --a-search-replies 8"`: the raw clipped leaf.
+  - `NAME=search_nash5cal PORT=7613 ... EXTRA="<the same> --a-search-leaf-calibration
+    results_leaf_calibration_T6ep/calibration.json"`: leaf = 2 x calibrated win
+    probability - 1.
+  - **Reading per arm:** pooled Wilson lower bound > 50% = the search wins; upper bound <
+    50% = it loses; otherwise no detectable difference. Two arms are two chances at a false
+    positive: an arm whose lower bound clears 50% by less than a point needs a replication.
+  - Secondary, descriptive: open against hidden halves (hidden is ~92% of ladder, and our
+    own team is far from the meta the set model describes); calibrated against raw;
+    overrides, guard vetoes, expected against realized edges; reply coverage.
+  - Stopping: all four rounds, unless the machine is needed in the morning
+    (`touch results_mirror_<NAME>_STOP` ends an arm after its current round; whatever
+    finished is pooled and reported as that).
+  - A win is a candidate for a ladder trial, which is the user's decision. Search stays OFF
+    in the deployed bot.
+
 ## Search, while V4 runs: the opponent model saw a stale board, hidden worlds ignored what was shown; reply-coverage and calibration instruments (2026-October 4, 19:05)
 
 - **V4 is running** (launched 18:31, 5 shards alive). One of the six shards
@@ -1240,6 +1300,14 @@ ladder games); nothing trained, nothing on the server.
   Any set change needs a practice cycle before our brain can use it.
 
 ## Ladder has never had open team sheets (0 of 766 games); how our Reg M-C wins ended (2026-September 28, 10:05)
+
+> **CORRECTED 2026-10-04** (found by the opponent-predictor session, re-counted here): the
+> "0 of 766" count measured nothing. Saved pages are rebuilt from `battle._replay_data`,
+> and poke-env consumes `|showteam|` before that stream, so a saved page can never hold the
+> line. The bot's own decision audit (`preview_shadow.open_sheet` in
+> `ladder_replays_mc*/decisions.jsonl`) says **10 open, 115 closed among the 125 Reg M-C
+> battles with a record: about 8% of ladder games are open-sheet.** Hidden-sheet blocks
+> still describe ~92% of ladder. The win accounting below is unaffected.
 
 The user: "check in our ladder games out of all the games with open team sheets how
 many did we win that werent forfeits". Analysis only.
