@@ -23,6 +23,12 @@ Only an opponent's line is ever replaced, and only when it is recognisably this
 project's own stale work: exactly ``ensure_stats``' estimate for ANOTHER forme of the
 same Pokemon. Our own stats come from the server's request and already follow the
 forme. A transformed Pokemon (temporary base stats, its own HP) is left alone.
+
+Two kinds of line exist. Without a team sheet ``ensure_stats`` builds the estimate
+from nothing, with a neutral nature. With an open sheet poke-env first writes the
+sheet's numbers -- no stat points, but the NATURE is on the sheet and in them -- and
+``ensure_stats`` tops those up, keeping each stat's nature multiplier. Both are
+recognised; the replacement keeps the nature the stale line shows.
 """
 
 from __future__ import annotations
@@ -39,24 +45,72 @@ from vgc_bench.src import vgc_knowledge as K
 
 Stats = dict[str, int | None]
 _STAT_KEYS = ("hp", "atk", "def", "spa", "spd", "spe")
+_NATURE_MULTS = (0.9, 1.0, 1.1)
 
 
-def estimate(mon: Pokemon, base_stats: dict[str, int] | None = None) -> Stats | None:
+def estimate(
+    mon: Pokemon,
+    base_stats: dict[str, int] | None = None,
+    nature: dict[str, float] | None = None,
+) -> Stats | None:
     """``ensure_stats``' line for ``mon`` as if it were first seen now -- or, with
     ``base_stats``, as if those were its base stats.
 
-    Computed by ``ensure_stats`` itself on a stat-less copy, so the two cannot drift
-    apart. ``mon`` is not touched.
+    ``nature`` (stat -> 0.9 / 1.0 / 1.1) is for a Pokemon on an open team sheet: the
+    copy starts from what poke-env computes from a sheet without stat points, as it
+    does in a real game, and ``ensure_stats`` tops that up.
+
+    Computed by ``ensure_stats`` itself on a copy, so the two cannot drift apart.
+    ``mon`` is not touched.
     """
     probe = copy(mon)
     if base_stats is not None:
         probe._base_stats = base_stats
         probe._temporary_base_stats = None
-    blank: Stats = {key: None for key in _STAT_KEYS}
-    probe.stats = blank
+    base = probe.base_stats
+    line: Stats = {key: None for key in _STAT_KEYS}
+    if nature is not None:
+        for key in _STAT_KEYS:
+            # level 50, 31 IVs, no stat points: base + 75 HP, (base + 20) x nature
+            line[key] = (
+                base[key] + 75
+                if key == "hp"
+                else int((base[key] + 20) * nature.get(key, 1.0))
+            )
+    probe.stats = line
     if not K.ensure_stats(probe):
         return None
     return probe.stats
+
+
+def _nature(stats: Stats, neutral: Stats) -> dict[str, float] | None:
+    """The nature multipliers that turn the neutral estimate ``neutral`` into
+    ``stats``; None when no nature does (then ``stats`` is not that estimate)."""
+    if stats.get("hp") != neutral.get("hp"):
+        return None
+    nature: dict[str, float] = {}
+    for key in _STAT_KEYS[1:]:
+        value, plain = stats.get(key), neutral.get(key)
+        if value is None or plain is None:
+            return None
+        mult = next((m for m in _NATURE_MULTS if int(plain * m) == value), None)
+        if mult is None:
+            return None
+        nature[key] = mult
+    raised = sum(mult > 1.0 for mult in nature.values())
+    lowered = sum(mult < 1.0 for mult in nature.values())
+    return nature if (raised, lowered) in ((0, 0), (1, 1)) else None
+
+
+def _line_of(mon: Pokemon, base_stats: dict[str, int] | None) -> dict | None:
+    """The nature with which ``mon``'s line is exactly the estimate for
+    ``base_stats`` (None: its own, current ones); None if it is not that estimate."""
+    stats = mon.stats
+    neutral = estimate(mon, base_stats)
+    nature = None if neutral is None else _nature(stats, neutral)
+    if nature is None or estimate(mon, base_stats, nature) != stats:
+        return None
+    return nature
 
 
 @lru_cache(maxsize=None)
@@ -82,12 +136,15 @@ def stale_estimate(mon: Pokemon) -> Stats | None:
         return None
     if getattr(mon, "_temporary_base_stats", None) is not None:
         return None  # Transform: another Pokemon's base stats, not a forme of this one
-    fresh = estimate(mon)
-    if fresh is None or stats == fresh:
-        return None
+    if _line_of(mon, None) is not None:
+        return None  # the estimate for the forme it is in
     for other in _formes(mon.gen).get(mon.base_species, ()):
-        if other != base and stats == estimate(mon, other):
-            return fresh
+        if other == base:
+            continue
+        nature = _line_of(mon, other)
+        if nature is not None:
+            fresh = estimate(mon, None, nature)
+            return fresh if fresh != stats else None
     return None
 
 

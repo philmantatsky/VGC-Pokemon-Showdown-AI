@@ -14,6 +14,7 @@ import json
 
 import pytest
 from poke_env.battle import DoubleBattle, Move, Pokemon
+from poke_env.teambuilder import Teambuilder
 
 from unit_tests.ladder_position import move_action, position
 from vgc_bench.src import forme_stats as F
@@ -48,6 +49,20 @@ def _evolved(details: str, forme: str, stone: str) -> Pokemon:
     mon.forme_change(forme)  # |detailschange|
     mon.mega_evolve(stone)  # |-mega|
     return mon
+
+
+def _on_a_sheet(details: str, packed: str) -> Pokemon:
+    """An opposing Pokemon as an open-sheet game creates it: the sheet names its
+    nature but no stat points (poke-env's ``|showteam|`` handler)."""
+    mon = _foe(details)
+    mon._update_from_teambuilder(Teambuilder.parse_packed_team(packed)[0])
+    return mon
+
+
+QUIET_BLASTOISE = (
+    "Blastoise||blastoisinite|raindish|fakeout,waterspout,waterpulse,icebeam"
+    "|Quiet||M|||50|"
+)
 
 
 def _first_seen_as(forme: str) -> Pokemon:
@@ -224,6 +239,55 @@ def test_lines_that_are_not_a_stale_estimate_are_left_alone():
     K.ensure_stats(transformed)
     transformed.transform(_foe("Blastoise, L50, M"))
     assert F.stale_estimate(transformed) is None
+
+
+def test_an_open_sheet_line_is_recognised_and_keeps_its_nature():
+    """With open sheets the stored line carries the sheet's nature (Quiet: Special
+    Attack x1.1, Speed x0.9). These are the numbers of a local open-sheet game on
+    2026-10-04, where the first version of the recognition corrected nothing."""
+    mon = _on_a_sheet("Blastoise, L50, M", QUIET_BLASTOISE)
+    assert K.ensure_stats(mon) is True  # the sheet's numbers, topped up
+    stored = {"hp": 186, "atk": 103, "def": 120, "spa": 150, "spd": 125, "spe": 90}
+    assert mon.stats == stored
+    assert F.stale_estimate(mon) is None
+    mon.forme_change("Blastoise-Mega, L50, M")
+    mon.mega_evolve("Blastoisinite")
+    assert K.ensure_stats(mon) is False and mon.stats == stored  # the defect
+    # Mega Blastoise, same nature: (135 + 32 + 20) x 1.1 and (78 + 2 + 20) x 0.9
+    right = {"hp": 186, "atk": 123, "def": 140, "spa": 205, "spd": 135, "spe": 90}
+    assert F.stale_estimate(mon) == right
+
+
+def test_the_attack_that_gets_the_points_follows_the_new_forme():
+    """Charizard is estimated as a special attacker, Mega Charizard X as a
+    physical one (base 130 / 130): the points move, the nature stays."""
+    mon = _on_a_sheet(
+        "Charizard, L50, M",
+        "Charizard||charizarditex|blaze|flareblitz,dragonclaw,protect,dragondance"
+        "|Adamant||M|||50|",
+    )
+    K.ensure_stats(mon)
+    assert (mon.stats["atk"], mon.stats["spa"]) == (114, 144)  # 104 x 1.1, 161 x 0.9
+    mon.forme_change("Charizard-Mega-X, L50, M")
+    mon.mega_evolve("Charizardite X")
+    fresh = F.stale_estimate(mon)
+    assert fresh is not None
+    assert (fresh["atk"], fresh["spa"]) == (200, 135)  # 182 x 1.1, 150 x 0.9
+
+
+def test_a_line_no_nature_explains_is_left_alone():
+    two_raised = _on_a_sheet("Blastoise, L50, M", QUIET_BLASTOISE)
+    K.ensure_stats(two_raised)
+    odd = dict(two_raised.stats)
+    odd["def"] = int(120 * 1.1)  # a second raised stat: no nature does that
+    two_raised.stats = odd
+    two_raised.forme_change("Blastoise-Mega, L50, M")
+    assert F.stale_estimate(two_raised) is None
+    # the sheet's own numbers, never topped up (cannot happen in play: a foe is on
+    # the field, and estimated, at the decision before it can Mega-evolve)
+    never_estimated = _on_a_sheet("Blastoise, L50, M", QUIET_BLASTOISE)
+    never_estimated.forme_change("Blastoise-Mega, L50, M")
+    assert F.stale_estimate(never_estimated) is None
 
 
 def test_only_the_opponents_pokemon_are_looked_at():

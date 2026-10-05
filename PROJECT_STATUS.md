@@ -60,8 +60,9 @@
   opposing Pokemon is in; the stored line (the same dict object) is back when `apply_guards`
   returns, so the observation and everything else read what they always read.
   - Only an opponent's line is replaced, and only when it is exactly `ensure_stats`' estimate
-    for another forme of the same Pokemon (computed by `ensure_stats` itself on a stat-less
-    copy, so the two cannot drift). A Transform is left alone.
+    for another forme of the same Pokemon (computed by `ensure_stats` itself on a copy, so
+    the two cannot drift; with the sheet's nature when the stale line shows one -- see the
+    amendment below). A Transform is left alone.
   - It is a name in `GUARDS` (a no-op placeholder), so `--guards-extra`, `--guard`,
     `run_guard_ab.py --guards`, `tools/ladder_trial.sh` and `DEPLOYED.json` take it without a
     launcher change. Strictly opt-in: "every guard" (`enabled=None`) does not turn it on; the
@@ -95,6 +96,35 @@
     run can see the effect of the change itself (the mirror's Megas are our own two, so its
     rate will differ); they can show it is not broken and does not lose. The case for the
     entry is the accuracy reading above, not a win rate.
+- **Amended 21:20, before the rerun and the battery below exist** (two faults of mine, found
+  while the first mirror ran; its hidden-sheet blocks had not finished):
+  - *The entry did nothing with open sheets.* The first open-sheet block ended with **0
+    changed picks in 500 games**. A 12-game probe per sheet mode: hidden 124 corrections and 2
+    changed picks, open 0 and 0. With an open sheet the stored line carries the sheet's NATURE
+    (poke-env writes the sheet's numbers, `ensure_stats` tops them up and keeps each stat's
+    multiplier: the opposing Blastoise reads Special Attack 150, Speed 90), so it never was
+    "exactly the neutral estimate" and was not recognised. Fixed: the recognition recovers the
+    nature from the stale line and the replacement keeps it (Mega Blastoise 205 / 90, its real
+    numbers); three more tests, one on the live line. The probe after the fix: open 103
+    corrections and 3 changed picks, hidden 128 and 6. Hidden-sheet lines are untouched by this
+    -- the ladder audit's summary is identical, and so are tonight's two hidden-sheet blocks --
+    but tonight's two open-sheet blocks compared the bot with itself. **The gate's mirror is
+    therefore a full rerun** (`results_mirror_forme_stats2`), same reading; tonight's run is
+    reported as it is.
+  - *The battery command above was wrong.* `run_guard_ab.py` plays a plain guard arm on the
+    reference study's team (T6), and `results_brain_ab_t6e_ep1` was played on T6e: the
+    comparison would have been the team's, and the tool would have stopped after the first
+    population ("arms differ beyond output"). The with side now goes through the candidate
+    path -- the deployed brain's own file, `--candidate-plans data/opening_plans_t6e.json`,
+    port 7610 like the reference arm -- so the two arms differ in `forme_stats` alone
+    (`--prepare-only`: same brain sha, plans, team, guards, seed, rosters). Both sides play
+    the 12 guards that arm was played with (`wasted_fake_out` and `throat_chop_main_threat`
+    came later and are off on both). Same rule.
+  - Both run from **`tools/forme_stats_chain.sh`** (started tonight; it waits): once no
+    search, mirror, battery or training job has run for ten minutes in a row it plays the
+    mirror (about 30 min) and the battery (about 45 min) and writes the verdict to
+    `results_analysis/forme_stats_20261004/chain.log`. No ladder, no promotion.
+    `touch results_analysis/forme_stats_20261004/STOP` ends it while it waits.
 - **What this leaves open (the user's call):** the larger half is the brain's own view of an
   opposing Mega's damage, which this entry does not touch. Options: (a) guards only (this
   entry, after its gates); (b) the observation as well, which needs a fine-tune on the
