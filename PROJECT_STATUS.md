@@ -1,5 +1,47 @@
 # VGC Bot Project Status
 
+## V6 read: the search beats the deployed bot in the mirror, 53.7% [52.5, 55.0] over 6,000 games; all four arms above 50%, none apart from another; almost all of it with open sheets (2026-October 5, 07:30)
+
+- **How it ended.** The user said "pause" at 07:26; the six processes were ended at 07:27,
+  three minutes before the clock stop. The rounds in play were not finished and are not
+  counted (they were never read); every complete shard counts, as pre-registered. The run
+  also stood still from 23:39 to 00:49 at the user's word. Nothing of this session is
+  running; **the roster run pre-registered at 01:00 is on hold until the user says go.**
+- **The arms** (`results_mirror_search_nash6_arms.json`; side A = deployed bot + search on
+  cpu, code 19445d0e; side B = deployed bot):
+
+  | arm | A wins | rate | open sheets | hidden sheets | at the budget | overrides |
+  |---|---|---|---|---|---|---|
+  | raw leaf, one stream | 738 / 1,400 | 52.7% [50.1, 55.3] | 52.6% | 52.9% | 6.6% | 6.3% |
+  | calibrated, one stream | 759 / 1,400 | 54.2% [51.6, 56.8] | 58.9% | 49.6% | 6.7% | 5.8% |
+  | raw, streams >= 4 | 870 / 1,600 | 54.4% [51.9, 56.8] | 56.6% | 52.1% | 14.2% | 6.1% |
+  | calibrated, streams >= 4 | 856 / 1,600 | 53.5% [51.1, 55.9] | 56.0% | 51.0% | 14.1% | 5.7% |
+  | **all four** | **3,223 / 6,000** | **53.7% [52.5, 55.0]** | **56.0%** | **51.4%** | | |
+
+  - **Pre-registered reading:** every arm's lower bound is above 50% (the raw one-stream
+    arm's by a tenth of a point), so the search wins in each -- and four agreeing arms are
+    the replication a lone marginal win would have needed. Together: +3.7 points.
+  - **The factors are nil:** streams >= 4 vs one +0.5 points [-2.1, +3.0]; calibrated vs
+    raw +0.2 [-2.3, +2.8]. Neither ingredient is shown to add anything; the 61.5% of the
+    calibrated streams arm at 200 games (23:39 and the pilot's twin) was noise.
+  - **Where the gain is:** open sheets 1,681 / 3,000 = 56.0% [54.3, 57.8];
+    hidden sheets 1,542 / 3,000 = 51.4% [49.6, 53.2]. With the opponent's
+    sets known the search is worth six points; with them hidden, about one, not separable
+    from zero. In this mirror the hidden half is harsh (T6e's sets are far from the
+    stored ones: the real reply is in the table 56-72% of the time, 93-96% open) -- but
+    nine ladder games in ten are hidden-sheet, so this is the number that matters there.
+  - Overrides 5.7-6.3% of decisions, another 4.5-5.2% sent back by the guards; expected vs
+    realized edge 0.26 / 0.31, 0.25 / 0.24, 0.26 / 0.30, 0.26 / 0.27.
+  - Caveats: one matchup (our team on both sides, our own brain as the search's model of
+    the opponent); the machine was not quiet (iCloud, macOS asset work around 02:00 with a
+    load average of 130, another session's niced jobs) -- the streams arms reached the
+    time budget in 14% of decisions.
+- **Level over the night:** V1-V3 35-39% (broken stack), V4 50.7 / 54.5% (fixed stack, mps),
+  V5 pilot 55.1% of 800 (cpu), V6 53.7% of 6,000 (cpu, threat-cache fix).
+- **By the rule fixed at 01:00** the roster run's configuration is the arm with the highest
+  pooled rate: raw leaf with streams >= 4 (54.4%; the calibrated one-stream arm is 0.2
+  behind -- a coin flip between equals, which is what the rule was for).
+
 ## Opponent predictor learning curve: every doubling of replays still helps, the last one half as much (2026-October 5, 05:40; predictor session)
 
 - `results_oppmodel/lc20261005_curve/` (one niced thread, 108 minutes; one frozen corpus of

@@ -236,17 +236,17 @@ ladder, in order:
     copies of the battle read a zeroed threat block in 30% of lookups (the threat cache's key
     had no object in it). Fixed; the encoder is a third faster with the same bytes
     (`unit_tests/test_observation_identity.py`).
-  - [ ] **V6 (pre-registered 22:08, `../vgc-bench-v6` at 19445d0e):** the same 2 x 2 (leaf raw
-    / calibrated x streams one / at least 4), anchor 0.07, six shards. **Stopped by the user
-    at 23:39 after 800 games** (an interim read, not the clock stop): 56.0 / 57.0 / 55.5 /
-    61.5%, together 57.5% [54.0, 60.9]; no arm separated from another. Resumable. Gate for a
-    ladder trial (with `--device cpu`): pooled lower bound > 50% at the planned size, the
-    rosters below, then the user's word.
+  - [x] **V6** (pre-registered 22:08; `../vgc-bench-v6` at 19445d0e; ended at the user's
+    "pause" 07:27, three minutes before its clock stop): **the search beats the deployed bot
+    in the mirror, 3,223 / 6,000 = 53.7% [52.5, 55.0]**; all four arms above 50% (52.7 /
+    54.2 / 54.4 / 53.5%), streams and calibration both nil (+0.5 [-2.1, +3.0], +0.2 [-2.3,
+    +2.8]). Open sheets 56.0%, hidden sheets 51.4% [49.6, 53.2].
   - [ ] **Against other teams** (`evaluation/search_roster_ab.py`,
     `tools/search_roster_arms.sh`): the deployed bot with and without the search against the
     battery's six opponents on its 47 held-out rosters, roster-paired. The mirror is one
     matchup; this is the gate between a mirror win and a ladder trial. **Pre-registered
-    10-05 01:00 at the user's word; starts when V6 ends** (6,204 games an arm, 7-9 hours).
+    10-05 01:00 at the user's word** (6,204 games an arm, 7-9 hours; configuration by its
+    rule = raw leaf, streams >= 4). **On hold since the user's "pause" at 07:26.**
   - [ ] Ladder trial at the user's word: `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh`
     (flags for the measured configuration are in its header; `--device cpu`).
   - [ ] Next search changes (V7, after V6 is read): keep the bot's own replacement at

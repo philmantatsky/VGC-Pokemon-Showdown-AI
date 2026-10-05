@@ -3,31 +3,31 @@
   "arms": {
     "raw": {
       "name": "search_nash6",
-      "shards": 2,
-      "a_wins": 112.0,
-      "games": 200,
-      "a_win_rate": 0.56,
+      "shards": 14,
+      "a_wins": 738.0,
+      "games": 1400,
+      "a_win_rate": 0.5271428571428571,
       "wilson_95": [
-        0.4907154834956251,
-        0.6270229957941764
+        0.5009513028410818,
+        0.5531858590723421
       ],
-      "verdict": "no detectable difference",
+      "verdict": "wins",
       "open_sheets": {
-        "a_wins": 58.0,
-        "games": 100,
-        "a_win_rate": 0.58,
+        "a_wins": 368.0,
+        "games": 700,
+        "a_win_rate": 0.5257142857142857,
         "wilson_95": [
-          0.4820630799889527,
-          0.672017750814887
+          0.48868325603635665,
+          0.5624646158711862
         ]
       },
       "hidden_sheets": {
-        "a_wins": 54.0,
-        "games": 100,
-        "a_win_rate": 0.54,
+        "a_wins": 370.0,
+        "games": 700,
+        "a_win_rate": 0.5285714285714286,
         "wilson_95": [
-          0.44264685393523856,
-          0.6343935614666815
+          0.49153621743738196,
+          0.5652947513487768
         ]
       },
       "by_round": {
@@ -38,61 +38,109 @@
         "2": [
           56.0,
           100
+        ],
+        "3": [
+          57.0,
+          100
+        ],
+        "4": [
+          59.0,
+          100
+        ],
+        "5": [
+          60.0,
+          100
+        ],
+        "6": [
+          41.0,
+          100
+        ],
+        "7": [
+          58.0,
+          100
+        ],
+        "8": [
+          52.0,
+          100
+        ],
+        "9": [
+          51.0,
+          100
+        ],
+        "10": [
+          46.0,
+          100
+        ],
+        "11": [
+          43.0,
+          100
+        ],
+        "12": [
+          55.0,
+          100
+        ],
+        "13": [
+          52.0,
+          100
+        ],
+        "14": [
+          52.0,
+          100
         ]
       },
       "search": {
-        "decisions": 2193,
-        "searched": 2192,
+        "decisions": 15119,
+        "searched": 15118,
         "not_searched": {
           "search_fallback": 1
         },
-        "seconds_median": 1.0065797499846667,
-        "seconds_p90": 4.485685207881033,
-        "at_budget_share": 0.06934306569343066,
-        "one_stream_share": 0.45666058394160586,
-        "override_share": 0.05885036496350365,
-        "sent_back_by_guards_share": 0.05291970802919708,
+        "seconds_median": 0.9690562500618398,
+        "seconds_p90": 4.009713584091514,
+        "at_budget_share": 0.06588173038761741,
+        "one_stream_share": 0.4525069453631433,
+        "override_share": 0.06310358513030824,
+        "sent_back_by_guards_share": 0.051858711469771133,
         "override_edges": {
-          "overrides_followed": 116,
-          "mean_expected": 0.2343346586965973,
-          "reply_was_searched": 87,
-          "mean_realized": 0.30015385983837345,
-          "mean_expected_where_realized": 0.24613907135977908,
-          "realized_not_positive": 12
+          "overrides_followed": 854,
+          "mean_expected": 0.2606383736699634,
+          "reply_was_searched": 602,
+          "mean_realized": 0.3079173971732885,
+          "mean_expected_where_realized": 0.2787648399786491,
+          "realized_not_positive": 88
         },
         "reply_was_searched": {
-          "open": 0.7900552486187845,
-          "hidden": 0.5903755868544601
+          "open": 0.8401268834258525,
+          "hidden": 0.594017094017094
         }
       }
     },
     "cal": {
       "name": "search_nash6cal",
-      "shards": 2,
-      "a_wins": 114.0,
-      "games": 200,
-      "a_win_rate": 0.57,
+      "shards": 14,
+      "a_wins": 759.0,
+      "games": 1400,
+      "a_win_rate": 0.5421428571428571,
       "wilson_95": [
-        0.500703604055383,
-        0.636657955116052
+        0.5159646096821076,
+        0.5680904574992611
       ],
       "verdict": "wins",
       "open_sheets": {
-        "a_wins": 53.0,
-        "games": 100,
-        "a_win_rate": 0.53,
+        "a_wins": 412.0,
+        "games": 700,
+        "a_win_rate": 0.5885714285714285,
         "wilson_95": [
-          0.4328868313724773,
-          0.6248934801789626
+          0.5517296814380466,
+          0.6244463217990452
         ]
       },
       "hidden_sheets": {
-        "a_wins": 61.0,
-        "games": 100,
-        "a_win_rate": 0.61,
+        "a_wins": 347.0,
+        "games": 700,
+        "a_win_rate": 0.4957142857142857,
         "wilson_95": [
-          0.5120283616749817,
-          0.699832780680298
+          0.4587997312977761,
+          0.5326756233843001
         ]
       },
       "by_round": {
@@ -103,153 +151,258 @@
         "2": [
           57.0,
           100
+        ],
+        "3": [
+          57.0,
+          100
+        ],
+        "4": [
+          65.0,
+          100
+        ],
+        "5": [
+          54.0,
+          100
+        ],
+        "6": [
+          49.0,
+          100
+        ],
+        "7": [
+          55.0,
+          100
+        ],
+        "8": [
+          58.0,
+          100
+        ],
+        "9": [
+          47.0,
+          100
+        ],
+        "10": [
+          55.0,
+          100
+        ],
+        "11": [
+          51.0,
+          100
+        ],
+        "12": [
+          49.0,
+          100
+        ],
+        "13": [
+          53.0,
+          100
+        ],
+        "14": [
+          52.0,
+          100
         ]
       },
       "search": {
-        "decisions": 2081,
-        "searched": 2080,
+        "decisions": 15038,
+        "searched": 15036,
         "not_searched": {
-          "search_fallback": 1
+          "search_fallback": 2
         },
-        "seconds_median": 1.0521750000771135,
-        "seconds_p90": 4.694149292074144,
-        "at_budget_share": 0.06923076923076923,
-        "one_stream_share": 0.4326923076923077,
-        "override_share": 0.06009615384615385,
-        "sent_back_by_guards_share": 0.03894230769230769,
+        "seconds_median": 0.9612582500558347,
+        "seconds_p90": 4.072176417103037,
+        "at_budget_share": 0.06650704974727321,
+        "one_stream_share": 0.46142591114658155,
+        "override_share": 0.05819366852886406,
+        "sent_back_by_guards_share": 0.04549082202713488,
         "override_edges": {
-          "overrides_followed": 110,
-          "mean_expected": 0.27789873856858194,
-          "reply_was_searched": 72,
-          "mean_realized": 0.19152916128808553,
-          "mean_expected_where_realized": 0.29720537983205836,
-          "realized_not_positive": 22
+          "overrides_followed": 786,
+          "mean_expected": 0.2538091800661998,
+          "reply_was_searched": 539,
+          "mean_realized": 0.2417493694154256,
+          "mean_expected_where_realized": 0.25979424039830284,
+          "realized_not_positive": 98
         },
         "reply_was_searched": {
-          "open": 0.8654761904761905,
-          "hidden": 0.6317733990147784
+          "open": 0.8262126566013491,
+          "hidden": 0.605385011147316
         }
       }
     },
     "s4": {
       "name": "search_nash6s4",
-      "shards": 2,
-      "a_wins": 111.0,
-      "games": 200,
-      "a_win_rate": 0.555,
+      "shards": 16,
+      "a_wins": 870.0,
+      "games": 1600,
+      "a_win_rate": 0.54375,
       "wilson_95": [
-        0.4857317563236392,
-        0.6221951830253456
+        0.5192681986695301,
+        0.5680222170423456
       ],
-      "verdict": "no detectable difference",
+      "verdict": "wins",
       "open_sheets": {
-        "a_wins": 55.0,
-        "games": 100,
-        "a_win_rate": 0.55,
+        "a_wins": 453.0,
+        "games": 800,
+        "a_win_rate": 0.56625,
         "wilson_95": [
-          0.45244427031643447,
-          0.6438562489359654
+          0.5316713470828236,
+          0.600195428660059
         ]
       },
       "hidden_sheets": {
-        "a_wins": 56.0,
-        "games": 100,
-        "a_win_rate": 0.56,
+        "a_wins": 417.0,
+        "games": 800,
+        "a_win_rate": 0.52125,
         "wilson_95": [
-          0.4622792771125631,
-          0.6532813459903167
+          0.4866141864882055,
+          0.5556827038444172
         ]
       },
       "by_round": {
         "1": [
           111.0,
           200
+        ],
+        "2": [
+          100.0,
+          200
+        ],
+        "3": [
+          106.0,
+          200
+        ],
+        "4": [
+          117.0,
+          200
+        ],
+        "5": [
+          115.0,
+          200
+        ],
+        "6": [
+          112.0,
+          200
+        ],
+        "7": [
+          108.0,
+          200
+        ],
+        "8": [
+          101.0,
+          200
         ]
       },
       "search": {
-        "decisions": 2190,
-        "searched": 2186,
+        "decisions": 17221,
+        "searched": 17207,
         "not_searched": {
-          "error_fallback": 4
+          "error_fallback": 14
         },
-        "seconds_median": 1.8565310831181705,
-        "seconds_p90": 7.21866016718559,
-        "at_budget_share": 0.1454711802378774,
+        "seconds_median": 1.7125007500872016,
+        "seconds_p90": 7.2404894581995904,
+        "at_budget_share": 0.14180275469285755,
         "one_stream_share": 0.0,
-        "override_share": 0.05763952424519671,
-        "sent_back_by_guards_share": 0.04437328453796889,
+        "override_share": 0.06137037252281048,
+        "sent_back_by_guards_share": 0.04544662056139943,
         "override_edges": {
-          "overrides_followed": 107,
-          "mean_expected": 0.2634430345166336,
-          "reply_was_searched": 78,
-          "mean_realized": 0.2808046502580707,
-          "mean_expected_where_realized": 0.27902076953879124,
-          "realized_not_positive": 14
+          "overrides_followed": 970,
+          "mean_expected": 0.2632568630203388,
+          "reply_was_searched": 717,
+          "mean_realized": 0.29623110547258963,
+          "mean_expected_where_realized": 0.2831263249530641,
+          "realized_not_positive": 122
         },
         "reply_was_searched": {
-          "open": 0.8154020385050963,
-          "hidden": 0.6670480549199085
+          "open": 0.8423213021939137,
+          "hidden": 0.6556340100029421
         }
       }
     },
     "s4cal": {
       "name": "search_nash6s4cal",
-      "shards": 2,
-      "a_wins": 123.0,
-      "games": 200,
-      "a_win_rate": 0.615,
+      "shards": 16,
+      "a_wins": 856.0,
+      "games": 1600,
+      "a_win_rate": 0.535,
       "wilson_95": [
-        0.5459973878179245,
-        0.6796680308208618
+        0.5105054084136489,
+        0.5593269241558518
       ],
       "verdict": "wins",
       "open_sheets": {
-        "a_wins": 66.0,
-        "games": 100,
-        "a_win_rate": 0.66,
+        "a_wins": 448.0,
+        "games": 800,
+        "a_win_rate": 0.56,
         "wilson_95": [
-          0.5627754565831095,
-          0.74538620502457
+          0.5253964915437855,
+          0.5940300223365612
         ]
       },
       "hidden_sheets": {
-        "a_wins": 57.0,
-        "games": 100,
-        "a_win_rate": 0.57,
+        "a_wins": 408.0,
+        "games": 800,
+        "a_win_rate": 0.51,
         "wilson_95": [
-          0.4721521169586435,
-          0.6626686099947162
+          0.47539374991627037,
+          0.5445106690637873
         ]
       },
       "by_round": {
         "1": [
           123.0,
           200
+        ],
+        "2": [
+          112.0,
+          200
+        ],
+        "3": [
+          92.0,
+          200
+        ],
+        "4": [
+          99.0,
+          200
+        ],
+        "5": [
+          107.0,
+          200
+        ],
+        "6": [
+          108.0,
+          200
+        ],
+        "7": [
+          112.0,
+          200
+        ],
+        "8": [
+          103.0,
+          200
         ]
       },
       "search": {
-        "decisions": 2128,
-        "searched": 2125,
+        "decisions": 17247,
+        "searched": 17237,
         "not_searched": {
-          "error_fallback": 3
+          "error_fallback": 9,
+          "search_fallback": 1
         },
-        "seconds_median": 1.8583069581072778,
-        "seconds_p90": 7.219481415813789,
-        "at_budget_share": 0.14211764705882354,
+        "seconds_median": 1.6926011659670621,
+        "seconds_p90": 7.248003124957904,
+        "at_budget_share": 0.14143992574113826,
         "one_stream_share": 0.0,
-        "override_share": 0.07152941176470588,
-        "sent_back_by_guards_share": 0.04470588235294118,
+        "override_share": 0.05679642629227824,
+        "sent_back_by_guards_share": 0.04467134652201659,
         "override_edges": {
-          "overrides_followed": 143,
-          "mean_expected": 0.24425169534023625,
-          "reply_was_searched": 110,
-          "mean_realized": 0.24733886541959108,
-          "mean_expected_where_realized": 0.24847536731797637,
-          "realized_not_positive": 31
+          "overrides_followed": 909,
+          "mean_expected": 0.256121710114284,
+          "reply_was_searched": 643,
+          "mean_realized": 0.2670054917572692,
+          "mean_expected_where_realized": 0.2607863754182669,
+          "realized_not_positive": 105
         },
         "reply_was_searched": {
-          "open": 0.8275862068965517,
-          "hidden": 0.6389228886168911
+          "open": 0.8264072272411397,
+          "hidden": 0.6547138801733154
         }
       }
     }
@@ -261,12 +414,12 @@
           "s4",
           "s4cal"
         ],
-        "a_wins": 234.0,
-        "games": 400,
-        "a_win_rate": 0.585,
+        "a_wins": 1726.0,
+        "games": 3200,
+        "a_win_rate": 0.539375,
         "wilson_95": [
-          0.5361280807400124,
-          0.6322547703580419
+          0.5220677652992021,
+          0.5565878086842309
         ]
       },
       "second": {
@@ -274,18 +427,18 @@
           "raw",
           "cal"
         ],
-        "a_wins": 226.0,
-        "games": 400,
-        "a_win_rate": 0.565,
+        "a_wins": 1497.0,
+        "games": 2800,
+        "a_win_rate": 0.5346428571428572,
         "wilson_95": [
-          0.516025173472477,
-          0.6127381832495644
+          0.5161322402398016,
+          0.5530585442895386
         ]
       },
-      "difference": 0.020000000000000018,
+      "difference": 0.004732142857142851,
       "interval_95": [
-        -0.04831836233490773,
-        0.08805546969195235
+        -0.020539934739939515,
+        0.030009083354988263
       ]
     },
     "calibrated vs raw": {
@@ -294,12 +447,12 @@
           "cal",
           "s4cal"
         ],
-        "a_wins": 237.0,
-        "games": 400,
-        "a_win_rate": 0.5925,
+        "a_wins": 1615.0,
+        "games": 3000,
+        "a_win_rate": 0.5383333333333333,
         "wilson_95": [
-          0.5436874000695945,
-          0.6395527614194646
+          0.5204560434232797,
+          0.556112574575752
         ]
       },
       "second": {
@@ -307,28 +460,28 @@
           "raw",
           "s4"
         ],
-        "a_wins": 223.0,
-        "games": 400,
-        "a_win_rate": 0.5575,
+        "a_wins": 1608.0,
+        "games": 3000,
+        "a_win_rate": 0.536,
         "wilson_95": [
-          0.5085070928349432,
-          0.6053989534960934
+          0.5181194822721695,
+          0.5537884372399646
         ]
       },
-      "difference": 0.03500000000000003,
+      "difference": 0.0023333333333332984,
       "interval_95": [
-        -0.03338844681659865,
-        0.10292839840362003
+        -0.022886222451181736,
+        0.02754869241012185
       ]
     }
   },
   "all_arms": {
-    "a_wins": 460.0,
-    "games": 800,
-    "a_win_rate": 0.575,
+    "a_wins": 3223.0,
+    "games": 6000,
+    "a_win_rate": 0.5371666666666667,
     "wilson_95": [
-      0.5404654236649771,
-      0.608817718685456
+      0.5245301560751627,
+      0.5497556145554283
     ],
     "verdict": "wins"
   }
