@@ -102,6 +102,16 @@ ALLOWED_CHANGED_PINS = {
     # the training entry point (2026-10-04: the KL-anchor flags); no battery game
     # imports it, so a change there cannot change how either arm plays
     "vgc_bench/train.py",
+    # the exact-search stack (2026-10-04: the search fidelity fixes). No battery arm
+    # searches: importing this harness and its arm runner loads none of the first
+    # four (PolicyPlayer imports live_exact only inside its search methods), and
+    # set_particles is imported for team_roster alone -- its change, default_spread
+    # in determination_team_text, is reached only when exact worlds are built.
+    "vgc_bench/src/exact_observation.py",
+    "vgc_bench/src/exact_planner.py",
+    "vgc_bench/src/live_exact.py",
+    "vgc_bench/src/live_snapshot.py",
+    "vgc_bench/src/set_particles.py",
 }
 # Everything the extra guards run; hashed into the manifest, re-checked between
 # populations so the code cannot change during a comparison.

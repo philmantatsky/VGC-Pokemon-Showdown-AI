@@ -458,6 +458,9 @@ def _opponent_previews(
 GUARD_ADDED = "guard-added"
 # move names the protocol shows that are never one of a set's four moves
 _NOT_SET_MOVES = frozenset({"struggle", "recharge"})
+# GUARDS entries that are profile switches read by apply_guards itself (default off
+# even under "every guard"): guards.FORME_STATS, the forme-aware stat estimate
+_EXPLICIT_ONLY_SWITCHES = frozenset({"forme_stats"})
 
 
 def canonical_target_actions(
@@ -2522,7 +2525,11 @@ class LiveExactSession:
         if getattr(self, "player_guards", False):
             flags = getattr(self, "player_guard_flags", None)
             for name in GUARDS:
-                if flags is None or flags.get(name, True):
+                if name in _EXPLICIT_ONLY_SWITCHES:
+                    # a profile switch, not a rule: on only where the player's own
+                    # flags say so, never because "every guard" is on
+                    enabled[name] = bool(flags and flags.get(name, False))
+                elif flags is None or flags.get(name, True):
                     enabled[name] = True
         guarded, report = apply_guards(battle, candidates, enabled)
         by_actions = {

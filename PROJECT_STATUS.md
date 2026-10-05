@@ -59,6 +59,17 @@
     finished is pooled and reported as that).
   - A win is a candidate for a ladder trial, which is the user's decision. Search stays OFF
     in the deployed bot.
+- **20:55, housekeeping with the two other sessions on this tree:**
+  - V5 runs from a frozen worktree, `../vgc-bench-v5` at fe5957ca (venv, simulator and the
+    six champion zips linked in), so edits to the shared tree cannot reach it mid-run. Its
+    results are written there (`results_mirror_search_nash5*`).
+  - `evaluation/run_guard_ab.py` `ALLOWED_CHANGED_PINS` gains the five search files changed
+    today (exact_observation, exact_planner, live_exact, live_snapshot, set_particles): no
+    battery arm searches; importing the harness and its arm runner loads none of the first
+    four, and set_particles is imported for `team_roster` alone. The battery had been
+    refusing to start on today's tree.
+  - `live_exact._apply_live_hard_guards`: a profile switch (the stale-Mega session's
+    `forme_stats`) is on for a searched pick only when the player's flags name it.
 
 ## Search, while V4 runs: the opponent model saw a stale board, hidden worlds ignored what was shown; reply-coverage and calibration instruments (2026-October 4, 19:05)
 

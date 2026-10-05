@@ -251,7 +251,8 @@ def test_full_profile_player_runs_every_guard_on_a_searched_pick(monkeypatch):
     enabled = _enabled_guards(
         monkeypatch, lambda session: session.set_player_guards(None)
     )
-    assert enabled == set(guards.GUARDS)
+    # every rule; a profile switch such as forme_stats is not one (tested below)
+    assert enabled == set(guards.GUARDS) - {"forme_stats"}
 
 
 def test_player_hands_its_guard_switches_to_the_search(monkeypatch):
@@ -847,3 +848,23 @@ def test_a_megas_ability_is_not_evidence_about_its_set():
         player_role="p1", opponent_team={"p2: Gyarados": mega}, _replay_data=[]
     )
     assert session._revealed_evidence(sheet)["gyarados"]["ability"] is None
+
+
+def test_a_profile_switch_is_on_for_a_searched_pick_only_when_named(monkeypatch):
+    """guards.FORME_STATS is a switch apply_guards reads itself, off even under
+    "every guard". The search's own flag merge must not turn it on by default."""
+    monkeypatch.setitem(guards.GUARDS, "forme_stats", lambda _b, cands, _r: cands)
+    everything = _enabled_guards(
+        monkeypatch, lambda session: session.set_player_guards(None)
+    )
+    assert "forme_stats" not in everything
+    assert everything == set(guards.GUARDS) - {"forme_stats"}
+    unnamed = {name: name in guards.HARD_GUARDS for name in guards.GUARDS}
+    del unnamed["forme_stats"]  # a profile written before the switch existed
+    assert "forme_stats" not in _enabled_guards(
+        monkeypatch, lambda session: session.set_player_guards(unnamed)
+    )
+    named = {**unnamed, "forme_stats": True}
+    assert "forme_stats" in _enabled_guards(
+        monkeypatch, lambda session: session.set_player_guards(named)
+    )
