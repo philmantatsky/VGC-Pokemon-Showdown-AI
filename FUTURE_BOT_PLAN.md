@@ -262,8 +262,9 @@ ladder, in order:
     lost (upper bound >= 50%) AND the held-out battery deploy-eligible (pooled upper >= 0, no
     population below -3pp, errors <= 1%): `evaluation/guard_ladder_gate.py go
     results_guard_ab_forme_stats results_mirror_forme_stats2 forme_stats`. Both run from
-    `tools/forme_stats_chain.sh` once the search session's V5 frees the machine (about 07:45);
-    the verdict lands in `results_analysis/forme_stats_20261004/chain.log`. At one changed pick
+    `tools/forme_stats_chain.sh` (about 85 minutes; NOT running: its scheduled start was
+    cancelled on 10-04 23:42 after the user stopped the search run, it waits for the user's
+    word); the verdict lands in `results_analysis/forme_stats_20261004/chain.log`. At one changed pick
     in eleven ladder games neither can show a gain -- only that it is not broken.
     - The first mirror (10-04 evening) showed the entry did nothing with open sheets (0
       changed picks in 1,000 games: an open-sheet line carries the sheet's nature and was not

@@ -472,6 +472,12 @@ low-priority process at a time; nothing in the repo changed, V6 runs frozen code
   battery's arms and belongs in the verdict's write-up. The chain logs the commit it plays
   (`TREE` in `chain.log`). Checked on that commit: the `forme_stats` tests pass and the audit
   gives the same numbers.
+- **23:42: the waiting chain is stopped; the gate is pending at the user's word.** The user
+  stopped the search session's V6 at 23:39 ("stop it for now"). With no search run left the
+  chain would have started by itself at 05:00 and loaded the machine for about 85 minutes
+  unattended, so it was ended through its STOP file (it had started nothing; `chain.log`).
+  Nothing of this gate is running or scheduled. To run it (mirror rerun, battery, verdict):
+  `nohup ./tools/forme_stats_chain.sh > /dev/null 2>&1 &` from the repo root.
 - **What this leaves open (the user's call):** the larger half is the brain's own view of an
   opposing Mega's damage, which this entry does not touch. Options: (a) guards only (this
   entry, after its gates); (b) the observation as well, which needs a fine-tune on the
