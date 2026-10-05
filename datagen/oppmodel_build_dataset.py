@@ -21,7 +21,9 @@ Pass 2 drives again and encodes. Big JSON files are loaded one at a time.
 
 Dropped and counted by reason: duplicate id, wrong format, no turn, a Pokemon
 whose logged identity can be false (Illusion), not doubles, a turn order that
-cannot be trusted, the bot's own account in a human log, reader failures.
+cannot be trusted, the bot's own account in a human log, reader failures. A
+human-source copy of one of the bot's own games is dropped without taking its
+id, so the saved own page (read last) still enters the ladder holdout.
 
 Splits (per example, by the ACTOR's account id, never the display name):
 
@@ -29,8 +31,10 @@ Splits (per example, by the ACTOR's account id, never the display name):
                            bot's side is never an example.
   own_unrated              the opponent's side of the bot's other saved games.
   test / val / train       crc32(account id) % 10 -> 0 / 1 / 2-9.
-  excluded_holdout_player  would be train, but a player of the battle is an
-                           opponent of one of the bot's saved games.
+  excluded_holdout_player  would be train or val, but a player of the battle is
+                           an opponent of one of the bot's saved games (a model
+                           is neither fitted nor selected on such a battle; a
+                           test player keeps the test split).
   excluded_clone           would be train, but the battle is one the eval-only
                            human clones were fitted on: both sheets open and
                            crc32(replay id) % 10 >= 5 in top_merged (the bucket
@@ -786,8 +790,14 @@ def run_pass1(corpus: Corpus, bots: set[str], clone_ids: set[str]) -> Pass1:
         if raw.battle_id in seen:
             out.duplicates[raw.source] += 1
             continue
-        seen.add(raw.battle_id)
         result = drive(raw)
+        reason = drop_reason(raw, result, corpus.formats, bots)
+        # A public copy of one of the bot's own games (the feed holds a few) is
+        # dropped WITHOUT taking the id: human sources are read before the saved
+        # own pages, and the id must stay free for the page, or the game is lost
+        # from the ladder holdout as a duplicate.
+        if reason != "bot_account":
+            seen.add(raw.battle_id)
         # Every slot-turn of every unique log, kept or not: the denominator the
         # scouts used.
         for record in result.turns:
@@ -795,7 +805,6 @@ def run_pass1(corpus: Corpus, bots: set[str], clone_ids: set[str]) -> Pass1:
                 if raw.own and action.side == raw.bot_side:
                     continue
                 out.census_all[raw.source][census_key(action.kind, action)] += 1
-        reason = drop_reason(raw, result, corpus.formats, bots)
         if reason is not None:
             out.drops[reason] += 1
             out.drops_by_source[raw.source][reason] += 1
@@ -889,7 +898,11 @@ def assign_splits(
         meta.time_slice = meta.group in flagged
         for side in SIDES:
             code = player_split(meta.accounts[side])
-            if code == SPLIT_TRAIN and meta.holdout_battle:
+            # A battle with an own-game opponent neither trains nor selects a
+            # model: validation picks table strengths, the stopping epoch and the
+            # temperatures. Test players keep their split, so the ladder holdout
+            # and the test set can share a few players (the scorecard counts them).
+            if code in (SPLIT_TRAIN, SPLIT_VAL) and meta.holdout_battle:
                 code = SPLIT_EXCLUDED_PLAYER
             elif code == SPLIT_TRAIN and meta.clone:
                 code = SPLIT_EXCLUDED_CLONE
@@ -1255,8 +1268,12 @@ def build(
     for raw in corpus:
         if raw.battle_id in seen:
             continue
-        seen.add(raw.battle_id)
         meta = first.by_id.get(raw.battle_id)
+        # Another source's copy of a kept battle (the public copy of an own game
+        # that pass 1 dropped) must not be encoded under the kept battle's meta.
+        if meta is not None and meta.source != raw.source:
+            continue
+        seen.add(raw.battle_id)
         if meta is None:
             continue
         result = drive(raw)

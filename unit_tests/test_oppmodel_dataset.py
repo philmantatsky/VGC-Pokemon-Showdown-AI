@@ -885,3 +885,75 @@ def test_real_dataset_keeps_its_contract():
     )[..., 0]
     assert picked[visible].all()
     assert not (data["y_set"] & (1 - data["action_mask"])).any()
+
+
+def _tiny_corpus(root: Path, feed_records: list[dict[str, Any]]) -> None:
+    """One saved own ladder page (the bot is p2) and a feed shard."""
+    shard = root / B.FEED_DIR / "logs" / FMT / "part-00000.jsonl.gz"
+    shard.parent.mkdir(parents=True)
+    shard.write_bytes(
+        b"".join(
+            gzip.compress((json.dumps(record) + "\n").encode(), mtime=0)
+            for record in feed_records
+        )
+    )
+    own = root / "ladder_replays_mc_synthetic"
+    own.mkdir()
+    (own / f"{BOT} - battle-{replay_id(900)}.html").write_text(
+        page(make_log("Ladder Foe", BOT, exact="p2", ratings=(1180, 1210)))
+    )
+
+
+def test_a_public_copy_of_an_own_game_does_not_take_its_id(tmp_path: Path):
+    """2026-10-04: human sources are read before the saved own pages. A public
+    copy of an own game in the feed was dropped as the bot's account AND kept the
+    id, so the page was then skipped as a duplicate and the game left the ladder
+    holdout."""
+    public_copy = {
+        "id": replay_id(900), "format": FMT, "uploadtime": 1800, "rating": 1180,
+        "players": ["Ladder Foe", BOT], "log": make_log("Ladder Foe", BOT),
+    }  # fmt: skip
+    _tiny_corpus(tmp_path, [public_copy])
+    built = B.build("t", root=tmp_path, log=lambda message: None)
+    counted = built["battles"]
+    assert counted["dropped"] == {"bot_account": 1}
+    assert counted["duplicate_ids"] == {}
+    assert built["headline"]["ladder_holdout_games"] == 1
+    assert built["examples"]["by_split"] == {"ladder_holdout": 2}
+    path = tmp_path / "results_oppmodel" / "t" / "battles.jsonl"
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    assert [(row["id"], row["source"]) for row in rows] == [(replay_id(900), "own")]
+    # the examples are the page's (player view, HP rewritten), not the copy's
+    data = F.load_dataset(tmp_path / "results_oppmodel" / "t")[0]
+    assert set(data["m_source"].tolist()) == {B.SOURCES.index("own")}
+
+
+def test_a_holdout_battle_is_neither_trained_nor_validated_on(tmp_path: Path):
+    """2026-10-04 review: validation picks table strengths, the stopping epoch
+    and the temperatures, so a validation player's battle against one of the
+    bot's opponents goes to excluded_holdout_player like a training player's; a
+    test player keeps the test split."""
+    taken: set[str] = {"Ladder Foe", BOT}
+    val_player = account(B.SPLIT_VAL, taken)
+    test_player = account(B.SPLIT_TEST, taken)
+    records = [
+        {"id": replay_id(31), "format": FMT, "uploadtime": 1800, "rating": 1200,
+         "players": [val_player, "Ladder Foe"],
+         "log": make_log(val_player, "Ladder Foe")},
+        {"id": replay_id(32), "format": FMT, "uploadtime": 1900, "rating": 1200,
+         "players": [test_player, "Ladder Foe"],
+         "log": make_log(test_player, "Ladder Foe")},
+    ]  # fmt: skip
+    _tiny_corpus(tmp_path, records)
+    B.build("t", root=tmp_path, log=lambda message: None)
+    path = tmp_path / "results_oppmodel" / "t" / "battles.jsonl"
+    rows = {row["id"]: row for row in map(json.loads, path.read_text().splitlines())}
+    foe_split = B.SPLITS[B.player_split(E.user_id("Ladder Foe"))]
+    expected_foe = (
+        "excluded_holdout_player" if foe_split in ("train", "val") else foe_split
+    )
+    assert rows[replay_id(31)]["split"] == {
+        "p1": "excluded_holdout_player",
+        "p2": expected_foe,
+    }
+    assert rows[replay_id(32)]["split"] == {"p1": "test", "p2": expected_foe}

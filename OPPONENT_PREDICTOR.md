@@ -11,7 +11,11 @@ range, takes the player's Elo as an input, and works with open team sheets and w
 them. The deliverable is an artifact plus a runtime class the deployed bot can call each
 turn.
 
-**Status.** See "Results" at the bottom. Nothing here is wired into the bot yet.
+**Status (2026-10-04 23:30).** Built, reviewed and scored; nothing is wired into the bot.
+The neural predictor beats the count-table bar by 0.20 nats on our own ladder opponents (R1
+passes), Elo adds 0.002-0.005 nats (R2: it does not stay, ship the Elo-blind model), and the
+existing reranker could not use even a perfect prediction (R4), so a first real use is a
+guard after a shadow-mode period. Details and numbers under "Results" at the bottom.
 
 ## What reconnaissance established (2026-10-04, before any code)
 
@@ -299,7 +303,105 @@ decisions** in 403 battles; 2,624 rebuilt; the replay reproduces the played pick
 - Limit: where both opposing actions are visible (1,677 decisions) the share is 4.5%
   [3.6, 5.6], which reaches the bar. Flips are counted, not played out.
 
-### R1-R3 — models
+### R1-R3 — models (2026-10-04 23:30)
 
-(pending: count tables and scorecard next; the neural model trains after the matrix-search
-session's latency-sensitive runs end)
+`results_oppmodel/scorecard_v1/` (`evaluation/oppmodel_scorecard.py`, 10,000 game-clustered
+resamples). Sets: (a) ladder holdout, 401 own games, 4,810 labelled slot-turns; (b) test
+players, 2,866 games, 38,056 slot-turns; (c) test players in the latest 10% by time (training
+covers the same period, so (c) is not a forward-in-time test).
+
+**Standing of these numbers.** `oppnet_v1` and `oppnet_v1_blind` (904,953 parameters, 14
+minutes each on CPU, best epoch 16 of 22) were trained before the review fixes: their
+validation split still held 1,431 rows of battles with a ladder-holdout opponent. The
+reviewer measured the effect on (a) at 0.004 nats. A retrain on the fixed trainer and a
+larger dataset follows; until then read the neural rows as the first reading, not the final.
+
+**The bar was strengthened after the first reading.** The review found the pre-registered
+bar easy on targets: a count layer on type effectiveness against each foe and which foe has
+less HP gains 0.03-0.055 nats. `flags_table` now includes it and is the reference;
+`flags_table_plain_targets` is the bar as first fitted. Both margins are given.
+
+| predictor | fine NLL (a) | minus bar (a) [95%] | minus bar (b) [95%] | top-1 (a) | top-3 (a) |
+|---|---|---|---|---|---|
+| shipped MoveNet + SwitchNet | 3.605 | +1.737 [+1.603, +1.874] | +1.216 [+1.169, +1.264] | 18.3% | 41.5% |
+| species table | 1.918 | +0.050 [+0.039, +0.060] | +0.075 [+0.071, +0.079] | | |
+| flags table, plain targets | 1.898 | +0.030 [+0.022, +0.037] | +0.055 [+0.052, +0.058] | 30.0% | 59.9% |
+| **flags table (the bar)** | 1.868 | reference | reference | 31.4% | 61.8% |
+| Elo table | 1.866 | -0.002 [-0.003, -0.001] | -0.001 [-0.001, -0.000] | | |
+| OppNet with Elo | 1.663 | -0.205 [-0.234, -0.177] | -0.196 [-0.205, -0.186] | 41.8% | 72.5% |
+| **OppNet, Elo-blind** | 1.665 | -0.203 [-0.232, -0.175] | -0.191 [-0.201, -0.182] | 40.9% | 71.3% |
+
+- **R1 passes.** Against the bar as pre-registered (plain targets) the margin is -0.235
+  [-0.264, -0.206] on (a) and -0.251 [-0.261, -0.241] on (b); against the strengthened bar
+  -0.205 and -0.196. With accounts instead of games as the resampling unit the (b) interval
+  widens to [-0.212, -0.179]. Against the plain bar, 87% of 926 test accounts and 83% of 391
+  ladder opponents are individually better predicted.
+- **R2: Elo does not stay.** OppNet's gain from Elo: 0.0023 / 0.0023 nats over shuffled
+  ratings on (a) / (b), 0.0020 / 0.0048 over the Elo-blind retrain; the Elo table gains
+  0.0007 / 0.0011. The bar was 0.02. On (a) the two nets differ by -0.002 [-0.015, +0.011].
+  **The model to ship is the Elo-blind one.** Accuracy is flat across rating bands (fine NLL
+  on (a): 1.65 below 1100, 1.69 at 1100-1199, 1.64 at 1200-1299, 1.66 at 1300-1399).
+- The shipped opponent models are far behind: 3.61 against 1.66 on our ladder opponents. Even
+  with two temperatures picked on validation (not the shipped behaviour) they stay at 2.42.
+- Independent check: a reviewer rewrote the scoring by hand from the array definitions and
+  reproduced every table number to 7e-15 and the neural ones to four decimals; found no fitted
+  quantity that reads test or ladder rows; and a label-leak probe (cut or replace turn t's
+  events, re-encode) changed no feature in 7,846 examples.
+
+**R3 — decision relevance (OppNet with Elo, ladder holdout; descriptive).**
+
+| event | P at least | share of cases | mean predicted | happened |
+|---|---|---|---|---|
+| a foe attacks a given one of our two slots (both on the field) | 0.70 | 6.9% | 77.6% | 80.3% [75.7, 84.8] |
+| same | 0.80 | 2.4% | 84.2% | 86.6% [79.9, 92.6] |
+| one of our two slots is attacked by either foe | 0.70 | 29.9% | 79.8% | 80.4% [77.6, 83.3] |
+| same | 0.80 | 13.2% | 86.4% | 85.5% [81.7, 89.2] |
+| same | 0.90 | 2.9% | 92.6% | 95.3% [89.6, 100] |
+| the slot uses a Protect-family move | 0.50 | 5.9% | 63.3% | 56.8% [50.6, 62.8] |
+| same | 0.60 | 3.3% | 70.6% | 62.2% [54.8, 69.2] |
+| the slot switches out by choice | 0.35 | 5.1% | 50.9% | 38.9% [33.2, 44.7] |
+| same | 0.60 | 1.3% | 70.3% | 54.8% [42.9, 66.7] |
+
+- "Who is attacked" is calibrated and has usable confident mass; the count table reaches 0.7
+  on only 1.4% of the two-slot cases (precision 65%).
+- Protect (base rate 12.4%) and switch (7.9%) are predicted well above their base rates but
+  over-confidently at the top: says 51%, happens 39%. `Forecast.p_switch` / `p_protect` need a
+  calibration map before any guard reads them as probabilities.
+- An earlier version of these tables counted "attacked by either" only when the answer was
+  yes on rows with a hidden attacker, and mixed in turns with one of our Pokemon on the field
+  (where any attack hits it). Both are corrected here; the first reading (94% at 0.9 on 8.3%
+  of slot-turns) was inflated.
+
+### Runtime class (2026-10-04)
+
+`vgc_bench/src/oppmodel/runtime.py`: `OpponentPredictor.load(path).predict(battle)` ->
+`Forecast` or `None`. `evaluation/oppmodel_shadow_replay.py` (`results_oppmodel/shadow_replay/`):
+
+- The runtime equals the offline path on 2,615 of 2,615 turns of 408 saved own pages, fed per
+  turn, per event, and through real poke-env `DoubleBattle` objects: largest difference 0.0.
+- Latency per call on one thread while the machine was loaded (load 13-25, not ladder-valid):
+  count table p50 0.9 ms, p99 1.5 ms; neural p99 3.6-5.2 ms, largest call 12.3 ms.
+- It stands down by name instead of guessing: not at a turn start, another format, a turn
+  number that jumps, a damaged stream, a malformed prediction, a missing dex. Nothing raises.
+- `to_move_prediction` / `to_switch_prediction` convert a forecast to the existing dataclasses;
+  reliability defaults to known moves / 4, so a closed-sheet turn does not open the
+  reranker's known-set gate.
+
+### Not done, and what is next
+
+- **Not wired into the bot.** The shadow-mode patch (compute the forecast before the search
+  branch in `PolicyPlayer._guarded_action`, write it into the decision audit, one default-off
+  `--opponent-forecast` flag dropped from run-config material when off, sheets handed over
+  only when both are readable) is written out and was exercised on real battle objects, but
+  `policy_player.py` and `ladder_ourteam.py` are untouched. It is the user's call.
+- **Retrain** on the fixed trainer and on a rebuilt dataset once more of the feed is on disk
+  (15,938 of about 113,000 fetched at 23:15), with a learning curve (quarter / half / all) to
+  see whether more data still helps.
+- **Calibration maps** for the switch and Protect scalars.
+- **Search coverage** in the search session's terms: how often the opponent's real joint
+  reply is among the predictor's top 8, with hidden sheets.
+- Not measured: the deployed brain played from the opponent's seat as a baseline (needs the
+  brain on a quiet machine); run-to-run noise of the two trainings (one run per arm).
+- Deferred by the review: the three prior trainers still save last-epoch weights
+  (`train_move_model.py`, `train_switch_model.py`, `train_preview_model.py`) and
+  `opponent_tactics._hp_fraction("50/100g")` returns 1.0. Both touch deployed models' lineage.
