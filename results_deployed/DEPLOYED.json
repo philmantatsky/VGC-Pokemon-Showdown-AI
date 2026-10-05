@@ -18,7 +18,10 @@
   "preview_note": "our four and leads chosen by the human-trained, team-focused preview model (argmax); the brain practised these openings in training (training/human_preview.py)",
   "replay_tag": "T6ep_guards14",
   "sticky_guard_corrections": true,
-  "sheet_preview": true
+  "sheet_preview": true,
+  "opponent_forecast": "results_deployed/opponent_forecast_oppnet_v2_blind.pt",
+  "opponent_forecast_sha256": "95ffbde2391d50a5ae7f61af6f66541d523163c4551328ce3d87f4813efc988a",
+  "opponent_forecast_note": "SHADOW MODE: the opponent predictor (OPPONENT_PREDICTOR.md; oppnet_v2_blind, Elo-blind, trained on results_oppmodel/v2_feed) is called at every move decision and its forecast is written into decisions.jsonl as 'opponent_forecast'. No decision reads it. It is not part of the play configuration: replay_tag and the replay directories are unchanged."
  },
  "promoted_at": "2026-10-04T16:21:31+00:00",
  "promoted_by": "user 2026-10-04: 'make the earth power brain official and start the matrix search'",
@@ -147,5 +150,15 @@
   }
  ],
  "rules": "Never overwrite or retrain the deployed checkpoint in place. A new promotion writes a NEW file here and updates this manifest; the old file stays.",
- "amendments": []
+ "amendments": [
+  {
+   "at": "2026-10-05T08:42:49+00:00",
+   "change": "opponent_forecast + opponent_forecast_sha256 added: the opponent predictor runs in shadow mode (logged with every move decision, read by no decision). Brain, team, guards, preview and replay_tag unchanged.",
+   "previous": {
+    "opponent_forecast": null
+   },
+   "by": "user 2026-10-05: 'turn on shadow mode'",
+   "evidence": "OPPONENT_PREDICTOR.md: on the opponents of our own 401 ladder games the model scores fine NLL 1.583 against 1.855 for the count-table bar (-0.271 [-0.303, -0.239]), exact action top-1 43.6% / top-3 74.6%; runtime == offline path on 2,615 of 2,615 turns of our saved games incl. real DoubleBattle objects, p99 3.0 ms per call (results_oppmodel/shadow_replay_v2_blind); the hook is pinned by unit_tests/test_opponent_forecast_shadow.py (no decision reads the forecast; every failure is counted and the bot plays on)."
+  }
+ ]
 }
