@@ -1,5 +1,25 @@
 # Future-Looking VGC Bot Checklist
 
+## Opponent predictor — side experiment (October 4); not part of the deployed bot
+
+Source of truth: `OPPONENT_PREDICTOR.md`. Gates a predictor-driven change must pass before
+ladder, in order:
+
+- [x] Pre-registered offline readings (147001a4). R1 quality: passes (-0.205 nats [-0.234,
+  -0.177] against the count-table bar on our own ladder opponents). R2 Elo: does not stay
+  (0.002-0.005 nats against 0.02) -> the Elo-blind model. R4 oracle: the opponent reranker
+  cannot use a predictor (perfect foresight flips 4.0% [3.3, 4.8] of decisions).
+- [x] Train/serve parity: runtime == offline path on 2,615 of 2,615 turns of our saved games.
+- [ ] Retrain on the fixed trainer and the rebuilt dataset; final scorecard; learning curve.
+- [ ] Calibration maps for the Protect and switch scalars (over-confident at the top).
+- [ ] **Shadow mode** (user's call): log the forecast in the decision audit, change nothing;
+  one default-off flag, dropped from run-config material when off. Read it on real ladder
+  games before anything acts on it.
+- [ ] First decision-changing use: an **opt-in guard**, with thresholds fixed from the
+  scorecard's decision-relevance tables beforehand, then the usual guard A/B (mirror for
+  non-regression only: the mirror opponent is our own bot, which a human-move predictor is not
+  expected to predict) and a ladder trial at the user's word.
+
 ## Deployed configuration: T6 + human openings (September 24; T6 from September 23)
 
 - [x] Codex's T6 work committed (82db6ba).

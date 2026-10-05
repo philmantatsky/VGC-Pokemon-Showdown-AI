@@ -11,7 +11,7 @@ range, takes the player's Elo as an input, and works with open team sheets and w
 them. The deliverable is an artifact plus a runtime class the deployed bot can call each
 turn.
 
-**Status (2026-10-04 23:30).** Built, reviewed and scored; nothing is wired into the bot.
+**Status (2026-10-04 23:25).** Built, reviewed and scored; nothing is wired into the bot.
 The neural predictor beats the count-table bar by 0.20 nats on our own ladder opponents (R1
 passes), Elo adds 0.002-0.005 nats (R2: it does not stay, ship the Elo-blind model), and the
 existing reranker could not use even a perfect prediction (R4), so a first real use is a
@@ -303,7 +303,7 @@ decisions** in 403 battles; 2,624 rebuilt; the replay reproduces the played pick
 - Limit: where both opposing actions are visible (1,677 decisions) the share is 4.5%
   [3.6, 5.6], which reaches the bar. Flips are counted, not played out.
 
-### R1-R3 — models (2026-10-04 23:30)
+### R1-R3 — models (2026-10-04 23:25)
 
 `results_oppmodel/scorecard_v1/` (`evaluation/oppmodel_scorecard.py`, 10,000 game-clustered
 resamples). Sets: (a) ladder holdout, 401 own games, 4,810 labelled slot-turns; (b) test
