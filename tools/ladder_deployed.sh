@@ -21,5 +21,8 @@ export MIXING
 export STICKY SHEET_PREVIEW
 # non-empty only when DEPLOYED.json has our own plan cards (playbook, sha-verified)
 export PLAYBOOK
+# the deployed bot does not search: never inherit a trial's flags from the shell
+SEARCH=
+export SEARCH
 DIR=${2:-ladder_replays_mc_deployed_$REPLAY_TAG}
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"

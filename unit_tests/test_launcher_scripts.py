@@ -147,3 +147,44 @@ def test_launchers_pass_the_sheet_preview(script):
 def test_the_ladder_wrappers_export_the_sheet_preview(name):
     text = (ROOT / "tools" / name).read_text()
     assert re.search(r"export\b.*\bSHEET_PREVIEW\b", text)
+
+
+def test_a_trial_can_add_the_search_and_the_deployed_launcher_never_does():
+    """TRIAL_SEARCH (2026-10-04): exact-search flags reach ladder_ourteam.py only
+    through a trial; they must turn the search on and put the networks on cpu."""
+    trial = (ROOT / "tools/ladder_trial.sh").read_text()
+    assert "TRIAL_SEARCH must turn the search on (--search)" in trial
+    assert "TRIAL_SEARCH must run the networks on cpu (--device cpu)" in trial
+    assert re.search(r"export\b.*\bSEARCH\b", trial)
+    loop = (ROOT / "tools/ladder_read_loop.sh").read_text()
+    assert 'read -r -a SEARCH_ARGS <<< "$SEARCH"' in loop
+    # an empty array under `set -u` on macOS bash 3.2
+    assert '${SEARCH_ARGS[@]+"${SEARCH_ARGS[@]}"}' in loop
+    deployed = (ROOT / "tools/ladder_deployed.sh").read_text()
+    assert re.search(r"^SEARCH=$", deployed, re.M)
+    assert re.search(r"^export SEARCH$", deployed, re.M)
+
+
+def test_the_trials_search_example_is_the_configuration_that_was_measured():
+    """The flags written in tools/ladder_trial.sh parse, and they are the head-to-
+    head's streams arm with the calibrated leaf (evaluation/mirror_guard_ab.py)."""
+    import shlex
+
+    from ladder_ourteam import build_parser, search_planner_config
+
+    trial = (ROOT / "tools/ladder_trial.sh").read_text()
+    example = re.search(r'#\s+TRIAL_SEARCH="(.*?)"', trial, re.S)
+    assert example is not None
+    flags = shlex.split(re.sub(r"\\\n#", " ", example.group(1)))
+    args = build_parser().parse_args(flags)
+    assert args.search and args.search_every_turn and args.device == "cpu"
+    assert (args.search_leaf, args.search_streams) == ("critic", 4)
+    assert args.search_determinizations == 4
+    assert (ROOT / args.search_leaf_calibration).is_file()
+    config = search_planner_config(args)
+    assert (config.solution, config.nash_anchor, config.nash_sample) == (
+        "nash",
+        0.07,
+        False,
+    )
+    assert config.opponent_width == 8

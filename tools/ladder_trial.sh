@@ -20,6 +20,15 @@
 # - TRIAL_TEAM: a set variant of the deployed team, for a candidate brain practised
 #   on it (needs TRIAL_CHECKPOINT; the same six species, so the deployed preview
 #   model still applies).
+# - TRIAL_SEARCH: ladder_ourteam.py exact-search flags on top of the deployed
+#   configuration (the matrix search; the user's word). They must turn the search
+#   on (--search) and run the networks on cpu (--device cpu: the search asks for one
+#   position at a time, 4-15x slower on mps). The configuration the 2026-10-04
+#   head-to-head measured, streams arm with the calibrated leaf:
+#     TRIAL_SEARCH="--search --search-every-turn --search-solution nash \
+#       --search-leaf critic --search-anchor 0.07 --search-argmax --search-replies 8 \
+#       --search-determinizations 4 --search-streams 4 --device cpu \
+#       --search-leaf-calibration results_leaf_calibration_T6ep/calibration.json"
 # Ladder play needs the user's explicit word; tools/ladder_read_loop.sh refuses
 # while a heavy local job or another ladder session runs.
 set -uo pipefail
@@ -62,6 +71,12 @@ fi
 if [ -n "${TRIAL_GUARDS:-}" ]; then
   GUARDS="$GUARDS,$TRIAL_GUARDS"
 fi
+SEARCH=
+if [ -n "${TRIAL_SEARCH:-}" ]; then
+  case " $TRIAL_SEARCH " in *" --search "*) ;; *) echo "LADDER_REFUSED TRIAL_SEARCH must turn the search on (--search)"; exit 2 ;; esac
+  case " $TRIAL_SEARCH " in *" --device cpu "*) ;; *) echo "LADDER_REFUSED TRIAL_SEARCH must run the networks on cpu (--device cpu)"; exit 2 ;; esac
+  SEARCH=$TRIAL_SEARCH
+fi
 export VGC_SET_PRIOR_REG="$SET_PRIOR"
-export PREVIEW_MODEL MIXING STICKY PLAYBOOK PLAYBOOK_SCRIPT_ONLY SHEET_PREVIEW
+export PREVIEW_MODEL MIXING STICKY PLAYBOOK PLAYBOOK_SCRIPT_ONLY SHEET_PREVIEW SEARCH
 GUARDS="$GUARDS" exec ./tools/ladder_read_loop.sh "$CKPT" "$TEAM" "$N" "$DIR"

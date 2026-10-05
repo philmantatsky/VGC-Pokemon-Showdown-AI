@@ -16,7 +16,14 @@ from pathlib import Path
 
 import pytest
 
-from ladder_ourteam import check_playbook, record_run_config, resolve_knowledge_obs
+from ladder_ourteam import (
+    build_parser,
+    check_playbook,
+    material_config,
+    record_run_config,
+    resolve_knowledge_obs,
+    search_planner_config,
+)
 from vgc_bench.src.preview_rules import species_trick_room_rate, trick_room_probability
 
 
@@ -154,6 +161,46 @@ class TestRecordRunConfig:
         with pytest.raises(SystemExit, match="search_leaf"):
             record_run_config(tmp_path, _args(search_leaf="critic"), "abc123", "hard")
 
+    def test_the_matrix_search_flags_are_material_only_when_not_default(self, tmp_path):
+        """2026-10-04 (evening): --search-anchor / --search-argmax / --search-replies /
+        --search-leaf-calibration / --search-streams. A directory recorded before
+        them accepts a run that leaves them alone; setting one is another
+        configuration, and a calibration is recorded with its hash."""
+        record_run_config(tmp_path, _args(), "abc123", "hard")
+        defaults = dict(
+            search_anchor=0.0,
+            search_argmax=False,
+            search_replies=6,
+            search_leaf_calibration="",
+            search_streams=0,
+        )
+        path = record_run_config(tmp_path, _args(**defaults), "abc123", "hard")
+        material = json.loads(path.read_text())["runs"][-1]["material"]
+        assert not set(defaults) & set(material)
+        calibration = tmp_path / "calibration.json"
+        calibration.write_text("{}")
+        changed = dict(
+            search_anchor=0.07,
+            search_argmax=True,
+            search_replies=8,
+            search_streams=4,
+            search_leaf_calibration=str(calibration),
+        )
+        for name, value in changed.items():
+            with pytest.raises(SystemExit, match=name):
+                record_run_config(
+                    tmp_path, _args(**{**defaults, name: value}), "abc123", "hard"
+                )
+        trial = record_run_config(
+            tmp_path / "trial", _args(**changed), "abc123", "hard"
+        )
+        material = json.loads(trial.read_text())["runs"][-1]["material"]
+        assert {name: material[name] for name in changed} == changed
+        assert (
+            material["search_leaf_calibration_sha256"]
+            == hashlib.sha256(b"{}").hexdigest()
+        )
+
     def test_a_playbook_is_material_with_its_sha_only_when_on(self, tmp_path):
         """2026-09-27: the plan cards themselves are the configuration -- an edited
         playbook may not share a replay dir with the one before it."""
@@ -260,3 +307,159 @@ def test_learned_preview_needs_an_explicit_model():
     assert result.returncode != 0
     assert "--learned_preview needs an explicit --preview_model" in result.stderr
     assert not Path("/nonexistent/never_created").exists()
+
+
+# What the deployed challenge listener's replay directory records
+# (challenge_replays_mc_deployed_T6ep_guards14/run_config.json, 2026-10-04): the keys
+# of its material configuration, and the arguments the launcher gives it.
+DEPLOYED_LISTENER_ARGV = [
+    "--checkpoint",
+    "results_deployed/champion_mc_T6ep.zip",
+    "--reg",
+    "mc",
+    "--our_team",
+    "teams/candidates_mc/T6e.txt",
+    "--guards-extra",
+    "resisted_target,overkill_split,dominated_weather_ball_weather,dominated_attack,"
+    "dominated_throat_chop,dominated_spread,focus_boosted,wide_guard,"
+    "drop_free_finish,fake_out_partner_acts,switch_the_crippled,threat_first2,"
+    "wasted_fake_out,throat_chop_main_threat",
+    "--challenges",
+    "--n_games",
+    "1000",
+    "--replay_dir",
+    "challenge_replays_mc_deployed_T6ep_guards14",
+    "--learned_preview",
+    "--preview_model",
+    "data/preview_t6_focus_20260923.pt",
+    "--sticky-corrections",
+    "--sheet-preview",
+]
+DEPLOYED_LISTENER_MATERIAL_KEYS = {
+    "bench_species",
+    "chance_samples",
+    "checkpoint",
+    "checkpoint_sha256",
+    "deep_root_width",
+    "determinizations",
+    "device",
+    "guard_profile",
+    "guard_profile_resolved",
+    "guards_extra",
+    "knowledge_obs",
+    "learned_preview",
+    "mask_immunities",
+    "min_deep_coverage",
+    "mixing",
+    "mixing_keep_corrections",
+    "mixing_last_turn",
+    "mixing_min_ratio",
+    "mixing_temperature",
+    "mixing_top_k",
+    "move_model",
+    "moveset_prior",
+    "no_guards",
+    "no_immunity_mask",
+    "no_moveset_prior",
+    "opening_wait",
+    "opponent_aware",
+    "our_team",
+    "outcome_preview",
+    "outcome_value",
+    "planned_preview",
+    "ponder",
+    "ponder_budget",
+    "ponder_chance_samples",
+    "ponder_choices",
+    "preview_determinizations",
+    "preview_model",
+    "preview_outcome_model",
+    "preview_search_budget",
+    "reg",
+    "residual_ranker",
+    "screen_budget",
+    "search",
+    "search_budget",
+    "search_determinizations",
+    "search_every_turn",
+    "set_prior_reg",
+    "sheet_preview",
+    "stable_lead",
+    "sticky_corrections",
+    "switch_model",
+    "tempo_aware",
+}
+
+
+def test_the_launcher_records_what_the_deployed_listener_already_recorded():
+    """A launcher flag that enters the material at its default makes every replay
+    directory from before refuse its next run -- the running challenge listener's on
+    its next reconnect restart (2026-10-04, twice). Parsing the listener's own
+    arguments must give exactly the keys its directory holds."""
+    args = build_parser().parse_args(DEPLOYED_LISTENER_ARGV)
+    material = material_config(args, "sha", "hard")
+    assert set(material) == DEPLOYED_LISTENER_MATERIAL_KEYS
+    assert material["search"] is False and material["device"] == "mps"
+
+
+def test_search_flags_build_the_planner_the_head_to_head_measured():
+    """The matrix search as evaluation/mirror_guard_ab.py ran it on 2026-10-04 (V6):
+    a ladder trial has to play that configuration, not one beside it."""
+    args = build_parser().parse_args(
+        [
+            "--search",
+            "--search-every-turn",
+            "--search-solution",
+            "nash",
+            "--search-leaf",
+            "critic",
+            "--search-anchor",
+            "0.07",
+            "--search-argmax",
+            "--search-replies",
+            "8",
+            "--search-determinizations",
+            "4",
+            "--search-streams",
+            "4",
+            "--device",
+            "cpu",
+        ]
+    )
+    config = search_planner_config(args)
+    assert (config.solution, config.nash_anchor, config.nash_sample) == (
+        "nash",
+        0.07,
+        False,
+    )
+    assert (config.root_width, config.opponent_width) == (6, 8)
+    assert (config.depth, config.continuation_width, config.replacement_width) == (
+        2,
+        3,
+        2,
+    )
+    assert (config.chance_samples, config.deep_root_width, config.max_nodes) == (
+        1,
+        4,
+        5000,
+    )
+    assert (config.anytime, config.screen_budget_s, config.time_budget_s) == (
+        True,
+        2.0,
+        8.0,
+    )
+    assert config.nash_likeliest and config.nash_prior_mix == 0
+    assert config.nash_champion_boost == 2.0
+    assert (args.search_streams, args.search_determinizations, args.device) == (
+        4,
+        4,
+        "cpu",
+    )
+    # without the new flags the planner is the one every earlier search run used
+    old = search_planner_config(build_parser().parse_args(["--search"]))
+    assert (old.solution, old.nash_anchor, old.nash_sample, old.opponent_width) == (
+        "risk",
+        0.0,
+        True,
+        6,
+    )

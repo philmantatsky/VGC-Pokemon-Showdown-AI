@@ -23,6 +23,8 @@
 #   team preview (--playbook data/playbook_<team>.json), or empty.
 # - PLAYBOOK_SCRIPT_ONLY (env, tools/ladder_trial.sh): non-empty adds
 #   --playbook-script-only (our usual preview; the card's turn-1 script only).
+# - SEARCH (env, tools/ladder_trial.sh; tools/ladder_deployed.sh sets it empty):
+#   ladder_ourteam.py exact-search flags, or empty. The deployed bot does not search.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 CKPT=${1:?checkpoint}; TEAM=${2:?team file}; N=${3:?total games}; DIR=${4:?replay dir}
@@ -51,6 +53,10 @@ SHEET_ARGS=()
 if [ -n "${SHEET_PREVIEW:-}" ]; then
   SHEET_ARGS=(--sheet-preview)
 fi
+SEARCH_ARGS=()
+if [ -n "${SEARCH:-}" ]; then
+  read -r -a SEARCH_ARGS <<< "$SEARCH"
+fi
 PLAYBOOK_ARGS=()
 if [ -n "${PLAYBOOK:-}" ]; then
   [ -f "$PLAYBOOK" ] || { echo "LADDER_REFUSED [$(stamp)] missing playbook $PLAYBOOK"; exit 2; }
@@ -71,7 +77,7 @@ wins_done() {  # our account name is the replay filename's prefix before " - bat
   done
   echo $n
 }
-echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} sticky=${STICKY:+on} playbook=${PLAYBOOK:-off}${PLAYBOOK_SCRIPT_ONLY:+ (script only)} total=$N dir=$DIR games_done=$(games_done)"
+echo "LADDER_START [$(stamp)] checkpoint=$CKPT team=$TEAM preview=${PREVIEW_MODEL:-policy} mixing=${MIXING:-off} sticky=${STICKY:+on} playbook=${PLAYBOOK:-off}${PLAYBOOK_SCRIPT_ONLY:+ (script only)} search=${SEARCH:-off} total=$N dir=$DIR games_done=$(games_done)"
 session=0
 while :; do
   done_n=$(games_done); remaining=$((N - done_n))
@@ -85,6 +91,7 @@ while :; do
     ${MIXING_ARGS[@]+"${MIXING_ARGS[@]}"} \
     ${STICKY_ARGS[@]+"${STICKY_ARGS[@]}"} \
     ${SHEET_ARGS[@]+"${SHEET_ARGS[@]}"} \
+    ${SEARCH_ARGS[@]+"${SEARCH_ARGS[@]}"} \
     ${PLAYBOOK_ARGS[@]+"${PLAYBOOK_ARGS[@]}"} > "$LOG" 2>&1 &
   PID=$!; started=$(date +%s); last_games=$done_n; last_change=$started
   while kill -0 $PID 2>/dev/null; do

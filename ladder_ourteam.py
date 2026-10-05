@@ -38,6 +38,17 @@ from vgc_bench.src.utils import format_map, prior_path
 
 # Arguments that may differ between runs sharing one replay directory; everything
 # else is "material" and must stay identical so each directory is single-config.
+# Search flags added 2026-10-04 (the matrix search's anchored game, its calibrated
+# leaf and its random streams). At these values the search is what it was before the
+# flags existed, and they are left out of a replay directory's recorded
+# configuration so that directories from before stay valid.
+SEARCH_FLAG_DEFAULTS = {
+    "search_anchor": 0.0,
+    "search_argmax": False,
+    "search_replies": 6,
+    "search_leaf_calibration": "",
+    "search_streams": 0,
+}
 VOLATILE_ARGS = {
     "n_games",
     "challenges",
@@ -190,36 +201,7 @@ def record_run_config(
     """
     replay_dir.mkdir(parents=True, exist_ok=True)
     run_config_path = replay_dir / "run_config.json"
-    material = {k: v for k, v in vars(args).items() if k not in VOLATILE_ARGS}
-    material["checkpoint_sha256"] = ckpt_sha
-    material["guard_profile_resolved"] = guard_profile
-    material["mask_immunities"] = not args.no_immunity_mask
-    material["moveset_prior"] = not args.no_moveset_prior
-    # Which opponent set data the brain reads (VGC_SET_PRIOR_REG override or the
-    # format's own). It moves results by several points (2026-09-23 side-by-side),
-    # so a replay dir must never mix the two.
-    material["set_prior_reg"] = prior_reg(format_map[args.reg])
-    # recorded only when on, so directories from before the flag stay valid
-    if not material.get("sticky_corrections"):
-        material.pop("sticky_corrections", None)
-    if not material.get("sheet_preview"):
-        material.pop("sheet_preview", None)
-    if not material.get("playbook_script_only"):
-        material.pop("playbook_script_only", None)
-    # recorded only when not the default, for the same reason (2026-10-04: the two
-    # search flags made every older directory refuse its next run)
-    if material.get("search_solution") == "risk":
-        material.pop("search_solution", None)
-    if material.get("search_leaf") == "outcome":
-        material.pop("search_leaf", None)
-    # the plan cards themselves, not just their path: an edited playbook is a
-    # different configuration (recorded only when on, like the flag above)
-    if material.get("playbook"):
-        material["playbook_sha256"] = hashlib.sha256(
-            Path(material["playbook"]).read_bytes()
-        ).hexdigest()
-    else:
-        material.pop("playbook", None)
+    material = material_config(args, ckpt_sha, guard_profile)
     run_config = (
         json.loads(run_config_path.read_text())
         if run_config_path.exists()
@@ -250,7 +232,75 @@ def record_run_config(
     return run_config_path
 
 
-async def main():
+def material_config(
+    args: argparse.Namespace, ckpt_sha: str, guard_profile: str
+) -> dict[str, Any]:
+    """What a replay directory records as its configuration: every argument that
+    changes how the bot plays, without the ones that only say where and how long."""
+    material = {k: v for k, v in vars(args).items() if k not in VOLATILE_ARGS}
+    material["checkpoint_sha256"] = ckpt_sha
+    material["guard_profile_resolved"] = guard_profile
+    material["mask_immunities"] = not args.no_immunity_mask
+    material["moveset_prior"] = not args.no_moveset_prior
+    # Which opponent set data the brain reads (VGC_SET_PRIOR_REG override or the
+    # format's own). It moves results by several points (2026-09-23 side-by-side),
+    # so a replay dir must never mix the two.
+    material["set_prior_reg"] = prior_reg(format_map[args.reg])
+    # recorded only when on, so directories from before the flag stay valid
+    if not material.get("sticky_corrections"):
+        material.pop("sticky_corrections", None)
+    if not material.get("sheet_preview"):
+        material.pop("sheet_preview", None)
+    if not material.get("playbook_script_only"):
+        material.pop("playbook_script_only", None)
+    # recorded only when not the default, for the same reason (2026-10-04: the two
+    # search flags made every older directory refuse its next run)
+    if material.get("search_solution") == "risk":
+        material.pop("search_solution", None)
+    if material.get("search_leaf") == "outcome":
+        material.pop("search_leaf", None)
+    for name, default in SEARCH_FLAG_DEFAULTS.items():
+        if material.get(name) == default:
+            material.pop(name, None)
+    # the calibration itself, not just its path (recorded only when on)
+    if material.get("search_leaf_calibration"):
+        material["search_leaf_calibration_sha256"] = hashlib.sha256(
+            Path(material["search_leaf_calibration"]).read_bytes()
+        ).hexdigest()
+    # the plan cards themselves, not just their path: an edited playbook is a
+    # different configuration (recorded only when on, like the flag above)
+    if material.get("playbook"):
+        material["playbook_sha256"] = hashlib.sha256(
+            Path(material["playbook"]).read_bytes()
+        ).hexdigest()
+    else:
+        material.pop("playbook", None)
+    return material
+
+
+def search_planner_config(args: argparse.Namespace):
+    """The exact planner's configuration for this run's search flags."""
+    from vgc_bench.src.exact_planner import PlannerConfig
+
+    return PlannerConfig(
+        depth=2,
+        root_width=6,
+        opponent_width=args.search_replies,
+        continuation_width=3,
+        replacement_width=2,
+        chance_samples=args.chance_samples,
+        deep_root_width=args.deep_root_width,
+        anytime=True,
+        screen_budget_s=args.screen_budget,
+        time_budget_s=args.search_budget,
+        max_nodes=5000,
+        solution=args.search_solution,
+        nash_sample=not args.search_argmax,
+        nash_anchor=args.search_anchor,
+    )
+
+
+def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser()
     ap.add_argument(
         "--checkpoint",
@@ -524,6 +574,44 @@ async def main():
         help="leaf value of the exact search: the outcome net, or the brain's critic "
         "+ its shaping potential (2026-10-04)",
     )
+    ap.add_argument(
+        "--search-anchor",
+        type=float,
+        default=SEARCH_FLAG_DEFAULTS["search_anchor"],
+        help=(
+            "nash: both sides of each world's game are tied to their priors at this "
+            "temperature, and the pair the bot would play without search is the "
+            "default the search has to beat (0: the plain equilibrium)"
+        ),
+    )
+    ap.add_argument(
+        "--search-argmax",
+        action="store_true",
+        help="nash: play the top action instead of sampling the averaged strategy",
+    )
+    ap.add_argument(
+        "--search-replies",
+        type=int,
+        default=SEARCH_FLAG_DEFAULTS["search_replies"],
+        help="opponent replies in each world's table",
+    )
+    ap.add_argument(
+        "--search-leaf-calibration",
+        default=SEARCH_FLAG_DEFAULTS["search_leaf_calibration"],
+        help=(
+            "critic leaf: a calibration file from evaluation/leaf_calibration.py "
+            "(leaf values become calibrated win probabilities)"
+        ),
+    )
+    ap.add_argument(
+        "--search-streams",
+        type=int,
+        default=SEARCH_FLAG_DEFAULTS["search_streams"],
+        help=(
+            "every searched decision averages at least this many random streams "
+            "(worlds x streams per world); 0: one stream per world"
+        ),
+    )
     ap.add_argument("--search_budget", type=float, default=8.0)
     ap.add_argument("--screen_budget", type=float, default=2.0)
     ap.add_argument("--chance_samples", type=int, default=1)
@@ -638,7 +726,11 @@ async def main():
     # the champion requires these features and omitting the flag zeroed them with no
     # error of any kind.
     ap.set_defaults(knowledge_obs=None)
-    args = ap.parse_args()
+    return ap
+
+
+async def main():
+    args = build_parser().parse_args()
 
     deployment_label = "not used"
     if not args.checkpoint:
@@ -683,6 +775,19 @@ async def main():
             )
         if not 0 <= args.min_deep_coverage <= 1:
             raise SystemExit("--min-deep-coverage must be within [0, 1]")
+        if args.search_anchor < 0:
+            raise SystemExit("--search-anchor must not be negative")
+        if not 2 <= args.search_replies <= 16:
+            raise SystemExit("--search-replies must be within [2, 16]")
+        if not 0 <= args.search_streams <= 16:
+            raise SystemExit("--search-streams must be within [0, 16]")
+        if args.search_leaf_calibration:
+            if args.search_leaf != "critic":
+                raise SystemExit("--search-leaf-calibration needs --search-leaf critic")
+            if not Path(args.search_leaf_calibration).is_file():
+                raise SystemExit(
+                    f"calibration file not found: {args.search_leaf_calibration}"
+                )
         # Preview allowance is the VGC Timer's 90-second first request, not the
         # 55-second move-turn clock; 60 leaves a two-thirds safety margin.
         if not 0.1 <= args.preview_search_budget <= 60:
@@ -808,23 +913,9 @@ async def main():
     exact_search_config = None
     ponder_config = None
     if args.search:
-        from vgc_bench.src.exact_planner import PlannerConfig
         from vgc_bench.src.ponder import PonderConfig
 
-        exact_search_config = PlannerConfig(
-            depth=2,
-            root_width=6,
-            opponent_width=6,
-            continuation_width=3,
-            replacement_width=2,
-            chance_samples=args.chance_samples,
-            deep_root_width=args.deep_root_width,
-            anytime=True,
-            screen_budget_s=args.screen_budget,
-            time_budget_s=args.search_budget,
-            max_nodes=5000,
-            solution=args.search_solution,
-        )
+        exact_search_config = search_planner_config(args)
         ponder_config = PonderConfig(
             budget_s=args.ponder_budget,
             max_opponent_choices=args.ponder_choices,
@@ -897,6 +988,10 @@ async def main():
         exact_max_determinizations=args.determinizations,
         exact_search_determinizations=args.search_determinizations,
         exact_leaf=args.search_leaf,
+        exact_leaf_calibration=(
+            Path(args.search_leaf_calibration) if args.search_leaf_calibration else None
+        ),
+        exact_min_streams=args.search_streams,
         exact_min_deep_coverage=args.min_deep_coverage,
         exact_preview_search=args.search and args.planned_preview,
         exact_preview_budget=args.preview_search_budget,
