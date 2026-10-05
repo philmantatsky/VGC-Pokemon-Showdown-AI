@@ -555,6 +555,7 @@ class LiveExactSession:
         live_views: bool = True,
         leaf_calibration_path: Path | None = None,
         min_streams: int = 0,
+        search_replacements: bool = True,
     ):
         self.battle_tag = battle_tag
         self.policy = policy
@@ -622,6 +623,13 @@ class LiveExactSession:
         # averages at least that many streams -- worlds x streams per world -- and a
         # rebuild turn keeps its worlds. 0: as every run before 2026-10-04 21:00.
         self.min_streams = int(min_streams)
+        # False: a forced replacement is the bot's own (policy and guards). The
+        # search prices those with the older two-ply search, and its two values for
+        # the SAME last Pokemon into either slot differ with sd 0.21 (2026-10-04, 218
+        # decisions; the critic prices the two placements 0.007 apart), so what it
+        # overrode there (2.5% of replacements) it overrode on noise. True: as every
+        # run before 2026-10-05.
+        self.search_replacements = bool(search_replacements)
         if leaf == "critic":
             from vgc_bench.src.critic_leaf import CriticLeafEvaluator, LeafCalibration
 
@@ -2018,6 +2026,23 @@ class LiveExactSession:
         self.last_reply_coverage = self._reply_coverage()
         preparation_elapsed_s = time.monotonic() - decision_started
         self.last_result = None
+        if not getattr(self, "search_replacements", True) and any(
+            getattr(battle, "force_switch", None) or []
+        ):
+            # the worlds are synced (prepare, above); the choice is the bot's own
+            self.skipped_searches += 1
+            self.last_schedule = {
+                "mode": "skip_replacement",
+                "reasons": ["a_forced_replacement_is_the_bots_own"],
+                "preparation_elapsed_s": preparation_elapsed_s,
+            }
+            self.planned_continuations = ()
+            self.planned_outcomes = ()
+            self.plan_parent_nodes = {}
+            self.pondered_outcomes = ()
+            self.ponder_parent_nodes = {}
+            self.ponder_reference_values = {}
+            return None
         reused = self._reuse_contingent_plan(battle)
         if reused is not None:
             self.last_result = reused
@@ -2754,6 +2779,7 @@ class LiveExactSession:
             "reply_coverage": getattr(self, "last_reply_coverage", None),
             "views": "live" if getattr(self, "live_views", True) else "rebuilt",
             "min_streams": getattr(self, "min_streams", 0),
+            "search_replacements": getattr(self, "search_replacements", True),
             "ponder_enabled": self.enable_ponder,
             "ponder_configuration": asdict(self.ponder_config),
             "schedule": self.last_schedule,
@@ -2803,6 +2829,9 @@ class LiveExactSession:
                             "worst": score.worst,
                             "prior": score.prior,
                             "depth_coverage": score.depth_coverage,
+                            # paired with the bot's own pair, stream by stream
+                            "edge": getattr(score, "edge", None),
+                            "edge_se": getattr(score, "edge_se", None),
                         }
                         for score in result.rankings[:8]
                     ],

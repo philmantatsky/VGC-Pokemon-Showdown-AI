@@ -145,6 +145,18 @@ class PlannerConfig:
     # until 2026-10-04) -- that spent most of the six replies on pairings chosen for
     # coverage, and the reply the opponent then made was in the table 60% of the time.
     nash_likeliest: bool = True
+    # A turn that ends with only the OPPONENT owing a replacement is valued as it
+    # stands instead of ranking their bench, simulating the replacement and valuing
+    # each outcome. Over 1,826 such positions (2026-10-04) the critic there is 0.006
+    # from its value after their likeliest replacement (sd 0.07), at a tenth of the
+    # cost of the most expensive kind of cell. False: as every run before 2026-10-05.
+    nash_opponent_replacement_leaf: bool = False
+    # > 0: under the anchor a candidate is credited with its edge over the bot's own
+    # pair MINUS this many standard errors of that edge across the random streams
+    # (worlds x streams per world), and with nothing at all when fewer than two
+    # streams compare the two. Half the overrides measured on 2026-10-04 had an
+    # edge under two standard errors. 0: the mean edge, as every run before.
+    nash_confidence: float = 0.0
 
     def __post_init__(self) -> None:
         if self.depth < 1:
@@ -182,6 +194,8 @@ class PlannerConfig:
             raise ValueError("nash_anchor must be >= 0 and replaces nash_prior_mix")
         if self.nash_champion_boost < 1:
             raise ValueError("nash_champion_boost must be at least 1")
+        if self.nash_confidence < 0:
+            raise ValueError("nash_confidence must not be negative")
 
 
 @dataclass(frozen=True)
@@ -196,6 +210,12 @@ class ActionScore:
     prior: float
     opponent_branches: int
     depth_coverage: float = 0.0
+    # nash, one world: this row's payoff in each random stream of the world
+    samples: tuple[float, ...] = ()
+    # nash, all worlds: the row's edge over the bot's own pair, paired stream by
+    # stream, and that edge's standard error (None: no pair, or one stream)
+    edge: float | None = None
+    edge_se: float | None = None
 
 
 @dataclass(frozen=True)
@@ -658,6 +678,31 @@ def _move_accuracy(move_id: str) -> float:
     return _MOVE_ACCURACY_CACHE[move_id]
 
 
+def _owes_replacement(node: ExactNode, role: str) -> bool:
+    """Whether ``role`` has to send a Pokemon in at this node."""
+    request = node.requests[int(role[1]) - 1] if node.requests else None
+    return any((request or {}).get("forceSwitch") or [])
+
+
+def paired_edge(
+    pairs: Sequence[tuple[float, float]],
+) -> tuple[float | None, float | None]:
+    """Weighted mean and standard error of paired differences ``(weight, value)``.
+
+    The standard error is None with fewer than two effective samples: one stream
+    says nothing about how much the next would differ."""
+    total = sum(weight for weight, _value in pairs)
+    if not pairs or total <= 0:
+        return None, None
+    mean = sum(weight * value for weight, value in pairs) / total
+    effective = total**2 / sum(weight**2 for weight, _value in pairs)
+    if len(pairs) < 2 or effective <= 1.0 + 1e-9:
+        return mean, None
+    variance = sum(weight * (value - mean) ** 2 for weight, value in pairs) / total
+    variance *= effective / (effective - 1.0)
+    return mean, math.sqrt(variance / effective)
+
+
 def _choice_has_volatile_accuracy(choice: str, threshold: float) -> bool:
     for atom in choice.split(","):
         parts = atom.strip().split()
@@ -828,6 +873,14 @@ class ExactMultiTurnPlanner:
         terminal = self._terminal(node, role)
         if terminal is not None:
             return terminal
+        if (
+            depth <= 0
+            and node.request_state != "move"
+            and self.config.solution == "nash"
+            and self.config.nash_opponent_replacement_leaf
+            and not _owes_replacement(node, role)
+        ):
+            return self._leaf(node, role)
         if (
             (depth <= 0 and node.request_state == "move")
             or time.monotonic() >= self._deadline
@@ -1178,13 +1231,22 @@ class ExactMultiTurnPlanner:
         cols = {item.choice: j for j, item in enumerate(theirs)}
         total = np.zeros((len(ours), len(theirs)))
         count = np.zeros_like(total)
+        cells: dict[tuple[int, int], list[float]] = {}
         for outcome in self._captured_outcomes[first:]:
             i, j = rows[outcome.root_choice], cols[outcome.opponent_choice]
             total[i, j] += outcome.value
             count[i, j] += 1
+            cells.setdefault((i, j), []).append(outcome.value)
         if (count == 0).any():
             raise ValueError("the nash payoff table is missing cells")
         table = total / count
+        # one table per random stream (a cell resolved on fewer streams repeats its
+        # last): the rows of a stream share its luck, so their differences are paired
+        streams = int(count.max())
+        by_stream = np.empty((streams, len(ours), len(theirs)))
+        for (i, j), values in cells.items():
+            for k in range(streams):
+                by_stream[k, i, j] = values[min(k, len(values) - 1)]
         if self.config.nash_anchor > 0:
             strategy, reply, _value = solve_anchored_game(
                 table,
@@ -1197,6 +1259,7 @@ class ExactMultiTurnPlanner:
                 table, iters=self.config.nash_iters
             )
         against = table @ reply
+        against_by_stream = by_stream @ reply  # (streams, rows)
         rankings = sorted(
             (
                 ActionScore(
@@ -1209,6 +1272,7 @@ class ExactMultiTurnPlanner:
                     standard_deviation=float(table[i].std()),
                     prior=item.probability,
                     opponent_branches=len(theirs),
+                    samples=tuple(float(v) for v in against_by_stream[:, i]),
                 )
                 for i, item in enumerate(ours)
             ),
@@ -1465,8 +1529,28 @@ def _aggregate_nash(
     prior: dict[str, float] = {}
     branches: dict[str, int] = {}
     first: dict[str, ActionScore] = {}
+    # per candidate: (weight, its payoff minus the bot's own pair's) in every random
+    # stream of every world that holds both rows
+    paired: dict[str, list[tuple[float, float]]] = {}
     for probability, result in results:
         share = probability / completed
+        own = next(
+            (
+                row
+                for row in result.rankings
+                if row.choice in (anchor_choices or ()) and row.samples
+            ),
+            None,
+        )
+        if own is not None:
+            for row in result.rankings:
+                if row is own or len(row.samples) != len(own.samples):
+                    continue
+                stream_share = share / len(own.samples)
+                paired.setdefault(row.choice, []).extend(
+                    (stream_share, value - base)
+                    for value, base in zip(row.samples, own.samples)
+                )
         for row in result.rankings:
             weight[row.choice] = weight.get(row.choice, 0.0) + share * row.score
             expected[row.choice] = expected.get(row.choice, 0.0) + share * row.expected
@@ -1485,9 +1569,24 @@ def _aggregate_nash(
             default_prior = max(anchor_prior.values()) * config.nash_champion_boost
             for choice in anchor_choices & anchor_prior.keys():
                 anchor_prior[choice] = max(anchor_prior[choice], default_prior)
+        credited = {choice: expected[choice] / mass[choice] for choice in weight}
+        own_choices = [c for c in (anchor_choices or ()) if c in weight]
+        if config.nash_confidence > 0 and own_choices:
+            # a candidate has to beat the bot's own pair by more than the luck of the
+            # streams explains: its edge less nash_confidence standard errors
+            own_value = max(credited[c] for c in own_choices)
+            for choice in weight:
+                if choice in own_choices:
+                    continue
+                edge, error = paired_edge(paired.get(choice, ()))
+                credited[choice] = (
+                    -math.inf
+                    if edge is None or error is None
+                    else own_value + edge - config.nash_confidence * error
+                )
         logit = {
             choice: math.log(max(anchor_prior[choice], 1e-12))
-            + (expected[choice] / mass[choice]) / config.nash_anchor
+            + credited[choice] / config.nash_anchor
             for choice in weight
         }
         peak = max(logit.values())
@@ -1503,6 +1602,7 @@ def _aggregate_nash(
             + config.nash_prior_mix * (prior[choice] / mass[choice]) / prior_total
             for choice in weight
         }
+    edges = {choice: paired_edge(pairs) for choice, pairs in paired.items()}
     rankings = [
         ActionScore(
             choice=choice,
@@ -1515,6 +1615,8 @@ def _aggregate_nash(
             prior=prior[choice] / mass[choice],
             opponent_branches=branches[choice],
             depth_coverage=mass[choice] * completed / total,
+            edge=edges.get(choice, (None, None))[0],
+            edge_se=edges.get(choice, (None, None))[1],
         )
         for choice in weight
         # the bot's own pair is known to be submittable whatever root zero ranked

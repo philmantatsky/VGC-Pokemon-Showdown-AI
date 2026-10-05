@@ -322,6 +322,31 @@ def main() -> None:
         "run before 2026-10-04 21:00, when 41%% of decisions saw a single stream)",
     )
     ap.add_argument(
+        "--a-search-replacements",
+        choices=("search", "own"),
+        default="search",
+        help="a forced replacement: searched (every run before 2026-10-05), or side "
+        "A's own pick (the search's values there are noise: its two values for the "
+        "same last Pokemon into either slot differ with sd 0.21)",
+    )
+    ap.add_argument(
+        "--a-search-opponent-replacement",
+        choices=("search", "leaf"),
+        default="search",
+        help="a turn that leaves only the opponent owing a replacement: their bench "
+        "is ranked and each replacement simulated (every run before 2026-10-05), or "
+        "the position is valued as it stands (0.006 away on average, a tenth of the "
+        "cost)",
+    )
+    ap.add_argument(
+        "--a-search-confidence",
+        type=float,
+        default=0.0,
+        help="a candidate is credited with its edge over side A's own pair minus "
+        "this many standard errors of the edge across random streams (needs "
+        "--a-search-streams >= 2); 0: the mean edge",
+    )
+    ap.add_argument(
         "--device",
         choices=("mps", "cpu"),
         default="mps",
@@ -437,6 +462,10 @@ def main() -> None:
             raise ValueError("--a-search-chance-samples must be 1-4")
         if not 0 <= args.a_search_streams <= 16:
             raise ValueError("--a-search-streams must be 0-16")
+        if args.a_search_confidence < 0:
+            raise ValueError("--a-search-confidence must not be negative")
+        if args.a_search_confidence > 0 and args.a_search_streams < 2:
+            raise ValueError("--a-search-confidence needs --a-search-streams >= 2")
         search = {
             "solution": args.a_search,
             "worlds": args.a_search_worlds,
@@ -454,6 +483,9 @@ def main() -> None:
             "table": args.a_search_table,
             "chance_samples": args.a_search_chance_samples,
             "streams": args.a_search_streams,
+            "replacements": args.a_search_replacements,
+            "opponent_replacement": args.a_search_opponent_replacement,
+            "confidence": args.a_search_confidence,
             "leaf_calibration": (
                 str(args.a_search_leaf_calibration)
                 if args.a_search_leaf_calibration
@@ -562,6 +594,10 @@ def main() -> None:
                 nash_sample=not args.a_search_argmax,
                 nash_prior_mix=args.a_search_prior_mix,
                 nash_anchor=args.a_search_anchor,
+                nash_opponent_replacement_leaf=(
+                    args.a_search_opponent_replacement == "leaf"
+                ),
+                nash_confidence=args.a_search_confidence,
             ),
             "outcome_value_path": ROOT / search["outcome_value"],
             "exact_team_path": ROOT / (a_team or config["TEAM"]),
@@ -574,6 +610,7 @@ def main() -> None:
             "exact_champion_anchor": args.a_search_champion == "on",
             "exact_live_views": args.a_search_views == "live",
             "exact_min_streams": args.a_search_streams,
+            "exact_search_replacements": args.a_search_replacements == "search",
             "exact_leaf_calibration": (
                 ROOT / args.a_search_leaf_calibration
                 if args.a_search_leaf_calibration
