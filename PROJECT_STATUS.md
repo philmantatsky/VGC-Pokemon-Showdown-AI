@@ -1,5 +1,40 @@
 # VGC Bot Project Status
 
+## While V6 runs: a leaf sees what the bot sees; replacement decisions are noise to the search; half the overrides are thin (2026-October 4, 22:55)
+
+Three read-only probes (scratch wrappers around `evaluation/mirror_guard_ab.py`, one
+low-priority process at a time; nothing in the repo changed, V6 runs frozen code).
+- **Leaf fidelity: 37 of 41.** For every table cell whose turn ended at a move request the
+  probe kept the leaf's observation, and at the next real decision compared it with the
+  bot's own observation whenever the predicted position WAS the real one (same turn,
+  actives, HP, status, boosts, weather, fields, side conditions). 8 games, 80 searched
+  decisions: 41 such cells, **37 identical in all 12,276 entries**; the other 4 differ only
+  in the gender of an opposing Pokemon that came in during the simulated turn (a world
+  draws its own gender for a Pokemon the live battle has not seen on the field). The
+  live-view machinery is faithful; what a leaf gets wrong is which branch happens, not what
+  the branch looks like. Gender: small, open.
+- **Forced-switch decisions: the search's values there are noise.** They are searched too
+  (not by the one-turn table: the older two-ply search). When the two candidates are the
+  SAME last Pokemon into slot A or slot B -- a difference the critic prices at 0.007 on
+  165 positions, live-anchored or rebuilt views alike -- the search's two expected values
+  differ with **sd 0.21 (mean |gap| 0.175; 70% above 0.05, 31% above 0.2; n = 218** from V4
+  and the pilot). The override threshold at anchor 0.07 is 0.05-0.15, so replacements are
+  overridden on noise: 83 of 3,339 (2.5%), 65 of them the meaningless slot flip, 18 a
+  different Pokemon. Small in games (one real change in ~60), but the right rule is plain:
+  **keep the bot's own replacement** until that search is rebuilt. Not in V6 (frozen).
+- **Move decisions: stream noise is small, and half the overrides are thin.** 24 games, 211
+  move decisions with 4-6 random streams each: the paired difference between a candidate
+  and the bot's pick varies from stream to stream with a median sd of 0.035 (p75 0.09, p90
+  0.18). Of 13 overrides, 7 have edge / standard error >= 2 (6 of them > 3) and 6 are
+  below 2 (5 below 1). **Next idea (V7): an override must clear its own standard error**
+  (a lower confidence bound on the paired edge instead of the mean). What the standard
+  error cannot see is error common to every stream: the critic's own, and a wrong reply
+  model.
+- V6 health at 22:48 (six shards + one niced probe): one-stream arms median 1.0 s, 7% of
+  decisions at the budget; streams arms median 1.75 s, 17-19% at the budget (KO-heavy
+  tables with four streams still run out of time: the cheaper leaf did not cure that).
+  First rounds: raw 56 / 100, calibrated 57 / 100.
+
 ## The search's copies of the battle read a zeroed threat block (30% of lookups): fixed; encoder a third faster with the same bytes; V5 ended as a pilot, V6 pre-registered (2026-October 4, 22:08, before the run)
 
 - **Found while making the encoder faster** (its identity test failed on a *second* call on
