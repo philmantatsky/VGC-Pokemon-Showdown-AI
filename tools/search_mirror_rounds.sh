@@ -65,6 +65,9 @@ for r in $(seq 1 "$ROUNDS"); do
       > "$run.log" 2>&1 &
     pids+=("$!")
     say "SHARD_START r$r s$k pid=$! -> $run"
+    # stagger the launches: the shard that died on 10-04 was one of six started in
+    # the same second
+    sleep 5
   done
   rc=0
   for pid in ${pids[@]+"${pids[@]}"}; do
