@@ -468,5 +468,5 @@ def test_search_flags_build_the_planner_the_head_to_head_measured():
 def test_the_launchers_help_can_be_printed():
     """argparse reads a bare % in a help string as a format: one "53.4% [..." made
     --help raise (found 2026-10-04; a normal run never formats the help)."""
-    text = build_parser().format_help()
+    text = " ".join(build_parser().format_help().split())
     assert "--search-anchor" in text and "53.4% [51.2, 55.5]" in text
