@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Opponent predictor, second pass: the fixed-trainer retrain confirms R1; 1.8x the data is worth 0.09 nats on our ladder opponents (2026-October 5, 00:30; separate session)
+
+- One niced single-thread chain (23:43-00:27): Elo-blind retrain on the v1 dataset with the
+  fixed trainer; dataset rebuilt on the download so far (`results_oppmodel/v2_feed`: 26,847
+  human battles against 15,155; same 401 ladder-holdout games); tables refitted; two fits;
+  `results_oppmodel/scorecard_v1r/` and `scorecard_v2/`. Details in `OPPONENT_PREDICTOR.md`.
+- **Fixed trainer, v1 data:** -0.196 [-0.223, -0.169] against the bar on our ladder opponents
+  (the first fit read -0.203): R1 stands.
+- **v2 data:** fine NLL on our ladder opponents 1.672 -> **1.583**, exact-action top-1 40.3% ->
+  43.6%, top-3 71.2% -> 74.6%; against its own refitted bar -0.271 [-0.303, -0.239]. The model
+  is data-limited; the download continues (about 17,400 of 113,000 when v2 was built).
+- **Elo again does not stay** (0.001-0.005 nats against 0.02).
+- Model to use: `results_oppmodel/oppnet_v2_blind/artifact.pt`. Still not wired into the bot.
+
 ## V6 stopped at the user's word after 800 games: 57.5% [54.0, 60.9] together; no arm separated from another (2026-October 4, 23:40)
 
 - **Stopped by the user at 23:39** ("stop it for now"), after a status report that showed

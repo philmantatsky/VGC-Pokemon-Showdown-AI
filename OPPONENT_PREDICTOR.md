@@ -11,9 +11,9 @@ range, takes the player's Elo as an input, and works with open team sheets and w
 them. The deliverable is an artifact plus a runtime class the deployed bot can call each
 turn.
 
-**Status (2026-10-04 23:25).** Built, reviewed and scored; nothing is wired into the bot.
+**Status (2026-10-05 00:30).** Built, reviewed and scored; nothing is wired into the bot.
 The neural predictor beats the count-table bar by 0.20 nats on our own ladder opponents (R1
-passes), Elo adds 0.002-0.005 nats (R2: it does not stay, ship the Elo-blind model), and the
+passes; 0.27 after retraining on 1.8 times the data), Elo adds 0.002-0.005 nats (R2: it does not stay, ship the Elo-blind model), and the
 existing reranker could not use even a perfect prediction (R4), so a first real use is a
 guard after a shadow-mode period. Details and numbers under "Results" at the bottom.
 
@@ -372,6 +372,40 @@ less HP gains 0.03-0.055 nats. `flags_table` now includes it and is the referenc
   (where any attack hits it). Both are corrected here; the first reading (94% at 0.9 on 8.3%
   of slot-turns) was inflated.
 
+### Second pass: fixed trainer, and more data helps a lot (2026-10-05 00:30)
+
+One chain, single-thread and niced (44 minutes): the Elo-blind model retrained on the v1
+dataset with the fixed trainer; the dataset rebuilt on everything downloaded by 23:43
+(`results_oppmodel/v2_feed`: 26,847 human battles against 15,155, 228,512 training examples
+against 121,016, same 401 ladder-holdout games); tables refitted; two fits on it; scorecards
+`scorecard_v1r/` and `scorecard_v2/`. The ladder holdout is the same games in both builds,
+each model fed by its own build's featurizer.
+
+| model (Elo-blind unless said) | training battles | fine NLL (a) | minus its bar (a) [95%] | top-1 | top-3 |
+|---|---|---|---|---|---|
+| first fit, v1 | 15,155 | 1.665 | -0.203 [-0.232, -0.175] | 40.9% | 71.3% |
+| fixed trainer, v1 | 15,155 | 1.672 | -0.196 [-0.223, -0.169] | 40.3% | 71.2% |
+| **fixed trainer, v2** | 26,847 | **1.583** | -0.271 [-0.303, -0.239] | 43.6% | 74.6% |
+| fixed trainer, v2, with Elo | 26,847 | 1.580 | -0.275 [-0.305, -0.245] | 44.1% | 75.2% |
+| flags table (the bar), v2 | 26,847 | 1.855 | reference | 31.2% | 62.1% |
+
+- **The fixed-trainer reading confirms R1**: -0.196 on (a) and -0.191 [-0.200, -0.181] on (b)
+  on the v1 data. The first fit and the retrain differ by 0.007 on (a), which is the only
+  measure of run-to-run noise so far.
+- **More data is worth 0.09 nats on our ladder opponents** (1.672 -> 1.583) and 3 points of
+  top-1, from 1.8 times the battles. The count table gains 0.014 from the same data. The
+  added games are also the recent, rating-balanced part of the feed, closer to our opponents
+  than the top-player scrapes, so not all of the gain is volume. Either way the model is
+  data-limited and the rest of the download (about 96,000 games) is worth having.
+- On held-out players (v2's own, larger test set): -0.249 [-0.257, -0.241].
+- **R2 again: Elo does not stay.** With the larger data its gain is 0.0046 / 0.0027 over
+  shuffled ratings and 0.0038 / 0.0013 over the Elo-blind retrain on (a) / (b); bar 0.02.
+- R3 with the v2 model on (a): Protect at P >= 0.5 covers 5.9%, happens 62.4% [56.0, 68.6]
+  (mean predicted 63.5%); at P >= 0.8, 0.4%, 85%; switch at P >= 0.35 covers 5.8%, happens
+  44.4% (predicted 50.3%); "one of our two slots is attacked by either foe" at P >= 0.9 covers
+  5.1%, happens 91.4% [85.7, 96.3]. Protect is now close to calibrated; switch still reads high.
+- **The model to use is `results_oppmodel/oppnet_v2_blind/artifact.pt`.**
+
 ### Runtime class (2026-10-04)
 
 `vgc_bench/src/oppmodel/runtime.py`: `OpponentPredictor.load(path).predict(battle)` ->
@@ -394,9 +428,9 @@ less HP gains 0.03-0.055 nats. `flags_table` now includes it and is the referenc
   `--opponent-forecast` flag dropped from run-config material when off, sheets handed over
   only when both are readable) is written out and was exercised on real battle objects, but
   `policy_player.py` and `ladder_ourteam.py` are untouched. It is the user's call.
-- **Retrain** on the fixed trainer and on a rebuilt dataset once more of the feed is on disk
-  (15,938 of about 113,000 fetched at 23:15), with a learning curve (quarter / half / all) to
-  see whether more data still helps.
+- **Retrain when the download is done** (about 17,400 of 113,000 fetched when v2 was built;
+  the second pass shows the model is data-limited), with a proper learning curve by battle
+  subsampling.
 - **Calibration maps** for the switch and Protect scalars.
 - **Search coverage** in the search session's terms: how often the opponent's real joint
   reply is among the predictor's top 8, with hidden sheets.
