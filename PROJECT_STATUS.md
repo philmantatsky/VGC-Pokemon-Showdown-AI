@@ -203,6 +203,21 @@
     mirror (about 30 min) and the battery (about 45 min) and writes the verdict to
     `results_analysis/forme_stats_20261004/chain.log`. No ladder, no promotion.
     `touch results_analysis/forme_stats_20261004/STOP` ends it while it waits.
+- **Tonight's mirror, as it is** (`results_mirror_forme_stats`, 20:57-21:31, the code of
+  21:00; a compact copy in `results_analysis/forme_stats_20261004/mirror_result_first.json`):
+  **A 991 / 2,000 = 49.6% [47.4, 51.7] -> not lost** by the pre-registered reading (upper
+  bound >= 50%); no detectable difference; no guard error.
+  - Open sheets, where that code did nothing: 502 / 1,000 = 50.2% [47.1, 53.3], 0 changed
+    picks -- the bot against itself, and a measure of the noise.
+  - Hidden sheets, where it worked as the final code does: **489 / 1,000 = 48.9% [45.8,
+    52.0]** (251 and 238 by block), **290 changed picks, 0.29 per game** -- three times the
+    rate of the ladder replays, because every mirror game has an opposing Mega and the whole
+    candidate list is in play.
+  - Nothing here says the entry helps and nothing says it hurts: at 0.29 changed picks per
+    game it would take several points of win probability per changed pick to show in 1,000
+    games. The rerun (all four blocks on the final code) and the battery are the gate. The
+    search session's V5 now ends about 08:30 on 10-05; the chain starts ten quiet minutes
+    later and needs about 85 minutes.
 - **What this leaves open (the user's call):** the larger half is the brain's own view of an
   opposing Mega's damage, which this entry does not touch. Options: (a) guards only (this
   entry, after its gates); (b) the observation as well, which needs a fine-tune on the

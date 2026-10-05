@@ -231,8 +231,10 @@
     the verdict lands in `results_analysis/forme_stats_20261004/chain.log`. At one changed pick
     in eleven ladder games neither can show a gain -- only that it is not broken.
     - The first mirror (10-04 evening) showed the entry did nothing with open sheets (0
-      changed picks in 500 games: an open-sheet line carries the sheet's nature and was not
-      recognised). Fixed the same evening; that mirror's hidden-sheet half stands.
+      changed picks in 1,000 games: an open-sheet line carries the sheet's nature and was not
+      recognised). Fixed the same evening. That mirror: 49.6% [47.4, 51.7] over 2,000, not
+      lost; its hidden-sheet half, which stands, 48.9% [45.8, 52.0] with 0.29 changed picks
+      per game.
   - [ ] The user's decision after the gate: `guards_extra += forme_stats` (a ladder trial first
     through `tools/ladder_trial.sh`).
   - [ ] The larger half, the brain's own inputs: the knowledge / threat blocks would move in
