@@ -1,5 +1,19 @@
 # VGC Bot Project Status
 
+## Opponent predictor learning curve: every doubling of replays still helps, the last one half as much (2026-October 5, 05:40; predictor session)
+
+- `results_oppmodel/lc20261005_curve/` (one niced thread, 108 minutes; one frozen corpus of
+  39,025 human battles, the same 401 ladder-holdout games in every build). Fine NLL on our
+  ladder opponents at 12.5 / 25 / 50 / 100% of the corpus: **1.888 / 1.744 / 1.606 / 1.539**;
+  exact-action top-1 34.1 / 38.3 / 43.0 / 44.2%.
+- Paired steps: -0.144, -0.138, then -0.067 [-0.087, -0.049] for the last doubling (held-out
+  players: -0.161, -0.108, -0.091). The count table barely moves (1.888 -> 1.851); under about
+  5,000 battles the neural model is no better than it.
+- The download continues (35,175 fetched, 78,050 queued at 05:37): about 1.6 more doublings,
+  worth a few hundredths of a nat on our opponents. Retrain when it ends.
+- The 100% point is better than the model now in shadow mode (1.539 against 1.583); swapping
+  it is a `DEPLOYED.json` change and waits for the user's word.
+
 ## Shadow mode ON at the user's word: the opponent predictor's forecast is logged with every move decision, read by none (2026-October 5, 03:50; predictor session)
 
 - The user: "turn on shadow mode". `DEPLOYED.json` gained `opponent_forecast`

@@ -476,7 +476,35 @@ is fully visible (66% of turns). The joint is the product of the two slots' marg
 
 **Learning-curve tooling** (builder `--human-fraction`, `training/oppmodel_learning_curve.py`):
 nested random subsamples of one corpus, each built, fitted and scored alike, paired on the
-same ladder games. The real run started 03:47 (`results_oppmodel/lc20261005_curve/`).
+same ladder games.
+
+### Learning curve: every doubling still helps, the last one half as much (2026-10-05 05:37)
+
+`results_oppmodel/lc20261005_curve/` (108 minutes on one niced thread). One frozen corpus
+(the download paused while the four datasets were built: identical inputs, 0% drift),
+39,025 human battles at 100%; Elo-blind model; the same 401 ladder-holdout games in every
+build. One fit per point, so the intervals hold game sampling, not training noise (about
+0.007 between two fits of the same data).
+
+| corpus | human battles | fine NLL (a) | top-1 | top-3 | minus the count table of that build |
+|---|---|---|---|---|---|
+| 12.5% | 4,938 | 1.888 | 34.1% | 63.8% | -0.000 [-0.027, +0.029] |
+| 25% | 9,821 | 1.744 | 38.3% | 68.9% | -0.127 [-0.154, -0.099] |
+| 50% | 19,712 | 1.606 | 43.0% | 73.7% | -0.254 [-0.281, -0.227] |
+| 100% | 39,025 | 1.539 | 44.2% | 75.7% | -0.312 [-0.342, -0.282] |
+
+- Paired steps on the ladder holdout (larger minus smaller, same slot-turns): -0.144
+  [-0.165, -0.123], -0.138 [-0.161, -0.115], then **-0.067 [-0.087, -0.049]** for the last
+  doubling. On held-out players: -0.161, -0.108, -0.091 [-0.098, -0.085].
+- The count table hardly moves with data (1.888 -> 1.851 on (a)): below about 5,000 battles
+  the neural model is no better than the table; all of its advantage comes from data.
+- The remaining download (about 78,000 games queued at 05:37) is roughly 1.6 more doublings.
+  If the steps keep shrinking as they have, that is worth a few hundredths of a nat on our
+  ladder opponents and more on held-out players: worth finishing, no longer dramatic.
+- The 100% point here (`lc20261005_f100_oppnet/artifact.pt`, 1.539 on (a)) is better than
+  the model in shadow mode (`oppnet_v2_blind`, 1.583, trained on 26,847 battles). Swapping
+  the shadow model is a manifest change and waits for the user's word; the natural moment is
+  the retrain after the download.
 
 ### Shadow mode is ON (2026-10-05 03:43, the user: "turn on shadow mode")
 
