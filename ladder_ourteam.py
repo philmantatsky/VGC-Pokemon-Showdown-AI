@@ -480,7 +480,7 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help=(
             "the opponent/tempo reranker may not put back a pair a guard corrected "
-            "away (mirror 2026-09-26: 53.4% [51.2, 55.5]); recorded in run_config.json"
+            "away (mirror 2026-09-26: 53.4%% [51.2, 55.5]); recorded in run_config.json"
         ),
     )
     ap.add_argument(
