@@ -55,6 +55,13 @@
 - To continue V6 where it stopped (same names, same seeds, finished shards are skipped):
   move the four `results_mirror_search_nash6*_STOP` files aside in `../vgc-bench-v6` and
   relaunch the four commands of the 22:08 entry.
+- **Resumed at the user's word ("continue"), 2026-10-05 00:49:** exactly that -- the same
+  four commands from `../vgc-bench-v6` (19445d0e), six processes at normal priority. The
+  finished shards were skipped; the five rounds cut off at 23:39 were set aside unread
+  (`*_unfinished_*`) and are replayed with their seeds. The clock stop stays 07:30 (timer
+  re-armed), so the planned size shrinks by the 70 minutes the run stood still. The
+  23:39 table was an interim look taken at the user's stop; the reading at the clock stop
+  is the pre-registered one, over every complete shard.
 
 ## Opponent predictor: built, reviewed, scored -- beats the count-table bar by 0.20 nats on our ladder opponents; Elo adds nothing; not wired into the bot (2026-October 4, 23:25; separate session)
 
