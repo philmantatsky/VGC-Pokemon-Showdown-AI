@@ -1,5 +1,83 @@
 # VGC Bot Project Status
 
+## Search spent 85% of its time on GPU overhead (cpu is 15x faster for it); 41% of searched decisions saw one run of the dice; V5 amended to four cpu arms (2026-October 4, 21:30, before the run)
+
+- **Found while checking the machine load for V5** (a wall-clock stack sampler around four
+  searched games, the code V5 was frozen on):
+  - V4's searched decisions took 2.6 s at the median and 7.3 s at the 90th percentile of a
+    7.35 s planning budget; 17% were flagged truncated (the flag under-counts: a cell cut at
+    the deadline with its replacement pending is not flagged).
+  - **85% of that time was network overhead on mps, not simulation.**
+    `torch.embedding_renorm_` is unsupported on mps and falls back to cpu on every forward
+    pass (19.5% of all search time); `ExactPolicyAdapter.rank` updates the joint mask once
+    per legal choice with a tensor on mps (16% + 12%); the simulator bridge is 11%.
+  - One position (T6ep, turn 1, 174 legal choices), cpu vs mps: **ranking 14.4 ms vs
+    211.6 ms, a critic leaf 2.8 ms vs 11.2 ms**; probabilities equal to 5e-7, the value to
+    1.3e-6, the top ten in the same order.
+  - The same four games with `--device cpu` (new flag of `evaluation/mirror_guard_ab.py`,
+    both sides; default mps = every earlier run): 41.8 s in search instead of 114.8 s, the
+    median decision 0.74 s, tables of 530 nodes at the 90th percentile instead of 240-276
+    (the KO-heavy tables finish). On cpu the cost is `PolicyPlayer.embed_battle` (47%, about
+    2 ms a position) and the bridge (24%); neither was touched.
+- **Second finding: one run of the dice.** Every world resolves its cells on its own random
+  stream. **41% of V4's searched decisions were planned over ONE world** -- an open sheet
+  once all four opposing Pokemon are known (29%), and any turn the worlds were rebuilt (11%:
+  the "concentrate on the likeliest world" rule kept from the multi-turn search) -- so one
+  stream of damage rolls, misses and crits decided the comparison. Overrides were more
+  frequent there: hidden sheets 7.9% vs 2.9% of decisions (anchor 0.07) and 2.0% vs 1.0%
+  (0.2); open sheets 3.3% vs 1.5% (0.2), 6.5% vs 8.1% (0.07).
+  - New: `--a-search-streams N` (`LiveExactSession(min_streams=)`,
+    `PolicyPlayer(exact_min_streams=)`). A decision averages at least N streams = worlds x
+    streams per world (N=4: one world -> 4, three -> 2, four or more -> 1) and a rebuild turn
+    keeps its worlds. Default 0 = as before. Explicit streams are seeded from each world's
+    own PRNG state (reproducible; different between worlds).
+  - Also new: `--a-search-chance-samples` (a fixed count per world; not used tonight);
+    `tools/search_mirror_rounds.sh` runs in the checkout it is called from and takes `SEED`.
+- **Checked and NOT changed: a deadline-cut cell.** Out of time, a cell whose turn ended in
+  a KO is valued with the replacement still pending. On 3,983 such positions from 127
+  simulated T6e mirrors: pending minus resolved value = -0.006 (they replace, n=1,826, sd
+  0.07), +0.019 (we replace, n=1,781, sd 0.15), -0.037 (both, n=376). Noisier, not biased.
+- **Null check on the frozen code** (worktree `../vgc-bench-v5` at f40463d2; cpu, streams
+  4, anchor 1e12): **0 of 85** decisions differ from the bot's own (main tree: 0 of 82 with
+  streams, 0 of 83 without). Calibrated + streams smoke from the worktree: 8 overrides in 89
+  decisions, expected edge +0.24, realized +0.29, none negative (a smoke).
+- Decision time on cpu with two probes and another session's 8-battle mirror on the
+  machine: one stream p50 0.7-1.1 s, p90 4.8-5.2 s; streams 4 p50 1.5-1.7 s, p90 7.3 s
+  (about one decision in eight still reaches the budget).
+- **What this does to the old numbers:** every search result so far (V1-V4, and August's
+  "exact search only ties") was measured with the networks on mps, i.e. with a search that
+  had a quarter to a third of the thinking it could have had. They stand as measurements of
+  that configuration only.
+- **V5 AMENDED before launch (replaces the 20:45 plan; no V5 game had been played).** Four
+  arms, a 2 x 2 of leaf (raw / calibrated) x streams (one per world / at least 4). Common to
+  all: side A = the deployed bot + nash search (critic leaf, 4 worlds, 8 s, argmax, anchor
+  0.07, champion boost 2, 8 likeliest replies, live views, the player's guards), side B =
+  the deployed bot, **both sides' networks on cpu**, one battle at a time per process.
+
+  | arm (`results_mirror_<name>`) | leaf | streams | port | SEED |
+  |---|---|---|---|---|
+  | `search_nash5` (the 20:45 plan's raw arm) | raw | one per world | 7612 | 20924 |
+  | `search_nash5cal` (its calibrated arm) | calibrated | one per world | 7613 | 30924 |
+  | `search_nash5s4` | raw | >= 4 | 7614 | 40924 |
+  | `search_nash5s4cal` | calibrated | >= 4 | 7615 | 50924 |
+
+  - Two shards per arm (8 processes), rounds of 100 games a shard, pooled after every round;
+    frozen code = worktree `../vgc-bench-v5` at f40463d2 (the main tree stays free for the
+    other sessions). **Stop by the clock, not by the numbers:** `_STOP` files at 07:30 on
+    10-05 whatever the pooled lines say; rounds in play finish; every complete shard
+    counts. Expected: about 2,000-3,500 games an arm.
+  - Changes from the 20:45 plan, all made before any game: cpu instead of mps; 2 shards and
+    a clock stop instead of 3 shards x 2,400 games; the two streams arms.
+  - **Reading, per arm (unchanged):** pooled Wilson lower bound > 50% = the search wins;
+    upper bound < 50% = it loses; otherwise no detectable difference. Four arms are four
+    chances: a lone win whose lower bound is within a point of 50% is a candidate that needs
+    a replication. **Factors** (each over both levels of the other, difference of pooled
+    rates with its 95% interval): streams >= 4 vs one; calibrated vs raw.
+  - Secondary, descriptive: open vs hidden halves; decisions at the budget; overrides and
+    guard send-backs; expected vs realized edges; reply coverage; the one-world share.
+  - A winning arm is a candidate for a ladder trial with `--device cpu`, which is the
+    user's decision. Search stays OFF in the deployed bot; DEPLOYED.json is not touched.
+
 ## Opposing Megas keep their pre-Mega stats: confirmed, measured on 404 ladder games; opt-in `forme_stats` (guards only) built; mirror pre-registered (2026-October 4, 21:00, before the run)
 
 - **The lead** (from the opponent-predictor session, by reading): `vgc_knowledge.ensure_stats`

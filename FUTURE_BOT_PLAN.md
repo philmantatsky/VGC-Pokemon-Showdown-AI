@@ -199,10 +199,21 @@
     guards, a rebuilt view that never matched the live one, hidden opponents without items,
     un-evolved Megas, a hard-coded seat, noise-sized overrides). Fixed; a null search now
     plays the deployed bot's pair in 140 of 140 decisions. Details in PROJECT_STATUS.
-  - [ ] V4 on the fixed stack (anchored game, the bot's own pick as the default; anchor 0.2
-    and 0.07, 600 games each, pre-registered 18:35). Gate for a ladder trial: pooled lower
-    bound > 50%, replicated, then the user's word.
+  - [x] V4 on the fixed stack (anchored game, the bot's own pick as the default): anchor 0.2
+    **50.7% [46.7, 54.7]** over 600 games, anchor 0.07 **54.5% [49.6, 59.3]** over 400. It no
+    longer loses; no detectable gain.
+  - [x] 2026-10-04 21:30: the search ran its networks on mps, where one-position calls are
+    4-15x slower than on cpu (85% of a searched decision was network overhead; one in five
+    ran out of time), and 41% of its decisions compared candidates on a single random
+    stream. `--device cpu`, `--a-search-streams`. Every earlier search number measured that
+    throttled configuration.
+  - [ ] **V5 (amended 21:30, running overnight from `../vgc-bench-v5`):** four cpu arms, leaf
+    raw / calibrated x streams one / at least 4, anchor 0.07, clock stop 07:30 on 10-05.
+    Gate for a ladder trial (with `--device cpu`): pooled lower bound > 50%, replicated if
+    marginal, then the user's word.
   - [ ] Oracle arm (real opponent sets in the worlds) once there is an effect to explain.
+  - [ ] Cheaper positions for the search (`PolicyPlayer.embed_battle` is 47% of its time on
+    cpu) -- only with a bit-identity test against the deployed observation.
 - [ ] Opposing Megas keep their pre-Mega stats (2026-10-04; every forme change, open and
   hidden sheets): a stale opposing forme is on the field in 71% of our ladder games and 35% of
   turns; the stored line understates what it does to us by a quarter (real / predicted 1.27;
