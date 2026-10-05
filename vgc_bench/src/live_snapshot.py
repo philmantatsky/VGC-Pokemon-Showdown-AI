@@ -498,16 +498,27 @@ def _started_turn(turn: int, identifier: str, data: dict[str, Any]) -> int:
     return max(0, turn - max(0, maximum - int(duration)))
 
 
-def apply_public_snapshot(battle: AbstractBattle, snapshot: dict[str, Any]) -> None:
-    """Make a reconstructed policy view agree with a reconciled public snapshot."""
+def apply_public_snapshot(
+    battle: AbstractBattle, snapshot: dict[str, Any], perspective: str = "p1"
+) -> None:
+    """Make a reconstructed policy view agree with a reconciled public snapshot.
+
+    ``perspective`` is the exact-world seat whose view ``battle`` is. p2 is the
+    opponent's view of the same position: until 2026-10-04 it got no snapshot at
+    all, so in a shadow recreated mid-battle the opponent model was shown our
+    Pokemon at full health, no Trick Room or Tailwind, turn zero, and every Pokemon
+    on its first turn. It receives the public facts only: our hidden item and
+    ability stay hidden, and its own exact HP stays what its request said.
+    """
     battle._turn = int(snapshot["turn"])
+    theirs = perspective == "p2"
 
     def apply_side(index: int, own: bool) -> None:
         table = battle.team if own else battle.opponent_team
         rows = snapshot["sides"][index]["pokemon"]
         # exact-world seats (we are always p1 there), not the server's: this view is
         # rebuilt from an exact state, never from the live protocol
-        role = "p1" if own else "p2"
+        role = "p1" if index == 0 else "p2"
         # Historical shadow logs can leave poke-env's slot dictionary pointing at a
         # different Pokemon even after the public snapshot marks the right object
         # active. Rebuild both fixed doubles slots from the authoritative snapshot;
@@ -544,23 +555,34 @@ def apply_public_snapshot(battle: AbstractBattle, snapshot: dict[str, Any]) -> N
                 battle._active_pokemon[
                     f"{role}{'ab'[int(active_slot)]}"
                 ] = pokemon
-            if row.get("maxhp") is not None:
+            fraction = row.get("hp_fraction")
+            if row.get("maxhp") is not None and own and not theirs:
                 pokemon._max_hp = int(row["maxhp"])
                 pokemon._current_hp = int(row.get("hp") or 0)
-            elif row.get("hp_fraction") is not None:
+            elif fraction is not None and own and pokemon._max_hp:
+                # the opponent's own side: its request gave the exact maximum
+                pokemon._current_hp = round(float(fraction) * pokemon._max_hp)
+            elif fraction is not None:
                 # Opponent HP is public only as a percentage. Keep that precision
                 # instead of leaking the concrete particle's internal integer HP.
                 pokemon._max_hp = 1000
-                pokemon._current_hp = round(float(row["hp_fraction"]) * 1000)
+                pokemon._current_hp = round(float(fraction) * 1000)
             status = row.get("status") or ""
             pokemon._status = _enum_member(Status, status) if status else None
             pokemon._boosts.update(
                 {key: int(value) for key, value in row.get("boosts", {}).items()}
             )
-            if row.get("ability"):
-                pokemon._ability = to_id_str(row["ability"])
-            if row.get("item"):
-                pokemon._item = to_id_str(row["item"])
+            if active_slot is not None and "first_turn" in row:
+                # a shadow recreated mid-battle has every Pokemon just switched in
+                # (poke-env: first_turn is ``_active_turns == 1``)
+                turns = int(getattr(pokemon, "_active_turns", 0) or 0)
+                pokemon._active_turns = 1 if row["first_turn"] else max(2, turns)
+            if own or not theirs:  # never our private item or ability to the opponent
+                if row.get("ability"):
+                    pokemon._ability = to_id_str(row["ability"])
+                if row.get("item") is not None:
+                    # "" is a spent or removed item, None an item nobody has seen
+                    pokemon._item = to_id_str(row["item"]) or None
             effects = {}
             for identifier, data in row.get("effects", {}).items():
                 effect = _enum_member(Effect, identifier)
@@ -573,7 +595,7 @@ def apply_public_snapshot(battle: AbstractBattle, snapshot: dict[str, Any]) -> N
         # Team Preview order. Snapshot rows are emitted in that stable live order;
         # restore it before exact policy scoring so switch priors stay attached to
         # the correct Pokemon identity.
-        if own and stable_order:
+        if own and not theirs and stable_order:
             stable_order.extend(
                 (ident, pokemon)
                 for ident, pokemon in list(table.items())
@@ -590,8 +612,8 @@ def apply_public_snapshot(battle: AbstractBattle, snapshot: dict[str, Any]) -> N
             if condition is not None:
                 target[condition] = _started_turn(battle.turn, identifier, data)
 
-    apply_side(0, True)
-    apply_side(1, False)
+    apply_side(1 if theirs else 0, True)
+    apply_side(0 if theirs else 1, False)
     battle._weather.clear()
     weather = _enum_member(Weather, snapshot.get("weather") or "")
     if weather is not None:

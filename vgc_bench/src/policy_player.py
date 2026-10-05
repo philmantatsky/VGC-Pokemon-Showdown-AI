@@ -189,6 +189,7 @@ class PolicyPlayer(Player):
         exact_player_guards: bool = True,
         exact_champion_anchor: bool = True,
         exact_live_views: bool = True,
+        exact_leaf_calibration: str | Path | None = None,
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -312,6 +313,9 @@ class PolicyPlayer(Player):
             exact_live_views: The search's view of our side grows from the live
                 battle (default); False rebuilds it from each shadow's own log, as
                 before 2026-10-04.
+            exact_leaf_calibration: A ``LeafCalibration`` file for the critic leaf
+                (evaluation/leaf_calibration.py): leaf values become calibrated
+                win probabilities instead of the clipped raw critic.
             enable_search: Per-player exact-search switch. ``None`` inherits the
                 class default; evaluations use this to keep opponent players on
                 their own policy while searching several controlled battles.
@@ -438,6 +442,9 @@ class PolicyPlayer(Player):
         self.exact_player_guards = bool(exact_player_guards)
         self.exact_champion_anchor = bool(exact_champion_anchor)
         self.exact_live_views = bool(exact_live_views)
+        self.exact_leaf_calibration = (
+            Path(exact_leaf_calibration) if exact_leaf_calibration is not None else None
+        )
         # diagnostic only: the opponent's real team file for the exact worlds
         self.exact_oracle_opponent_team = (
             Path(exact_oracle_opponent_team)
@@ -1586,6 +1593,7 @@ class PolicyPlayer(Player):
             policy_inference_lock=self._exact_policy_lock,
             leaf=self.exact_leaf,
             live_views=getattr(self, "exact_live_views", True),
+            leaf_calibration_path=getattr(self, "exact_leaf_calibration", None),
             oracle_opponent_team_text=(
                 self.exact_oracle_opponent_team.read_text()
                 if self.exact_oracle_opponent_team is not None

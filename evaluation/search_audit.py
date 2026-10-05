@@ -28,6 +28,9 @@ def summarize(paths: list[Path]) -> dict:
     with_champion = changed_champion = 0
     champion_change_kinds: collections.Counter[str] = collections.Counter()
     champion_outcomes: collections.Counter[str] = collections.Counter()
+    # was the opponent's actual reply among those the previous search considered?
+    reply_any = reply_n = 0
+    reply_mass = 0.0
     stages: collections.Counter[str] = collections.Counter()
     weights: list[float] = []
     for path in paths:
@@ -39,6 +42,11 @@ def summarize(paths: list[Path]) -> dict:
             schedule = audit.get("schedule") or {}
             mode = schedule.get("mode", "?")
             modes[mode] += 1
+            coverage = audit.get("reply_coverage")
+            if coverage:
+                reply_n += 1
+                reply_any += int(bool(coverage.get("any")))
+                reply_mass += float(coverage.get("mass_with_reply") or 0.0)
             champion = audit.get("champion_actions")
             if champion is not None:
                 with_champion += 1
@@ -107,6 +115,15 @@ def summarize(paths: list[Path]) -> dict:
         # kept: the search agreed with the bot's own pair; overridden: it replaced it
         # and the guards accepted; override_vetoed: the guards sent it back
         "champion_outcomes": dict(champion_outcomes) or None,
+        "opponent_reply_was_searched": (
+            {
+                "decisions": reply_n,
+                "in_some_world": reply_any / reply_n,
+                "mean_world_mass": reply_mass / reply_n,
+            }
+            if reply_n
+            else None
+        ),
         "guards_changed_searched_pick": guard_changed,
         "guard_stages_on_searched_picks": dict(stages.most_common(12)),
         "elapsed_s": {

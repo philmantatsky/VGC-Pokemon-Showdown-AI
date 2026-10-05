@@ -342,3 +342,61 @@ def test_reconcile_gives_a_shadow_the_mega_it_never_played():
         child = bridge.simulate(state, ours, bridge.choices(state, "p2")[0], "1,2,3,4")
         after: Any = state_to_battle(child["state"], child["requests"], "p1", True)
         assert after.active_pokemon[0].species == "blastoisemega"
+
+
+def test_the_opponents_view_of_a_recreated_shadow_gets_the_public_state():
+    """2026-10-04: only our own view received the snapshot. In a shadow recreated
+    mid-battle the opponent model saw our Pokemon at full health, no Trick Room,
+    turn zero and everyone on a first turn -- and the opponent's actual reply was
+    among the six the search considered in under 40% of decisions."""
+    from poke_env.battle import Field
+
+    team = (ROOT / "teams/candidates_mc/T6e.txt").read_text()
+    with ExactShowdownBridge() as bridge:
+
+        def create(seed):
+            return bridge.create(
+                formatid=FORMAT,
+                seed=seed,
+                p1_team_text=team,
+                p2_team_text=team,
+                p1_preview="team 1234",
+                p2_preview="team 1234",
+            )
+
+        source = create([1, 2, 3, 4])
+        ours = next(
+            c
+            for c in bridge.choices(source["state"], "p1")
+            if c.startswith("move icebeam +2") and "trickroom" in c
+        )
+        theirs = next(
+            c
+            for c in bridge.choices(source["state"], "p2")
+            if c.startswith("move waterpulse +2") and "helpinghand" in c
+        )
+        source = bridge.simulate(source["state"], ours, theirs, "1,2,3,4")
+        live: Any = state_to_battle(source["state"], source["requests"], "p1", False)
+        snapshot = public_snapshot(live, source["requests"][0], request_state="move")
+        shadow = bridge.reconcile(create([5, 6, 7, 8])["state"], snapshot)
+        view: Any = state_to_battle(shadow["state"], shadow["requests"], "p2", False)
+        exact = shadow["state"]["sides"][1]["pokemon"]
+
+    assert live.turn == 2 and view.turn == 2
+    assert Field.TRICK_ROOM in live.fields and Field.TRICK_ROOM in view.fields
+    # our Farigiraf, as they see it: the public fraction, not full health
+    seen = view.opponent_active_pokemon[1]
+    assert seen.species == "farigiraf"
+    assert seen.current_hp_fraction == pytest.approx(
+        live.active_pokemon[1].current_hp_fraction, abs=0.002
+    )
+    assert seen.current_hp_fraction < 1.0
+    # their own Farigiraf: the exact HP its request gave, scaled by nothing
+    own = view.active_pokemon[1]
+    hit = next(p for p in exact if p["set"]["species"] == "Farigiraf")
+    assert own.max_hp == hit["maxhp"] and 0 < own.current_hp < own.max_hp
+    assert own.current_hp == pytest.approx(hit["hp"], abs=1)
+    # nobody is on a first turn any more, and our hidden item stays hidden
+    assert not view.active_pokemon[0].first_turn
+    assert not view.opponent_active_pokemon[0].first_turn
+    assert view.opponent_active_pokemon[0].item in (None, "unknown_item")

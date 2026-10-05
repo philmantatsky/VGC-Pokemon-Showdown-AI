@@ -268,6 +268,13 @@ def main() -> None:
         "(every search run before 2026-10-04)",
     )
     ap.add_argument(
+        "--a-search-leaf-calibration",
+        type=Path,
+        default=None,
+        help="critic leaf: a calibration file from evaluation/leaf_calibration.py "
+        "(leaf values become calibrated win probabilities)",
+    )
+    ap.add_argument(
         "--a-search-views",
         choices=("live", "rebuilt"),
         default="live",
@@ -395,6 +402,16 @@ def main() -> None:
             "guards": args.a_search_guards,
             "champion": args.a_search_champion,
             "views": args.a_search_views,
+            "leaf_calibration": (
+                str(args.a_search_leaf_calibration)
+                if args.a_search_leaf_calibration
+                else None
+            ),
+            "leaf_calibration_sha256": (
+                sha256(ROOT / args.a_search_leaf_calibration)
+                if args.a_search_leaf_calibration
+                else None
+            ),
             "outcome_value": str(args.a_search_outcome),
             "outcome_value_sha256": sha256(ROOT / args.a_search_outcome),
         }
@@ -501,6 +518,11 @@ def main() -> None:
             "exact_player_guards": args.a_search_guards == "player",
             "exact_champion_anchor": args.a_search_champion == "on",
             "exact_live_views": args.a_search_views == "live",
+            "exact_leaf_calibration": (
+                ROOT / args.a_search_leaf_calibration
+                if args.a_search_leaf_calibration
+                else None
+            ),
             "exact_oracle_opponent_team": (
                 ROOT / config["TEAM"] if args.a_search_oracle else None
             ),

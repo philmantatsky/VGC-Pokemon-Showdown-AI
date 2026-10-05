@@ -1,5 +1,52 @@
 # VGC Bot Project Status
 
+## Search, while V4 runs: the opponent model saw a stale board, hidden worlds ignored what was shown; reply-coverage and calibration instruments (2026-October 4, 19:05)
+
+- **V4 is running** (launched 18:31, 5 shards alive). One of the six shards
+  (`search_nash4b_s3`) died within a minute of launch with no traceback, so the 0.07 arm has
+  400 games, not 600; its chain will fail to pool and the two finished shards are pooled by
+  hand. It was not restarted: the code on disk has moved on and a late shard would not be
+  the same experiment.
+  - Early audit: anchor 0.2 leaves the bot's pick in 2.4% of decisions (guards veto another
+    1.7%); anchor 0.07 in 7.1% (4.5% vetoed, mostly resisted_target, guaranteed_ko,
+    dominated_attack, protect_spam). No fallbacks; search p50 1.6 s, p90 7.3 s.
+- **New instrument -- was the opponent's real reply in the table?** (`reply_coverage` in the
+  audit, `opponent_reply_was_searched` in `search_audit.py`). The search scores our moves
+  against six predicted replies per world; if the reply that happens is not among them the
+  payoffs describe a turn that was not played. The older `planned_*_coverage` fields divide
+  by every retained world and read zero after any world refresh, so they could not say.
+  - First reading (8 games, after the first fix below): the real reply was in some searched
+    world in 60% of decisions (hidden sheets 46%).
+- **Two more defects behind that, both fixed** (not in V4):
+  - **The opponent model was shown a stale board.** Only our own view received the public
+    snapshot. In a world recreated mid-battle the opponent's view had our Pokemon at full
+    health, no Trick Room or Tailwind, turn zero, everyone on a first turn.
+    `apply_public_snapshot(..., perspective="p2")` gives it the public facts (never our
+    hidden item or ability; its own exact HP stays its request's).
+  - **Hidden sheets: recreated worlds ignored everything already shown.** `_belief`
+    conditioned only with open sheets, so a world rebuilt on turn 4 was drawn from the
+    untouched prior (a Blastoise with Shell Smash and no Water Pulse, after it had used Water
+    Pulse) and every such world was then marked impossible together. Now the belief is
+    conditioned on shown moves, items and abilities, and when fewer worlds agree with the
+    evidence than the search uses, the worlds are drawn again (once per new piece of
+    evidence). 12-game probe: 7.2 of 8.0 hidden worlds agree with the evidence; the real
+    reply was searched in 62% of hidden-sheet decisions (46% before), world mass 0.53 (0.29).
+  - A Mega's ability is no longer read as evidence about its set.
+- **Is the leaf any good?** Value of the played pair against who won, 377 decisions of
+  mirror games on the fixed stack: AUC 0.50 on turns 1-2, 0.62 on 3-4, 0.85-0.89 from turn
+  5; 0.95 in the last two turns of a game. Calibration is poor: raw 0.6-0.8 (as a win
+  probability) won 40-52%, anything below 0.6 won 25-43%. The critic learned against
+  opponents the brain usually beats.
+  - Tool ready, not yet run: `evaluation/leaf_calibration.py collect|fit` (the bot plays
+    itself without search, raw leaf value at every move decision against the result; one
+    isotonic map per phase of the game) and `LeafCalibration` in `critic_leaf.py`
+    (`--a-search-leaf-calibration`): leaf = 2 x calibrated win probability - 1.
+- `evaluation/search_override_report.py`: what the search changed (kept / overridden /
+  vetoed, payoff edges, kinds of change) and side A's results by overrides per game.
+- **Power, stated plainly:** at anchor 0.2 the search changes about one move in four games.
+  No 600-game mirror can see that; only an effect of 5 points or more is visible in an
+  evening. A real answer for a small effect needs thousands of games on one configuration.
+
 ## Opponent predictor side experiment started (separate session); the challenge listener's restart hazard fixed (2026-October 4, 18:15)
 
 - The user: a predictor of what the opponent clicks each turn (Protect / attack which slot /

@@ -23,6 +23,7 @@ from vgc_bench.src.live_exact import (
     observed_opponent_actions,
 )
 from vgc_bench.src.live_snapshot import live_roles, public_snapshot
+from vgc_bench.src.set_particles import TeamSlot
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -608,3 +609,201 @@ def test_an_override_the_guards_reject_gives_way_to_the_bots_own_pick(monkeypatc
     assert rank(["searched", "own", "third"]) == ["own", "third", "searched"]
     assert session.last_live_guards["champion"] == "override_vetoed"
     assert session.last_live_guards["stages"] == ["dominated_attack"]
+
+
+def test_reply_coverage_holds_the_searched_replies_against_what_happened():
+    from vgc_bench.src.exact_planner import BranchOutcome, ExactNode
+
+    def node():
+        return ExactNode(
+            state={"sides": [{"pokemon": []}, {"pokemon": []}]},
+            requests=[None, None],
+            turn=1,
+            request_state="move",
+        )
+
+    def outcome(label, reply):
+        return BranchOutcome(
+            root_choice="move a",
+            opponent_choice=reply,
+            value=0.0,
+            probability=0.5,
+            predicted_node=node(),
+            searched_depth=1,
+            root_label=label,
+        )
+
+    session = object.__new__(LiveExactSession)
+    roots: Any = [
+        SimpleNamespace(label="w1", node=node(), probability=0.75),
+        SimpleNamespace(label="w2", node=node(), probability=0.25),
+        SimpleNamespace(label="unsearched", node=node(), probability=0.5),
+    ]
+    session._record_reply_tables(
+        [
+            outcome("w1", "move icebeam +1, move trickroom"),
+            outcome("w1", "move waterspout, move trickroom"),
+            outcome("w2", "move waterpulse +2, move protect"),
+        ],
+        roots[:2],
+    )
+    session.last_observed_actions = {
+        0: ObservedAction("move", "waterspout", 1, False),  # a spread move's log target
+        1: ObservedAction("move", "trickroom", None, False),
+    }
+    coverage = session._reply_coverage()
+    assert coverage is not None and coverage["any"] and coverage["worlds"] == 2
+    assert coverage["mass_with_reply"] == pytest.approx(0.75)
+    assert coverage["observed"]["0"] == ["move", "waterspout", 1, False]
+    # consumed: the same tables are never held against a second turn
+    assert session._reply_coverage() is None
+
+    session._record_reply_tables(
+        [outcome("w1", "move icebeam +1, move protect")], roots
+    )
+    session.last_observed_actions = {0: ObservedAction("move", "fakeout", 2, False)}
+    missed = session._reply_coverage()
+    assert missed is not None and not missed["any"]
+    assert missed["mass_with_reply"] == 0.0
+    session._record_reply_tables(
+        [outcome("w1", "move icebeam +1, move protect")], roots
+    )
+    session.last_observed_actions = {}  # nothing seen (the first decision)
+    assert session._reply_coverage() is None
+
+
+def _hidden_session(particles) -> Any:
+    session: Any = object.__new__(LiveExactSession)
+    session.open_sheet = False
+    session.oracle_opponent_team_text = None
+    session.database = SimpleNamespace(particles=lambda species: particles[species])
+    session.opponent_roster_species = set(particles)
+    session.opponent_species_by_nickname = {}
+    return session
+
+
+def test_hidden_worlds_are_drawn_from_sets_that_hold_what_was_shown():
+    """2026-10-04: a world recreated mid-battle was sampled from the untouched prior,
+    so the opponent's Blastoise could lack the Water Pulse it had already used."""
+    import random
+
+    from vgc_bench.src.set_particles import SetParticle
+
+    def particle(moves, probability, item="blastoisinite"):
+        return SetParticle(
+            "blastoise", "raindish", item, moves, None, probability, "test"
+        )
+
+    common = particle(("shellsmash", "darkpulse", "protect", "waterspout"), 0.9)
+    ours = particle(("waterpulse", "icebeam", "waterspout", "fakeout"), 0.1)
+    session = _hidden_session({"blastoise": (common, ours)})
+    roster = (TeamSlot("blastoise", "Blastoise"),)
+    blastoise = _mon("Blastoise")
+
+    def battle(*events) -> Any:
+        return SimpleNamespace(
+            player_role="p1",
+            opponent_team={"p2: Blastoise": blastoise},
+            _replay_data=[list(event) for event in events],
+        )
+
+    def drawn(live):
+        belief = session._belief(live, roster)
+        worlds = belief.sample_determinizations(8, random.Random(0))
+        return {world["blastoise"].moves for world in worlds}
+
+    assert common.moves in drawn(battle())  # nothing shown: the prior
+    shown = battle(("", "move", "p2a: Blastoise", "Water Pulse", "p1a: Torkoal"))
+    assert drawn(shown) == {ours.moves}
+    # a move no stored set has: one set built around what was seen
+    novel = battle(
+        ("", "move", "p2a: Blastoise", "Aura Sphere", "p1a: Torkoal"),
+        ("", "move", "p2a: Blastoise", "Struggle", "p1a: Torkoal"),  # not a set move
+    )
+    (moves,) = drawn(novel)
+    assert "aurasphere" in moves and "struggle" not in moves and len(moves) == 4
+
+
+def test_contradicted_hidden_worlds_are_drawn_again_once_per_new_evidence(monkeypatch):
+    session: Any = object.__new__(LiveExactSession)
+    session.open_sheet = False
+    session.oracle_opponent_team_text = None
+    session.search_determinizations = 2
+    session._ponder_job = None
+    session.root_refreshes = 0
+    session.reconciliations = 0
+    session.last_reconcile_errors = []
+    session.roots = ["old-1", "old-2", "old-3"]
+    session.pending_our_choice = "move a"
+    session.roots_agreeing_with_evidence = 1  # fewer than the two it searches
+    session.evidence_signature = (("blastoise", ("waterpulse",), None, None),)
+    created = []
+
+    def create(_battle, _snapshot):
+        created.append(1)
+        session.roots = ["new-1", "new-2"]
+
+    def condition(_battle):
+        session.roots_agreeing_with_evidence = len(session.roots)
+
+    monkeypatch.setattr(session, "_create_roots", create, raising=False)
+    monkeypatch.setattr(session, "_condition_roots", condition, raising=False)
+    battle: Any = SimpleNamespace(turn=4)
+
+    session._resample_contradicted_roots(battle, {})
+    assert session.roots == ["new-1", "new-2"] and len(created) == 1
+    assert session.root_refreshes == 1 and session.evidence_resamples == 1
+    assert session.pending_our_choice is None  # nothing searched on the old worlds
+
+    # still contradicted by the SAME evidence (a set no particle can express): once
+    session.roots_agreeing_with_evidence = 0
+    session._resample_contradicted_roots(battle, {})
+    assert len(created) == 1
+    # a new reveal: again
+    session.evidence_signature += (("torkoal", ("earthpower",), None, None),)
+    session._resample_contradicted_roots(battle, {})
+    assert len(created) == 2
+
+    # a failed redraw leaves the reconciled worlds it had
+    def broken(_battle, _snapshot):
+        raise ValueError("no legal determinization")
+
+    monkeypatch.setattr(session, "_create_roots", broken, raising=False)
+    session.roots = ["kept"]
+    session.roots_agreeing_with_evidence = 0
+    session.evidence_signature += (("incineroar", ("uturn",), None, None),)
+    session._resample_contradicted_roots(battle, {})
+    assert session.roots == ["kept"]
+    assert "evidence resample" in session.last_reconcile_errors[-1]
+
+    # open sheets name the sets: never
+    session.open_sheet = True
+    session.evidence_signature += (("farigiraf", ("psychic",), None, None),)
+    monkeypatch.setattr(session, "_create_roots", create, raising=False)
+    session._resample_contradicted_roots(battle, {})
+    assert len(created) == 2
+
+
+def test_a_megas_ability_is_not_evidence_about_its_set():
+    session = _hidden_session({"gyarados": ()})
+    gyarados = _mon("Gyarados")
+    battle: Any = SimpleNamespace(
+        player_role="p1",
+        opponent_team={"p2: Gyarados": gyarados},
+        _replay_data=[
+            ["", "-ability", "p2a: Gyarados", "Intimidate", "boost"],
+            ["", "-mega", "p2a: Gyarados", "Gyarados", "Gyaradosite"],
+            ["", "-ability", "p2a: Gyarados", "Mold Breaker"],
+        ],
+    )
+    assert session._revealed_evidence(battle) == {
+        "gyarados": {"moves": set(), "item": "gyaradosite", "ability": "intimidate"}
+    }
+    # an open sheet: the live Pokemon reports the Mega's ability once it has evolved
+    session.open_sheet = True
+    mega = _mon("Gyarados", ability="moldbreaker", forme_change_ability="moldbreaker")
+    mega.moves = {"waterfall": None}
+    sheet: Any = SimpleNamespace(
+        player_role="p1", opponent_team={"p2: Gyarados": mega}, _replay_data=[]
+    )
+    assert session._revealed_evidence(sheet)["gyarados"]["ability"] is None

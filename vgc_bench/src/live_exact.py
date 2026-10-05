@@ -456,6 +456,8 @@ def _opponent_previews(
 
 
 GUARD_ADDED = "guard-added"
+# move names the protocol shows that are never one of a set's four moves
+_NOT_SET_MOVES = frozenset({"struggle", "recharge"})
 
 
 def canonical_target_actions(
@@ -548,6 +550,7 @@ class LiveExactSession:
         leaf: str = "outcome",
         oracle_opponent_team_text: str | None = None,
         live_views: bool = True,
+        leaf_calibration_path: Path | None = None,
     ):
         self.battle_tag = battle_tag
         self.policy = policy
@@ -607,9 +610,16 @@ class LiveExactSession:
         # False: rebuilt from the shadow's own log, as before 2026-10-04
         self.live_views = bool(live_views)
         if leaf == "critic":
-            from vgc_bench.src.critic_leaf import CriticLeafEvaluator
+            from vgc_bench.src.critic_leaf import CriticLeafEvaluator, LeafCalibration
 
-            self.evaluator = CriticLeafEvaluator(self.adapter)
+            self.evaluator = CriticLeafEvaluator(
+                self.adapter,
+                calibration=(
+                    LeafCalibration.load(leaf_calibration_path)
+                    if leaf_calibration_path is not None
+                    else None
+                ),
+            )
         else:
             self.evaluator = outcome_evaluator or OutcomeValueEvaluator.load(
                 outcome_value_path, device=device, mechanics_weight=0.10
@@ -705,6 +715,19 @@ class LiveExactSession:
             for species, mon in by_species.items():
                 belief.condition(
                     species, moves=mon.moves.keys(), item=mon.item, ability=mon.ability
+                )
+        else:
+            # Hidden sheets: what the opponent has shown so far. Until 2026-10-04 a
+            # world recreated mid-battle was sampled from the untouched prior, so it
+            # contradicted moves already seen (a Blastoise without the Water Pulse it
+            # had used three times) and every recreated world was then marked
+            # impossible together.
+            for species, row in self._revealed_evidence(battle).items():
+                belief.condition(
+                    species,
+                    moves=sorted(row["moves"] - _NOT_SET_MOVES),
+                    item=row["item"],
+                    ability=row["ability"],
                 )
         return belief
 
@@ -826,12 +849,22 @@ class LiveExactSession:
             for ident, mon in battle.opponent_team.items():
                 nickname = to_id_str(ident.split(":", 1)[-1])
                 species = nickname_species.get(nickname, _species(mon))
+                # A Mega's ability is its forme's, not its set's: comparing it with
+                # the sheet's ability marked every world impossible from the turn an
+                # opponent Mega Evolved (harmless with open sheets, where the worlds
+                # share one set, but it is not evidence).
+                changed_forme = getattr(mon, "forme_change_ability", None)
                 evidence[species] = {
                     "moves": set(mon.moves),
                     "item": to_id_str(mon.item) if mon.item else None,
-                    "ability": to_id_str(mon.ability) if mon.ability else None,
+                    "ability": (
+                        to_id_str(mon.ability)
+                        if mon.ability and not changed_forme
+                        else None
+                    ),
                 }
         opponent_role = live_roles(battle)[1]
+        mega_evolved: set[str] = set()
         for event in getattr(battle, "_replay_data", []):
             if len(event) < 3 or not event[2].startswith(opponent_role):
                 continue
@@ -847,15 +880,18 @@ class LiveExactSession:
             elif event[1] in {"-item", "-enditem"} and len(event) > 3:
                 row["item"] = to_id_str(event[3])
             elif event[1] == "-ability" and len(event) > 3:
-                row["ability"] = to_id_str(event[3])
+                if species not in mega_evolved:
+                    row["ability"] = to_id_str(event[3])
             elif event[1] == "-mega" and len(event) > 4:
                 row["item"] = to_id_str(event[4])
+                mega_evolved.add(species)
         return evidence
 
     def _condition_roots(self, battle: DoubleBattle) -> None:
         evidence = self._revealed_evidence(battle)
         revealed_species = set(evidence)
         conditioned: list[LiveRoot] = []
+        agreeing = 0
         for root in self.roots:
             # Open sheets reveal all six sets, but never which four were selected.
             # Only species that have physically appeared can collapse bring-pair
@@ -885,6 +921,7 @@ class LiveExactSession:
                     compatible = False
                     break
             if compatible:
+                agreeing += 1
                 conditioned.append(root)
             else:
                 # Set evidence can eliminate a particle, but it must not also erase
@@ -894,6 +931,13 @@ class LiveExactSession:
                 self.eliminated_roots += 1
                 conditioned.append(replace(root, probability=root.probability * 1e-3))
         self.roots = self._normalise(conditioned)
+        self.roots_agreeing_with_evidence = agreeing
+        self.evidence_signature = tuple(
+            sorted(
+                (species, tuple(sorted(row["moves"])), row["item"], row["ability"])
+                for species, row in evidence.items()
+            )
+        )
 
     def _opponent_choice(
         self, root: LiveRoot, observed: dict[int, ObservedAction]
@@ -981,18 +1025,7 @@ class LiveExactSession:
             # hidden-set coverage instead of limping forward with one particle or
             # abandoning exact search when the final reserve appears.
             try:
-                if self._ponder_job is not None:
-                    self._ponder_job.cancel()
-                    self._ponder_job.join(0.2)
-                    self._ponder_job = None
-                self.pending_our_choice = None
-                self._pending_ponder_choice = None
-                self.planned_continuations = ()
-                self.planned_outcomes = ()
-                self.plan_parent_nodes = {}
-                self.pondered_outcomes = ()
-                self.ponder_parent_nodes = {}
-                self.ponder_reference_values = {}
+                self._forget_plans()
                 self.roots = []
                 self._create_roots(battle, snapshot)
                 self.root_refreshes += 1
@@ -1032,12 +1065,66 @@ class LiveExactSession:
         else:
             self._advance_and_reconcile(battle, snapshot)
         self._condition_roots(battle)
+        self._resample_contradicted_roots(battle, snapshot)
         self.adapter.live_anchor = (
             LiveAnchor(battle, self._opponent_live_names(battle))
             if getattr(self, "live_views", True)
             else None
         )
         self._consume_ponder()
+
+    def _resample_contradicted_roots(
+        self, battle: DoubleBattle, snapshot: dict[str, Any]
+    ) -> None:
+        """Hidden sheets: when too few worlds still agree with what the opponent has
+        shown, draw the worlds again from the belief conditioned on it.
+
+        A contradicted world keeps a thousandth of its weight (it may be the only one
+        holding some back pair), but the search spreads its worlds evenly over that
+        list -- so after a few reveals it was mostly searching worlds known to be
+        impossible. Once per new piece of evidence, so a set no particle can express
+        (five shown moves) cannot loop.
+        """
+        if self.open_sheet or getattr(self, "oracle_opponent_team_text", None):
+            return
+        signature = getattr(self, "evidence_signature", ())
+        wanted = min(len(self.roots), self.search_determinizations)
+        if getattr(
+            self, "roots_agreeing_with_evidence", wanted
+        ) >= wanted or signature == getattr(self, "_resampled_for_evidence", None):
+            return
+        self._resampled_for_evidence = signature
+        previous = list(self.roots)
+        try:
+            self._forget_plans()
+            self.roots = []
+            self._create_roots(battle, snapshot)
+            self.root_refreshes += 1
+            self.evidence_resamples = getattr(self, "evidence_resamples", 0) + 1
+            self.last_root_refresh_turn = int(battle.turn)
+            self.reconciliations += len(self.roots)
+            self._condition_roots(battle)
+        except Exception as exc:
+            # the old worlds are still a legal, reconciled description of the board
+            self.roots = previous
+            self.last_reconcile_errors.append(
+                f"evidence resample: {type(exc).__name__}: {exc}"
+            )
+
+    def _forget_plans(self) -> None:
+        """Drop everything searched against the worlds about to be replaced."""
+        if self._ponder_job is not None:
+            self._ponder_job.cancel()
+            self._ponder_job.join(0.2)
+            self._ponder_job = None
+        self.pending_our_choice = None
+        self._pending_ponder_choice = None
+        self.planned_continuations = ()
+        self.planned_outcomes = ()
+        self.plan_parent_nodes = {}
+        self.pondered_outcomes = ()
+        self.ponder_parent_nodes = {}
+        self.ponder_reference_values = {}
 
     def _opponent_live_names(self, battle: DoubleBattle) -> dict[str, str]:
         """Shadow name of each opposing Pokemon (its roster species, as an id) -> the
@@ -1905,6 +1992,7 @@ class LiveExactSession:
         )
         champion_actions = self.champion_actions
         self.prepare(battle)
+        self.last_reply_coverage = self._reply_coverage()
         preparation_elapsed_s = time.monotonic() - decision_started
         self.last_result = None
         reused = self._reuse_contingent_plan(battle)
@@ -2096,6 +2184,7 @@ class LiveExactSession:
             minimum_depth_coverage=self.min_deep_coverage,
             include=champion_choices,
         )
+        self._record_reply_tables(planner.outcomes, planning_roots)
         if result.selected_depth_coverage + 1e-9 < self.min_deep_coverage:
             self.last_result = None
             self.skipped_searches += 1
@@ -2231,6 +2320,51 @@ class LiveExactSession:
             "planning_budget_s": planning_budget_s,
         }
         return self.last_result
+
+    def _record_reply_tables(
+        self, outcomes: Sequence[BranchOutcome], roots: Sequence[LiveRoot]
+    ) -> None:
+        """Remember which opponent replies this decision's search considered in each
+        searched world, to hold against what the opponent then actually does."""
+        columns: dict[str, set[str]] = {}
+        for outcome in outcomes:
+            columns.setdefault(outcome.root_label, set()).add(outcome.opponent_choice)
+        self._reply_tables = [
+            (root.node, root.probability, columns[root.label])
+            for root in roots
+            if root.label in columns
+        ]
+
+    def _reply_coverage(self) -> dict[str, Any] | None:
+        """Was the opponent's observed action among the replies searched last time?
+
+        ``mass_with_reply`` is the share of the searched worlds' probability whose
+        table held it. (The older planned_*_coverage fields divide by every retained
+        world and read zero after any world refresh, so they understate this.)
+        """
+        tables = getattr(self, "_reply_tables", None)
+        self._reply_tables = []
+        observed = self.last_observed_actions
+        if not tables or not observed:
+            return None
+        total = sum(probability for _node, probability, _replies in tables)
+        hit = sum(
+            probability
+            for node, probability, replies in tables
+            if any(
+                choice_matches_observation(node, "p2", reply, observed)
+                for reply in replies
+            )
+        )
+        return {
+            "worlds": len(tables),
+            "mass_with_reply": hit / total if total > 0 else 0.0,
+            "any": hit > 0,
+            "observed": {
+                str(slot): [action.kind, action.identifier, action.target, action.mega]
+                for slot, action in observed.items()
+            },
+        }
 
     def _champion_choices(
         self,
@@ -2532,10 +2666,15 @@ class LiveExactSession:
             "configuration": asdict(self.config),
             "selective_search": self.selective_search,
             "leaf": self.leaf,
+            "leaf_calibrated": (
+                getattr(getattr(self, "evaluator", None), "calibration", None)
+                is not None
+            ),
             "guard_scope": (
                 "player" if getattr(self, "player_guards", False) else "hard"
             ),
             "champion_choice": getattr(self, "last_champion_choice", None),
+            "reply_coverage": getattr(self, "last_reply_coverage", None),
             "views": "live" if getattr(self, "live_views", True) else "rebuilt",
             "ponder_enabled": self.enable_ponder,
             "ponder_configuration": asdict(self.ponder_config),
@@ -2557,6 +2696,10 @@ class LiveExactSession:
             "root_reconcile_failures": self.root_reconcile_failures,
             "reconciliations": self.reconciliations,
             "root_refreshes": self.root_refreshes,
+            "evidence_resamples": getattr(self, "evidence_resamples", 0),
+            "roots_agreeing_with_evidence": getattr(
+                self, "roots_agreeing_with_evidence", None
+            ),
             "eliminated_roots": self.eliminated_roots,
             "last_reconcile_errors": self.last_reconcile_errors[-8:],
             "result": (

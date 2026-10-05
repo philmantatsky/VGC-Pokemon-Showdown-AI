@@ -178,10 +178,10 @@ def state_to_battle(
     # slots. Apply it after base-team enrichment so Transform/Imposter is not reset to
     # Ditto's original Transform-only set.
     battle.parse_request(request)
-    if latest_snapshot is not None and role == "p1":
+    if latest_snapshot is not None:
         from vgc_bench.src.live_snapshot import apply_public_snapshot
 
-        apply_public_snapshot(battle, latest_snapshot)
+        apply_public_snapshot(battle, latest_snapshot, perspective=role)
     _apply_transformed_moves(battle, state, request, role)
     return battle
 
