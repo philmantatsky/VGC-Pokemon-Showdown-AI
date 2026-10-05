@@ -44,6 +44,9 @@ stop_server() { for p in $(lsof -nP -t -iTCP:$1 -sTCP:LISTEN 2>/dev/null); do ki
 # A fresh server: one left up by an earlier run may still hold that run's rooms.
 start_server() { up $1 && stop_server $1; (cd pokemon-showdown && nohup node pokemon-showdown start $1 --no-security > /dev/null 2>&1 &); for _ in $(seq 1 60); do up $1 && return 0; sleep 1; done; return 1; }
 run() { say "START $*"; "$@" >> "$LOG" 2>&1; local rc=$?; say "END rc=$rc"; return $rc; }
+# What code a run played: the commit, and any uncommitted change to tracked source
+# (another session's work in progress would be part of the bot that is measured).
+tree() { say "TREE $(git rev-parse --short HEAD) uncommitted: $(git status --short -- vgc_bench evaluation tools ladder_ourteam.py | grep -v '^??' | tr -s ' ' | tr '\n' ';')"; }
 # Free means free for QUIET_MINUTES in a row: a study that runs in rounds has no
 # process of its own for a moment between two of them.
 wait_until_free() {
@@ -59,6 +62,7 @@ say "CHAIN_START (waiting for a free machine; not before $(date -r "$NOT_BEFORE"
 if ! grep -q '"complete": true' "$MIRROR/result.json" 2>/dev/null; then
   wait_until_free
   start_server "$PORT" || { say "CHAIN_FAILED the server on $PORT did not start"; exit 3; }
+  tree
   run .venv/bin/python evaluation/mirror_guard_ab.py --guard $G --games 2000 \
     --port "$PORT" --output "$MIRROR"
   rc=$?
@@ -76,6 +80,7 @@ PY
 if ! grep -q complete_review_required "$BATTERY/status.json" 2>/dev/null; then
   wait_until_free
   start_server "$PORT" || { say "CHAIN_FAILED the server on $PORT did not start"; exit 3; }
+  tree
   run .venv/bin/python evaluation/run_guard_ab.py --guards $G --candidate "$BRAIN" \
     --label $G --candidate-plans "$PLANS" --without-arm "$WITHOUT" \
     --port "$PORT" --output "$BATTERY"
