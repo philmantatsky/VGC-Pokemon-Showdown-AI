@@ -19,6 +19,8 @@
 # then differ in forme_stats alone. The port must be the reference arm's (7610): the
 # arms' manifests are compared field by field.
 # Usage (repo root, AC power):  nohup ./tools/forme_stats_chain.sh > /dev/null 2>&1 &
+#   NOT_BEFORE=<epoch seconds>  do not start anything earlier than that (a gap between
+#                               two other runs can be longer than the quiet minutes)
 # Stop it while it waits:       touch results_analysis/forme_stats_20261004/STOP
 set -uo pipefail
 cd "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench"
@@ -33,6 +35,7 @@ PLANS=data/opening_plans_t6e.json
 OUT=results_analysis/forme_stats_20261004
 LOG=$OUT/chain.log
 QUIET_MINUTES=${QUIET_MINUTES:-10}
+NOT_BEFORE=${NOT_BEFORE:-0}
 BUSY='mirror_guard_ab[.]py|search_mirror_|run_guard_ab[.]py|learned_preview_study|leaf_calibration|vgc_bench[.]train|eval_counterfactual[.]py|run_gate_battery|gen_tactical_data|tactical_sft|train_oppmodel|ladder_read_loop[.]sh'
 stamp() { date '+%m-%d %H:%M:%S'; }
 say() { echo "[$(stamp)] $*" >> "$LOG"; }
@@ -47,12 +50,12 @@ wait_until_free() {
   local quiet=0
   while [ "$quiet" -lt "$QUIET_MINUTES" ]; do
     [ -e "$OUT/STOP" ] && { say "CHAIN_STOPPED by $OUT/STOP"; exit 0; }
-    if pgrep -f "$BUSY" >/dev/null 2>&1; then quiet=0; else quiet=$((quiet + 1)); fi
+    if [ "$(date +%s)" -lt "$NOT_BEFORE" ] || pgrep -f "$BUSY" >/dev/null 2>&1; then quiet=0; else quiet=$((quiet + 1)); fi
     sleep 60
   done
 }
 mkdir -p "$OUT"
-say "CHAIN_START (waiting for a free machine)"
+say "CHAIN_START (waiting for a free machine; not before $(date -r "$NOT_BEFORE" '+%m-%d %H:%M'))"
 if ! grep -q '"complete": true' "$MIRROR/result.json" 2>/dev/null; then
   wait_until_free
   start_server "$PORT" || { say "CHAIN_FAILED the server on $PORT did not start"; exit 3; }
