@@ -215,6 +215,17 @@
     2 x 2 (leaf raw / calibrated x streams one / at least 4), anchor 0.07, six shards, clock
     stop 07:30 on 10-05. Gate for a ladder trial (with `--device cpu`): pooled lower bound
     > 50%, replicated if marginal, then the user's word.
+  - [ ] **Against other teams** (`evaluation/search_roster_ab.py`,
+    `tools/search_roster_arms.sh`; built and smoked 10-04, not run): the deployed bot with and
+    without the search against the battery's six opponents on its 47 held-out rosters,
+    roster-paired. The mirror is one matchup; this is the gate between a mirror win and a
+    ladder trial.
+  - [ ] Ladder trial at the user's word: `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh`
+    (flags for the measured configuration are in its header; `--device cpu`).
+  - [ ] Next search changes (V7, after V6 is read): keep the bot's own replacement at
+    forced switches (the search's values there are noise, sd 0.21 between equivalent
+    placements); an override must clear its own standard error; cheaper KO cells (17% of
+    the streams arms' decisions still reach the budget); the opposing gender from preview.
   - [ ] Oracle arm (real opponent sets in the worlds) once there is an effect to explain.
 - [ ] Opposing Megas keep their pre-Mega stats (2026-10-04; every forme change, open and
   hidden sheets): a stale opposing forme is on the field in 71% of our ladder games and 35% of

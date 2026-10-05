@@ -1,5 +1,41 @@
 # VGC Bot Project Status
 
+## Ready for the morning, nothing run: the search against the battery's rosters, and the ladder launcher's search flags (2026-October 4, 23:30)
+
+- **`evaluation/search_roster_ab.py` + `tools/search_roster_arms.sh`.** The head-to-head is
+  one matchup: our team on both sides and our own brain as the search's model of the
+  opponent. The new harness plays the deployed bot against each of the held-out battery's
+  six opponents on its 47 held-out rosters twice per cell -- as deployed and with the
+  search -- and compares the arms roster by roster (bootstrap over rosters, as
+  `run_guard_ab.py` does). Defaults are the battery's own (seed 20923, 10 a category, its
+  exclusions, 11 games a cell: 1,034 games an arm and opponent). One process per opponent
+  (the searching side plays one battle at a time), cells appended whole (resumable), a
+  `STOP` file ends a process at its next cell. Smoked end to end against the heuristic and
+  the human clone: 125 searched decisions on five foreign rosters, one budget fallback, no
+  error. **Not run** -- the machine is V6's; a full pass is about 7-8 hours with six
+  processes (4 hours at 6 games a cell). This is the gate I would put between a mirror win
+  and a ladder trial.
+- **A ladder trial can now play what the mirror measures** (the user's word starts it,
+  nothing here does). `ladder_ourteam.py`: `--search-anchor`, `--search-argmax`,
+  `--search-replies`, `--search-leaf-calibration`, `--search-streams` (`--device cpu`
+  existed). `tools/ladder_trial.sh`: `TRIAL_SEARCH="..."` (refused unless it carries
+  `--search` and `--device cpu`; the measured flags are written in its header and parsed
+  in a test); the read loop passes `SEARCH`, `ladder_deployed.sh` sets it empty.
+  - The new flags stay out of a replay directory's recorded configuration at their
+    defaults: parsing the running challenge listener's own arguments gives exactly the 52
+    keys its directory holds (`build_parser()` and `material_config()` are functions now,
+    so this is a test -- the same class of change refused a listener restart on 10-04).
+  - Found on the way: `ladder_ourteam.py --help` has raised since 09-26 (a bare `%` in a
+    help string). Fixed; the help is formatted in a test.
+- **What the search changes** (the pilot's 800 games, 512 overrides, 6.0% of decisions,
+  2.2 a game; `evaluation/search_override_report.py`, whose per-game table joined shards
+  by battle tag alone and so counted 233 games of 800 -- fixed): Water Spout -> Water Pulse
+  146, Throat Chop -> Flare Blitz 55, Throat Chop -> Fake Out 46, Ice Beam -> Water Pulse
+  34, Rain Dance -> Helping Hand 30. Three in five overrides are "the other attack" on
+  Blastoise or Incineroar -- the move-choice faults the ladder reviews kept finding and
+  the guards patch one at a time. Median edge 0.22, median prior ratio 1.8, median turn 5;
+  guards sent back another 446.
+
 ## While V6 runs: a leaf sees what the bot sees; replacement decisions are noise to the search; half the overrides are thin (2026-October 4, 22:55)
 
 Three read-only probes (scratch wrappers around `evaluation/mirror_guard_ab.py`, one
