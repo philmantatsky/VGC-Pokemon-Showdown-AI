@@ -77,6 +77,10 @@
     guard send-backs; expected vs realized edges; reply coverage; the one-world share.
   - A winning arm is a candidate for a ladder trial with `--device cpu`, which is the
     user's decision. Search stays OFF in the deployed bot; DEPLOYED.json is not touched.
+  - **Launched 21:31** (after the other session's 21:00 mirror had ended): 8 shards, every
+    manifest checked (cpu, anchor 0.07, 8 likeliest replies, streams 0 / 4, calibration sha
+    a29504a3 on the two calibrated arms, T6ep on T6e, 14 guards). A detached timer touches
+    the four `_STOP` files at 07:30 (`results_mirror_search_nash5_clockstop.log`).
 
 ## Opposing Megas keep their pre-Mega stats: confirmed, measured on 404 ladder games; opt-in `forme_stats` (guards only) built; mirror pre-registered (2026-October 4, 21:00, before the run)
 
