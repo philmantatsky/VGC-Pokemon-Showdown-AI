@@ -300,6 +300,18 @@
     games. The rerun (all four blocks on the final code) and the battery are the gate. The
     search session's V5 now ends about 08:30 on 10-05; the chain starts ten quiet minutes
     later and needs about 85 minutes.
+- **Note, 22:20, before the rerun and the battery exist:** they will play the tree as it is
+  then, 19445d0e or later. That commit (the search session's) fixes the observation caches --
+  a second battle object in the same state read a zeroed threat / knowledge block: in a mirror
+  on turn 1 with the same leads at full HP, and in the battery only when the opponent has our
+  own two species out in our slot order at the same HP -- and makes the encoder read each
+  property once (same bytes, `unit_tests/test_observation_identity.py`). Tonight's mirror and
+  the battery's reference arm predate it. The search session's measurement of a zeroed turn-1
+  block: the first slot's favourite unchanged in 40 of 40 positions, the value moves 0.03 --
+  small beside what these runs can resolve, but it is a second difference between the
+  battery's arms and belongs in the verdict's write-up. The chain logs the commit it plays
+  (`TREE` in `chain.log`). Checked on that commit: the `forme_stats` tests pass and the audit
+  gives the same numbers.
 - **What this leaves open (the user's call):** the larger half is the brain's own view of an
   opposing Mega's damage, which this entry does not touch. Options: (a) guards only (this
   entry, after its gates); (b) the observation as well, which needs a fine-tune on the
