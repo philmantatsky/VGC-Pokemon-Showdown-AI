@@ -77,6 +77,18 @@
     arm next to the same arm here.
   - A winning arm is a candidate for a ladder trial with `--device cpu`, the user's
     decision. Search stays OFF in the deployed bot; DEPLOYED.json is not touched.
+  - **Launched:** the one-stream arms 22:15, the streams arms 22:32 (when the pilot's had
+    ended); six shards, every manifest checked; all at normal priority (zsh starts `&`
+    jobs at nice 5 -- every detached run before this one, the pilot included, ran niced).
+    The 07:30 timer is armed (`results_mirror_search_nash6_clockstop.log`).
+- **The V5 pilot's one round** (old code, 8 shards on a saturated machine, 200 games an
+  arm; a pilot, not a result): raw 107 = 53.5% [46.6, 60.3]; calibrated 123 = 61.5% [54.6,
+  68.0]; streams 107 = 53.5% [46.6, 60.3]; streams + calibrated 104 = 52.0% [45.1, 58.8];
+  together 441 / 800 = 55.1% [51.7, 58.5].
+- **The machine:** `~/Desktop` is in iCloud Drive. Creating the V6 worktree at 22:02 sent
+  the load average to 97 for eight minutes (`bird`, `fileproviderd`, Spotlight), and they
+  take one to two cores whenever results are written. A worktree or any bulk write under
+  Desktop belongs well before a timed run, never during one.
 
 ## Search spent 85% of its time on GPU overhead (cpu is 15x faster for it); 41% of searched decisions saw one run of the dice; V5 amended to four cpu arms (2026-October 4, 21:30, before the run)
 
