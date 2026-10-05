@@ -68,16 +68,17 @@ def _row_for(rankings: list[dict], actions: list[int] | None) -> dict | None:
 
 
 def report(runs: list[Path]) -> dict:
-    results: dict[str, object] = {}
+    # a battle is (run, tag): every shard's server numbers its battles from one
+    results: dict[tuple[str, str], object] = {}
     for run in runs:
         blocks = json.loads((run / "result.json").read_text())["blocks"]
         for block in blocks:
             for battle in block.get("battles") or []:
-                results[battle["battle"]] = battle["a_won"]
+                results[(str(run), battle["battle"])] = battle["a_won"]
     outcomes: collections.Counter[str] = collections.Counter()
     kinds: collections.Counter[str] = collections.Counter()
     swaps: collections.Counter[str] = collections.Counter()
-    per_battle: collections.Counter[str] = collections.Counter()
+    per_battle: collections.Counter[tuple[str, str]] = collections.Counter()
     by_sheet: dict[str, collections.Counter[str]] = {
         "open": collections.Counter(),
         "hidden": collections.Counter(),
@@ -86,7 +87,7 @@ def report(runs: list[Path]) -> dict:
     ratios: list[float] = []
     turns: list[int] = []
     decisions = 0
-    seen_battles: set[str] = set()
+    seen_battles: set[tuple[str, str]] = set()
     for run in runs:
         for line in (run / "a_decisions.jsonl").read_text().splitlines():
             row = json.loads(line) if line.strip() else {}
@@ -94,7 +95,8 @@ def report(runs: list[Path]) -> dict:
             if not audit or audit.get("champion_actions") is None:
                 continue
             decisions += 1
-            seen_battles.add(row["battle"])
+            battle_key = (str(run), row["battle"])
+            seen_battles.add(battle_key)
             sheet = "open" if audit.get("open_sheet") else "hidden"
             schedule = audit.get("schedule") or {}
             played = audit.get("actions")
@@ -109,7 +111,7 @@ def report(runs: list[Path]) -> dict:
             by_sheet[sheet][outcome] += 1
             if played == audit["champion_actions"]:
                 continue
-            per_battle[row["battle"]] += 1
+            per_battle[battle_key] += 1
             turns.append(int(row.get("turn") or 0))
             rankings = (audit.get("result") or {}).get("rankings") or []
             chosen = _row_for(rankings, played)
@@ -128,7 +130,7 @@ def report(runs: list[Path]) -> dict:
                     if kind == "move":
                         swaps[f"{old.split()[1]} -> {new.split()[1]}"] += 1
 
-    def record(tags: list[str]) -> dict:
+    def record(tags: list[tuple[str, str]]) -> dict:
         known = [results[tag] for tag in tags if tag in results]
         wins = sum(1.0 if won else 0.5 if won is None else 0.0 for won in known)
         low, high = wilson(wins, len(known))
@@ -139,7 +141,7 @@ def report(runs: list[Path]) -> dict:
             "wilson_95": [low, high],
         }
 
-    buckets: dict[str, list[str]] = {"0": [], "1": [], "2": [], "3+": []}
+    buckets: dict[str, list[tuple[str, str]]] = {"0": [], "1": [], "2": [], "3+": []}
     for tag in sorted(seen_battles):
         count = per_battle.get(tag, 0)
         buckets["3+" if count >= 3 else str(count)].append(tag)

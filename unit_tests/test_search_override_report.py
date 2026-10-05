@@ -84,3 +84,24 @@ def test_report_counts_overrides_and_lines_them_up_with_results(tmp_path):
     assert by["2"]["games"] == 1 and by["2"]["a_wins"] == 1.0
     assert by["0"]["games"] == 2 and by["0"]["a_wins"] == 0.5  # a loss and a tie
     assert by["1"]["games"] == 0 and by["3+"]["games"] == 0
+
+
+def test_two_shards_with_the_same_battle_tags_stay_two_sets_of_games(tmp_path):
+    """Every shard's server numbers its battles from one (2026-10-04: pooling eight
+    shards joined 800 games into 233)."""
+    runs = []
+    for name, won in (("s1", True), ("s2", False)):
+        run = tmp_path / name
+        run.mkdir()
+        battles = [{"battle": "b1", "a_won": won, "turns": 8}]
+        (run / "result.json").write_text(json.dumps({"blocks": [{"battles": battles}]}))
+        rows = [_decision("b1", 1, [25, 9], [25, 9], "kept")]
+        if won:  # only the first shard's game has an override
+            rows.append(_decision("b1", 2, [20, 24], [25, 9], "overridden"))
+        (run / "a_decisions.jsonl").write_text(
+            "\n".join(json.dumps(row) for row in rows) + "\n"
+        )
+        runs.append(run)
+    by = report(runs)["side_a_by_overrides_in_the_game"]
+    assert (by["1"]["games"], by["1"]["a_wins"]) == (1, 1.0)
+    assert (by["0"]["games"], by["0"]["a_wins"]) == (1, 0.0)
