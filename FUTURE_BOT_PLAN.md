@@ -238,10 +238,10 @@ ladder, in order:
     ladder trial (with `--device cpu`): pooled lower bound > 50% at the planned size, the
     rosters below, then the user's word.
   - [ ] **Against other teams** (`evaluation/search_roster_ab.py`,
-    `tools/search_roster_arms.sh`; built and smoked 10-04, not run): the deployed bot with and
-    without the search against the battery's six opponents on its 47 held-out rosters,
-    roster-paired. The mirror is one matchup; this is the gate between a mirror win and a
-    ladder trial.
+    `tools/search_roster_arms.sh`): the deployed bot with and without the search against the
+    battery's six opponents on its 47 held-out rosters, roster-paired. The mirror is one
+    matchup; this is the gate between a mirror win and a ladder trial. **Pre-registered
+    10-05 01:00 at the user's word; starts when V6 ends** (6,204 games an arm, 7-9 hours).
   - [ ] Ladder trial at the user's word: `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh`
     (flags for the measured configuration are in its header; `--device cpu`).
   - [ ] Next search changes (V7, after V6 is read): keep the bot's own replacement at

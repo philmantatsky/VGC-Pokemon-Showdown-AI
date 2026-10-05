@@ -1,5 +1,38 @@
 # VGC Bot Project Status
 
+## PRE-REGISTERED at the user's word: the search against the battery's rosters, to start when V6 ends (2026-October 5, 01:00, before the run and before V6's final numbers)
+
+- **The user (00:55): "run the other teams test when this finishes".** V6 ends by its
+  clock stop (07:30; last rounds about 08:30); this starts then. Local evaluation only:
+  no ladder, DEPLOYED.json untouched, search stays off in the deployed bot.
+- **What is played** (`tools/search_roster_arms.sh` -> `evaluation/search_roster_ab.py`):
+  the deployed bot (T6ep on T6e, its 14 guards, the learned preview) against each of the
+  held-out battery's six opponents (`human_new`, `frozen`, `rotation1`, `rotation2`,
+  `human_previous`, `heuristic`) on the battery's own 47 held-out rosters, hidden and open
+  sheets, **11 games a cell as deployed ("plain") and 11 with the search ("search")**:
+  1,034 games an arm and opponent, 6,204 an arm in all. One process and one server per
+  opponent (ports 7631-7636), normal priority.
+- **The code** is the search V6 measured: worktree `../vgc-bench-v6` at 19445d0e, with the
+  two harness files copied in from 1ba8b852 (a dry run from there selects the 47 rosters
+  and imports the frozen search code). The three options of 38ad3a89 are not in it.
+- **The search configuration** is the V6 arm with the highest pooled win rate at the clock
+  stop (a tie: the calibrated arm with streams); cpu, anchor 0.07, 8 likeliest replies, 4
+  worlds, 8 s, argmax. The rule is fixed here, before V6's final numbers exist; the arm it
+  picks is one of four that 200 games each could not tell apart, so the roster run is the
+  independent test of whichever it is.
+- **Reading, fixed now.** Primary: search minus plain, paired roster by roster over all
+  (opponent, roster) pairs, with the bootstrap over rosters (95%): lower bound > 0 = the
+  search helps against other teams; upper bound < 0 = it hurts; otherwise no detectable
+  difference. Descriptive only: the six per-opponent differences (six looks), hidden vs
+  open sheets, and how often the search ran, fell back or failed -- these rosters carry
+  species and mechanics our own team never showed it.
+- **Size is fixed** (every cell of every opponent). It stops early only at the user's word
+  (a `STOP` file ends each process at its next cell; cells are whole, a relaunch resumes).
+  About 7-9 hours.
+- **What it is not:** a ladder result. And its plain arm is this harness's own (cpu, the
+  head-to-head's player, which does not read the open sheet at preview), to be compared
+  with its own search arm only, not with the battery's stored reference arm.
+
 ## Opponent predictor, second pass: the fixed-trainer retrain confirms R1; 1.8x the data is worth 0.09 nats on our ladder opponents (2026-October 5, 00:30; separate session)
 
 - One niced single-thread chain (23:43-00:27): Elo-blind retrain on the v1 dataset with the
