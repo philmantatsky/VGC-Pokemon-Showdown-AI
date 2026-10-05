@@ -400,3 +400,132 @@ def test_the_opponents_view_of_a_recreated_shadow_gets_the_public_state():
     assert not view.active_pokemon[0].first_turn
     assert not view.opponent_active_pokemon[0].first_turn
     assert view.opponent_active_pokemon[0].item in (None, "unknown_item")
+
+
+def test_a_pivots_replacement_reconciles_from_our_own_request():
+    """2026-10-04: the snapshot did not carry which of our slots must switch, so
+    reconcile guessed "the fainted ones". After Parting Shot or U-turn nobody has
+    fainted, every world failed with "Choices are done immediately after a request",
+    and the replacement went back to the bot unsearched."""
+    from vgc_bench.src.exact_sim import ExactSimulatorError
+
+    team = (ROOT / "teams/candidates_mc/T6e.txt").read_text()
+    with ExactShowdownBridge() as bridge:
+
+        def create(seed):
+            return bridge.create(
+                formatid=FORMAT,
+                seed=seed,
+                p1_team_text=team,
+                p2_team_text=team,
+                p1_preview="team 1,6,2,5",  # Blastoise + Incineroar lead
+                p2_preview="team 1234",
+            )
+
+        def turn_one(state, seed):
+            ours = next(
+                c
+                for c in bridge.choices(state, "p1")
+                if c.startswith("move icebeam +1") and "partingshot +1" in c
+            )
+            theirs = next(
+                c
+                for c in bridge.choices(state, "p2")
+                if c.startswith("move icebeam +1") and "helpinghand" in c
+            )
+            return bridge.simulate(state, ours, theirs, seed)
+
+        source = turn_one(create([1, 2, 3, 4])["state"], "1,2,3,4")
+        assert source["request_state"] == "switch"
+        assert source["requests"][0]["forceSwitch"] == [False, True]
+        live: Any = state_to_battle(source["state"], source["requests"], "p1", False)
+        snapshot = public_snapshot(live, source["requests"][0], request_state="switch")
+        assert snapshot["sides"][0]["force_switch"] == [False, True]
+        assert snapshot["sides"][1]["force_switch"] is None  # theirs is not ours to see
+        shadow = turn_one(create([5, 6, 7, 8])["state"], "4,3,2,1")
+        repaired = bridge.reconcile(shadow["state"], snapshot)
+        assert repaired["request_state"] == "switch"
+        assert set(bridge.choices(repaired["state"], "p1")) == {
+            "pass, switch 3",
+            "pass, switch 4",
+        }
+        # a move request carries no list at all
+        moving = public_snapshot(live, {"active": [{}, {}]}, request_state="move")
+        assert moving["sides"][0]["force_switch"] is None
+        # and without ours the old guess still fails, which is the regression
+        snapshot["sides"][0]["force_switch"] = None
+        with pytest.raises(ExactSimulatorError, match="Choices are done"):
+            bridge.reconcile(shadow["state"], snapshot)
+
+
+def test_a_choice_the_live_battle_masks_is_skipped_not_fatal():
+    """With a live view the action mask is the live battle's: a world can allow a
+    switch the server has trapped. Before live views both came from the same world
+    or a move the server has disabled. Before live views both came from the same
+    world and a mismatch meant an encoding bug, so it raised and the whole world was
+    lost (2026-10-04: "'switch 4, pass' maps slot 0 to masked action 5")."""
+    import numpy as np
+    import torch
+    from poke_env.battle.move import Move
+
+    from vgc_bench.src.exact_observation import ActionEncodingError, ExactPolicyAdapter
+
+    class Uniform:
+        device = torch.device("cpu")
+
+        def get_logits(self, obs_dict, actor_grad=False):
+            batch = obs_dict["action_mask"].shape[0]
+            return torch.zeros((batch, 220)), torch.zeros((batch, 1))
+
+        def _update_mask(self, mask, _first):
+            return mask
+
+        def get_dist_from_logits(self, logits, _mask, _first=None):
+            probs = torch.full((logits.shape[0], 110), 1.0 / 110.0)
+            return SimpleNamespace(
+                distribution=[
+                    SimpleNamespace(probs=probs),
+                    SimpleNamespace(probs=probs),
+                ]
+            )
+
+    protect, beam = Move("protect", 9), Move("icebeam", 9)
+    foe = SimpleNamespace(fainted=False)
+    battle = SimpleNamespace(
+        active_pokemon=[
+            SimpleNamespace(moves={"protect": protect, "icebeam": beam}, fainted=False),
+            SimpleNamespace(moves={"protect": protect}, fainted=False),
+        ],
+        opponent_active_pokemon=[foe, foe],
+        available_moves=[[protect], [protect]],
+        team={},
+    )
+    mask = np.zeros(220, dtype=np.float32)
+    # live: slot 0 may only Protect (action 9); Ice Beam +1 (action 15) is disabled
+    mask[9] = mask[110 + 9] = 1.0
+    obs = {
+        "observation": torch.zeros((1, 1)),
+        "action_mask": torch.as_tensor(mask)[None],
+    }
+    request = {
+        "active": [
+            {"moves": [{"id": "protect"}, {"id": "icebeam"}]},
+            {"moves": [{"id": "protect"}]},
+        ]
+    }
+    state = {"sides": [{"pokemon": []}, {"pokemon": []}]}
+    choices = ["move protect, move protect", "move icebeam +1, move protect"]
+
+    adapter: Any = ExactPolicyAdapter(Uniform())
+    adapter._inputs = lambda *_args: (battle, np.zeros(1), mask, obs)
+    with pytest.raises(ActionEncodingError, match="masked action 15"):
+        adapter.rank(state, [request, request], "p1", choices)
+
+    live_battle: Any = battle
+    adapter.live_anchor = LiveAnchor(live_battle, {})
+    ranked = adapter.rank(state, [request, request], "p1", choices)
+    assert [item.choice for item in ranked] == ["move protect, move protect"]
+    assert adapter.live_masked_choices == 1
+    # the opponent's seat is never a live view: there it still means a bug
+    with pytest.raises(ActionEncodingError, match="masked action 15"):
+        adapter.rank(state, [request, request], "p2", choices)

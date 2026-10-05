@@ -31,6 +31,13 @@ def summarize(paths: list[Path]) -> dict:
     # was the opponent's actual reply among those the previous search considered?
     reply_any = reply_n = 0
     reply_mass = 0.0
+    reply_by_sheets = {"open": [0, 0], "hidden": [0, 0]}  # [decisions, in some world]
+    # overrides: the edge the search expected, and the edge in the cells of the reply
+    # the opponent really made (only where that reply had been searched)
+    expected_edges: list[float] = []
+    realized_edges: list[float] = []
+    realized_of_expected: list[float] = []
+    overrides_followed = 0
     stages: collections.Counter[str] = collections.Counter()
     weights: list[float] = []
     for path in paths:
@@ -47,6 +54,22 @@ def summarize(paths: list[Path]) -> dict:
                 reply_n += 1
                 reply_any += int(bool(coverage.get("any")))
                 reply_mass += float(coverage.get("mass_with_reply") or 0.0)
+                sheets = reply_by_sheets[
+                    "open" if audit.get("open_sheet") else "hidden"
+                ]
+                sheets[0] += 1
+                sheets[1] += int(bool(coverage.get("any")))
+                override = coverage.get("override")
+                if override:
+                    overrides_followed += 1
+                    if override.get("expected_edge") is not None:
+                        expected_edges.append(float(override["expected_edge"]))
+                    if override.get("realized_edge") is not None:
+                        realized_edges.append(float(override["realized_edge"]))
+                        if override.get("expected_edge") is not None:
+                            realized_of_expected.append(
+                                float(override["expected_edge"])
+                            )
             champion = audit.get("champion_actions")
             if champion is not None:
                 with_champion += 1
@@ -115,11 +138,29 @@ def summarize(paths: list[Path]) -> dict:
         # kept: the search agreed with the bot's own pair; overridden: it replaced it
         # and the guards accepted; override_vetoed: the guards sent it back
         "champion_outcomes": dict(champion_outcomes) or None,
+        "override_edges": (
+            {
+                "overrides_followed": overrides_followed,
+                "mean_expected": _mean(expected_edges),
+                "reply_was_searched": len(realized_edges),
+                "mean_realized": _mean(realized_edges),
+                "mean_expected_where_realized": _mean(realized_of_expected),
+                "realized_not_positive": sum(e <= 0 for e in realized_edges),
+            }
+            if overrides_followed
+            else None
+        ),
         "opponent_reply_was_searched": (
             {
                 "decisions": reply_n,
                 "in_some_world": reply_any / reply_n,
                 "mean_world_mass": reply_mass / reply_n,
+                # hidden sheets: a move the opponent has not shown yet is in no world
+                # unless the sampled set happens to hold it
+                "in_some_world_by_sheets": {
+                    name: (hit / count if count else None)
+                    for name, (count, hit) in reply_by_sheets.items()
+                },
             }
             if reply_n
             else None
@@ -133,6 +174,10 @@ def summarize(paths: list[Path]) -> dict:
         },
         "mean_weight_of_chosen": sum(weights) / len(weights) if weights else None,
     }
+
+
+def _mean(values: list[float]) -> float | None:
+    return sum(values) / len(values) if values else None
 
 
 if __name__ == "__main__":

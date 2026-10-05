@@ -140,6 +140,11 @@ class PlannerConfig:
     # payoff edge of nash_anchor x ln(boost) (0.14 at 0.2), for a pair the policy
     # likes a quarter as much three times that.
     nash_champion_boost: float = 2.0
+    # The table's rows and columns are the most probable choices as they come. False:
+    # first cover every move family (the risk search's rule, which nash inherited
+    # until 2026-10-04) -- that spent most of the six replies on pairings chosen for
+    # coverage, and the reply the opponent then made was in the table 60% of the time.
+    nash_likeliest: bool = True
 
     def __post_init__(self) -> None:
         if self.depth < 1:
@@ -777,16 +782,25 @@ class ExactMultiTurnPlanner:
         *,
         guarantee_moves: bool = False,
         include: str | None = None,
+        likeliest: bool = False,
     ) -> list[RankedChoice]:
         """The ``width`` most likely diverse choices, plus ``include`` if it is legal
-        and did not make the cut (the pair the bot would play without search)."""
+        and did not make the cut (the pair the bot would play without search).
+
+        ``likeliest`` takes the ``width`` most probable choices as they come instead
+        of first covering every move family.
+        """
         choices = self.bridge.choices(node.state, role)
         if not choices:
             return []
         ranked = self.prior.rank(node.state, node.requests, role, choices)
         if not ranked:
             ranked = UniformPrior().rank(node.state, node.requests, role, choices)
-        prefix = _diverse_prefix(ranked, width, guarantee_moves=guarantee_moves)
+        if likeliest:
+            prefix = sorted(ranked, key=lambda item: item.probability, reverse=True)
+            prefix = prefix[:width]
+        else:
+            prefix = _diverse_prefix(ranked, width, guarantee_moves=guarantee_moves)
         if include is not None and all(item.choice != include for item in prefix):
             prefix = [*prefix, *(item for item in ranked if item.choice == include)]
         return _normalise(prefix)
@@ -1148,7 +1162,11 @@ class ExactMultiTurnPlanner:
         ]
         ours = kept or ours[:1]
         theirs = self._rank(
-            root, self._opponent(role), self.config.opponent_width, guarantee_moves=True
+            root,
+            self._opponent(role),
+            self.config.opponent_width,
+            guarantee_moves=True,
+            likeliest=self.config.nash_likeliest,
         )
         if not theirs:
             raise ValueError("no legal exact opponent choices at planner root")
@@ -1226,12 +1244,14 @@ class ExactMultiTurnPlanner:
         terminal = self._terminal(root, role)
         if terminal is not None:
             raise ValueError("cannot plan from an ended battle")
+        nash = self.config.solution == "nash" and root.request_state == "move"
         ours = self._rank(
             root,
             role,
             self.config.root_width,
             guarantee_moves=True,
             include=include_choice,
+            likeliest=nash and self.config.nash_likeliest,
         )
         if not ours:
             raise ValueError("no legal exact choices available at planner root")
@@ -1560,6 +1580,9 @@ class ExactDeterminizationPlanner:
         self.config = config or PlannerConfig(anytime=True)
         self.continuations: tuple[BranchContinuation, ...] = ()
         self.outcomes: tuple[BranchOutcome, ...] = ()
+        # every evaluated cell of the last plan, {root label: {our choice: {their
+        # reply: value}}} -- the audit's record of what the search compared
+        self.tables: dict[str, dict[str, dict[str, float]]] = {}
 
     def _aggregate(
         self,
@@ -1690,4 +1713,12 @@ class ExactDeterminizationPlanner:
         self.outcomes = tuple(
             outcome for outcome in outcomes if outcome.root_choice == aggregate.choice
         )
+        cells: dict[tuple[str, str, str], list[float]] = {}
+        for outcome in outcomes:
+            key = (outcome.root_label, outcome.root_choice, outcome.opponent_choice)
+            cells.setdefault(key, []).append(float(outcome.value))
+        self.tables = {}
+        for (label, ours, theirs), values in cells.items():
+            row = self.tables.setdefault(label, {}).setdefault(ours, {})
+            row[theirs] = sum(values) / len(values)
         return aggregate

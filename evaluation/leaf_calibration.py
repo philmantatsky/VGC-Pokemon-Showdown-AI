@@ -38,11 +38,12 @@ Sample = tuple[float, float]  # (raw leaf value, 1 won / 0 lost / 0.5 tied)
 
 def isotonic(points: Sequence[tuple[float, float, float]]) -> list[list[float]]:
     """Pool-adjacent-violators over ``(x, y, weight)`` sorted by x: blocks
-    ``[mean x, mean y, weight]`` whose y never decreases."""
+    ``[mean x, mean y, weight]`` whose y strictly increases (equal neighbours are
+    pooled too, so a flat stretch is one knot, not twenty)."""
     blocks: list[list[float]] = []
     for x, y, weight in points:
         blocks.append([x, y, weight])
-        while len(blocks) > 1 and blocks[-2][1] > blocks[-1][1]:
+        while len(blocks) > 1 and blocks[-2][1] >= blocks[-1][1]:
             x1, y1, w1 = blocks.pop()
             x0, y0, w0 = blocks.pop()
             total = w0 + w1
@@ -76,7 +77,9 @@ def fit_knots(samples: Sequence[Sample], bins: int = 20) -> list[list[float]]:
     for x, y, _weight in isotonic(points):
         if knots and x <= knots[-1][0]:
             continue
-        knots.append([round(x, 4), round(min(1.0, max(0.0, y)), 4)])
+        # never certainty: a won or lost game is the planner's own +1 / -1, and a
+        # bin of twenty lucky positions is not one
+        knots.append([round(x, 4), round(min(0.98, max(0.02, y)), 4)])
     return knots
 
 

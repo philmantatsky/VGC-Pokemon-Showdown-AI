@@ -427,9 +427,15 @@ def public_snapshot(
                 battle.side_conditions if own else battle.opponent_side_conditions,
                 battle,
             ),
+            # Which slots must switch. Our own request says so; without it reconcile
+            # could only guess "the fainted ones", so a pivot (Parting Shot, U-turn)
+            # left nobody to switch and every world failed with "Choices are done
+            # immediately after a request" at that replacement (2026-10-04).
             "force_switch": (
                 list((side_requests[side_index] or {}).get("forceSwitch") or [])
                 if side_requests is not None
+                else (list(request.get("forceSwitch") or []) or None)
+                if own
                 else None
             ),
             "mechanic_usage": _side_mechanic_usage(battle, role),

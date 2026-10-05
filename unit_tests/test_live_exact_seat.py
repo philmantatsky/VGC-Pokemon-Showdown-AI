@@ -612,7 +612,7 @@ def test_an_override_the_guards_reject_gives_way_to_the_bots_own_pick(monkeypatc
 
 
 def test_reply_coverage_holds_the_searched_replies_against_what_happened():
-    from vgc_bench.src.exact_planner import BranchOutcome, ExactNode
+    from vgc_bench.src.exact_planner import ExactNode
 
     def node():
         return ExactNode(
@@ -622,54 +622,94 @@ def test_reply_coverage_holds_the_searched_replies_against_what_happened():
             request_state="move",
         )
 
-    def outcome(label, reply):
-        return BranchOutcome(
-            root_choice="move a",
-            opponent_choice=reply,
-            value=0.0,
-            probability=0.5,
-            predicted_node=node(),
-            searched_depth=1,
-            root_label=label,
-        )
-
+    spout, beam, pulse = (
+        "move waterspout, move trickroom",
+        "move icebeam +1, move trickroom",
+        "move waterpulse +2, move protect",
+    )
     session = object.__new__(LiveExactSession)
     roots: Any = [
         SimpleNamespace(label="w1", node=node(), probability=0.75),
         SimpleNamespace(label="w2", node=node(), probability=0.25),
         SimpleNamespace(label="unsearched", node=node(), probability=0.5),
     ]
-    session._record_reply_tables(
-        [
-            outcome("w1", "move icebeam +1, move trickroom"),
-            outcome("w1", "move waterspout, move trickroom"),
-            outcome("w2", "move waterpulse +2, move protect"),
-        ],
-        roots[:2],
-    )
-    session.last_observed_actions = {
+    tables = {
+        # our override "move b" and the bot's own "move a" against two replies
+        "w1": {"move a": {beam: 0.1, spout: 0.4}, "move b": {beam: 0.9, spout: 0.2}},
+        "w2": {"move a": {pulse: 0.0}, "move b": {pulse: 0.5}},
+    }
+    saw_spout = {
         0: ObservedAction("move", "waterspout", 1, False),  # a spread move's log target
         1: ObservedAction("move", "trickroom", None, False),
     }
+
+    # the search agreed with the bot's own pair: coverage only
+    session._record_reply_tables(tables, roots, ["move a", "move a", None])
+    session._table_played = "move a"
+    session.last_observed_actions = saw_spout
     coverage = session._reply_coverage()
     assert coverage is not None and coverage["any"] and coverage["worlds"] == 2
     assert coverage["mass_with_reply"] == pytest.approx(0.75)
     assert coverage["observed"]["0"] == ["move", "waterspout", 1, False]
+    assert "override" not in coverage
     # consumed: the same tables are never held against a second turn
     assert session._reply_coverage() is None
 
-    session._record_reply_tables(
-        [outcome("w1", "move icebeam +1, move protect")], roots
-    )
+    # an override that looked good against the reply model and was not, against
+    # the reply that came
+    session._record_reply_tables(tables, roots, ["move a", "move a", None])
+    session._table_played = "move b"
+    session._table_expected_edge = 0.35
+    session.last_observed_actions = saw_spout
+    followed: Any = session._reply_coverage()
+    override = followed["override"]
+    assert override["expected_edge"] == 0.35
+    assert override["realized_edge"] == pytest.approx(0.2 - 0.4)  # w1 only
+
+    # a reply nobody searched: no realized edge to speak of
+    session._record_reply_tables(tables, roots, ["move a", "move a", None])
+    session._table_played = "move b"
     session.last_observed_actions = {0: ObservedAction("move", "fakeout", 2, False)}
-    missed = session._reply_coverage()
-    assert missed is not None and not missed["any"]
-    assert missed["mass_with_reply"] == 0.0
-    session._record_reply_tables(
-        [outcome("w1", "move icebeam +1, move protect")], roots
-    )
+    missed: Any = session._reply_coverage()
+    assert not missed["any"] and missed["mass_with_reply"] == 0.0
+    assert missed["override"]["realized_edge"] is None
+
+    session._record_reply_tables(tables, roots, None)
     session.last_observed_actions = {}  # nothing seen (the first decision)
     assert session._reply_coverage() is None
+
+
+def test_search_audit_compares_expected_and_realized_override_edges(tmp_path):
+    import json
+
+    from evaluation.search_audit import summarize
+
+    def row(override):
+        coverage = {"any": True, "mass_with_reply": 1.0}
+        if override is not None:
+            coverage["override"] = override
+        return {
+            "exact_search": {
+                "schedule": {"mode": "search", "live_guards": {}},
+                "result": {"choice": "x", "elapsed_s": 1.0, "rankings": []},
+                "reply_coverage": coverage,
+            }
+        }
+
+    rows = [
+        row(None),
+        row({"expected_edge": 0.30, "realized_edge": 0.10}),
+        row({"expected_edge": 0.20, "realized_edge": -0.20}),
+        row({"expected_edge": 0.40, "realized_edge": None}),  # reply not searched
+    ]
+    log = tmp_path / "a_decisions.jsonl"
+    log.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+    edges = summarize([log])["override_edges"]
+    assert edges["overrides_followed"] == 3 and edges["reply_was_searched"] == 2
+    assert edges["mean_expected"] == pytest.approx(0.30)
+    assert edges["mean_expected_where_realized"] == pytest.approx(0.25)
+    assert edges["mean_realized"] == pytest.approx(-0.05)
+    assert edges["realized_not_positive"] == 1
 
 
 def _hidden_session(particles) -> Any:

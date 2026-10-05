@@ -574,6 +574,7 @@ class ExactPolicyAdapter:
         # set by a live session before each decision: our side's views then grow
         # from the live battle (LiveAnchor) instead of being rebuilt from the log
         self.live_anchor: LiveAnchor | None = None
+        self.live_masked_choices = 0
 
     @staticmethod
     def _roster(state, role: str) -> tuple[str, ...]:
@@ -632,6 +633,11 @@ class ExactPolicyAdapter:
         if choices and choices[0].startswith("team "):
             return self._rank_preview(state, role, choices)
         battle, _obs, mask, obs_dict = self._inputs(state, requests, role)
+        # A view grown from the live battle carries the LIVE action mask. A shadow
+        # can allow what the live request does not (a switch the server has trapped,
+        # a move it has disabled); with a rebuilt view the two masks were the same
+        # object and a mismatch meant an encoding bug.
+        live = role == "p1" and self.live_anchor is not None
         request = requests[int(role[1]) - 1]
         assert request is not None
         encoded: list[
@@ -658,6 +664,10 @@ class ExactPolicyAdapter:
                 int(valid_first[0]) if pass_slots[0] else actions[0]
             )
             if not pass_slots[0] and not bool(mask[actions[0]]):
+                if live:
+                    # legal in this shadow, not in the live battle: not ours to play
+                    self.live_masked_choices += 1
+                    continue
                 raise ActionEncodingError(
                     f"exact legal choice {choice!r} maps slot 0 to masked action "
                     f"{actions[0]} for {role}"
@@ -667,6 +677,9 @@ class ExactPolicyAdapter:
                 obs_dict["action_mask"], first
             )[0]
             if not pass_slots[1] and not bool(joint_mask[act_len + actions[1]]):
+                if live:
+                    self.live_masked_choices += 1
+                    continue
                 raise ActionEncodingError(
                     f"exact legal choice {choice!r} maps slot 1 to masked action "
                     f"{actions[1]} for {role}"

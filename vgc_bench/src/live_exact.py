@@ -2184,7 +2184,7 @@ class LiveExactSession:
             minimum_depth_coverage=self.min_deep_coverage,
             include=champion_choices,
         )
-        self._record_reply_tables(planner.outcomes, planning_roots)
+        self._record_reply_tables(planner.tables, planning_roots, champion_choices)
         if result.selected_depth_coverage + 1e-9 < self.min_deep_coverage:
             self.last_result = None
             self.skipped_searches += 1
@@ -2287,6 +2287,16 @@ class LiveExactSession:
                 else result.fallback_reason
             ),
         )
+        self._table_played = self.last_result.choice
+        own = getattr(self, "champion_actions", None)
+        default = next(
+            (row for row in rankings if own and tuple(row.actions or ()) == own), None
+        )
+        self._table_expected_edge = (
+            float(winner.expected - default.expected)
+            if default is not None and default is not winner
+            else None
+        )
         self.plan_parent_nodes = {root.label: root.node for root in self.roots}
         self.planned_continuations = planner.continuations
         self.planned_outcomes = planner.outcomes
@@ -2322,18 +2332,26 @@ class LiveExactSession:
         return self.last_result
 
     def _record_reply_tables(
-        self, outcomes: Sequence[BranchOutcome], roots: Sequence[LiveRoot]
+        self,
+        tables: dict[str, dict[str, dict[str, float]]],
+        roots: Sequence[LiveRoot],
+        champion_choices: Sequence[str | None] | None = None,
     ) -> None:
-        """Remember which opponent replies this decision's search considered in each
-        searched world, to hold against what the opponent then actually does."""
-        columns: dict[str, set[str]] = {}
-        for outcome in outcomes:
-            columns.setdefault(outcome.root_label, set()).add(outcome.opponent_choice)
+        """Remember each searched world's table (our choice -> their reply -> value)
+        and how that world spells the bot's own pair, to hold against what the
+        opponent then actually does."""
         self._reply_tables = [
-            (root.node, root.probability, columns[root.label])
-            for root in roots
-            if root.label in columns
+            (
+                root.node,
+                root.probability,
+                tables[root.label],
+                champion_choices[index] if champion_choices else None,
+            )
+            for index, root in enumerate(roots)
+            if tables.get(root.label)
         ]
+        self._table_played: str | None = None
+        self._table_expected_edge: float | None = None
 
     def _reply_coverage(self) -> dict[str, Any] | None:
         """Was the opponent's observed action among the replies searched last time?
@@ -2341,22 +2359,42 @@ class LiveExactSession:
         ``mass_with_reply`` is the share of the searched worlds' probability whose
         table held it. (The older planned_*_coverage fields divide by every retained
         world and read zero after any world refresh, so they understate this.)
+
+        When the last decision overrode the bot's own pair, ``override`` also gives
+        the payoff edge the search expected for that against its reply model, and the
+        edge in the cells of the reply that really came (None if it was not searched).
         """
         tables = getattr(self, "_reply_tables", None)
+        played = getattr(self, "_table_played", None)
+        expected = getattr(self, "_table_expected_edge", None)
         self._reply_tables = []
         observed = self.last_observed_actions
         if not tables or not observed:
             return None
-        total = sum(probability for _node, probability, _replies in tables)
-        hit = sum(
-            probability
-            for node, probability, replies in tables
-            if any(
-                choice_matches_observation(node, "p2", reply, observed)
-                for reply in replies
+        total = hit = edge = edge_mass = 0.0
+        overrode = False
+        for node, probability, table, champion in tables:
+            total += probability
+            replies = sorted({reply for row in table.values() for reply in row})
+            match = next(
+                (
+                    reply
+                    for reply in replies
+                    if choice_matches_observation(node, "p2", reply, observed)
+                ),
+                None,
             )
-        )
-        return {
+            if match is not None:
+                hit += probability
+            if not played or not champion or played == champion:
+                continue
+            overrode = True
+            ours = table.get(played, {}).get(match) if match is not None else None
+            bots = table.get(champion, {}).get(match) if match is not None else None
+            if ours is not None and bots is not None:
+                edge += probability * (ours - bots)
+                edge_mass += probability
+        coverage: dict[str, Any] = {
             "worlds": len(tables),
             "mass_with_reply": hit / total if total > 0 else 0.0,
             "any": hit > 0,
@@ -2365,6 +2403,12 @@ class LiveExactSession:
                 for slot, action in observed.items()
             },
         }
+        if overrode:
+            coverage["override"] = {
+                "expected_edge": expected,
+                "realized_edge": edge / edge_mass if edge_mass > 0 else None,
+            }
+        return coverage
 
     def _champion_choices(
         self,

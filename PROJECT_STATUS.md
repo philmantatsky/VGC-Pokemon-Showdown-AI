@@ -46,6 +46,30 @@
 - **Power, stated plainly:** at anchor 0.2 the search changes about one move in four games.
   No 600-game mirror can see that; only an effect of 5 points or more is visible in an
   evening. A real answer for a small effect needs thousands of games on one configuration.
+- **19:30, three more (none in V4):**
+  - **A pivot's replacement always failed.** The snapshot did not say which of our slots
+    must switch, so reconcile guessed "the fainted ones"; after Parting Shot or U-turn nobody
+    has fainted and every world died with "Choices are done immediately after a request" (3
+    of 12 probe games; since August). `public_snapshot` now passes our request's
+    `forceSwitch`.
+  - **The table spent its replies on coverage.** Nash inherited the risk search's rule of
+    covering every move family first, so most of the six replies were pairings picked for
+    coverage. Rows and replies are now the most probable as they come
+    (`PlannerConfig.nash_likeliest`; `--a-search-table diverse` for the old rule;
+    `--a-search-replies N`). Real reply in some searched world, 12-game probes: diverse 6
+    replies 0.60-0.64; likeliest 6: 0.62 (open sheets 0.79); **likeliest 8: 0.82** (open
+    0.86, hidden 0.75), search p50 3.0 s.
+  - Hidden sheets, by whether the reply held a move never shown before: 30% searched if so,
+    71-80% if not. Our own team is far from the meta the set particles describe (stored
+    sets that hold all four of our Blastoise's moves: 0%; Farigiraf 0%; Charizard 0%;
+    Venusaur 0%; Torkoal 9%; Incineroar 72%), so the mirror's hidden-sheet half is a harsh
+    test of the set model, harsher than ladder opponents on common sets.
+  - With live views a choice the live battle masks (a trapped switch, a disabled move) is
+    skipped instead of costing the whole world.
+  - Each override's expected payoff edge is now logged next to the edge in the cells of the
+    reply that really came (`override_edges` in `search_audit.py`).
+  - `tools/search_mirror_rounds.sh`: a long head-to-head as several short rounds, so a dead
+    shard costs one round's share; pools what finished after every round.
 
 ## Opponent predictor side experiment started (separate session); the challenge listener's restart hazard fixed (2026-October 4, 18:15)
 

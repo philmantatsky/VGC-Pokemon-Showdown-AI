@@ -292,6 +292,48 @@ def test_the_bots_own_pick_survives_a_root_zero_that_did_not_rank_it():
     assert result.selected_depth_coverage == pytest.approx(0.4)
 
 
+def test_the_table_holds_the_likeliest_replies_not_one_per_move_family():
+    """2026-10-04: nash inherited the risk search's rule of covering every move
+    family first, so most of the six replies were pairings chosen for coverage and
+    the reply the opponent actually made was in the table 60% of the time."""
+    replies = {
+        "move a +1, move c": 0.50,
+        "move a +2, move c": 0.40,  # the second likeliest: same two moves
+        "move b +1, move d": 0.06,
+        "move e +1, move f": 0.04,
+    }
+
+    class Bridge:
+        def choices(self, state, role):
+            return list(replies)
+
+    class Ranker:
+        def rank(self, _state, _requests, _role, choices):
+            return [RankedChoice(c, (i, i), replies[c]) for i, c in enumerate(choices)]
+
+    bridge: Any = Bridge()
+    ranker: Any = Ranker()
+    planner = ExactMultiTurnPlanner(bridge, ranker, evaluator=_score)
+    covering = planner._rank(_root("w"), "p2", 2, guarantee_moves=True)
+    assert [item.choice for item in covering] == [
+        "move a +1, move c",
+        "move b +1, move d",
+        "move e +1, move f",
+    ]
+    likeliest = planner._rank(_root("w"), "p2", 2, guarantee_moves=True, likeliest=True)
+    assert [item.choice for item in likeliest] == [
+        "move a +1, move c",
+        "move a +2, move c",
+    ]
+    assert sum(item.probability for item in likeliest) == pytest.approx(1.0)
+    # the bot's own pair still joins whatever its probability
+    with_own = planner._rank(
+        _root("w"), "p2", 2, likeliest=True, include="move e +1, move f"
+    )
+    assert [item.choice for item in with_own][-1] == "move e +1, move f"
+    assert PlannerConfig().nash_likeliest
+
+
 def test_anchor_must_be_non_negative_and_replaces_the_prior_mix():
     with pytest.raises(ValueError, match="nash_anchor"):
         PlannerConfig(nash_anchor=-0.1)

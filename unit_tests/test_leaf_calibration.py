@@ -20,6 +20,9 @@ def test_isotonic_pools_violators_and_keeps_the_weighted_mean():
     blocks = isotonic([(0.0, 0.2, 1), (1.0, 0.6, 1), (2.0, 0.4, 3), (3.0, 0.9, 1)])
     assert [round(y, 3) for _x, y, _w in blocks] == [0.2, 0.45, 0.9]
     assert blocks[1][2] == 4 and blocks[1][0] == pytest.approx((1.0 + 2.0 * 3) / 4)
+    # a flat stretch is one block
+    flat = isotonic([(0.0, 0.0, 1), (1.0, 0.0, 1), (2.0, 0.0, 2), (3.0, 1.0, 1)])
+    assert [(round(x, 2), y, w) for x, y, w in flat] == [(1.25, 0.0, 4), (3.0, 1.0, 1)]
 
 
 def test_knots_are_monotone_and_follow_the_data():
@@ -38,6 +41,9 @@ def test_knots_are_monotone_and_follow_the_data():
     assert knots[-1][1] > 0.75
     with pytest.raises(ValueError, match="no samples"):
         fit_knots([])
+    # a bin that only ever won is still not a certainty
+    sure = fit_knots([(0.1 * i, 0.0) for i in range(40)] + [(9.0, 1.0)] * 40)
+    assert [p for _raw, p in sure] == [0.02, 0.98]
 
 
 def test_auc_counts_ties_as_half_and_needs_both_outcomes():

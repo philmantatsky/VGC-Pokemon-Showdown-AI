@@ -268,6 +268,19 @@ def main() -> None:
         "(every search run before 2026-10-04)",
     )
     ap.add_argument(
+        "--a-search-replies",
+        type=int,
+        default=6,
+        help="opponent replies in each world's table",
+    )
+    ap.add_argument(
+        "--a-search-table",
+        choices=("likeliest", "diverse"),
+        default="likeliest",
+        help="nash rows and replies: the most probable as they come, or first one "
+        "per move family (every nash run before 2026-10-04 19:10)",
+    )
+    ap.add_argument(
         "--a-search-leaf-calibration",
         type=Path,
         default=None,
@@ -389,6 +402,8 @@ def main() -> None:
     if args.a_search != "off":
         if not 1 <= args.a_search_worlds <= 8 or not 0 < args.a_search_budget <= 9:
             raise ValueError("--a-search-worlds must be 1-8, the budget in (0, 9]")
+        if not 2 <= args.a_search_replies <= 16:
+            raise ValueError("--a-search-replies must be 2-16")
         search = {
             "solution": args.a_search,
             "worlds": args.a_search_worlds,
@@ -402,6 +417,8 @@ def main() -> None:
             "guards": args.a_search_guards,
             "champion": args.a_search_champion,
             "views": args.a_search_views,
+            "replies": args.a_search_replies,
+            "table": args.a_search_table,
             "leaf_calibration": (
                 str(args.a_search_leaf_calibration)
                 if args.a_search_leaf_calibration
@@ -494,12 +511,13 @@ def main() -> None:
             "exact_search_config": PlannerConfig(
                 depth=2,
                 root_width=6,
-                opponent_width=6,
+                opponent_width=args.a_search_replies,
                 continuation_width=3,
                 replacement_width=2,
                 chance_samples=1,
                 deep_root_width=4,
                 anytime=True,
+                nash_likeliest=args.a_search_table == "likeliest",
                 screen_budget_s=min(2.0, args.a_search_budget),
                 time_budget_s=args.a_search_budget,
                 max_nodes=5000,
