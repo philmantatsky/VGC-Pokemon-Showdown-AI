@@ -190,6 +190,7 @@ class PolicyPlayer(Player):
         exact_champion_anchor: bool = True,
         exact_live_views: bool = True,
         exact_leaf_calibration: str | Path | None = None,
+        exact_min_streams: int = 0,
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -316,6 +317,10 @@ class PolicyPlayer(Player):
             exact_leaf_calibration: A ``LeafCalibration`` file for the critic leaf
                 (evaluation/leaf_calibration.py): leaf values become calibrated
                 win probabilities instead of the clipped raw critic.
+            exact_min_streams: Each searched decision averages at least this many
+                random streams (worlds x streams per world) and keeps its worlds on
+                a turn they were rebuilt. 0 (default): one stream per world and one
+                world on a rebuild turn, as before 2026-10-04 21:00.
             enable_search: Per-player exact-search switch. ``None`` inherits the
                 class default; evaluations use this to keep opponent players on
                 their own policy while searching several controlled battles.
@@ -445,6 +450,7 @@ class PolicyPlayer(Player):
         self.exact_leaf_calibration = (
             Path(exact_leaf_calibration) if exact_leaf_calibration is not None else None
         )
+        self.exact_min_streams = int(exact_min_streams)
         # diagnostic only: the opponent's real team file for the exact worlds
         self.exact_oracle_opponent_team = (
             Path(exact_oracle_opponent_team)
@@ -1594,6 +1600,7 @@ class PolicyPlayer(Player):
             leaf=self.exact_leaf,
             live_views=getattr(self, "exact_live_views", True),
             leaf_calibration_path=getattr(self, "exact_leaf_calibration", None),
+            min_streams=getattr(self, "exact_min_streams", 0),
             oracle_opponent_team_text=(
                 self.exact_oracle_opponent_team.read_text()
                 if self.exact_oracle_opponent_team is not None

@@ -554,6 +554,7 @@ class LiveExactSession:
         oracle_opponent_team_text: str | None = None,
         live_views: bool = True,
         leaf_calibration_path: Path | None = None,
+        min_streams: int = 0,
     ):
         self.battle_tag = battle_tag
         self.policy = policy
@@ -564,6 +565,8 @@ class LiveExactSession:
         self.search_determinizations = min(
             self.max_determinizations, max(1, search_determinizations)
         )
+        if not 0 <= int(min_streams) <= 16:
+            raise ValueError("min_streams must be within [0, 16]")
         if not 0.0 <= min_deep_coverage <= 1.0:
             raise ValueError("min_deep_coverage must be within [0, 1]")
         self.min_deep_coverage = float(min_deep_coverage)
@@ -612,6 +615,13 @@ class LiveExactSession:
         # our side's view of every shadow grows from the live battle (LiveAnchor);
         # False: rebuilt from the shadow's own log, as before 2026-10-04
         self.live_views = bool(live_views)
+        # Every world plays its cells out on its own random stream, so a decision
+        # planned over one world (41% of them on 2026-10-04: an open sheet once all
+        # four are on the board, and any turn the worlds were rebuilt) compared its
+        # candidates on a single run of the dice. With ``min_streams`` a decision
+        # averages at least that many streams -- worlds x streams per world -- and a
+        # rebuild turn keeps its worlds. 0: as every run before 2026-10-04 21:00.
+        self.min_streams = int(min_streams)
         if leaf == "critic":
             from vgc_bench.src.critic_leaf import CriticLeafEvaluator, LeafCalibration
 
@@ -1587,11 +1597,21 @@ class LiveExactSession:
         return bool(reasons) and set(reasons).issubset(expected_updates)
 
     def _foreground_determinizations(self, turn: int) -> int:
+        if getattr(self, "min_streams", 0):
+            return self.search_determinizations
         return (
             1
             if self.last_root_refresh_turn == int(turn)
             else self.search_determinizations
         )
+
+    def _chance_samples(self, planning_roots: int) -> int:
+        """Random streams per world for a decision planned over ``planning_roots``."""
+        configured = self.config.chance_samples
+        streams = getattr(self, "min_streams", 0)
+        if not streams:
+            return configured
+        return max(configured, math.ceil(streams / max(1, planning_roots)))
 
     def _reuse_contingent_plan(self, battle: DoubleBattle) -> PlanResult | None:
         """Reuse one searched continuation only when the public line still matches."""
@@ -2164,10 +2184,15 @@ class LiveExactSession:
             self.planned_outcomes = ()
             self.plan_parent_nodes = {}
             return None
+        chance_samples = self._chance_samples(len(planning_roots))
         effective_config = replace(
             self.config,
             time_budget_s=planning_budget_s,
             screen_budget_s=min(self.config.screen_budget_s, planning_budget_s),
+            chance_samples=chance_samples,
+            volatile_chance_samples=max(
+                self.config.volatile_chance_samples, chance_samples
+            ),
         )
         planner = ExactDeterminizationPlanner(
             self.bridge,
@@ -2326,6 +2351,7 @@ class LiveExactSession:
             "selected_depth_coverage": self.last_result.selected_depth_coverage,
             "planning_roots": len(planning_roots),
             "belief_roots": len(self.roots),
+            "chance_samples": chance_samples,
             "planned_action_coverage": planned_action_coverage,
             "planned_family_coverage": planned_family_coverage,
             "planned_position_coverage": planned_position_coverage,
@@ -2727,6 +2753,7 @@ class LiveExactSession:
             "champion_choice": getattr(self, "last_champion_choice", None),
             "reply_coverage": getattr(self, "last_reply_coverage", None),
             "views": "live" if getattr(self, "live_views", True) else "rebuilt",
+            "min_streams": getattr(self, "min_streams", 0),
             "ponder_enabled": self.enable_ponder,
             "ponder_configuration": asdict(self.ponder_config),
             "schedule": self.last_schedule,

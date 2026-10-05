@@ -6,14 +6,17 @@
 # share, and everything that finished is pooled at the end (and after every round).
 # Side A = the deployed bot + nash exact search (critic leaf); side B = the deployed bot.
 # DEPLOYED.json is not touched; no ladder.
-# Usage (repo root, AC power):
-#   NAME=search_nash5 ROUNDS=4 SHARDS=3 GAMES=250 PORT=7612 \
-#     EXTRA="--a-search-argmax --a-search-anchor 0.07" \
+# Usage (AC power; it runs in the checkout it is called from):
+#   NAME=search_nash5 ROUNDS=4 SHARDS=3 GAMES=250 PORT=7612 SEED=20924 \
+#     EXTRA="--a-search-argmax --a-search-anchor 0.07 --device cpu" \
 #     nohup ./tools/search_mirror_rounds.sh > /dev/null 2>&1 &
+# `touch results_mirror_<NAME>_STOP` ends it after the round in play.
 # Never edit this file while it runs: bash reads a running script by offset.
 set -uo pipefail
-cd "/Users/phillipmantatsky/Desktop/pokemon showdown bot/vgc-bench"
-if [ -z "${UNDER_CAFFEINATE:-}" ]; then UNDER_CAFFEINATE=1 exec caffeinate -is "$0" "$@"; fi
+# the checkout this copy of the script lives in (a frozen worktree runs its own code)
+SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+cd "$(dirname "$SELF")/.."
+if [ -z "${UNDER_CAFFEINATE:-}" ]; then UNDER_CAFFEINATE=1 exec caffeinate -is "$SELF" "$@"; fi
 NAME=${NAME:?set NAME}
 ROUNDS=${ROUNDS:-4}
 SHARDS=${SHARDS:-3}
@@ -21,6 +24,7 @@ GAMES=${GAMES:-250}
 WORLDS=${WORLDS:-4}
 BUDGET=${BUDGET:-8}
 PORT=${PORT:-7612}
+SEED=${SEED:-20924}
 EXTRA=${EXTRA:-}
 OUT=results_mirror_$NAME
 LOG=${OUT}_rounds.log
@@ -41,7 +45,7 @@ import json; d = json.load(open('${OUT}_pooled.json'))
 print(f\"A {d['a_wins']:.1f}/{d['games']} = {100 * d['a_win_rate']:.1f}% [{100 * d['wilson_95'][0]:.1f}, {100 * d['wilson_95'][1]:.1f}]\")")" \
     || say "POOL_FAILED"
 }
-say "ROUNDS_START rounds=$ROUNDS shards=$SHARDS games=$GAMES worlds=$WORLDS budget=$BUDGET port=$PORT extra=$EXTRA"
+say "ROUNDS_START rounds=$ROUNDS shards=$SHARDS games=$GAMES worlds=$WORLDS budget=$BUDGET port=$PORT seed=$SEED extra=$EXTRA at $(pwd) $(git rev-parse --short HEAD 2>/dev/null)"
 for r in $(seq 1 "$ROUNDS"); do
   [ -e "${OUT}_STOP" ] && { say "STOP file found before round $r"; break; }
   start_server "$PORT" || { say "ROUND_FAILED $r server"; break; }
@@ -61,7 +65,7 @@ for r in $(seq 1 "$ROUNDS"); do
     fi
     .venv/bin/python -u evaluation/mirror_guard_ab.py --a-search nash --a-search-leaf critic \
       --a-search-worlds "$WORLDS" --a-search-budget "$BUDGET" --concurrency 1 $EXTRA \
-      --games "$GAMES" --seed $((20924 + 100000 * r + 1000 * k)) --port "$PORT" --output "$run" \
+      --games "$GAMES" --seed $((SEED + 100000 * r + 1000 * k)) --port "$PORT" --output "$run" \
       > "$run.log" 2>&1 &
     pids+=("$!")
     say "SHARD_START r$r s$k pid=$! -> $run"

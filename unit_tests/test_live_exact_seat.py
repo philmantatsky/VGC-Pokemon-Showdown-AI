@@ -868,3 +868,75 @@ def test_a_profile_switch_is_on_for_a_searched_pick_only_when_named(monkeypatch)
     assert "forme_stats" in _enabled_guards(
         monkeypatch, lambda session: session.set_player_guards(named)
     )
+
+
+def _stream_session(min_streams: int, configured: int = 1, worlds: int = 4) -> Any:
+    session: Any = object.__new__(LiveExactSession)
+    session.min_streams = min_streams
+    session.search_determinizations = worlds
+    session.last_root_refresh_turn = 5
+    session.config = SimpleNamespace(chance_samples=configured)
+    return session
+
+
+def test_a_decision_averages_at_least_the_asked_number_of_random_streams():
+    """2026-10-04 21:00: each world plays its cells out on its own random stream, and
+    41% of searched decisions were planned over a single world -- an open sheet once
+    all four are on the board, any turn the worlds were rebuilt -- so they compared
+    their candidates on one run of the dice. Worlds x streams per world >= the
+    minimum, however many worlds there are."""
+    session = _stream_session(4)
+    assert [session._chance_samples(roots) for roots in (1, 2, 3, 4, 6, 8)] == [
+        4,
+        2,
+        2,
+        1,
+        1,
+        1,
+    ]
+    assert all(roots * session._chance_samples(roots) >= 4 for roots in range(1, 9))
+    # a configured sample count is never lowered
+    assert _stream_session(4, configured=3)._chance_samples(4) == 3
+    assert _stream_session(8)._chance_samples(1) == 8
+
+
+def test_without_a_stream_minimum_the_search_is_as_it_was():
+    """0 is every run before 2026-10-04 21:00: one stream per world, and a turn the
+    worlds were rebuilt is planned over the single likeliest one."""
+    old = _stream_session(0)
+    assert [old._chance_samples(roots) for roots in (1, 4, 8)] == [1, 1, 1]
+    assert _stream_session(0, configured=2)._chance_samples(1) == 2
+    assert old._foreground_determinizations(5) == 1  # the rebuild turn
+    assert old._foreground_determinizations(6) == 4
+    # a session built before the attribute existed reads as 0
+    bare: Any = object.__new__(LiveExactSession)
+    bare.search_determinizations, bare.last_root_refresh_turn = 4, 5
+    bare.config = SimpleNamespace(chance_samples=1)
+    assert bare._chance_samples(1) == 1
+    assert bare._foreground_determinizations(5) == 1
+
+
+def test_a_stream_minimum_keeps_every_world_on_a_rebuild_turn():
+    """One world on a rebuild turn was a time budget rule for the multi-turn search
+    (two short slices could both come back empty); a one-turn table over four worlds
+    takes a fraction of a second on cpu."""
+    session = _stream_session(4)
+    assert session._foreground_determinizations(5) == 4
+    assert session._foreground_determinizations(6) == 4
+
+
+def test_the_stream_minimum_is_bounded():
+    from vgc_bench.src.live_exact import LiveExactSession as Session
+
+    for bad in (-1, 17):
+        with pytest.raises(ValueError, match="min_streams"):
+            Session(
+                battle_tag="t",
+                policy=None,
+                our_team_text="",
+                formatid="gen9championsvgc2026regmc",
+                open_sheet=True,
+                outcome_value_path=ROOT / "missing.zip",
+                leaf="critic",
+                min_streams=bad,
+            )

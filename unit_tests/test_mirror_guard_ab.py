@@ -67,3 +67,45 @@ def test_side_a_may_only_play_a_set_variant_of_the_deployed_team():
     assert same_species(teams / "T6m.txt", teams / "T6.txt")
     assert same_species(teams / "T6mAS.txt", teams / "T6.txt")
     assert not same_species(teams / "T4.txt", teams / "T6.txt")
+
+
+def test_search_manifest_records_the_device_and_the_chance_samples(tmp_path):
+    """--device / --a-search-chance-samples (2026-10-04): the search's one-position
+    network calls are ~15x faster on cpu than on mps, so a run has to say where its
+    networks ran; the default stays mps, the device of every earlier run."""
+    import json
+    import subprocess
+    import sys
+
+    from evaluation.mirror_guard_ab import ROOT
+    from tools.deployed_config import resolve
+
+    needed = [ROOT / resolve()["CKPT"], ROOT / "results_outcome_v2h/outcome_value.zip"]
+    if not all(path.is_file() for path in needed):
+        pytest.skip("the deployed checkpoint is not on this machine")
+
+    def manifest(name: str, *flags: str) -> dict:
+        out = tmp_path / name
+        subprocess.run(
+            [
+                sys.executable,
+                "evaluation/mirror_guard_ab.py",
+                "--a-search",
+                "nash",
+                *flags,
+                "--prepare-only",
+                "--output",
+                str(out),
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
+        return json.loads((out / "manifest.json").read_text())
+
+    chosen = manifest("cpu", "--device", "cpu", "--a-search-chance-samples", "2")
+    assert chosen["device"] == "cpu"
+    assert chosen["a_search"]["chance_samples"] == 2
+    default = manifest("default")
+    assert default["device"] == "mps"
+    assert default["a_search"]["chance_samples"] == 1

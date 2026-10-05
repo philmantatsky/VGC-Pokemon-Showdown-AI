@@ -126,6 +126,7 @@ def _player(
     extra: dict | None = None,
     team: str | None = None,
     concurrency: int = 8,
+    device: str = "mps",
 ):
     player = StudyPlayer(
         account_configuration=fresh_local_account(),
@@ -144,7 +145,7 @@ def _player(
         **(mixing or {}),
         **(extra or {}),
     )
-    player.set_policy(ROOT / (checkpoint or config["CKPT"]), torch.device("mps"))
+    player.set_policy(ROOT / (checkpoint or config["CKPT"]), torch.device(device))
     if config["PREVIEW_MODEL"]:
         player.preview_model_path = ROOT / config["PREVIEW_MODEL"]
         player.use_learned_teampreview = True
@@ -304,6 +305,32 @@ def main() -> None:
         "guards only (how every search run before 2026-10-04 played)",
     )
     ap.add_argument(
+        "--a-search-chance-samples",
+        type=int,
+        default=1,
+        help="random streams averaged in every cell of a world's table (each stream "
+        "is shared by all the cells; 1 = the world's own stream, every run before "
+        "2026-10-04 21:00)",
+    )
+    ap.add_argument(
+        "--a-search-streams",
+        type=int,
+        default=0,
+        help="every searched decision averages at least this many random streams "
+        "(worlds x streams per world) and keeps its worlds on a turn they were "
+        "rebuilt; 0: one stream per world and one world on a rebuild turn (every "
+        "run before 2026-10-04 21:00, when 41%% of decisions saw a single stream)",
+    )
+    ap.add_argument(
+        "--device",
+        choices=("mps", "cpu"),
+        default="mps",
+        help="where both sides' networks run. The search asks for one position at a "
+        "time, and that is much faster on cpu (2026-10-04, one position: ranking "
+        "174 choices 14 ms vs 212 ms, a leaf 3 ms vs 11 ms; outputs equal to 1e-6); "
+        "every run before then used mps",
+    )
+    ap.add_argument(
         "--concurrency",
         type=int,
         default=8,
@@ -406,6 +433,10 @@ def main() -> None:
             raise ValueError("--a-search-worlds must be 1-8, the budget in (0, 9]")
         if not 2 <= args.a_search_replies <= 16:
             raise ValueError("--a-search-replies must be 2-16")
+        if not 1 <= args.a_search_chance_samples <= 4:
+            raise ValueError("--a-search-chance-samples must be 1-4")
+        if not 0 <= args.a_search_streams <= 16:
+            raise ValueError("--a-search-streams must be 0-16")
         search = {
             "solution": args.a_search,
             "worlds": args.a_search_worlds,
@@ -421,6 +452,8 @@ def main() -> None:
             "views": args.a_search_views,
             "replies": args.a_search_replies,
             "table": args.a_search_table,
+            "chance_samples": args.a_search_chance_samples,
+            "streams": args.a_search_streams,
             "leaf_calibration": (
                 str(args.a_search_leaf_calibration)
                 if args.a_search_leaf_calibration
@@ -458,6 +491,7 @@ def main() -> None:
         "a_mixing": mixing,
         "a_checkpoint": a_checkpoint,
         "a_search": search,
+        "device": args.device,
         "concurrency": args.concurrency,
         "rerankers_both_sides": args.rerankers,
         "reranker_models": {
@@ -516,7 +550,8 @@ def main() -> None:
                 opponent_width=args.a_search_replies,
                 continuation_width=3,
                 replacement_width=2,
-                chance_samples=1,
+                chance_samples=args.a_search_chance_samples,
+                volatile_chance_samples=max(2, args.a_search_chance_samples),
                 deep_root_width=4,
                 anytime=True,
                 nash_likeliest=args.a_search_table == "likeliest",
@@ -538,6 +573,7 @@ def main() -> None:
             "exact_player_guards": args.a_search_guards == "player",
             "exact_champion_anchor": args.a_search_champion == "on",
             "exact_live_views": args.a_search_views == "live",
+            "exact_min_streams": args.a_search_streams,
             "exact_leaf_calibration": (
                 ROOT / args.a_search_leaf_calibration
                 if args.a_search_leaf_calibration
@@ -572,6 +608,7 @@ def main() -> None:
             | search_extra,
             a_team,
             args.concurrency,
+            args.device,
         )
         b = _player(
             config,
@@ -581,6 +618,7 @@ def main() -> None:
             dict.fromkeys(guards, False),
             extra=shared_extra,
             concurrency=args.concurrency,
+            device=args.device,
         )
         first, second = (a, b) if a_first else (b, a)
         started = time.monotonic()
