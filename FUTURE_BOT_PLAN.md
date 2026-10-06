@@ -246,7 +246,8 @@ ladder, in order:
     battery's six opponents on its 47 held-out rosters, roster-paired. The mirror is one
     matchup; this is the gate between a mirror win and a ladder trial. **Pre-registered
     10-05 01:00 at the user's word** (6,204 games an arm, 7-9 hours; configuration by its
-    rule = raw leaf, streams >= 4). **On hold since the user's "pause" at 07:26.**
+    rule = raw leaf, streams >= 4). **Playing since 10-06 01:01** at the user's word
+    (`../vgc-bench-v6/results_search_rosters_rosters1/`).
   - [ ] Ladder trial at the user's word: `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh`
     (flags for the measured configuration are in its header; `--device cpu`).
   - [ ] Next search changes (V7, after V6 is read): keep the bot's own replacement at

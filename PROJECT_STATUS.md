@@ -1,5 +1,25 @@
 # VGC Bot Project Status
 
+## The roster run is playing: launched at the user's word (2026-October 6, 01:01)
+
+- The user said "continue" (01:00), which takes the hold of 10-05 07:26 off the run
+  pre-registered on 10-05 at 01:00 ("run the other teams test when this finishes").
+  Nothing changed in the repo in between (main was still at 12837c67).
+- **Launched 01:01** from the frozen worktree `../vgc-bench-v6` (19445d0e, the search V6
+  measured; harness and launcher identical to main's):
+  `NAME=rosters1 REPEATS=11 PORT=7630 EXTRA="--a-search-streams 4" ./tools/search_roster_arms.sh`
+  -- the configuration its rule picked (raw leaf, streams >= 4; cpu, anchor 0.07, 8
+  likeliest replies, 4 worlds, 8 s). Six processes at normal priority, one per opponent,
+  ports 7631-7636; every manifest checked (47 rosters, 11 games a cell and arm, seed
+  20923, T6ep on T6e with its 14 guards). The worktree's DEPLOYED.json is the one from
+  before shadow mode: same brain, team and guards, no forecast logging.
+- Output: `../vgc-bench-v6/results_search_rosters_rosters1/` (`<opponent>/rows.jsonl`,
+  `arms.log`, `pooled.json` at the end). `touch .../results_search_rosters_rosters1/STOP`
+  ends every process at its next cell; a relaunch with the same NAME resumes.
+- Reading as pre-registered: search minus plain, paired by roster over all (opponent,
+  roster) pairs, bootstrap over rosters; lower bound > 0 = the search helps against other
+  teams. About 7-9 hours.
+
 ## V6 read: the search beats the deployed bot in the mirror, 53.7% [52.5, 55.0] over 6,000 games; all four arms above 50%, none apart from another; almost all of it with open sheets (2026-October 5, 07:30)
 
 - **How it ended.** The user said "pause" at 07:26; the six processes were ended at 07:27,
