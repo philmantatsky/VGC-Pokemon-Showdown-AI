@@ -540,6 +540,9 @@ build. One fit per point, so the intervals hold game sampling, not training nois
 - **To read it later:** every new ladder game is an out-of-sample test. Score the logged
   forecasts against what the opponent then did (the same label reader), by sheet state, and
   fit the calibration for our own opponents from it.
+  Join a forecast to its replay by battle tag AND replay directory: a local Showdown
+  server reuses battle tags after a restart (the search session met 1,127 reused tags), so a
+  tag alone identifies a battle only on the real server.
 
 ### Not done, and what is next
 
