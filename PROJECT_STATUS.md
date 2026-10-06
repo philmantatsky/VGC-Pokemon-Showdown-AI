@@ -1,5 +1,47 @@
 # VGC Bot Project Status
 
+## The roster run found a dead search: the bridge leaked two pipes a battle and lost step at the 496th; fixed, the affected cells set aside and replayed (2026-October 6, 04:20)
+
+- **What happened.** From 03:28 on, process after process, the "search" arm stopped
+  searching: 75-90% of its decisions fell back to the bot's own move, and cells that had
+  taken four minutes took one. Each process failed at the same place -- its 496th searched
+  battle (roster 23, open sheets) -- with `ValueError: filedescriptor out of range in
+  select()`, then `bridge response id 23 != 24` on every request after it.
+- **Why.** `ExactShowdownBridge.close()` released only the worker's stdin, and
+  `atexit.register(self.close)` kept every bridge object alive, so each searched battle
+  left two pipes open for the life of the process. Past 1,023 open descriptors `select()`
+  refuses to watch a pipe; that exception left the request's answer unread in the pipe,
+  and from then on every request read the answer to the one before it. Nothing restarted
+  the worker, and the failure only showed as "exact_search_error" fallbacks.
+  - The head-to-heads never saw it: a shard plays 100 searched battles a process; a
+    roster process plays 517. A long ladder session with search on would have gone the
+    same way after about 500 games, silently playing without its search.
+- **Fix** (`vgc_bench/src/exact_sim.py`, commit 69e667ef; nothing the search computes
+  changes): `close()` and every restart release all three pipes; bridges are held weakly
+  and reaped when dropped; the wait is `poll()`, which has no 1,024 limit; and whatever
+  goes wrong between sending a request and holding its own answer, the worker is
+  replaced, so the stream can never stay out of step. `unit_tests/test_exact_sim_bridge.py`
+  (a stand-in worker; nine tests, seven fail on the old client).
+- **The run.** Stopped with its `STOP` file at 04:04 (the three processes still playing
+  ended at their next cell). **Validity rule, set from times and error texts only:** a
+  search cell is set aside when any of its battles has a decision at or after its
+  process's first bridge fault; plain cells never use the bridge and all stay. That keeps
+  exactly 45 search cells (495 games) in each of the six processes and sets aside 49, 49,
+  49, 38, 9 and 1 (originals kept as `*.before_bridge_fix.*`; the `pooled.json` the
+  launcher wrote at 04:05 mixed dead cells in and is kept under that name too, not a
+  result). The fixed `exact_sim.py` was copied into the frozen worktree -- its only
+  difference from 19445d0e -- and the same study was relaunched at 04:10; it resumes at
+  the cells set aside. Since then: 597 searched decisions, 3 ordinary budget fallbacks,
+  224 open files in every process and one worker each, not growing.
+- **On the 45 valid cells per opponent so far** (2,970 games an arm; an interim look that
+  decided nothing): plain 92.3%, search 93.8%.
+- **Two smaller holes the rosters showed, left as they are for this run** (a search that
+  cannot model an opponent falls back to the bot's move, and that is what the test should
+  count): for some rosters with hidden sheets no world can be drawn (`Total of weights
+  must be greater than zero`, `could not sample a legal opponent determinization`,
+  `opponent leads unavailable`); and a world with Imprison in it crashes the simulator
+  (`onFoeDisableMove`: the effect's source is lost in reconciliation).
+
 ## The roster run is playing: launched at the user's word (2026-October 6, 01:01)
 
 - The user said "continue" (01:00), which takes the hold of 10-05 07:26 off the run
