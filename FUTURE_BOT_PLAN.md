@@ -241,15 +241,19 @@ ladder, in order:
     in the mirror, 3,223 / 6,000 = 53.7% [52.5, 55.0]**; all four arms above 50% (52.7 /
     54.2 / 54.4 / 53.5%), streams and calibration both nil (+0.5 [-2.1, +3.0], +0.2 [-2.3,
     +2.8]). Open sheets 56.0%, hidden sheets 51.4% [49.6, 53.2].
-  - [ ] **Against other teams** (`evaluation/search_roster_ab.py`,
-    `tools/search_roster_arms.sh`): the deployed bot with and without the search against the
-    battery's six opponents on its 47 held-out rosters, roster-paired. The mirror is one
-    matchup; this is the gate between a mirror win and a ladder trial. **Pre-registered
-    10-05 01:00 at the user's word** (6,204 games an arm, 7-9 hours; configuration by its
-    rule = raw leaf, streams >= 4). **Playing since 10-06 01:01** at the user's word
-    (`../vgc-bench-v6/results_search_rosters_rosters1/`).
+  - [x] **Against other teams** (`evaluation/search_roster_ab.py`,
+    `tools/search_roster_arms.sh`; pre-registered 10-05 01:00, played 10-06 01:01-07:25): the
+    deployed bot with and without the search against the battery's six opponents on its 47
+    held-out rosters. **Search minus plain = +1.47 points [+0.68, +2.34]** over 6,204 games
+    an arm (93.1% -> 94.6%); hidden sheets +1.03 [+0.00, +2.16], open +1.90 [+0.74, +3.26].
+    The run also found the bridge's pipe leak (a search dead after ~500 battles in one
+    process; fixed 69e667ef) and two modelling holes (species without set data, Imprison).
   - [ ] Ladder trial at the user's word: `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh`
     (flags for the measured configuration are in its header; `--device cpu`).
+  - [ ] Before or beside a ladder trial: the opponent predictor as the search's reply prior
+    (`vgc_bench/src/oppmodel/joint.py`; 62% top-8 on real opponents against 26% for the
+    shipped models); worlds for species the set data cannot fill; Imprison in a reconciled
+    world.
   - [ ] Next search changes (V7, after V6 is read): keep the bot's own replacement at
     forced switches (the search's values there are noise, sd 0.21 between equivalent
     placements); an override must clear its own standard error; cheaper KO cells (17% of

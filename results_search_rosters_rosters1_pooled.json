@@ -1,0 +1,194 @@
+{
+  "runs": [
+    "results_search_rosters_rosters1/human_new",
+    "results_search_rosters_rosters1/frozen",
+    "results_search_rosters_rosters1/rotation1",
+    "results_search_rosters_rosters1/rotation2",
+    "results_search_rosters_rosters1/human_previous",
+    "results_search_rosters_rosters1/heuristic"
+  ],
+  "opponents": [
+    "results_bc/eval_mcB_20260920/saves_bc/seed2/2.zip",
+    "results_repaired/opponents/64opp_3932160_v4.zip",
+    "results_repaired/opponents/8opp_4915200_v4.zip",
+    "results_repaired/opponents/tuned_983040_v4.zip",
+    "results_bc/eval_mcB_20260913/saves_bc/seed2/2.zip",
+    "heuristic"
+  ],
+  "arms": {
+    "plain": {
+      "overall": {
+        "games": 6204,
+        "wins": 5778.0,
+        "win_rate": 0.9313346228239845,
+        "wilson_95": [
+          0.9247712156014332,
+          0.9373641842451093
+        ]
+      },
+      "hidden": {
+        "games": 3102,
+        "wins": 2902.0,
+        "win_rate": 0.935525467440361,
+        "wilson_95": [
+          0.9263324804789056,
+          0.9436410558405254
+        ]
+      },
+      "open": {
+        "games": 3102,
+        "wins": 2876.0,
+        "win_rate": 0.927143778207608,
+        "wilson_95": [
+          0.9174596197593509,
+          0.9357712726338735
+        ]
+      }
+    },
+    "search": {
+      "overall": {
+        "games": 6204,
+        "wins": 5869.0,
+        "win_rate": 0.9460025789813024,
+        "wilson_95": [
+          0.9400974516926236,
+          0.9513557065194028
+        ]
+      },
+      "hidden": {
+        "games": 3102,
+        "wins": 2934.0,
+        "win_rate": 0.9458413926499033,
+        "wilson_95": [
+          0.9373109228047596,
+          0.953268944500772
+        ]
+      },
+      "open": {
+        "games": 3102,
+        "wins": 2935.0,
+        "win_rate": 0.9461637653127015,
+        "wilson_95": [
+          0.9376551887220028,
+          0.9535686264268444
+        ]
+      }
+    }
+  },
+  "search_minus_plain": {
+    "overall": {
+      "rosters": 282,
+      "games_per_arm": 6204,
+      "plain_win_rate": 0.9313346228239845,
+      "search_win_rate": 0.9460025789813024,
+      "delta": 0.014667956157317861,
+      "bootstrap_95": [
+        0.006769825918762087,
+        0.023372018052869124
+      ]
+    },
+    "hidden": {
+      "rosters": 282,
+      "games_per_arm": 3102,
+      "plain_win_rate": 0.935525467440361,
+      "search_win_rate": 0.9458413926499033,
+      "delta": 0.010315925209542231,
+      "bootstrap_95": [
+        7.873922160462103e-19,
+        0.02159896840747905
+      ]
+    },
+    "open": {
+      "rosters": 282,
+      "games_per_arm": 3102,
+      "plain_win_rate": 0.927143778207608,
+      "search_win_rate": 0.9461637653127015,
+      "delta": 0.019019987105093488,
+      "bootstrap_95": [
+        0.007414571244358475,
+        0.03255963894261766
+      ]
+    }
+  },
+  "search_counts": {
+    "exact_search": 39997,
+    "exact_search_nodes": 13521101,
+    "exact_search_complete": 36038,
+    "exact_search_partial:live_safety_filter": 1526,
+    "exact_search_truncated": 3959,
+    "exact_search_partial:partial_determinization_search": 3884,
+    "exact_search_skipped": 139,
+    "exact_search_error:DeterminizationBudgetExhausted": 131,
+    "exact_search_error:ValueError": 377,
+    "exact_search_error:ExactSimulatorError": 61,
+    "exact_search_error:AssertionError": 1
+  },
+  "by_opponent": {
+    "human_new": {
+      "rosters": 47,
+      "games_per_arm": 1034,
+      "plain_win_rate": 0.9303675048355899,
+      "search_win_rate": 0.9439071566731141,
+      "delta": 0.013539651837524175,
+      "bootstrap_95": [
+        -0.0019342359767891807,
+        0.03481624758220503
+      ]
+    },
+    "frozen": {
+      "rosters": 47,
+      "games_per_arm": 1034,
+      "plain_win_rate": 0.9622823984526112,
+      "search_win_rate": 0.960348162475822,
+      "delta": -0.0019342359767891713,
+      "bootstrap_95": [
+        -0.013539651837524185,
+        0.01063829787234042
+      ]
+    },
+    "rotation1": {
+      "rosters": 47,
+      "games_per_arm": 1034,
+      "plain_win_rate": 0.913926499032882,
+      "search_win_rate": 0.9458413926499033,
+      "delta": 0.031914893617021274,
+      "bootstrap_95": [
+        0.01063829787234043,
+        0.05319148936170213
+      ]
+    },
+    "rotation2": {
+      "rosters": 47,
+      "games_per_arm": 1034,
+      "plain_win_rate": 0.9574468085106383,
+      "search_win_rate": 0.9680851063829787,
+      "delta": 0.010638297872340424,
+      "bootstrap_95": [
+        -0.005802707930367509,
+        0.030947775628626693
+      ]
+    },
+    "human_previous": {
+      "rosters": 47,
+      "games_per_arm": 1034,
+      "plain_win_rate": 0.8936170212765957,
+      "search_win_rate": 0.9032882011605415,
+      "delta": 0.009671179883945844,
+      "bootstrap_95": [
+        -0.010662475822050285,
+        0.036750483558994206
+      ]
+    },
+    "heuristic": {
+      "rosters": 47,
+      "games_per_arm": 1034,
+      "plain_win_rate": 0.9303675048355899,
+      "search_win_rate": 0.9545454545454546,
+      "delta": 0.02417794970986461,
+      "bootstrap_95": [
+        0.004835589941972926,
+        0.04545454545454545
+      ]
+    }
+  }
+}

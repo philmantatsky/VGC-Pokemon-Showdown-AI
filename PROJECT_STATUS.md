@@ -1,5 +1,40 @@
 # VGC Bot Project Status
 
+## Roster run read: the search helps against other teams, +1.5 points [+0.7, +2.3] over 6,204 games an arm (93.1% -> 94.6%) (2026-October 6, 07:30)
+
+- **The pre-registered reading** (10-05 01:00; `results_search_rosters_rosters1_pooled.json`;
+  the deployed bot against the battery's six opponents on its 47 held-out rosters, 11 games
+  a cell as deployed and 11 with the search; raw leaf, streams >= 4, cpu): search minus
+  plain, paired roster by roster over 282 (opponent, roster) pairs = **+1.47 points
+  [+0.68, +2.34]**; the lower bound is above zero. Plain 5,778 / 6,204 = 93.1%; search
+  5,869 / 6,204 = 94.6% -- the search removes about a fifth of the games the bot loses here.
+  - Hidden sheets +1.03 [+0.00, +2.16]; open sheets +1.90 [+0.74, +3.26]. The same order
+    as in the mirror (51.4% vs 56.0%): the gain is larger when the opponent's sets are known.
+  - By opponent (descriptive, six looks): `rotation1` +3.19 [+1.06, +5.32]; `heuristic`
+    +2.42 [+0.48, +4.55]; `human_new` +1.35 [-0.19, +3.48]; `rotation2` +1.06 [-0.58,
+    +3.09]; `human_previous` +0.97 [-1.07, +3.68]; `frozen` -0.19 [-1.35, +1.06].
+- **What the counted games contain.** All 1,128 cells; the 195 search cells played after
+  the bridge fault were set aside and replayed on the fixed client (04:20 entry). In the
+  counted search cells, by each cell's own counters: 39,997 searched decisions and 570
+  error fallbacks (1.4%), 61 of them simulator errors; no bridge fault is recorded after
+  the relaunch. (A check keyed by battle tag read 17% at first: a restarted server reuses
+  tag numbers -- 1,127 tags occur both before and after the relaunch -- so tags do not
+  identify a battle across launches; times and per-cell counters do.)
+- **Where the search could not play** (it falls back to the bot's own move, and those
+  games count): seven search cells had more than a fifth of their decisions fall back --
+  one roster with hidden sheets against three opponents and two more against one each
+  (no world can be drawn: a species the set data has no moves for, such as Inteleon), and
+  one roster with Imprison, open sheets, against two (the simulator crash).
+- **What this is and is not.** Two independent local tests now agree in sign: the mirror
+  (53.7% [52.5, 55.0], our team on both sides) and the battery's rosters (+1.5 [+0.7,
+  +2.3], other teams and other pilots). Neither is the ladder: these opponents lose to
+  the deployed bot 93 times in 100, so there was little left to win, and the search's
+  picture of the opponent's reply is still our own brain. On real opponents the predictor
+  session measures the shipped reply models at 26% top-8 against 62% for its predictor.
+- **Not changed:** DEPLOYED.json, the deployed bot (search off), the ladder. A ladder
+  trial of the search is the user's decision (`TRIAL_SEARCH` in `tools/ladder_trial.sh`;
+  the bridge fix 69e667ef has to be in the tree it runs from, which main has).
+
 ## The roster run found a dead search: the bridge leaked two pipes a battle and lost step at the 496th; fixed, the affected cells set aside and replayed (2026-October 6, 04:20)
 
 - **What happened.** From 03:28 on, process after process, the "search" arm stopped
