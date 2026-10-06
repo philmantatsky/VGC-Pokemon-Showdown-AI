@@ -17,12 +17,52 @@ import json
 import select
 import subprocess
 import threading
+import weakref
 from pathlib import Path
 from typing import Any
 
 
 class ExactSimulatorError(RuntimeError):
     """The exact simulator rejected a request or terminated unexpectedly."""
+
+
+# Every bridge still open, held weakly. Until 2026-10-06 each bridge registered its
+# own close() with atexit, which kept the object -- and the two output pipes close()
+# never released -- alive for the whole process: two file descriptors a battle. A
+# process that searched its 495th battle got pipes numbered past 1023, select()
+# refused them ("filedescriptor out of range"), the answer to that request stayed
+# in the pipe, and every later request read the one before it ("bridge response id
+# 23 != 24"): the search was dead for the rest of the process and nothing said so.
+_OPEN_BRIDGES: weakref.WeakSet[ExactShowdownBridge] = weakref.WeakSet()
+
+
+def _close_open_bridges() -> None:
+    for bridge in list(_OPEN_BRIDGES):
+        bridge.close()
+
+
+atexit.register(_close_open_bridges)
+
+
+def _release(proc: subprocess.Popen, *, wait_s: float = 1.0) -> None:
+    """End a worker and close all three of its pipes."""
+    if proc.poll() is None:
+        try:
+            if proc.stdin is not None and not proc.stdin.closed:
+                proc.stdin.close()  # the worker leaves at end of input
+            proc.wait(timeout=wait_s)
+        except (OSError, ValueError, subprocess.TimeoutExpired):
+            proc.kill()
+            try:
+                proc.wait(timeout=1)
+            except subprocess.TimeoutExpired:
+                pass
+    for stream in (proc.stdin, proc.stdout, proc.stderr):
+        try:
+            if stream is not None and not stream.closed:
+                stream.close()
+        except (OSError, ValueError):
+            pass
 
 
 class ExactShowdownBridge:
@@ -35,7 +75,7 @@ class ExactShowdownBridge:
         self._proc = self._spawn()
         self._lock = threading.Lock()
         self._next_id = 1
-        atexit.register(self.close)
+        _OPEN_BRIDGES.add(self)
 
     def _spawn(self) -> subprocess.Popen:
         return subprocess.Popen(
@@ -48,54 +88,84 @@ class ExactShowdownBridge:
         )
 
     def _restart(self) -> None:
-        """Replace a timed-out worker; serialized states remain reusable."""
+        """Replace a worker whose stream can no longer be trusted; serialized states
+        remain reusable."""
         proc = self._proc
         if proc.poll() is None:
             proc.kill()
-            proc.wait(timeout=1)
-        for stream in (proc.stdin, proc.stdout, proc.stderr):
-            if stream is not None:
-                stream.close()
+        _release(proc)
         self._proc = self._spawn()
+
+    @staticmethod
+    def _readable(stream: Any, timeout_s: float) -> bool:
+        """Whether ``stream`` has something to read within ``timeout_s``. poll(), not
+        select(): select() cannot watch a descriptor numbered 1024 or more."""
+        poller = select.poll()
+        poller.register(stream, select.POLLIN)
+        return bool(poller.poll(max(0.0, timeout_s) * 1000.0))
+
+    @staticmethod
+    def _last_words(proc: subprocess.Popen) -> str:
+        try:
+            return proc.stderr.read().strip() if proc.stderr else ""
+        except (OSError, ValueError):
+            return ""
 
     def request(
         self, op: str, *, timeout_s: float | None = None, **payload: Any
     ) -> dict[str, Any]:
         with self._lock:
             if self._proc.poll() is not None:
-                detail = self._proc.stderr.read().strip() if self._proc.stderr else ""
+                # a worker that died between requests: say so once, start another
+                code, detail = self._proc.returncode, self._last_words(self._proc)
+                self._restart()
                 raise ExactSimulatorError(
-                    f"exact simulator exited with {self._proc.returncode}: {detail}"
+                    f"exact simulator exited with {code}: {detail}"
                 )
+            proc = self._proc
             request_id = self._next_id
             self._next_id += 1
             message = {"id": request_id, "op": op, **payload}
-            assert self._proc.stdin is not None
-            assert self._proc.stdout is not None
-            self._proc.stdin.write(json.dumps(message, separators=(",", ":")) + "\n")
-            self._proc.stdin.flush()
-            if timeout_s is not None:
-                ready, _, _ = select.select(
-                    [self._proc.stdout], [], [], max(0.0, timeout_s)
-                )
-                if not ready:
-                    self._restart()
+            try:
+                if proc.stdin is None or proc.stdout is None:
+                    raise ExactSimulatorError("exact simulator has no pipes")
+                proc.stdin.write(json.dumps(message, separators=(",", ":")) + "\n")
+                proc.stdin.flush()
+                if timeout_s is not None and not self._readable(proc.stdout, timeout_s):
                     raise ExactSimulatorError(
-                        f"exact simulator request {op!r} exceeded "
-                        f"{timeout_s:.3f}s"
+                        f"exact simulator request {op!r} exceeded {timeout_s:.3f}s"
                     )
-            line = self._proc.stdout.readline()
-            if not line:
-                detail = self._proc.stderr.read().strip() if self._proc.stderr else ""
+                line = proc.stdout.readline()
+                if not line:
+                    raise ExactSimulatorError(
+                        f"exact simulator closed its output: {self._last_words(proc)}"
+                    )
+                response = json.loads(line)
+                if not isinstance(response, dict) or response.get("id") != request_id:
+                    got = response.get("id") if isinstance(response, dict) else response
+                    raise ExactSimulatorError(
+                        f"bridge response id {got} != {request_id}"
+                    )
+            except Exception as error:
+                # Whatever happened between sending the request and holding its own
+                # answer, an answer may still be on its way down this pipe, and the
+                # next request would read it as its own. Only a fresh worker has a
+                # stream that is known to be in step.
+                try:
+                    self._restart()
+                except OSError as failure:
+                    raise ExactSimulatorError(
+                        f"exact simulator could not be restarted after {error}: "
+                        f"{failure}"
+                    ) from error
+                if isinstance(error, ExactSimulatorError):
+                    raise
                 raise ExactSimulatorError(
-                    f"exact simulator closed its output: {detail}"
-                )
-            response = json.loads(line)
-            if response.get("id") != request_id:
-                raise ExactSimulatorError(
-                    f"bridge response id {response.get('id')} != {request_id}"
-                )
+                    f"exact simulator request {op!r} failed: "
+                    f"{type(error).__name__}: {error}"
+                ) from error
             if not response.get("ok"):
+                # the simulator's own verdict on this request: the stream is in step
                 raise ExactSimulatorError(
                     response.get("error", "unknown simulator error")
                 )
@@ -153,20 +223,18 @@ class ExactShowdownBridge:
         return self.request("reconcile", state=state, snapshot=snapshot)
 
     def close(self) -> None:
+        """End the worker and release its pipes; safe to call again."""
         proc = getattr(self, "_proc", None)
-        if proc is None or proc.poll() is not None:
-            return
-        if proc.stdin:
-            proc.stdin.close()
+        if proc is not None:
+            _release(proc)
+        _OPEN_BRIDGES.discard(self)
+
+    def __del__(self) -> None:
+        # a bridge dropped without close(): no worker, no pipe is left behind
         try:
-            proc.wait(timeout=1)
-        except subprocess.TimeoutExpired:
-            proc.terminate()
-            try:
-                proc.wait(timeout=1)
-            except subprocess.TimeoutExpired:
-                proc.kill()
-                proc.wait(timeout=1)
+            self.close()
+        except Exception:  # noqa: BLE001 - never raise from a finalizer
+            pass
 
     def __enter__(self) -> "ExactShowdownBridge":
         return self
@@ -177,8 +245,10 @@ class ExactShowdownBridge:
 
 def live_snapshot_supported() -> bool:
     """Whether poke-env -> exact Showdown state parity has been established."""
-    report = Path(__file__).resolve().parents[2] / "results_parity" / (
-        "live_exact_parity.json"
+    report = (
+        Path(__file__).resolve().parents[2]
+        / "results_parity"
+        / ("live_exact_parity.json")
     )
     try:
         payload = json.loads(report.read_text())
