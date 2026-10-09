@@ -1,0 +1,118 @@
+GAMES 16 of 30 (53%) [36.1, 69.8]
+  hidden sheets: 14 of 28 (50%)
+  open sheets: 2 of 2 (100%)
+
+1. SEARCH  decisions 268  modes {'search': 267, 'search_fallback': 1}
+   seconds a decision: p50 2.3  p90 7.4  p99 7.5  max 7.5;  7 s or more: 28 of 267 (10%);  9 s or more: 0
+      1  search_fallback: unsupported_low_prior_override
+
+2. THE OPPONENT'S REAL REPLY IN THE SEARCH'S TABLE
+   hidden sheets: 113 of 179 (63%) in some world; mean share of worlds holding it 54%
+   open   sheets: 6 of 13 (46%) in some world; mean share of worlds holding it 44%
+   moves only      73 of 105 (70%)
+   with a protect  29 of 47 (62%)
+   with a switch   17 of 40 (42%)
+
+3. OVERRIDES  32 of 267 (12%) of searched decisions, 2 at forced replacements
+   expected edge +0.236 (n 26);  reply was in the table for 17: realized +0.239, not positive in 0
+
+4. THE WORLDS
+   hidden: decisions                            249
+   hidden: fewer than 4 worlds agree            0
+   hidden: no world agrees                      0
+   hidden: worlds redrawn                       33
+   open: decisions                              19
+   open: worlds redrawn                         0
+    230  hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+     10  open | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+
+5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
+   hidden: table 113 of 179 (63%);  forecast 96 of 170 (56%) by the same rule, 102 of 170 (60%) on moves alone, its first 36 of 170 (21%)
+           both 79, forecast only 17, table only 30, neither 44
+   open  : table 6 of 13 (46%);  forecast 6 of 13 (46%) by the same rule, 7 of 13 (54%) on moves alone, its first 2 of 13 (15%)
+           both 5, forecast only 1, table only 1, neither 6
+
+5b. THE REAL REPLY UNDER OTHER REPLY PRIORS (logged world by world)
+   hidden n=158, within the table's width: table 61% (mass 54%)  brain 39% (mass 31%)  sum25 54% (mass 46%)  sum50 58% (mass 51%)  sum75 61% (mass 54%)  forecast 62% (mass 52%)
+   open n=13, within the table's width: table 46% (mass 44%)  brain 15% (mass 15%)  sum25 38% (mass 23%)  sum50 54% (mass 52%)  sum75 46% (mass 44%)  forecast 46% (mass 42%)
+   within the first k replies of some world:
+      k       brain     sum25     sum50     sum75  forecast
+      1         14%       14%       19%       25%       27%
+      2         19%       22%       34%       39%       42%
+      4         31%       36%       49%       52%       52%
+      6         36%       46%       53%       56%       57%
+      8         37%       53%       58%       60%       61%
+     10         39%       56%       61%       62%       64%
+     12         41%       60%       62%       64%       67%
+     16         45%       64%       67%       68%       70%
+     24         56%       69%       71%       71%       72%
+   the table as played against the brain's ranking alone, same decisions: both 59, played only 44, brain only 5, neither 63;  exact two-sided p 0.0000
+   legal in no world (no prior can list it): 40 of 171 (23%)
+   moves only      brain 53 of 98 (54%)  sum25 63 of 98 (64%)  sum50 64 of 98 (65%)  sum75 66 of 98 (67%)  forecast 63 of 98 (64%)
+   with a protect  brain 10 of 44 (23%)  sum25 21 of 44 (48%)  sum50 28 of 44 (64%)  sum75 29 of 44 (66%)  forecast 32 of 44 (73%)
+   with a switch   brain 1 of 29 (3%)  sum25 7 of 29 (24%)  sum50 7 of 29 (24%)  sum75 8 of 29 (28%)  forecast 9 of 29 (31%)
+
+6. GAMES
+   2695689406 L turns 17 hidden rating 1274 vs 1184  Blastoise+Farigiraf vs Raichu+Espathra  first faint theirs (turn 2)  searched 19
+        turn 6: move eruption, move leafstorm +1  ->  move protect, move leafstorm +1
+        turn 17: pass, move sleeppowder -1  ->  pass, move sludgebomb +2
+   2695691260 W turns 4 hidden rating 1243 vs 1214  Blastoise+Farigiraf vs Garchomp+Incineroar  first faint theirs (turn 3)  searched 6  opponent forfeited
+   2695692201 L turns 6 hidden rating 1266 vs 1326  Blastoise+Farigiraf vs Politoed+Archaludon  first faint ours (turn 2)  searched 8
+   2695693734 L turns 6 hidden rating 1245 vs 1178  Blastoise+Farigiraf vs Indeedee-F+Volcarona  first faint ours (turn 2)  searched 8
+   2695694729 W turns 10 hidden rating 1215 vs 1286  Blastoise+Farigiraf vs Milotic+Salamence  first faint theirs (turn 1)  searched 11
+   2695696117 L turns 8 hidden rating 1245 vs 1213  Blastoise+Farigiraf vs Charizard+Incineroar  first faint ours (turn 3)  searched 10
+        turn 3: move waterspout, switch 3  ->  move waterspout, move psychic +1
+        turn 4: move waterspout, move eruption  ->  move waterpulse +1, move earthpower +2
+   2695698069 W turns 6 hidden rating 1218 vs 1174  Blastoise+Farigiraf vs Rillaboom+Incineroar  first faint ours (turn 2)  searched 8
+        turn 3: move eruption, move psychic +2  ->  move eruption, move helpinghand -1
+        turn 5: move sludgebomb +2, move psychic +2  ->  move sludgebomb +1, move psychic +2
+   2695700776 W turns 1 hidden rating 1240 vs 1231  Blastoise+Farigiraf vs Dragapult+Sceptile  first faint None (turn None)  searched 1  a clock ran out
+   2695701707 W turns 7 hidden rating 1264 vs 1291  Venusaur+Torkoal vs Raichu+Volcarona  first faint theirs (turn 3)  searched 8  opponent forfeited
+        turn 1: move sleeppowder +1, switch 3  ->  move sleeppowder +1, move eruption
+   2695703128 W turns 4 hidden rating 1291 vs 1245  Blastoise+Farigiraf vs Hippowdon+Corviknight  first faint theirs (turn 1)  searched 5  opponent forfeited
+   2695704362 W turns 3 hidden rating 1313 vs 1235  Blastoise+Farigiraf vs Rotom-Wash+Garchomp  first faint theirs (turn 2)  searched 3  opponent forfeited
+   2695705243 L turns 9 hidden rating 1329 vs 1285  Blastoise+Farigiraf vs Grimmsnarl+Garchomp  first faint ours (turn 3)  searched 11
+        turn 5: move waterspout, move eruption  ->  move waterspout, switch 4
+        turn 7: move waterpulse +1, move sleeppowder +2  ->  move waterpulse +1, move sludgebomb +1
+   2695707152 L turns 9 hidden rating 1306 vs 1248  Charizard+Venusaur vs Archaludon+Grimmsnarl  first faint ours (turn 2)  searched 11
+   2695708964 W turns 8 open rating 1283 vs 1365  Blastoise+Farigiraf vs Golisopod+Politoed  first faint ours (turn 2)  searched 10
+        turn 1: move waterspout mega, move trickroom  ->  move fakeout +2 mega, move trickroom
+        turn 3: move icebeam +2, move eruption  ->  move waterpulse +1, move eruption
+   2695709491 W turns 8 hidden rating 1314 vs 1273  Charizard+Venusaur vs Incineroar+Indeedee-F  first faint theirs (turn 2)  searched 10
+        turn 1: move protect mega, switch 3  ->  move heatwave mega, switch 3
+        turn 3: move heatwave, move psychic +2  ->  move protect, move psychic +2
+        turn 4: pass, switch 3  ->  pass, switch 4
+        turn 5: move protect, move heatwave  ->  move heatwave, move heatwave
+   2695710875 L turns 7 hidden rating 1332 vs 1436  Blastoise+Farigiraf vs Primarina+Indeedee-F  first faint theirs (turn 2)  searched 8
+   2695711799 L turns 10 hidden rating 1318 vs 1327  Blastoise+Farigiraf vs Skeledirge+Starmie  first faint theirs (turn 3)  searched 11
+   2695713379 W turns 9 hidden rating 1299 vs 1333  Blastoise+Farigiraf vs Gardevoir+Indeedee-F  first faint ours (turn 2)  searched 11
+   2695715188 W turns 7 open rating 1326 vs 1225  Charizard+Venusaur vs Farigiraf+Primarina  first faint ours (turn 2)  searched 9
+        turn 5: move protect, move trickroom  ->  move heatwave, move trickroom
+   2695716988 W turns 8 hidden rating 1340 vs 1302  Blastoise+Farigiraf vs Kingambit+Sneasler  first faint ours (turn 3)  searched 9
+   2695718728 W turns 4 hidden rating 1358 vs 1413  Charizard+Venusaur vs Raichu+Volcarona  first faint theirs (turn 2)  searched 5  opponent forfeited
+        turn 3: move heatwave, move psychic +2  ->  move heatwave, move psychic +1
+   2695719676 L turns 4 hidden rating 1381 vs 1455  Blastoise+Farigiraf vs Indeedee-F+Armarouge  first faint ours (turn 1)  searched 6
+   2695720315 W turns 4 hidden rating 1365 vs 1368  Farigiraf+Incineroar vs Raichu+Arcanine-Hisui  first faint ours (turn 2)  searched 6  opponent forfeited
+        turn 1: move trickroom, move partingshot +1  ->  move trickroom, move partingshot +2
+   2695721182 L turns 12 hidden rating 1385 vs 1430  Blastoise+Farigiraf vs Raichu+Kommo-o  first faint ours (turn 1)  searched 14
+        turn 4: move eruption, move psychic +2  ->  move protect, move psychic +1
+        turn 5: move eruption, move psychic +1  ->  switch 4, move psychic +1
+        turn 9: move sludgebomb +2, move eruption  ->  move sleeppowder +2, move eruption
+        turn 10: move leafstorm +2, move eruption  ->  move sludgebomb +2, move eruption
+   2695723817 L turns 8 hidden rating 1368 vs 1315  Blastoise+Farigiraf vs Raichu+Espathra  first faint theirs (turn 2)  searched 10
+        turn 3: move waterspout, move psychic +2  ->  move waterspout, move helpinghand -1
+        turn 6: move leafstorm +1, pass  ->  move sleeppowder +1, pass
+   2695724940 W turns 12 hidden rating 1345 vs 1351  Charizard+Venusaur vs Gengar+Rillaboom  first faint ours (turn 4)  searched 13  opponent forfeited
+        turn 1: move protect mega, move sleeppowder +1  ->  move protect mega, switch 3
+        turn 4: switch 4, switch 3  ->  switch 3, switch 4
+        turn 12: move sludgebomb +2, move earthpower +2  ->  move leafstorm +2, move eruption
+   2695726662 L turns 6 hidden rating 1365 vs 1310  Charizard+Venusaur vs Salamence+Rillaboom  first faint theirs (turn 1)  searched 8
+        turn 1: move protect mega, move sludgebomb +1  ->  move heatwave mega, move sludgebomb +1
+        turn 4: move psychic +1, move eruption  ->  move helpinghand -2, move eruption
+   2695727656 L turns 7 hidden rating 1342 vs 1395  Blastoise+Farigiraf vs Volcarona+Golisopod  first faint ours (turn 3)  searched 9
+        turn 3: pass, switch 4  ->  pass, switch 3
+        turn 5: move waterpulse +2, move leafstorm +1  ->  move waterpulse +2, move sleeppowder +2
+   2695728870 L turns 5 hidden rating 1325 vs 1228  Blastoise+Farigiraf vs Alakazam+Basculegion  first faint ours (turn 3)  searched 6
+        turn 2: move waterpulse +1, move raindance  ->  move waterpulse +2, move raindance
+   2695729685 W turns 6 hidden rating 1300 vs 1317  Blastoise+Farigiraf vs Incineroar+Garchomp  first faint theirs (turn 2)  searched 7
+   games with an override: 8 of 16 (50%) won;  without: 8 of 14 (57%)

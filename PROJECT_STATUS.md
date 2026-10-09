@@ -1,5 +1,48 @@
 # VGC Bot Project Status
 
+## Predictor trial cut at 30 games by the laptop's lid (16-14, one more game abandoned); its reading is already clear -- the real reply is in the search's table 63% of the time with hidden sheets, against 37% this morning (2026-October 9, 14:35)
+
+- **What happened.** The trial pre-registered at 12:45 (the entry below) played 30 games
+  from 12:45 to 14:05. At 14:06:00 the laptop went into clamshell sleep (the lid was
+  closed; it was on battery) in the middle of game 31 (turn 5); it has slept and
+  dark-woken since. The connection died, the launcher's restarts met no network, and at
+  14:18 it logged in and queued again a second before the next sleep. By the stop rule
+  (a game lost on our clock) and because a sleeping laptop abandons whatever it is
+  matched into, **everything was stopped at 14:30**. Nothing is running. Game 31 counts
+  on the ladder as a loss and is in no reading; the public rating (1304 after 1300 at the
+  start of game 30, a win) says it is the only one lost that way.
+- **The last 10 games are not played.** They need the lid open (caffeinate does not
+  hold a closed lid) and are the user's to restart: the same command with total 40 into
+  the same directory continues it.
+- **The record so far:** 16 of 30 complete games (53% [36, 70]); with the abandoned game,
+  16-15 on the ladder's books. Rating at the start of a game: 1274 at the first, 1385 at
+  the highest (above the account's earlier peak of 1353), 1300 at the last. Seven wins
+  were the opponent's forfeit. No reading of the record is taken before the 40.
+- **Reading 1, the one the trial is for -- taken now, at 30 games, because the trial is
+  stopped (it will be taken again at 40 if the rest is played):**
+  - On the trial's own 171 logged decisions, the table as played against the brain's
+    ranking alone: both held the real reply 59 times, **only the played table 44 times,
+    only the brain's ranking 5 times**, neither 63. Exact two-sided p = 8e-9: confirmed
+    by the rule set before the first game. As played 60% (103 of 171), the brain's
+    ranking 37% (64).
+  - With hidden sheets the real reply was in the table in **113 of 179 decisions (63%)**;
+    this morning, with the brain's prior, 64 of 175 (37%). Mean share of the worlds'
+    weight holding it: 54% against 23-27%.
+  - By what the reply was made of: moves alone 73 of 105 (70%; this morning 47%), with a
+    Protect 29 of 47 (62%; 29%), with a switch 17 of 40 (42%; 27%).
+  - Still out of reach: 40 of the 171 replies (23%) were legal in no world -- the same
+    quarter as this morning. The worlds are now the larger limit.
+- **Reading 2, does it run:** 267 of 268 decisions searched (one ordinary fallback, a
+  low-prior override the search would not support); p50 2.3 s, p90 7.4 s, max 7.5 s;
+  no timer warning about us before the lid; the forecast was handed over at every move
+  decision. No species without sets, no Imprison fault, no sampler fault.
+- **Reading 3, overrides:** 32 of 267 searched decisions (12%; 9% this morning), 2 at
+  forced replacements. The reply the opponent then made had been in the table for 17 of
+  them: worth +0.24 on the search's own scale against +0.24 expected, **not positive in
+  none of the 17** (this morning 2 of 14 were not). Games with an override 8 of 16 won,
+  without 8 of 14.
+- Readings: `results_analysis/search_ladder_20261009/trial2_forecast_prior_30games.{txt,json}`.
+
 ## PRE-REGISTERED at the user's word: 40 ladder games with the opponent predictor's forecast as the search's reply prior (2026-October 9, 12:45, before any game)
 
 - **The user (10-09, 12:40):** "run the 40 games with the predictor" -- the first item of
