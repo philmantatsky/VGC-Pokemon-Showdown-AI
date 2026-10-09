@@ -254,20 +254,39 @@ ladder, in order:
     not be sent in; theirs: no world could be created, and the redraw was never retried).
     Fixed (03081c89, `unit_tests/test_live_exact_fainted_slot.py`); null search through
     the ladder script 0 of 124 afterwards. Not re-measured over thousands of games.
-  - [ ] Ladder trial at the user's word (10-09: "run the ladder games and then see what
-    needs to happen"): pre-registered 10-09 02:10, 40 games in stages 5 / 15 / 40 into
-    `ladder_replays_mc_search_nash1`, `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh` (the
-    roster run's configuration; `--device cpu`). A non-regression read (13 wins or fewer
-    reads as worse than the bot's ladder history) and six diagnostic readings; no
-    promotion follows from it.
-  - [ ] Before or beside a ladder trial: the opponent predictor as the search's reply prior
-    (`vgc_bench/src/oppmodel/joint.py`; 62% top-8 on real opponents against 26% for the
-    shipped models); worlds for species the set data cannot fill; Imprison in a reconciled
-    world.
-  - [ ] Next search changes (V7, after V6 is read): keep the bot's own replacement at
-    forced switches (the search's values there are noise, sd 0.21 between equivalent
-    placements); an override must clear its own standard error; cheaper KO cells (17% of
-    the streams arms' decisions still reach the budget); the opposing gender from preview.
+  - [x] **Ladder trial, 2026-10-09** (the user: "run the ladder games and then see what
+    needs to happen"; pre-registered 02:10 with two amendments; PROJECT_STATUS 04:30):
+    **22 of 40 (55% [40, 69])**, not separable from the bot's ladder history (81 of 150)
+    and not a test of the two to four points measured locally. It runs on the real
+    server: 289 of 316 decisions searched, max 7.6 s, no timer warning. Fixed on the way,
+    each with a test: the ladder path's reply prior (it read the reranker's opponent
+    models, which no local run did: `--search-reply-prior brain`), sets for species the
+    joint data lacks (`datagen/build_rare_sets.py`, `data/rare_sets_regmc.json`; 11% of
+    recorded ladder games have one), the sampler's item dead end, Imprison in a
+    reconciled world (`unit_tests/test_bridge_imprison.py`).
+  - [x] **What the search sees of real opponents** (the trial's readings,
+    `evaluation/search_ladder_read.py`, `results_analysis/search_ladder_20261009/`): the
+    real reply is in its eight-reply table 37% of the time with hidden sheets (47% for
+    moves alone, 27-29% when it holds a switch or a Protect, which is 47% of real
+    replies). Logged world by world over 75 decisions: within the table's width for 32%
+    under the brain's prior and 51-53% under the opponent predictor's forecast (first
+    guess 8% -> 25%; share of world weight 20% -> 44%); mixing the brain back in adds
+    nothing. 24% of real replies are legal in no world at all.
+  - [ ] **The forecast as the search's reply prior** -- built, opt-in
+    (`--search-reply-prior forecast`, `--search-forecast-weight`; 0 = the measuring mode
+    the trial's last twenty games played; rehearsed with the null search, 0 of 24). Next:
+    a ladder trial at weight 0.75-1 with the same readings, at the user's word. Local
+    harnesses cannot judge a model of human replies (their opponents are our own brain
+    and other bots); `evaluation/search_roster_ab.py --arms plain,search,forecast` gives
+    a non-regression check against the clones of human play.
+  - [ ] Before any ladder session with the search: `tools/ladder_rehearse.sh` (the ladder
+    script itself on a local server) twice -- the trial's flags with `--search-anchor
+    1e12` (0 changed decisions) and with its own anchor -- and `evaluation/
+    search_health.py` on the replay directory while it plays.
+  - [ ] The worlds: more of each opponent's plausible moves per world (the predictor's
+    repertoire), the back pairs; a species unknown to both set sources (Arbok).
+  - [ ] A table that always holds each slot's Protect reply (neither the brain nor the
+    forecast expects Protect: 1 and 3 of 16).
   - [ ] Oracle arm (real opponent sets in the worlds) once there is an effect to explain.
 - [ ] Opposing Megas keep their pre-Mega stats (2026-10-04; every forme change, open and
   hidden sheets): a stale opposing forme is on the field in 71% of our ladder games and 35% of

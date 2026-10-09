@@ -100,8 +100,20 @@ function id(value) {
 	return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
 
+// Volatiles whose effect reads who set them, where that is always the Pokemon carrying
+// them (the move targets its user). Showdown's Imprison walks
+// effectState.source.moveSlots; a state rebuilt here had no source, so every
+// reconciliation of a world with an Imprison user threw "Cannot read properties of
+// undefined (reading 'moveSlots')" and the search was off from that turn to the end of
+// the game (the roster run of 2026-10-06; two games of the ladder trial of 2026-10-09).
+const SELF_SOURCED = new Set(['imprison']);
+
 function conditionState(battle, identifier, target, previous, data = {}) {
 	const state = previous || battle.initEffectState({id: identifier, target});
+	if (SELF_SOURCED.has(identifier) && !state.source && target && target.moveSlots) {
+		state.source = target;
+		if (typeof target.getSlot === 'function') state.sourceSlot = target.getSlot();
+	}
 	if (data.duration !== null && data.duration !== undefined) {
 		state.duration = Number(data.duration);
 	}

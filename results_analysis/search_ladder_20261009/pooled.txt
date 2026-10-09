@@ -1,0 +1,16 @@
+blend      3 of 5 (60%)   searched 37 of 37 (100%)   overrides 4
+brain      8 of 15 (53%)   searched 129 of 141 (91%)   overrides 10
+last       11 of 20 (55%)   searched 123 of 138 (89%)   overrides 13
+
+ALL  22 of 40 (55%) [39.8, 69.3]
+  hidden sheets: 20 of 35 (57%)
+  open sheets: 2 of 5 (40%)
+  decisions 316, searched 289 of 316 (91%), overrides 27 of 289 (9%) of searched (2 at replacements)
+  real reply, hidden: in the table 64 of 175 (37%);  in the forecast's eight 75 of 172 (44%);  both 37, forecast only 38, table only 25, neither 72
+  real reply, open: in the table 14 of 30 (47%);  in the forecast's eight 21 of 30 (70%);  both 11, forecast only 10, table only 3, neither 6
+  games with an override: 9 of 18 (50%)
+  games without: 13 of 22 (59%)
+  games first faint ours: 8 of 18 (44%)
+  games first faint theirs: 14 of 22 (64%)
+  wins by the opponent's forfeit: 10
+  our rating at the start of each game: first 1189, low 1189, high 1295, last 1295

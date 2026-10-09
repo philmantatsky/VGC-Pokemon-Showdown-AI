@@ -1,0 +1,44 @@
+GAMES 3 of 5 (60%) [23.1, 88.2]
+  hidden sheets: 1 of 1 (100%)
+  open sheets: 2 of 4 (50%)
+
+1. SEARCH  decisions 37  modes {'search': 37}
+   seconds a decision: p50 3.3  p90 7.5  p99 7.6  max 7.6;  7 s or more: 5 of 37 (14%);  9 s or more: 0
+
+2. THE OPPONENT'S REAL REPLY IN THE SEARCH'S TABLE
+   hidden sheets: 1 of 3 (33%) in some world; mean share of worlds holding it 3%
+   open   sheets: 9 of 24 (38%) in some world; mean share of worlds holding it 32%
+   moves only      8 of 16 (50%)
+   with a switch   0 of 2 (0%)
+   with a protect  2 of 9 (22%)
+
+3. OVERRIDES  4 of 37 (11%) of searched decisions, 1 at forced replacements
+   expected edge +0.356 (n 3);  reply was in the table for 1: realized +0.472, not positive in 0
+
+4. THE WORLDS
+   hidden: decisions                            4
+   hidden: fewer than 4 worlds agree            0
+   hidden: no world agrees                      0
+   hidden: worlds redrawn                       1
+   open: decisions                              33
+   open: worlds redrawn                         0
+     20  open | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+      7  hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+
+5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
+   hidden: table 1 of 3 (33%);  forecast 2 of 3 (67%) by the same rule, 2 of 3 (67%) on moves alone, its first 0 of 3 (0%)
+           both 1, forecast only 1, table only 0, neither 1
+   open  : table 9 of 24 (38%);  forecast 19 of 24 (79%) by the same rule, 19 of 24 (79%) on moves alone, its first 12 of 24 (50%)
+           both 9, forecast only 10, table only 0, neither 5
+
+6. GAMES
+   2695425401 W turns 4 hidden rating 1189 vs 1267  Blastoise+Farigiraf vs Staraptor+Gholdengo  first faint theirs (turn 2)  searched 4  opponent forfeited
+   2695425805 L turns 7 open rating 1220 vs 1269  Charizard+Venusaur vs Glimmora+Samurott-Hisui  first faint theirs (turn 1)  searched 9
+        turn 2: switch 3, pass  ->  switch 4, pass
+        turn 5: move eruption, move sludgebomb +1  ->  move heatwave, move sludgebomb +2
+   2695426766 W turns 6 open rating 1199 vs 1242  Blastoise+Farigiraf vs Arcanine-Hisui+Raichu  first faint theirs (turn 2)  searched 6
+   2695427407 W turns 7 open rating 1227 vs 1160  Blastoise+Farigiraf vs Archaludon+Politoed  first faint theirs (turn 2)  searched 9
+        turn 1: move fakeout +2 mega, move trickroom  ->  move fakeout +1, move trickroom
+        turn 2: move waterspout mega, move raindance  ->  move waterspout mega, move helpinghand -1
+   2695427647 L turns 8 open rating 1247 vs 1290  Blastoise+Farigiraf vs Sinistcha+Incineroar  first faint theirs (turn 1)  searched 9
+   games with an override: 1 of 2 (50%) won;  without: 2 of 3 (67%)

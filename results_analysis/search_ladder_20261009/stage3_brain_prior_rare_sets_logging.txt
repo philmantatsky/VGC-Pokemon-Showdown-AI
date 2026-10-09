@@ -1,0 +1,83 @@
+GAMES 11 of 20 (55%) [34.2, 74.2]
+  hidden sheets: 11 of 20 (55%)
+
+1. SEARCH  decisions 138  modes {'search': 123, 'error_fallback': 15}
+   seconds a decision: p50 2.7  p90 7.4  p99 7.5  max 7.6;  7 s or more: 18 of 123 (15%);  9 s or more: 0
+     12  error_fallback: TypeError: Cannot read properties of undefined (reading 'moveSlots')
+      3  error_fallback: all live exact roots failed reconciliation: ExactSimulatorError: TypeError: Cannot read pr
+
+2. THE OPPONENT'S REAL REPLY IN THE SEARCH'S TABLE
+   hidden sheets: 31 of 84 (37%) in some world; mean share of worlds holding it 23%
+   with a protect  1 of 16 (6%)
+   moves only      24 of 48 (50%)
+   with a switch   6 of 20 (30%)
+
+3. OVERRIDES  13 of 123 (11%) of searched decisions, 1 at forced replacements
+   expected edge +0.373 (n 11);  reply was in the table for 7: realized +0.269, not positive in 2
+
+4. THE WORLDS
+   hidden: decisions                            138
+   hidden: fewer than 4 worlds agree            0
+   hidden: no world agrees                      0
+   hidden: worlds redrawn                       17
+    157  hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+     89  hidden | ExactSimulatorError: TypeError: Cannot read properties of undefined (reading 'moveSlots')
+     17  hidden | root refresh: ExactSimulatorError: TypeError: Cannot read properties of undefined (reading 'moveSlot
+
+5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
+   hidden: table 31 of 84 (37%);  forecast 32 of 81 (40%) by the same rule, 38 of 81 (47%) on moves alone, its first 15 of 81 (19%)
+           both 15, forecast only 17, table only 14, neither 35
+
+5b. THE REAL REPLY UNDER OTHER REPLY PRIORS (logged world by world)
+   hidden n=75, within the table's width: table 32% (mass 20%)  brain 32% (mass 20%)  sum25 48% (mass 40%)  sum50 48% (mass 41%)  sum75 53% (mass 42%)  forecast 51% (mass 44%)
+   within the first k replies of some world:
+      k       brain     sum25     sum50     sum75  forecast
+      1          8%        9%       15%       20%       25%
+      2         13%       17%       27%       33%       35%
+      4         23%       32%       41%       44%       43%
+      6         28%       45%       47%       47%       48%
+      8         32%       48%       48%       53%       51%
+     10         40%       49%       52%       55%       55%
+     12         41%       52%       59%       56%       57%
+     16         44%       59%       61%       59%       61%
+     24         53%       65%       64%       64%       64%
+   legal in no world (no prior can list it): 18 of 75 (24%)
+   with a protect  brain 1 of 16 (6%)  sum25 2 of 16 (12%)  sum50 3 of 16 (19%)  sum75 4 of 16 (25%)  forecast 3 of 16 (19%)
+   moves only      brain 22 of 45 (49%)  sum25 29 of 45 (64%)  sum50 28 of 45 (62%)  sum75 29 of 45 (64%)  forecast 28 of 45 (62%)
+   with a switch   brain 1 of 14 (7%)  sum25 5 of 14 (36%)  sum50 5 of 14 (36%)  sum75 7 of 14 (50%)  forecast 7 of 14 (50%)
+
+6. GAMES
+   2695447498 W turns 2 hidden rating 1213 vs 1107  Blastoise+Farigiraf vs Staraptor+Incineroar  first faint theirs (turn 2)  searched 2  opponent forfeited
+   2695448003 W turns 3 hidden rating 1231 vs 1181  Blastoise+Farigiraf vs Basculegion+Gardevoir  first faint theirs (turn 3)  searched 3  opponent forfeited
+   2695448425 L turns 6 hidden rating 1252 vs 1260  Charizard+Venusaur vs Aromatisse+Charizard  first faint ours (turn 2)  searched 8
+        turn 3: move heatwave, move psychic +2  ->  move protect, move psychic +2
+   2695449203 L turns 4 hidden rating 1228 vs 1259  Farigiraf+Incineroar vs Raichu+Volcarona  first faint ours (turn 1)  searched 6
+        turn 1: move trickroom, move partingshot +1  ->  move trickroom, move fakeout +1
+   2695449915 W turns 4 hidden rating 1205 vs 1218  Blastoise+Farigiraf vs Rillaboom+Glimmora  first faint ours (turn 2)  searched 5  opponent forfeited
+   2695450556 W turns 4 hidden rating 1231 vs 1163  Blastoise+Farigiraf vs Salamence+Garchomp  first faint theirs (turn 1)  searched 4  opponent forfeited
+        turn 3: move waterspout, move psychic +2  ->  move waterpulse +2, move psychic +2
+   2695451288 L turns 7 hidden rating 1251 vs 1244  Charizard+Venusaur vs Sneasler+Krookodile  first faint theirs (turn 3)  searched 9
+   2695452587 L turns 7 hidden rating 1225 vs 1204  Venusaur+Torkoal vs Raichu+Volcarona  first faint ours (turn 3)  searched 9
+        turn 1: move sleeppowder +1, switch 3  ->  move sleeppowder +2, switch 3
+   2695453273 W turns 5 hidden rating 1198 vs 1206  Blastoise+Farigiraf vs Farigiraf+Rillaboom  first faint ours (turn 2)  searched 6  a clock ran out
+   2695454494 W turns 6 hidden rating 1222 vs 1323  Blastoise+Farigiraf vs Indeedee+Whimsicott  first faint ours (turn 2)  searched 11
+   2695455885 L turns 9 hidden rating 1254 vs 1350  Blastoise+Farigiraf vs Farigiraf+Glimmora  first faint theirs (turn 3)  searched 11
+   2695457052 W turns 10 hidden rating 1236 vs 1262  Blastoise+Farigiraf vs Gardevoir+Indeedee-F  first faint ours (turn 2)  searched 12
+        turn 5: move eruption, move helpinghand -1  ->  move eruption, move psychic +2
+   2695458209 L turns 13 hidden rating 1263 vs 1294  Blastoise+Farigiraf vs Grimmsnarl+Polteageist  first faint theirs (turn 3)  searched 14
+        turn 4: move waterpulse +2, move raindance  ->  move waterspout, move helpinghand -1
+        turn 6: move throatchop +2, move trickroom  ->  move fakeout +1, move trickroom
+        turn 12: move eruption, move fakeout +1  ->  move protect, move waterpulse +2
+   2695459193 L turns 4 hidden rating 1240 vs 1300  Blastoise+Farigiraf vs Farigiraf+Primarina  first faint theirs (turn 1)  searched 6
+        turn 2: move waterspout, move raindance  ->  move waterspout, move psychic +2
+   2695460067 W turns 2 hidden rating 1219 vs 1209  Blastoise+Farigiraf vs Tyranitar+Milotic  first faint theirs (turn 2)  searched 2  opponent forfeited
+        turn 1: move fakeout +2 mega, move trickroom  ->  move fakeout +1 mega, move trickroom
+   2695460462 W turns 4 hidden rating 1243 vs 1231  Blastoise+Farigiraf vs Garchomp+Sylveon  first faint ours (turn 2)  searched 6
+        turn 2: move waterspout, move raindance  ->  move waterspout, move psychic +1
+        turn 2: pass, switch 4  ->  pass, switch 3
+   2695461012 W turns 3 hidden rating 1267 vs 1234  Blastoise+Farigiraf vs Whimsicott+Staraptor  first faint theirs (turn 3)  searched 3  opponent forfeited
+   2695461590 L turns 5 hidden rating 1290 vs 1353  Blastoise+Farigiraf vs Indeedee-F+Gardevoir  first faint ours (turn 2)  searched 6
+   2695462514 W turns 5 hidden rating 1269 vs 1282  Blastoise+Farigiraf vs Tyranitar+Farigiraf  first faint theirs (turn 2)  searched 8  opponent forfeited
+   2695463601 L turns 5 hidden rating 1295 vs 1330  Farigiraf+Incineroar vs Indeedee+Gallade  first faint ours (turn 2)  searched 7
+        turn 1: move trickroom, move partingshot +1  ->  move trickroom, move throatchop +1
+   games with an override: 4 of 10 (40%) won;  without: 7 of 10 (70%)

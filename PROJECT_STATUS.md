@@ -1,5 +1,110 @@
 # VGC Bot Project Status
 
+## Ladder trial of the search: 22 of 40 (55%), in line with the bot's ladder history; it runs in time on the real server; its picture of the opponent is the weak part -- the real reply is in its table a third of the time, and the opponent predictor would put it there half the time (2026-October 9, 04:30)
+
+- **The user (10-09):** "run the ladder games and then see what needs to happen".
+  Pre-registered at 02:10 with two amendments (the entry below). Played 02:09-04:20;
+  nothing is running now. DEPLOYED.json and the deployed bot (search off) are unchanged.
+- **The record.** 22 wins of 40 = 55% [40, 69]. By the pre-registered reading (13 or
+  fewer reads as worse than the bot's ladder history, 81 of 150 with this team family)
+  it does not separate from that history; forty games could not show the two to four
+  points the local runs measured, and this trial does not claim them. Ten of the 22
+  wins were the opponent's forfeit. Rating at the start of a game: 1189 at the first,
+  1295 at the last.
+
+  | games | reply prior of the search | record | decisions searched |
+  |---|---|---|---|
+  | 5 | brain + the reranker's opponent models (as launched) | 3-2 | 37 of 37 |
+  | 15 | the brain alone (the locally measured configuration) | 8-7 | 129 of 141 |
+  | 20 | the brain alone; rare sets; reply priors logged | 11-9 | 123 of 138 |
+
+  Open sheets: 5 of the 40 games (2-3), four of them among the first five.
+- **1. It runs.** 289 of 316 decisions searched (91%). Time per decision p50 2.6 to
+  3.3 s by stage, p90 7.4 to 7.5 s, max 7.6 s; none at 9 s; no timer warning about us in any replay (the one clock
+  loss was an opponent's). The 27 decisions that fell back to the bot's own move have
+  three causes, all in a game's first turns or from one move on: a species without set
+  data (10: Arbok, Mimikyu, Squawkabilly), a set sampler that refused when every fitting
+  set held a taken item (2), and Imprison (15, two games of the last twenty). The first
+  two did not recur after their fix at the fifteen-game boundary; Imprison is fixed
+  since (below).
+- **2. The opponent's real reply was in the search's table 64 times in 175 with hidden
+  sheets (37%)**, 14 in 30 with open ones -- locally, against bots, 56-72% and 93-96%.
+  By what the reply was made of: moves alone 51 of 109 (47%), with a Protect 15 of 52
+  (29%), with a switch 12 of 44 (27%). Our brain, asked what it would do in the
+  opponent's seat, hardly ever protects or switches; these opponents did one or the
+  other in 47% of the replies seen.
+- **3. Overrides:** 27 of 289 searched decisions (9%), 2 of them at forced
+  replacements. Where the reply the opponent then made had been in the table (14 of the
+  27), the override was worth +0.33 on the search's own scale against +0.24 expected
+  for those, and not positive twice; for the other 13 the reply was not in the table
+  and nothing can be said. Games with an override 9 of 18 won, without 13 of 22: no
+  reading at this size.
+- **4. Worlds.** With the fainted-slot fix the bot's own pair was expressible at every
+  searched decision of the trial. In the last twenty games no decision had fewer than
+  four worlds agreeing with what the opponent had shown (5 of 132 in the fifteen before,
+  4 of them with none).
+- **5. The predictor on the same decisions.** Its own eight likeliest reply pairs held
+  the real reply 75 times in 172 with hidden sheets (44%) and 21 in 30 with open ones
+  (70%), and the two lists miss different replies (hidden: both 37, the predictor alone
+  38, the table alone 25, neither 72).
+- **5b. The measurement the last twenty games were for** (`reply_coverage.priors`, 75
+  hidden-sheet decisions; every legal reply of every searched world ranked by the
+  brain's prior, by the forecast, and by sums of the two; the logged brain ranking
+  equals the table as played on every row):
+
+  | real reply within the first k of some world | brain | sum 0.25 | sum 0.5 | sum 0.75 | forecast |
+  |---|---|---|---|---|---|
+  | 1 | 8% | 9% | 15% | 20% | 25% |
+  | 4 | 23% | 32% | 41% | 44% | 43% |
+  | 8 (the table's width) | 32% | 48% | 48% | 53% | 51% |
+  | 16 | 44% | 59% | 61% | 59% | 61% |
+
+  - Share of the worlds' weight whose table would hold it: 20% for the brain, 40-44%
+    with the forecast in any proportion. The forecast doubles it; mixing the brain back
+    in adds nothing measurable (53% against 51% of 75).
+  - By kind, within eight: with a switch 1 of 14 for the brain, 7 of 14 for the
+    forecast; with a Protect 1 of 16 against 3 of 16; moves alone 22 of 45 against 28.
+    Protect stays the blind spot of both.
+  - **18 of the 75 replies (24%) were legal in no world**: a move outside every sampled
+    set, or a switch to a Pokemon no world had brought. No reply prior can list those;
+    the worlds are the second limit.
+- **6. Games.** We lost a Pokemon first in 18 games and won 8 of them; in the other 22
+  we won 14 -- the old picture, with or without the search.
+- **Fixed on the way** (each found by the rehearsal or the trial, each with a test that
+  fails on the old code; 1,729 pass): worlds created while a slot holds a fainted Pokemon
+  (03081c89); the ladder path's reply prior (e1987144); sets for species the joint data
+  lacks and the sampler's item dead end (9a25f0e7); and, after the last game, **Imprison**
+  -- the bridge rebuilt the volatile without its source, Showdown's handler read
+  `source.moveSlots`, and every reconciliation of a world with an Imprison user threw
+  (`tools/exact_showdown_bridge.js`: the volatile's source is the Pokemon carrying it;
+  `unit_tests/test_bridge_imprison.py`, on the real simulator: the world reconciles and
+  the sealed move fails "to Imprison").
+- **Built and not played:** the search USING the forecast (`--search-reply-prior
+  forecast`, weight above 0; default a sum at 0.5). Rehearsed on the local server with
+  the patched bridge: null search 0 changed of 24. By the table above the weight to try
+  is 0.75 to 1.
+- **Tools now in the repository:** `tools/ladder_rehearse.sh` + `checks/ladder_rehearsal.py`
+  (the ladder script itself on a local server; `checks/ladder_rehearsal_challenger.py`
+  for longer games against the deployed bot), `evaluation/search_health.py` (is the
+  search really running; exit 1 above a fifth not searched),
+  `evaluation/search_ladder_read.py` (these readings; `--pool`). The readings are in
+  `results_analysis/search_ladder_20261009/`.
+- **What needs to happen, in order of what the trial says:**
+  1. The reply prior: play the forecast in the search (weight 0.75-1). It is the one
+     change with a measured effect on what the search sees of real opponents (8 -> 25%
+     first guess, 32 -> 51% within the table, 20 -> 44% of world weight). Local runs
+     cannot judge it -- there the opponent is our own brain or another bot -- so the
+     test is a ladder trial with the same readings; that is the user's decision.
+  2. The worlds: a quarter of the real replies are legal in no world. More of the
+     opponent's plausible moves per world (the predictor's repertoire knows them), and
+     the back pairs.
+  3. Protect: neither model expects it; a table that always holds each slot's Protect
+     reply would cover most of the 52.
+  4. Smaller: a candidate's Mega twin in the table (one override dropped the Mega
+     Evolution because only the plain spelling was a row); replacement decisions left
+     to the bot (two overrides; the values there are noise); species unknown to both
+     set sources (Arbok).
+
 ## PRE-REGISTERED at the user's word: a ladder trial of the search, 40 games in three stages; its rehearsal found a fault in how search worlds are created, fixed first (2026-October 9, 02:10, before any ladder game)
 
 - **The user (10-09):** "do the ladder", then "run the ladder games and then see what

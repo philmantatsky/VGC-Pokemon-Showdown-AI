@@ -1,0 +1,283 @@
+{
+ "directory": "ladder_replays_mc_search_nash1",
+ "record": {
+  "games": 5,
+  "wins": 3,
+  "hidden": {
+   "games": 1,
+   "wins": 1
+  },
+  "open": {
+   "games": 4,
+   "wins": 2
+  }
+ },
+ "search": {
+  "decisions": 37,
+  "modes": {
+   "search": 37
+  },
+  "reasons": {},
+  "seconds": {
+   "p50": 3.2678624580148607,
+   "p90": 7.522485209163278,
+   "p99": 7.597039750078693,
+   "max": 7.597039750078693
+  },
+  "at_7s_or_more": 5,
+  "at_9s_or_more": 0,
+  "most_seconds_in_one_game": 35.019029245944694
+ },
+ "reply_table": {
+  "hidden": {
+   "decisions": 3,
+   "in_some_world": 1,
+   "world_mass": 0.10329383106678329
+  },
+  "open": {
+   "decisions": 24,
+   "in_some_world": 9,
+   "world_mass": 7.666666666666666
+  }
+ },
+ "reply_table_by_kind": {
+  "moves only": {
+   "replies": 16,
+   "in_table": 8
+  },
+  "with a switch": {
+   "replies": 2,
+   "in_table": 0
+  },
+  "with a protect": {
+   "replies": 9,
+   "in_table": 2
+  }
+ },
+ "overrides": [
+  {
+   "battle": "battle-gen9championsvgc2026regmc-2695425805-8proohqyfcfdvptw78qsxcrumtgc5u1pw",
+   "turn": 2,
+   "sheets": "open",
+   "bots_own": "switch 3, pass",
+   "played": "switch 4, pass",
+   "expected_edge": null,
+   "realized_edge": null,
+   "replacement": true
+  },
+  {
+   "battle": "battle-gen9championsvgc2026regmc-2695425805-8proohqyfcfdvptw78qsxcrumtgc5u1pw",
+   "turn": 5,
+   "sheets": "open",
+   "bots_own": "move eruption, move sludgebomb +1",
+   "played": "move heatwave, move sludgebomb +2",
+   "expected_edge": 0.43181634508623806,
+   "realized_edge": 0.4724605311688949,
+   "replacement": false
+  },
+  {
+   "battle": "battle-gen9championsvgc2026regmc-2695427407",
+   "turn": 1,
+   "sheets": "open",
+   "bots_own": "move fakeout +2 mega, move trickroom",
+   "played": "move fakeout +1, move trickroom",
+   "expected_edge": 0.290326465551472,
+   "realized_edge": null,
+   "replacement": false
+  },
+  {
+   "battle": "battle-gen9championsvgc2026regmc-2695427407",
+   "turn": 2,
+   "sheets": "open",
+   "bots_own": "move waterspout mega, move raindance",
+   "played": "move waterspout mega, move helpinghand -1",
+   "expected_edge": 0.34564429547637276,
+   "realized_edge": null,
+   "replacement": false
+  }
+ ],
+ "worlds": {
+  "hidden: decisions": 4,
+  "hidden: fewer than 4 worlds agree": 0,
+  "hidden: no world agrees": 0,
+  "hidden: worlds redrawn": 1,
+  "open: decisions": 33,
+  "open: worlds redrawn": 0
+ },
+ "world_errors": {
+  "open | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>": 20,
+  "hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>": 7
+ },
+ "forecast": {
+  "hidden: replies": 3,
+  "hidden: table": 1,
+  "hidden: forecast": 2,
+  "hidden: forecast, moves only": 2,
+  "hidden: forecast top 1": 0,
+  "hidden: both": 1,
+  "hidden: neither": 1,
+  "hidden: forecast only": 1,
+  "open: replies": 24,
+  "open: table": 9,
+  "open: forecast": 19,
+  "open: forecast, moves only": 19,
+  "open: forecast top 1": 12,
+  "open: neither": 5,
+  "open: forecast only": 10,
+  "open: both": 9
+ },
+ "priors": {
+  "hidden": {
+   "decisions": 0,
+   "any": {},
+   "mass": {}
+  },
+  "open": {
+   "decisions": 0,
+   "any": {},
+   "mass": {}
+  }
+ },
+ "prior_ranks": {
+  "brain": [],
+  "sum25": [],
+  "sum50": [],
+  "sum75": [],
+  "forecast": []
+ },
+ "priors_by_kind": {},
+ "games": [
+  {
+   "tag": "2695425401",
+   "won": true,
+   "turns": 4,
+   "sheets": "hidden",
+   "our_rating": 1189,
+   "opp_rating": 1267,
+   "our_leads": [
+    "Blastoise",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Staraptor",
+    "Gholdengo"
+   ],
+   "first_faint": "theirs",
+   "first_faint_turn": 2,
+   "opponent_forfeited": true,
+   "a_clock_ran_out": false,
+   "searched": 4,
+   "overrides": []
+  },
+  {
+   "tag": "2695425805",
+   "won": false,
+   "turns": 7,
+   "sheets": "open",
+   "our_rating": 1220,
+   "opp_rating": 1269,
+   "our_leads": [
+    "Charizard",
+    "Venusaur"
+   ],
+   "opp_leads": [
+    "Glimmora",
+    "Samurott-Hisui"
+   ],
+   "first_faint": "theirs",
+   "first_faint_turn": 1,
+   "opponent_forfeited": false,
+   "a_clock_ran_out": false,
+   "searched": 9,
+   "overrides": [
+    [
+     2,
+     "switch 3, pass",
+     "switch 4, pass"
+    ],
+    [
+     5,
+     "move eruption, move sludgebomb +1",
+     "move heatwave, move sludgebomb +2"
+    ]
+   ]
+  },
+  {
+   "tag": "2695426766",
+   "won": true,
+   "turns": 6,
+   "sheets": "open",
+   "our_rating": 1199,
+   "opp_rating": 1242,
+   "our_leads": [
+    "Blastoise",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Arcanine-Hisui",
+    "Raichu"
+   ],
+   "first_faint": "theirs",
+   "first_faint_turn": 2,
+   "opponent_forfeited": false,
+   "a_clock_ran_out": false,
+   "searched": 6,
+   "overrides": []
+  },
+  {
+   "tag": "2695427407",
+   "won": true,
+   "turns": 7,
+   "sheets": "open",
+   "our_rating": 1227,
+   "opp_rating": 1160,
+   "our_leads": [
+    "Blastoise",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Archaludon",
+    "Politoed"
+   ],
+   "first_faint": "theirs",
+   "first_faint_turn": 2,
+   "opponent_forfeited": false,
+   "a_clock_ran_out": false,
+   "searched": 9,
+   "overrides": [
+    [
+     1,
+     "move fakeout +2 mega, move trickroom",
+     "move fakeout +1, move trickroom"
+    ],
+    [
+     2,
+     "move waterspout mega, move raindance",
+     "move waterspout mega, move helpinghand -1"
+    ]
+   ]
+  },
+  {
+   "tag": "2695427647",
+   "won": false,
+   "turns": 8,
+   "sheets": "open",
+   "our_rating": 1247,
+   "opp_rating": 1290,
+   "our_leads": [
+    "Blastoise",
+    "Farigiraf"
+   ],
+   "opp_leads": [
+    "Sinistcha",
+    "Incineroar"
+   ],
+   "first_faint": "theirs",
+   "first_faint_turn": 1,
+   "opponent_forfeited": false,
+   "a_clock_ran_out": false,
+   "searched": 9,
+   "overrides": []
+  }
+ ]
+}

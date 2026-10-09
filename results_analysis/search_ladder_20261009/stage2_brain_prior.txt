@@ -1,0 +1,67 @@
+GAMES 8 of 15 (53%) [30.1, 75.2]
+  hidden sheets: 8 of 14 (57%)
+  open sheets: 0 of 1 (0%)
+
+1. SEARCH  decisions 141  modes {'search': 129, 'error_fallback': 12}
+   seconds a decision: p50 2.6  p90 7.4  p99 7.5  max 7.5;  7 s or more: 15 of 129 (12%);  9 s or more: 0
+      4  error_fallback: could not sample a legal opponent determinization
+      3  error_fallback: Error: Set Arbok has no moves
+      2  error_fallback: Error: Set Mimikyu has no moves
+      2  error_fallback: Total of weights must be greater than zero
+      1  error_fallback: Error: Set Squawkabilly has no moves
+
+2. THE OPPONENT'S REAL REPLY IN THE SEARCH'S TABLE
+   hidden sheets: 32 of 88 (36%) in some world; mean share of worlds holding it 27%
+   open   sheets: 5 of 6 (83%) in some world; mean share of worlds holding it 83%
+   moves only      19 of 45 (42%)
+   with a switch   6 of 22 (27%)
+   with a protect  12 of 27 (44%)
+
+3. OVERRIDES  10 of 129 (8%) of searched decisions, 0 at forced replacements
+   expected edge +0.191 (n 9);  reply was in the table for 6: realized +0.387, not positive in 0
+
+4. THE WORLDS
+   hidden: decisions                            132
+   hidden: fewer than 4 worlds agree            5
+   hidden: no world agrees                      4
+   hidden: worlds redrawn                       16
+   open: decisions                              9
+   open: worlds redrawn                         0
+    124  hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+      5  hidden | evidence resample: ValueError: Total of weights must be greater than zero
+      3  open | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+      1  hidden | root refresh: ValueError: Total of weights must be greater than zero
+
+5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
+   hidden: table 32 of 88 (36%);  forecast 41 of 88 (47%) by the same rule, 45 of 88 (51%) on moves alone, its first 19 of 88 (22%)
+           both 21, forecast only 20, table only 11, neither 36
+   open  : table 5 of 6 (83%);  forecast 2 of 6 (33%) by the same rule, 2 of 6 (33%) on moves alone, its first 1 of 6 (17%)
+           both 2, forecast only 0, table only 3, neither 1
+
+6. GAMES
+   2695430294 W turns 3 hidden rating 1225 vs 1280  Blastoise+Farigiraf vs Whimsicott+Staraptor  first faint theirs (turn 2)  searched 3  opponent forfeited
+   2695430885 L turns 7 open rating 1254 vs 1258  Blastoise+Farigiraf vs Golisopod+Politoed  first faint ours (turn 1)  searched 9
+        turn 1: move waterspout mega, move trickroom  ->  move fakeout +2 mega, move trickroom
+   2695431397 W turns 12 hidden rating 1229 vs 1297  Blastoise+Farigiraf vs Tyranitar+Excadrill  first faint theirs (turn 3)  searched 14
+        turn 8: move trickroom, move eruption  ->  move trickroom, move earthpower +2
+   2695432249 W turns 8 hidden rating 1259 vs 1124  Charizard+Venusaur vs Grimmsnarl+Arbok  first faint ours (turn 6)  searched 11
+   2695433302 L turns 5 hidden rating 1275 vs 1216  Blastoise+Farigiraf vs Squawkabilly+Farigiraf  first faint theirs (turn 1)  searched 7
+   2695433745 L turns 9 hidden rating 1246 vs 1140  Blastoise+Farigiraf vs Oranguru+Araquanid  first faint ours (turn 2)  searched 11
+   2695434793 W turns 8 hidden rating 1214 vs 1166  Blastoise+Farigiraf vs Rillaboom+Sneasler  first faint theirs (turn 2)  searched 8
+   2695435177 L turns 11 hidden rating 1236 vs 1255  Blastoise+Farigiraf vs Garchomp+Mimikyu  first faint ours (turn 1)  searched 13
+        turn 2: move eruption, move psychic +2  ->  move protect, move psychic +2
+        turn 4: move earthpower +1, move psychic +2  ->  move protect, move psychic +2
+        turn 6: move protect, move psychic +1  ->  move protect, move trickroom
+   2695436369 W turns 8 hidden rating 1212 vs 1142  Venusaur+Torkoal vs Raichu+Annihilape  first faint ours (turn 3)  searched 9  opponent forfeited
+   2695437024 W turns 10 hidden rating 1232 vs 1133  Blastoise+Farigiraf vs Indeedee-F+Milotic  first faint theirs (turn 4)  searched 12
+        turn 4: move waterspout, move psychic +2  ->  move waterpulse +1, move psychic +2
+        turn 8: move eruption, move helpinghand -1  ->  move eruption, move psychic +2
+   2695438263 L turns 9 hidden rating 1250 vs 1216  Charizard+Venusaur vs Rillaboom+Garchomp  first faint ours (turn 2)  searched 10
+   2695439269 L turns 8 hidden rating 1223 vs 1174  Blastoise+Farigiraf vs Charizard+Whimsicott  first faint ours (turn 1)  searched 10
+   2695440012 W turns 6 hidden rating 1194 vs 1227  Blastoise+Farigiraf vs Torkoal+Venusaur  first faint ours (turn 2)  searched 7
+        turn 2: move waterspout, move raindance  ->  move waterspout, move helpinghand -1
+   2695440624 L turns 8 hidden rating 1221 vs 1171  Venusaur+Torkoal vs Garchomp+Raichu  first faint theirs (turn 3)  searched 10
+   2695441462 W turns 6 hidden rating 1192 vs 1141  Blastoise+Farigiraf vs Absol+Indeedee-F  first faint theirs (turn 1)  searched 7
+        turn 2: move waterspout, move raindance  ->  move waterspout, move helpinghand -1
+        turn 6: move eruption, move throatchop +2  ->  move eruption, move flareblitz +2
+   games with an override: 4 of 6 (67%) won;  without: 4 of 9 (44%)

@@ -192,3 +192,31 @@ def test_the_trials_search_example_is_the_configuration_that_was_measured():
         False,
     )
     assert config.opponent_width == 8
+
+
+def test_the_rehearsal_plays_what_the_ladder_loop_plays_and_reads_no_credentials():
+    """tools/ladder_rehearse.sh exists to put the ladder loop's own command line on a
+    local server before rated games (2026-10-09: its first run caught a search fault
+    the unit tests and the local harnesses could not see)."""
+    rehearse = (ROOT / "tools/ladder_rehearse.sh").read_text()
+    loop = (ROOT / "tools/ladder_read_loop.sh").read_text()
+    for flags in (
+        '--checkpoint "$CKPT" --reg mc --our_team "$TEAM"',
+        '--guards-extra "$GUARDS"',
+        '--learned_preview --preview_model "$PREVIEW_MODEL"',
+        "--sticky-corrections",
+        "--sheet-preview",
+        '--opponent-forecast "$FORECAST"',
+        '--playbook "$PLAYBOOK"',
+    ):
+        assert flags in rehearse and flags in loop, flags
+    assert "tools/deployed_config.py" in rehearse
+    assert 'export VGC_SET_PRIOR_REG="$SET_PRIOR"' in rehearse
+    driver = (ROOT / "checks/ladder_rehearsal.py").read_text()
+    for text in (rehearse, driver):
+        # the credentials file of the real launchers
+        assert "Laplace-Pokemon-Showdown-AI" not in text and "/.env" not in text
+    assert "SHOWDOWN" not in rehearse and "source " not in rehearse
+    # the driver names a throwaway local guest and makes sure no password is set
+    assert 'os.environ.pop("SHOWDOWN_PASSWORD", None)' in driver
+    assert "ladder_ourteam.ShowdownServerConfiguration = SERVER" in driver
