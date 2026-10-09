@@ -54,6 +54,16 @@ def wilson(wins: float, n: int) -> tuple[float, float]:
     return centre - half, centre + half
 
 
+def sign_test(first: int, second: int) -> float:
+    """Two-sided exact binomial p of a ``first`` : ``second`` split under even odds
+    (the decisions on which two reply priors differ: which one held the reply)."""
+    n = first + second
+    if n == 0:
+        return 1.0
+    tail = sum(math.comb(n, i) for i in range(min(first, second) + 1)) / 2**n
+    return min(1.0, 2 * tail)
+
+
 def share(hits: float, total: float) -> str:
     """ "12 of 40 (30%)"; "0 of 0" without a total."""
     if not total:
@@ -265,6 +275,8 @@ def read(directory: Path, ours: str = OUR_NAME) -> dict[str, Any]:
         for sheets in ("hidden", "open")
     }
     ranks: dict[str, list[int]] = {scheme: [] for scheme in SCHEMES}
+    # the table as played against the brain's ranking alone, decision by decision
+    paired: collections.Counter[str] = collections.Counter()
     prior_kinds: dict[str, collections.Counter] = collections.defaultdict(
         collections.Counter
     )
@@ -293,6 +305,12 @@ def read(directory: Path, ours: str = OUR_NAME) -> dict[str, Any]:
                 cell["mass"]["table"] += float(cov.get("mass_with_reply") or 0.0)
                 kind = reply_kind(cov.get("observed") or {})
                 prior_kinds[kind]["n"] += 1
+                played, alone = bool(cov.get("any")), bool(logged["any"].get("brain"))
+                paired[
+                    ("both", "played only", "brain only", "neither")[
+                        (0 if played else 2) + (0 if alone else 1)
+                    ]
+                ] += 1
                 for scheme in SCHEMES:
                     cell["any"][scheme] += int(bool(logged["any"].get(scheme)))
                     cell["mass"][scheme] += float(logged["top_mass"].get(scheme) or 0)
@@ -432,6 +450,7 @@ def read(directory: Path, ours: str = OUR_NAME) -> dict[str, Any]:
             for sheets, cell in priors.items()
         },
         "prior_ranks": ranks,
+        "played_against_brain": dict(paired),
         "priors_by_kind": {kind: dict(c) for kind, c in prior_kinds.items()},
         "games": listing,
     }
@@ -543,6 +562,14 @@ def render(reading: dict[str, Any], games: bool = False) -> list[str]:
                 for scheme in SCHEMES
             )
             out.append(f"   {k:4d}   {cells}")
+        paired = reading.get("played_against_brain") or {}
+        only, alone = paired.get("played only", 0), paired.get("brain only", 0)
+        out.append(
+            "   the table as played against the brain's ranking alone, same decisions: "
+            f"both {paired.get('both', 0)}, played only {only}, brain only {alone}, "
+            f"neither {paired.get('neither', 0)};  exact two-sided p "
+            f"{sign_test(only, alone):.4f}"
+        )
         nowhere = sum(r >= NOT_LEGAL for r in ranks["brain"])
         out.append(f"   legal in no world (no prior can list it): {share(nowhere, n)}")
         for kind, cell in reading["priors_by_kind"].items():

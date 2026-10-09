@@ -17,6 +17,7 @@ from evaluation.search_ladder_read import (
     render,
     reply_kind,
     share,
+    sign_test,
     wilson,
 )
 
@@ -107,6 +108,10 @@ def test_replies_are_told_apart_by_what_they_are_made_of():
 
 def test_small_helpers():
     assert share(12, 40) == "12 of 40 (30%)" and share(0, 0) == "0 of 0"
+    # the decisions on which two priors differ: 16 to 0 is no accident, 5 to 4 is
+    assert sign_test(16, 0) == pytest.approx(2 / 2**16)
+    assert sign_test(5, 4) == 1.0 and sign_test(0, 0) == 1.0
+    assert sign_test(9, 1) == pytest.approx(22 / 1024)
     low, high = wilson(22, 40)
     assert (round(100 * low, 1), round(100 * high, 1)) == (39.8, 69.3)
 
@@ -192,6 +197,8 @@ def test_a_directory_is_read_from_its_logs_alone(tmp_path):
         "brain"
     ] == [12]
     assert reading["priors"]["hidden"]["mass"]["sum75"] == 1.0
+    # the table as played missed the reply, and so would the brain's ranking alone
+    assert reading["played_against_brain"] == {"neither": 1}
     text = "\n".join(render(reading, games=True))
     assert "5b. THE REAL REPLY UNDER OTHER REPLY PRIORS" in text
     assert "Set Arbok has no moves" in text
