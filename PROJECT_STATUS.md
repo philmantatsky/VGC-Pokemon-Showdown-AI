@@ -114,6 +114,58 @@
     their team sheets. Rehearsal of `--search-reply-prior brain` on the local server
     afterwards: null search 0 changed of 33, every audit row says `reply_prior: brain`;
     with the real anchor 21 decisions, 2 overrides, no fallback. 1,693 tests pass.
+- **SECOND AMENDMENT, 03:25, at the fifteen-game boundary of the measured configuration
+  (8 wins of 15; 11 of 20 with the search so far) and before the last 20 games.** The
+  4-wins-of-15 rule does not apply. What the fifteen games showed, and what the last
+  twenty play with:
+  - *The search could not build a world in parts of five of the fifteen games*: 12 of
+    141 decisions fell back to the bot's own move, always in a game's first turns. Four
+    games had a species the joint set data lacks (Arbok, Squawkabilly, Mimikyu twice:
+    `Set Arbok has no moves`, then `could not sample a legal opponent determinization`);
+    in one the sets that still fitted what the opponent had shown all held an item a
+    teammate already had (`Total of weights must be greater than zero`). By the recorded
+    rosters 47 of 415 ladder games (11%) have a species without sets.
+  - *The stop rule.* It reads "more than a fifth of the last 40 or more searched
+    decisions not searched"; the monitor written before the first game counts the last
+    120 (never fewer than 40). At 02:41, inside game 6, the last 40 read 22.5% and the
+    monitor's count 16.7%; at every game boundary the monitor read 10-16%. The trial
+    went on under the monitor's count, which is the rule as it was operated; the wording
+    was looser than that, and a count of exactly the last 40 would have stopped it. The
+    cause was known by then and is not a dead search.
+  - *For the last twenty, two additions* (built on a branch in a checkout outside the
+    repository folder while the fifteen played, merged at the boundary):
+    1. **Worlds for those rosters.** `data/rare_sets_regmc.json` (87 species;
+       `datagen/build_rare_sets.py`: for each species the joint data lacks, its four
+       most used moves from the opponent predictor's repertoire of human games, its
+       first listed ability, no item) -- `ParticleDatabase` already read such a file.
+       And the set sampler, when every weighted set of a Pokemon holds a taken item,
+       keeps the set that fits what was shown and leaves its item open. Only the
+       search's worlds read either; the ordinary draw is unchanged, random stream
+       included.
+    2. **A measuring mode for the reply prior**, which changes no decision:
+       `--search-reply-prior forecast --search-forecast-weight 0`. The search is handed
+       the opponent predictor's forecast, ranks the opponent's replies exactly as the
+       brain's prior does (pinned by a test: reply for reply), and logs with each
+       decision where the opponent's real reply would have ranked, world by world,
+       under the brain, the forecast and sums of the two (`reply_coverage.priors`).
+       With a weight above 0 the same option makes the search USE that mixture; that is
+       built (default a sum at 0.5) and is not played tonight.
+  - *Why the measuring mode.* In the fifteen games the real reply was in the search's
+    table in 32 of 88 hidden-sheet decisions (36%) and in the forecast's own eight
+    likeliest in 41 (47%) -- and they miss different replies: both 21, the forecast
+    alone 20, the table alone 11, neither 36. A reply with a switch in it was in the
+    table 6 times in 22 (the opponents switched in 23% of the replies seen; the brain
+    in their seat hardly expects it). Which mixture would cover most cannot be read
+    from the logs as they were; the last twenty games record it.
+  - *Rehearsed on the local server with exactly these flags* (three rounds; the first
+    two found two faults in the new logging -- cleared twice a decision, and keyed by
+    things two worlds share -- fixed, with tests): rosters with Inteleon, Mimikyu,
+    Squawkabilly and Ampharos search from turn one, no fallback in 28 + 41 decisions;
+    null search 0 changed of 28; the logged brain ranking agrees with the table as
+    played on every one of 44 rows. 1,722 tests pass.
+  - The last twenty go to `ladder_replays_mc_search_nash3`. Reply prior, anchor,
+    worlds, streams and budget are those of the fifteen. The non-regression reading
+    stays over all 40 search games.
 
 ## Roster run read: the search helps against other teams, +1.5 points [+0.7, +2.3] over 6,204 games an arm (93.1% -> 94.6%) (2026-October 6, 07:30)
 

@@ -1,0 +1,17 @@
+{
+ "source": {
+  "artifact": "results_deployed/opponent_forecast_oppnet_v2_blind.pt",
+  "sha256": "95ffbde2391d50a5ae7f61af6f66541d523163c4551328ce3d87f4813efc988a",
+  "what": "the predictor's repertoire: weighted move uses per species in human games, training split only"
+ },
+ "joint_sets": {
+  "path": "data/joint_sets_regmc.json",
+  "species": 186
+ },
+ "species": 87,
+ "min_support": 5.0,
+ "moves": "the four most used; use is not set membership",
+ "abilities": "the species' first listed ability; not observed",
+ "items": "none: not observed, not fabricated",
+ "role": "search worlds only (set_particles.ParticleDatabase); the brain's observation does not read this file"
+}

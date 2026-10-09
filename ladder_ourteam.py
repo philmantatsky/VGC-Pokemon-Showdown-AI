@@ -50,6 +50,8 @@ SEARCH_FLAG_DEFAULTS = {
     "search_streams": 0,
     # 2026-10-09: "models" is what every ladder search played before the flag existed
     "search_reply_prior": "models",
+    "search_forecast_weight": 0.5,
+    "search_forecast_mix": "sum",
 }
 VOLATILE_ARGS = {
     "n_games",
@@ -280,6 +282,12 @@ def material_config(
     for name, default in SEARCH_FLAG_DEFAULTS.items():
         if material.get(name) == default:
             material.pop(name, None)
+    # Shadow mode's artifact is not configuration (it changes no decision). Once
+    # the search reads the forecast it is: the artifact itself goes on record.
+    if material.get("search_reply_prior") == "forecast":
+        forecast = getattr(args, "opponent_forecast", "")
+        material["search_reply_forecast"] = str(forecast)
+        material["search_reply_forecast_sha256"] = sha256_or_missing(Path(forecast))
     # the calibration itself, not just its path (recorded only when on)
     if material.get("search_leaf_calibration"):
         material["search_leaf_calibration_sha256"] = hashlib.sha256(
@@ -642,14 +650,36 @@ def build_parser() -> argparse.ArgumentParser:
     )
     ap.add_argument(
         "--search-reply-prior",
-        choices=("models", "brain"),
+        choices=("models", "brain", "forecast"),
         default=SEARCH_FLAG_DEFAULTS["search_reply_prior"],
         help=(
             "what ranks the opponent's replies in the search. models: the brain's own "
             "prior blended with the opponent move / switch models the reranker uses "
             "(every ladder search before 2026-10-09). brain: the brain's prior alone, "
             "as in every local search measurement since 2026-10-04, whose players "
-            "carry no such models"
+            "carry no such models. forecast: the opponent predictor's forecast for "
+            "the decision (--opponent-forecast, which is then read by the search "
+            "and no longer shadow-only), the brain's prior for everything else"
+        ),
+    )
+    ap.add_argument(
+        "--search-forecast-weight",
+        type=float,
+        default=SEARCH_FLAG_DEFAULTS["search_forecast_weight"],
+        help=(
+            "--search-reply-prior forecast: the forecast's weight in its mixture "
+            "with the brain's prior. 0 plays exactly as --search-reply-prior brain "
+            "and logs where the opponent's real reply would have ranked under the "
+            "brain, the forecast and sums of the two"
+        ),
+    )
+    ap.add_argument(
+        "--search-forecast-mix",
+        choices=("sum", "product"),
+        default=SEARCH_FLAG_DEFAULTS["search_forecast_mix"],
+        help=(
+            "--search-reply-prior forecast: (1 - w) * brain + w * forecast, or "
+            "brain^(1 - w) * forecast^w"
         ),
     )
     ap.add_argument("--search_budget", type=float, default=8.0)
@@ -774,9 +804,24 @@ def forecast_status(agent: Any, path: str) -> str:
     if not path:
         return "off"
     runtime = getattr(agent, "_opponent_forecaster", None)
+    searched = bool(getattr(agent, "exact_reply_forecast", False))
     if runtime is not None and getattr(runtime, "serving", False):
+        if searched:
+            weight = float(getattr(agent, "exact_reply_forecast_weight", 0.0))
+            mix = getattr(agent, "exact_reply_forecast_mix", "sum")
+            if weight <= 0:
+                return (
+                    "held against the search's reply table (weight 0: the search "
+                    f"plays as with the brain's prior alone) and logged: {path}"
+                )
+            return (
+                f"READ BY THE SEARCH (the opponent's replies, {mix} at weight "
+                f"{weight:g}) and logged: {path}"
+            )
         return f"shadow mode on, logging {path} (no decision reads it)"
     why = getattr(runtime, "load_failure", None) or "the predictor did not load"
+    if searched:
+        return f"NOT SERVING ({why}); the search ranks replies with the brain alone"
     return f"SHADOW MODE NOT SERVING ({why}); the bot plays on without it"
 
 
@@ -832,6 +877,13 @@ async def main():
             raise SystemExit("--search-replies must be within [2, 16]")
         if not 0 <= args.search_streams <= 16:
             raise SystemExit("--search-streams must be within [0, 16]")
+        if not 0 <= args.search_forecast_weight <= 1:
+            raise SystemExit("--search-forecast-weight must be within [0, 1]")
+        if args.search_reply_prior == "forecast" and not args.opponent_forecast:
+            raise SystemExit(
+                "--search-reply-prior forecast needs --opponent-forecast (the "
+                "predictor's artifact)"
+            )
         if args.search_leaf_calibration:
             if args.search_leaf != "critic":
                 raise SystemExit("--search-leaf-calibration needs --search-leaf critic")
@@ -1045,6 +1097,9 @@ async def main():
         ),
         exact_min_streams=args.search_streams,
         exact_opponent_models=args.search_reply_prior == "models",
+        exact_reply_forecast=args.search and args.search_reply_prior == "forecast",
+        exact_reply_forecast_weight=args.search_forecast_weight,
+        exact_reply_forecast_mix=args.search_forecast_mix,
         exact_min_deep_coverage=args.min_deep_coverage,
         exact_preview_search=args.search and args.planned_preview,
         exact_preview_budget=args.preview_search_budget,

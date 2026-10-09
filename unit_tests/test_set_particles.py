@@ -205,3 +205,53 @@ def test_placeholder_moves_are_stripped_from_particles():
     assert particles
     for particle in particles:
         assert particle.moves == ("transform",)
+
+
+def test_a_team_can_be_drawn_when_every_weighted_set_holds_a_taken_item():
+    """2026-10-09, a ladder game: after what the opponent had shown, the only sets of
+    one species that still carried weight held the item a teammate already had. The
+    sets left had weight zero, and random.choices raised "Total of weights must be
+    greater than zero" -- no world, no search, for the first turns of that game."""
+
+    def held(item, moves, count):
+        return {
+            "ability": "x",
+            "item": item,
+            "moves": moves,
+            "prob": 0.5,
+            "count": count,
+        }
+
+    database = ParticleDatabase(
+        {
+            "first": {"sets": [held("sitrusberry", ["a", "b", "c", "d"], 5)]},
+            "second": {
+                "sets": [
+                    held("sitrusberry", ["e", "f", "g", "h"], 5),
+                    held("leftovers", ["e", "i", "j", "k"], 5),
+                ]
+            },
+        },
+        {},
+    )
+    belief = TeamBelief.from_roster(database, ["first", "second"])
+    assert [p.item for p in belief.beliefs["second"].particles] == [
+        "sitrusberry",
+        "leftovers",
+    ]
+    # nothing shown: the Item Clause alone picks the Leftovers set
+    (world,) = belief.sample_determinizations(8, random.Random(3))
+    assert (world["first"].item, world["second"].item) == ("sitrusberry", "leftovers")
+    # it shows "f": only the Sitrus Berry set is still possible, and that item is taken
+    belief.condition("second", moves=["f"])
+    assert belief.beliefs["second"].weights == (1.0, 0.0)
+    (world,) = belief.sample_determinizations(8, random.Random(3))
+    # the set that fits what was shown, its item left open -- not the set that
+    # contradicts it, and not no world at all
+    assert world["second"].moves == ("e", "f", "g", "h")
+    assert world["second"].item is None and world["first"].item == "sitrusberry"
+    # a species nothing is known about still cannot be drawn
+    with pytest.raises(ValueError, match="could not sample"):
+        TeamBelief.from_roster(database, ["first", "third"]).sample_determinizations(
+            8, random.Random(3)
+        )

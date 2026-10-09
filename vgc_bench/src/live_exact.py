@@ -614,6 +614,8 @@ class LiveExactSession:
         leaf_calibration_path: Path | None = None,
         min_streams: int = 0,
         search_replacements: bool = True,
+        reply_forecast_weight: float = 0.50,
+        reply_forecast_mix: str = "sum",
     ):
         self.battle_tag = battle_tag
         self.policy = policy
@@ -653,7 +655,10 @@ class LiveExactSession:
             move_predictor=move_predictor,
             switch_predictor=switch_predictor,
             controlled_role="p1",
+            forecast_weight=reply_forecast_weight,
+            forecast_mix=reply_forecast_mix,
         )
+        self.reply_forecast_status = "none"
         # leaf "critic" (2026-10-04, the matrix search): the brain's own value head
         # plus its shaping potential (vgc_bench/src/critic_leaf.py) instead of the
         # August outcome net, which was calibrated on the Reg M-B champion and MB430
@@ -1127,6 +1132,51 @@ class LiveExactSession:
         self.reconciliations += len(advanced)
         self.pending_our_choice = None
         self.event_cursor = len(events)
+
+    def set_reply_forecast(self, forecast: Any, turn: int | None = None) -> None:
+        """Hand the search the opponent predictor's forecast for the decision about to
+        be planned (a ``oppmodel.runtime.Forecast``), or None to plan without one.
+
+        The opponent's replies to this decision are then ranked with it (see
+        ``OpponentModelPrior``); nothing else changes. Call it before every
+        ``plan()``: a forecast is for one decision only. Never raises -- whatever
+        cannot be read leaves the search with its ordinary prior, and is counted.
+        """
+        status, root = "none", None
+        try:
+            if forecast is not None:
+                from vgc_bench.src.exact_observation import RootForecast
+                from vgc_bench.src.oppmodel.runtime import (
+                    to_move_predictions,
+                    to_switch_predictions,
+                )
+
+                # reliability 1.0: the consumers read it as "how much of the set is
+                # known" and blend with a uniform by it; here the probabilities are
+                # the forecast's own and are taken as they are
+                moves = to_move_predictions(forecast, 1.0, require_both=False)
+                switches = to_switch_predictions(forecast, require_both=False)
+                if moves is not None and not any(m.moves for m in moves):
+                    moves = None
+                if moves is None and switches is None:
+                    status = "unreadable"
+                else:
+                    mega = tuple(
+                        None if slot is None else float(slot.p_mega)
+                        for slot in (forecast.a, forecast.b)
+                    )
+                    made_for = int(forecast.turn if turn is None else turn)
+                    root = RootForecast(made_for, moves, switches, (mega[0], mega[1]))
+                    status = "set"
+        except Exception as exc:
+            status, root = f"failed:{type(exc).__name__}", None
+        # exactly once a decision: this is also what moves the last decision's
+        # reply log to "the decision before" (OpponentModelPrior.set_root_forecast)
+        try:
+            self.prior.set_root_forecast(root)
+        except Exception as exc:
+            status = f"failed:{type(exc).__name__}"
+        self.reply_forecast_status = status
 
     def prepare(self, battle: DoubleBattle) -> None:
         self.current_battle = battle
@@ -2525,7 +2575,74 @@ class LiveExactSession:
                 "expected_edge": expected,
                 "realized_edge": edge / edge_mass if edge_mass > 0 else None,
             }
+        priors = self._prior_coverage(tables, observed)
+        if priors is not None:
+            coverage["priors"] = priors
         return coverage
+
+    # reply priors held against the real reply: the brain's, the forecast's, and
+    # sums of the two (the forecast's weight in hundredths)
+    PRIOR_SCHEMES = {
+        "brain": 0.0,
+        "sum25": 0.25,
+        "sum50": 0.5,
+        "sum75": 0.75,
+        "forecast": 1.0,
+    }
+
+    def _prior_coverage(self, tables, observed) -> dict[str, Any] | None:
+        """Would the opponent's real reply have been in the table under another
+        reply prior? Only when the last decision was handed a forecast: the prior
+        kept every legal reply's (brain, forecast) probability per world then.
+
+        For each scheme: ``top_mass`` is the share of the searched worlds'
+        probability in which the real reply ranks within the table's width (the
+        counterpart of ``mass_with_reply``, which is the table as it was played),
+        ``any`` whether it does in some world, ``best_rank`` its best rank in any
+        world. Worlds in which the reply is not legal at all (a move outside the
+        sampled set) count as misses for every scheme. Never raises.
+        """
+        try:
+            from vgc_bench.src.exact_observation import replies_by_mixture
+
+            log = getattr(self.prior, "previous_reply_log", None)
+            if not log:
+                return None
+            width = int(self.config.opponent_width)
+            mass = dict.fromkeys(self.PRIOR_SCHEMES, 0.0)
+            best: dict[str, int] = {}
+            total = 0.0
+            worlds = 0
+            for node, probability, _table, _champion in tables:
+                entry = log.get(id(node.state))
+                if entry is None:
+                    continue
+                worlds += 1
+                total += probability
+                matching = {
+                    reply
+                    for reply in entry
+                    if choice_matches_observation(node, "p2", reply, observed)
+                }
+                if not matching:
+                    continue
+                for name, weight in self.PRIOR_SCHEMES.items():
+                    order = replies_by_mixture(entry, weight)
+                    rank = 1 + min(order.index(reply) for reply in matching)
+                    best[name] = min(rank, best.get(name, rank))
+                    if rank <= width:
+                        mass[name] += probability
+            if worlds == 0 or total <= 0:
+                return None
+            return {
+                "worlds": worlds,
+                "width": width,
+                "top_mass": {name: value / total for name, value in mass.items()},
+                "any": {name: value > 0 for name, value in mass.items()},
+                "best_rank": best,
+            }
+        except Exception as exc:
+            return {"failed": type(exc).__name__}
 
     def _champion_choices(
         self,
@@ -2833,6 +2950,19 @@ class LiveExactSession:
                 is not None
                 else "brain"
             ),
+            # the opponent predictor's forecast for this decision, when the search
+            # was handed one: "set" and how many of the opponent's rankings it served
+            # ("none": no forecast; "unreadable" / "failed:<Error>": not used)
+            "reply_forecast": {
+                "status": getattr(self, "reply_forecast_status", "none"),
+                "rankings": getattr(
+                    getattr(self, "prior", None), "forecast_rankings", 0
+                ),
+                "weight": getattr(
+                    getattr(self, "prior", None), "forecast_weight", None
+                ),
+                "mix": getattr(getattr(self, "prior", None), "forecast_mix", None),
+            },
             "determinizations": len(self.roots),
             "search_determinizations": self.search_determinizations,
             "min_deep_coverage": self.min_deep_coverage,

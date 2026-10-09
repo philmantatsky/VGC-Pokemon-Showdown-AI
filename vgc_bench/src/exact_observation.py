@@ -14,7 +14,7 @@ import logging
 import re
 import threading
 from dataclasses import dataclass, field
-from typing import Any, Iterable, Sequence
+from typing import Any, Iterable, Mapping, Sequence
 
 import numpy as np
 import torch
@@ -912,11 +912,97 @@ def opponent_choice_likelihood(
     return float(likelihood)
 
 
+def _state_roster(state: dict[str, Any], role: str) -> tuple[str, ...]:
+    """Base species of ``role``'s party in an exact state, by party position (what a
+    "switch N" names). Empty where a record cannot be read."""
+    try:
+        party = state["sides"][int(role[1]) - 1]["pokemon"]
+    except (IndexError, KeyError, TypeError, ValueError):
+        return ()
+    names = []
+    for pokemon in party:
+        if not isinstance(pokemon, dict):
+            names.append("")
+            continue
+        pokemon_set = pokemon.get("set") or {}
+        names.append(
+            to_id_str(
+                pokemon_set.get("species")
+                or pokemon.get("baseSpecies")
+                or pokemon.get("species")
+                or ""
+            )
+        )
+    return tuple(names)
+
+
+def _mega_likelihood(choice: str, mega: Sequence[float | None] | None) -> float:
+    """How well a joint choice agrees with "this slot Mega-evolves this turn".
+
+    A move atom with the Mega Evolution is credited with the slot's Mega probability,
+    one without it with the rest. Where a slot cannot Mega-evolve every atom of it
+    carries the same factor, which the caller's normalisation removes. Clamped so one
+    confident head cannot erase the other spelling.
+    """
+    if not mega:
+        return 1.0
+    atoms = [atom.strip() for atom in choice.split(",")]
+    factor = 1.0
+    for slot, atom in enumerate(atoms[:2]):
+        probability = mega[slot] if slot < len(mega) else None
+        if probability is None or not atom.startswith("move "):
+            continue
+        probability = min(0.98, max(0.02, float(probability)))
+        # the event is a word of its own after the move ("move megahorn +1 mega")
+        evolves = "mega" in atom.split()[2:]
+        factor *= probability if evolves else 1.0 - probability
+    return factor
+
+
+FORECAST_MIXES = ("sum", "product")
+
+
+def mixed_probability(pair: tuple[float, float], weight: float, mix: str) -> float:
+    """One reply's (brain, forecast) probabilities as one number, unnormalised."""
+    brain, forecast = pair
+    if mix == "product":
+        return max(1e-12, brain) ** (1.0 - weight) * max(1e-12, forecast) ** weight
+    return (1.0 - weight) * brain + weight * forecast
+
+
+def replies_by_mixture(
+    entry: Mapping[str, tuple[float, float]], weight: float, mix: str = "sum"
+) -> list[str]:
+    """A world's replies, likeliest first, as a prior with this weight and mix
+    would have ranked them (ties keep the order they were logged in: the brain's)."""
+    return sorted(
+        entry, key=lambda choice: -mixed_probability(entry[choice], weight, mix)
+    )
+
+
+@dataclass(frozen=True)
+class RootForecast:
+    """The opponent predictor's forecast of the reply to ONE live decision: the two
+    slots' move and switch predictions in the shape the opponent models have always
+    been read in, each slot's Mega probability, and the turn it was made for."""
+
+    turn: int
+    moves: tuple[MovePrediction, MovePrediction] | None
+    switches: tuple[SwitchPrediction, SwitchPrediction] | None
+    mega: tuple[float | None, float | None] | None = None
+
+
 class OpponentModelPrior:
     """Use high-rated-player models for opponent branches, not our own policy.
 
     The policy remains a small smoothing prior so out-of-distribution model outputs
     cannot erase legal responses. For our side, ranking is unchanged.
+
+    ``root_forecast`` (2026-10-09, opt-in): the opponent predictor's forecast for the
+    live decision. While it is set, the opponent's replies to THAT decision -- a move
+    request of the forecast's turn -- are ranked with it at ``forecast_weight``
+    and ``forecast_mix`` (``_rank_with_forecast``) instead of the move / switch
+    models; everything else (replacements, later turns) is ranked as before.
     """
 
     def __init__(
@@ -927,15 +1013,52 @@ class OpponentModelPrior:
         controlled_role: str = "p1",
         model_weight: float = 0.60,
         open_sheet_model_weight: float = 0.40,
+        forecast_weight: float = 0.50,
+        forecast_mix: str = "sum",
     ):
         if not 0 <= model_weight <= 1 or not 0 <= open_sheet_model_weight <= 1:
             raise ValueError("opponent model weights must be in [0, 1]")
+        if not 0 <= forecast_weight <= 1:
+            raise ValueError("forecast_weight must be in [0, 1]")
+        if forecast_mix not in FORECAST_MIXES:
+            raise ValueError(f"forecast_mix must be one of {FORECAST_MIXES}")
         self.base = base
         self.move_predictor = move_predictor
         self.switch_predictor = switch_predictor
         self.controlled_role = controlled_role
         self.model_weight = model_weight
         self.open_sheet_model_weight = open_sheet_model_weight
+        self.forecast_weight = forecast_weight
+        self.forecast_mix = forecast_mix
+        self.root_forecast: RootForecast | None = None
+        # rankings the forecast served since it was last set (the audit reads it)
+        self.forecast_rankings = 0
+        # per world (id of its state): reply -> (brain, forecast) probability, for
+        # the decision being searched and for the one before it
+        self.reply_log: dict[int, dict[str, tuple[float, float]]] = {}
+        self.previous_reply_log: dict[int, dict[str, tuple[float, float]]] = {}
+
+    def set_root_forecast(self, forecast: RootForecast | None) -> None:
+        """The forecast for the decision about to be searched; None clears it. What
+        the last decision logged moves to ``previous_reply_log``: by the next
+        decision the opponent's reply to it is known."""
+        self.previous_reply_log, self.reply_log = self.reply_log, {}
+        self.root_forecast = forecast
+        self.forecast_rankings = 0
+
+    def _forecast_for(self, state, forced: bool) -> RootForecast | None:
+        """The live forecast, when this is the opponent's reply to the decision it
+        was made for: a move request of the forecast's own turn."""
+        forecast = self.root_forecast
+        if forecast is None or forced:
+            return None
+        if forecast.moves is None and forecast.switches is None:
+            return None
+        try:
+            turn = int(state.get("turn") or 0)
+        except (AttributeError, TypeError, ValueError):
+            return None
+        return forecast if turn == forecast.turn else None
 
     @staticmethod
     def _species(mon) -> str:
@@ -1014,8 +1137,15 @@ class OpponentModelPrior:
             role == self.controlled_role
             or not ranked
             or ranked[0].choice.startswith("team ")
-            or (self.move_predictor is None and self.switch_predictor is None)
         ):
+            return ranked
+        request = requests[int(role[1]) - 1] or {}
+        forced = any(bool(value) for value in request.get("forceSwitch", []))
+        # one legal reply (the opponent waits while we replace): nothing to rank
+        forecast = self._forecast_for(state, forced) if len(ranked) > 1 else None
+        if forecast is not None:
+            return self._rank_with_forecast(state, role, ranked, forecast)
+        if self.move_predictor is None and self.switch_predictor is None:
             return ranked
         try:
             moves, switches, roster, _battle = self._predictions(state, requests, role)
@@ -1023,8 +1153,6 @@ class OpponentModelPrior:
             return ranked
         if moves is None and switches is None:
             return ranked
-        request = requests[int(role[1]) - 1] or {}
-        forced = any(bool(value) for value in request.get("forceSwitch", []))
         model_weight = (
             self.open_sheet_model_weight
             if self.base.reveal_opponent_sets
@@ -1050,6 +1178,63 @@ class OpponentModelPrior:
             (
                 RankedChoice(item.choice, item.actions, item.probability / total)
                 for item in rescored
+            ),
+            key=lambda item: item.probability,
+            reverse=True,
+        )
+
+    def _rank_with_forecast(self, state, role: str, ranked, forecast: RootForecast):
+        """The opponent's replies to the live decision, ranked by the brain's prior
+        and the forecast together.
+
+        Both are made distributions over the legal replies and mixed:
+        ``forecast_mix`` "sum" is ``(1 - w) * brain + w * forecast``, a reply either
+        of them expects stays near the top; "product" is ``brain^(1 - w) *
+        forecast^w``, as the move / switch models are blended, which keeps only what
+        both expect. On the ladder trial's first games the two lists missed
+        different replies (hidden sheets: both held the real reply 6 times, only
+        the forecast 4, only the brain 5, neither 8 -- of 23), which is the case
+        for the sum. With ``w = 0`` the ranking is the brain's own, reply for
+        reply, and the pair of probabilities is still kept (``reply_log``) for the
+        session to hold against what the opponent then does.
+        """
+        roster = _state_roster(state, role)
+        likelihoods = []
+        for item in ranked:
+            likelihood = opponent_choice_likelihood(
+                item.choice, forecast.moves, forecast.switches, roster
+            )
+            if forecast.mega is not None:
+                likelihood *= _mega_likelihood(item.choice, forecast.mega)
+            likelihoods.append(max(0.0, float(likelihood)))
+        forecast_total = sum(likelihoods)
+        brain_total = sum(max(0.0, float(item.probability)) for item in ranked)
+        if forecast_total <= 0 or brain_total <= 0:
+            return ranked
+        pairs = [
+            (max(0.0, float(item.probability)) / brain_total, value / forecast_total)
+            for item, value in zip(ranked, likelihoods)
+        ]
+        self.forecast_rankings += 1
+        # Keyed by the world's state OBJECT, which the session still holds when the
+        # opponent's reply is known. Nothing in a state tells two worlds apart: they
+        # often give the Pokemon on the field the same moves, and once advanced on
+        # shared random streams they carry the same seed too -- while the brain
+        # ranks their replies differently (what is on the bench differs).
+        self.reply_log[id(state)] = {
+            item.choice: pair for item, pair in zip(ranked, pairs)
+        }
+        weight = self.forecast_weight
+        if weight <= 0:
+            return ranked
+        mixed = [mixed_probability(pair, weight, self.forecast_mix) for pair in pairs]
+        total = sum(mixed)
+        if total <= 0:
+            return ranked
+        return sorted(
+            (
+                RankedChoice(item.choice, item.actions, value / total)
+                for item, value in zip(ranked, mixed)
             ),
             key=lambda item: item.probability,
             reverse=True,

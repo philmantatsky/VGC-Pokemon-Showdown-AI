@@ -10,6 +10,13 @@ bootstrap over rosters, as the battery does), and every cell records how often t
 search really ran, fell back or failed -- the held-out rosters carry species and
 mechanics our own team never shows it.
 
+A third arm, "forecast" (2026-10-09, only when named in --arms): the same search with
+the opponent predictor's forecast ranking the opponent's replies
+(PolicyPlayer exact_reply_forecast) instead of the brain's own prior. It is compared
+with the search arm roster by roster ("forecast_minus_search"). The predictor is
+trained on human games: the clones of human play are the opponents it should read
+best, the league bots and the heuristic the ones it was never shown.
+
 One opponent per process: the searching side plays one battle at a time
 (tools/search_roster_arms.sh runs the battery's six side by side). Cells are appended
 whole, so a run can be resumed. Nothing is promoted by this script; search stays off
@@ -43,7 +50,8 @@ import numpy as np  # noqa: E402
 
 from evaluation.mirror_guard_ab import wilson  # noqa: E402
 
-ARMS = ("plain", "search")
+ARMS = ("plain", "search", "forecast")
+SEARCHING = ("search", "forecast")
 # what every player in the battery runs besides the hard guards (opening_study.py)
 BATTERY_EXTRAS = ("resisted_target", "overkill_split", "dominated_weather_ball_weather")
 
@@ -71,8 +79,15 @@ def complete_cells(rows: list[dict], repeats: int) -> set[tuple[str, bool, str]]
     return set(counts)
 
 
-def paired_delta(rows: list[dict], draws: int = 4000, seed: int = 20925) -> dict:
-    """Search minus plain, roster by roster, with a bootstrap over rosters.
+def paired_delta(
+    rows: list[dict],
+    draws: int = 4000,
+    seed: int = 20925,
+    arm: str = "search",
+    base: str = "plain",
+) -> dict:
+    """``arm`` minus ``base`` (search minus plain), roster by roster, with a
+    bootstrap over rosters.
 
     Only rosters whose cells exist in both arms count. Games on one roster are
     correlated, so whole rosters are resampled, never single games."""
@@ -88,15 +103,15 @@ def paired_delta(rows: list[dict], draws: int = 4000, seed: int = 20925) -> dict
             by_arm[row["arm"]].setdefault(row["opponent"], []).append(row["target"])
         rosters = sorted(
             roster
-            for roster in by_arm["plain"]
-            if len(by_arm["search"].get(roster, [])) == len(by_arm["plain"][roster])
+            for roster in by_arm[base]
+            if len(by_arm[arm].get(roster, [])) == len(by_arm[base][roster])
         )
         if not rosters:
             out[mode] = {"rosters": 0, "delta": None, "bootstrap_95": None}
             continue
         delta = np.array(
             [
-                np.mean(by_arm["search"][roster]) - np.mean(by_arm["plain"][roster])
+                np.mean(by_arm[arm][roster]) - np.mean(by_arm[base][roster])
                 for roster in rosters
             ]
         )
@@ -105,12 +120,12 @@ def paired_delta(rows: list[dict], draws: int = 4000, seed: int = 20925) -> dict
         )
         out[mode] = {
             "rosters": len(rosters),
-            "games_per_arm": int(sum(len(by_arm["plain"][r]) for r in rosters)),
-            "plain_win_rate": float(
-                np.mean([t for r in rosters for t in by_arm["plain"][r]])
+            "games_per_arm": int(sum(len(by_arm[base][r]) for r in rosters)),
+            f"{base}_win_rate": float(
+                np.mean([t for r in rosters for t in by_arm[base][r]])
             ),
-            "search_win_rate": float(
-                np.mean([t for r in rosters for t in by_arm["search"][r]])
+            f"{arm}_win_rate": float(
+                np.mean([t for r in rosters for t in by_arm[arm][r]])
             ),
             "delta": float(delta.mean()),
             "bootstrap_95": [float(x) for x in np.quantile(boot, [0.025, 0.975])],
@@ -120,10 +135,14 @@ def paired_delta(rows: list[dict], draws: int = 4000, seed: int = 20925) -> dict
 
 def summarize(rows: list[dict], telemetry: list[dict] | None = None) -> dict:
     counts: collections.Counter[str] = collections.Counter()
+    forecast_counts: collections.Counter[str] = collections.Counter()
     for cell in telemetry or []:
         if cell["arm"] == "search":
             counts.update(cell.get("search_counts") or {})
-    return {
+        elif cell["arm"] == "forecast":
+            forecast_counts.update(cell.get("search_counts") or {})
+    played = {row["arm"] for row in rows}
+    out = {
         "arms": {
             arm: {
                 "overall": record([r for r in rows if r["arm"] == arm]),
@@ -135,10 +154,17 @@ def summarize(rows: list[dict], telemetry: list[dict] | None = None) -> dict:
                 ),
             }
             for arm in ARMS
+            if arm in played or arm != "forecast"
         },
         "search_minus_plain": paired_delta(rows),
         "search_counts": dict(counts),
     }
+    if "forecast" in played:
+        # the question the arm is for, and the one the search arm answers for it
+        out["forecast_minus_search"] = paired_delta(rows, arm="forecast", base="search")
+        out["forecast_minus_plain"] = paired_delta(rows, arm="forecast", base="plain")
+        out["forecast_counts"] = dict(forecast_counts)
+    return out
 
 
 def pool(runs: list[Path]) -> dict:
@@ -175,6 +201,18 @@ def pool(runs: list[Path]) -> dict:
             ]
             for run in runs
         },
+        **(
+            {
+                "forecast_minus_search_by_opponent": {
+                    run.name: summarize(_read(run / "rows.jsonl"))[
+                        "forecast_minus_search"
+                    ]["overall"]
+                    for run in runs
+                }
+            }
+            if any(row["arm"] == "forecast" for row in rows)
+            else {}
+        ),
     }
 
 
@@ -233,6 +271,21 @@ def main() -> None:
     ap.add_argument("--a-search-replies", type=int, default=8)
     ap.add_argument("--a-search-streams", type=int, default=0)
     ap.add_argument("--a-search-leaf-calibration", type=Path, default=None)
+    ap.add_argument(
+        "--a-forecast",
+        type=Path,
+        default=None,
+        help="the forecast arm's predictor artifact (default: the deployed "
+        "configuration's opponent_forecast)",
+    )
+    ap.add_argument(
+        "--a-forecast-weight",
+        type=float,
+        default=0.5,
+        help="the forecast arm: the forecast's weight in its mixture with the "
+        "brain's prior",
+    )
+    ap.add_argument("--a-forecast-mix", choices=("sum", "product"), default="sum")
     ap.add_argument("--prepare-only", action="store_true")
     args = ap.parse_args()
     if args.pool:
@@ -276,6 +329,19 @@ def main() -> None:
     def sha256(path: Path | str) -> str:
         return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
+    forecast_artifact = None
+    if "forecast" in arms:
+        forecast_artifact = args.a_forecast or (
+            Path(config["FORECAST"]) if config.get("FORECAST") else None
+        )
+        if forecast_artifact is None or not (ROOT / forecast_artifact).is_file():
+            raise ValueError(
+                "the forecast arm needs a predictor artifact (--a-forecast, or "
+                "opponent_forecast in the deployed configuration)"
+            )
+        if not 0 <= args.a_forecast_weight <= 1:
+            raise ValueError("--a-forecast-weight must be within [0, 1]")
+
     manifest = {
         "question": "the deployed bot against a held-out opponent on held-out "
         "rosters, as deployed and with the exact search",
@@ -306,6 +372,19 @@ def main() -> None:
                 sha256(ROOT / calibration) if calibration else None
             ),
         },
+        # only with the forecast arm, so that studies from before it compare equal
+        **(
+            {
+                "forecast": {
+                    "artifact": str(forecast_artifact),
+                    "sha256": sha256(ROOT / forecast_artifact),
+                    "weight": args.a_forecast_weight,
+                    "mix": args.a_forecast_mix,
+                }
+            }
+            if forecast_artifact is not None
+            else {}
+        ),
         "matchups": matchups,
         "excluded_matchups": exclude,
         "repeats": args.repeats,
@@ -424,6 +503,24 @@ def main() -> None:
                 concurrency=1,
                 device=args.device,
             )
+        if "forecast" in arms:
+            ours["forecast"] = _player(
+                config,
+                hidden,
+                args.seed,
+                args.port,
+                ours_guards,
+                extra=search_extra
+                | {
+                    "decision_log_path": output / f"forecast_{sheets}_decisions.jsonl",
+                    "opponent_forecast_path": ROOT / str(forecast_artifact),
+                    "exact_reply_forecast": True,
+                    "exact_reply_forecast_weight": args.a_forecast_weight,
+                    "exact_reply_forecast_mix": args.a_forecast_mix,
+                },
+                concurrency=1,
+                device=args.device,
+            )
         players[hidden] = {"foe": foe, **ours}
 
     def stopped() -> bool:
@@ -493,7 +590,7 @@ def main() -> None:
                             "search_counts": {
                                 key: int(value)
                                 for key, value in counts.items()
-                                if key.startswith("exact_search")
+                                if key.startswith(("exact_search", "reply_forecast"))
                             },
                             "errors": {
                                 key: int(value)

@@ -195,6 +195,9 @@ class PolicyPlayer(Player):
         exact_min_streams: int = 0,
         exact_search_replacements: bool = True,
         exact_opponent_models: bool = True,
+        exact_reply_forecast: bool = False,
+        exact_reply_forecast_weight: float = 0.50,
+        exact_reply_forecast_mix: str = "sum",
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -335,6 +338,19 @@ class PolicyPlayer(Player):
                 models; every ladder search before 2026-10-09). False: the brain's
                 prior alone -- what every local search measurement since 2026-10-04
                 played, their players carrying no such models.
+            exact_reply_forecast: True: the search ranks the opponent's replies to
+                the decision it plans with the opponent predictor's forecast
+                (``opponent_forecast_path``; the same forecast shadow mode logs)
+                mixed with the brain's prior. This is the one place a decision
+                reads the forecast. False (default): the forecast is logged and
+                read by nothing.
+            exact_reply_forecast_weight: The forecast's weight in that mixture,
+                0.50 by default. 0: the brain's ranking, reply for reply -- the
+                search plays exactly as without the forecast, and each decision's
+                audit says where the opponent's real reply would have ranked under
+                the brain, the forecast and sums of the two.
+            exact_reply_forecast_mix: "sum" (default): ``(1 - w) * brain + w *
+                forecast``; "product": ``brain^(1 - w) * forecast^w``.
             enable_search: Per-player exact-search switch. ``None`` inherits the
                 class default; evaluations use this to keep opponent players on
                 their own policy while searching several controlled battles.
@@ -486,6 +502,9 @@ class PolicyPlayer(Player):
         self.exact_min_streams = int(exact_min_streams)
         self.exact_search_replacements = bool(exact_search_replacements)
         self.exact_opponent_models = bool(exact_opponent_models)
+        self.exact_reply_forecast = bool(exact_reply_forecast)
+        self.exact_reply_forecast_weight = float(exact_reply_forecast_weight)
+        self.exact_reply_forecast_mix = str(exact_reply_forecast_mix)
         # diagnostic only: the opponent's real team file for the exact worlds
         self.exact_oracle_opponent_team = (
             Path(exact_oracle_opponent_team)
@@ -1640,6 +1659,8 @@ class PolicyPlayer(Player):
             leaf_calibration_path=getattr(self, "exact_leaf_calibration", None),
             min_streams=getattr(self, "exact_min_streams", 0),
             search_replacements=getattr(self, "exact_search_replacements", True),
+            reply_forecast_weight=getattr(self, "exact_reply_forecast_weight", 0.50),
+            reply_forecast_mix=getattr(self, "exact_reply_forecast_mix", "sum"),
             oracle_opponent_team_text=(
                 self.exact_oracle_opponent_team.read_text()
                 if self.exact_oracle_opponent_team is not None
@@ -1708,6 +1729,12 @@ class PolicyPlayer(Player):
         if champion_actions is not None:
             # the spelling the search ranks (an attack into an empty slot re-aimed)
             champion_actions = list(canonical_target_actions(battle, champion_actions))
+        if getattr(self, "exact_reply_forecast", False):
+            # the opponent predictor's forecast for this decision, or None; the
+            # worlds are matched to it by the live battle's own turn number
+            session.set_reply_forecast(
+                self._reply_forecast(battle), turn=int(getattr(battle, "turn", 0) or 0)
+            )
         started = time.monotonic()
         result = session.plan(battle, champion_actions)
         elapsed_ms = (time.monotonic() - started) * 1000.0
@@ -1798,6 +1825,34 @@ class PolicyPlayer(Player):
         except Exception as exc:
             counts[f"opponent_forecast_failed:{type(exc).__name__}"] += 1
             return None
+
+    def _reply_forecast(self, battle) -> Any:
+        """The opponent predictor's forecast for this decision, for the search to rank
+        the opponent's replies with -- only when ``exact_reply_forecast`` is on (the
+        one consumer of the forecast; shadow mode alone reads it nowhere).
+
+        The predictor's own object, or None when the option is off, the predictor
+        is not loaded or it stands down (a forced replacement, an unreadable
+        stream). Asking again for the turn shadow mode already asked about costs a
+        lookup. Never raises; every miss is counted.
+        """
+        if not getattr(self, "exact_reply_forecast", False):
+            return None
+        counts = PolicyPlayer.guard_fire_counts
+        runtime = getattr(self, "_opponent_forecaster", None)
+        if runtime is None:
+            counts["reply_forecast:not_loaded"] += 1
+            return None
+        try:
+            forecast, reason = runtime.predict_with_reason(battle)
+        except Exception as exc:
+            counts[f"reply_forecast_failed:{type(exc).__name__}"] += 1
+            return None
+        if forecast is None:
+            counts[f"reply_forecast:{reason or 'none'}"] += 1
+            return None
+        counts["reply_forecast"] += 1
+        return forecast
 
     def _forget_opponent_forecast(self, battle_tag: str) -> None:
         """Drop a finished battle's shadow-mode state. Never raises."""

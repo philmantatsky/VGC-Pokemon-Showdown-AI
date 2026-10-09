@@ -210,6 +210,15 @@ def test_no_decision_reads_the_forecast():
         text = module.read_text()
         assert "opponent_forecast" not in text, module.name
         assert "_opponent_forecaster" not in text, module.name
+    # 2026-10-09, changed on purpose (the search session): there is now ONE consumer,
+    # the search's reply prior, behind PolicyPlayer(exact_reply_forecast=True) -- off
+    # by default (unit_tests/test_search_reply_forecast.py). It asks the predictor
+    # itself; the shadow record above is still read by nothing, and with the option
+    # off the search is never handed a forecast.
+    assert source.count("runtime.predict_with_reason(battle)") == 2
+    assert source.count('if not getattr(self, "exact_reply_forecast", False):') == 1
+    assert source.count('if getattr(self, "exact_reply_forecast", False):') == 1
+    assert source.count("session.set_reply_forecast(") == 1
 
 
 # --- the launcher ----------------------------------------------------------------

@@ -1,0 +1,1385 @@
+{
+ "ampharos": {
+  "sets": [
+   {
+    "ability": "static",
+    "count": 200,
+    "item": null,
+    "moves": [
+     "dragonpulse",
+     "protect",
+     "risingvoltage",
+     "paraboliccharge"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "appletun": {
+  "sets": [
+   {
+    "ability": "ripen",
+    "count": 26,
+    "item": null,
+    "moves": [
+     "appleacid",
+     "protect",
+     "leechseed",
+     "dragonpulse"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "ariados": {
+  "sets": [
+   {
+    "ability": "swarm",
+    "count": 53,
+    "item": null,
+    "moves": [
+     "ragepowder",
+     "stringshot",
+     "megahorn",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "aromatisse": {
+  "sets": [
+   {
+    "ability": "healer",
+    "count": 52,
+    "item": null,
+    "moves": [
+     "trickroom",
+     "moonblast",
+     "allyswitch",
+     "drainingkiss"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "audino": {
+  "sets": [
+   {
+    "ability": "healer",
+    "count": 242,
+    "item": null,
+    "moves": [
+     "simplebeam",
+     "trickroom",
+     "yawn",
+     "healpulse"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "avalugg": {
+  "sets": [
+   {
+    "ability": "owntempo",
+    "count": 22,
+    "item": null,
+    "moves": [
+     "rockslide",
+     "icespinner",
+     "bodypress",
+     "wideguard"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "avalugghisui": {
+  "sets": [
+   {
+    "ability": "strongjaw",
+    "count": 40,
+    "item": null,
+    "moves": [
+     "mountaingale",
+     "rockslide",
+     "bodypress",
+     "wideguard"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "barbaracle": {
+  "sets": [
+   {
+    "ability": "toughclaws",
+    "count": 44,
+    "item": null,
+    "moves": [
+     "protect",
+     "closecombat",
+     "shellsmash",
+     "rockslide"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "barraskewda": {
+  "sets": [
+   {
+    "ability": "swiftswim",
+    "count": 9,
+    "item": null,
+    "moves": [
+     "closecombat",
+     "drillrun"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "bastiodon": {
+  "sets": [
+   {
+    "ability": "sturdy",
+    "count": 29,
+    "item": null,
+    "moves": [
+     "protect",
+     "bodypress",
+     "wideguard",
+     "guardsplit"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "beartic": {
+  "sets": [
+   {
+    "ability": "snowcloak",
+    "count": 35,
+    "item": null,
+    "moves": [
+     "iciclecrash",
+     "liquidation",
+     "rockslide",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "castform": {
+  "sets": [
+   {
+    "ability": "forecast",
+    "count": 20,
+    "item": null,
+    "moves": [
+     "weatherball",
+     "thunder",
+     "cosmicpower",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "cofagrigus": {
+  "sets": [
+   {
+    "ability": "mummy",
+    "count": 143,
+    "item": null,
+    "moves": [
+     "shadowball",
+     "trickroom",
+     "allyswitch",
+     "willowisp"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "decidueye": {
+  "sets": [
+   {
+    "ability": "overgrow",
+    "count": 28,
+    "item": null,
+    "moves": [
+     "leafblade",
+     "tailwind",
+     "poltergeist",
+     "swordsdance"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "dedenne": {
+  "sets": [
+   {
+    "ability": "cheekpouch",
+    "count": 32,
+    "item": null,
+    "moves": [
+     "superfang",
+     "electroweb",
+     "nuzzle",
+     "dazzlinggleam"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "emboar": {
+  "sets": [
+   {
+    "ability": "blaze",
+    "count": 72,
+    "item": null,
+    "moves": [
+     "flareblitz",
+     "drainpunch",
+     "protect",
+     "closecombat"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "emolga": {
+  "sets": [
+   {
+    "ability": "static",
+    "count": 43,
+    "item": null,
+    "moves": [
+     "discharge",
+     "airslash",
+     "nuzzle",
+     "electroweb"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "enamorus": {
+  "sets": [
+   {
+    "ability": "cutecharm",
+    "count": 7,
+    "item": null,
+    "moves": [
+     "earthpower",
+     "moonblast",
+     "protect",
+     "calmmind"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "entei": {
+  "sets": [
+   {
+    "ability": "pressure",
+    "count": 6,
+    "item": null,
+    "moves": [
+     "stompingtantrum",
+     "protect",
+     "sacredfire"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "espeon": {
+  "sets": [
+   {
+    "ability": "synchronize",
+    "count": 36,
+    "item": null,
+    "moves": [
+     "expandingforce",
+     "powergem",
+     "protect",
+     "helpinghand"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "farfetchd": {
+  "sets": [
+   {
+    "ability": "keeneye",
+    "count": 40,
+    "item": null,
+    "moves": [
+     "closecombat",
+     "slash",
+     "nightslash",
+     "bravebird"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "florges": {
+  "sets": [
+   {
+    "ability": "flowerveil",
+    "count": 19,
+    "item": null,
+    "moves": [
+     "calmmind",
+     "protect",
+     "helpinghand",
+     "chillingwater"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "forretress": {
+  "sets": [
+   {
+    "ability": "sturdy",
+    "count": 32,
+    "item": null,
+    "moves": [
+     "bodypress",
+     "lunge",
+     "curse",
+     "gyroball"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "garbodor": {
+  "sets": [
+   {
+    "ability": "stench",
+    "count": 9,
+    "item": null,
+    "moves": [
+     "toxic",
+     "gigadrain",
+     "poisonjab",
+     "explosion"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "garganacl": {
+  "sets": [
+   {
+    "ability": "purifyingsalt",
+    "count": 122,
+    "item": null,
+    "moves": [
+     "saltcure",
+     "wideguard",
+     "recover",
+     "bodypress"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "glalie": {
+  "sets": [
+   {
+    "ability": "innerfocus",
+    "count": 62,
+    "item": null,
+    "moves": [
+     "explosion",
+     "protect",
+     "bodyslam",
+     "sheercold"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "gogoat": {
+  "sets": [
+   {
+    "ability": "sapsipper",
+    "count": 35,
+    "item": null,
+    "moves": [
+     "hornleech",
+     "milkdrink",
+     "bulkup",
+     "leechseed"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "goodra": {
+  "sets": [
+   {
+    "ability": "sapsipper",
+    "count": 86,
+    "item": null,
+    "moves": [
+     "dracometeor",
+     "lifedew",
+     "protect",
+     "dragonpulse"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "goodrahisui": {
+  "sets": [
+   {
+    "ability": "sapsipper",
+    "count": 367,
+    "item": null,
+    "moves": [
+     "bodypress",
+     "shelter",
+     "protect",
+     "heavyslam"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "gourgeistsuper": {
+  "sets": [
+   {
+    "ability": "pickup",
+    "count": 15,
+    "item": null,
+    "moves": [
+     "poltergeist",
+     "powerwhip",
+     "trickroom",
+     "explosion"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "heracross": {
+  "sets": [
+   {
+    "ability": "swarm",
+    "count": 113,
+    "item": null,
+    "moves": [
+     "pinmissile",
+     "closecombat",
+     "rockblast",
+     "rockslide"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "hydrapple": {
+  "sets": [
+   {
+    "ability": "supersweetsyrup",
+    "count": 47,
+    "item": null,
+    "moves": [
+     "earthpower",
+     "ficklebeam",
+     "protect",
+     "dracometeor"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "inteleon": {
+  "sets": [
+   {
+    "ability": "torrent",
+    "count": 351,
+    "item": null,
+    "moves": [
+     "snipeshot",
+     "protect",
+     "focusenergy",
+     "icebeam"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "jolteon": {
+  "sets": [
+   {
+    "ability": "voltabsorb",
+    "count": 95,
+    "item": null,
+    "moves": [
+     "discharge",
+     "thunderbolt",
+     "electroweb",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "liepard": {
+  "sets": [
+   {
+    "ability": "limber",
+    "count": 90,
+    "item": null,
+    "moves": [
+     "fakeout",
+     "encore",
+     "knockoff",
+     "thunderwave"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "luxray": {
+  "sets": [
+   {
+    "ability": "rivalry",
+    "count": 41,
+    "item": null,
+    "moves": [
+     "electroweb",
+     "snarl",
+     "voltswitch",
+     "helpinghand"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "lycanroc": {
+  "sets": [
+   {
+    "ability": "keeneye",
+    "count": 102,
+    "item": null,
+    "moves": [
+     "rockslide",
+     "closecombat",
+     "psychicfangs",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "mabosstiff": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 28,
+    "item": null,
+    "moves": [
+     "icefang",
+     "crunch",
+     "jawlock",
+     "psychicfangs"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "machamp": {
+  "sets": [
+   {
+    "ability": "guts",
+    "count": 16,
+    "item": null,
+    "moves": [
+     "dynamicpunch",
+     "crosspoison",
+     "wideguard",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "manectric": {
+  "sets": [
+   {
+    "ability": "static",
+    "count": 124,
+    "item": null,
+    "moves": [
+     "snarl",
+     "protect",
+     "voltswitch",
+     "thunderbolt"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "medicham": {
+  "sets": [
+   {
+    "ability": "purepower",
+    "count": 60,
+    "item": null,
+    "moves": [
+     "closecombat",
+     "fakeout",
+     "coaching",
+     "bulletpunch"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "mimikyu": {
+  "sets": [
+   {
+    "ability": "disguise",
+    "count": 299,
+    "item": null,
+    "moves": [
+     "playrough",
+     "shadowsneak",
+     "shadowclaw",
+     "trickroom"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "morpeko": {
+  "sets": [
+   {
+    "ability": "hungerswitch",
+    "count": 52,
+    "item": null,
+    "moves": [
+     "aurawheel",
+     "fakeout",
+     "partingshot",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "mrrime": {
+  "sets": [
+   {
+    "ability": "tangledfeet",
+    "count": 91,
+    "item": null,
+    "moves": [
+     "sheercold",
+     "fakeout",
+     "freezedry",
+     "blizzard"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "musharna": {
+  "sets": [
+   {
+    "ability": "forewarn",
+    "count": 26,
+    "item": null,
+    "moves": [
+     "trickroom",
+     "moonblast",
+     "psychic",
+     "yawn"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "nihilego": {
+  "sets": [
+   {
+    "ability": "beastboost",
+    "count": 10,
+    "item": null,
+    "moves": [
+     "sludgewave",
+     "protect",
+     "powergem",
+     "meteorbeam"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "noivern": {
+  "sets": [
+   {
+    "ability": "frisk",
+    "count": 153,
+    "item": null,
+    "moves": [
+     "tailwind",
+     "dracometeor",
+     "hurricane",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "ogerpon": {
+  "sets": [
+   {
+    "ability": "defiant",
+    "count": 8,
+    "item": null,
+    "moves": [
+     "ivycudgel",
+     "spikyshield",
+     "followme",
+     "uturn"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "ogerponcornerstone": {
+  "sets": [
+   {
+    "ability": "sturdy",
+    "count": 21,
+    "item": null,
+    "moves": [
+     "ivycudgel",
+     "hornleech",
+     "spikyshield",
+     "stompingtantrum"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "overqwil": {
+  "sets": [
+   {
+    "ability": "poisonpoint",
+    "count": 781,
+    "item": null,
+    "moves": [
+     "stockpile",
+     "minimize",
+     "crunch",
+     "throatchop"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "pangoro": {
+  "sets": [
+   {
+    "ability": "ironfist",
+    "count": 26,
+    "item": null,
+    "moves": [
+     "protect",
+     "closecombat",
+     "hammerarm",
+     "knockoff"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "passimian": {
+  "sets": [
+   {
+    "ability": "receiver",
+    "count": 9,
+    "item": null,
+    "moves": [
+     "drainpunch",
+     "knockoff",
+     "closecombat",
+     "earthquake"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "persian": {
+  "sets": [
+   {
+    "ability": "limber",
+    "count": 12,
+    "item": null,
+    "moves": [
+     "taunt",
+     "doubleedge",
+     "fakeout",
+     "thunderwave"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "pikachu": {
+  "sets": [
+   {
+    "ability": "static",
+    "count": 30,
+    "item": null,
+    "moves": [
+     "fakeout",
+     "nuzzle",
+     "endeavor",
+     "faketears"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "pinsir": {
+  "sets": [
+   {
+    "ability": "hypercutter",
+    "count": 38,
+    "item": null,
+    "moves": [
+     "bodyslam",
+     "feint",
+     "highhorsepower",
+     "flail"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "polteageistantique": {
+  "sets": [
+   {
+    "ability": "weakarmor",
+    "count": 5,
+    "item": null,
+    "moves": [
+     "batonpass",
+     "allyswitch",
+     "shadowball",
+     "shellsmash"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "rampardos": {
+  "sets": [
+   {
+    "ability": "moldbreaker",
+    "count": 41,
+    "item": null,
+    "moves": [
+     "rockslide",
+     "protect",
+     "headsmash",
+     "firepunch"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "rotomfan": {
+  "sets": [
+   {
+    "ability": "levitate",
+    "count": 20,
+    "item": null,
+    "moves": [
+     "discharge",
+     "thunderbolt",
+     "nastyplot",
+     "trick"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "rotommow": {
+  "sets": [
+   {
+    "ability": "levitate",
+    "count": 36,
+    "item": null,
+    "moves": [
+     "thunderbolt",
+     "voltswitch",
+     "electroweb",
+     "willowisp"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "runerigus": {
+  "sets": [
+   {
+    "ability": "wanderingspirit",
+    "count": 136,
+    "item": null,
+    "moves": [
+     "trickroom",
+     "earthquake",
+     "bodypress",
+     "poltergeist"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "samurott": {
+  "sets": [
+   {
+    "ability": "torrent",
+    "count": 12,
+    "item": null,
+    "moves": [
+     "icywind",
+     "waterpulse",
+     "detect",
+     "knockoff"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "sandaconda": {
+  "sets": [
+   {
+    "ability": "sandspit",
+    "count": 72,
+    "item": null,
+    "moves": [
+     "bodypress",
+     "minimize",
+     "irondefense",
+     "earthquake"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "sharpedo": {
+  "sets": [
+   {
+    "ability": "roughskin",
+    "count": 31,
+    "item": null,
+    "moves": [
+     "protect",
+     "crunch",
+     "liquidation",
+     "closecombat"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "simipour": {
+  "sets": [
+   {
+    "ability": "gluttony",
+    "count": 6,
+    "item": null,
+    "moves": [
+     "focusblast",
+     "fakeout",
+     "raindance",
+     "scald"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "skeledirge": {
+  "sets": [
+   {
+    "ability": "blaze",
+    "count": 165,
+    "item": null,
+    "moves": [
+     "torchsong",
+     "protect",
+     "shadowball",
+     "yawn"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "slowbrogalar": {
+  "sets": [
+   {
+    "ability": "quickdraw",
+    "count": 34,
+    "item": null,
+    "moves": [
+     "sludgebomb",
+     "shellsidearm",
+     "protect",
+     "expandingforce"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "slurpuff": {
+  "sets": [
+   {
+    "ability": "sweetveil",
+    "count": 92,
+    "item": null,
+    "moves": [
+     "dazzlinggleam",
+     "yawn",
+     "afteryou",
+     "stringshot"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "spiritomb": {
+  "sets": [
+   {
+    "ability": "pressure",
+    "count": 308,
+    "item": null,
+    "moves": [
+     "snarl",
+     "trickroom",
+     "willowisp",
+     "destinybond"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "squawkabilly": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 45,
+    "item": null,
+    "moves": [
+     "finalgambit",
+     "partingshot",
+     "bravebird",
+     "uturn"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "squawkabillyblue": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 24,
+    "item": null,
+    "moves": [
+     "finalgambit",
+     "partingshot",
+     "bravebird",
+     "tailwind"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "squawkabillywhite": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 36,
+    "item": null,
+    "moves": [
+     "finalgambit",
+     "partingshot",
+     "tailwind",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "squawkabillyyellow": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 22,
+    "item": null,
+    "moves": [
+     "partingshot",
+     "finalgambit",
+     "bravebird",
+     "tailwind"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "stunfisk": {
+  "sets": [
+   {
+    "ability": "static",
+    "count": 5,
+    "item": null,
+    "moves": [
+     "earthpower",
+     "painsplit"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "stunfiskgalar": {
+  "sets": [
+   {
+    "ability": "mimicry",
+    "count": 9,
+    "item": null,
+    "moves": [
+     "protect",
+     "snaptrap",
+     "rocktomb",
+     "fissure"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "suicune": {
+  "sets": [
+   {
+    "ability": "pressure",
+    "count": 19,
+    "item": null,
+    "moves": [
+     "scald",
+     "protect",
+     "calmmind",
+     "snarl"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "swalot": {
+  "sets": [
+   {
+    "ability": "liquidooze",
+    "count": 48,
+    "item": null,
+    "moves": [
+     "protect",
+     "acidarmor",
+     "amnesia",
+     "poisonjab"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "tapulele": {
+  "sets": [
+   {
+    "ability": "psychicsurge",
+    "count": 7,
+    "item": null,
+    "moves": [
+     "thunderbolt",
+     "moonblast",
+     "psychic"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "tauros": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 8,
+    "item": null,
+    "moves": [
+     "closecombat",
+     "rockslide",
+     "highhorsepower"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "taurospaldeacombat": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 15,
+    "item": null,
+    "moves": [
+     "ragingbull",
+     "rockslide",
+     "drillrun",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "togedemaru": {
+  "sets": [
+   {
+    "ability": "ironbarbs",
+    "count": 21,
+    "item": null,
+    "moves": [
+     "zingzap",
+     "encore",
+     "protect",
+     "fakeout"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "togekiss": {
+  "sets": [
+   {
+    "ability": "hustle",
+    "count": 15,
+    "item": null,
+    "moves": [
+     "ancientpower",
+     "softboiled",
+     "airslash",
+     "dazzlinggleam"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "tornadus": {
+  "sets": [
+   {
+    "ability": "prankster",
+    "count": 10,
+    "item": null,
+    "moves": [
+     "bleakwindstorm",
+     "tailwind",
+     "protect",
+     "sunnyday"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "toucannon": {
+  "sets": [
+   {
+    "ability": "keeneye",
+    "count": 43,
+    "item": null,
+    "moves": [
+     "beakblast",
+     "rockblast",
+     "tailwind",
+     "bulletseed"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "trevenant": {
+  "sets": [
+   {
+    "ability": "naturalcure",
+    "count": 40,
+    "item": null,
+    "moves": [
+     "trickroom",
+     "poltergeist",
+     "woodhammer",
+     "hornleech"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "typhlosion": {
+  "sets": [
+   {
+    "ability": "blaze",
+    "count": 42,
+    "item": null,
+    "moves": [
+     "eruption",
+     "protect",
+     "extrasensory",
+     "heatwave"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "ursalunabloodmoon": {
+  "sets": [
+   {
+    "ability": "mindseye",
+    "count": 5,
+    "item": null,
+    "moves": [
+     "hypervoice",
+     "bloodmoon"
+    ],
+    "prob": 1.0
+   }
+  ]
+ },
+ "wyrdeer": {
+  "sets": [
+   {
+    "ability": "intimidate",
+    "count": 181,
+    "item": null,
+    "moves": [
+     "skillswap",
+     "trickroom",
+     "psychic",
+     "protect"
+    ],
+    "prob": 1.0
+   }
+  ]
+ }
+}

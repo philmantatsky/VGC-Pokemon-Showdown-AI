@@ -209,3 +209,78 @@ def test_pooling_keeps_one_roster_apart_for_each_opponent(tmp_path):
     twin = _run(tmp_path, "twin", {**study, "opponent": "a.zip"}, won)
     with pytest.raises(ValueError, match="same opponent twice"):
         pool([first, twin])
+
+
+# --- the forecast arm (2026-10-09): the same search, replies by the predictor ---
+
+
+def test_without_a_forecast_arm_a_summary_is_what_it_was():
+    rows = _cell("MC1.txt", True, "plain", [1, 0]) + _cell(
+        "MC1.txt", True, "search", [1, 1]
+    )
+    out = summarize(rows, [])
+    assert set(out) == {"arms", "search_minus_plain", "search_counts"}
+    assert set(out["arms"]) == {"plain", "search"}
+    assert set(out["search_minus_plain"]["overall"]) >= {
+        "plain_win_rate",
+        "search_win_rate",
+        "delta",
+        "bootstrap_95",
+    }
+
+
+def test_the_forecast_arm_is_compared_with_the_search_roster_by_roster():
+    rows = (
+        _cell("MC1.txt", True, "plain", [1, 0])
+        + _cell("MC1.txt", True, "search", [1, 0])
+        + _cell("MC1.txt", True, "forecast", [1, 1])
+        + _cell("MC2.txt", False, "plain", [0, 0])
+        + _cell("MC2.txt", False, "search", [1, 1])
+        + _cell("MC2.txt", False, "forecast", [1, 0])
+        # a roster the forecast arm has not played yet is left out of its differences
+        + _cell("MC3.txt", True, "plain", [1, 1])
+        + _cell("MC3.txt", True, "search", [1, 1])
+    )
+    telemetry = [
+        {"arm": "search", "search_counts": {"exact_search": 9}},
+        {"arm": "forecast", "search_counts": {"exact_search": 8, "reply_forecast": 7}},
+    ]
+    out = summarize(rows, telemetry)
+    against_search = out["forecast_minus_search"]["overall"]
+    assert against_search["rosters"] == 2 and against_search["delta"] == 0.0
+    assert (against_search["search_win_rate"], against_search["forecast_win_rate"]) == (
+        0.75,
+        0.75,
+    )
+    assert out["forecast_minus_search"]["hidden"]["delta"] == 0.5
+    assert out["forecast_minus_search"]["open"]["delta"] == -0.5
+    assert out["forecast_minus_plain"]["overall"]["delta"] == 0.5
+    assert out["arms"]["forecast"]["overall"]["games"] == 4
+    assert out["search_counts"] == {"exact_search": 9}
+    assert out["forecast_counts"] == {"exact_search": 8, "reply_forecast": 7}
+    # the search's own difference still counts all three of its rosters
+    assert out["search_minus_plain"]["overall"]["rosters"] == 3
+    assert (
+        paired_delta(rows, arm="forecast", base="search")
+        == (out["forecast_minus_search"])
+    )
+
+
+def test_pooling_reports_the_forecast_arm_by_opponent(tmp_path):
+    study = {"repeats": 2, "seed": 1, "search": {"anchor": 0.07}}
+    better = (
+        _cell("MC1.txt", True, "plain", [1, 1])
+        + _cell("MC1.txt", True, "search", [0, 0])
+        + _cell("MC1.txt", True, "forecast", [1, 1])
+    )
+    worse = (
+        _cell("MC1.txt", True, "plain", [1, 1])
+        + _cell("MC1.txt", True, "search", [1, 1])
+        + _cell("MC1.txt", True, "forecast", [1, 0])
+    )
+    first = _run(tmp_path, "human_new", {**study, "opponent": "a.zip"}, better)
+    second = _run(tmp_path, "frozen", {**study, "opponent": "b.zip"}, worse)
+    out = pool([first, second])
+    assert out["forecast_minus_search_by_opponent"]["human_new"]["delta"] == 1.0
+    assert out["forecast_minus_search_by_opponent"]["frozen"]["delta"] == -0.5
+    assert out["forecast_minus_search"]["overall"]["delta"] == 0.25

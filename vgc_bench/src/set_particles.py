@@ -533,39 +533,62 @@ class TeamBelief:
         results: list[dict[str, SetParticle]] = []
         signatures: set[tuple[tuple[str, tuple], ...]] = set()
         attempts = max(100, target * 50)
-        for _ in range(attempts):
-            selected: dict[str, SetParticle] = {}
-            used_items: set[str] = set()
-            valid = True
-            for species in species_order:
-                belief = self.beliefs[species]
-                options = list(belief.particles)
-                weights = list(belief.weights)
-                legal = [
-                    index
-                    for index, particle in enumerate(options)
-                    if not (particle.item and to_id_str(particle.item) in used_items)
-                ]
-                if not legal:
-                    valid = False
+        # First as ever: every Pokemon one of its weighted sets, no item twice. Only
+        # if no such team exists at all, a second pass in which a Pokemon whose
+        # weighted sets all hold a taken item keeps one of them with its item left
+        # open. What the opponent has SHOWN (the weights) is fact, a stored item is
+        # a guess. Until 2026-10-09 a set with weight zero was offered to
+        # random.choices in that corner, which refuses it ("Total of weights must be
+        # greater than zero"), or nothing was legal ("could not sample a legal
+        # opponent determinization") -- no world, no search, for the first turns of
+        # two ladder games in fifteen.
+        for item_may_stay_open in (False, True):
+            for _ in range(attempts):
+                selected: dict[str, SetParticle] = {}
+                used_items: set[str] = set()
+                valid = True
+                for species in species_order:
+                    belief = self.beliefs[species]
+                    options = list(belief.particles)
+                    weights = list(belief.weights)
+                    legal = [
+                        index
+                        for index, particle in enumerate(options)
+                        if weights[index] > 0
+                        and not (
+                            particle.item and to_id_str(particle.item) in used_items
+                        )
+                    ]
+                    if legal:
+                        chosen_index = rng.choices(
+                            legal, weights=[weights[index] for index in legal], k=1
+                        )[0]
+                        particle = options[chosen_index]
+                    elif item_may_stay_open and options:
+                        pool = [i for i, weight in enumerate(weights) if weight > 0]
+                        pool = pool or list(range(len(options)))
+                        chosen_index = rng.choices(
+                            pool, weights=[weights[i] or 1.0 for i in pool], k=1
+                        )[0]
+                        particle = replace(options[chosen_index], item=None)
+                    else:
+                        valid = False
+                        break
+                    selected[species] = particle
+                    if particle.item:
+                        used_items.add(to_id_str(particle.item))
+                if not valid:
+                    continue
+                signature = tuple(
+                    (species, selected[species].signature) for species in species_order
+                )
+                if signature in signatures and len(signatures) < target:
+                    continue
+                signatures.add(signature)
+                results.append(selected)
+                if len(results) >= target:
                     break
-                chosen_index = rng.choices(
-                    legal, weights=[weights[index] for index in legal], k=1
-                )[0]
-                particle = options[chosen_index]
-                selected[species] = particle
-                if particle.item:
-                    used_items.add(to_id_str(particle.item))
-            if not valid:
-                continue
-            signature = tuple(
-                (species, selected[species].signature) for species in species_order
-            )
-            if signature in signatures and len(signatures) < target:
-                continue
-            signatures.add(signature)
-            results.append(selected)
-            if len(results) >= target:
+            if results:
                 break
         if not results:
             raise ValueError("could not sample a legal opponent determinization")
