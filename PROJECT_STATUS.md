@@ -1,5 +1,45 @@
 # VGC Bot Project Status
 
+## PRE-REGISTERED at the user's word: 40 ladder games with the opponent predictor's forecast as the search's reply prior (2026-October 9, 12:45, before any game)
+
+- **The user (10-09, 12:40):** "run the 40 games with the predictor" -- the first item of
+  this morning's list. Nothing else is running; main is 917b4ed1.
+- **What plays.** `tools/ladder_trial.sh` from main: the deployed configuration plus
+  `TRIAL_SEARCH="--search --search-every-turn --search-solution nash --search-leaf critic --search-anchor 0.07 --search-argmax --search-replies 8 --search-determinizations 4 --search-streams 4 --device cpu --search-reply-prior forecast --search-forecast-weight 0.75"`.
+  That is this morning's search with ONE change: the opponent's replies to the decision
+  being planned are ranked by 0.25 x the brain's prior + 0.75 x the predictor's forecast
+  (the deployed shadow artifact, `oppnet_v2_blind`) instead of the brain's prior alone.
+  Weight 0.75, fixed now: on the 75 decisions logged this morning it had the real reply
+  within the table's width most often (53%; the forecast alone 51%, the brain 32%), and
+  it keeps a quarter of the brain's prior for the positions the forecast reads badly.
+  The rare-species sets and the Imprison fix are in. Replay directory
+  `ladder_replays_mc_search_forecast1`. DEPLOYED.json is not changed; no promotion
+  follows from this trial.
+- **Before the first game:** `tools/ladder_rehearse.sh` with exactly these flags, once
+  with `--search-anchor 1e12` (0 changed decisions required) and once as played.
+- **Stages** 5, then 15, then 40 (one directory, one configuration).
+- **It stops:** `evaluation/search_health.py` exits 1 at a game boundary (more than a
+  fifth of the last 120 decisions not searched, never judged on fewer than 40 -- the
+  rule as the monitor counts it, worded that way this time); a game lost on our clock
+  or a stalled battle; 4 wins or fewer of the first 15; the user's word. The laptop is
+  on battery at the start (100%): below 25% at a stage boundary it pauses and says so.
+- **Readings, named now:**
+  1. *The one this trial is for.* On the trial's own decisions, logged world by world as
+     this morning: is the opponent's real reply in the table AS PLAYED more often than
+     the brain's ranking alone would have had it? This morning's log predicts about 51-53%
+     against 32%. It counts as confirmed when, among the decisions on which the two
+     differ, the played table is the one holding the reply in significantly more
+     (two-sided exact binomial, p < 0.05). Also given: the as-played rate with hidden
+     sheets beside this morning's 37% (64 of 175), and by what the reply was made of
+     (a switch, a Protect, moves alone).
+  2. Does it run: decisions searched, fallbacks by cause, time per decision, the timer,
+     the share of decisions the forecast served.
+  3. Overrides: how many, and the edge in the cells of the reply really made, which more
+     overrides should now have.
+  4. The record, as a non-regression check only: 13 wins or fewer of 40 reads as worse
+     than the bot's ladder history (81 of 150). Forty games cannot show a gain; this
+     morning's 22 of 40 and this trial's count will stand side by side without a claim.
+
 ## Ladder trial of the search: 22 of 40 (55%), in line with the bot's ladder history; it runs in time on the real server; its picture of the opponent is the weak part -- the real reply is in its table a third of the time, and the opponent predictor would put it there half the time (2026-October 9, 04:30)
 
 - **The user (10-09):** "run the ladder games and then see what needs to happen".
