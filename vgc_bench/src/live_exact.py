@@ -356,11 +356,45 @@ def _index_by_species(roster: Sequence[TeamSlot]) -> dict[str, int]:
     return {slot.species: index for index, slot in enumerate(roster, start=1)}
 
 
+def _slot_occupants(battle: DoubleBattle, own: bool) -> list[Pokemon | None]:
+    """The Pokemon in each of a side's two active slots as the simulator holds them:
+    the one standing there, or the one that FAINTED there and has not been replaced.
+
+    poke-env's ``active_pokemon`` reports a fainted Pokemon's slot as empty. A world
+    created at such a moment (worlds drawn again on new evidence, or rebuilt when a
+    newly shown reserve contradicts them) then got the next Pokemon of the brought
+    four in that slot. On our side that was a healthy bench Pokemon, which
+    reconciliation marks as the one to be replaced: the search could not send it in,
+    and when it was the bot's own pick the bot's pair could not be expressed at all
+    -- in the first rehearsal of a ladder trial (2026-10-09) the null search sent in
+    Torkoal where the bot sends Farigiraf. On the opponent's side no world could be
+    created ("opponent leads unavailable") and the contradicted worlds stayed.
+    """
+    visible = list(battle.active_pokemon if own else battle.opponent_active_pokemon)
+    role = getattr(battle, "player_role" if own else "opponent_role", None)
+    held = getattr(
+        battle, "_active_pokemon" if own else "_opponent_active_pokemon", None
+    )
+    if not role or not isinstance(held, dict):
+        return visible
+    occupants: list[Pokemon | None] = []
+    for index, letter in enumerate("ab"):
+        mon = visible[index] if index < len(visible) else None
+        if mon is None:
+            last = held.get(f"{role}{letter}")
+            if last is not None and getattr(last, "fainted", False):
+                mon = last
+        occupants.append(mon)
+    return occupants
+
+
 def _our_preview(
     battle: DoubleBattle,
     roster: Sequence[TeamSlot],
     nickname_species: dict[str, str] | None = None,
 ) -> str:
+    """Our brought four as a team-preview order that puts each of our two slots'
+    Pokemon -- a fainted one waiting for its replacement included -- in its slot."""
     indexes = _index_by_species(roster)
     nickname_species = nickname_species or {}
     identity_species: dict[int, str] = {}
@@ -380,7 +414,10 @@ def _our_preview(
         )
         return next((candidate for candidate in candidates if candidate in indexes), "")
 
-    active = [roster_species(mon) for mon in battle.active_pokemon if mon is not None]
+    standing = [
+        roster_species(mon) if mon is not None else ""
+        for mon in _slot_occupants(battle, own=True)
+    ]
     selected = [
         roster_species(mon)
         for mon in battle.team.values()
@@ -389,7 +426,24 @@ def _our_preview(
     ]
     if len(selected) != 4 and len(battle.team) == 4:
         selected = [roster_species(mon) for mon in battle.team.values()]
-    ordered = active + [species for species in selected if species not in active]
+    bench = [species for species in selected if species not in standing]
+    fainted = {
+        roster_species(mon)
+        for mon in battle.team.values()
+        if getattr(mon, "fainted", False)
+    }
+    ordered: list[str] = []
+    for species in standing:
+        if species in ordered:
+            species = ""
+        if not species and bench:
+            # Nobody is known to stand in this slot. A fainted Pokemon takes it if
+            # there is one, never a healthy one the request offers as a replacement.
+            species = next((name for name in bench if name in fainted), bench[0])
+            bench.remove(species)
+        if species:
+            ordered.append(species)
+    ordered += bench
     if len(ordered) < 4:
         ordered.extend(slot.species for slot in roster if slot.species not in ordered)
     picked = [indexes[species] for species in ordered[:4]]
@@ -422,8 +476,12 @@ def _opponent_previews(
         )
         return next((candidate for candidate in candidates if candidate in indexes), "")
 
+    # their two slots, a fainted Pokemon they have yet to replace included: without it
+    # no world could be created on a turn that left one of their slots empty
     leads = [
-        roster_species(mon) for mon in battle.opponent_active_pokemon if mon is not None
+        roster_species(mon)
+        for mon in _slot_occupants(battle, own=False)
+        if mon is not None
     ]
     if len(leads) != 2 or len(set(leads)) != 2:
         raise ValueError(f"opponent leads unavailable: {leads}")
@@ -1114,7 +1172,6 @@ class LiveExactSession:
             self, "roots_agreeing_with_evidence", wanted
         ) >= wanted or signature == getattr(self, "_resampled_for_evidence", None):
             return
-        self._resampled_for_evidence = signature
         previous = list(self.roots)
         try:
             self._forget_plans()
@@ -1125,6 +1182,12 @@ class LiveExactSession:
             self.last_root_refresh_turn = int(battle.turn)
             self.reconciliations += len(self.roots)
             self._condition_roots(battle)
+            # Only a draw that happened answers this evidence. Marked before the
+            # attempt (until 2026-10-09), a draw that failed -- most often on a turn
+            # that left an opposing slot empty -- was never tried again, and the
+            # search went on in worlds that contradict what the opponent had shown
+            # (5.8% of hidden-sheet decisions of the 10-05 head-to-head).
+            self._resampled_for_evidence = signature
         except Exception as exc:
             # the old worlds are still a legal, reconciled description of the board
             self.roots = previous
