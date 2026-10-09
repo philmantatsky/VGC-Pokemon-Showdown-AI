@@ -194,6 +194,7 @@ class PolicyPlayer(Player):
         exact_leaf_calibration: str | Path | None = None,
         exact_min_streams: int = 0,
         exact_search_replacements: bool = True,
+        exact_opponent_models: bool = True,
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -328,6 +329,12 @@ class PolicyPlayer(Player):
             exact_search_replacements: False keeps this player's own pick at a forced
                 replacement (the search's values there are noise); True (default):
                 replacements are searched, as before 2026-10-05.
+            exact_opponent_models: True (default): the search ranks the opponent's
+                replies with the brain's prior blended with this player's opponent
+                move / switch models, when it has them (the ladder's reranker
+                models; every ladder search before 2026-10-09). False: the brain's
+                prior alone -- what every local search measurement since 2026-10-04
+                played, their players carrying no such models.
             enable_search: Per-player exact-search switch. ``None`` inherits the
                 class default; evaluations use this to keep opponent players on
                 their own policy while searching several controlled battles.
@@ -478,6 +485,7 @@ class PolicyPlayer(Player):
         )
         self.exact_min_streams = int(exact_min_streams)
         self.exact_search_replacements = bool(exact_search_replacements)
+        self.exact_opponent_models = bool(exact_opponent_models)
         # diagnostic only: the opponent's real team file for the exact worlds
         self.exact_oracle_opponent_team = (
             Path(exact_oracle_opponent_team)
@@ -1604,6 +1612,8 @@ class PolicyPlayer(Player):
         # as the fast reranker. A missing model remains a safe uniform component.
         self.opponent_move_predictions(battle)
         self.opponent_switch_predictions(battle)
+        # ... unless this player's search is to rank replies with the brain alone
+        opponent_models = getattr(self, "exact_opponent_models", True)
         session = LiveExactSession(
             battle_tag=battle.battle_tag,
             policy=self.policy,
@@ -1614,8 +1624,8 @@ class PolicyPlayer(Player):
             outcome_evaluator=self._outcome_evaluator,
             residual_ranker=self._residual_ranker,
             preview_predictor=self._preview_predictor,
-            move_predictor=self._move_predictor,
-            switch_predictor=self._switch_predictor,
+            move_predictor=self._move_predictor if opponent_models else None,
+            switch_predictor=self._switch_predictor if opponent_models else None,
             device=str(self.policy.device),
             config=self.exact_search_config,
             max_determinizations=self.exact_max_determinizations,

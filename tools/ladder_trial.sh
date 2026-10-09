@@ -23,12 +23,15 @@
 # - TRIAL_SEARCH: ladder_ourteam.py exact-search flags on top of the deployed
 #   configuration (the matrix search; the user's word). They must turn the search
 #   on (--search) and run the networks on cpu (--device cpu: the search asks for one
-#   position at a time, 4-15x slower on mps). The configuration the 2026-10-04
-#   head-to-head measured, streams arm with the calibrated leaf:
+#   position at a time, 4-15x slower on mps). The configuration the local runs of
+#   2026-10-05 / 10-06 measured (the roster run's: raw critic leaf, at least four
+#   random streams, the brain's own prior ranking the opponent's replies -- without
+#   --search-reply-prior brain the search also reads the reranker's opponent move /
+#   switch models, which no local run did):
 #     TRIAL_SEARCH="--search --search-every-turn --search-solution nash \
 #       --search-leaf critic --search-anchor 0.07 --search-argmax --search-replies 8 \
 #       --search-determinizations 4 --search-streams 4 --device cpu \
-#       --search-leaf-calibration results_leaf_calibration_T6ep/calibration.json"
+#       --search-reply-prior brain"
 # Ladder play needs the user's explicit word; tools/ladder_read_loop.sh refuses
 # while a heavy local job or another ladder session runs.
 set -uo pipefail

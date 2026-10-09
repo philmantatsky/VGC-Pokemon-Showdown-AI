@@ -2823,6 +2823,16 @@ class LiveExactSession:
         return {
             "backend": "live-exact-showdown",
             "open_sheet": self.open_sheet,
+            # what ranks the opponent's replies: the brain's prior alone, or blended
+            # with the opponent move / switch models (OpponentModelPrior)
+            "reply_prior": (
+                "brain+models"
+                if getattr(getattr(self, "prior", None), "move_predictor", None)
+                is not None
+                or getattr(getattr(self, "prior", None), "switch_predictor", None)
+                is not None
+                else "brain"
+            ),
             "determinizations": len(self.roots),
             "search_determinizations": self.search_determinizations,
             "min_deep_coverage": self.min_deep_coverage,

@@ -166,8 +166,11 @@ def test_a_trial_can_add_the_search_and_the_deployed_launcher_never_does():
 
 
 def test_the_trials_search_example_is_the_configuration_that_was_measured():
-    """The flags written in tools/ladder_trial.sh parse, and they are the head-to-
-    head's streams arm with the calibrated leaf (evaluation/mirror_guard_ab.py)."""
+    """The flags written in tools/ladder_trial.sh parse, and they are the roster
+    run's configuration (evaluation/search_roster_ab.py: raw leaf, streams) -- its
+    reply prior included: the local players carry no opponent models, so the search
+    ranked replies with the brain alone (found 2026-10-09, with the ladder trial
+    already playing the blend)."""
     import shlex
 
     from ladder_ourteam import build_parser, search_planner_config
@@ -180,7 +183,8 @@ def test_the_trials_search_example_is_the_configuration_that_was_measured():
     assert args.search and args.search_every_turn and args.device == "cpu"
     assert (args.search_leaf, args.search_streams) == ("critic", 4)
     assert args.search_determinizations == 4
-    assert (ROOT / args.search_leaf_calibration).is_file()
+    assert args.search_leaf_calibration == ""
+    assert args.search_reply_prior == "brain"
     config = search_planner_config(args)
     assert (config.solution, config.nash_anchor, config.nash_sample) == (
         "nash",

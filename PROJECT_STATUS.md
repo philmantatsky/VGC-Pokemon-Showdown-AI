@@ -83,6 +83,37 @@
      eight, against the search's eight -- the size of the case for making it the search's
      reply prior;
   6. each loss: who lost a Pokemon first, and whether an override came before it.
+- **AMENDMENT, 02:17, with four of stage one's five games played (3-1) and none of the
+  readings above taken:** the trial as launched is not the configuration the local runs
+  measured. Found by reading the code for reading 5, not from a result.
+  - The search ranks the opponent's replies with `OpponentModelPrior`: the brain's own
+    prior, blended with the opponent move / switch models whenever the player has them
+    (0.6 of the log weight with hidden sheets, 0.4 with open ones). The local players
+    (the head-to-heads, the roster run) carry no such models, so every local number is
+    the brain alone. The ladder bot carries them -- they are its reranker's
+    (`data/opponent_move_top500_regmc.pt`, `opponent_switch_top500_regmc.pt`, the models
+    the predictor session scores at 26% top-eight on our ladder opponents) -- and
+    `_live_exact_session` hands them to the search. The rehearsal could not see it: a
+    null search plays the bot's own pair whatever the replies are.
+  - New, default as before: `PolicyPlayer(exact_opponent_models=False)` /
+    `ladder_ourteam.py --search-reply-prior brain` keeps the models out of the search
+    (the reranker still reads them); every searched decision's audit now says
+    `reply_prior`. `unit_tests/test_search_reply_prior.py`.
+  - **The plan from here, fixed now:** stage one (5 games) plays out as launched and is
+    reported as what it is, the blend. The other 35 games play the measured
+    configuration, `--search-reply-prior brain` added to the flags above, in their own
+    directory `ladder_replays_mc_search_nash2` (a directory is one configuration), in
+    stages 15 and 35, after a rehearsal of that flag on the local server. The
+    4-wins-of-15 rule applies to those first 15. The non-regression reading stays over
+    all 40 search games (13 or fewer), and is also given for the 35. Readings 2 and 3
+    are given by reply prior; the five blend games are too few to compare the two priors
+    (about 45 replies), and that comparison is not a goal of this trial.
+  - **Stage one as launched (the blend), 02:09-02:22: 3 wins of 5**; its mechanical check
+    passes -- 37 decisions, all searched; time per decision p50 3.3 s, p90 7.5 s, max
+    7.6 s; no timer warning about us in any replay. Four of the five opponents shared
+    their team sheets. Rehearsal of `--search-reply-prior brain` on the local server
+    afterwards: null search 0 changed of 33, every audit row says `reply_prior: brain`;
+    with the real anchor 21 decisions, 2 overrides, no fallback. 1,693 tests pass.
 
 ## Roster run read: the search helps against other teams, +1.5 points [+0.7, +2.3] over 6,204 games an arm (93.1% -> 94.6%) (2026-October 6, 07:30)
 

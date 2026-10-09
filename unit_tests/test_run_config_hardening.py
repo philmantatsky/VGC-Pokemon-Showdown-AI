@@ -163,7 +163,8 @@ class TestRecordRunConfig:
 
     def test_the_matrix_search_flags_are_material_only_when_not_default(self, tmp_path):
         """2026-10-04 (evening): --search-anchor / --search-argmax / --search-replies /
-        --search-leaf-calibration / --search-streams. A directory recorded before
+        --search-leaf-calibration / --search-streams; 2026-10-09:
+        --search-reply-prior. A directory recorded before
         them accepts a run that leaves them alone; setting one is another
         configuration, and a calibration is recorded with its hash."""
         record_run_config(tmp_path, _args(), "abc123", "hard")
@@ -173,6 +174,7 @@ class TestRecordRunConfig:
             search_replies=6,
             search_leaf_calibration="",
             search_streams=0,
+            search_reply_prior="models",
         )
         path = record_run_config(tmp_path, _args(**defaults), "abc123", "hard")
         material = json.loads(path.read_text())["runs"][-1]["material"]
@@ -185,6 +187,7 @@ class TestRecordRunConfig:
             search_replies=8,
             search_streams=4,
             search_leaf_calibration=str(calibration),
+            search_reply_prior="brain",
         )
         for name, value in changed.items():
             with pytest.raises(SystemExit, match=name):

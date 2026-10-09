@@ -48,6 +48,8 @@ SEARCH_FLAG_DEFAULTS = {
     "search_replies": 6,
     "search_leaf_calibration": "",
     "search_streams": 0,
+    # 2026-10-09: "models" is what every ladder search played before the flag existed
+    "search_reply_prior": "models",
 }
 VOLATILE_ARGS = {
     "n_games",
@@ -638,6 +640,18 @@ def build_parser() -> argparse.ArgumentParser:
             "(worlds x streams per world); 0: one stream per world"
         ),
     )
+    ap.add_argument(
+        "--search-reply-prior",
+        choices=("models", "brain"),
+        default=SEARCH_FLAG_DEFAULTS["search_reply_prior"],
+        help=(
+            "what ranks the opponent's replies in the search. models: the brain's own "
+            "prior blended with the opponent move / switch models the reranker uses "
+            "(every ladder search before 2026-10-09). brain: the brain's prior alone, "
+            "as in every local search measurement since 2026-10-04, whose players "
+            "carry no such models"
+        ),
+    )
     ap.add_argument("--search_budget", type=float, default=8.0)
     ap.add_argument("--screen_budget", type=float, default=2.0)
     ap.add_argument("--chance_samples", type=int, default=1)
@@ -1030,6 +1044,7 @@ async def main():
             Path(args.search_leaf_calibration) if args.search_leaf_calibration else None
         ),
         exact_min_streams=args.search_streams,
+        exact_opponent_models=args.search_reply_prior == "models",
         exact_min_deep_coverage=args.min_deep_coverage,
         exact_preview_search=args.search and args.planned_preview,
         exact_preview_budget=args.preview_search_budget,
@@ -1088,6 +1103,7 @@ async def main():
             f"screen={args.screen_budget:g}s rng={args.chance_samples} "
             f"hidden={args.determinizations} "
             f"deep_worlds={args.search_determinizations} "
+            f"replies={args.search_reply_prior} "
             f"min_deep={args.min_deep_coverage:.2f} "
             f"preview={'exact' if args.planned_preview else 'champion'} "
             f"outcome={outcome_value}"
