@@ -1,6 +1,6 @@
 # VGC Bot Project Status
 
-## Predictor trial cut at 30 games by the laptop's lid (16-14, one more game abandoned); its reading is already clear -- the real reply is in the search's table 63% of the time with hidden sheets, against 37% this morning (2026-October 9, 14:35)
+## Predictor trial cut at 30 games by the laptop's lid (16-14, one more game abandoned); its reading is already clear -- the real reply is in the search's table 63% of the time with hidden sheets, against 37% this morning (2026-October 9, 14:32)
 
 - **What happened.** The trial pre-registered at 12:45 (the entry below) played 30 games
   from 12:45 to 14:05. At 14:06:00 the laptop went into clamshell sleep (the lid was
