@@ -248,8 +248,18 @@ ladder, in order:
     an arm (93.1% -> 94.6%); hidden sheets +1.03 [+0.00, +2.16], open +1.90 [+0.74, +3.26].
     The run also found the bridge's pipe leak (a search dead after ~500 battles in one
     process; fixed 69e667ef) and two modelling holes (species without set data, Imprison).
-  - [ ] Ladder trial at the user's word: `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh`
-    (flags for the measured configuration are in its header; `--device cpu`).
+  - [x] 2026-10-09, before the ladder trial: a rehearsal of the ladder script itself on a
+    local server (null search) changed 1 decision of 21 -- a search world created while a
+    slot held a fainted Pokemon put a healthy bench Pokemon in that slot (ours: it could
+    not be sent in; theirs: no world could be created, and the redraw was never retried).
+    Fixed (03081c89, `unit_tests/test_live_exact_fainted_slot.py`); null search through
+    the ladder script 0 of 124 afterwards. Not re-measured over thousands of games.
+  - [ ] Ladder trial at the user's word (10-09: "run the ladder games and then see what
+    needs to happen"): pre-registered 10-09 02:10, 40 games in stages 5 / 15 / 40 into
+    `ladder_replays_mc_search_nash1`, `TRIAL_SEARCH="..."` in `tools/ladder_trial.sh` (the
+    roster run's configuration; `--device cpu`). A non-regression read (13 wins or fewer
+    reads as worse than the bot's ladder history) and six diagnostic readings; no
+    promotion follows from it.
   - [ ] Before or beside a ladder trial: the opponent predictor as the search's reply prior
     (`vgc_bench/src/oppmodel/joint.py`; 62% top-8 on real opponents against 26% for the
     shipped models); worlds for species the set data cannot fill; Imprison in a reconciled

@@ -1,5 +1,89 @@
 # VGC Bot Project Status
 
+## PRE-REGISTERED at the user's word: a ladder trial of the search, 40 games in three stages; its rehearsal found a fault in how search worlds are created, fixed first (2026-October 9, 02:10, before any ladder game)
+
+- **The user (10-09):** "do the ladder", then "run the ladder games and then see what
+  needs to happen". Nothing else is running on the machine (no listener, no other
+  session's job); the three days since the roster run changed nothing in the repo but one
+  doc commit of the predictor session.
+- **The rehearsal, and what it found.** The ladder launcher's search flags were built on
+  10-04 and never played. Before any rated game the ladder script itself
+  (`ladder_ourteam.main()`, the argument list `tools/ladder_read_loop.sh` passes, only the
+  server address replaced) played on a local server in challenge mode against a heuristic
+  on foreign rosters, closed and open sheets, with the null search (`--search-anchor 1e12`).
+  **It changed 1 decision of 21**: at a forced replacement it sent in Torkoal where the bot
+  sends Farigiraf (policy probability 0.99).
+  - *Why.* The move that fainted our Charizard contradicted seven of the eight hidden-set
+    worlds, so they were drawn again at that request. `_our_preview` builds a new world's
+    lead order from poke-env's `active_pokemon`, which reports a fainted Pokemon's slot as
+    empty; the slot went to the next of our four in team-file order -- Farigiraf, healthy,
+    on the bench. Reconciliation then marks whoever stands in that slot as the one being
+    replaced, so the only replacement the world offered was Torkoal, and the bot's own pick
+    could not be expressed (`champion_choice: null`).
+  - *Why the measured runs did not show it.* In the mirror both sides lead the first two
+    Pokemon of the team file, and the next in file order is then the fainted lead itself:
+    0 of 1,459 redraws at a hidden-sheet replacement in the 10-05 head-to-head. The roster
+    run had it in 16 of 234 (all 16 changed the replacement). On ladder the preview model
+    opens with another pair in about three games in ten.
+  - *The same moment on the opponent's side* raised `opponent leads unavailable`: no world
+    could be created while one of their slots was empty, and the redraw was then never
+    tried again for that evidence -- the search went on in worlds that contradict what the
+    opponent had shown. 5.8% of the hidden-sheet decisions of the 10-05 head-to-head carry
+    that error; 14% of them had fewer than four agreeing worlds, 12% none (part of that is
+    T6e's own unusual sets, which no stored set can express).
+  - *Fix* (`vgc_bench/src/live_exact.py`, commit 03081c89): `_slot_occupants` reads each
+    slot's Pokemon, a fainted one waiting for its replacement included, for both sides; a
+    slot nobody is known to stand in goes to a fainted Pokemon, never a healthy one; a
+    redraw that failed is tried again at the next decision.
+    `unit_tests/test_live_exact_fainted_slot.py` (nine tests, seven fail on the old code,
+    one of them on the real simulator: the old lead order offers only Torkoal); 1,691
+    passed.
+  - *After the fix,* the same rehearsal with more games (ten against the heuristic on ten
+    rosters, six against a second copy of the deployed bot in its own process): **null
+    search 0 changed of 124** (24 hidden-sheet replacements, 6 of them right after a
+    redraw); no `opponent leads unavailable`; fewer than four agreeing worlds in 2 of 113
+    hidden-sheet decisions, none with zero. With the real anchor: 26 decisions, 3
+    overrides, no fallback; time per decision p50 1.9 s, p90 7.1 s, max 7.2 s.
+  - This is a change to the search since the two local measurements (19445d0e + the bridge
+    fix). It only touches worlds created while a slot holds a fainted Pokemon; it was not
+    re-measured over thousands of games, and the null-search rule would not let the old
+    code onto the ladder.
+- **What plays.** `tools/ladder_trial.sh` from main: the deployed configuration (T6ep on
+  T6e, 14 guards, sticky corrections, learned preview, open-sheet preview, the opponent
+  forecast in shadow mode) plus
+  `TRIAL_SEARCH="--search --search-every-turn --search-solution nash --search-leaf critic --search-anchor 0.07 --search-argmax --search-replies 8 --search-determinizations 4 --search-streams 4 --device cpu"`
+  -- the roster run's configuration (raw critic leaf, anchor 0.07, the 8 likeliest replies,
+  4 worlds, at least 4 random streams, cpu, 8 s). Replay directory
+  `ladder_replays_mc_search_nash1`. DEPLOYED.json is not changed; a trial is not a promotion.
+- **Stages** (the launcher counts the games already in the directory, so each stage ends
+  by itself): 5 games, then to 15, then to 40.
+  - After 5: a mechanical check only -- the share of decisions not searched, time per
+    decision, the timer.
+  - After 15: the usual trial rule, 4 wins or fewer ends it.
+- **It stops** (fixed now): more than a fifth of the last 40 or more searched decisions not
+  searched; a game lost on the timer, or a stalled battle; 4 wins or fewer of the first 15;
+  the user's word.
+- **What 40 games can and cannot say.** The 95% interval is about 15 points either way: it
+  cannot confirm or refute the +1.5 and +3.7 points measured locally. The record is a
+  non-regression check against the bot's ladder history with this team family (T6tac and
+  its guards: 81 of 150, free wins included; this brain's one read: 6 of 15): **13 wins or
+  fewer of 40** (upper bound 48%) reads as worse than that history; 14 or more does not
+  separate from it. No promotion follows from this trial either way.
+- **What it is for -- the readings, named before any game:**
+  1. does the search run on the real server: decisions searched, fallbacks by cause, time
+     per decision, anything the timer says;
+  2. was the opponent's real reply in the search's table, hidden and open sheets (locally:
+     the mirror's hidden sheets 56-72%, open 93-96%);
+  3. the overrides: how many, the edge the search expected and the edge in the cells of
+     the reply the opponent really made;
+  4. the worlds: decisions with fewer than four worlds agreeing with what the opponent has
+     shown, redraws that failed, rosters the set data cannot fill;
+  5. the opponent predictor's shadow forecast on the same decisions (it is logged in
+     `decisions_champion.jsonl` when the search plays): is the real reply pair in its top
+     eight, against the search's eight -- the size of the case for making it the search's
+     reply prior;
+  6. each loss: who lost a Pokemon first, and whether an override came before it.
+
 ## Roster run read: the search helps against other teams, +1.5 points [+0.7, +2.3] over 6,204 games an arm (93.1% -> 94.6%) (2026-October 6, 07:30)
 
 - **The pre-registered reading** (10-05 01:00; `results_search_rosters_rosters1_pooled.json`;
