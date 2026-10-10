@@ -791,8 +791,15 @@ worth 0.003, because the network already does that inference. The switch / Prote
 is calibrated; nothing found tonight carries new information about it. What moved the
 numbers was data, and averaging.
 
-**What is ready, and what it would take** (nothing below has been done; `DEPLOYED.json` and the
-artifact in `results_deployed/` are untouched):
+**SWAPPED at the user's word, 2026-10-10 11:57 ("yeah do both").** `DEPLOYED.json` now names
+`results_deployed/opponent_forecast_ens_v3_base_wide.pt` (the named candidate, sha256
+`25ef56d7e198...`; the old `oppnet_v2_blind` file stays and is recorded under the amendment's
+`previous`). Shadow mode as before: logged with every move decision, read by none.
+`checks/forecast_shadow_live.py` passed with the new manifest (9 forecasts by
+`night_ens_v3_base_wide_r2`, no failure). No listener was running, so none was restarted.
+To go back, restore the amendment's `previous` values.
+
+**What was ready before the swap, as written at 06:00** (kept for the record):
 - *Swap with no code change:* `results_oppmodel/v3full_20261010_f100_oppnet/artifact.pt`
   (sha256 `eea9fe82ebf6...`) loads and serves with the code on main as it was before tonight
   (checked). Copy it to a new file under `results_deployed/`, point `opponent_forecast` /

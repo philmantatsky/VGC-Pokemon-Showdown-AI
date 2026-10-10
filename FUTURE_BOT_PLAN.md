@@ -27,9 +27,11 @@ ladder, in order:
   -0.169 nats [-0.261, -0.104] and +7.5 points of joint top-8 [+4.1, +11.4] against the
   model in the bot. New inputs (matchup, set prior), a fine-tune on our own games and a
   correction for our own opponents were measured and not kept.
-- [ ] **Swap the forecast artifact (the user's decision):** the single retrained network
-  needs no code change; the two-network mean needs the fourth build's code. Then the search
-  session's own rehearsal for any trial that reads the new forecast.
+- [x] **Forecast artifact swapped at the user's word (2026-10-10 11:57, "yeah do both"):**
+  `DEPLOYED.json` `opponent_forecast` = `results_deployed/opponent_forecast_ens_v3_base_wide.pt`
+  (the two-network mean, sha 25ef56d7); shadow mode as before; live check passed.
+- [ ] The search session's rehearsal (null search first) for any trial that reads the new
+  forecast as its reply prior.
 - [ ] First decision-changing use: an **opt-in guard**, with thresholds fixed from the
   scorecard's decision-relevance tables beforehand, then the usual guard A/B (mirror for
   non-regression only: the mirror opponent is our own bot, which a human-move predictor is not

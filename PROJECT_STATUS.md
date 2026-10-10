@@ -1,5 +1,34 @@
 # VGC Bot Project Status
 
+## The bot's forecast model is swapped at the user's word: the two-network mean retrained on the full download is in `DEPLOYED.json` (shadow mode as before; brain, team, guards, preview unchanged) (2026-October 10, 11:57)
+
+- **The user (10-10, 11:55), asked "swap the bot's forecast model for the two-network average?
+  push main to GitHub?": "yeah do both".** The push was made by the search session at 11:56
+  at the user's word to it; this entry's commit goes up after it.
+- **What changed:** a NEW file `results_deployed/opponent_forecast_ens_v3_base_wide.pt` (a
+  copy of `results_oppmodel/night_ens_v3_base_wide_r2/artifact.pt`, sha256 25ef56d7e198...;
+  git-ignored like every artifact there); `DEPLOYED.json` `opponent_forecast`,
+  `opponent_forecast_sha256`, the note, and a second amendment quoting the user. The old
+  artifact (`opponent_forecast_oppnet_v2_blind.pt`, 95ffbde2...) stays where it is and is
+  named under `previous`.
+- **What did not change:** checkpoint (T6ep), team (T6e), the 14 guards, sticky corrections,
+  both previews, `replay_tag` (T6ep_guards14). The deployed bot still reads the forecast in
+  no decision; it logs it with every move decision.
+- **Checked with the new manifest:** `tools/deployed_config.py` resolves it (sha-checked);
+  55 tests of the manifest, the shadow hook and the run-config material pass;
+  `checks/forecast_shadow_live.py` on a local server (two games, open and closed sheets):
+  every move decision logged a forecast of `night_ens_v3_base_wide_r2` (9), the only
+  stand-downs were the 2 forced replacements, no failure counted; about 6 ms a forecast in
+  that run (2 threads' worth of other work on the machine). Server stopped.
+- **No listener and no ladder session is running**, so nothing was restarted: the next
+  `tools/challenges_deployed.sh` / `tools/ladder_deployed.sh` picks the new artifact up and
+  says so in its `forecast:` launch line.
+- **For the search:** a run with `--search-reply-prior forecast` now reads the new artifact
+  and is a new configuration (the weight 0.75 was chosen with the old model); the search
+  session rehearses it with a null search first.
+- **To go back:** put the two `previous` values of the last amendment back into
+  `opponent_forecast` / `opponent_forecast_sha256`.
+
 ## The search is unchanged by the predictor merge (null search 0 changed of 29); reading 5 cross-checked against the predictor session's own tool -- its Mega rule was stricter than the search's, fixed; the rest of the difference is the target rule (2026-October 10, 06:20)
 
 - **After the predictor session's merge** (fa87cccc; 10 commits of predictor files and

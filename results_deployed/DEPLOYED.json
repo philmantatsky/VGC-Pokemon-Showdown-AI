@@ -19,9 +19,9 @@
   "replay_tag": "T6ep_guards14",
   "sticky_guard_corrections": true,
   "sheet_preview": true,
-  "opponent_forecast": "results_deployed/opponent_forecast_oppnet_v2_blind.pt",
-  "opponent_forecast_sha256": "95ffbde2391d50a5ae7f61af6f66541d523163c4551328ce3d87f4813efc988a",
-  "opponent_forecast_note": "SHADOW MODE: the opponent predictor (OPPONENT_PREDICTOR.md; oppnet_v2_blind, Elo-blind, trained on results_oppmodel/v2_feed) is called at every move decision and its forecast is written into decisions.jsonl as 'opponent_forecast'. No decision reads it. It is not part of the play configuration: replay_tag and the replay directories are unchanged."
+  "opponent_forecast": "results_deployed/opponent_forecast_ens_v3_base_wide.pt",
+  "opponent_forecast_sha256": "25ef56d7e198dca794d56de93e72d5b93ebd0e1e6ee503a748b565868d4690ab",
+  "opponent_forecast_note": "SHADOW MODE: the opponent predictor (OPPONENT_PREDICTOR.md, fourth build; night_ens_v3_base_wide_r2, the mean of two Elo-blind networks trained on the full download, results_oppmodel/v3full_20261010_f100; artifact kind 'ensemble') is called at every move decision and its forecast is written into decisions.jsonl as 'opponent_forecast'. No decision of the deployed bot reads it. It is not part of the play configuration: replay_tag and the replay directories are unchanged. A search run that takes the forecast as its reply prior reads this artifact and is a new configuration from 2026-10-10 on."
  },
  "promoted_at": "2026-10-04T16:21:31+00:00",
  "promoted_by": "user 2026-10-04: 'make the earth power brain official and start the matrix search'",
@@ -159,6 +159,16 @@
    },
    "by": "user 2026-10-05: 'turn on shadow mode'",
    "evidence": "OPPONENT_PREDICTOR.md: on the opponents of our own 401 ladder games the model scores fine NLL 1.583 against 1.855 for the count-table bar (-0.271 [-0.303, -0.239]), exact action top-1 43.6% / top-3 74.6%; runtime == offline path on 2,615 of 2,615 turns of our saved games incl. real DoubleBattle objects, p99 3.0 ms per call (results_oppmodel/shadow_replay_v2_blind); the hook is pinned by unit_tests/test_opponent_forecast_shadow.py (no decision reads the forecast; every failure is counted and the bot plays on)."
+  },
+  {
+   "at": "2026-10-10T16:56:38+00:00",
+   "change": "opponent_forecast + opponent_forecast_sha256 now name the two-network mean retrained on the full download (a NEW file; the old artifact stays in results_deployed/). Shadow mode as before: logged with every move decision, read by no decision of the deployed bot. Brain, team, guards, preview and replay_tag unchanged.",
+   "previous": {
+    "opponent_forecast": "results_deployed/opponent_forecast_oppnet_v2_blind.pt",
+    "opponent_forecast_sha256": "95ffbde2391d50a5ae7f61af6f66541d523163c4551328ce3d87f4813efc988a"
+   },
+   "by": "user 2026-10-10: 'yeah do both' (asked: swap the bot's forecast model for the two-network average? push main to GitHub?)",
+   "evidence": "OPPONENT_PREDICTOR.md, fourth build: on the opponent side of 78 fresh ladder games of 10-09 / 10-10, by a reading fixed beforehand and paired with the old artifact, fine NLL -0.169 [-0.261, -0.104] (1.551 -> 1.383), the opponent's real pair of actions in the eight likeliest replies +7.5 points [+4.1, +11.4] (62.1% -> 69.6%), exact action top-1 42.6% -> 49.3%; on 22,463 games of held-out human players fine NLL 1.357, joint top-8 70.0%. About 4 ms a forecast against 2. The old artifact gives bit-identical output under the code that serves the new one (golden dump; the forecasts the bot logged, 520 of 520 turns)."
   }
  ]
 }
