@@ -605,6 +605,31 @@ game-clustered bootstrap, 95% intervals:
   RECOMMENDED as the new shadow / reply-prior model. The swap is a `DEPLOYED.json` change and
   stays the user's decision.
 
+**Amendments, 02:23, each written before its own result exists.**
+- *Dropped (5), a correction for our own opponents.* Measured on the OLD ladder holdout,
+  cross-fitted: two logit offsets (switch −0.27, Protect −0.32) gain 0.0044 nats
+  [−0.0076, −0.0009], under the 0.007 bar, and the gain comes from slots that were stopped
+  before acting; on visible actions it is worse, and a real switch falls out of the slot's
+  top three more often (51.9% → 46.8%). It would cost the search exactly the replies it
+  covers worst.
+- *Not built: in-game style.* How a player has behaved earlier in the same game does predict
+  the next action beyond the model, but by 0.0014–0.0022 nats.
+- *Added (6), a fine-tune on our own old ladder games.* On the ladder the opponent always
+  faces this bot and these six Pokemon; the corpus holds few such games. Grid fixed now:
+  learning rate {1e-5, 3e-5, 1e-4} × passes over the ladder rows {1, 2, 4}, one part ladder
+  rows to four parts corpus rows, 5 folds by game over the 401 OLD ladder games only. Taken
+  only if the best setting's pooled out-of-fold fine NLL change has its interval below zero,
+  joint top-8 is not lower by more than its interval's half-width, and replies holding a
+  switch do not lose more than 2 points; otherwise not taken. The fresh games stay sealed.
+- *The slot coupling's rule:* fitted on validation by the turn-start set likelihood, 10 folds
+  by battle; taken only if the gain is above 0.002 nats per two-slot row in at least 8 folds.
+  (A table fitted as a plain ratio on fully seen turns looks better on counted top-8 and is
+  worse at turn start: it is selection, and it is not what is fitted.)
+- *Expectation written down before the fits:* residual probes on the frozen model say the
+  network already holds most of what the new inputs carry — matchup facts 0.006 nats, the
+  set-conditional move prior 0.003–0.004 — so the new inputs are expected to add about a
+  hundredth of a nat, and the larger corpus and a wider network most of the gain.
+
 ### Not done, and what is next
 
 - **Read the shadow log** once real games exist; then a first guard, with thresholds fixed
