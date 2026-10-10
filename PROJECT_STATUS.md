@@ -1,5 +1,61 @@
 # VGC Bot Project Status
 
+## Opponent predictor read on the real ladder games, retrained on the finished download and averaged: fine NLL 1.551 -> 1.383 on 78 fresh ladder games, the opponent's real pair of actions in its top eight 62% -> 70% (2026-October 10, 06:02)
+
+- **The user (10-10, about 00:25):** "check out how the predictor did [on the ladder games]
+  ... and see how u can make it better ... work on your own until morning." Done in a
+  separate worktree (`../vgc-bench-oppmodel`, branch `oppmodel-night-1010`) so that nothing
+  the bot imports changed while the search session's last ten ladder games played.
+  `DEPLOYED.json`, the deployed forecast artifact and every checkpoint are untouched; no
+  ladder game was played by this session. Full account, pre-registration, amendments and
+  disclosures: `OPPONENT_PREDICTOR.md`, "Fourth build".
+- **How the model in the bot did** (the first question), on the opponent side of the 78
+  scorable ladder games of 10-09 / 10-10 (945 labelled slot-turns): the opponent's real
+  action is its first guess 42.6% of the time and in its top three 74.8%; fine NLL 1.551
+  (1.583 on the 401 older games: no drift); the real PAIR of actions is among its eight
+  likeliest 62.1% of the time, 41% when the reply holds a switch, 46% on turn 1. The
+  forecast the bot logged equals the offline one on 520 of 520 turns. New tool:
+  `evaluation/oppmodel_ladder_read.py` (any artifacts, any replay folders, each artifact
+  through its own featurizer; the fresh games only with `--fresh`).
+- **What made it better.** (1) The finished download: 120,774 battles, 1.10M training
+  examples, 3.3 times the last fit. (2) The mean of two networks trained on it (same size +
+  wide). Fixed before any result, on the fresh games against the model in the bot:
+  **fine NLL -0.169 [-0.261, -0.104]; joint top-8 +7.5 points [+4.1, +11.4]** (33 turns
+  gained, 9 lost); replies holding a switch 41% -> 57%, a move not shown before 54% -> 63%,
+  Protect replies level at 70%. The single retrained network alone: -0.141 [-0.219, -0.083]
+  and +6.6 points [+3.0, +10.5].
+- **What was built, measured and NOT kept** (each against a 0.007-nat bar set beforehand):
+  explicit matchup inputs and a set-conditional prior for unshown moves (layout version 2:
+  faster early epochs, nothing at convergence; the network already holds both); a wider
+  network alone; a fine-tune on our own 401 old ladder games (-0.022 on the old model,
+  -0.0045 on the retrained one); a correction for our own opponents (it costs the switch /
+  Protect replies); the player's style earlier in the game (0.002). A class-pair coupling of
+  the two opposing slots is taken by its rule on validation (+0.010 nats a two-slot row) and
+  does not show on ladder games: in the code, off unless a consumer asks
+  (`Forecast.pair_weight`, note for the search in
+  `results_oppmodel/analysis_20261010/coupling_for_search.md`).
+- **Where the remaining loss is:** more than half of it on our ladder opponents is the move
+  a Pokemon has not shown yet with sheets closed. Being told the set would be worth about
+  0.2 nats; inferring it from recorded sets is worth 0.003. Data and averaging moved the
+  numbers; inputs did not.
+- **Ready, not done (the user's decision):** swapping the forecast artifact. With no code
+  change: `results_oppmodel/v3full_20261010_f100_oppnet/artifact.pt` (sha256 eea9fe82...,
+  loads with the code as it was before tonight). With tonight's code: the named candidate
+  `results_oppmodel/night_ens_v3_base_wide_r2/artifact.pt` (sha256 25ef56d7...; kind
+  `ensemble`, 3.9 ms a forecast against 2.0). The search's forecast weight (0.75) was chosen
+  with the old model.
+- **Process, said plainly.** Six workflows of agents (measure, design, build, review, fix);
+  83 review findings on the new code and tools, fixed or listed. Three slips, all disclosed in
+  OPPONENT_PREDICTOR.md: a reviewer scored the sealed fresh games with a hand-made coupling
+  and opened single games while checking the tool; the baseline count-table fit read sealed
+  rows (columns never consulted); a checker re-dated three old replay pages for five
+  minutes (restored, verified). A counting bug in `evaluation/search_ladder_read.py` (a
+  forecast switch could never match) was found by the code map and fixed by the search
+  session (859a20ce): the predictor's own eight pairs read 61%, not 56%.
+- **Checked:** the model in the bot is bit-identical under the new code (golden dump of
+  38 arrays; logged forecasts 520 of 520). Test counts and the live check are in the next
+  entry / commit message.
+
 ## Correction: the reading tool undercounted the predictor's own eight pairs on every reply holding a switch; corrected, the predictor's own list is level with the search's table (61% against 62%), not behind it (2026-October 10, 01:40)
 
 - **Found by the predictor session** reading `evaluation/search_ladder_read.py`:

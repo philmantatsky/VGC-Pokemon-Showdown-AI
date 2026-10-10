@@ -18,8 +18,18 @@ ladder, in order:
 - [x] **Shadow mode ON at the user's word (2026-10-05 03:43):** the forecast is logged with
   every move decision and read by none (`DEPLOYED.json` `opponent_forecast`;
   `checks/forecast_shadow_live.py` passed).
-- [ ] Read the shadow log on real ladder games (accuracy and calibration by sheet state)
-  before anything acts on it.
+- [x] Read on real ladder games (10-10, `evaluation/oppmodel_ladder_read.py`, 78 games of
+  10-09 / 10-10): the model in the bot is right first time 42.6%, top three 74.8%, the real
+  pair of actions in its top eight 62.1% (41% with a switch); logged forecasts equal the
+  offline ones on 520 of 520 turns. Switch is over-predicted by 2.9 points, Protect level.
+- [x] Retrain on the finished download and the fourth build (10-10, pre-registered R5a /
+  R5b, one confirmation read on the fresh games): the mean of two retrained networks reads
+  -0.169 nats [-0.261, -0.104] and +7.5 points of joint top-8 [+4.1, +11.4] against the
+  model in the bot. New inputs (matchup, set prior), a fine-tune on our own games and a
+  correction for our own opponents were measured and not kept.
+- [ ] **Swap the forecast artifact (the user's decision):** the single retrained network
+  needs no code change; the two-network mean needs the fourth build's code. Then the search
+  session's own rehearsal for any trial that reads the new forecast.
 - [ ] First decision-changing use: an **opt-in guard**, with thresholds fixed from the
   scorecard's decision-relevance tables beforehand, then the usual guard A/B (mirror for
   non-regression only: the mirror opponent is our own bot, which a human-move predictor is not
