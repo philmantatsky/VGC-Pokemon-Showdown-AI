@@ -90,7 +90,8 @@
   rows (columns never consulted); a checker re-dated three old replay pages for five
   minutes (restored, verified). A counting bug in `evaluation/search_ladder_read.py` (a
   forecast switch could never match) was found by the code map and fixed by the search
-  session (859a20ce): the predictor's own eight pairs read 61%, not 56%.
+  session (859a20ce, then f6b75d65 for the Mega rule): the predictor's own eight pairs read
+  62% (135 of 218), not 56%.
 - **Checked, then brought onto main (06:04, fast-forward to fa87cccc; the search session
   told first, nothing running):** the model in the bot is bit-identical under the new code
   (golden dump of 38 arrays; the forecasts the bot logged, 520 of 520 turns);

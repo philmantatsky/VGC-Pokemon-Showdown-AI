@@ -565,6 +565,9 @@ read a forecast switch's destination from the wrong key, so a correctly forecast
 could never count (found by tonight's code map, confirmed and fixed by the search session,
 main 859a20ce). Corrected by them: 105 of 170 (62%) at 30 games; 134 of 218 (61%) over the
 40 trial games, first pair 23% — level with the search's table as played (62%).
+*Second correction, 06:18 (their f6b75d65, a Mega-state rule in the same reading):* 135 of
+218 (62%), first pair 25%. The 17 decisions between their count and this file's own reading
+of the same games (241 of 385) are that rule (5) and how an uncertain target is matched (11).
 
 **Sets.**
 - *Development:* validation players and the OLD ladder holdout (the 401 own games played
