@@ -699,7 +699,7 @@ written, and the scratch link is removed. Nothing of mine read pages by date in 
   before version 2). All four, and the coupled variant of the winner, are read on the fresh
   games in ONE run; R5a / R5b are stated for the named one, the others are reported beside it.
 
-**The final candidate is named, 06:00, before the fresh games are read for any of the four.**
+**The final candidate is named, 05:59, before the fresh games are read for any of the four.**
 Development read on the 401 old ladder games (`analysis_20261010/ladder_read_old_dev_final`,
 4,810 labelled slot-turns, 1,714 fully visible turns):
 
@@ -720,15 +720,90 @@ with them reads 1.3617 and 1.3595 on validation (two seeds) against 1.3593 witho
 the first epochs faster (0.07 nats ahead after one, 0.003 after thirteen) and change nothing
 at the end, as the probes said. The version-2 layout stays in the code, off by default.
 
+### Fourth build — RESULTS (2026-10-10 06:00; the one confirmation read)
+
+**The confirmation, as pre-registered.** `analysis_20261010/ladder_read_fresh_confirm/`: the
+opponent side of the 78 scorable ladder games of 10-09 and 10-10 (80 pages, 2 dropped by the
+builder's Illusion rule; 70 closed-sheet, 8 open; 945 labelled slot-turns, 319 turns whose
+acting slots are all visible). Read once for the candidates, at 05:59, after the final
+candidate was named. Paired with the model in the bot on the same slot-turns, 2,000
+resamples of whole games.
+
+| | fine NLL | top-1 | top-3 | joint top-8 |
+|---|---|---|---|---|
+| in the bot (`oppnet_v2_blind`) | 1.551 [1.436, 1.723] | 42.6% | 74.8% | 62.1% [55.7, 67.8] |
+| retrained on the full download, one network | 1.410 [1.320, 1.527] | 47.7% | 76.4% | 68.7% |
+| the same with the new inputs | 1.396 | 46.9% | 78.4% | 68.3% |
+| **mean of the two retrained networks (the named candidate)** | **1.383 [1.299, 1.484]** | **49.3%** | **78.6%** | **69.6% [64.0, 74.6]** |
+| mean of two networks with the new inputs | 1.384 | 47.5% | 78.0% | 70.2% |
+| the candidate with its pair coupling | 1.383 | 49.3% | 78.6% | 69.3% |
+
+- **R5a passes.** Candidate minus the model in the bot: **-0.169 nats [-0.261, -0.104]**
+  (closed sheets alone -0.170 [-0.275, -0.097]). No resample of games shows it not better.
+- **R5b: better, not only "not worse".** Joint top-8 **+7.5 points [+4.1, +11.4]**: on 33
+  turns only the candidate holds the real reply, on 9 only the old model (sign test
+  p < 0.001).
+- **R5c, reported.** Replies holding a switch 41.4% -> 56.9% (58 turns); holding a Protect
+  70.2% -> 70.2% (84); moves only 65.0% -> 73.4% (177); turn 1 46.2% -> 51.3% (39); a move not
+  shown before 54.0% -> 62.6% (211). Switch is still over-predicted, less than before
+  (observed 8.3%, predicted 10.0%; the old model 11.2%); where it says P(switch) >= 0.35 a
+  switch happens 46% of the time against the 53% it says. Protect is level (15.0% observed,
+  14.1% predicted; at P >= 0.5 it is right 66% of the time and says 65%).
+- **The single retrained network** (no code change needed to serve it): -0.141 nats
+  [-0.219, -0.083], joint top-8 +6.6 points [+3.0, +10.5] (32 turns against 11, p = 0.002).
+- **On the 10-09 games alone** (the ten opponents of 10-10 were not held out of these models'
+  corpus; 828 slot-turns, 282 turns): 1.567 -> 1.396, joint top-8 62.4% -> 69.1%. The same.
+- **The pair coupling does not show on these games** (69.3% against 69.6% without it; and this
+  was not a first look, see the disclosures). On validation it is worth +0.2 to +0.5 points
+  of top-8 and 0.010 nats per two-slot row (10 of 10 folds), on the old ladder games +0.35
+  points inside the noise. It is in the code, off unless a consumer asks for pairs.
+- **The new code serves the model in the bot exactly as the bot did:** the forecast it
+  computes for `oppnet_v2_blind` equals the one the bot logged on 520 of 520 turns (964
+  slots, 7,676 listed actions, largest difference 0.0000).
+
+**What each change turned out to be worth** (development sets; the fresh games confirm the sum):
+
+| change | kept? | what it measured |
+|---|---|---|
+| 1. the full download (120,774 battles, 1.10M training examples, 3.3x) | **yes** | old ladder games 1.583 -> 1.453, joint top-8 62.3% -> 66.9% |
+| 7. the mean of two networks (same-size + wide) | **yes** | a further -0.015 [-0.021, -0.009] and +1.2 points; 3.9 ms a forecast against 2.0 |
+| 2. matchup inputs, 3'. set-conditional move prior (layout version 2) | no | faster early epochs, nothing at convergence (validation 1.3617 / 1.3595 against 1.3593); probes had said 0.006 and 0.003 |
+| 3. pair coupling of the two slots | built, off by default | see above |
+| 4. a wider network alone | no | level on validation, worse on the old ladder games |
+| 5. a correction for our own opponents | no | 0.0044 nats, and it costs the switch / Protect replies |
+| 6. a fine-tune on our 401 old ladder games | no | -0.022 on the older model, -0.0045 on the retrained one |
+| in-game style of the player | not built | 0.002 nats |
+
+**What the measurements say about the predictor itself.** More than half of what it loses on
+our ladder opponents is the move a Pokemon has not shown yet with sheets closed; being told
+the set would be worth about 0.2 nats, and inferring it from the species' recorded sets is
+worth 0.003, because the network already does that inference. The switch / Protect decision
+is calibrated; nothing found tonight carries new information about it. What moved the
+numbers was data, and averaging.
+
+**What is ready, and what it would take** (nothing below has been done; `DEPLOYED.json` and the
+artifact in `results_deployed/` are untouched):
+- *Swap with no code change:* `results_oppmodel/v3full_20261010_f100_oppnet/artifact.pt`
+  (sha256 `eea9fe82ebf6...`) loads and serves with the code on main as it was before tonight
+  (checked). Copy it to a new file under `results_deployed/`, point `opponent_forecast` /
+  `opponent_forecast_sha256` at it, restart the listener.
+- *The named candidate:* `results_oppmodel/night_ens_v3_base_wide_r2/artifact.pt` (sha256
+  `25ef56d7e198...`), needs tonight's code (artifact kind `ensemble`; old code refuses it
+  loudly and the bot plays on without a forecast). Same three steps once the code is on main.
+- Either way the search's forecast weight (0.75) was chosen with the old model's forecast;
+  a trial with a new artifact is a new configuration by the search session's own rules.
+
 ### Not done, and what is next
 
-- **Read the shadow log** once real games exist; then a first guard, with thresholds fixed
-  from the decision-relevance tables beforehand and the usual guard A/B.
-- **Retrain when the download is done** (29,976 of about 113,000 games fetched at 03:48;
-  the second pass shows the model is data-limited). The learning curve now running says
-  whether the last doubling still helps.
-- A joint head for the two slots (the independence table above), and a set prior for
-  unshown moves: both aim at the turns the predictor covers worst.
+- Done on 2026-10-10 (the fourth build above): the read of the real ladder games, the
+  retrain on the finished download, a set prior for unshown moves and a coupling of the two
+  slots (both measured small).
+- **Open after the fourth build:** the swap of the forecast artifact (the user's decision);
+  the search-side opt-in for pair weights (`analysis_20261010/coupling_for_search.md`, the
+  search session's file); a first guard reading the forecast; the next data (every new
+  ladder game is a fresh test, `evaluation/oppmodel_ladder_read.py --fresh --since <day>`);
+  known limits of the unused version-2 inputs listed in `analysis_20261010/` (always-crit
+  stage rule, power callbacks, the smoothing of the set prior) before anyone turns them on.
 - Not measured: the deployed brain played from the opponent's seat as a baseline (needs the
   brain on a quiet machine).
 - Deferred by the reviews: the three prior trainers still save last-epoch weights
