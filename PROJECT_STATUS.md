@@ -31,6 +31,30 @@
 - **At a stage boundary** only these are looked at: health, power and lid, the public
   rating. The launcher's log shows the record as it goes; no reading is taken from it
   before the end.
+- **AMENDED at the user's word, 14:22, at game 31, before any of the readings below was
+  taken** (the record and the public rating had been told as they stood at game 20: 6
+  of 20, 1409 -> 1269; and the games listed once to see that none was lost on our clock).
+  Asked when the games are analysed, the user: "i think we should stop in inecrements
+  like every 25 games and analyze them so that we can see how it gets better throughout
+  the run". Told first that nothing learns during the run -- one configuration plays all
+  300 games, so a block can differ from the one before it by chance and by where the
+  rating stood, not by the bot getting better. What changes:
+  - *Stages* 40 (the one under way), then 75, 100, 125 ... 300, twenty-five games each.
+  - *At each boundary an interim reading, labelled interim,* by
+    `evaluation/ladder_blocks.py` into
+    `results_analysis/search_ladder_20261010/interim/`: for the block just played and
+    for all games so far -- the record and forfeits, the rating at its start and end,
+    the performance rating (all games so far, with its interval; a block's own is given
+    without a claim: twenty-five games leave it about a hundred points either way), the
+    search (decisions searched, fallbacks by cause, time), the opponent's real reply in
+    the table with hidden sheets, the overrides and their edge where the reply had been
+    searched, and whatever broke.
+  - *What does not change:* the configuration (no fix goes in between blocks: the
+    faults found are listed and wait for the end), the stop rules, the claim rule of
+    reading 1 and the comparison of reading 2 -- both taken once, at game 300 or at the
+    stop. The run is not stopped or steered by an interim number except at the user's
+    word; with a look every 25 games, a claim made at whichever look is most favourable
+    would not be worth the interval printed beside it.
 - **Readings, named now:**
   1. *The level -- the reading this run is for.* A win rate on a ladder says little (the
      ladder pairs a player with its own rating); the level a set of games shows is the
