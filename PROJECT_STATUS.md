@@ -55,7 +55,7 @@
     stop. The run is not stopped or steered by an interim number except at the user's
     word; with a look every 25 games, a claim made at whichever look is most favourable
     would not be worth the interval printed beside it.
-- **15:00, at game 41: the platform's announcement on bots, and what follows from it
+- **14:50, at game 41: the platform's announcement on bots, and what follows from it
   here.** Told by the predictor session and read from the source: Smogon staff's
   "Initial policy on bots" of 2026-10-09 (smogon.com/forums/threads/3789528, by Django;
   a reply by chaos). In its own terms it is a direction, not yet a rule: staff would
