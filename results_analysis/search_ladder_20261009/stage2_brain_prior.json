@@ -180,10 +180,10 @@
  "forecast": {
   "hidden: replies": 88,
   "hidden: table": 32,
-  "hidden: forecast": 41,
-  "hidden: forecast, moves only": 45,
-  "hidden: forecast top 1": 19,
-  "hidden: neither": 36,
+  "hidden: forecast": 49,
+  "hidden: forecast, moves only": 53,
+  "hidden: forecast top 1": 21,
+  "hidden: neither": 30,
   "open: replies": 6,
   "open: table": 5,
   "open: forecast": 2,
@@ -192,9 +192,9 @@
   "open: both": 2,
   "open: table only": 3,
   "open: neither": 1,
-  "hidden: both": 21,
-  "hidden: table only": 11,
-  "hidden: forecast only": 20
+  "hidden: both": 23,
+  "hidden: forecast only": 26,
+  "hidden: table only": 9
  },
  "priors": {
   "hidden": {
@@ -215,6 +215,7 @@
   "sum75": [],
   "forecast": []
  },
+ "played_against_brain": {},
  "priors_by_kind": {},
  "games": [
   {

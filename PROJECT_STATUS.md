@@ -1,5 +1,42 @@
 # VGC Bot Project Status
 
+## Correction: the reading tool undercounted the predictor's own eight pairs on every reply holding a switch; corrected, the predictor's own list is level with the search's table (61% against 62%), not behind it (2026-October 10, 01:40)
+
+- **Found by the predictor session** reading `evaluation/search_ladder_read.py`:
+  `forecast_pairs` read a forecast switch's destination under a key the runtime never
+  writes (`species`; `ActionForecast.to_dict` writes `switch_to`). Every logged switch
+  action -- 589 in the predictor trial's log -- read as "", so no forecast switch could
+  match the reply seen, and two switches read as "" were dropped as "both switching to
+  the same Pokemon". The tool's own test built its forecast by hand with the same wrong
+  key, and passed.
+- **What it touched: reading 5 only** -- the predictor's own eight likeliest pairs and
+  the cells both / forecast only / table only / neither. Not the table as played, not
+  5b (ranks the search logs from its own live ranking), not the pre-registered reading,
+  and no decision: the forecast as the reply prior and its weight came from 5b.
+- **Corrected, hidden sheets** (reported before in brackets):
+  - Predictor trial, 40 games: its own eight pairs hold the real reply 134 of 218 (61%)
+    [121, 56%], on moves alone 143 (66%) [130, 60%], its first guess 51 (23%) [45, 21%];
+    both 108, forecast only 26, table only 28, neither 56 [97 / 24 / 39 / 58]. Open
+    sheets 11 of 19 [9]. **"The table as played holds the reply more often than the
+    forecast's own list" was wrong: the two are level, 62% and 61%** -- and reading 5
+    now agrees with 5b's forecast-alone column (61%), as it should have all along; the
+    old 56% beside that 61% was a disagreement I did not chase.
+  - The same trial at 30 games: 105 of 170 (62%) [96, 56%].
+  - First trial (the brain's prior), pooled: 90 of 172 (52%) [75, 44%]; both 40,
+    forecast only 50, table only 22, neither 60 [37 / 38 / 25 / 72]. Its fifteen
+    second-stage games: 49 of 88 (56%) [41, 47%]; both 23, forecast only 26, table only
+    9, neither 30 [21 / 20 / 11 / 36]. Open sheets unchanged (21 of 30).
+- **Fixed with a test** that builds the forecast record with the runtime's own class
+  (on the old code the likeliest pair reads ("switch", "") and no double switch is
+  among the pairs). Every reading under `results_analysis/search_ladder_20261009/` is
+  regenerated (stage 1-3, pooled, the predictor trial at 30 and at 40 games); only the
+  forecast block differs, plus a field the older files were written before. The 30-game
+  directory was rebuilt from the append-only logs, and the old tool on it gives the old
+  file back line for line.
+- **Lessons.** A test of a log reader builds its input with the writer's own code,
+  never by hand. Two readings of one quantity that disagree are resolved before either
+  is reported.
+
 ## Predictor trial read at 40 games: 24 of 40 (60%); the real reply is in the search's table 62% of the time with hidden sheets against 37% under the brain's prior (confirmed, p = 3e-12); a quarter of real replies are still legal in no world (2026-October 10, 01:15)
 
 - **The user (10-10, 00:25):** "continue where u left off" -- the lid open, the laptop on
@@ -44,10 +81,11 @@
     alone a reply with a switch is the weakest kind: within the table's width for 13 of
     40 (32%) as played, 1 of 40 under the brain's prior, 16 of 40 under the forecast alone.
   - Open sheets (three games): 9 of 19 (47%).
-  - The predictor's own eight likeliest pairs, same decisions, hidden sheets: 121 of 218
-    (56%), its first guess 45 of 218 (21%). The table as played -- the mix, world by
-    world -- holds the reply more often than the forecast's own list (table only 39,
-    forecast only 24).
+  - The predictor's own eight likeliest pairs, same decisions, hidden sheets: 134 of 218
+    (61%), its first guess 51 of 218 (23%); level with the table as played (table only
+    28, forecast only 26). *[Corrected 01:40, the entry above: first written as 121
+    (56%), 45 (21%), "the table holds the reply more often" -- the reading tool could
+    not match a forecast switch.]*
   - Weight: the logged rankings put the reply within the table's width for 60% at the
     played 0.75, 61% under the forecast alone, 55% at 0.5, 37% under the brain alone
     (203 hidden-sheet decisions). Nothing here asks for another weight.
@@ -237,7 +275,9 @@
 - **5. The predictor on the same decisions.** Its own eight likeliest reply pairs held
   the real reply 75 times in 172 with hidden sheets (44%) and 21 in 30 with open ones
   (70%), and the two lists miss different replies (hidden: both 37, the predictor alone
-  38, the table alone 25, neither 72).
+  38, the table alone 25, neither 72). *[Corrected 10-10, top of the log: the reading
+  tool could not match a forecast switch. Hidden sheets 90 of 172 (52%); both 40, the
+  predictor alone 50, the table alone 22, neither 60.]*
 - **5b. The measurement the last twenty games were for** (`reply_coverage.priors`, 75
   hidden-sheet decisions; every legal reply of every searched world ranked by the
   brain's prior, by the forecast, and by sums of the two; the logged brain ranking
@@ -449,10 +489,12 @@
   - *Why the measuring mode.* In the fifteen games the real reply was in the search's
     table in 32 of 88 hidden-sheet decisions (36%) and in the forecast's own eight
     likeliest in 41 (47%) -- and they miss different replies: both 21, the forecast
-    alone 20, the table alone 11, neither 36. A reply with a switch in it was in the
-    table 6 times in 22 (the opponents switched in 23% of the replies seen; the brain
-    in their seat hardly expects it). Which mixture would cover most cannot be read
-    from the logs as they were; the last twenty games record it.
+    alone 20, the table alone 11, neither 36 *[corrected 10-10, top of the log: 49
+    (56%); both 23, the forecast alone 26, the table alone 9, neither 30]*. A reply
+    with a switch in it was in the table 6 times in 22 (the opponents switched in 23%
+    of the replies seen; the brain in their seat hardly expects it). Which mixture
+    would cover most cannot be read from the logs as they were; the last twenty games
+    record it.
   - *Rehearsed on the local server with exactly these flags* (three rounds; the first
     two found two faults in the new logging -- cleared twice a decision, and keyed by
     things two worlds share -- fixed, with tests): rosters with Inteleon, Mimikyu,

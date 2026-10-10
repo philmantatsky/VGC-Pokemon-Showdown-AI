@@ -20,6 +20,7 @@ from evaluation.search_ladder_read import (
     sign_test,
     wilson,
 )
+from vgc_bench.src.oppmodel.runtime import ActionForecast
 
 
 def _slot(*actions, p_mega=0.0):
@@ -27,11 +28,13 @@ def _slot(*actions, p_mega=0.0):
 
 
 def _move(move, p, target="auto"):
-    return {"kind": "move", "move": move, "p": p, "target": target}
+    return ActionForecast("move", p, move=move, target=target).to_dict()
 
 
-def _switch(species, p):
-    return {"kind": "switch", "species": species, "p": p}
+def _switch(species, p, roster_index=0):
+    # the runtime's own record of a switch, as decisions_champion.jsonl holds it
+    action = ActionForecast("switch", p, switch_to=species, roster_index=roster_index)
+    return action.to_dict()
 
 
 FORECAST = {
@@ -71,6 +74,34 @@ def test_joint_replies_are_products_without_what_the_rules_forbid():
     assert forecast_pairs({}) == [
         (("none", "", None), ("none", "", None), (False, False), 1.0)
     ]
+
+
+def test_a_logged_switch_is_read_under_the_runtimes_own_key():
+    """Until 2026-10-10 the destination was read under a key the runtime never writes:
+    no forecast switch could match the reply seen, and two switches both read as ""
+    were dropped as "the same Pokemon" -- the predictor's own pairs were undercounted
+    on every reply holding a switch."""
+    record = {
+        "slots": [
+            _slot(_switch("pelipper", 0.7, 2), _move("protect", 0.3)),
+            _slot(_switch("archaludon", 0.6, 3), _move("protect", 0.4)),
+        ]
+    }
+    assert record["slots"][0]["actions"][0] == {
+        "kind": "switch",
+        "p": 0.7,
+        "switch_to": "pelipper",
+        "roster_index": 2,
+    }
+    pairs = forecast_pairs(record, mega=False)
+    # two different switches are a reply, and the likeliest one here
+    assert (pairs[0][0], pairs[0][1]) == (
+        ("switch", "pelipper", None),
+        ("switch", "archaludon", None),
+    )
+    assert forecast_matches(pairs[0][0], ["switch", "pelipper", None, False], True)
+    assert forecast_matches(pairs[0][1], ["switch", "archaludon", None, False], True)
+    assert not forecast_matches(pairs[0][0], ["switch", "archaludon", None, 0], True)
 
 
 def test_a_forecast_action_matches_by_the_searchs_own_rule():

@@ -204,13 +204,13 @@
  "forecast": {
   "hidden: replies": 84,
   "hidden: table": 31,
-  "hidden: forecast": 32,
-  "hidden: forecast, moves only": 38,
-  "hidden: forecast top 1": 15,
-  "hidden: neither": 35,
-  "hidden: both": 15,
-  "hidden: forecast only": 17,
-  "hidden: table only": 14,
+  "hidden: forecast": 39,
+  "hidden: forecast, moves only": 45,
+  "hidden: forecast top 1": 18,
+  "hidden: neither": 29,
+  "hidden: both": 16,
+  "hidden: forecast only": 23,
+  "hidden: table only": 13,
   "hidden: no forecast": 3
  },
  "priors": {
@@ -625,6 +625,10 @@
    1,
    1
   ]
+ },
+ "played_against_brain": {
+  "neither": 51,
+  "both": 24
  },
  "priors_by_kind": {
   "with a protect": {

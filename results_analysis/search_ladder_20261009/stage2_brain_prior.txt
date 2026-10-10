@@ -33,8 +33,8 @@ GAMES 8 of 15 (53%) [30.1, 75.2]
       1  hidden | root refresh: ValueError: Total of weights must be greater than zero
 
 5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
-   hidden: table 32 of 88 (36%);  forecast 41 of 88 (47%) by the same rule, 45 of 88 (51%) on moves alone, its first 19 of 88 (22%)
-           both 21, forecast only 20, table only 11, neither 36
+   hidden: table 32 of 88 (36%);  forecast 49 of 88 (56%) by the same rule, 53 of 88 (60%) on moves alone, its first 21 of 88 (24%)
+           both 23, forecast only 26, table only 9, neither 30
    open  : table 5 of 6 (83%);  forecast 2 of 6 (33%) by the same rule, 2 of 6 (33%) on moves alone, its first 1 of 6 (17%)
            both 2, forecast only 0, table only 3, neither 1
 

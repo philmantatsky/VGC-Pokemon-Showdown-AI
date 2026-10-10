@@ -136,7 +136,8 @@ def forecast_pairs(record: dict, k: int = 8, mega: bool = True) -> list[tuple]:
             (
                 (
                     a.get("kind"),
-                    a.get("move") or a.get("species") or "",
+                    # the runtime logs a switch's destination as switch_to
+                    a.get("move") or a.get("switch_to") or "",
                     a.get("target"),
                 ),
                 float(a.get("p") or 0.0),
