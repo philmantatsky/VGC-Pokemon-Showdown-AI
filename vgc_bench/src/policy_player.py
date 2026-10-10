@@ -198,6 +198,7 @@ class PolicyPlayer(Player):
         exact_reply_forecast: bool = False,
         exact_reply_forecast_weight: float = 0.50,
         exact_reply_forecast_mix: str = "sum",
+        exact_world_moves: str = "particle",
         enable_search: bool | None = None,
         mixing_mode: str = "off",
         mixing_top_k: int = 3,
@@ -351,6 +352,12 @@ class PolicyPlayer(Player):
                 the brain, the forecast and sums of the two.
             exact_reply_forecast_mix: "sum" (default): ``(1 - w) * brain + w *
                 forecast``; "product": ``brain^(1 - w) * forecast^w``.
+            exact_world_moves: what moves a search world gives the opponent's two
+                active Pokemon. "particle" (default): the four of the set it drew for
+                them. "likely": what each has shown plus the likeliest of what it has
+                not -- the predictor's candidates for the decision when the search
+                reads the forecast, else the species' most used moves -- the last
+                free slot differing from world to world.
             enable_search: Per-player exact-search switch. ``None`` inherits the
                 class default; evaluations use this to keep opponent players on
                 their own policy while searching several controlled battles.
@@ -505,6 +512,7 @@ class PolicyPlayer(Player):
         self.exact_reply_forecast = bool(exact_reply_forecast)
         self.exact_reply_forecast_weight = float(exact_reply_forecast_weight)
         self.exact_reply_forecast_mix = str(exact_reply_forecast_mix)
+        self.exact_world_moves = str(exact_world_moves)
         # diagnostic only: the opponent's real team file for the exact worlds
         self.exact_oracle_opponent_team = (
             Path(exact_oracle_opponent_team)
@@ -1661,6 +1669,7 @@ class PolicyPlayer(Player):
             search_replacements=getattr(self, "exact_search_replacements", True),
             reply_forecast_weight=getattr(self, "exact_reply_forecast_weight", 0.50),
             reply_forecast_mix=getattr(self, "exact_reply_forecast_mix", "sum"),
+            world_moves=getattr(self, "exact_world_moves", "particle"),
             oracle_opponent_team_text=(
                 self.exact_oracle_opponent_team.read_text()
                 if self.exact_oracle_opponent_team is not None

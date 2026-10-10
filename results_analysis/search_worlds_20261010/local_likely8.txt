@@ -1,0 +1,42 @@
+GAMES 0 of 0 [nan, nan]
+
+1. SEARCH  decisions 131  modes {'search': 131}
+   seconds a decision: p50 3.6  p90 7.6  p99 8.2  max 8.3;  7 s or more: 32 of 131 (24%);  9 s or more: 0
+
+2. THE OPPONENT'S REAL REPLY IN THE SEARCH'S TABLE
+   hidden sheets: 52 of 72 (72%) in some world; mean share of worlds holding it 64%
+   moves only      46 of 66 (70%)
+   with a switch   6 of 6 (100%)
+
+3. OVERRIDES  0 of 131 (0%) of searched decisions, 0 at forced replacements
+
+4. THE WORLDS
+   hidden: decisions                            131
+   hidden: fewer than 4 worlds agree            0
+   hidden: no world agrees                      0
+   hidden: worlds redrawn                       15
+    200  hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+
+5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
+   hidden: table 52 of 72 (72%);  forecast 39 of 72 (54%) by the same rule, 44 of 72 (61%) on moves alone, its first 20 of 72 (28%)
+           both 39, forecast only 0, table only 13, neither 20
+
+5b. THE REAL REPLY UNDER OTHER REPLY PRIORS (logged world by world)
+   hidden n=66, within the table's width: table 70% (mass 65%)  brain 67% (mass 45%)  sum25 70% (mass 53%)  sum50 70% (mass 61%)  sum75 70% (mass 65%)  forecast 62% (mass 62%)
+   within the first k replies of some world:
+      k       brain     sum25     sum50     sum75  forecast
+      1         21%       24%       27%       38%       35%
+      2         33%       38%       41%       45%       44%
+      4         50%       56%       61%       58%       58%
+      6         58%       64%       64%       67%       59%
+      8         67%       70%       70%       70%       62%
+     10         76%       74%       73%       73%       67%
+     12         80%       83%       76%       73%       68%
+     16         85%       86%       85%       80%       74%
+     24         86%       88%       88%       85%       80%
+   the table as played against the brain's ranking alone, same decisions: both 39, played only 7, brain only 5, neither 15;  exact two-sided p 0.7744
+   legal in no world (no prior can list it): 4 of 66 (6%)
+   moves only      brain 44 of 66 (67%)  sum25 46 of 66 (70%)  sum50 46 of 66 (70%)  sum75 46 of 66 (70%)  forecast 41 of 66 (62%)
+
+6. GAMES
+   games with an override: 0 of 0 won;  without: 0 of 0

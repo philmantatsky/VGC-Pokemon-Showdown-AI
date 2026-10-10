@@ -1,5 +1,80 @@
 # VGC Bot Project Status
 
+## The guessed teams are widened (opt-in): a world gives the opponent's active Pokemon what they have shown plus the likeliest moves they have not; real replies legal in no world fall from 23% to 8% on the ladder logs; a table of sixteen runs, its time on a quiet machine still to be measured (2026-October 10, 17:36)
+
+- **The user (16:20):** "fix the guessed teams and make the list 16". No ladder game
+  was played; `DEPLOYED.json` is untouched; the search stays off in the deployed bot.
+- **Why the worlds were short** (`results_analysis/search_worlds_20261010/
+  why_legal_in_no_world.*`; 147 replies legal in no planning world of 690 logged, the
+  ladder games of stage 3 and both predictor runs; each reply once, by its hardest
+  part):
+
+  | the part no world allowed | replies | |
+  |---|---|---|
+  | a move in none of the species' set families | 46 | 31% |
+  | a move in no family that also holds what the Pokemon had shown | 22 | 15% |
+  | a move some family holds, in under a quarter of the fitting ones | 36 | 24% |
+  | a move a quarter or more of the fitting families hold | 19 | 13% |
+  | a switch to a Pokemon not seen before | 19 | 13% |
+  | Mega Evolution no set allows, a switch to one seen before, other | 5 | 3% |
+
+  Four in five are a move. A world draws one of at most twelve set families a
+  species; a family stands for the sets sharing three of its moves, so the rarer
+  fourth move is in no family at all (Incineroar's Snarl, Taunt, Protect and Helping
+  Hand: 3 to 10% of its recorded sets each). No ranking of replies can list a move the
+  world's Pokemon does not have -- which is why the retrained predictor left the table
+  at 62%.
+- **The change** (`--search-world-moves likely`; default `particle`, what every search
+  played before). At every decision each world is told the moves of the opponent's two
+  ACTIVE Pokemon: what each has shown, then the likeliest of what it has not, the last
+  free slot taking the next candidates in turn from world to world. With nothing shown
+  the four planning worlds agree on the three likeliest moves and hold the fourth to
+  seventh between them. The candidates: the predictor's for this decision when the
+  search reads the forecast and the forecast is about that Pokemon (ranked by how
+  likely each is to be USED now), then every move the species' recorded sets hold, most
+  used first (`ParticleDatabase.move_usage`, new). The world's item, ability and
+  spread stay the set's; a Pokemon still has four moves; benched Pokemon, our side,
+  open sheets and the oracle arm are not touched. `vgc_bench/src/live_exact.py`
+  (`likely_moves`, `_world_snapshot`), `tools/exact_showdown_bridge.js` (`set_moves`),
+  `set_particles.py`, `policy_player.py`, `ladder_ourteam.py`; the choice is in every
+  decision's audit (`world_moves`).
+- **What it does, offline on the ladder logs** (`likely_worlds_offline.*`; the 502
+  replies made of moves only, hidden sheets; the logged forecast keeps eight actions a
+  slot where the live one has twelve candidates, so this is on the low side): legal in
+  some planning world **389 of 502 (77%) before, 462 (92%) with the likely-move
+  worlds** -- 80 of the 113 that no world allowed are recovered, 7 that a world allowed
+  are lost; a reply is held by 3.1 of the 4 worlds on average. Two rotating slots would
+  read 95% with 2.7 of 4 worlds; one was kept. The predictor session's own reading of
+  the same question: the real new move is among a slot's three likeliest unshown
+  candidates 85% of the time, among its seven 95%, and is no named candidate 2.7%.
+- **On local games** (the ladder script, null search, forecast prior, the same 24
+  rosters with closed sheets against a heuristic -- real ladder teams, not human
+  choices; about 65 replies a run): legal in no world 9 of 62 (15%) -> 4 of 66 (6%);
+  real reply in the table 47 of 72 (65%) -> 52 of 72 (72%); share of worlds holding it
+  50% -> 64%. **Null search: 0 changed of 128, of 131 and of 109**, every decision
+  searched, no fallback.
+- **The table of sixteen** (`--search-replies 16`, which the launcher already takes):
+  it runs -- 109 of 109 decisions searched, 0 changed. On the ladder logs the first 16
+  replies of some world held the real reply for 72% where 8 held 62%, before this
+  change raised what a world can hold. **Its time is not measured.** The run with the
+  old worlds played on a quiet machine: p50 2.5 s, max 7.5 s. The two runs with the new
+  worlds played while another session's builds held the machine at a load of 170 to
+  200: p50 3.6 s and max 8.3 s at eight replies, p50 6.0 s and max 8.7 s at sixteen,
+  with 31 truncated searches each. Those numbers are the load's as much as the
+  change's. The timing is to be taken again when the machine is quiet (the other
+  session's work ends about 21:00 and it will say so); until then sixteen is a width
+  that works, not one that is known to fit eight seconds.
+- **Tests:** `unit_tests/test_world_moves.py` (six, on the real simulator: the rule for
+  the slots; the species' full move list holds what its families lost; a rebuilt world
+  has the moves it was told, offers and plays them, the opponent's seat reads it, a
+  move it had shown keeps its PP, a short list is filled to four; the forecast is read
+  only for the Pokemon it is about; particle worlds, open sheets and the oracle arm
+  are left alone). Whole suite 2,017 passed / 5 skipped; ruff clean on what changed.
+- **Open:** the timing above; replies holding a switch (13% of what no world allowed)
+  are helped only through their other half; a world's item can still forbid a move it
+  was told (an Assault Vest set and Protect); the cost of rebuilding the moves at
+  every decision has not been separated from the load.
+
 ## The forced-move faults the long run found are fixed: an opponent between the two turns of a move (which a rebuilt world also took for hittable and about to charge again), our own Struggle, and a world the parser refuses (2026-October 10, 16:16)
 
 - **The user (15:58):** "its over, take the final reading and fix the faults". The

@@ -317,10 +317,18 @@ ladder, in order:
     script itself on a local server) twice -- the trial's flags with `--search-anchor
     1e12` (0 changed decisions) and with its own anchor -- and `evaluation/
     search_health.py` on the replay directory while it plays.
-  - [ ] The worlds: more of each opponent's plausible moves per world (the predictor's
-    repertoire), the back pairs; a species unknown to both set sources (Arbok). **The
-    limit after the predictor trial:** 24% of real replies are legal in no world (53 of
-    222; 24% in the first trial), whatever ranks them.
+  - [x] The worlds' moves (2026-10-10, opt-in: `--search-world-moves likely`). A fifth
+    of real replies on ladder were legal in no planning world, four in five of them a
+    move the worlds' sets did not hold (31% in none of the species' twelve set
+    families). A world now gives the opponent's two active Pokemon what they have shown
+    plus the likeliest unshown moves (the predictor's candidates for the decision, then
+    the species' recorded usage), the last free slot differing from world to world.
+    Offline on 502 ladder replies: legal in some world 77% -> 92%; on local games
+    legal in no world 15% -> 6%, in the table 65% -> 72%; null search 0 changed.
+  - [ ] Still open for the worlds: the timing of the likely-move worlds and of a table
+    of sixteen on a quiet machine (measured only under another session's load: p50 3.6 s
+    at eight, 6.0 s at sixteen); replies holding a switch; a set's item that forbids a
+    move the world was told; a species unknown to both set sources (Arbok).
   - [ ] Replies with a switch on move decisions: within the table for 32% as played
     (13 of 40), the weakest kind; 2% under the brain's prior.
   - [x] A Pokemon that must recharge failed every world of that turn ("[Invalid choice]

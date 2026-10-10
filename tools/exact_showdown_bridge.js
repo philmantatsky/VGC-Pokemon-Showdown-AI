@@ -271,6 +271,37 @@ function applyPokemon(battle, pokemon, record) {
 	if (pokemon.volatiles.mustrecharge && !(pokemon.lastMoveTargetLoc > 0)) {
 		pokemon.lastMoveTargetLoc = 1;
 	}
+	if (Array.isArray(record.set_moves) && record.set_moves.length && !pokemon.transformed) {
+		// The moves this world gives the Pokemon, as the caller chose them (what it has
+		// shown, then the likeliest of what it has not): a world drew one set of four
+		// for it, and a move outside those four could not be its reply here -- a fifth
+		// of the opponent's real replies on ladder were legal in no world. A slot it
+		// already has keeps its PP; a list shorter than four is filled from what it
+		// had; the Pokemon still has four moves, as every reader of the state assumes.
+		const have = new Map(pokemon.moveSlots.map(slot => [slot.id, slot]));
+		const wanted = [];
+		for (const name of record.set_moves) {
+			const move = battle.dex.moves.get(name);
+			if (move.exists && !wanted.includes(move.id)) wanted.push(move.id);
+		}
+		for (const slot of pokemon.moveSlots) {
+			if (wanted.length >= 4) break;
+			if (!wanted.includes(slot.id)) wanted.push(slot.id);
+		}
+		const slots = wanted.slice(0, 4).map(moveId => {
+			if (have.has(moveId)) return have.get(moveId);
+			const move = battle.dex.moves.get(moveId);
+			const pp = move.noPPBoosts ? move.pp : move.pp * 8 / 5;
+			return {
+				move: move.name, id: move.id, pp, maxpp: pp, target: move.target,
+				disabled: false, disabledSource: '', used: false,
+			};
+		});
+		// the same objects in both lists, as on a Pokemon that was built with them
+		pokemon.baseMoveSlots = slots;
+		pokemon.moveSlots = slots.slice();
+		if (pokemon.set) pokemon.set.moves = slots.map(slot => slot.id);
+	}
 	for (const move of record.moves || []) {
 		const slot = pokemon.moveSlots.find(candidate => candidate.id === id(move.id));
 		if (!slot) continue;

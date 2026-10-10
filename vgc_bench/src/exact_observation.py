@@ -1000,6 +1000,9 @@ class RootForecast:
     moves: tuple[MovePrediction, MovePrediction] | None
     switches: tuple[SwitchPrediction, SwitchPrediction] | None
     mega: tuple[float | None, float | None] | None = None
+    # the species each slot's forecast is about ('' unknown): whoever reads the moves
+    # for something other than this decision's replies checks it is still that one
+    species: tuple[str, str] = ("", "")
 
 
 class OpponentModelPrior:

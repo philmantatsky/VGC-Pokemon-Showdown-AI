@@ -1,0 +1,3 @@
+turning slots 1, worlds 4: legal in some world: before 389 of 502 (77%), with likely-move worlds 462 of 502 (92%); mean worlds holding it 3.12 of 4
+turning slots 2, worlds 4: legal in some world: before 389 of 502 (77%), with likely-move worlds 476 of 502 (95%); mean worlds holding it 2.69 of 4
+turning slots 1, worlds 8: legal in some world: before 389 of 502 (77%), with likely-move worlds 481 of 502 (96%); mean worlds holding it 6.13 of 4

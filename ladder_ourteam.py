@@ -52,6 +52,8 @@ SEARCH_FLAG_DEFAULTS = {
     "search_reply_prior": "models",
     "search_forecast_weight": 0.5,
     "search_forecast_mix": "sum",
+    # 2026-10-10: "particle" is what every search played before the flag existed
+    "search_world_moves": "particle",
 }
 VOLATILE_ARGS = {
     "n_games",
@@ -682,6 +684,21 @@ def build_parser() -> argparse.ArgumentParser:
             "brain^(1 - w) * forecast^w"
         ),
     )
+    ap.add_argument(
+        "--search-world-moves",
+        choices=("particle", "likely"),
+        default=SEARCH_FLAG_DEFAULTS["search_world_moves"],
+        help=(
+            "what moves a search world gives the opponent's two active Pokemon. "
+            "particle: the four of the set it drew for them (every search before "
+            "2026-10-10). likely: what each has shown plus the likeliest of what it "
+            "has not -- the forecast's candidates for the decision with "
+            "--search-reply-prior forecast, else the species' most used moves -- the "
+            "last free slot differing from world to world (a fifth of the opponent's "
+            "real replies on ladder were legal in no world, four in five of them a "
+            "move the worlds' sets did not hold)"
+        ),
+    )
     ap.add_argument("--search_budget", type=float, default=8.0)
     ap.add_argument("--screen_budget", type=float, default=2.0)
     ap.add_argument("--chance_samples", type=int, default=1)
@@ -1100,6 +1117,7 @@ async def main():
         exact_reply_forecast=args.search and args.search_reply_prior == "forecast",
         exact_reply_forecast_weight=args.search_forecast_weight,
         exact_reply_forecast_mix=args.search_forecast_mix,
+        exact_world_moves=args.search_world_moves,
         exact_min_deep_coverage=args.min_deep_coverage,
         exact_preview_search=args.search and args.planned_preview,
         exact_preview_budget=args.preview_search_budget,
@@ -1158,7 +1176,8 @@ async def main():
             f"screen={args.screen_budget:g}s rng={args.chance_samples} "
             f"hidden={args.determinizations} "
             f"deep_worlds={args.search_determinizations} "
-            f"replies={args.search_reply_prior} "
+            f"replies={args.search_reply_prior} x{args.search_replies} "
+            f"world_moves={args.search_world_moves} "
             f"min_deep={args.min_deep_coverage:.2f} "
             f"preview={'exact' if args.planned_preview else 'champion'} "
             f"outcome={outcome_value}"

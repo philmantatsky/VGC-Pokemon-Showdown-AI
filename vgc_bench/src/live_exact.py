@@ -17,7 +17,7 @@ import re
 import time
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 import numpy as np
 from poke_env.battle import DoubleBattle, Pokemon
@@ -177,6 +177,63 @@ def _spread_charge_targets(snapshot: dict[str, Any], index: int) -> dict[str, An
             aimed = {**charge, "target_loc": 1 + index % 2}
             record = {**record, "effects": {**effects, "twoturnmove": aimed}}
             changed = True
+        records.append(record)
+    if not changed:
+        return snapshot
+    return {**snapshot, "sides": [sides[0], {**sides[1], "pokemon": records}]}
+
+
+# how many worlds the last free move slot goes round: the search plans with four
+WORLD_MOVE_TURNS = 4
+WORLD_MOVES = ("particle", "likely")
+
+
+def likely_moves(
+    shown: Sequence[str], ranked: Sequence[str], index: int
+) -> list[str] | None:
+    """The moves world number ``index`` gives an opposing Pokemon: everything it has
+    shown, then the likeliest of what it has not (``ranked``, likeliest first) -- the
+    last free slot taking the next candidates in turn from world to world.
+
+    With nothing shown the worlds agree on the three likeliest moves and hold the
+    fourth to seventh between them; with three shown, the four likeliest of the rest,
+    one a world. None when there is nothing to choose: four moves shown (more than four
+    is no set at all -- a called move, Transform -- and is left alone), or no candidate.
+    """
+    known = list(dict.fromkeys(move for move in shown if move))
+    free = 4 - len(known)
+    rest = [move for move in dict.fromkeys(ranked) if move and move not in known]
+    if free <= 0 or not rest:
+        return None
+    fixed, turning = rest[: free - 1], rest[free - 1 :]
+    if turning:
+        fixed.append(turning[index % min(len(turning), WORLD_MOVE_TURNS)])
+    return known + fixed
+
+
+def _spread_likely_moves(
+    snapshot: dict[str, Any], index: int, ranked: Mapping[int, Sequence[str]]
+) -> dict[str, Any]:
+    """The snapshot as world number ``index`` is rebuilt from it, with the moves that
+    world is to give each ACTIVE opposing Pokemon (``set_moves``; ``ranked``: their
+    slot -> its candidate moves, likeliest first). Benched Pokemon, our own side and a
+    Pokemon whose four moves are known keep what they have."""
+    sides = snapshot.get("sides") or []
+    if len(sides) < 2 or not ranked:
+        return snapshot
+    records, changed = [], False
+    for record in sides[1].get("pokemon") or []:
+        slot = record.get("active_slot")
+        effects = record.get("effects") or {}
+        if slot in ranked and not record.get("fainted") and "transform" not in effects:
+            shown = [str(move.get("id") or "") for move in record.get("moves") or []]
+            # a move an effect is tied to (Encore, Disable, a charge) is one it has
+            shown += [str(data.get("move") or "") for data in effects.values()]
+            shown = [move for move in shown if move not in _NOT_SET_MOVES]
+            moves = likely_moves(shown, ranked[slot], index)
+            if moves is not None:
+                record = {**record, "set_moves": moves}
+                changed = True
         records.append(record)
     if not changed:
         return snapshot
@@ -677,7 +734,15 @@ class LiveExactSession:
         search_replacements: bool = True,
         reply_forecast_weight: float = 0.50,
         reply_forecast_mix: str = "sum",
+        world_moves: str = "particle",
     ):
+        if world_moves not in WORLD_MOVES:
+            raise ValueError(f"world_moves must be one of {WORLD_MOVES}")
+        # what moves a world gives the opponent's two ACTIVE Pokemon: "particle", the
+        # four of the set it drew for them; "likely", what each has shown plus the
+        # likeliest of what it has not (see _world_snapshot)
+        self.world_moves = world_moves
+        self.world_move_sources: dict[str, int] = {}
         self.battle_tag = battle_tag
         self.policy = policy
         self.our_team_text = our_team_text
@@ -945,7 +1010,7 @@ class LiveExactSession:
                 p2_preview=p2_preview,
             )
             reconciled = self.bridge.reconcile(
-                result["state"], _spread_charge_targets(snapshot, index)
+                result["state"], self._world_snapshot(snapshot, index)
             )
             roots.append(
                 LiveRoot(
@@ -1161,7 +1226,7 @@ class LiveExactSession:
                     )
             try:
                 reconciled = self.bridge.reconcile(
-                    state, _spread_charge_targets(snapshot, index)
+                    state, self._world_snapshot(snapshot, index)
                 )
             except Exception as exc:
                 self.root_reconcile_failures += 1
@@ -1198,6 +1263,71 @@ class LiveExactSession:
         self.pending_our_choice = None
         self.event_cursor = len(events)
 
+    def _likely_candidates(self, snapshot: dict[str, Any]) -> dict[int, list[str]]:
+        """For each of the opponent's active slots, the moves its Pokemon may have,
+        likeliest first: the predictor's candidates for this decision when its
+        forecast is about that Pokemon (ranked by how likely each is to be USED now,
+        which is what this turn's replies are made of), then every move the species'
+        recorded sets hold, most used first. Never raises; a slot nothing is known
+        about is left out."""
+        ranked: dict[int, list[str]] = {}
+        forecast = getattr(self.prior, "root_forecast", None)
+        sides = snapshot.get("sides") or []
+        for record in (sides[1].get("pokemon") or []) if len(sides) > 1 else []:
+            slot = record.get("active_slot")
+            if slot not in (0, 1) or record.get("fainted"):
+                continue
+            names = {
+                to_id_str(str(record.get(key) or ""))
+                for key in ("species", "base_species")
+            } - {""}
+            moves: list[str] = []
+            source = "usage"
+            try:
+                about = to_id_str(forecast.species[slot]) if forecast else ""
+                if forecast is not None and forecast.moves and about in names:
+                    by_use = sorted(forecast.moves[slot].moves, key=lambda m: -m[1])
+                    moves = [to_id_str(move) for move, _ in by_use]
+                    source = "forecast"
+            except Exception:
+                moves = []
+            try:
+                species = str(record.get("base_species") or record.get("species"))
+                moves += [move for move, _ in self.database.move_usage(species)]
+            except Exception:
+                pass
+            if moves:
+                ranked[slot] = moves
+                self.world_move_sources[source] = (
+                    self.world_move_sources.get(source, 0) + 1
+                )
+        return ranked
+
+    def _world_snapshot(self, snapshot: dict[str, Any], index: int) -> dict[str, Any]:
+        """The snapshot as world number ``index`` is rebuilt from it: what everyone
+        has seen, plus what nobody has and the worlds therefore differ in -- the slot
+        an opponent's charged move is aimed at, and (``world_moves`` "likely") the
+        moves of the opponent's two active Pokemon.
+
+        Why the moves. A world drew one of at most twelve set families a species, so
+        a move outside the four it drew cannot be the opponent's reply in that world.
+        On 145 ladder games a fifth of the opponent's real replies were legal in no
+        planning world, and four in five of those were a move: in none of the species'
+        families (31%), in no family that also held what the Pokemon had shown (15%),
+        or in a family the four worlds had not drawn (36%). A better ranking of the
+        replies could not help -- the retrained predictor left the table at 62%.
+        """
+        told = _spread_charge_targets(snapshot, index)
+        if self.world_moves != "likely" or self.open_sheet:
+            return told
+        if getattr(self, "oracle_opponent_team_text", None):
+            return told
+        cache = getattr(self, "_likely_cache", None)
+        if cache is None or cache[0] is not snapshot:
+            cache = (snapshot, self._likely_candidates(snapshot))
+            self._likely_cache = cache
+        return _spread_likely_moves(told, index, cache[1])
+
     def set_reply_forecast(self, forecast: Any, turn: int | None = None) -> None:
         """Hand the search the opponent predictor's forecast for the decision about to
         be planned (a ``oppmodel.runtime.Forecast``), or None to plan without one.
@@ -1231,7 +1361,17 @@ class LiveExactSession:
                         for slot in (forecast.a, forecast.b)
                     )
                     made_for = int(forecast.turn if turn is None else turn)
-                    root = RootForecast(made_for, moves, switches, (mega[0], mega[1]))
+                    about = tuple(
+                        "" if slot is None else str(getattr(slot, "species", "") or "")
+                        for slot in (forecast.a, forecast.b)
+                    )
+                    root = RootForecast(
+                        made_for,
+                        moves,
+                        switches,
+                        (mega[0], mega[1]),
+                        (about[0], about[1]),
+                    )
                     status = "set"
         except Exception as exc:
             status, root = f"failed:{type(exc).__name__}", None
@@ -3032,6 +3172,12 @@ class LiveExactSession:
             # the opponent predictor's forecast for this decision, when the search
             # was handed one: "set" and how many of the opponent's rankings it served
             # ("none": no forecast; "unreadable" / "failed:<Error>": not used)
+            # how the worlds' moves for the opponent's active Pokemon were chosen, and
+            # how often from the forecast / from the species' recorded sets
+            "world_moves": {
+                "mode": getattr(self, "world_moves", "particle"),
+                "sources": dict(getattr(self, "world_move_sources", {})),
+            },
             "reply_forecast": {
                 "status": getattr(self, "reply_forecast_status", "none"),
                 "rankings": getattr(

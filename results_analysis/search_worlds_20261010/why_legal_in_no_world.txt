@@ -1,0 +1,11 @@
+{'replies with a logged ranking': 690, 'legal in no world': 147}
+BY THE HARDEST PART OF THE REPLY (each reply once):
+    46 (31%)  a move in none of the species' sets   [present in 46 replies]
+    22 (15%)  a move in no set that also holds what it had shown   [present in 23 replies]
+     2 (1%)  Mega Evolution no set allows   [present in 3 replies]
+    19 (13%)  switch to a Pokemon not seen before   [present in 27 replies]
+     2 (1%)  switch to a Pokemon seen before   [present in 8 replies]
+    36 (24%)  a new move some set holds (under 25%   [present in 49 replies]
+     8 (5%)  a new move some set holds (25-50%   [present in 13 replies]
+    11 (7%)  a new move some set holds (over 50%   [present in 69 replies]
+     1 (1%)  a move it had shown before   [present in 30 replies]

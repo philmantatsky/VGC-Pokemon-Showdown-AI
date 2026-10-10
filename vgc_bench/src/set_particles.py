@@ -347,6 +347,35 @@ class ParticleDatabase:
         )
 
     @lru_cache(maxsize=None)
+    def move_usage(self, species: str) -> tuple[tuple[str, float], ...]:
+        """Every move the species' recorded sets hold, with the share of those sets
+        (by count) that hold it, most used first.
+
+        ``particles`` keeps twelve set families a species; a family stands for the sets
+        that share three of its moves, so the fourth move of the rarer ones is in no
+        particle at all (Incineroar: Snarl, Taunt, Helping Hand, Protect -- 3 to 10% of
+        its sets each). This is the full list, for whoever needs "which moves might
+        it have" rather than "which sets"."""
+        entry = self.joint_sets.get(self._lookup_species(to_id_str(species)))
+        raw_sets = entry.get("sets") if isinstance(entry, dict) else None
+        counts: dict[str, float] = {}
+        total = 0.0
+        for raw in raw_sets if isinstance(raw_sets, list) else []:
+            if not isinstance(raw, dict):
+                continue
+            # a set written without a count (data/rare_sets_*.json) counts once
+            weight = float(raw.get("count") or raw.get("prob") or 1.0)
+            total += weight
+            for move in raw.get("moves", []):
+                move_id = to_id_str(move) if move else ""
+                if move_id and move_id not in _PLACEHOLDER_MOVES:
+                    counts[move_id] = counts.get(move_id, 0.0) + weight
+        if total <= 0:
+            return ()
+        ranked = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+        return tuple((move, weight / total) for move, weight in ranked)
+
+    @lru_cache(maxsize=None)
     def top_coverage(self, species: str, width: int = 8) -> float:
         """Original joint-set probability represented by the top ``width`` sets."""
         species_id = to_id_str(species)
