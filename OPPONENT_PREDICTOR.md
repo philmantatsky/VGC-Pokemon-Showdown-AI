@@ -605,7 +605,7 @@ game-clustered bootstrap, 95% intervals:
   RECOMMENDED as the new shadow / reply-prior model. The swap is a `DEPLOYED.json` change and
   stays the user's decision.
 
-**Amendments, 02:23, each written before its own result exists.**
+**Amendments, 02:23. Each was written before its own result existed, except the coupling's rule (see its line).**
 - *Dropped (5), a correction for our own opponents.* Measured on the OLD ladder holdout,
   cross-fitted: two logit offsets (switch −0.27, Protect −0.32) gain 0.0044 nats
   [−0.0076, −0.0009], under the 0.007 bar, and the gain comes from slots that were stopped
@@ -625,10 +625,41 @@ game-clustered bootstrap, 95% intervals:
   by battle; taken only if the gain is above 0.002 nats per two-slot row in at least 8 folds.
   (A table fitted as a plain ratio on fully seen turns looks better on counted top-8 and is
   worse at turn start: it is selection, and it is not what is fitted.)
+  *This line was NOT written before its result.* The rule was fixed in
+  `analysis_20261010/design_joint.md` at 01:04 and given to the builder at 01:35, before any
+  fit; the first fits ran 01:46-01:54; this line entered the file at 02:23. Both wordings of
+  the rule hold on the fit (lowest of ten folds 0.0043).
 - *Expectation written down before the fits:* residual probes on the frozen model say the
   network already holds most of what the new inputs carry — matchup facts 0.006 nats, the
   set-conditional move prior 0.003–0.004 — so the new inputs are expected to add about a
   hundredth of a nat, and the larger corpus and a wider network most of the gain.
+
+**Disclosures, 03:36 (found by tonight's reviewers; none of them changes a number above).**
+- *The sealed fresh games were opened beyond the plan, twice.* (1) At 01:48 and 02:10 a
+  reviewer checking the reading tool scored the 78 fresh games with a hand-made coupling
+  (Protect/Protect x4, switch/switch x0.25) laid over the deployed model, to see whether the
+  tool ranks pairs as `joint.py` does; the first run went round the tool's own refusal. No
+  table was fitted on those games and the fitted coupling is decided by a mechanical rule on
+  validation, but **R5b for a candidate that carries a coupling is no longer a first look**.
+  The probe has been repeated on old folders and the tool now refuses sealed games in a
+  direct call too. (2) The same review opened single fresh games to recompute the tool's
+  numbers by hand; what was read there is not recorded. No design choice cites either.
+- *The baseline count tables saw sealed rows.* The table fit on tonight's full dataset
+  (`v3full_20261010_f100_tables/fit_report.md`, 01:11-01:56) scores the test split and a
+  ladder holdout that pools the 401 old games with 68 fresh ones; the script has no switch
+  for it. Those columns are for the four count tables only, they have not been consulted,
+  and they stay unread until the final reading.
+- *A reviewer's control run* of the calibration tool computed its informational numbers on
+  3,000 test rows of the old dataset for the model already in the bot; used for nothing.
+- *What was changed because of it:* the dataset builder can leave own games out by date
+  (`--own-before`; their opponents still stay out of training), the trainer, the scorecard and
+  the coupling fit leave sealed rows out unless told otherwise, and tonight's new dataset
+  (`v4x_20261010`) is built with `--own-before 2026-10-09`, so its ladder holdout is the 401
+  old games only.
+- *One thing the plan did not foresee:* `v3full_20261010` was built at 00:37, before tonight's
+  ten ladder games, so the ten opponents of games 31-40 were not yet known and any human-corpus
+  games of theirs may be in that model's training rows. The confirmation is therefore given
+  twice: on all fresh games and on the 68 played on 10-09 alone.
 
 ### Not done, and what is next
 

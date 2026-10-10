@@ -16,6 +16,12 @@ keeps those players out of training only, so their other games must not choose
 the epoch either. ``test`` and ``ladder_holdout`` are never loaded unless
 ``--informational`` is given, and then only after the artifact is written, for
 one printed line each: the scorecard is the reading, not this.
+``--informational-splits`` names which of the two are read (default both).
+The ladder holdout is read WITHOUT the bot's own games from
+``features.OWN_SEALED_FROM`` on (the sealed confirmation set), whatever day
+the dataset was built: the rows are told apart by their own time
+(``m_time``), the count left out is printed and stored, and only
+``--allow-sealed-holdout`` reads them. The check runs before training starts.
 
 Augmentation, per example and per epoch: slot ``a`` <-> ``b`` mirrored on the
 actor side and, independently, on the other side (``--slot-swap``), and both
@@ -115,9 +121,34 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--threads", type=int, default=1)
     parser.add_argument("--limit", type=int, default=None, help="smoke: examples")
     parser.add_argument(
+        "--extras",
+        "--matchup",
+        dest="extras",
+        type=int,
+        default=0,
+        help="bit mask of the version-2 arrays the network reads "
+        "(features.EXTRA_ARRAYS: 1 mu_cand, 2 mu_slot, 4 mu_roster = the "
+        "matchup blocks, 7 together; 8 sp_cand = the set prior; 15 = all); "
+        "0 = the version-1 network. Needs a dataset built with "
+        "--layout-version 2",
+    )
+    parser.add_argument(
         "--informational",
         action="store_true",
         help="after the artifact is written, print test / ladder-holdout NLL once",
+    )
+    parser.add_argument(
+        "--informational-splits",
+        default=",".join(INFORMATIONAL_SPLITS),
+        help="comma list of the splits --informational reads (default: "
+        + ", ".join(INFORMATIONAL_SPLITS)
+        + ")",
+    )
+    parser.add_argument(
+        "--allow-sealed-holdout",
+        action="store_true",
+        help="let --informational score the bot's own games from "
+        f"{F.OWN_SEALED_FROM} on (the sealed set); without it they are left out",
     )
     parser.add_argument(
         "--overwrite",
@@ -135,16 +166,67 @@ def manifest_sha256(directory: Path | str) -> str:
 
 
 def load_splits(
-    directory: Path | str, names: Sequence[str]
+    directory: Path | str, names: Sequence[str], own_before: int | None = None
 ) -> tuple[dict[str, F.Batch], dict[str, Any]]:
-    """Only the named splits of a built dataset, each as its own batch."""
-    data, manifest = F.load_dataset(directory, splits=list(names))
+    """Only the named splits of a built dataset, each as its own batch.
+
+    ``own_before``: without the bot's own games from that Unix time on
+    (``features.load_dataset``).
+    """
+    if own_before is None:
+        data, manifest = F.load_dataset(directory, splits=list(names))
+    else:
+        data, manifest = F.load_dataset(
+            directory, splits=list(names), own_before=own_before
+        )
     codes = list(manifest.get("splits") or [])
     out = {
         name: F.take(data, np.asarray(data["m_split"]) == codes.index(name))
         for name in names
     }
     return out, manifest
+
+
+def informational_plan(
+    args: argparse.Namespace, dataset: Path
+) -> dict[str, Any] | None:
+    """What ``--informational`` will read, decided BEFORE training. None: off.
+
+    ``splits``: the chosen ones of ``INFORMATIONAL_SPLITS``. ``own_before``:
+    the Unix time from which the bot's own games are left out (None: all are
+    read, which only ``--allow-sealed-holdout`` gives). ``sealed_rows``: how
+    many rows of the dataset that leaves out, counted from ``m_split`` /
+    ``m_time`` alone (0 for a folder without ``m_time`` arrays, which no
+    builder writes). Raises ``RuntimeError`` on a split that is not offered.
+    """
+    if not getattr(args, "informational", False):
+        return None
+    text = getattr(args, "informational_splits", None)
+    asked = (
+        list(INFORMATIONAL_SPLITS)
+        if text is None
+        else [part.strip() for part in str(text).split(",") if part.strip()]
+    )
+    unknown = [name for name in asked if name not in INFORMATIONAL_SPLITS]
+    if unknown or not asked:
+        raise RuntimeError(
+            f"--informational-splits {text!r}: choose from {INFORMATIONAL_SPLITS}"
+        )
+    splits = [name for name in INFORMATIONAL_SPLITS if name in asked]
+    sealed_from = F.local_time(F.OWN_SEALED_FROM)
+    held = F.own_time_range(dataset, sealed_from)
+    allowed = bool(getattr(args, "allow_sealed_holdout", False))
+    sealed = int(held["late_rows"])
+    return {
+        "splits": splits,
+        "sealed_from": F.OWN_SEALED_FROM,
+        "sealed_rows_in_dataset": sealed,
+        "sealed_rows_read": bool(sealed) and allowed,
+        # None: nothing to leave out (or told to read it all).
+        "own_before": sealed_from if sealed and not allowed else None,
+        "own_time_known": bool(held["has_time"]),
+        "own_time": held["splits"],
+    }
 
 
 def without_holdout_battles(batch: F.Batch) -> tuple[F.Batch, int]:
@@ -399,10 +481,40 @@ def _train(args: argparse.Namespace, name: str, out_dir: Path) -> dict[str, Any]
     if not dataset.is_absolute():
         dataset = ROOT / dataset
 
+    # Decided now, so a refusal costs nothing: which held-out rows the run
+    # may read at its end (never the sealed own games unless told).
+    plan = informational_plan(args, dataset)
+    if plan is not None and plan["sealed_rows_in_dataset"]:
+        say(
+            f"INFORMATIONAL the dataset holds {plan['sealed_rows_in_dataset']} rows "
+            f"of the bot's own games from {plan['sealed_from']} on (sealed): "
+            + ("they WILL be read" if plan["sealed_rows_read"] else "left out")
+        )
     splits, manifest = load_splits(dataset, (SPLIT_TRAIN, SPLIT_VAL))
     featurizer = F.Featurizer.load(dataset, elo_mode=args.elo_mode)
     if featurizer.signature_diff:
         say(f"WARNING dex signature differs: {featurizer.signature_diff}")
+    extras_mask = int(getattr(args, "extras", 0) or 0)
+    try:
+        # {} for mask 0; the widths of the chosen arrays otherwise.
+        extras = M.extras_overrides(featurizer, extras_mask)
+    except ValueError as exc:
+        raise RuntimeError(f"--extras {extras_mask}: {exc}") from exc
+    # An array whose definitions (matchup constants, the dex-derived rules,
+    # the set prior's quantiser) differ from the ones the dataset was written
+    # under cannot be read: the stored numbers mean something else.
+    stale = sorted(
+        {
+            spec.family
+            for spec in F.EXTRA_ARRAYS
+            if spec.name in extras and spec.family in featurizer.signature_diff
+        }
+    )
+    if stale:
+        raise RuntimeError(
+            f"--extras {extras_mask}: the dataset's {stale} definitions differ "
+            "from this code and dex; rebuild the dataset"
+        )
     validation, left_out = without_holdout_battles(splits[SPLIT_VAL])
     train_set = F.sheet_unknown_as_closed(subset(splits[SPLIT_TRAIN], args.limit, rng))
     val_set = F.sheet_unknown_as_closed(subset(validation, args.limit, rng))
@@ -432,6 +544,7 @@ def _train(args: argparse.Namespace, name: str, out_dir: Path) -> dict[str, Any]
         n_heads=int(args.heads),
         d_ff=int(args.ff),
         dropout=float(args.dropout),
+        **extras,
     ).to(device)
     n_parameters = net.n_parameters()
     batch_size = max(1, int(args.batch))
@@ -491,7 +604,9 @@ def _train(args: argparse.Namespace, name: str, out_dir: Path) -> dict[str, Any]
             for group in optimizer.param_groups:
                 group["lr"] = lr
             labels = M.to_labels(view, device, index)
-            terms = M.nll_terms(net(M.to_tensors(view, device, index)), labels)
+            terms = M.nll_terms(
+                net(M.to_tensors(view, device, index, net.extra_keys)), labels
+            )
             loss, parts = M.total_loss(terms, labels["weight"], float(args.mega_weight))
             if not math.isfinite(parts["loss"]):
                 raise RuntimeError(f"non-finite loss at step {step}")
@@ -603,6 +718,22 @@ def _train(args: argparse.Namespace, name: str, out_dir: Path) -> dict[str, Any]
         "torch": str(torch.__version__),
     }
 
+    if net.extra_keys:
+        # What the network multiplies each version-2 array by (stored with
+        # the weights), and the dataset's layout.
+        report["extra_scales"] = net.extra_scales()
+    if featurizer.layout_version != F.LAYOUT_VERSION:
+        report["dataset"]["layout_version"] = featurizer.layout_version
+        report["dataset"]["extras"] = list(featurizer.extras)
+        report["artifact_extras"] = list(net.extra_keys)
+    if featurizer.set_prior_signature is not None:
+        # Only a dataset with a set table: the table (an artifact carries it
+        # when its network reads ``sp_cand``) and how many accounts' sheets
+        # built it (None: not recorded).
+        report["dataset"]["set_prior_signature"] = featurizer.set_prior_signature
+        report["dataset"]["set_prior_accounts"] = (
+            None if featurizer.set_accounts is None else len(featurizer.set_accounts)
+        )
     # Imported here, by name: the artifact module is the only reader and writer
     # of artifact files, and this script must import without it.
     artifact = importlib.import_module("vgc_bench.src.oppmodel.artifact")
@@ -612,11 +743,14 @@ def _train(args: argparse.Namespace, name: str, out_dir: Path) -> dict[str, Any]
     # artifact.pt can pick up a model this run rejected.
     unverified = path.with_name(path.name + UNVERIFIED_SUFFIX)
     extra = _plain({key: value for key, value in report.items() if key != "status"})
+    # The artifact carries the featurizer of the arrays the network READS:
+    # for --extras 0 on a version-2 dataset that is the version-1 featurizer
+    # (the old code can run the model, and a runtime computes nothing extra).
     artifact.save_artifact(
         unverified,
         kind=M.KIND,
         name=name,
-        featurizer=featurizer,
+        featurizer=featurizer.narrowed(net.extra_keys),
         predictor_payload=final.to_payload(),
         extra=extra,
     )
@@ -650,10 +784,11 @@ def _train(args: argparse.Namespace, name: str, out_dir: Path) -> dict[str, Any]
         )
     unverified.replace(path)
 
-    if args.informational:
-        extra_splits, _ = load_splits(dataset, INFORMATIONAL_SPLITS)
+    if plan is not None:
+        extra_splits, _ = load_splits(dataset, plan["splits"], plan["own_before"])
         report["informational"] = {}
-        for split in INFORMATIONAL_SPLITS:
+        report["informational_plan"] = plan
+        for split in plan["splits"]:
             rows = F.sheet_unknown_as_closed(extra_splits[split])
             if int(rows["act_mon"].shape[0]) == 0:
                 continue

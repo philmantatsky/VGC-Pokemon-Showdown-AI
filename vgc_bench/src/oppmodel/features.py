@@ -53,7 +53,9 @@ result (the last one None) and count in ``COUNTERS``. The score helpers
 
 from __future__ import annotations
 
+import copy
 import json
+import time
 import zlib
 from collections import Counter
 from dataclasses import dataclass, field
@@ -65,6 +67,8 @@ import numpy as np
 from poke_env.data import GenData
 
 from vgc_bench.src.move_semantics import MOVE_SEM_LEN, move_semantics
+from vgc_bench.src.oppmodel import matchup as MU
+from vgc_bench.src.oppmodel import setprior as SP
 from vgc_bench.src.oppmodel.events import (
     INTENT_CLASSES,
     INTENT_PROTECT,
@@ -104,6 +108,7 @@ from vgc_bench.src.oppmodel.events import (
     is_stalling,
     move_intent,
     moves_dex,
+    pokedex,
     raises_stall_counter,
     to_id,
 )
@@ -122,6 +127,12 @@ Example = dict[str, np.ndarray]
 Batch = dict[str, np.ndarray]
 
 LAYOUT_VERSION = 1
+# Version 2 = version 1 plus the arrays of ``EXTRA_ARRAYS`` the featurizer was
+# built to write (its payload lists them). It exists only when asked for: the
+# default stays 1, and a version-1 featurizer is exactly what it always was.
+LAYOUT_VERSION_EXTRAS = 2
+LAYOUT_VERSION_MATCHUP = LAYOUT_VERSION_EXTRAS
+LAYOUT_VERSIONS: tuple[int, ...] = (LAYOUT_VERSION, LAYOUT_VERSION_EXTRAS)
 N_CAND_DEFAULT = 12
 N_ROSTER = 6
 N_MON = 2 * N_ROSTER
@@ -268,6 +279,45 @@ def _species_dex() -> dict[str, Any]:
         return dict(GenData.from_gen(9).pokedex)
     except Exception:
         return {}
+
+
+@lru_cache(maxsize=1)
+def _type_chart_cached() -> tuple[tuple[str, tuple[tuple[str, float], ...]], ...]:
+    """The type chart as plain tuples. Raises when it cannot be read: a
+    failure is never cached, so the next call reads again."""
+    table = GenData.from_gen(9).type_chart
+    return tuple(
+        (
+            to_id(attack),
+            tuple(
+                (to_id(defend), float(row[attack]))
+                for defend, row in table.items()
+                if attack in row
+            ),
+        )
+        for attack in table
+    )
+
+
+def _type_chart() -> dict[str, dict[str, float]]:
+    """``chart[attack type id][defender type id]`` from poke-env's type chart.
+
+    (poke-env stores it as ``type_chart[DEFENDER][ATTACKER]``.) ``{}`` when
+    the chart cannot be read; a featurizer that writes a matchup array refuses
+    to be built on an empty one (every move would read as neutral).
+    """
+    try:
+        return {attack: dict(row) for attack, row in _type_chart_cached()}
+    except Exception:
+        return {}
+
+
+def _plain_json(value: Any) -> Any:
+    """``value`` as JSON would give it back (tuples as lists), for comparing."""
+    try:
+        return json.loads(json.dumps(value, sort_keys=True))
+    except (TypeError, ValueError):
+        return None
 
 
 @lru_cache(maxsize=4096)
@@ -802,14 +852,34 @@ def switch_index(roster_index: int, n_cand: int = N_CAND_DEFAULT) -> int:
 
 
 def layout(
-    n_cand: int = N_CAND_DEFAULT, n_pseudo: int = 0, n_side_conditions: int = 0
+    n_cand: int = N_CAND_DEFAULT,
+    n_pseudo: int = 0,
+    n_side_conditions: int = 0,
+    version: int = LAYOUT_VERSION,
+    extras: Iterable[str] | None = None,
 ) -> dict[str, ArraySpec]:
     """The documented arrays of one example: name -> shape, dtype, meaning.
 
     ``Featurizer.layout()`` fills in the two vocabulary-dependent widths. A
     batch has the same arrays with a leading axis. Mon rows 0-5 are the actor's
     roster, 6-11 the other side's; slot rows are the actor's slots ``a``, ``b``.
+    ``version`` 2 appends, AFTER every version-1 array, the ``EXTRA_ARRAYS``
+    named by ``extras`` (all of them for None).
     """
+    specs = _layout_v1(n_cand, n_pseudo, n_side_conditions)
+    if version >= LAYOUT_VERSION_EXTRAS:
+        for name in extra_names(extras):
+            spec = extra_array(name)
+            if spec is not None:
+                specs[name] = ArraySpec(
+                    spec.shape(n_cand), spec.dtype, "feature", spec.doc
+                )
+    return specs
+
+
+def _layout_v1(
+    n_cand: int, n_pseudo: int, n_side_conditions: int
+) -> dict[str, ArraySpec]:
     a = action_size(n_cand)
     f, lab = "feature", "label"
     return {
@@ -945,6 +1015,152 @@ def layout(
     }
 
 
+# --- version-2 arrays ---------------------------------------------------------
+
+# Axes of an extra array, per example (a batch adds a leading axis):
+EXTRA_CAND_FOE = "cand_foe"  # (2 actor slots, n_cand, 2 foe slots, width)
+EXTRA_SLOT_FOE = "slot_foe"  # (2 actor slots, 2 foe slots, width)
+EXTRA_ROSTER_FOE = "roster_foe"  # (6 actor roster rows, 2 foe slots, width)
+EXTRA_CAND = "cand"  # (2 actor slots, n_cand, width)
+EXTRA_KINDS: tuple[str, ...] = (
+    EXTRA_CAND_FOE,
+    EXTRA_SLOT_FOE,
+    EXTRA_ROSTER_FOE,
+    EXTRA_CAND,
+)
+FAMILY_MATCHUP = "matchup"
+FAMILY_SETPRIOR = "set_prior"
+# ``sp_cand`` stores each column of ``setprior.SetTable.posterior`` (a number
+# in [0, 1]) as round(value * SP_QUANT) in an int8; the network multiplies back.
+# The number is part of what a stored array means, so a version-2 payload
+# stores it (``set_prior_quant``) and a payload written with another one is a
+# ``signature_diff`` entry (``FAMILY_SETPRIOR``), like a changed matchup
+# definition. A payload from before the key existed was written with 100.
+SP_QUANT = 100
+SP_QUANT_UNSTORED = 100
+SET_PRIOR_FILE = "set_prior.json"
+
+
+@dataclass(frozen=True)
+class ExtraArray:
+    """One array only a layout-version-2 featurizer writes.
+
+    The ONE description of such an array: the featurizer's layout, the slot
+    mirror, the network (which block reads it, at what width and scale) and
+    the trainer's ``--extras`` bit mask are all driven by ``EXTRA_ARRAYS``.
+    ``name`` is also the name of the network-config field that holds the
+    width the network reads (0 = it does not read the array).
+    """
+
+    name: str
+    bit: int  # bit of the trainer's --extras mask
+    kind: str  # one of EXTRA_KINDS: the axes, and where the network feeds it
+    columns: tuple[str, ...]
+    scales: tuple[float, ...]  # what the network multiplies each column by
+    dtype: str
+    family: str  # whose definitions it follows (versioned in the payload)
+    doc: str
+
+    @property
+    def width(self) -> int:
+        return len(self.columns)
+
+    def shape(self, n_cand: int) -> tuple[int, ...]:
+        if self.kind == EXTRA_CAND_FOE:
+            return (N_SLOT, n_cand, N_SLOT, self.width)
+        if self.kind == EXTRA_SLOT_FOE:
+            return (N_SLOT, N_SLOT, self.width)
+        if self.kind == EXTRA_ROSTER_FOE:
+            return (N_ROSTER, N_SLOT, self.width)
+        return (N_SLOT, n_cand, self.width)
+
+    @property
+    def per_actor_slot(self) -> bool:
+        """Axis 0 (per example) is the actor's slot."""
+        return self.kind in (EXTRA_CAND_FOE, EXTRA_SLOT_FOE, EXTRA_CAND)
+
+    @property
+    def foe_axis(self) -> int | None:
+        """The per-example axis that is the foe's slot, if any."""
+        if self.kind == EXTRA_CAND_FOE:
+            return 2
+        if self.kind in (EXTRA_SLOT_FOE, EXTRA_ROSTER_FOE):
+            return 1
+        return None
+
+
+# Mask bits 1, 2, 4 are the matchup blocks; bit 8 is the per-candidate
+# set-prior array ``sp_cand`` (kind EXTRA_CAND, width 4), which only a
+# featurizer that holds a ``setprior.SetTable`` writes. Adding an array = one
+# row here + filling it in ``Featurizer._encode`` + a width field of that name
+# in the network config.
+EXTRA_ARRAYS: tuple[ExtraArray, ...] = (
+    ExtraArray(
+        "mu_cand",
+        1,
+        EXTRA_CAND_FOE,
+        MU.MU_CAND_COLUMNS,
+        MU.MU_CAND_SCALES,
+        "int8",
+        FAMILY_MATCHUP,
+        "candidate move against each foe slot: " + ", ".join(MU.MU_CAND_COLUMNS),
+    ),
+    ExtraArray(
+        "mu_slot",
+        2,
+        EXTRA_SLOT_FOE,
+        MU.MU_SLOT_COLUMNS,
+        MU.MU_SLOT_SCALES,
+        "int8",
+        FAMILY_MATCHUP,
+        "the slot's Pokemon against each foe slot: " + ", ".join(MU.MU_SLOT_COLUMNS),
+    ),
+    ExtraArray(
+        "mu_roster",
+        4,
+        EXTRA_ROSTER_FOE,
+        MU.MU_ROSTER_COLUMNS,
+        MU.MU_ROSTER_SCALES,
+        "int8",
+        FAMILY_MATCHUP,
+        "a legal switch target against each foe slot: "
+        + ", ".join(MU.MU_ROSTER_COLUMNS),
+    ),
+    ExtraArray(
+        "sp_cand",
+        8,
+        EXTRA_CAND,
+        SP.COLUMN_NAMES,
+        (1.0 / SP_QUANT,) * SP.SET_COLS,
+        "int8",
+        FAMILY_SETPRIOR,
+        "set prior of each candidate move given the moves the Pokemon has shown "
+        f"(x {SP_QUANT}): " + ", ".join(SP.COLUMN_NAMES),
+    ),
+)
+EXTRA_RESERVED_BITS: dict[int, str] = {8: "sp_cand"}
+
+
+def extra_array(name: str) -> ExtraArray | None:
+    """The table row of an extra array, or None."""
+    for spec in EXTRA_ARRAYS:
+        if spec.name == name:
+            return spec
+    return None
+
+
+def extra_names(names: Iterable[str] | None = None) -> tuple[str, ...]:
+    """``names`` in table order (all of the table for None). Raises ``ValueError``."""
+    known = tuple(spec.name for spec in EXTRA_ARRAYS)
+    if names is None:
+        return known
+    asked = [str(name) for name in names]
+    unknown = sorted(set(asked) - set(known))
+    if unknown:
+        raise ValueError(f"unknown extra arrays: {unknown}")
+    return tuple(name for name in known if name in asked)
+
+
 # --- pure batch helpers -------------------------------------------------------
 
 
@@ -1011,25 +1227,126 @@ def load_batch(path: Path | str) -> Batch:
 
 
 def load_dataset(
-    directory: Path | str, splits: Sequence[str] | None = None
+    directory: Path | str,
+    splits: Sequence[str] | None = None,
+    own_before: int | None = None,
 ) -> tuple[Batch, dict[str, Any]]:
     """Every shard of a built dataset as one batch, and its manifest.
 
     ``splits`` keeps only the examples of those split names (the manifest's
-    ``splits`` list gives the codes of ``m_split``). An offline helper: raises
-    ``OSError`` / ``ValueError`` when the directory is not a finished dataset.
+    ``splits`` list gives the codes of ``m_split``). ``own_before`` (Unix
+    seconds) also leaves out every row of the bot's own games (``OWN_SPLITS``)
+    whose ``m_time`` is at or after it, or unknown: the way to read the old
+    ladder holdout of a dataset that also holds later games. An offline
+    helper: raises ``OSError`` / ``ValueError`` when the directory is not a
+    finished dataset.
     """
     source = Path(directory)
     manifest = json.loads((source / "manifest.json").read_text(encoding="utf-8"))
     names = list(manifest.get("splits") or [])
     codes = None if splits is None else [names.index(name) for name in splits]
+    own_codes = [names.index(name) for name in OWN_SPLITS if name in names]
     parts: list[Batch] = []
     for shard in manifest.get("shards") or []:
         batch = load_batch(source / str(shard["file"]))
+        keep = np.ones(int(np.asarray(batch["m_split"]).shape[0]), dtype=bool)
         if codes is not None:
-            batch = take(batch, np.isin(batch["m_split"], codes))
+            keep &= np.isin(batch["m_split"], codes)
+        if own_before is not None:
+            keep &= ~late_own_rows(
+                batch["m_split"], batch["m_time"], own_codes, own_before
+            )
+        if codes is not None or own_before is not None:
+            batch = take(batch, keep)
         parts.append(batch)
     return concat_batches(parts), manifest
+
+
+# Splits that hold the opponent's side of the bot's own saved games.
+OWN_SPLITS: tuple[str, ...] = ("ladder_holdout", "own_unrated")
+# The bot's own games from this local day on are the sealed confirmation set
+# of the fourth build (OPPONENT_PREDICTOR.md): no development reading may
+# score them. Every tool that reads a ladder holdout asks ``own_time_range``
+# for what the dataset HOLDS (the rows' own times, not the day it was built)
+# and refuses, or filters with ``load_dataset(..., own_before=...)``. Move
+# the day only when that reading has been taken.
+OWN_SEALED_FROM = "2026-10-09"
+_DAY_FORMATS: tuple[str, ...] = ("%Y-%m-%d", "%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M:%S")
+
+
+def local_time(text: str) -> int:
+    """Unix seconds of a local ``YYYY-MM-DD`` (its midnight) or
+    ``YYYY-MM-DDTHH:MM[:SS]``. Raises ``ValueError``."""
+    for pattern in _DAY_FORMATS:
+        try:
+            return int(time.mktime(time.strptime(str(text).strip(), pattern)))
+        except (ValueError, OverflowError):
+            continue
+    raise ValueError(f"not a day or a time: {text!r} (YYYY-MM-DD[THH:MM[:SS]])")
+
+
+def late_own_rows(
+    m_split: Any, m_time: Any, own_codes: Sequence[int], before: int
+) -> np.ndarray:
+    """Rows of the bot's own games at or after ``before`` (or of unknown time)."""
+    split = np.asarray(m_split)
+    when = np.asarray(m_time).astype(np.int64)
+    return np.isin(split, list(own_codes)) & ((when >= int(before)) | (when <= 0))
+
+
+def own_time_range(directory: Path | str, before: int | None = None) -> dict[str, Any]:
+    """When the bot's own games of a built dataset were played, from its rows.
+
+    Reads ONLY the meta arrays ``m_split`` and ``m_time`` of every shard (no
+    feature, no label). Per split of ``OWN_SPLITS``: rows, rows of unknown
+    time, earliest and latest time, and with ``before`` the rows at or after it
+    (unknown times included). ``late_rows`` is their total: 0 means the
+    dataset holds no own game from ``before`` on. ``has_time`` is False for a
+    folder whose shards carry no ``m_time`` array at all (the builder always
+    writes one; only a hand-made fixture has none): nothing can be told of
+    it, and ``late_rows`` is 0. Raises ``OSError`` / ``ValueError`` when the
+    directory is not a finished dataset.
+    """
+    source = Path(directory)
+    manifest = json.loads((source / "manifest.json").read_text(encoding="utf-8"))
+    names = list(manifest.get("splits") or [])
+    splits: list[np.ndarray] = []
+    times: list[np.ndarray] = []
+    has_time = True
+    for shard in manifest.get("shards") or []:
+        with np.load(source / str(shard["file"]), allow_pickle=False) as data:
+            part = np.asarray(data["m_split"])
+            splits.append(part)
+            if "m_time" in data.files:
+                times.append(np.asarray(data["m_time"]).astype(np.int64))
+            else:
+                has_time = False
+                times.append(np.zeros(part.shape[0], dtype=np.int64))
+    split = np.concatenate(splits) if splits else np.zeros(0, dtype=np.uint8)
+    when = np.concatenate(times) if times else np.zeros(0, dtype=np.int64)
+    out: dict[str, Any] = {
+        "before": before,
+        "has_time": has_time,
+        "late_rows": 0,
+        "splits": {},
+    }
+    for name in OWN_SPLITS:
+        if name not in names:
+            continue
+        rows = split == names.index(name)
+        known = when[rows & (when > 0)]
+        entry: dict[str, Any] = {
+            "rows": int(rows.sum()),
+            "rows_without_time": int((rows & (when <= 0)).sum()),
+            "earliest": int(known.min()) if known.size else None,
+            "latest": int(known.max()) if known.size else None,
+        }
+        if before is not None and has_time:
+            late = late_own_rows(split, when, [names.index(name)], before)
+            entry["late_rows"] = int(late.sum())
+            out["late_rows"] += entry["late_rows"]
+        out["splits"][name] = entry
+    return out
 
 
 def expand_target_mask(cand_tmask: np.ndarray) -> np.ndarray:
@@ -1476,7 +1793,34 @@ class Featurizer:
         n_cand: int = N_CAND_DEFAULT,
         elo_mode: str = ELO_KEEP,
         signature: Mapping[str, Any] | None = None,
+        layout_version: int = LAYOUT_VERSION,
+        extras: Iterable[str] | None = None,
+        set_table: SP.SetTable | None = None,
+        set_accounts: Iterable[int] | None = None,
     ) -> None:
+        if layout_version not in LAYOUT_VERSIONS:
+            raise ValueError(
+                f"layout version {layout_version!r}, code knows {LAYOUT_VERSIONS}"
+            )
+        self.layout_version = int(layout_version)
+        # The version-2 arrays this featurizer writes, in table order. A
+        # set-prior array needs a set table: without one it is left out of
+        # "all of them" (extras None) and refused when asked for by name.
+        self.extras: tuple[str, ...] = ()
+        if self.layout_version >= LAYOUT_VERSION_EXTRAS:
+            names = extra_names(extras)
+            needs_table = tuple(
+                spec.name
+                for spec in EXTRA_ARRAYS
+                if spec.family == FAMILY_SETPRIOR and spec.name in names
+            )
+            if needs_table and set_table is None:
+                if extras is not None:
+                    raise ValueError(f"{needs_table} need a set table")
+                names = tuple(name for name in names if name not in needs_table)
+            self.extras = names
+        elif extras or set_table is not None:
+            raise ValueError("extra arrays and a set table need layout version 2")
         self.vocab = vocab
         self.repertoire = repertoire if repertoire is not None else Repertoire()
         self.n_cand = max(1, int(n_cand))
@@ -1512,6 +1856,59 @@ class Featurizer:
                 bool(entry) and (entry or {}).get("nonGhostTarget") == "self",
             )
         self._blocks: tuple[PublicSnapshot, dict[str, _SideBlock]] | None = None
+        # Matchup context: only a featurizer that writes a matchup array has one.
+        self._mu_on = any(
+            spec.family == FAMILY_MATCHUP and spec.name in self.extras
+            for spec in EXTRA_ARRAYS
+        )
+        self._mu_rules: MU.Rules | None = None
+        self._mu_chart: dict[str, dict[str, float]] = {}
+        self._mu_lines: dict[tuple[str, str], dict[str, int] | None] = {}
+        self._mu_facts: dict[str, MU.MoveFacts | None] = {}
+        self._mu_proxies: dict[tuple[str, bool], MU.MoveFacts] = {}
+        if self._mu_on:
+            self._mu_rules = MU.rules(dex)
+            self._mu_chart = _type_chart()
+            if not self._mu_chart:
+                # Never a silent featurizer whose every move is neutral: a
+                # dataset is not built on it, and a runtime does not load.
+                raise ValueError(
+                    "the type chart could not be read: no matchup array can be written"
+                )
+            # ``MU.rules`` never raises; a rule group it did not find is named.
+            for group, found in self._mu_rules.to_dict().items():
+                if not found:
+                    self._count(f"matchup_rule_not_found:{group}")
+        # What the payload this featurizer was loaded from said of the
+        # version-2 definitions (``_from_payload`` fills them). ``to_payload``
+        # writes THESE back, never the running code's: a copy of an artifact
+        # keeps the definitions its arrays and weights were made under, as it
+        # keeps its dex signature, so a difference survives every re-save.
+        self._loaded = False
+        self._stored_matchup: Any = None
+        self._stored_sp_quant: Any = None
+        # Set prior: only a featurizer that writes ``sp_cand`` holds a table.
+        # ``set_table`` is what the payload (and so an artifact) stores and
+        # what a runtime reads. ``set_table_override``, never stored, is for
+        # the dataset builder alone: the table WITHOUT the actor's own account
+        # (cross-fitting), set around the encoding of a training side.
+        self._sp_on = any(
+            spec.family == FAMILY_SETPRIOR and spec.name in self.extras
+            for spec in EXTRA_ARRAYS
+        )
+        self.set_table: SP.SetTable | None = set_table if self._sp_on else None
+        self.set_table_override: SP.SetTable | None = None
+        # Whose sheets the stored table was built from: crc32 of each
+        # contributing account id (the hash of the datasets' ``m_actor``),
+        # sorted. None = not recorded (a table from before this was stored, or
+        # one built by hand). It rides in the payload beside the table, so a
+        # tool that reads a model on some players' games can check, from the
+        # artifact alone, that none of them is in it (``set_table_holds``).
+        self.set_accounts: tuple[int, ...] | None = None
+        if self.set_table is not None and set_accounts is not None:
+            self.set_accounts = tuple(
+                sorted({int(value) & 0xFFFFFFFF for value in set_accounts})
+            )
 
     # --- construction and storage ------------------------------------------
 
@@ -1521,10 +1918,100 @@ class Featurizer:
         repertoire: Repertoire | None = None,
         n_cand: int = N_CAND_DEFAULT,
         elo_mode: str = ELO_KEEP,
+        layout_version: int = LAYOUT_VERSION,
+        extras: Iterable[str] | None = None,
+        set_table: SP.SetTable | None = None,
+        set_accounts: Iterable[int] | None = None,
     ) -> "Featurizer":
+        """A featurizer on the installed dex.
+
+        ``layout_version`` 2 also writes the ``EXTRA_ARRAYS`` named by
+        ``extras``; the default is version 1. ``extras`` None = every array
+        this featurizer can write: the matchup arrays, and ``sp_cand`` when a
+        ``set_table`` (``setprior.SetTable``) is given. ``set_accounts``:
+        crc32 of the account ids whose sheets built that table, when known.
+        """
         vocab = Vocab.build()
         tables = Tables.build(vocab, vocab.species, vocab.moves)
-        return cls(vocab, tables, repertoire, n_cand, elo_mode)
+        return cls(
+            vocab,
+            tables,
+            repertoire,
+            n_cand,
+            elo_mode,
+            layout_version=layout_version,
+            extras=extras,
+            set_table=set_table,
+            set_accounts=set_accounts,
+        )
+
+    def set_table_holds(self, account_id: str) -> bool | None:
+        """Whether the stored set table was built with this account's sheets.
+
+        ``account_id`` is a Showdown account id (``events.user_id`` of a
+        name). None when the featurizer holds no table or the table's
+        accounts were not recorded: then nothing can be said. A crc32 can
+        collide, so True means "this account or one with its hash".
+        """
+        if self.set_table is None or self.set_accounts is None:
+            return None
+        code = zlib.crc32(str(account_id).encode("utf-8")) & 0xFFFFFFFF
+        return code in self._set_account_codes()
+
+    def _set_account_codes(self) -> frozenset[int]:
+        return frozenset(self.set_accounts or ())
+
+    @property
+    def set_prior_signature(self) -> str | None:
+        """``SetTable.signature()`` of the stored table; None without one."""
+        return None if self.set_table is None else self.set_table.signature()
+
+    @property
+    def matchup_version(self) -> int:
+        """``matchup.MATCHUP_VERSION`` when a matchup array is written, else 0."""
+        return MU.MATCHUP_VERSION if self._mu_on else 0
+
+    def matchup_signature(self) -> dict[str, Any] | None:
+        """Plain data pinning the matchup definitions of THIS code and dex.
+
+        None when no matchup array is written. What a loaded featurizer's
+        payload said instead is ``stored_matchup_signature()``.
+        """
+        if not self._mu_on or self._mu_rules is None:
+            return None
+        made = MU.signature(self._mu_rules)
+        # The type chart is read from the installed dex and is not part of
+        # ``events.dex_signature()``: pin it here.
+        text = json.dumps(self._mu_chart, sort_keys=True)
+        made["type_chart_crc32"] = zlib.crc32(text.encode("utf-8"))
+        return made
+
+    def stored_matchup_signature(self) -> Any:
+        """The matchup definitions the arrays were (or are being) written under.
+
+        For a featurizer loaded from a payload: what that payload stored (None
+        when it stored none), whatever the code says today. For one built
+        here: ``matchup_signature()``.
+        """
+        if self._loaded:
+            return copy.deepcopy(self._stored_matchup)
+        return self.matchup_signature()
+
+    @property
+    def set_prior_quant(self) -> int | None:
+        """The quantiser the stored ``sp_cand`` values were written with.
+
+        None without the array. A loaded payload's own number (100 for one
+        written before the key existed); ``SP_QUANT`` for a featurizer built
+        here.
+        """
+        if not self._sp_on:
+            return None
+        if not self._loaded:
+            return SP_QUANT
+        if self._stored_sp_quant is None:
+            return SP_QUANT_UNSTORED
+        return int(self._stored_sp_quant)
 
     def to_payload(self) -> dict[str, Any]:
         """Everything needed to rebuild this featurizer, as plain data + arrays.
@@ -1532,8 +2019,8 @@ class Featurizer:
         Only the vocabulary's own table rows are stored: extension rows are
         recomputed from whatever dex is installed at load time.
         """
-        return {
-            "layout_version": LAYOUT_VERSION,
+        payload: dict[str, Any] = {
+            "layout_version": self.layout_version,
             "n_cand": self.n_cand,
             "vocab": self.vocab.to_dict(),
             "dex_signature": dict(self.signature),
@@ -1547,6 +2034,70 @@ class Featurizer:
                 "move_class": self.tables.move_class[: self.n_moves].copy(),
             },
         }
+        # A version-1 payload has exactly the keys above, as it always had.
+        if self.layout_version >= LAYOUT_VERSION_EXTRAS:
+            payload["extras"] = list(self.extras)
+            if self._mu_on:
+                # The definitions the arrays were written under: the stored
+                # ones for a loaded featurizer (see ``__init__``).
+                payload["matchup"] = self.stored_matchup_signature()
+            if self._sp_on and self.set_table is not None:
+                # The table itself: an artifact must carry what it was fed.
+                payload["set_prior"] = self.set_table.to_payload()
+                payload["set_prior_signature"] = self.set_table.signature()
+                if not self._loaded:
+                    payload["set_prior_quant"] = SP_QUANT
+                elif self._stored_sp_quant is not None:
+                    # A payload from before the key existed is written back
+                    # without it: re-saving gives the stored payload again.
+                    payload["set_prior_quant"] = self._stored_sp_quant
+                if self.set_accounts is not None:
+                    payload["set_prior_accounts"] = list(self.set_accounts)
+        return payload
+
+    def narrowed(self, extras: Iterable[str]) -> "Featurizer":
+        """This featurizer writing only ``extras`` of its version-2 arrays.
+
+        What an artifact should carry: the featurizer of the arrays its
+        network READS. With none left it is the version-1 featurizer (its
+        payload has the version-1 keys and nothing else: code from before
+        layout version 2 loads it, and a runtime computes no extra array);
+        without a matchup array the matchup definitions are not stored (and
+        cannot stand a runtime down), without ``sp_cand`` no set table.
+        Every version-1 array, and every array that is kept, is encoded
+        exactly as by this featurizer; the stored dex signature and the stored
+        version-2 definitions are carried over. ``self`` when nothing is
+        dropped. Raises ``ValueError`` for a name this featurizer does not
+        write.
+        """
+        names = extra_names(extras)
+        missing = [name for name in names if name not in self.extras]
+        if missing:
+            raise ValueError(f"this featurizer does not write {missing}")
+        if names == self.extras:
+            return self
+        payload = self.to_payload()
+        families = {spec.family for spec in EXTRA_ARRAYS if spec.name in names}
+        dropped: list[str] = []
+        if FAMILY_MATCHUP not in families:
+            dropped += ["matchup"]
+        if FAMILY_SETPRIOR not in families:
+            dropped += [key for key in payload if key.startswith("set_prior")]
+        if names:
+            payload["extras"] = list(names)
+        else:
+            payload["layout_version"] = LAYOUT_VERSION
+            dropped += ["extras"]
+        for key in dropped:
+            payload.pop(key, None)
+        made = type(self)._from_payload(payload, self.elo_mode)
+        if not self._loaded:
+            # Built here, not read from a file: it stays "built here" (its
+            # payload states this code's definitions, as ``self``'s does).
+            made._loaded = False
+            made._stored_matchup = None
+            made._stored_sp_quant = None
+        return made
 
     @classmethod
     def from_payload(
@@ -1566,8 +2117,32 @@ class Featurizer:
     def _from_payload(cls, payload: Mapping[str, Any], elo_mode: str) -> "Featurizer":
         try:
             version = int(payload["layout_version"])
-            if version != LAYOUT_VERSION:
-                raise ValueError(f"layout version {version}, code is {LAYOUT_VERSION}")
+            if version not in LAYOUT_VERSIONS:
+                raise ValueError(
+                    f"layout version {version}, code knows {LAYOUT_VERSIONS}"
+                )
+            extras: tuple[str, ...] | None = None
+            set_accounts: list[int] | None = None
+            if version >= LAYOUT_VERSION_EXTRAS:
+                # The arrays the stored featurizer wrote; a name this code
+                # does not know is a ValueError (never a silent drop).
+                extras = extra_names(list(payload["extras"]))
+            set_table: SP.SetTable | None = None
+            if extras and any(
+                spec.family == FAMILY_SETPRIOR and spec.name in extras
+                for spec in EXTRA_ARRAYS
+            ):
+                # KeyError (no table stored) and an unreadable table are both
+                # a ValueError: such a featurizer cannot write the array.
+                set_table = SP.SetTable.from_payload(payload["set_prior"])
+                stored_signature = payload.get("set_prior_signature")
+                if stored_signature is not None and (
+                    str(stored_signature) != set_table.signature()
+                ):
+                    raise ValueError("the stored set table does not match its hash")
+                listed = payload.get("set_prior_accounts")
+                if listed is not None:
+                    set_accounts = [int(value) for value in listed]
             vocab = Vocab.from_dict(payload["vocab"])
             stored = payload["tables"]
             tables = Tables(
@@ -1583,24 +2158,67 @@ class Featurizer:
                 len(species_columns(vocab)),
             ) or tables.move_num.shape != (len(vocab.moves), len(move_columns(vocab))):
                 raise ValueError("stored tables do not match the stored vocabulary")
-            return cls(
+            if version < LAYOUT_VERSION_EXTRAS:
+                return cls(
+                    vocab,
+                    tables,
+                    Repertoire.from_dict(payload.get("repertoire") or {}),
+                    int(payload["n_cand"]),
+                    elo_mode,
+                    payload.get("dex_signature"),
+                )
+            made = cls(
                 vocab,
                 tables,
                 Repertoire.from_dict(payload.get("repertoire") or {}),
                 int(payload["n_cand"]),
                 elo_mode,
                 payload.get("dex_signature"),
+                layout_version=version,
+                extras=extras,
+                set_table=set_table,
+                set_accounts=set_accounts,
             )
+            made._loaded = True
+            made._stored_matchup = _plain_json(payload.get("matchup"))
+            quant = payload.get("set_prior_quant")
+            if quant is not None and (
+                isinstance(quant, bool) or not isinstance(quant, int) or quant <= 0
+            ):
+                raise ValueError(f"set_prior_quant {quant!r} is not a positive integer")
+            made._stored_sp_quant = quant
+            differs: set[str] = set()
+            # Matchup definitions (code constants and dex-derived rules) that
+            # differ from what the payload was written with: refuse to serve.
+            if made._mu_on and made._stored_matchup != _plain_json(
+                made.matchup_signature()
+            ):
+                differs.add(FAMILY_MATCHUP)
+            # The same for the quantiser of the set-prior array.
+            if made._sp_on and made.set_prior_quant != SP_QUANT:
+                differs.add(FAMILY_SETPRIOR)
+            if differs:
+                made.signature_diff = sorted(set(made.signature_diff) | differs)
+            return made
         except (KeyError, TypeError) as exc:
             raise ValueError(f"not a featurizer payload: {exc!r}") from exc
 
     def save(self, directory: Path | str) -> None:
-        """Write ``vocab.json``, ``tables.npz`` and ``repertoire.json``."""
+        """Write ``vocab.json``, ``tables.npz`` and ``repertoire.json``.
+
+        A featurizer that holds a set table also writes ``set_prior.json``
+        (the table) and leaves the table's hash in ``vocab.json``.
+        """
         out = Path(directory)
         out.mkdir(parents=True, exist_ok=True)
         payload = self.to_payload()
         tables = payload.pop("tables")
         repertoire = payload.pop("repertoire")
+        sets = payload.pop("set_prior", None)
+        if sets is not None:
+            (out / SET_PRIOR_FILE).write_text(
+                json.dumps(sets, separators=(",", ":")), encoding="utf-8"
+            )
         (out / "vocab.json").write_text(json.dumps(payload, indent=1), encoding="utf-8")
         (out / "repertoire.json").write_text(
             json.dumps(repertoire, indent=1, sort_keys=True), encoding="utf-8"
@@ -1618,11 +2236,23 @@ class Featurizer:
             (source / "repertoire.json").read_text(encoding="utf-8")
         )
         payload["tables"] = load_batch(source / "tables.npz")
+        if "set_prior_signature" in payload:
+            payload["set_prior"] = json.loads(
+                (source / SET_PRIOR_FILE).read_text(encoding="utf-8")
+            )
         return cls.from_payload(payload, elo_mode, strict)
 
     def layout(self) -> dict[str, ArraySpec]:
+        if self.layout_version < LAYOUT_VERSION_EXTRAS:
+            return layout(
+                self.n_cand, len(self.vocab.pseudo), len(self.vocab.side_conditions)
+            )
         return layout(
-            self.n_cand, len(self.vocab.pseudo), len(self.vocab.side_conditions)
+            self.n_cand,
+            len(self.vocab.pseudo),
+            len(self.vocab.side_conditions),
+            self.layout_version,
+            self.extras,
         )
 
     @property
@@ -2074,6 +2704,7 @@ class Featurizer:
         support = [0.0, 0.0]
         switch_mask = [[0] * N_ROSTER, [0] * N_ROSTER]
         action_mask = [[0] * n_action, [0] * n_action]
+        slot_names: list[list[str]] = [[], []]
         for position in range(N_SLOT):
             if act_mon[position] < 0:
                 continue
@@ -2082,6 +2713,7 @@ class Featurizer:
             names, flags, prior, rank, auto, outside, uses = self._candidates(
                 mon, terrain_up
             )
+            slot_names[position] = names
             for column, move_id in enumerate(names):
                 cand_move[position][column] = self._move_id(move_id)
                 cand_flag[position][column] = flags[column]
@@ -2104,7 +2736,7 @@ class Featurizer:
             action_mask[position][n_cand] = 1
             action_mask[position][n_cand + 1 :] = switch_row
 
-        return {
+        example: Example = {
             "turn": np.array(min(255, max(0, turn)), dtype=np.uint8),
             "ctx_cat": np.array([weather, terrain, setter], dtype=np.uint8),
             "field_age": np.array(field_age, dtype=np.uint8),
@@ -2139,6 +2771,300 @@ class Featurizer:
             "switch_mask": np.array(switch_mask, dtype=np.uint8),
             "action_mask": np.array(action_mask, dtype=np.uint8),
         }
+        if self.layout_version >= LAYOUT_VERSION_EXTRAS:
+            # Version-2 arrays, after every version-1 array was made: nothing
+            # above reads them, and they never see an action or a label.
+            # One block per family of ``EXTRA_ARRAYS``; each writes only the
+            # names in ``self.extras`` and must never raise (zeros + a count).
+            # ``slot_names[s]`` are the candidate move ids of actor slot s.
+            if self._mu_on:
+                example.update(
+                    self._matchup(
+                        snapshot, actor, other, act_mon, foe_mon, slot_names, switch_row
+                    )
+                )
+            if self._sp_on:
+                example.update(self._set_prior(actor, act_mon, slot_names))
+        return example
+
+    # --- set prior (layout version 2) ---------------------------------------
+
+    def _set_prior(
+        self,
+        actor: SidePublic,
+        act_mon: Sequence[int],
+        slot_names: Sequence[Sequence[str]],
+    ) -> Example:
+        """``sp_cand`` of one example. Never raises: zeros and a count.
+
+        Row ``[s, c]`` is ``SetTable.posterior`` of candidate ``c`` of actor
+        slot ``s`` given every move of that Pokemon the public knows (shown in
+        battle, or all four of a sheet that was handed over) and its item /
+        ability when they are public; padding candidates and a slot without a
+        Pokemon are zeros. OTHER has no row (the array has ``n_cand`` rows).
+        """
+        specs = [
+            spec
+            for spec in EXTRA_ARRAYS
+            if spec.family == FAMILY_SETPRIOR and spec.name in self.extras
+        ]
+        arrays: Example = {
+            spec.name: np.zeros(spec.shape(self.n_cand), dtype=np.dtype(spec.dtype))
+            for spec in specs
+        }
+        out = arrays.get("sp_cand")
+        if out is None:
+            return arrays
+        # ``is None``, never truthiness: a table without a species is empty
+        # (``len() == 0``) and is still the table to ask.
+        table = self.set_table_override
+        if table is None:
+            table = self.set_table
+        if table is None:
+            self._count("setprior_no_table")
+            return arrays
+        try:
+            failed = table.errors
+            for s, row in enumerate(act_mon):
+                if row < 0:
+                    continue
+                names = list(slot_names[s][: self.n_cand])
+                if not names:
+                    continue
+                mon = actor.mons[row]
+                item_known = bool(mon.item) and mon.item_state in (
+                    ITEM_KNOWN,
+                    ITEM_CONSUMED,
+                )
+                # A Mega's ability in effect is the Mega forme's: on no sheet.
+                ability_known = (
+                    bool(mon.ability) and mon.ability_known and not mon.is_mega
+                )
+                columns = table.posterior(
+                    set_key(mon.forme, mon.species),
+                    [move.id for move in mon.moves],
+                    names,
+                    item=mon.item or "",
+                    ability=mon.ability or "",
+                    item_known=item_known,
+                    ability_known=ability_known,
+                )
+                if columns.shape != (len(names), out.shape[-1]):
+                    self._count("setprior_bad_shape")
+                    continue
+                out[s, : len(names)] = np.rint(
+                    np.clip(columns, 0.0, 1.0) * SP_QUANT
+                ).astype(out.dtype)
+            if table.errors != failed:
+                # The table answered zeros for something it could not read.
+                self._count("setprior_posterior_error")
+        except Exception as exc:
+            self._count(f"setprior_error:{type(exc).__name__}")
+            out[...] = 0
+        return arrays
+
+    # --- matchup (layout version 2) ----------------------------------------
+
+    def _mu_line(self, mon: MonPublic) -> dict[str, int] | None:
+        key = (mon.forme, mon.species)
+        if key in self._mu_lines:
+            return self._mu_lines[key]
+        dex = pokedex()
+        entry = dex.get(mon.forme) or dex.get(mon.species) or {}
+        line = MU.stat_line(entry.get("baseStats"))
+        self._mu_lines[key] = line
+        return line
+
+    def _mu_move(self, move_id: str) -> MU.MoveFacts | None:
+        if move_id in self._mu_facts:
+            return self._mu_facts[move_id]
+        facts = MU.move_facts(moves_dex().get(move_id))
+        self._mu_facts[move_id] = facts
+        return facts
+
+    def _mu_fighter(
+        self, mon: MonPublic, speed_factor: float, benched: bool = False
+    ) -> MU.Fighter:
+        """The estimate's view of a Pokemon: public fields and the assumed line.
+
+        Its attacks are its KNOWN damaging moves (shown in battle or on a
+        sheet that was handed over) and, while the set is not complete by the
+        candidate builder's rule, one same-type stand-in per current type.
+        ``benched``: as it would enter the field (no stat stages).
+        """
+        line = self._mu_line(mon)
+        if line is None:
+            self._count("matchup_no_stats")
+        attacks: list[MU.MoveFacts] = []
+        seen: set[str] = set()
+        sheet_known = False
+        revealed = 0
+        for move in mon.moves:
+            if move.id in seen:
+                continue
+            seen.add(move.id)
+            sheet_known = sheet_known or move.from_sheet
+            revealed += int(move.revealed)
+            facts = self._mu_move(move.id)
+            if facts is not None and facts.est:
+                attacks.append(facts)
+        if not (sheet_known or revealed >= MAX_MOVES) and line is not None:
+            physical = bool(line["physical"])
+            for kind in mon.types:
+                stand_in = self._mu_proxies.get((kind, physical))
+                if stand_in is None:
+                    stand_in = MU.proxy(kind, physical)
+                    self._mu_proxies[(kind, physical)] = stand_in
+                attacks.append(stand_in)
+        return MU.Fighter(
+            line,
+            tuple(mon.types),
+            {} if benched else mon.boosts,
+            mon.status,
+            float(mon.hp),
+            tuple(attacks),
+            speed_factor,
+        )
+
+    def _matchup(
+        self,
+        snapshot: PublicSnapshot,
+        actor: SidePublic,
+        other: SidePublic,
+        act_mon: Sequence[int],
+        foe_mon: Sequence[int],
+        slot_names: Sequence[Sequence[str]],
+        switch_row: Sequence[int],
+    ) -> Example:
+        """The matchup arrays of one example. Never raises: zeros and a count."""
+        shapes = {
+            spec.name: spec.shape(self.n_cand)
+            for spec in EXTRA_ARRAYS
+            if spec.family == FAMILY_MATCHUP and spec.name in self.extras
+        }
+        arrays = {
+            name: np.zeros(shape, dtype=np.int8) for name, shape in shapes.items()
+        }
+        try:
+            self._matchup_fill(
+                arrays, snapshot, actor, other, act_mon, foe_mon, slot_names, switch_row
+            )
+        except Exception as exc:
+            self._count(f"matchup_error:{type(exc).__name__}")
+            arrays = {
+                name: np.zeros(shape, dtype=np.int8) for name, shape in shapes.items()
+            }
+        return arrays
+
+    def _matchup_fill(
+        self,
+        arrays: dict[str, np.ndarray],
+        snapshot: PublicSnapshot,
+        actor: SidePublic,
+        other: SidePublic,
+        act_mon: Sequence[int],
+        foe_mon: Sequence[int],
+        slot_names: Sequence[Sequence[str]],
+        switch_row: Sequence[int],
+    ) -> None:
+        found = self._mu_rules
+        if found is None:
+            return
+        board = MU.Board(
+            self._mu_chart,
+            found.weather_types.get(snapshot.weather or "", ""),
+            any(name in snapshot.fields for name in found.speed_reverse),
+        )
+        factors = [
+            MU.SPEED_DOUBLE
+            if any(name in side.conditions for name in found.speed_double)
+            else 1.0
+            for side in (actor, other)
+        ]
+        mine: list[MU.Fighter | None] = [
+            self._mu_fighter(actor.mons[row], factors[0]) if row >= 0 else None
+            for row in act_mon
+        ]
+        theirs: list[MU.Fighter | None] = [
+            self._mu_fighter(other.mons[row - N_ROSTER], factors[1])
+            if row >= 0
+            else None
+            for row in foe_mon
+        ]
+        n_act = sum(fighter is not None for fighter in mine)
+        n_foe = sum(fighter is not None for fighter in theirs)
+        mu_cand = arrays.get("mu_cand")
+        mu_slot = arrays.get("mu_slot")
+        mu_roster = arrays.get("mu_roster")
+        q, kills, ratio = MU.q, MU.kills, MU.ko_ratio
+        for s, user in enumerate(mine):
+            if user is None or user.line is None:
+                continue
+            own_speed = MU.speeds(user)
+            for f, foe in enumerate(theirs):
+                if foe is None or foe.line is None:
+                    continue
+                first, sure, spd = MU.order(own_speed, MU.speeds(foe), board.reverse)
+                if mu_slot is not None:
+                    taken = MU.best(foe, user, board, n_act, n_foe - 1)
+                    dealt = MU.best(user, foe, board, n_foe, n_act - 1)
+                    in_kill = kills(taken, user.hp)
+                    mu_slot[s, f] = (
+                        first,
+                        sure,
+                        MU.qlog(spd),
+                        q(taken),
+                        q(ratio(taken, user.hp)),
+                        int(in_kill),
+                        int(in_kill and first < 0),
+                        q(dealt),
+                        q(ratio(dealt, foe.hp)),
+                        int(kills(dealt, foe.hp)),
+                    )
+                if mu_cand is None:
+                    continue
+                for column, move_id in enumerate(slot_names[s][: self.n_cand]):
+                    facts = self._mu_move(move_id)
+                    if facts is None:
+                        continue
+                    est, immune, steps, share = MU.hit(
+                        facts, user, foe, board, n_foe, n_act - 1
+                    )
+                    kill = bool(est) and kills(share, foe.hp)
+                    before = (
+                        1
+                        if facts.priority > 0
+                        else (-1 if facts.priority < 0 else first)
+                    )
+                    mu_cand[s, column, f] = (
+                        est,
+                        immune,
+                        max(-3, min(3, steps)),
+                        q(share) if est else 0,
+                        q(ratio(share, foe.hp)) if est else 0,
+                        int(kill),
+                        before,
+                        int(kill and before > 0),
+                    )
+        if mu_roster is None:
+            return
+        for row, legal in enumerate(switch_row[:N_ROSTER]):
+            if not legal or row >= len(actor.mons):
+                continue
+            bench = self._mu_fighter(actor.mons[row], factors[0], benched=True)
+            if bench.line is None:
+                continue
+            for f, foe in enumerate(theirs):
+                if foe is None or foe.line is None:
+                    continue
+                taken = MU.best(foe, bench, board, n_act, n_foe - 1)
+                dealt = MU.best(bench, foe, board, n_foe, n_act - 1)
+                mu_roster[row, f] = (
+                    q(taken),
+                    q(ratio(taken, bench.hp)),
+                    int(kills(taken, bench.hp)),
+                    q(dealt),
+                )
 
     def _move_action(
         self, example: Mapping[str, np.ndarray], slot: int, move: str

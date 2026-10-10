@@ -105,6 +105,16 @@ few pair events (both Protect, both switch, both attack the same slot, ...)
 the observed rate on the counted two-slot turns against the product of the
 observed marginal rates and against each predictor's own product.
 
+The sealed own games. The bot's own games from ``features.OWN_SEALED_FROM``
+on are the sealed confirmation set of the fourth build. Set (a) is read
+WITHOUT them unless ``--allow-sealed-holdout`` is given: which rows they are
+is told by the rows' own times (``m_time``; a row of unknown time counts as
+sealed), never by the day the dataset was built. Either way the card says so
+(``dataset.own_games`` and a line in ``warnings``); a dataset that holds none
+gives the card of before, key for key. Sets (b) and (c) are the test players
+whatever the flag: for a build of the fourth generation they are confirmation
+data too, so this card is not a development tool on such a build.
+
 Outputs: ``<out>/scorecard.json`` (everything) and ``<out>/README.md``, which
 is rendered from the JSON only (``--render-only`` rewrites it). The card's
 ``warnings`` list names anything that weakens the reading (an artifact fitted
@@ -143,6 +153,7 @@ from typing import Any
 
 import numpy as np
 
+from vgc_bench.src.oppmodel import coupling as CPL
 from vgc_bench.src.oppmodel import features as F
 from vgc_bench.src.oppmodel import joint as J
 from vgc_bench.src.oppmodel.artifact import load_predictor
@@ -312,6 +323,27 @@ JOINT_VARIANT_TEXT = {
         "Mega-evolves (nobody, slot a or slot b).",
     },
 }
+# A predictor whose artifact carries a pair coupling (``coupling.PairCoupling``)
+# gets a third variant: the same predictions on the same counted examples,
+# ranked with the coupling. A card over artifacts without one has none of this.
+JOINT_COUPLED = "without_mega_coupled"
+JOINT_COUPLED_TEXT = {
+    "short": "coupled, without the Mega bit",
+    "text": "With the artifact's pair coupling, without the Mega bit: the "
+    "product of the two slots is multiplied by one number per pair of reply "
+    "classes and context bucket before it is renormalised. Only predictors "
+    "whose artifact carries a coupling have a row; 'change' below is this "
+    "row minus the same predictor's plain row, on the same examples.",
+}
+JOINT_COUPLED_DEFINITION = (
+    "A coupled predictor's joint is NOT the plain product: its artifact holds "
+    "a pair coupling fitted on validation (training/fit_oppmodel_coupling.py), "
+    "which says how the two slots' choices go together. Its per-slot numbers "
+    "everywhere else on this card are unchanged by it. 'Change' is coupled "
+    "minus plain on the same counted examples and the same resampled games."
+)
+REPLY_HOLDS_SWITCH = "reply: holds a switch"
+REPLY_HOLDS_PROTECT = "reply: holds a Protect-family move"
 JOINT_SETS: tuple[str, ...] = GATED_SETS
 SLICE_SHEETS: tuple[str, ...] = ("sheet closed", "sheet open", "sheet unknown")
 SLICE_TURNS: tuple[str, ...] = ("turn 1", "turn 2 and later")
@@ -1326,7 +1358,9 @@ def score_set(
 
 
 def joint_slices(
-    batch: Mapping[str, np.ndarray], truth: Mapping[str, np.ndarray]
+    batch: Mapping[str, np.ndarray],
+    truth: Mapping[str, np.ndarray],
+    coupled: bool = False,
 ) -> dict[str, np.ndarray]:
     """Per-example masks of the coverage section; ``all`` first. Descriptive.
 
@@ -1338,7 +1372,10 @@ def joint_slices(
     family holds the same three classes among the examples whose sheet is not
     open (closed or unknown): a partition of those. One more mask, not part
     of a partition: sheets not open and no move not shown before
-    (``REPLY_NO_UNSHOWN``, the last two classes pooled).
+    (``REPLY_NO_UNSHOWN``, the last two classes pooled). With ``coupled`` (a
+    predictor of the card carries a pair coupling) two more masks, where a
+    coupling should matter most: the reply holds a switch in either slot, or a
+    Protect-family move in either slot.
     """
     base = slice_masks(batch)
     out: dict[str, np.ndarray] = {SLICE_ALL: base[SLICE_ALL]}
@@ -1356,6 +1393,11 @@ def joint_slices(
     for name, mask in classes.items():
         out[SHEETS_NOT_OPEN + name] = closed & mask
     out[SHEETS_NOT_OPEN + REPLY_NO_UNSHOWN] = closed & ~unshown
+    if coupled:
+        out[REPLY_HOLDS_SWITCH] = np.asarray(truth["switch"]).astype(bool).any(-1)
+        out[REPLY_HOLDS_PROTECT] = (
+            np.asarray(truth[INTENT_PROTECT]).astype(bool).any(-1)
+        )
     return out
 
 
@@ -1363,6 +1405,7 @@ def pair_dependence(
     batch: Mapping[str, np.ndarray],
     preds: Mapping[str, Mapping[str, np.ndarray]],
     tables: F.Tables,
+    couplings: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """How far the two slots' choices are from independent, by pair event.
 
@@ -1372,7 +1415,9 @@ def pair_dependence(
     product of the two slots' observed marginal rates and their ratio (the
     data's own dependence), and per predictor the mean of its own product
     over the same rows with the ratio observed / product. Descriptive; a
-    predictor whose intent probabilities cannot be read is left out.
+    predictor whose intent probabilities cannot be read is left out. A
+    predictor with a pair coupling (``couplings[name]``) also gets ``coupled``
+    (the mean mass its coupled joint puts on the event) and ``coupled_ratio``.
     """
     intent = np.asarray(batch["y_intent"]).astype(np.int64)
     rows = (np.asarray(batch["act_mon"]) >= 0).all(-1) & (intent >= 0).all(-1)
@@ -1411,8 +1456,44 @@ def pair_dependence(
                 "product": product,
                 "ratio": observed[label] / product if product > 0 else None,
             }
+        coupling = (couplings or {}).get(name)
+        if coupling is not None:
+            for label, mass in _coupled_events(own, part, tables, coupling).items():
+                found[label]["coupled"] = mass
+                found[label]["coupled_ratio"] = (
+                    observed[label] / mass if mass > 0 else None
+                )
         out["predictors"][name] = found
     return out
+
+
+def _coupled_events(
+    pred: Mapping[str, np.ndarray],
+    batch: Mapping[str, np.ndarray],
+    tables: F.Tables,
+    coupling: Any,
+) -> dict[str, float]:
+    """The mean mass a coupled joint puts on each pair event (two-slot rows).
+
+    The class-pair masses of today's joint (the same-bench double switch
+    removed) times the coupling's table of each row's bucket, renormalised.
+    """
+    features = features_only(batch)
+    prob, _ = J.slot_replies(pred, features)
+    try:
+        classes = CPL.reply_classes(features, tables.move_intent)
+        bucket = CPL.reply_buckets(features).astype(np.int64)
+    except (KeyError, ValueError) as exc:
+        raise ScorecardError(f"the coupling cannot class this batch: {exc}") from exc
+    if prob.shape[0] != bucket.shape[0]:
+        raise ScorecardError(f"slot replies cannot be read ({dict(J.COUNTERS)})")
+    mass = CPL.pair_masses(prob, classes)["model"] * coupling.table[bucket]
+    total = mass.sum((1, 2), keepdims=True)
+    mass = np.divide(mass, total, out=np.zeros_like(mass), where=total > 0)
+    return {
+        label: float(sum(mass[:, a, b].mean() for a, b in pairs))
+        for label, pairs in PAIR_EVENTS.items()
+    }
 
 
 def _coverage_row(
@@ -1443,6 +1524,7 @@ def joint_coverage_set(
     seed: int = DEFAULT_SEED,
     floor: float = F.PROBABILITY_FLOOR,
     tables: F.Tables | None = None,
+    couplings: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Joint reply coverage of every predictor on one evaluation set.
 
@@ -1466,7 +1548,18 @@ def joint_coverage_set(
     acting, or forced) and those where only a target is not certain. With
     ``tables`` (the featurizer's, for the intent class of a move) the result
     also holds ``dependence``: ``pair_dependence`` on the counted examples.
+
+    ``couplings[name]`` (a ``coupling.PairCoupling``; needs ``tables``) adds
+    the variant ``JOINT_COUPLED`` for that predictor: the same prediction on
+    the same counted examples, ranked with the coupling. Each of its slices
+    also holds ``change``: coupled minus plain for ``top`` (top ``JOINT_K``)
+    and ``log_prob``, with a 95% interval over the same resampled games. The
+    two slices ``REPLY_HOLDS_SWITCH`` / ``REPLY_HOLDS_PROTECT`` exist only
+    then. Without a coupling nothing of the result changes.
     """
+    couplings = dict(couplings or {})
+    if couplings and tables is None:
+        raise ScorecardError("a coupled joint needs the featurizer's tables")
     truth = J.true_replies(batch)
     if not truth:
         raise ScorecardError(
@@ -1483,7 +1576,10 @@ def joint_coverage_set(
     masks = features_only(part)
     told = {name: values[visible] for name, values in truth.items()}
     other = told["other"].any(-1)
-    slices = {name: mask[visible] for name, mask in joint_slices(batch, truth).items()}
+    slices = {
+        name: mask[visible]
+        for name, mask in joint_slices(batch, truth, bool(couplings)).items()
+    }
     sums = GameSums(np.asarray(part["m_battle"]))
     for label, mask in slices.items():
         sums.count(("n", label), mask)
@@ -1491,10 +1587,24 @@ def joint_coverage_set(
     rows: dict[tuple[str, str], dict[str, Any]] = {}
     for name, pred in preds.items():
         own = {key: np.asarray(value)[visible] for key, value in pred.items()}
-        for variant in JOINT_VARIANTS:
-            made = J.joint_replies(
-                own, masks, k=JOINT_K, mega=variant == JOINT_MEGA, truth=told
-            )
+        variants: tuple[str, ...] = JOINT_VARIANTS
+        if name in couplings:
+            variants = (*JOINT_VARIANTS, JOINT_COUPLED)
+        plain: tuple[np.ndarray, np.ndarray] | None = None
+        for variant in variants:
+            if variant == JOINT_COUPLED:
+                made = J.joint_replies(
+                    own,
+                    masks,
+                    k=JOINT_K,
+                    truth=told,
+                    coupling=couplings[name],
+                    move_intent=None if tables is None else tables.move_intent,
+                )
+            else:
+                made = J.joint_replies(
+                    own, masks, k=JOINT_K, mega=variant == JOINT_MEGA, truth=told
+                )
             if made.n != count:
                 raise ScorecardError(
                     f"{name}: the prediction cannot be read as joint replies "
@@ -1506,6 +1616,17 @@ def joint_coverage_set(
             mass = made.mass()
             for label, mask in slices.items():
                 sums.count(("hit", name, variant, label), hit & mask)
+            if variant == JOINT_PLAIN:
+                plain = (hit, log_prob)
+            if variant == JOINT_COUPLED and plain is not None:
+                # Coupled minus plain, per example: resampled with the rest.
+                for label, mask in slices.items():
+                    sums.add(
+                        ("change_top", name, label),
+                        hit.astype(np.float64) - plain[0].astype(np.float64),
+                        mask,
+                    )
+                    sums.add(("change_log", name, label), log_prob - plain[1], mask)
             rows[(name, variant)] = {
                 "no_distribution": int((~made.ok).sum()),
                 "truth_not_possible": int((made.ok & ~found).sum()),
@@ -1566,13 +1687,27 @@ def joint_coverage_set(
             if games_in(label) < 2:  # one game resampled is that game again
                 found["low"] = found["high"] = None
             row["slices"][label]["top_interval"] = found
+            if variant == JOINT_COUPLED:
+                change = {}
+                for key, column in (("top", "change_top"), ("log_prob", "change_log")):
+                    moved = _as_difference(
+                        draws.ratio((column, name, label), ("n", label))
+                    )
+                    if games_in(label) < 2:
+                        moved["low"] = moved["high"] = None
+                    change[key] = moved
+                row["slices"][label]["change"] = change
         out["predictors"].setdefault(name, {})[variant] = row
     if tables is not None:
         counted = {
             name: {key: np.asarray(value)[visible] for key, value in pred.items()}
             for name, pred in preds.items()
         }
-        out["dependence"] = pair_dependence(part, counted, tables)
+        out["dependence"] = (
+            pair_dependence(part, counted, tables, couplings)
+            if couplings
+            else pair_dependence(part, counted, tables)
+        )
     return out
 
 
@@ -1584,8 +1719,14 @@ def joint_coverage(
     seed: int = DEFAULT_SEED,
     log: Log = say,
     tables: F.Tables | None = None,
+    couplings: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """The card's ``joint_coverage`` section: ``joint_coverage_set`` per set."""
+    """The card's ``joint_coverage`` section: ``joint_coverage_set`` per set.
+
+    ``couplings`` (predictor name -> its artifact's pair coupling) adds the
+    coupled variant for those predictors; empty or None leaves the section as
+    it is without one, key for key.
+    """
     out: dict[str, Any] = {
         "ks": list(JOINT_KS),
         "k": JOINT_K,
@@ -1593,14 +1734,28 @@ def joint_coverage(
         "definitions": dict(JOINT_DEFINITIONS),
         "sets": {},
     }
+    if couplings:
+        out["variants"][JOINT_COUPLED] = dict(JOINT_COUPLED_TEXT)
+        out["definitions"]["coupled"] = JOINT_COUPLED_DEFINITION
+        out["coupled"] = sorted(couplings)
     for set_name, batch in batches.items():
         if len(batch["turn"]) == 0:
             out["sets"][set_name] = {"examples": 0, "games": 0, "predictors": {}}
             continue
         started = time.perf_counter()
-        found = joint_coverage_set(
-            batch, preds[set_name], resamples=resamples, seed=seed, tables=tables
-        )
+        if couplings:
+            found = joint_coverage_set(
+                batch,
+                preds[set_name],
+                resamples=resamples,
+                seed=seed,
+                tables=tables,
+                couplings=couplings,
+            )
+        else:
+            found = joint_coverage_set(
+                batch, preds[set_name], resamples=resamples, seed=seed, tables=tables
+            )
         out["sets"][set_name] = found
         log(
             f"joint reply coverage on {set_name}: {found['counted']['examples']} of "
@@ -1621,6 +1776,9 @@ class Entry:
     kind: str
     predictor: Any
     info: dict[str, Any] = field(default_factory=dict)
+    # The artifact's pair coupling (None for an artifact without one, and
+    # with --no-coupling): read by the joint coverage section only.
+    coupling: Any = None
 
 
 def sha256_file(path: Path) -> str:
@@ -1652,7 +1810,12 @@ def _trained_on(extra: Mapping[str, Any]) -> str | None:
 def load_artifact_entry(
     spec: str, taken: Sequence[str], manifest_sha: str | None
 ) -> Entry:
-    """An ``--artifact`` argument (``path`` or ``label=path``) as an entry."""
+    """An ``--artifact`` argument (``path`` or ``label=path``) as an entry.
+
+    An artifact's pair coupling is kept on the entry and named in its
+    ``info`` (``drop_coupling`` takes it off again); an artifact without one
+    gives the entry of before.
+    """
     label, path = "", Path(spec)
     if "=" in spec and not path.is_file():
         label, _, tail = spec.partition("=")
@@ -1664,7 +1827,7 @@ def load_artifact_entry(
     name = _unique(label or loaded.name, taken)
     extra = loaded.meta.get("extra") or {}
     trained = _trained_on(extra)
-    return Entry(
+    entry = Entry(
         name,
         loaded.kind,
         loaded.predictor,
@@ -1681,6 +1844,24 @@ def load_artifact_entry(
             "elo_mode": getattr(loaded.predictor, "elo_mode", None),
         },
     )
+    if loaded.coupling is not None:
+        entry.coupling = loaded.coupling
+        entry.info["pair_coupling"] = {
+            "name": loaded.coupling.name,
+            "used": True,
+            "fitted_after": dict(loaded.coupling.fitted_after),
+        }
+    return entry
+
+
+def drop_coupling(entry: Entry) -> Entry:
+    """``entry`` with its pair coupling ignored (``--no-coupling``): every
+    joint of the card is then the plain product. The entry's ``info`` keeps
+    the coupling's name and says it was not used."""
+    if getattr(entry, "coupling", None) is not None:
+        entry.coupling = None
+        entry.info["pair_coupling"]["used"] = False
+    return entry
 
 
 def load_legacy_entries(
@@ -1938,6 +2119,20 @@ def warnings_of(card: Mapping[str, Any]) -> list[str]:
             "The dataset was built with another dex than the one installed: "
             f"{card['dataset']['dex_signature_diff']}."
         )
+    own = card["dataset"].get("own_games") or {}
+    if own.get("sealed_rows_read"):
+        out.append(
+            f"Set (a) holds {own.get('sealed_rows_in_dataset')} rows of the bot's "
+            f"own games from {own.get('sealed_from')} on, the SEALED confirmation "
+            "set (--allow-sealed-holdout): this card is a confirmation reading, "
+            "not a development one."
+        )
+    elif own.get("sealed_rows_in_dataset"):
+        out.append(
+            f"{own.get('sealed_rows_in_dataset')} rows of the bot's own games from "
+            f"{own.get('sealed_from')} on (the sealed confirmation set) were left "
+            "out of set (a): it is the older ladder games only."
+        )
     for name, info in card["predictors"].items():
         if info.get("fitted_on_this_dataset") is False:
             out.append(
@@ -2030,6 +2225,25 @@ def _remove_empty(directories: Sequence[Path]) -> None:
             return
 
 
+def sealed_own_rows(
+    data: Mapping[str, np.ndarray], names: Sequence[str]
+) -> np.ndarray | None:
+    """The rows of set (a) that belong to the sealed confirmation set: the
+    bot's own games from ``features.OWN_SEALED_FROM`` on, and those of unknown
+    time. Read from ``m_split`` and ``m_time`` alone. None for rows that carry
+    no times at all (no builder writes such a dataset): nothing can be told.
+    Raises ``ScorecardError`` when the day cannot be read."""
+    if "m_time" not in data or "m_split" not in data or SET_LADDER not in names:
+        return None
+    try:
+        cut = F.local_time(F.OWN_SEALED_FROM)
+    except ValueError as exc:
+        raise ScorecardError(f"the sealed day cannot be read: {exc}") from exc
+    when = np.asarray(data["m_time"]).astype(np.int64)
+    own = np.asarray(data["m_split"]) == list(names).index(SET_LADDER)
+    return own & ((when >= cut) | (when <= 0))
+
+
 def _run(args: argparse.Namespace, out: Path, log: Log) -> dict[str, Any]:
     started = time.time()
     dataset = Path(args.dataset)
@@ -2043,6 +2257,23 @@ def _run(args: argparse.Namespace, out: Path, log: Log) -> dict[str, Any]:
     missing = [name for name in (SET_LADDER, SET_TEST) if name not in names]
     if missing or not data:
         raise ScorecardError(f"dataset {dataset} lacks the splits {missing or names}")
+    # The sealed own games leave set (a) before any predictor sees a row.
+    own_games: dict[str, Any] | None = None
+    sealed = sealed_own_rows(data, names)
+    if sealed is not None and sealed.any():
+        allowed = bool(getattr(args, "allow_sealed_holdout", False))
+        own_games = {
+            "sealed_from": F.OWN_SEALED_FROM,
+            "sealed_rows_in_dataset": int(sealed.sum()),
+            "sealed_rows_read": allowed,
+        }
+        if not allowed:
+            data = F.take(data, ~sealed)
+        log(
+            f"dataset {dataset}: {int(sealed.sum())} rows of own games from "
+            f"{F.OWN_SEALED_FROM} on (the sealed set) are "
+            + ("READ (--allow-sealed-holdout)" if allowed else "left out of (a)")
+        )
     base = {
         name: _split(data, names.index(name), args.limit)
         for name in (SET_LADDER, SET_TEST)
@@ -2155,6 +2386,7 @@ def _run(args: argparse.Namespace, out: Path, log: Log) -> dict[str, Any]:
             "dex_signature_diff": list(featurizer.signature_diff),
             "limit_per_set": args.limit,
             "accounts_in_both_gated_sets": shared,
+            **({} if own_games is None else {"own_games": own_games}),
         },
         "settings": {
             "reference": args.reference,
@@ -2221,6 +2453,14 @@ def _run(args: argparse.Namespace, out: Path, log: Log) -> dict[str, Any]:
     if not getattr(args, "no_joint", False):
         # A section of its own: it reads the predictions and the labels, and
         # changes no other key of the card.
+        if getattr(args, "no_coupling", False):
+            for entry in entries:
+                drop_coupling(entry)
+        couplings = {
+            e.name: e.coupling
+            for e in entries
+            if getattr(e, "coupling", None) is not None
+        }
         card[JOINT_KEY] = joint_coverage(
             {name: base[name] for name in JOINT_SETS},
             {name: preds[name] for name in JOINT_SETS},
@@ -2228,6 +2468,7 @@ def _run(args: argparse.Namespace, out: Path, log: Log) -> dict[str, Any]:
             seed=args.seed,
             log=log,
             tables=featurizer.tables,
+            couplings=couplings or None,
         )
     card["warnings"] = warnings_of(card)
     card["seconds"] = round(time.time() - started, 1)
@@ -2484,6 +2725,55 @@ def joint_lines(card: Mapping[str, Any]) -> list[str]:
                 ]
             )
         lines += _table(["slice", "examples", "games", "involves OTHER", *order], rows)
+        for name in section.get("coupled") or []:
+            made = (found["predictors"].get(name) or {}).get(JOINT_COUPLED) or {}
+            if not made:
+                continue
+            lines += [
+                f"`{name}` with its pair coupling, by slice: top-{main} plain and "
+                "coupled, and the change coupled minus plain [95%, the same "
+                f"resampled games] for top-{main} (in points) and for the mean "
+                "log-probability of the true reply (in nats):",
+                "",
+            ]
+            rows = []
+            base = (found["predictors"].get(name) or {}).get(JOINT_PLAIN) or {}
+            for label, size in found["slices"].items():
+                if not size["examples"]:
+                    continue
+                before = (base.get("slices") or {}).get(label) or {}
+                after = (made.get("slices") or {}).get(label) or {}
+                change = after.get("change") or {}
+                top = change.get("top") or {}
+                points = {
+                    key: None if top.get(key) is None else 100.0 * top[key]
+                    for key in ("diff", "low", "high")
+                }
+                rows.append(
+                    [
+                        label,
+                        f"{size['examples']:,}",
+                        _percent((before.get("top") or {}).get(main)),
+                        _percent((after.get("top") or {}).get(main)),
+                        _signed(points, 2),
+                        _number(before.get("log_prob"), 3),
+                        _number(after.get("log_prob"), 3),
+                        _signed(change.get("log_prob"), 4),
+                    ]
+                )
+            lines += _table(
+                [
+                    "slice",
+                    "examples",
+                    f"top-{main} plain",
+                    f"top-{main} coupled",
+                    "change (points)",
+                    "mean log p plain",
+                    "mean log p coupled",
+                    "change (nats)",
+                ],
+                rows,
+            )
         depends = found.get("dependence") or {}
         if depends.get("events"):
             lines += [
@@ -2506,12 +2796,18 @@ def joint_lines(card: Mapping[str, Any]) -> list[str]:
                     made = ((depends.get("predictors") or {}).get(name) or {}).get(
                         label
                     ) or {}
-                    cells.append(
+                    text = (
                         f"{_percent(made.get('product'), 2)} "
                         f"({_number(made.get('ratio'), 2)})"
                         if made
                         else "-"
                     )
+                    if made and "coupled" in made:
+                        text += (
+                            f"; coupled {_percent(made.get('coupled'), 2)} "
+                            f"({_number(made.get('coupled_ratio'), 2)})"
+                        )
+                    cells.append(text)
                 rows.append(
                     [
                         label,
@@ -3171,6 +3467,18 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--no-joint",
         action="store_true",
         help="leave the joint reply coverage section out",
+    )
+    parser.add_argument(
+        "--allow-sealed-holdout",
+        action="store_true",
+        help="score the bot's own games from the sealed day on as part of set "
+        "(a); without it they are left out (features.OWN_SEALED_FROM)",
+    )
+    parser.add_argument(
+        "--no-coupling",
+        action="store_true",
+        help="ignore the pair coupling an artifact carries (every joint is "
+        "the plain product, as for an artifact without one)",
     )
     parser.add_argument(
         "--render-only",

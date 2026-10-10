@@ -63,7 +63,7 @@ import math
 import threading
 from collections import Counter
 from dataclasses import asdict, dataclass, fields, replace
-from typing import Any, Callable, Mapping
+from typing import Any, Callable, Mapping, Sequence, cast
 
 import numpy as np
 import torch
@@ -82,6 +82,11 @@ from vgc_bench.src.oppmodel.features import (
     CAT_SLOT,
     ELO_BLANK,
     ELO_KEEP,
+    EXTRA_ARRAYS,
+    EXTRA_CAND_FOE,
+    EXTRA_ROSTER_FOE,
+    EXTRA_SLOT_FOE,
+    FAMILY_MATCHUP,
     FLAG_MEGA_POSSIBLE,
     FLAG_PRESENT,
     G_ACTOR_SHEET,
@@ -111,6 +116,7 @@ from vgc_bench.src.oppmodel.features import (
     T_FOE_B,
     T_SELF,
     Batch,
+    ExtraArray,
     Featurizer,
     apply_elo_mode,
     expand_target_mask,
@@ -275,6 +281,11 @@ def _swap_slots(batch: Mapping[str, np.ndarray], actor: Any, other: Any) -> Batc
             new_cats[:, N_ROSTER:, CAT_LAST_TARGET] = _pick(
                 actor, _exchange(theirs, foe_a, foe_b), theirs
             )
+        # Version-2 arrays with one row per actor slot (batch axis 1).
+        for spec in EXTRA_ARRAYS:
+            if spec.per_actor_slot and spec.name in out:
+                array = np.asarray(out[spec.name])
+                out[spec.name] = _pick(actor, array[:, ::-1], array)
     if do_other:
         if "foe_mon" in out:
             array = np.asarray(out["foe_mon"])
@@ -307,6 +318,12 @@ def _swap_slots(batch: Mapping[str, np.ndarray], actor: Any, other: Any) -> Batc
             out["y_intent"] = _pick(
                 other, _exchange(array, _INTENT_FOE_A, _INTENT_FOE_B), array
             )
+        # Version-2 arrays with a foe-slot axis: that axis is reversed.
+        for spec in EXTRA_ARRAYS:
+            axis = spec.foe_axis
+            if axis is not None and spec.name in out:
+                array = np.asarray(out[spec.name])
+                out[spec.name] = _pick(other, np.flip(array, axis + 1), array)
     if new_cats is not None:
         out["mon_cat"] = new_cats
     return out
@@ -333,10 +350,13 @@ def to_tensors(
     batch: Mapping[str, np.ndarray],
     device: torch.device | str | None = None,
     index: Any = None,
+    extra: Sequence[str] = (),
 ) -> dict[str, Tensor]:
     """The feature arrays the network reads, as tensors (labels are not read).
 
-    ``index`` (a slice or an index array) selects examples first. Raises
+    ``index`` (a slice or an index array) selects examples first. ``extra``
+    names the version-2 arrays a network also reads (``OppNet.extra_keys``),
+    added as float32; with none the result is the version-1 dict. Raises
     ``KeyError`` when a feature array is missing.
     """
     out: dict[str, Tensor] = {}
@@ -348,6 +368,9 @@ def to_tensors(
         out[name] = torch.from_numpy(values)
     for name in BOOL_KEYS:
         values = np.ascontiguousarray(_array(batch, name, index) > 0)
+        out[name] = torch.from_numpy(values)
+    for name in extra:
+        values = np.ascontiguousarray(_array(batch, name, index), dtype=np.float32)
         out[name] = torch.from_numpy(values)
     if device is not None:
         out = {name: value.to(device) for name, value in out.items()}
@@ -422,6 +445,25 @@ class OppNetConfig:
     n_side_conditions: int = 0
     species_width: int = 0
     move_width: int = 0
+    # Width of each version-2 array the network reads; 0 = it does not read
+    # it (and holds no parameter for it). One field per ``features.EXTRA_ARRAYS``
+    # name; ``sp_cand`` is the per-candidate set-prior array (its table rides
+    # in the featurizer payload, so an artifact carries it).
+    # ``extras_overrides`` fills them from a featurizer and a bit mask.
+    mu_cand: int = 0
+    mu_slot: int = 0
+    mu_roster: int = 0
+    sp_cand: int = 0
+    matchup_version: int = 0  # features' matchup definitions the weights expect
+
+    def extra_widths(self) -> dict[str, int]:
+        """Name -> width of the version-2 arrays this network reads, in table order."""
+        out: dict[str, int] = {}
+        for spec in EXTRA_ARRAYS:
+            width = int(getattr(self, spec.name, 0) or 0)
+            if width > 0:
+                out[spec.name] = width
+        return out
 
     @classmethod
     def for_featurizer(cls, featurizer: Featurizer, **overrides: Any) -> "OppNetConfig":
@@ -445,7 +487,19 @@ class OppNetConfig:
         return replace(made, **overrides) if overrides else made
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        """Plain data for a payload or a report.
+
+        A version-2 field that is off (width 0, and ``matchup_version`` 0) is
+        LEFT OUT: the config of a network that reads no version-2 array has
+        exactly the keys it had before those fields existed, so re-making the
+        payload of an old artifact gives its stored config back, key for key.
+        ``from_dict`` reads a missing field as off.
+        """
+        data = asdict(self)
+        for name in (*EXTRA_CONFIG_FIELDS, "matchup_version"):
+            if not data.get(name):
+                data.pop(name, None)
+        return data
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "OppNetConfig":
@@ -471,6 +525,107 @@ class OppNetConfig:
             raise ValueError("Elo bucket settings must be positive")
         if self.species_width <= 0 or self.move_width <= 0:
             raise ValueError("table widths are missing: build from a Featurizer")
+        known = {spec.name: spec for spec in EXTRA_ARRAYS}
+        for name in EXTRA_CONFIG_FIELDS:
+            width = int(getattr(self, name, 0) or 0)
+            if width < 0:
+                raise ValueError(f"{name} must not be negative")
+            if width == 0:
+                continue
+            spec = known.get(name)
+            if spec is None or spec.width != width:
+                raise ValueError(
+                    f"{name} = {width}: this code has no such array of that width"
+                )
+            if spec.family == FAMILY_MATCHUP and self.matchup_version <= 0:
+                raise ValueError(f"{name} needs matchup_version")
+
+
+# Config fields that hold the width of a version-2 array (see ``OppNetConfig``).
+EXTRA_CONFIG_FIELDS: tuple[str, ...] = ("mu_cand", "mu_slot", "mu_roster", "sp_cand")
+# State-dict name of the per-column scales of an array: ``<array>_scale``.
+SCALE_SUFFIX = "_scale"
+
+
+def extra_state_problems(config: OppNetConfig, state: Mapping[str, Any]) -> list[str]:
+    """What is wrong with the stored input scales of a state dict, in words.
+
+    Every version-2 array the network reads must have its ``<array>_scale``
+    tensor in the state dict, one finite number per column. A state dict
+    without one was written before the scales were stored (they lived in the
+    code alone): which numbers its weights were fitted with cannot be told
+    from the file, so it is refused rather than served with today's table.
+    """
+    problems: list[str] = []
+    for name, width in config.extra_widths().items():
+        key = f"{name}{SCALE_SUFFIX}"
+        value = state.get(key)
+        if value is None:
+            problems.append(
+                f"the network reads {name} and its state dict stores no {key}: "
+                "it was fitted before the input scales were stored with the "
+                "weights; fit it again"
+            )
+            continue
+        try:
+            stored = torch.as_tensor(value, dtype=torch.float32)
+        except (TypeError, ValueError, RuntimeError):
+            problems.append(f"{key} is not a tensor")
+            continue
+        if tuple(stored.shape) != (width,) or not bool(torch.isfinite(stored).all()):
+            problems.append(
+                f"{key} must hold {width} finite numbers, has shape "
+                f"{tuple(stored.shape)}"
+            )
+    return problems
+
+
+def extras_overrides(featurizer: Featurizer, mask: int) -> dict[str, int]:
+    """Config overrides that make a network read the arrays chosen by ``mask``.
+
+    Bit ``spec.bit`` of ``mask`` chooses ``spec`` of ``features.EXTRA_ARRAYS``
+    (1 ``mu_cand``, 2 ``mu_slot``, 4 ``mu_roster``, 8 ``sp_cand``). ``{}`` for
+    mask 0: the version-1 network in every respect. Raises ``ValueError`` for
+    a bit no array has, or an array the featurizer does not write (a version-1
+    dataset; for ``sp_cand`` also a version-2 dataset built without a set table).
+    """
+    mask = int(mask)
+    if mask == 0:
+        return {}
+    if mask < 0:
+        raise ValueError(f"extras mask {mask} is negative")
+    spec_layout = featurizer.layout()
+    out: dict[str, int] = {}
+    left = mask
+    for spec in EXTRA_ARRAYS:
+        if not mask & spec.bit:
+            continue
+        left &= ~spec.bit
+        if spec.name not in spec_layout:
+            raise ValueError(
+                f"the featurizer (layout version {featurizer.layout_version}) "
+                f"does not write {spec.name}: rebuild the dataset with layout version 2"
+            )
+        if spec.name not in EXTRA_CONFIG_FIELDS:
+            raise ValueError(f"OppNetConfig has no width field for {spec.name}")
+        out[spec.name] = int(spec_layout[spec.name].shape[-1])
+        if spec.family == FAMILY_MATCHUP:
+            out["matchup_version"] = int(featurizer.matchup_version)
+    if left:
+        raise ValueError(f"extras mask {mask}: no array has bit(s) {left}")
+    return out
+
+
+matchup_overrides = extras_overrides
+
+
+def _pool_foes(values: Tensor, axis: int) -> Tensor:
+    """Sum and maximum over the foe axis, side by side on the last axis.
+
+    With two foes the pair (sum, max) fixes the unordered pair of values, so
+    what a head reads through this does not depend on the foes' slot letters.
+    """
+    return torch.cat([values.sum(axis), values.amax(axis)], -1)
 
 
 # --- network ------------------------------------------------------------------
@@ -533,10 +688,12 @@ class _Scorer(nn.Module):
             nn.init.zeros_(self.out.weight)
             nn.init.zeros_(self.out.bias)
 
-    def forward(self, *vectors: Tensor) -> Tensor:
+    def forward(self, *vectors: Tensor, extra: Tensor | None = None) -> Tensor:
         hidden = self.inputs[0](vectors[0])
         for layer, vector in zip(list(self.inputs)[1:], vectors[1:]):
             hidden = hidden + layer(vector)
+        if extra is not None:  # an already projected version-2 block
+            hidden = hidden + extra
         return self.out(fn.relu(hidden))
 
 
@@ -644,6 +801,51 @@ class OppNet(nn.Module):
                     with torch.no_grad():
                         module.weight[module.padding_idx].zero_()
         nn.init.normal_(self.other_cand, std=0.3)
+        # Version-2 blocks, created LAST and as plain zeros: they draw nothing
+        # from the random stream, so every other weight starts exactly as in
+        # the network without them, and at the start they add exactly zero.
+        # A config with no width set creates nothing here.
+        self.extra_blocks: tuple[ExtraArray, ...] = tuple(
+            spec for spec in EXTRA_ARRAYS if spec.name in c.extra_widths()
+        )
+        self.extra_keys: tuple[str, ...] = tuple(
+            spec.name for spec in self.extra_blocks
+        )
+        self.matchup_keys = self.extra_keys
+        for spec in self.extra_blocks:
+            width = spec.width
+            # What the network multiplies each stored column by. A PERSISTENT
+            # buffer: it is part of the function the weights were fitted for,
+            # so it travels in the state dict. A loaded network multiplies by
+            # the scales it was trained with, whatever the table in the code
+            # says by then (``from_payload`` refuses a state dict without them).
+            self.register_buffer(
+                f"{spec.name}{SCALE_SUFFIX}",
+                torch.tensor(spec.scales, dtype=torch.float32),
+            )
+            if spec.kind == EXTRA_CAND_FOE:
+                shapes = {"act": 2 * width, "tgt": width}
+            elif spec.foe_axis is None:  # per candidate, no foe axis
+                shapes = {"act": width}
+            else:  # per slot or per roster row, pooled over the foes
+                shapes = {"in": 2 * width}
+            for suffix, columns in shapes.items():
+                self.register_parameter(
+                    f"{spec.name}_{suffix}", nn.Parameter(torch.zeros(d, columns))
+                )
+
+    def _extra(self, name: str) -> Tensor:
+        return cast(Tensor, getattr(self, name))
+
+    def extra_scales(self) -> dict[str, list[float]]:
+        """Name -> the per-column scales this network multiplies the array by."""
+        return {
+            spec.name: [
+                float(value)
+                for value in self._extra(f"{spec.name}{SCALE_SUFFIX}").tolist()
+            ]
+            for spec in self.extra_blocks
+        }
 
     @classmethod
     def for_featurizer(cls, featurizer: Featurizer, **overrides: Any) -> "OppNet":
@@ -813,13 +1015,37 @@ class OppNet(nn.Module):
         mons = hidden[:, 3:]
         act = x["act_mon"]
         query = self._token_at(mons, act)  # [N, 2, d]
+        # Version-2 blocks, projected: what each scorer gets beside its inputs.
+        cand_extra: Tensor | None = None  # [N, 2, C, d]
+        foe_extra: Tensor | None = None  # [N, 2, C + 1, 2, d]
+        switch_extra: Tensor | None = None  # [N, 1, 6, d]
+        for spec in self.extra_blocks:
+            name = spec.name
+            values = x[name] * self._extra(f"{name}{SCALE_SUFFIX}")
+            if spec.kind == EXTRA_SLOT_FOE:  # [N, 2, 2, G] -> the slot's query
+                query = query + fn.linear(
+                    _pool_foes(values, 2), self._extra(f"{name}_in")
+                )
+            elif spec.kind == EXTRA_ROSTER_FOE:  # [N, 6, 2, K] -> switch pointers
+                term = fn.linear(_pool_foes(values, 2), self._extra(f"{name}_in"))
+                term = term[:, None]  # the same for both slots
+                switch_extra = term if switch_extra is None else switch_extra + term
+            elif spec.kind == EXTRA_CAND_FOE:  # [N, 2, C, 2, F]
+                term = fn.linear(_pool_foes(values, 3), self._extra(f"{name}_act"))
+                cand_extra = term if cand_extra is None else cand_extra + term
+                pair = fn.linear(values, self._extra(f"{name}_tgt"))
+                pair = torch.cat([pair, torch.zeros_like(pair[:, :, :1])], 2)
+                foe_extra = pair if foe_extra is None else foe_extra + pair
+            else:  # EXTRA_CAND, [N, 2, C, F] -> the candidate scorer
+                term = fn.linear(values, self._extra(f"{name}_act"))
+                cand_extra = term if cand_extra is None else cand_extra + term
         foes = self._token_at(mons, x["foe_mon"])  # [N, 2, d]
         partner = query.flip(1)
         roster = mons[:, :N_ROSTER]
         cand = self._candidates(x, self._move_table())  # [N, 2, C, d]
 
         cand_logit = torch.log(x["cand_prior"] + eps) + self.act_cand(
-            query[:, :, None], cand
+            query[:, :, None], cand, extra=cand_extra
         ).squeeze(-1)
         other_prior = x["other_prior"]
         other_in = query + self.other_feat(
@@ -835,7 +1061,7 @@ class OppNet(nn.Module):
             -1
         )
         switch_logit = self.switch_bias + self.act_switch(
-            query[:, :, None], roster[:, None]
+            query[:, :, None], roster[:, None], extra=switch_extra
         ).squeeze(-1)
         action = torch.cat([cand_logit, other_logit[..., None], switch_logit], -1)
 
@@ -843,7 +1069,10 @@ class OppNet(nn.Module):
             [cand, self.other_cand.expand(cand.shape[0], N_SLOT, 1, -1)], 2
         )  # [N, 2, C + 1, d]
         to_foe = self.tgt_foe(
-            query[:, :, None, None], rows[:, :, :, None], foes[:, None, None]
+            query[:, :, None, None],
+            rows[:, :, :, None],
+            foes[:, None, None],
+            extra=foe_extra,
         ).squeeze(-1)  # [N, 2, C + 1, 2]: foe slot a, b
         to_ally = self.tgt_ally(query[:, :, None], rows, partner[:, :, None])
         own = self.tgt_own(query[:, :, None], rows)  # self, auto
@@ -1015,7 +1244,7 @@ def collect_outputs(
         with torch.no_grad():
             for start in range(0, n, max(1, batch_size)):
                 index = slice(start, start + max(1, batch_size))
-                out = net(to_tensors(batch, device, index))
+                out = net(to_tensors(batch, device, index, net.extra_keys))
                 parts.append({name: value.to("cpu") for name, value in out.items()})
     finally:
         net.train(was_training)
@@ -1293,7 +1522,9 @@ class OppNetPredictor:
                 with torch.no_grad():
                     for start in range(0, n, self.batch_size):
                         index = slice(start, start + self.batch_size)
-                        out = self.net(to_tensors(batch, self.device, index))
+                        out = self.net(
+                            to_tensors(batch, self.device, index, self.net.extra_keys)
+                        )
                         made = probabilities(
                             out,
                             self.action_temperature,
@@ -1430,8 +1661,36 @@ def from_payload(
         config = OppNetConfig.from_dict(payload["config"])
         if config.n_cand != featurizer.n_cand:
             raise ValueError("candidate count differs from the featurizer")
+        widths = config.extra_widths()
+        if widths:
+            # A network that reads version-2 arrays needs a featurizer that
+            # writes them, at that width and under the same definitions.
+            spec_layout = featurizer.layout()
+            for name, width in widths.items():
+                spec = spec_layout.get(name)
+                if spec is None or int(spec.shape[-1]) != width:
+                    raise ValueError(
+                        f"the network reads {name} (width {width}); the "
+                        "featurizer does not write it at that width"
+                    )
+            matchup = [
+                spec.name
+                for spec in EXTRA_ARRAYS
+                if spec.name in widths and spec.family == FAMILY_MATCHUP
+            ]
+            if matchup and config.matchup_version != featurizer.matchup_version:
+                raise ValueError(
+                    f"matchup version {config.matchup_version} in the network, "
+                    f"{featurizer.matchup_version} in the featurizer"
+                )
+        state = dict(payload["state_dict"])
+        problems = extra_state_problems(config, state)
+        if problems:
+            raise ValueError("; ".join(problems))
         net = OppNet(config, featurizer.tables.species_num, featurizer.tables.move_num)
-        net.load_state_dict(dict(payload["state_dict"]))
+        # The stored scales replace the ones the constructor took from the
+        # code's table: the network keeps the function it was fitted for.
+        net.load_state_dict(state)
         net.to(device)
         net.eval()
         temperatures = payload.get("temperatures") or {}

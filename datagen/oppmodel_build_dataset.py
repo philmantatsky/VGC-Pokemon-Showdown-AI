@@ -51,7 +51,13 @@ the actor's account), so no account counts for more than 60 battles.
 Output, under results_oppmodel/<tag>/: shard-NNNNN.npz (about 50,000 examples
 each; arrays of vgc_bench.src.oppmodel.features.layout() plus the m_* arrays
 below), battles.jsonl, vocab.json + tables.npz + repertoire.json (what
-Featurizer.load reads), manifest.json.
+Featurizer.load reads), manifest.json. A --layout-version 2 build also writes
+set_prior.json (the set table Featurizer.load reads back: full movesets off
+the OPEN sheets of training-split sides, one record per account and distinct
+set) and set_prior_folds.json (the cross-fitting tables: a side of a training
+account gets its sp_cand from the table built WITHOUT the accounts of its
+fold, crc32('setfold:' + account) % 5, so no training row sees a table that
+holds its own sheet; every other row, and a runtime, uses the full table).
 
   m_battle int32   row of battles.jsonl      m_turn   int16  turn number
   m_side   uint8   actor: 0 = p1, 1 = p2     m_actor  uint32 crc32(account id)
@@ -87,6 +93,34 @@ manifest gets a ``human_fraction`` block (fraction, seed, logs offered / kept /
 dropped) and its headline the same numbers; at F = 1 nothing is added and the
 output is byte for byte what it was before the option existed.
 
+--own-before DAY (YYYY-MM-DD, or YYYY-MM-DDTHH:MM, local time) builds the
+dataset WITHOUT the bot's own games saved from that moment on, by the saved
+page's modification time (read with stat, before the page is opened). Such a
+later page is not driven, has no row in battles.jsonl and no example, and its
+folder's decision audit is not read for it. ONE thing is still taken from it:
+the account id on its opponent's |player| line, which joins the holdout
+accounts. So every human battle has the split, flags and weight a build with
+all own games gives it (the repertoire and the set table are the same too),
+and a model fitted on the smaller build has not seen the later opponents: the
+later games stay a clean, unread holdout. The manifest gets an ``own_cutoff``
+block. Every manifest has ``own_time`` (earliest / latest time of the own
+games it holds, per split): what a reader checks, not the day of the build.
+With --own-later-unread not even that line is read: no later page is opened
+at all, the later opponents are NOT kept out of training (their human games
+train, their open sheets can enter the set table), and the manifest says so
+(``own_cutoff.later_opponents_kept_out`` false). A reader of the later games
+must then check each opponent itself (``Featurizer.set_table_holds``, and
+``m_actor`` of the training rows).
+
+A --layout-version 2 build needs the own source: without it nobody is a
+holdout opponent, so the open sheets our ladder opponents showed in the human
+corpus are training sheets and go into the set table. It is refused unless
+--allow-no-own-source says the build is a smoke build that will never be
+read on ladder games. The crc32 of every account whose sheets built the
+table is stored (manifest ``set_prior.contributing_account_crc32`` and the
+featurizer payload, so an artifact carries it): a reading tool can assert
+that no opponent it scores is among them (``Featurizer.set_table_holds``).
+
     nice -n 19 .venv/bin/python datagen/oppmodel_build_dataset.py --tag v1_ondisk
     nice -n 19 .venv/bin/python datagen/oppmodel_build_dataset.py --tag smoke \
         --sources web,own --limit 200
@@ -108,7 +142,7 @@ import re
 import time
 import zlib
 from collections import Counter, defaultdict
-from collections.abc import Callable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -116,6 +150,7 @@ from typing import Any
 import numpy as np
 
 from datagen.oppmodel_scrape import read_shard, shard_paths
+from vgc_bench.src.oppmodel import setprior as SP
 from vgc_bench.src.oppmodel.events import (
     KIND_HIDDEN,
     KIND_MOVE,
@@ -140,6 +175,7 @@ from vgc_bench.src.oppmodel.features import (
     LAYOUT_VERSION,
     N_CAND_DEFAULT,
     REASON_NAMES,
+    SET_PRIOR_FILE,
     SHEET_CLOSED,
     SHEET_OPEN,
     Y_KIND_ABSENT,
@@ -155,6 +191,7 @@ from vgc_bench.src.oppmodel.features import (
     Repertoire,
     collate,
     has_terrain,
+    local_time,
     save_batch,
     set_key,
 )
@@ -207,6 +244,36 @@ TIME_SLICE_SHARE = 0.10
 CLONE_BUCKETS = frozenset({5, 6, 7, 8, 9})
 SHARD_SIZE = 50_000
 DROP_EXAMPLES = 5
+# Set prior (layout version 2 only): see ``build_set_tables``.
+SET_FOLDS = 5
+SET_FOLD_SALT = "setfold:"
+SET_FOLDS_FILE = "set_prior_folds.json"
+SET_RECORD_RULE = (
+    "one record of weight 1 per (account, set key, moves, item, ability) seen "
+    "on a sheet the stream showed (|showteam|) of a side whose split is train; "
+    "the bot's own games give none"
+)
+SET_FOLD_RULE = (
+    f"fold = crc32('{SET_FOLD_SALT}' + account id) % {SET_FOLDS}; a side of a "
+    "human-corpus game whose account is in a training bucket is encoded with "
+    "the table built without the accounts of its fold; every other side "
+    "(validation, test, the bot's own games) with the full table"
+)
+# One Pokemon of a shown sheet: (side, set key, sorted moves, item, ability).
+SheetRow = tuple[str, str, tuple[str, ...], str, str]
+OWN_BEFORE_RULE = (
+    "a saved own page is read only when its file modification time is before "
+    "the cut (a page whose time cannot be read counts as later); a later page "
+    "gives the account id on its opponent's |player| line to the holdout "
+    "accounts and nothing else: it is not driven, has no row in battles.jsonl "
+    "and no example, and no decision-audit row of it is read"
+)
+NO_OWN_SOURCE = (
+    "a layout-version-2 build without the own source: nobody is a holdout "
+    "opponent, so the sheets our ladder opponents showed in the human corpus "
+    "go into the set table. Add the own source, or pass --allow-no-own-source "
+    "for a smoke build that will never be read on ladder games"
+)
 
 _OWN_NAME = re.compile(r"^(?P<player>.+?) - battle-(?P<id>[a-z0-9]+-\d+)")
 # A best-of-three game says so on a line of this type; see ``log_group``.
@@ -382,6 +449,9 @@ class BattleMeta:
     weight: dict[str, float] = field(default_factory=dict)
     # (side, set key, move, auto: -1 unknown / 0 / 1, terrain up) per free move.
     uses: list[tuple[str, str, str, int, bool]] = field(default_factory=list)
+    # Sheets the stream showed; filled by a layout-version-2 build only and
+    # never written to battles.jsonl.
+    sets: list[SheetRow] = field(default_factory=list)
 
     def row(self) -> dict[str, Any]:
         return {
@@ -531,16 +601,24 @@ class Corpus:
         formats: Sequence[str],
         sources: Sequence[str],
         limit: int | None = None,
+        own_before: int | None = None,
+        read_later_names: bool = True,
     ) -> None:
         self.root = root
         self.formats = tuple(formats)
         self.sources = tuple(name for name in SOURCES if name in set(sources))
         self.limit = limit
+        # Unix seconds: own pages saved at or after it are not read (see
+        # ``OWN_BEFORE_RULE``). None = every saved page, as always.
+        self.own_before = own_before
+        # False: a later page is not opened even for its opponent's name.
+        self.read_later_names = bool(read_later_names)
         self.inputs: dict[str, dict[str, Any]] = {}
         self.notes: Counter[str] = Counter()
         self.feed_bytes: dict[str, int] = {}
         self._audit: dict[str, bool] | None = None
         self._their: dict[str, list[SheetSet]] = {}
+        self._late: tuple[set[str], int] | None = None
 
     def _noted(self, path: Path) -> bool:
         return _relative(path, self.root) in self.inputs
@@ -656,13 +734,86 @@ class Corpus:
         """Account ids the saved pages were written for (from the file names)."""
         return {user_id(account) for _, account, _ in self.own_pages()}
 
+    def own_split(
+        self,
+    ) -> tuple[list[tuple[Path, str, str]], list[tuple[Path, str, str]]]:
+        """(pages that are read, later pages) of ``own_pages()`` under ``own_before``.
+
+        Decided from the file's modification time alone (``stat``): a later
+        page is never opened to decide. Without a cut every page is read.
+        Asked afresh on every call, like ``own_pages`` itself (a subclass may
+        answer for one directory at a time).
+        """
+        pages = self.own_pages()
+        if self.own_before is None:
+            return pages, []
+        read: list[tuple[Path, str, str]] = []
+        late: list[tuple[Path, str, str]] = []
+        for page in pages:
+            try:
+                modified: float | None = page[0].stat().st_mtime
+            except OSError:
+                modified = None
+            if modified is not None and modified < self.own_before:
+                read.append(page)
+            else:
+                late.append(page)
+        return read, late
+
+    def late_opponents(self) -> tuple[set[str], int]:
+        """(opponent account ids of the later pages, pages that gave none).
+
+        The only thing read of a later page: the ``|player|`` lines of its
+        log, for the account that is not the bot's (``OWN_BEFORE_RULE``).
+        With ``read_later_names`` off no page is opened: ``(set(), n later
+        pages)``.
+        """
+        if self._late is not None:
+            return self._late
+        if not self.read_later_names:
+            self._late = (set(), len(self.own_split()[1]))
+            return self._late
+        found: set[str] = set()
+        failed = 0
+        for path, account, _ in self.own_split()[1]:
+            bot = user_id(account)
+            players: dict[str, str] = {}
+            try:
+                log = extract_log_from_html(
+                    path.read_text(encoding="utf-8", errors="replace")
+                )
+            except OSError:
+                log = None
+            for line in (log or "").split("\n"):
+                if not line.startswith("|player|"):
+                    continue
+                event = line.rstrip("\r").split("|")
+                if len(event) > 3 and event[2] in SIDES and event[3].strip():
+                    players.setdefault(event[2], user_id(event[3]))
+            others = {name for name in players.values() if name and name != bot}
+            if bot not in players.values() or len(others) != 1:
+                failed += 1
+                continue
+            found |= others
+        self._late = (found, failed)
+        return self._late
+
     def sheet_audit(self) -> dict[str, bool]:
         """Replay id -> the open-sheet flag the bot recorded at team preview."""
         if self._audit is not None:
             return self._audit
         audit: dict[str, bool] = {}
+        # Under ``own_before``: only the audits of folders that hold a page
+        # that is read, and of those only the rows of such a page.
+        read_ids: set[str] | None = None
+        folders: set[Path] = set()
+        if self.own_before is not None:
+            read_ids = {battle_id for _, _, battle_id in self.own_split()[0]}
+            folders = {path.parent for path, _, _ in self.own_split()[0]}
         for pattern in OWN_GLOBS:
             for path in sorted(self.root.glob(pattern + "/decisions.jsonl")):
+                if read_ids is not None and path.parent not in folders:
+                    continue
                 try:
                     text = path.read_text(encoding="utf-8", errors="replace")
                 except OSError:
@@ -671,6 +822,11 @@ class Corpus:
                 for line in text.split("\n"):
                     if '"open_sheet"' not in line and '"their_sheet"' not in line:
                         continue
+                    if read_ids is not None and not any(
+                        found.group(1) in read_ids
+                        for found in _AUDIT_BATTLE.finditer(line)
+                    ):
+                        continue  # a row of a page that is not read
                     try:
                         row = json.loads(line)
                     except ValueError:
@@ -679,6 +835,8 @@ class Corpus:
                         continue
                     match = _AUDIT_BATTLE.search(str(row.get("battle", "")))
                     if match is None:
+                        continue
+                    if read_ids is not None and match.group(1) not in read_ids:
                         continue
                     shadow = row.get("preview_shadow")
                     if isinstance(shadow, dict) and isinstance(
@@ -714,7 +872,7 @@ class Corpus:
         return True, sheets, when if isinstance(when, int) else None
 
     def _own(self) -> Iterator[RawBattle]:
-        pages = self.own_pages()
+        pages = self.own_split()[0]
         audit = self.sheet_audit()
         by_folder: dict[Path, list[str]] = defaultdict(list)
         for path, _, battle_id in pages:
@@ -902,6 +1060,42 @@ def free_move_uses(result: DriveResult) -> list[tuple[str, str, str, int, bool]]
     return uses
 
 
+def set_fold(account: str) -> int:
+    """The cross-fitting fold of an account (``SET_FOLD_RULE``)."""
+    return zlib.crc32((SET_FOLD_SALT + account).encode("utf-8")) % SET_FOLDS
+
+
+def shown_sheets(log: str, sides: Sequence[str]) -> list[SheetRow]:
+    """Every Pokemon of the ``|showteam|`` lines of ``sides`` in a raw log.
+
+    The line is parsed by ``events.parse_showteam``, the call the public
+    reader feeds its own sheets with; the last line of a side wins. The set
+    key is the repertoire's, ``features.set_key(forme, species)``.
+    """
+    if "|showteam|" not in log:
+        return []
+    sheets: dict[str, list[SheetSet]] = {}
+    for line in log.split("\n"):
+        if not line.startswith("|showteam|"):
+            continue
+        event = line.rstrip("\r").split("|")
+        if len(event) >= 4 and event[2] in sides:
+            sheets[event[2]] = parse_showteam("|".join(event[3:]))
+    rows: list[SheetRow] = []
+    for side in sides:
+        for entry in sheets.get(side, ()):
+            rows.append(
+                (
+                    side,
+                    set_key(entry.forme, entry.species),
+                    tuple(sorted({move for move in entry.moves if move})),
+                    entry.item or "",
+                    entry.ability or "",
+                )
+            )
+    return rows
+
+
 def census_key(kind: str, action: Any) -> str:
     """The scouts' observability classes, for the manifest's headline."""
     if kind == KIND_SWITCH:
@@ -941,6 +1135,7 @@ def run_pass1(
     bots: set[str],
     clone_ids: set[str],
     fraction: HumanFraction | None = None,
+    collect_sets: bool = False,
 ) -> Pass1:
     out = Pass1(
         [],
@@ -1023,6 +1218,11 @@ def run_pass1(
             ),
             uses=free_move_uses(result),
         )
+        if collect_sets and not raw.own:
+            # The bot's own games never train: their sheets are not read.
+            shown = [side for side in SIDES if result.sheets.get(side) is True]
+            if shown:
+                meta.sets = shown_sheets(raw.log, shown)
         out.metas.append(meta)
         out.by_id[meta.battle_id] = meta
         if fraction is not None:
@@ -1031,9 +1231,17 @@ def run_pass1(
 
 
 def assign_splits(
-    metas: Sequence[BattleMeta], cap: int = ACCOUNT_CAP
+    metas: Sequence[BattleMeta],
+    cap: int = ACCOUNT_CAP,
+    extra_holdout: Iterable[str] | None = None,
 ) -> dict[str, Any]:
-    """Fill ``split`` / ``weight`` / flags of every battle; returns the summary."""
+    """Fill ``split`` / ``weight`` / flags of every battle; returns the summary.
+
+    ``extra_holdout``: account ids that are holdout opponents although no own
+    game of theirs is among ``metas`` (the opponents of the pages
+    ``--own-before`` leaves out): a human battle with one of them is treated
+    exactly as in a build that holds their game.
+    """
     holdout = {
         meta.accounts[side]
         for meta in metas
@@ -1041,6 +1249,9 @@ def assign_splits(
         for side in SIDES
         if side != meta.bot_side
     }
+    later = None if extra_holdout is None else {str(name) for name in extra_holdout}
+    if later:
+        holdout |= later
     ladder_opponents = {
         meta.accounts[side]
         for meta in metas
@@ -1104,6 +1315,13 @@ def assign_splits(
             :30
         ]
     ]
+    extra_summary: dict[str, Any] = {}
+    if later is not None:
+        # Added only under --own-before: a full build's summary is unchanged.
+        extra_summary = {
+            "later_own_opponents": len(later),
+            "later_own_opponents_in_human_corpus": len(later & corpus_accounts),
+        }
     return {
         "holdout_accounts": holdout,
         "ladder_opponents": ladder_opponents,
@@ -1111,6 +1329,7 @@ def assign_splits(
         "weights": weights,
         "time_cut": cut,
         "summary": {
+            **extra_summary,
             "distinct_accounts": len(battles),
             "account_cap": cap,
             "accounts_over_cap": sum(1 for n in battles.values() if n > cap),
@@ -1158,6 +1377,66 @@ def build_repertoire(metas: Sequence[BattleMeta]) -> Repertoire:
     return repertoire
 
 
+def build_set_tables(
+    metas: Sequence[BattleMeta],
+) -> tuple[SP.SetTable, list[SP.SetTable], dict[str, Any]]:
+    """(full table, one table per fold, summary) from TRAINING sides only.
+
+    ``SET_RECORD_RULE`` says what a record is; fold table ``f`` leaves out
+    the records of the accounts whose ``set_fold`` is ``f``.
+    """
+    seen: set[tuple[str, str, tuple[str, ...], str, str]] = set()
+    records: list[tuple[str, SP.SetRecord]] = []
+    counts: Counter[str] = Counter()
+    sides: set[tuple[int, str]] = set()
+    for meta in metas:
+        if meta.own:
+            continue
+        for side, key, moves, item, ability in meta.sets:
+            if meta.split.get(side) != SPLIT_TRAIN:
+                counts["sheet_rows_of_other_splits"] += 1
+                continue
+            if meta.sheets.get(side) is not True:
+                counts["sheet_rows_of_a_sheet_not_open"] += 1
+                continue
+            account = meta.accounts[side]
+            counts["sheet_rows_train"] += 1
+            sides.add((meta.index, side))
+            identity = (account, key, moves, item, ability)
+            if identity in seen:
+                continue
+            seen.add(identity)
+            records.append((account, (key, moves, item, ability, 1.0)))
+    full = SP.SetTable.build(record for _, record in records)
+    folds = [
+        SP.SetTable.build(
+            record for account, record in records if set_fold(account) != fold
+        )
+        for fold in range(SET_FOLDS)
+    ]
+    accounts = {account for account, _ in records}
+    summary: dict[str, Any] = {
+        # crc32 of each contributing account id (the hash of ``m_actor``): a
+        # reader checks that no opponent it scores is among them.
+        "contributing_account_crc32": sorted(account_hash(a) for a in accounts),
+        "file": SET_PRIOR_FILE,
+        "folds_file": SET_FOLDS_FILE,
+        "signature": full.signature(),
+        "columns": list(SP.COLUMN_NAMES),
+        "record_rule": SET_RECORD_RULE,
+        "fold_rule": SET_FOLD_RULE,
+        "folds": SET_FOLDS,
+        "fold_signatures": [table.signature() for table in folds],
+        "fold_records": [table.stats()["records"] for table in folds],
+        "train_sides_with_a_shown_sheet": len(sides),
+        "contributing_accounts": len(accounts),
+        "records": len(records),
+        "collector": dict(sorted(counts.items())),
+        "table": full.stats(),
+    }
+    return full, folds, summary
+
+
 # --- pass 2 -------------------------------------------------------------------
 
 
@@ -1182,12 +1461,22 @@ def encode_battle(
     meta: BattleMeta,
     result: DriveResult,
     info: Mapping[str, Any],
+    set_folds: Sequence[SP.SetTable] | None = None,
 ) -> list[Example]:
-    """Every example of one battle, with its m_* arrays."""
+    """Every example of one battle, with its m_* arrays.
+
+    ``set_folds`` (a layout-version-2 build): the cross-fitting set tables;
+    a side of a training account is encoded with its fold's (``SET_FOLD_RULE``).
+    """
     out: list[Example] = []
     for side in SIDES:
         if side not in meta.split:
             continue  # the bot's own side
+        if set_folds:
+            featurizer.set_table_override = None
+            account = meta.accounts[side]
+            if not meta.own and player_split(account) == SPLIT_TRAIN:
+                featurizer.set_table_override = set_folds[set_fold(account)]
         actor = np.uint32(account_hash(meta.accounts[side]))
         flags = example_flags(meta, side, info)
         if meta.own:
@@ -1212,6 +1501,8 @@ def encode_battle(
             example["m_time"] = np.array(meta.time or 0, dtype=np.int64)
             example["m_sheet"] = np.array(sheet, dtype=np.uint8)
             out.append(example)
+    if set_folds:
+        featurizer.set_table_override = None
     return out
 
 
@@ -1359,6 +1650,52 @@ def census_summary(census: Mapping[str, int]) -> dict[str, Any]:
     }
 
 
+def own_pages_not_offered(corpus: Corpus) -> int:
+    """Saved own pages whose opponent this build never learns.
+
+    A page that is read gives its opponent to the holdout accounts, and so
+    does a page left out by ``own_before``. One that is not offered at all
+    (the own source is off, or ``limit`` cut it) does not: its opponent's
+    human games train, and their open sheets enter the set table.
+    """
+    read, late = corpus.own_split()
+    if "own" not in corpus.sources:
+        return len(read) + len(late)
+    return max(0, len(read) - corpus.limit) if corpus.limit is not None else 0
+
+
+def own_time_summary(own: Sequence[BattleMeta]) -> dict[str, Any]:
+    """Earliest / latest time of the own games a build holds, per split.
+
+    The time of an own game is the upload time of its cached public copy,
+    else the saved page's modification time (``time_source``). A reader that
+    must not score games from some day on checks ``latest`` (or the rows'
+    ``m_time``, which holds the same numbers), never the day of the build.
+    """
+    out: dict[str, Any] = {}
+    for name, code in (
+        ("ladder_holdout", SPLIT_LADDER),
+        ("own_unrated", SPLIT_OWN_UNRATED),
+    ):
+        games = [meta for meta in own if code in meta.split.values()]
+        times = [meta.time for meta in games if meta.time]
+        out[name] = {
+            "games": len(games),
+            "games_without_time": len(games) - len(times),
+            "earliest": min(times) if times else None,
+            "latest": max(times) if times else None,
+            "latest_local": time.strftime(
+                "%Y-%m-%dT%H:%M:%S", time.localtime(max(times))
+            )
+            if times
+            else None,
+            "time_sources": dict(
+                sorted(Counter(meta.time_source for meta in games).items())
+            ),
+        }
+    return out
+
+
 # --- main ---------------------------------------------------------------------
 
 
@@ -1392,14 +1729,42 @@ def build(
     human_fraction: float = 1.0,
     fraction_seed: int = 0,
     log: Callable[[str], None] = print,
+    layout_version: int = LAYOUT_VERSION,
+    own_before: str | None = None,
+    allow_no_own_source: bool = False,
+    own_later_unread: bool = False,
 ) -> dict[str, Any]:
     """Build the dataset under ``<out_root>/<tag>/`` and return its manifest.
 
     ``human_fraction`` below 1 builds the dataset of a random subsample of the
     human corpus (see the module text); at 1 ``fraction_seed`` has no effect.
+    ``layout_version`` 2 also writes the arrays of ``features.EXTRA_ARRAYS``
+    (the matchup arrays and the set prior ``sp_cand``, with its set table next
+    to the repertoire); every version-1 array is the same either way. It
+    needs the own source unless ``allow_no_own_source`` (``NO_OWN_SOURCE``).
+    ``own_before`` (a local day or time, see the module text) leaves the
+    bot's later own games out and keeps their opponents out of training;
+    with ``own_later_unread`` the later pages are not opened at all and
+    their opponents are not kept out.
     """
     if not 0.0 < human_fraction <= 1.0:
         raise SystemExit(f"--human-fraction must be in (0, 1], got {human_fraction!r}")
+    own_cut: int | None = None
+    if own_before is not None:
+        try:
+            own_cut = local_time(own_before)
+        except ValueError as exc:
+            raise SystemExit(f"--own-before: {exc}") from exc
+        if "own" not in sources:
+            raise SystemExit("--own-before needs the own source")
+    elif own_later_unread:
+        raise SystemExit("--own-later-unread needs --own-before")
+    if (
+        layout_version != LAYOUT_VERSION
+        and "own" not in sources
+        and not allow_no_own_source
+    ):
+        raise SystemExit(NO_OWN_SOURCE)
     started = time.time()
     signature = dex_signature()
     if not signature.get("dex_available"):
@@ -1411,7 +1776,14 @@ def build(
     for stale in out_dir.glob("shard-*.npz"):
         stale.unlink()
 
-    corpus = Corpus(root, formats, sources, limit)
+    corpus = Corpus(
+        root,
+        formats,
+        sources,
+        limit,
+        own_before=own_cut,
+        read_later_names=not own_later_unread,
+    )
     bots = corpus.bot_accounts()
     clone_ids = corpus.clone_corpus_ids()
     fraction: HumanFraction | None = None
@@ -1421,11 +1793,53 @@ def build(
             int(fraction_seed),
             frozenset(battle_id for _, _, battle_id in corpus.own_pages()),
         )
-    first = run_pass1(corpus, bots, clone_ids, fraction)
-    info = assign_splits(first.metas, account_cap)
+    set_folds: list[SP.SetTable] | None = None
+    set_summary: dict[str, Any] = {}
+    if layout_version == LAYOUT_VERSION:
+        first = run_pass1(corpus, bots, clone_ids, fraction)
+    else:
+        first = run_pass1(corpus, bots, clone_ids, fraction, collect_sets=True)
+    if own_cut is None:
+        info = assign_splits(first.metas, account_cap)
+    else:
+        # The opponents of the pages that are left out stay holdout accounts.
+        info = assign_splits(first.metas, account_cap, corpus.late_opponents()[0])
     repertoire = build_repertoire(first.metas)
-    featurizer = Featurizer.build(repertoire, n_cand)
+    if layout_version == LAYOUT_VERSION:
+        featurizer = Featurizer.build(repertoire, n_cand)
+    else:
+        set_table, set_folds, set_summary = build_set_tables(first.metas)
+        contributors = set_summary["contributing_account_crc32"]
+        leaked = sorted(
+            set(contributors) & {account_hash(a) for a in info["holdout_accounts"]}
+        )
+        if leaked:
+            # Cannot happen (a holdout opponent's side is never a training
+            # side); if it ever does, the table must not be written.
+            raise SystemExit(
+                f"{len(leaked)} holdout opponent(s) contributed to the set table"
+            )
+        set_summary["own_source_read"] = "own" in corpus.sources
+        set_summary["own_pages_not_offered"] = own_pages_not_offered(corpus)
+        set_summary["own_opponents_not_kept_out"] = set_summary[
+            "own_pages_not_offered"
+        ] + (corpus.late_opponents()[1] if own_cut is not None else 0)
+        set_summary["holdout_accounts_kept_out"] = len(info["holdout_accounts"])
+        featurizer = Featurizer.build(
+            repertoire,
+            n_cand,
+            layout_version=layout_version,
+            set_table=set_table,
+            set_accounts=contributors,
+        )
     featurizer.save(out_dir)
+    if set_folds is not None:
+        (out_dir / SET_FOLDS_FILE).write_text(
+            json.dumps(
+                [table.to_payload() for table in set_folds], separators=(",", ":")
+            ),
+            encoding="utf-8",
+        )
     notes = dict(corpus.notes)  # pass 2 walks the same readers again
     pass1_seconds = time.time() - started
     log(
@@ -1479,7 +1893,10 @@ def build(
             continue
         result = drive(raw)
         clock = time.perf_counter()
-        examples = encode_battle(featurizer, meta, result, info)
+        if set_folds is None:
+            examples = encode_battle(featurizer, meta, result, info)
+        else:
+            examples = encode_battle(featurizer, meta, result, info, set_folds)
         encode_seconds += time.perf_counter() - clock
         encoded += len(examples)
         battles_without_examples += int(not examples)
@@ -1500,7 +1917,7 @@ def build(
     manifest: dict[str, Any] = {
         "tag": tag,
         "created": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-        "layout_version": LAYOUT_VERSION,
+        "layout_version": featurizer.layout_version,
         "n_cand": featurizer.n_cand,
         "n_actions": featurizer.n_actions,
         "formats": list(formats),
@@ -1623,6 +2040,27 @@ def build(
             "encode": round(encode_seconds, 1),
         },
     }
+    manifest["own_time"] = own_time_summary(own)
+    if own_cut is not None:
+        read, late = corpus.own_split()
+        later, unreadable = corpus.late_opponents()
+        late_folders = Counter(
+            _relative(path.parent, corpus.root) for path, _, _ in late
+        )
+        manifest["own_cutoff"] = {
+            "before": own_before,
+            "before_unix": own_cut,
+            "rule": OWN_BEFORE_RULE,
+            "pages_read": len(read),
+            "pages_later": len(late),
+            "later_pages_by_folder": dict(sorted(late_folders.items())),
+            "later_pages_opened_for_the_opponent": corpus.read_later_names,
+            "later_opponents": len(later),
+            "later_pages_without_an_opponent": unreadable,
+            # True: every later page gave its opponent, so none of them trains.
+            "later_opponents_kept_out": corpus.read_later_names and unreadable == 0,
+        }
+        manifest["headline"]["own_pages_left_out_by_cutoff"] = len(late)
     if fraction is not None:
         # Added only for a subsample: a full build's manifest is unchanged.
         chosen = fraction.summary()
@@ -1635,6 +2073,19 @@ def build(
                 "human_logs_dropped_by_fraction": chosen["logs_dropped"],
             }
         )
+    if featurizer.layout_version != LAYOUT_VERSION:
+        # Added only for a version-2 build: a default build's manifest is unchanged.
+        manifest["extras"] = list(featurizer.extras)
+        signature_v2 = featurizer.matchup_signature()
+        if signature_v2 is not None:
+            manifest["matchup"] = signature_v2
+        if set_folds is not None and featurizer.set_table is not None:
+            # What the tables answered while encoding (back-offs, errors).
+            answered: Counter[str] = Counter(featurizer.set_table.counters)
+            for table in set_folds:
+                answered.update(table.counters)
+            set_summary["posterior_counters"] = dict(sorted(answered.items()))
+            manifest["set_prior"] = set_summary
     (out_dir / "manifest.json").write_text(
         json.dumps(manifest, indent=1), encoding="utf-8"
     )
@@ -1658,6 +2109,15 @@ def main() -> None:
         "--limit", type=int, default=None, help="logs per source, for a smoke run"
     )
     parser.add_argument("--n-cand", type=int, default=N_CAND_DEFAULT)
+    parser.add_argument(
+        "--layout-version",
+        type=int,
+        choices=(1, 2),
+        default=LAYOUT_VERSION,
+        help="2 also writes the arrays of features.EXTRA_ARRAYS (matchup, and "
+        "the set prior with its set table); the version-1 arrays are the same "
+        "either way",
+    )
     parser.add_argument("--shard-size", type=int, default=SHARD_SIZE)
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument(
@@ -1676,6 +2136,25 @@ def main() -> None:
         default=0,
         help="seed of --human-fraction; one seed gives nested subsamples",
     )
+    parser.add_argument(
+        "--own-before",
+        default=None,
+        help="YYYY-MM-DD (or YYYY-MM-DDTHH:MM, local): leave out the bot's own "
+        "games saved from then on (by the page's modification time); their "
+        "opponents still stay out of training",
+    )
+    parser.add_argument(
+        "--allow-no-own-source",
+        action="store_true",
+        help="let a --layout-version 2 build run without the own source (a "
+        "smoke build: its set table may hold our ladder opponents' sheets)",
+    )
+    parser.add_argument(
+        "--own-later-unread",
+        action="store_true",
+        help="with --own-before: do not open a later page even for its "
+        "opponent's name (those opponents are then NOT kept out of training)",
+    )
     args = parser.parse_args()
     manifest = build(
         args.tag,
@@ -1688,6 +2167,10 @@ def main() -> None:
         overwrite=args.overwrite,
         human_fraction=args.human_fraction,
         fraction_seed=args.fraction_seed,
+        layout_version=args.layout_version,
+        own_before=args.own_before,
+        allow_no_own_source=args.allow_no_own_source,
+        own_later_unread=args.own_later_unread,
     )
     print(json.dumps(manifest["headline"], indent=1))
     print(json.dumps({"other_rate": manifest["other_rate"]["all"]}, indent=1))

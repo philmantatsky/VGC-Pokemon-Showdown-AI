@@ -28,6 +28,29 @@ removal of what the rules forbid, after which the rest is renormalised:
 
 A slot with no Pokemon on the field contributes the single reply "no action".
 
+A COUPLING IS OPTIONAL. ``joint_replies(..., coupling=<coupling.PairCoupling>,
+move_intent=<the featurizer's tables.move_intent>)`` multiplies every pair of
+replies by one number per pair of reply classes and context bucket before the
+renormalisation (see ``coupling.py``): the two slots are then no longer
+independent. Without one (the default) the code path and every array are
+those of the plain product; an all-ones coupling is read as none. ``kept``
+stays the mass under the plain product; ``tilt`` is the coupled total over it
+and ``coupled`` says which joint the list holds. A coupling that cannot be
+applied to the batch gives the failure value (``n == 0``) and a counter, never
+the plain list under the coupled name.
+
+THE COUPLING AND THE MEGA BIT. The table is fitted on the joint WITHOUT the
+Mega bit (``coupling.pair_masses`` knows no Mega state) and, with
+``mega=True``, multiplied unchanged into each of the three Mega states. The
+plain mass of a class pair is then not the fit's: a switch cannot carry a Mega
+Evolution, so a pair that holds a switch has less of the Mega states' mass
+than a pair of moves. Without the Mega bit the change of the true reply's
+log-probability is exactly the fit's own formula (``coupling.row_gain``; 4e-15
+on the fully seen two-slot validation rows of the first fit, 2026-10-10); with
+it the two differ by up to 0.04 nats on a row and 0.0001 in the mean (+0.0139
+against +0.0140). The coupled Mega joint is "the plain Mega joint times R,
+renormalised", not a joint whose pair marginal is the coupled pair joint.
+
 The Mega head is a marginal too: "this slot Mega-evolves this turn", whatever
 it does. It is multiplied in as it is, so once a switch with a Mega Evolution
 is removed the joint holds a little less Mega probability than the head said.
@@ -84,8 +107,14 @@ from typing import Any, Mapping
 
 import numpy as np
 
-from vgc_bench.src.oppmodel.events import KIND_MOVE, KIND_SWITCH, TARGET_CLASSES
+from vgc_bench.src.oppmodel.events import (
+    INTENT_PROTECT,
+    KIND_MOVE,
+    KIND_SWITCH,
+    TARGET_CLASSES,
+)
 from vgc_bench.src.oppmodel.features import (
+    CAND_PROTECT,
     CAND_REVEALED,
     CAND_SHEET,
     FLAG_MEGA_POSSIBLE,
@@ -273,6 +302,7 @@ def _true_replies(batch: Mapping[str, np.ndarray]) -> dict[str, np.ndarray]:
     else:
         own = np.zeros_like(y_action)
     shown = candidate & ((own & (CAND_REVEALED | CAND_SHEET)) > 0)
+    guarded = candidate & ((own & CAND_PROTECT) > 0)
     took = active & (y_mega == 1)
     untold = active & (y_mega < 0) & _mega_possible(batch, active)
     mega = np.where(took[:, 0], MEGA_A, np.where(took[:, 1], MEGA_B, MEGA_NONE))
@@ -286,6 +316,7 @@ def _true_replies(batch: Mapping[str, np.ndarray]) -> dict[str, np.ndarray]:
         "switch": switch,
         "shown": shown,
         "unshown": (candidate | other) & ~shown,
+        INTENT_PROTECT: guarded,
     }
 
 
@@ -302,7 +333,8 @@ def true_replies(batch: Mapping[str, np.ndarray]) -> dict[str, np.ndarray]:
     * per slot ``[N, 2]``: ``active``; ``other`` (a move outside the
       candidates); ``switch``; ``shown`` (a candidate move the Pokemon had
       shown in this battle or that is on its open sheet); ``unshown`` (any
-      other move: a guessed candidate, or OTHER).
+      other move: a guessed candidate, or OTHER); and, under the key
+      ``events.INTENT_PROTECT``, a candidate of the Protect family.
 
     Reads label arrays: never give its result to a predictor. Never raises: an
     empty dict when the batch lacks an array.
@@ -337,6 +369,9 @@ class JointReplies:
       ``[n]``: possible replies with a strictly higher probability; ``ties``
       ``[n]``: other possible replies with exactly the same one. Whatever the
       order of equal replies, the rank lies in ``[above, above + ties]``.
+    * ``coupled``: the list was built with a pair coupling; ``tilt`` ``[n]``:
+      the coupled total over ``kept`` (1 without a coupling, and for an
+      example with one acting slot).
     """
 
     n_cand: int
@@ -352,6 +387,8 @@ class JointReplies:
     prob_true: np.ndarray
     above: np.ndarray
     ties: np.ndarray
+    tilt: np.ndarray
+    coupled: bool = False
 
     @property
     def n(self) -> int:
@@ -399,7 +436,9 @@ class JointReplies:
         return out
 
 
-def _empty(k: int, with_mega: bool, n: int = 0, n_cand: int = 0) -> JointReplies:
+def _empty(
+    k: int, with_mega: bool, n: int = 0, n_cand: int = 0, coupled: bool = False
+) -> JointReplies:
     """``n`` examples with nothing in them (``n == 0``: the failure value)."""
     width = max(1, int(k))
     return JointReplies(
@@ -416,6 +455,8 @@ def _empty(k: int, with_mega: bool, n: int = 0, n_cand: int = 0) -> JointReplies
         prob_true=np.zeros(n, dtype=np.float64),
         above=np.zeros(n, dtype=np.int32),
         ties=np.zeros(n, dtype=np.int32),
+        tilt=np.ones(n, dtype=np.float64),
+        coupled=coupled,
     )
 
 
@@ -456,6 +497,7 @@ def _chunk(
     can: np.ndarray | None,
     k: int,
     truth: np.ndarray,
+    factor: np.ndarray | None = None,
 ) -> dict[str, np.ndarray]:
     """Enumerate the joint replies of ``b`` rows; ``q`` None = one Mega state.
 
@@ -463,7 +505,10 @@ def _chunk(
     the "no action" column last, ``la`` / ``lb`` which replies are possible,
     ``q`` / ``can`` ``[b, 2]`` the Mega probability and whether a Mega
     Evolution is possible. An impossible joint reply holds -1 in the table, so
-    it sorts after every possible one and equals no probability.
+    it sorts after every possible one and equals no probability. ``factor``
+    ``[b, R + 1, R + 1]`` (a coupling's number for every pair of replies,
+    positive) multiplies every possible entry, the same in each Mega state;
+    None is the plain product and runs no arithmetic of its own.
     """
     b, width = pa.shape
     first_switch = width - 1 - N_ROSTER
@@ -489,6 +534,15 @@ def _chunk(
     kept = np.maximum(flat, 0.0).sum(axis=1)
     ok = kept > 0
     scale_back = np.where(ok, kept, 1.0)
+    tilt = np.ones(b, dtype=np.float64)
+    if factor is not None:
+        layers = total // (width * width)  # 1, or the three Mega states
+        wide = np.broadcast_to(factor[:, None], (b, layers, width, width))
+        flat = np.where(flat >= 0, flat * wide.reshape(b, -1), -1.0)
+        coupled = np.maximum(flat, 0.0).sum(axis=1)
+        ok = ok & (coupled > 0)
+        scale_back = np.where(ok, coupled, 1.0)
+        tilt = np.where(ok, coupled / np.where(kept > 0, kept, 1.0), 1.0)
 
     # The first ``k`` in the stable order: everything above the k-th value, then
     # the lowest-indexed entries that equal it.
@@ -518,6 +572,7 @@ def _chunk(
         "size": size.astype(np.int32),
         "kept": kept,
         "ok": ok,
+        "tilt": tilt,
     }
     out["reply"][:, :take] = reply
     out["mega"][:, :take] = np.where(real, index // (width * width), MEGA_NONE)
@@ -545,6 +600,8 @@ def _joint(
     with_mega: bool,
     truth: Mapping[str, np.ndarray] | None,
     chunk_bytes: int,
+    coupling: Any = None,
+    move_intent: Any = None,
 ) -> JointReplies:
     pred, batch = _lift(pred, batch)
     if truth is not None:
@@ -570,16 +627,35 @@ def _joint(
     wide = can.any(-1)
     place = _truth_index(truth, n, width, with_mega, wide)
 
+    # An all-ones coupling is the plain product: it takes the plain path.
+    maps = None
+    if coupling is not None and not bool(coupling.is_identity):
+        maps = coupling.reply_maps(batch, move_intent)
+        if maps is None:
+            raise ValueError("the coupling cannot be applied to this batch")
+        if maps[1].shape != (n, N_SLOT, width) or maps[0].shape != (n,):
+            raise ValueError("the coupling's reply classes do not fit the batch")
+
     # No list is longer than the table it is cut from.
     k = min(k, (N_MEGA_STATE if with_mega else 1) * width * width)
-    out = _empty(k, with_mega, n, n_cand)
+    out = _empty(k, with_mega, n, n_cand, coupled=maps is not None)
     for states, rows in (
         (1, np.nonzero(~wide)[0]),
         (N_MEGA_STATE, np.nonzero(wide)[0]),
     ):
         step = max(1, int(chunk_bytes) // (states * width * width * 8))
+        if maps is not None:
+            step = max(1, step // 3)  # the factor and the coupled copy
         for start in range(0, rows.size, step):
             pick = rows[start : start + step]
+            factor = None
+            if maps is not None:
+                group, kinds, table = maps
+                factor = table[
+                    group[pick][:, None, None],
+                    kinds[pick, 0][:, :, None],
+                    kinds[pick, 1][:, None, :],
+                ]
             made = _chunk(
                 wide_p[pick, 0],
                 wide_p[pick, 1],
@@ -589,6 +665,7 @@ def _joint(
                 can[pick] if states > 1 else None,
                 out.k,
                 place[pick],
+                factor,
             )
             for name, values in made.items():
                 getattr(out, name)[pick] = values
@@ -603,6 +680,8 @@ def joint_replies(
     mega: bool = False,
     truth: Mapping[str, np.ndarray] | None = None,
     chunk_bytes: int = CHUNK_BYTES,
+    coupling: Any = None,
+    move_intent: Any = None,
 ) -> JointReplies:
     """The ``k`` most probable joint replies of every example, and the truth's rank.
 
@@ -621,6 +700,13 @@ def joint_replies(
     size of the joint table when ``k`` is larger (``JointReplies.k`` says how
     long it is). ``mega`` is a plain True or False.
 
+    ``coupling`` (a ``coupling.PairCoupling``; None = the plain product, the
+    default) multiplies every pair of replies by its number for the pair's
+    two reply classes and the example's bucket; ``batch`` must then also hold
+    ``cand_move``, ``turn`` and ``foe_mon`` and ``move_intent`` be the
+    featurizer's ``tables.move_intent`` (or ``batch`` hold ``pair_class`` and
+    ``pair_bucket`` already made). An all-ones coupling is the plain product.
+
     Never raises: an input that does not fit (a ``k`` or a ``mega`` of another
     kind included) gives ``JointReplies`` with ``n == 0`` and a count in
     ``COUNTERS``.
@@ -633,7 +719,11 @@ def joint_replies(
         _failed("joint_replies", TypeError("mega is not a flag or k not a number"))
         return _empty(DEFAULT_K if width is None else width, bool(with_mega))
     try:
-        return _joint(pred, batch, width, with_mega, truth, chunk_bytes)
+        if coupling is None:
+            return _joint(pred, batch, width, with_mega, truth, chunk_bytes)
+        return _joint(
+            pred, batch, width, with_mega, truth, chunk_bytes, coupling, move_intent
+        )
     except Exception as exc:
         _failed("joint_replies", exc)
         return _empty(width, with_mega)

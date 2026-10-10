@@ -32,7 +32,36 @@ predictor's output with illegal mass removed and every row renormalised
 those arrays through ``features.event_probs`` and ``features.intent_probs``,
 the helpers the scorecard calibrates, so a threshold read off a reliability
 table applies to the same number here. The two opposing slots are predicted
-separately: nothing in a forecast says how their choices go together.
+separately: no per-slot field of a forecast says how their choices go together.
+
+The pair. EVERY per-slot field (lists, scalars, ``action_probs`` /
+``target_probs``, ``raw``, ``p_attacked``, ``to_dict`` apart from the entry
+named below) is the uncoupled marginal, whatever the artifact carries. An
+artifact with a pair coupling (``coupling.PairCoupling``, the artifact's
+``coupling`` key) adds, on a turn where both opposing slots act:
+``Forecast.pair`` (the coupling's name, this turn's bucket, the 8 x 8 class
+weights), ``Forecast.pair_class_weight(class_a, class_b)`` and
+``Forecast.pair_weight(action_a, action_b)``: the number to multiply the
+PRODUCT of two per-slot probabilities by; 1.0 without a coupling, with an
+empty slot, or for anything that cannot be classed. ``Forecast.joint_top(k)``
+is the ranked joint list itself (``joint.joint_replies`` on what the forecast
+kept), computed only when asked: with the artifact's coupling when it has one,
+the plain product otherwise. Never multiply an entry of ``joint_top`` by
+``pair_weight``: that applies the coupling twice. ``to_dict`` gains one small
+entry, ``pair`` (coupling name and bucket), only when ``Forecast.pair`` is
+set; without a coupling it is the dict of before, key for key.
+
+A pair method that cannot answer says so in a counter, not in its value: 1.0
+is also the honest answer without a coupling, and ``()`` the answer of a
+forecast without inputs. On a forecast that HAS a pair (a coupling, two acting
+slots), an action or reply that cannot be classed counts
+``pair_weight:unclassed`` / ``reply_weight:unread``, and a list that cannot be
+built ``joint_top:not_built``, in this module's ``COUNTERS``; the joint's and
+the coupling's own failures are in ``joint.COUNTERS`` / ``coupling.COUNTERS``.
+A forecast has no runtime to count in, so these three are process-wide (every
+runtime of the process adds to them): ``OpponentPredictor.diagnostics()``
+reports them under ``process``, with the module they come from as a prefix
+(``runtime:`` also holds the adapters' and the sheet helper's failures).
 
 Standing down. ``predict`` never raises. It returns None and counts a name in
 ``counters``: ``stand_down:<why>`` for the expected cases (no turn yet, the
@@ -86,6 +115,7 @@ shapes cannot carry, and is therefore lost on that route:
 
 from __future__ import annotations
 
+import logging
 import math
 import threading
 import time
@@ -97,7 +127,20 @@ from typing import Any, Iterable, Mapping, Sequence
 
 import numpy as np
 
+from vgc_bench.src.oppmodel import coupling as _coupling
+from vgc_bench.src.oppmodel import joint as _joint
 from vgc_bench.src.oppmodel.artifact import load_predictor
+from vgc_bench.src.oppmodel.coupling import (
+    BUCKETS,
+    C_SWITCH,
+    C_UNASSIGNED,
+    CLASSES,
+    KEY_BUCKET,
+    KEY_CLASS,
+    class_index,
+    reply_buckets,
+    reply_classes,
+)
 from vgc_bench.src.oppmodel.events import (
     INTENT_CLASSES,
     INTENT_PROTECT,
@@ -132,6 +175,7 @@ from vgc_bench.src.oppmodel.features import (
     N_INTENT,
     N_ROSTER,
     N_SLOT,
+    N_TARGET,
     SHEET_CLOSED,
     SHEET_OPEN,
     SHEET_UNKNOWN,
@@ -146,6 +190,7 @@ from vgc_bench.src.oppmodel.features import (
     normalize_prediction,
     sheet_unknown_as_closed,
 )
+from vgc_bench.src.oppmodel.joint import MEGA_NONE, UNKNOWN, joint_replies
 from vgc_bench.src.oppmodel.public_state import LiveShadow, PublicSnapshot
 from vgc_bench.src.opponent_tactics import MovePrediction, SwitchPrediction
 
@@ -171,6 +216,17 @@ LEGACY_TARGET_NAMES: dict[str, str] = {
     TARGET_ALLY: "ally",
     TARGET_SELF: "self",
     TARGET_AUTO: "field",
+}
+
+# A plain reply's target name (the label reader's, the legacy consumers', or
+# None for a move nobody aims) as an index into ``TARGET_CLASSES``.
+_PLAIN_TARGETS: dict[str | None, int] = {
+    **{name: index for index, name in enumerate(TARGET_CLASSES)},
+    **{
+        legacy: TARGET_CLASSES.index(name)
+        for name, legacy in LEGACY_TARGET_NAMES.items()
+    },
+    None: T_AUTO,
 }
 
 DEFAULT_TOP_K = 8
@@ -200,8 +256,16 @@ _FLINCH = REASON_FLINCH
 # poke-env's placeholder for an item nobody has seen, as an id.
 _UNSEEN_ITEM = "unknownitem"
 
-# Failures of the module-level helpers (adapters, sheet helper), by name.
+# Failures of the module-level helpers (adapters, sheet helper) and of a
+# forecast's pair methods, by name. Process-wide: a forecast has no runtime.
 COUNTERS: Counter[str] = Counter()
+# A pair method asked something it could not answer on a forecast that has a
+# pair (see the module text, "The pair").
+PAIR_UNCLASSED = "pair_weight:unclassed"
+REPLY_UNREAD = "reply_weight:unread"
+JOINT_NOT_BUILT = "joint_top:not_built"
+
+_LOG = logging.getLogger(__name__)
 
 
 def _failed(name: str, exc: Exception) -> None:
@@ -209,6 +273,40 @@ def _failed(name: str, exc: Exception) -> None:
         COUNTERS[f"{name}:{type(exc).__name__}"] += 1
     except Exception:
         pass
+
+
+def _count(name: str) -> None:
+    try:
+        COUNTERS[name] += 1
+    except Exception:
+        pass
+
+
+def _warn(message: str, *values: Any) -> None:
+    """One WARNING on this module's logger. Never raises."""
+    try:
+        _LOG.warning(message, *values)
+    except Exception:
+        pass
+
+
+def process_counters() -> dict[str, int]:
+    """The process-wide counters no runtime owns: this module's ``COUNTERS``
+    (``runtime:``: the adapters, the sheet helper, a forecast's pair
+    methods), ``joint.COUNTERS`` (``joint:``) and ``coupling.COUNTERS``
+    (``coupling:``). Never raises."""
+    out: dict[str, int] = {}
+    for prefix, counters in (
+        ("runtime:", COUNTERS),
+        ("joint:", _joint.COUNTERS),
+        ("coupling:", _coupling.COUNTERS),
+    ):
+        try:
+            for name, count in dict(counters).items():
+                out[f"{prefix}{name}"] = int(count)
+        except Exception:
+            continue
+    return out
 
 
 def is_first_turn_flinch(move_id: Any) -> bool:
@@ -385,6 +483,42 @@ class SlotForecast:
 
 
 @dataclass(frozen=True, eq=False)
+class PairWeights:
+    """How the two opposing slots' choices go together this turn.
+
+    ``coupling`` is the name of the artifact's pair coupling, ``bucket`` this
+    turn's context bucket (``coupling.BUCKETS``), ``classes`` the eight reply
+    classes and ``weight`` ``[8, 8]`` (read-only) the number for (class of
+    slot a's action, class of slot b's action): multiply the product of the
+    two per-slot probabilities by it and renormalise over the pairs kept.
+    """
+
+    coupling: str
+    bucket: str
+    classes: tuple[str, ...]
+    weight: np.ndarray
+
+
+@dataclass(frozen=True)
+class JointEntry:
+    """One entry of ``Forecast.joint_top``: what both opposing slots do.
+
+    ``probability`` is the joint reply's probability after renormalising;
+    ``slots`` the two slots' actions (None for an empty slot; each carries its
+    own per-slot marginal as ``probability``; a candidate without a name
+    reads ``other``, as in the per-slot lists); ``replies`` the two reply
+    indices of ``joint.py``; ``mega`` the slot that Mega-evolves (0 / 1) or
+    None; ``coupled`` whether the list was built with the pair coupling.
+    """
+
+    probability: float
+    slots: tuple[ActionForecast | None, ActionForecast | None]
+    replies: tuple[int, int]
+    mega: int | None = None
+    coupled: bool = False
+
+
+@dataclass(frozen=True, eq=False)
 class Forecast:
     """The opponent's predicted actions at the start of ``turn``.
 
@@ -399,6 +533,12 @@ class Forecast:
     output for this example (``action`` ``[2, A]``, ``target``
     ``[2, n_cand + 1, 5]``, ``mega`` ``[2]``); ``features`` is the encoded
     batch of one example when the runtime was told to keep it, else None.
+
+    ``pair`` is set only when the artifact carries a pair coupling and both
+    opposing slots act (see the module text, "The pair"); ``joint_inputs``
+    holds the few small arrays ``joint_top`` needs (masks, and with a coupling
+    the reply classes and the bucket); ``coupling`` is the artifact's coupling
+    object or None. None of the three changes a per-slot number.
     """
 
     battle_tag: str
@@ -415,6 +555,9 @@ class Forecast:
     latency_ms: float
     raw: dict[str, np.ndarray] = field(default_factory=dict)
     features: dict[str, np.ndarray] | None = None
+    pair: PairWeights | None = None
+    joint_inputs: dict[str, np.ndarray] | None = None
+    coupling: Any = None
 
     @property
     def a(self) -> SlotForecast | None:
@@ -448,8 +591,12 @@ class Forecast:
         return (1.0 - spared[0], 1.0 - spared[1])
 
     def to_dict(self, digits: int = 4) -> dict[str, Any]:
-        """Plain, JSON-ready data for a decision audit (no arrays)."""
-        return {
+        """Plain, JSON-ready data for a decision audit (no arrays).
+
+        Without a pair coupling this is the dict of before, key for key; with
+        ``pair`` set it gains ``pair`` (the coupling's name and the bucket).
+        """
+        out = {
             "turn": self.turn,
             "model": self.model_name,
             "kind": self.model_kind,
@@ -462,6 +609,208 @@ class Forecast:
                 None if made is None else made.to_dict(digits) for made in self.slots
             ],
         }
+        if self.pair is not None:
+            out["pair"] = {"coupling": self.pair.coupling, "bucket": self.pair.bucket}
+        return out
+
+    # --- the pair -------------------------------------------------------------
+
+    def pair_class_weight(self, class_a: Any, class_b: Any) -> float:
+        """The coupling's number for (class of slot a's action, class of slot
+        b's action), each a name of ``coupling.CLASSES`` or its index.
+
+        1.0 without a coupling, on a turn with an empty opposing slot, or for
+        a class that does not exist. Never raises.
+        """
+        try:
+            pair = self.pair
+            first, second = class_index(class_a), class_index(class_b)
+            if pair is None or first is None or second is None:
+                return 1.0
+            value = float(pair.weight[first, second])
+            return value if math.isfinite(value) and value > 0.0 else 1.0
+        except Exception as exc:
+            _failed("pair_class_weight", exc)
+            return 1.0
+
+    def action_class(self, which: int, action: Any) -> int | None:
+        """The reply class (index into ``coupling.CLASSES``) of an entry of
+        slot ``which``'s list; None without a coupling or when the entry
+        cannot be classed. Never raises."""
+        try:
+            inputs = self.joint_inputs
+            if which not in (0, 1) or inputs is None or KEY_CLASS not in inputs:
+                return None
+            made = self.slots[which]
+            if made is None or not isinstance(action, ActionForecast):
+                return None
+            if action.kind == ACTION_SWITCH:
+                return C_SWITCH
+            if action.kind == ACTION_OTHER:
+                return C_UNASSIGNED
+            if action.kind != ACTION_MOVE or not action.move:
+                return None
+            if action.move not in made.moves or action.target not in TARGET_CLASSES:
+                return None
+            column = made.moves.index(action.move)
+            place = column * N_TARGET + TARGET_CLASSES.index(action.target)
+            return int(np.asarray(inputs[KEY_CLASS])[0, which, place])
+        except Exception as exc:
+            _failed("action_class", exc)
+            return None
+
+    def pair_weight(self, action_a: Any, action_b: Any) -> float:
+        """The coupling's number for slot a doing ``action_a`` together with
+        slot b doing ``action_b`` (two ``ActionForecast`` of this forecast).
+
+        MULTIPLY A PRODUCT OF TWO PER-SLOT PROBABILITIES BY IT, then
+        renormalise over the pairs kept; never multiply an entry of
+        ``joint_top``, which already holds it. 1.0 without a coupling, with
+        an empty slot, or for an entry that cannot be classed. Never raises.
+
+        The last case is a failure, not an answer: on a forecast that has a
+        pair it counts ``pair_weight:unclassed`` in this module's
+        ``COUNTERS`` (``OpponentPredictor.diagnostics()['process']``), so a
+        1.0 that hides a broken forecast can be told from the 1.0 of no
+        coupling.
+        """
+        if self.pair is None:
+            return 1.0  # no coupling, or an empty slot: nothing to weigh
+        first, second = self.action_class(0, action_a), self.action_class(1, action_b)
+        if first is None or second is None:
+            _count(PAIR_UNCLASSED)
+            return 1.0
+        return self.pair_class_weight(first, second)
+
+    def reply_weight(self, first: Any, second: Any) -> float:
+        """``pair_weight`` for a consumer that holds plain replies, not entries
+        of this forecast (a search ranking legal choice strings).
+
+        ``first`` / ``second`` describe what the opponent's slot a / slot b
+        does: None (no action, a pass), ``("switch",)``, or ``("move",
+        move_id, target)`` with ``target`` one of ``foe_a`` / ``foe_b`` /
+        ``ally`` / ``self`` (``foe_a`` = OUR slot a) or None / ``auto`` /
+        ``field`` for a move the player does not aim. A move this forecast
+        does not name is the OTHER bucket's move (class ``unassigned``).
+        Returns the coupling's number for the pair; 1.0 without a coupling,
+        with an empty slot, for a pass, or for anything that cannot be read.
+        Multiply a product of per-slot likelihoods by it. Never raises.
+
+        A reply that cannot be read (not a pass) on a forecast that has a
+        pair counts ``reply_weight:unread`` in this module's ``COUNTERS``.
+        """
+        if self.pair is None or first is None or second is None:
+            return 1.0  # no coupling, an empty slot, or a pass
+        try:
+            one, two = self._plain_class(0, first), self._plain_class(1, second)
+            if one is None or two is None:
+                _count(REPLY_UNREAD)
+                return 1.0
+            return self.pair_class_weight(one, two)
+        except Exception as exc:
+            _failed("reply_weight", exc)
+            return 1.0
+
+    def _plain_class(self, which: int, reply: Any) -> int | None:
+        inputs, made = self.joint_inputs, self.slots[which]
+        if made is None or inputs is None or KEY_CLASS not in inputs:
+            return None
+        if reply is None:
+            return None
+        parts = (reply,) if isinstance(reply, str) else tuple(reply)
+        if not parts:
+            return None
+        if parts[0] == ACTION_SWITCH:
+            return C_SWITCH
+        if parts[0] == ACTION_OTHER:
+            return C_UNASSIGNED
+        if parts[0] != ACTION_MOVE or len(parts) < 2:
+            return None
+        move = str(parts[1] or "")
+        if not move or move not in made.moves:
+            return C_UNASSIGNED
+        aim = _PLAIN_TARGETS.get(parts[2] if len(parts) > 2 else None)
+        if aim is None:
+            return None
+        place = made.moves.index(move) * N_TARGET + aim
+        return int(np.asarray(inputs[KEY_CLASS])[0, which, place])
+
+    def _reply_action(self, which: int, reply: int) -> ActionForecast | None:
+        made = self.slots[which]
+        if made is None or reply < 0:
+            return None
+        n_cand = len(made.moves)
+        other = n_cand * N_TARGET
+        if reply < other:
+            column, aim = divmod(reply, N_TARGET)
+            mass = float(made.action_probs[column]) * float(
+                made.target_probs[column, aim]
+            )
+            name = made.moves[column]
+            if not name:
+                return ActionForecast(ACTION_OTHER, mass)
+            return ActionForecast(ACTION_MOVE, mass, name, TARGET_CLASSES[aim])
+        if reply == other:
+            return ActionForecast(ACTION_OTHER, float(made.action_probs[n_cand]))
+        pointer = reply - other - 1
+        if pointer >= N_ROSTER:
+            return None
+        return ActionForecast(
+            ACTION_SWITCH,
+            float(made.action_probs[n_cand + 1 + pointer]),
+            switch_to=made.roster[pointer] or None,
+            roster_index=pointer,
+        )
+
+    def joint_top(
+        self, k: int = DEFAULT_TOP_K, *, mega: bool = False, coupled: bool = True
+    ) -> tuple[JointEntry, ...]:
+        """The ``k`` most probable joint replies of the two opposing slots.
+
+        Computed when asked (``joint.joint_replies`` on ``raw`` and
+        ``joint_inputs``), most probable first. ``coupled=True`` uses the
+        artifact's pair coupling when it has one and the plain product
+        otherwise; ``coupled=False`` is always the plain product. Each entry
+        says which (``JointEntry.coupled``). ``mega=True`` also names who
+        Mega-evolves. Never raises: an empty tuple when the list cannot be
+        built (a coupling that cannot be applied gives an empty tuple, never
+        the plain list). An empty tuple from a forecast that holds its inputs
+        counts ``joint_top:not_built`` in this module's ``COUNTERS``; the
+        reason is in ``joint.COUNTERS`` (both under
+        ``OpponentPredictor.diagnostics()['process']``).
+        """
+        try:
+            inputs = self.joint_inputs
+            if inputs is None or not self.raw:
+                return ()
+            use = self.coupling if coupled else None
+            made = joint_replies(self.raw, inputs, k, mega=mega, coupling=use)
+            if made.n != 1:
+                _count(JOINT_NOT_BUILT)
+                return ()
+            out: list[JointEntry] = []
+            for position in range(made.k):
+                first, second = (int(value) for value in made.reply[0, position])
+                if UNKNOWN in (first, second):
+                    break
+                state = int(made.mega[0, position])
+                out.append(
+                    JointEntry(
+                        probability=float(made.prob[0, position]),
+                        slots=(
+                            self._reply_action(0, first),
+                            self._reply_action(1, second),
+                        ),
+                        replies=(first, second),
+                        mega=None if state == MEGA_NONE else state - 1,
+                        coupled=bool(made.coupled),
+                    )
+                )
+            return tuple(out)
+        except Exception as exc:
+            _failed("joint_top", exc)
+            _count(JOINT_NOT_BUILT)
+            return ()
 
 
 # --- sheets from poke-env (optional, the only poke-env contact) -----------------
@@ -562,7 +911,9 @@ class OpponentPredictor:
     ``dex_signature_differs``. ``meta['extra']['formats']`` (the format ids of
     the dataset the model was fitted on, as the fit scripts store them) makes
     the runtime stand down in a battle of any other format; an artifact that
-    names none is served in every doubles format.
+    names none is served in every doubles format. ``coupling`` is the
+    artifact's pair coupling (``load`` passes it on); it adds
+    ``Forecast.pair`` and changes no per-slot number.
     """
 
     def __init__(
@@ -577,11 +928,15 @@ class OpponentPredictor:
         keep_features: bool = False,
         allow_dex_difference: bool = False,
         meta: Mapping[str, Any] | None = None,
+        coupling: Any = None,
     ) -> None:
         self.counters: Counter[str] = Counter()
         self._lock = threading.RLock()
         self._predictor = predictor
         self._featurizer = featurizer
+        # The artifact's pair coupling (None for an artifact without one):
+        # read by Forecast.pair / joint_top only, never by a per-slot number.
+        self._coupling = coupling
         self.name = str(name or getattr(predictor, "name", "") or "")
         self.kind = str(kind or getattr(predictor, "kind", "") or "")
         self.top_k = None if top_k is None else _whole(top_k, DEFAULT_TOP_K)
@@ -624,7 +979,9 @@ class OpponentPredictor:
 
         When the artifact cannot be read the result is a runtime that stands
         down on every call (``loaded`` is False, ``load_failure`` says why,
-        ``load_error:<type>`` is counted once). ``strict=True`` is for a
+        ``load_error:<type>`` is counted once, and one WARNING goes to this
+        module's logger: an artifact newer than the code, for instance, is
+        otherwise visible only in counters and the audit). ``strict=True`` is for a
         launcher that would rather refuse to start: the loader's ``OSError`` /
         ``ValueError`` come through, also for a differing dex signature.
         ``elo_mode='blank'`` encodes every rating as unknown.
@@ -637,6 +994,12 @@ class OpponentPredictor:
             made = cls(None, None, top_k=top_k, max_battles=max_battles)
             made.load_failure = f"{type(exc).__name__}: {exc}"
             made._bump(f"load_error:{type(exc).__name__}")
+            _warn(
+                "opponent predictor NOT loaded from %s: %s (every forecast "
+                "stands down; pass strict=True to refuse to start instead)",
+                path,
+                made.load_failure,
+            )
             return made
         return cls(
             loaded.predictor,
@@ -648,6 +1011,7 @@ class OpponentPredictor:
             keep_features=keep_features,
             allow_dex_difference=allow_dex_difference,
             meta=loaded.meta,
+            coupling=loaded.coupling,
         )
 
     @property
@@ -669,6 +1033,11 @@ class OpponentPredictor:
         return self._featurizer
 
     @property
+    def coupling(self) -> Any:
+        """The artifact's pair coupling, or None."""
+        return self._coupling
+
+    @property
     def elo_mode(self) -> str:
         """``blank`` when the model is given no rating, else ``keep``."""
         return ELO_BLANK if self._elo_blind else ELO_KEEP
@@ -679,15 +1048,30 @@ class OpponentPredictor:
             return len(self._entries)
 
     def diagnostics(self) -> dict[str, dict[str, int]]:
-        """Every counter in play: the runtime's, the featurizer's, the predictor's."""
+        """Every counter in play: the runtime's, the featurizer's, the
+        predictor's, and under ``process`` what no runtime owns
+        (``process_counters``): a forecast's pair methods (``pair_weight``,
+        ``reply_weight``, ``joint_top``), the joint and coupling code under
+        them, the adapters and the sheet helper.
+
+        The first three belong to this runtime. ``process`` is PROCESS-WIDE (a
+        forecast has no runtime to count in): with two runtimes in one
+        process each reports the same numbers there. Empty when nothing
+        failed.
+        """
         try:
             with self._lock:
                 own = dict(self.counters)
                 encoder = dict(getattr(self._featurizer, "counters", None) or {})
                 model = dict(getattr(self._predictor, "counters", None) or {})
-            return {"runtime": own, "featurizer": encoder, "predictor": model}
+            return {
+                "runtime": own,
+                "featurizer": encoder,
+                "predictor": model,
+                "process": process_counters(),
+            }
         except Exception:
-            return {"runtime": {}, "featurizer": {}, "predictor": {}}
+            return {"runtime": {}, "featurizer": {}, "predictor": {}, "process": {}}
 
     # --- bookkeeping ----------------------------------------------------------
 
@@ -984,6 +1368,7 @@ class OpponentPredictor:
         kept: dict[str, np.ndarray] | None = None
         if self.keep_features:
             kept = {name: _frozen(value) for name, value in batch.items()}
+        inputs, pair = self._pair_inputs(batch, example, slots)
         forecast = Forecast(
             battle_tag=tag,
             turn=int(snapshot.turn),
@@ -1002,8 +1387,63 @@ class OpponentPredictor:
             latency_ms=(time.perf_counter() - started) * 1000.0,
             raw=raw,
             features=kept,
+            pair=pair,
+            joint_inputs=inputs,
+            coupling=self._coupling,
         )
         return forecast, ""
+
+    def _pair_inputs(
+        self,
+        batch: Mapping[str, np.ndarray],
+        example: Mapping[str, np.ndarray],
+        slots: Sequence[SlotForecast | None],
+    ) -> tuple[dict[str, np.ndarray] | None, PairWeights | None]:
+        """What ``Forecast.joint_top`` and the pair weights read: a few small
+        arrays, and with a coupling the turn's class weights. Never raises: a
+        failure is counted and leaves the pair out, the per-slot forecast is
+        served as it is."""
+        try:
+            rows = np.asarray(example["act_mon"]).astype(np.int64)
+            flags = np.asarray(example["mon_flag"])[..., FLAG_MEGA_POSSIBLE]
+            can = [
+                bool(row >= 0 and int(flags[min(int(row), len(flags) - 1)]) > 0)
+                for row in rows
+            ]
+            inputs = {
+                "action_mask": _frozen(batch["action_mask"]),
+                "cand_tmask": _frozen(batch["cand_tmask"]),
+                "mega_possible": _frozen([can], bool),
+            }
+        except Exception as exc:
+            self._bump(f"{FAILURE}joint_inputs:{type(exc).__name__}")
+            return None, None
+        coupling, featurizer = self._coupling, self._featurizer
+        if coupling is None or featurizer is None:
+            return inputs, None
+        try:
+            classes = reply_classes(batch, featurizer.tables.move_intent)
+            bucket = reply_buckets(batch)
+            inputs[KEY_CLASS] = _frozen(classes)
+            inputs[KEY_BUCKET] = _frozen(bucket)
+            if slots[0] is None or slots[1] is None:
+                return inputs, None
+            weight = coupling.weights(int(bucket[0]))
+            if weight is None:
+                self._bump(FAILURE + "pair:bucket")
+                return inputs, None
+            pair = PairWeights(
+                coupling=str(getattr(coupling, "name", "") or ""),
+                bucket=BUCKETS[int(bucket[0])],
+                classes=CLASSES,
+                weight=_frozen(weight, np.float64),
+            )
+            return inputs, pair
+        except Exception as exc:
+            self._bump(f"{FAILURE}pair:{type(exc).__name__}")
+            inputs.pop(KEY_CLASS, None)
+            inputs.pop(KEY_BUCKET, None)
+            return inputs, None
 
     def _slot_forecast(
         self,
