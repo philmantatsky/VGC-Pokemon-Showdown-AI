@@ -1,7 +1,115 @@
 # VGC Bot Project Status
 
+## Predictor trial read at 40 games: 24 of 40 (60%); the real reply is in the search's table 62% of the time with hidden sheets against 37% under the brain's prior (confirmed, p = 3e-12); a quarter of real replies are still legal in no world (2026-October 10, 01:20)
+
+- **The user (10-10, 00:25):** "continue where u left off" -- the lid open, the laptop on
+  AC power. The last ten games played 00:37-01:07 into the same directory with the same
+  command; main was bb3cc958, and nothing of the decision path had changed since the
+  trial's pre-registration (6be90542..HEAD touches this log, the reading tool and the
+  readings). Nothing is running now; DEPLOYED.json is unchanged and the search is off in
+  the deployed bot.
+- **Before the first of them** (the rule for any ladder session with the search):
+  `tools/ladder_rehearse.sh` twice on a local server, six games each, the trial's flags.
+  Null search (`--search-anchor 1e12`): 0 changed decisions of 29 searched. As played:
+  34 of 35 searched, p50 2.5 s, max 7.5 s. The null rehearsal's one fallback is a new
+  fault (below).
+- **What differs from the first thirty games:** another day and hour (Saturday 00:37
+  against Friday 12:45; the opponents' mean rating 1339 against 1298), and one niced
+  single-thread job of the predictor session (`training/oppmodel_learning_curve.py`) ran
+  alongside, by agreement between the sessions. The search's own time per decision:
+  median 2.8 s against 2.2 s, 15% of decisions at 7 s or more against 10%, the slowest
+  7.4 s both times.
+- **Two corrections to the entry below.**
+  - *Two games were abandoned on 10-09, not one.* The decision log holds two battles
+    without a replay: the one the lid closed on (2695730438, turn 5) and a second
+    (2695742260, one decision at turn 1) that the launcher's restart was matched into at
+    14:18:50, in a dark wake seconds before the next sleep. Its loss was booked after the
+    rating was read at 14:33 (1304); tonight's first game started at 1286. On the ladder's
+    books the trial is **24-18 over 42 games**; every reading uses the 40 complete ones.
+  - *The forecast was not handed over at every move decision.* Over the 40 games: at 274
+    of 286 move decisions. The other 12 are one whole game of the first thirty
+    (2695724940) against a team with an Illusion species, where the predictor stands down
+    by design and the search ranked the replies with the brain's prior alone. At the 64
+    forced replacements it is never asked (as built).
+- **Reading 1, the one the trial is for: confirmed by the rule set before the first game.**
+  - On the trial's own 222 logged decisions, the table as played against the brain's
+    ranking alone: both held the real reply 73 times, **only the played table 57 times,
+    only the brain's ranking 5 times**, neither 87. Exact two-sided p = 3e-12. As played
+    130 of 222 (59%), the brain's ranking 78 (35%).
+  - With hidden sheets the real reply was in the table in **140 of 227 decisions (62%)**;
+    on 10-09 morning, with the brain's prior, 64 of 175 (37%). Mean share of the worlds'
+    weight holding it: 53% against 23-27%. Tonight's ten games alone: 27 of 48 (56%).
+  - By what the reply was made of: moves alone 91 of 137 (66%; that morning 47%), with a
+    Protect 33 of 55 (60%; 29%), with a switch 25 of 54 (46%; 27%). On move decisions
+    alone a reply with a switch is the weakest kind: within the table's width for 13 of
+    40 (32%) as played, 1 of 40 under the brain's prior, 16 of 40 under the forecast alone.
+  - Open sheets (three games): 9 of 19 (47%).
+  - The predictor's own eight likeliest pairs, same decisions, hidden sheets: 121 of 218
+    (56%), its first guess 45 of 218 (21%). The table as played -- the mix, world by
+    world -- holds the reply more often than the forecast's own list (table only 39,
+    forecast only 24).
+  - Weight: the logged rankings put the reply within the table's width for 60% at the
+    played 0.75, 61% under the forecast alone, 55% at 0.5, 37% under the brain alone
+    (203 hidden-sheet decisions). Nothing here asks for another weight.
+  - **Out of reach: 53 of the 222 replies (24%) were legal in no world** -- the same
+    quarter as on 10-09 morning (24%) and at 30 games (23%); no prior can list them. The
+    worlds are the limit now.
+- **Reading 2, does it run:** 348 of 350 decisions searched; the two that were not are
+  ordinary fallbacks (a low-prior override the search would not support). With
+  preparation p50 2.5 s, p90 7.4 s, max 7.5 s; no decision of 9 s; no timer warning about
+  us. No species without sets, no Imprison fault, no sampler fault. The health rule was
+  never near (0.8% of the last 120 decisions not searched).
+- **Reading 3, overrides:** 39 of 348 searched decisions (11%; 9% that morning), 2 at
+  forced replacements. The reply the opponent then made had been in the table for 20 of
+  them: worth +0.24 on the search's own scale against +0.22 expected, **not positive in
+  none of the 20** (that morning 2 of 14 were not). Games with an override 12 of 21 won,
+  without 12 of 19.
+- **Reading 4, the record, as a non-regression check only:** **24 of 40 (60% [45, 74])**;
+  the line was 13 or fewer. Hidden sheets 21 of 37, open 3 of 3. Nine wins were the
+  opponent's forfeit and one the opponent's clock at turn 1 (without that one 23 of 39);
+  against higher-rated opponents 10 of 18. It stands beside 10-09 morning's 22 of 40
+  (the brain's prior) and the bot's ladder history, 81 of 150 (54%), without a claim:
+  forty games cannot tell 60% from 54%, and tonight's 8 of 10 were played at another
+  hour. Both trials together: 46 of 80 (57.5%) with the search.
+- **Rating at the start of a game:** 1274 at the first; 1385 the highest on 10-09; 1286
+  before tonight (the two abandoned games); **1426 at the fortieth, the account's highest**
+  (1353 before the trial); 1409 on the public page after that game, lost to a 1498
+  (249-240 in the format, GXE 52.1).
+- **A new fault, found by the null rehearsal -- in none of the 80 ladder games:** an
+  opposing Pokemon that must recharge (Hyper Beam, Blast Burn and the like). The
+  decision fell back to the bot's own move with "[Invalid choice] Can't move: recharge
+  needs a target". Read from the code, not yet reproduced in a test: the bridge lists the
+  forced move by index (`move 1`), Showdown's canonical form of it is `move recharge`
+  plus the locked target, a reconciled world carries the `mustrecharge` volatile but no
+  `lastMoveTargetLoc` (the bridge restores it for two-turn moves only), so the canonical
+  form has no target -- and submitted by id, `Side.chooseMove` validates the target
+  before it reaches the locked-move branch and takes "normal" for a request entry that
+  names none. Every world of that turn fails the same way, so the one turn on which an
+  opponent certainly does nothing is not searched. Not fixed tonight: the bridge is not
+  edited between a rehearsal and its games.
+- **What needs to happen, in order of weight:**
+  1. *The worlds.* A quarter of real replies are legal in no world, whatever ranks them:
+     more of each opponent's plausible moves per world (the predictor's repertoire), the
+     back pairs, species unknown to both set sources. The predictor session is rebuilding
+     its dataset from 113k replays tonight; this builds on the new repertoire.
+  2. *Replies with a switch on move decisions* (32% within the table as played).
+  3. *Recharge* in a reconciled world (above): the bridge, with a test on the real
+     simulator.
+  4. *The launcher must not restart a session with the lid closed.* On 10-09 it logged in
+     and queued during a dark wake; that cost a second rated loss.
+  5. *A team with an Illusion species* silences the predictor for the whole game (one
+     game in forty); the search then has the brain's prior.
+  6. *The user's decision:* what this configuration is for next. A ladder run of
+     hundreds of games is the only measurement of its win rate; nothing here is a
+     promotion.
+- Readings: `results_analysis/search_ladder_20261009/trial2_forecast_prior.{txt,json}`
+  (40 games), `trial2_forecast_prior_30games.{txt,json}` (as cut on 10-09).
+
 ## Predictor trial cut at 30 games by the laptop's lid (16-14, one more game abandoned); its reading is already clear -- the real reply is in the search's table 63% of the time with hidden sheets, against 37% this morning (2026-October 9, 14:32)
 
+- *[Corrected 10-10, see the entry above: two games were abandoned, not one (the rating
+  after both was 1286), and one game of the thirty played without the forecast (an
+  Illusion species on the opponent's team).]*
 - **What happened.** The trial pre-registered at 12:45 (the entry below) played 30 games
   from 12:45 to 14:05. At 14:06:00 the laptop went into clamshell sleep (the lid was
   closed; it was on battery) in the middle of game 31 (turn 5); it has slept and

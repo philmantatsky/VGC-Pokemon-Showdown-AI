@@ -272,19 +272,46 @@ ladder, in order:
     under the brain's prior and 51-53% under the opponent predictor's forecast (first
     guess 8% -> 25%; share of world weight 20% -> 44%); mixing the brain back in adds
     nothing. 24% of real replies are legal in no world at all.
-  - [ ] **The forecast as the search's reply prior** -- built, opt-in
+  - [x] **The forecast as the search's reply prior** -- built, opt-in
     (`--search-reply-prior forecast`, `--search-forecast-weight`; 0 = the measuring mode
-    the trial's last twenty games played; rehearsed with the null search, 0 of 24). Next:
-    a ladder trial at weight 0.75-1 with the same readings, at the user's word. Local
-    harnesses cannot judge a model of human replies (their opponents are our own brain
-    and other bots); `evaluation/search_roster_ab.py --arms plain,search,forecast` gives
-    a non-regression check against the clones of human play.
+    the first trial's last twenty games played). **Ladder trial, 2026-10-09 / 10-10**
+    (the user: "run the 40 games with the predictor"; pre-registered 10-09 12:45, sum at
+    weight 0.75; cut at 30 games by the laptop's lid, the last ten played 10-10 00:37 at
+    the user's word): **confirmed by its pre-registered rule** -- on the same 222
+    decisions the table as played held the opponent's real reply 57 times where the
+    brain's ranking alone would not have, and 5 times the other way (p = 3e-12). Hidden
+    sheets: in the table 140 of 227 (62%) against 37% under the brain's prior (moves
+    alone 66%, with a Protect 60%, with a switch 46%). 348 of 350 decisions searched,
+    max 7.5 s. None of the 20 overrides whose reply had been searched was a loss on the
+    search's own scale. Record **24 of 40 (60% [45, 74])**, a non-regression check only
+    (13 or fewer was the line); with the first trial 46 of 80 with the search. Rating at
+    the start of the fortieth game 1426, the account's highest. Local harnesses cannot
+    judge a model of human replies (their opponents are our own brain and other bots);
+    `evaluation/search_roster_ab.py --arms plain,search,forecast` gives a non-regression
+    check against the clones of human play.
+  - [ ] **The search with the forecast prior as a ladder configuration** -- the user's
+    decision. Forty games cannot measure a win rate; a run of hundreds of ladder games
+    can. Not deployed: DEPLOYED.json is unchanged and `--search` is off.
   - [ ] Before any ladder session with the search: `tools/ladder_rehearse.sh` (the ladder
     script itself on a local server) twice -- the trial's flags with `--search-anchor
     1e12` (0 changed decisions) and with its own anchor -- and `evaluation/
     search_health.py` on the replay directory while it plays.
   - [ ] The worlds: more of each opponent's plausible moves per world (the predictor's
-    repertoire), the back pairs; a species unknown to both set sources (Arbok).
+    repertoire), the back pairs; a species unknown to both set sources (Arbok). **The
+    limit after the predictor trial:** 24% of real replies are legal in no world (53 of
+    222; 24% in the first trial), whatever ranks them.
+  - [ ] Replies with a switch on move decisions: within the table for 32% as played
+    (13 of 40), the weakest kind; 2% under the brain's prior.
+  - [ ] An opposing Pokemon that must recharge fails every world of that turn
+    ("[Invalid choice] Can't move: recharge needs a target"; found by the null rehearsal
+    of 10-10, in none of the 80 ladder games): a reconciled world carries `mustrecharge`
+    without `lastMoveTargetLoc`, so Showdown's canonical `move recharge` has no target
+    and fails target validation when submitted by id. Bridge fix + a test on the real
+    simulator.
+  - [ ] `tools/ladder_read_loop.sh` must not restart a session while the lid is closed:
+    on 10-09 it logged in and queued in a dark wake, a second rated loss.
+  - [ ] A team with an Illusion species silences the predictor for the whole game (one
+    game in forty); the search then ranks replies with the brain's prior alone.
   - [ ] A table that always holds each slot's Protect reply (neither the brain nor the
     forecast expects Protect: 1 and 3 of 16).
   - [ ] Oracle arm (real opponent sets in the worlds) once there is an effect to explain.
