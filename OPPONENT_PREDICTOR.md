@@ -560,6 +560,11 @@ seen from those games, all from the search session's reading
 likeliest reply pairs held the real reply in 96 of 170 hidden-sheet decisions (56%), its
 first pair in 21%; replies holding a switch are covered worst (9 of 29 by the forecast
 alone). No reading of mine on those games exists yet.
+*Correction, 01:45:* the 56% / 21% above undercounted. The search session's reading tool
+read a forecast switch's destination from the wrong key, so a correctly forecast switch
+could never count (found by tonight's code map, confirmed and fixed by the search session,
+main 859a20ce). Corrected by them: 105 of 170 (62%) at 30 games; 134 of 218 (61%) over the
+40 trial games, first pair 23% — level with the search's table as played (62%).
 
 **Sets.**
 - *Development:* validation players and the OLD ladder holdout (the 401 own games played
