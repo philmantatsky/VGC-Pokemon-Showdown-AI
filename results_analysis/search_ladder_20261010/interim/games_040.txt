@@ -1,0 +1,5 @@
+games 1-40: won 16 of 40 (40%), 6 by forfeit; rating 1409 -> 1237; opponents' mean 1308; performance 1221
+    searched 358 of 365 (98%) (not searched: 5 search_fallback: unsupported_low_prior_override, 1 error_fallback: determinization search exhausted its budget; live-1:garchomp,venusaur: ActionEncodingError, 1 error_fallback: determinization search exhausted its budget; live-1:whimsicott,pyroar: ActionEncodingError); real reply in the table, hidden sheets: 137 of 231 (59%); overrides 33, 11 with the reply searched: edge +0.47, 1 not positive
+
+ALL 40 games: won 16 of 40 (40%), 6 by forfeit; rating 1409 -> 1237; opponents' mean 1308; performance 1221 [1089, 1329]
+    searched 358 of 365 (98%) (not searched: 5 search_fallback: unsupported_low_prior_override, 1 error_fallback: determinization search exhausted its budget; live-1:garchomp,venusaur: ActionEncodingError, 1 error_fallback: determinization search exhausted its budget; live-1:whimsicott,pyroar: ActionEncodingError); real reply in the table, hidden sheets: 137 of 231 (59%); overrides 33, 11 with the reply searched: edge +0.47, 1 not positive

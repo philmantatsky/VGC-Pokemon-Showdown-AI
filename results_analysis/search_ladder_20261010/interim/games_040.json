@@ -1,0 +1,111 @@
+[
+ {
+  "games": "1-40",
+  "block": {
+   "games": 39,
+   "wins": 15,
+   "forfeit_wins": 6,
+   "performance": 1221.1743829682905,
+   "interval": [
+    1089.4279507204278,
+    1329.3058334798684
+   ],
+   "opponents_mean": 1307.6410256410256,
+   "own_rating": {
+    "first": 1409,
+    "last": 1237,
+    "mean": 1294.871794871795,
+    "lowest": 1163,
+    "highest": 1409
+   },
+   "all_games": 40,
+   "all_wins": 16,
+   "decisions": 365,
+   "searched": 358,
+   "not_searched": {
+    "search_fallback: unsupported_low_prior_override": 5,
+    "error_fallback: determinization search exhausted its budget; live-1:garchomp,venusaur: ActionEncodingError": 1,
+    "error_fallback: determinization search exhausted its budget; live-1:whimsicott,pyroar: ActionEncodingError": 1
+   },
+   "seconds": {
+    "p50": 2.859010624932125,
+    "p90": 7.397312291897833,
+    "p99": 7.519219709094614,
+    "max": 7.5925749589223415
+   },
+   "replies_hidden": 231,
+   "replies_in_table": 137,
+   "replies_by_kind": {
+    "with a switch": {
+     "replies": 65,
+     "in_table": 27
+    },
+    "with a protect": {
+     "replies": 57,
+     "in_table": 37
+    },
+    "moves only": {
+     "replies": 146,
+     "in_table": 97
+    }
+   },
+   "overrides": 33,
+   "overrides_with_a_searched_reply": 11,
+   "override_edge_mean": 0.4724985991112049,
+   "override_edge_not_positive": 1
+  },
+  "so_far": {
+   "games": 39,
+   "wins": 15,
+   "forfeit_wins": 6,
+   "performance": 1221.1743829682905,
+   "interval": [
+    1089.4279507204278,
+    1329.3058334798684
+   ],
+   "opponents_mean": 1307.6410256410256,
+   "own_rating": {
+    "first": 1409,
+    "last": 1237,
+    "mean": 1294.871794871795,
+    "lowest": 1163,
+    "highest": 1409
+   },
+   "all_games": 40,
+   "all_wins": 16,
+   "decisions": 365,
+   "searched": 358,
+   "not_searched": {
+    "search_fallback: unsupported_low_prior_override": 5,
+    "error_fallback: determinization search exhausted its budget; live-1:garchomp,venusaur: ActionEncodingError": 1,
+    "error_fallback: determinization search exhausted its budget; live-1:whimsicott,pyroar: ActionEncodingError": 1
+   },
+   "seconds": {
+    "p50": 2.859010624932125,
+    "p90": 7.397312291897833,
+    "p99": 7.519219709094614,
+    "max": 7.5925749589223415
+   },
+   "replies_hidden": 231,
+   "replies_in_table": 137,
+   "replies_by_kind": {
+    "with a switch": {
+     "replies": 65,
+     "in_table": 27
+    },
+    "with a protect": {
+     "replies": 57,
+     "in_table": 37
+    },
+    "moves only": {
+     "replies": 146,
+     "in_table": 97
+    }
+   },
+   "overrides": 33,
+   "overrides_with_a_searched_reply": 11,
+   "override_edge_mean": 0.4724985991112049,
+   "override_edge_not_positive": 1
+  }
+ }
+]
