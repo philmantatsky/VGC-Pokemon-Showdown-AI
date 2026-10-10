@@ -544,6 +544,62 @@ build. One fit per point, so the intervals hold game sampling, not training nois
   server reuses battle tags after a restart (the search session met 1,127 reused tags), so a
   tag alone identifies a battle only on the real server.
 
+### Fourth build — PRE-REGISTERED 2026-10-10 00:40, before any of its results
+
+The user (10-10, about 00:25): "check out how the predictor did [on the ladder games] ...
+and see how u can make it better ... work on your own until morning."
+
+**State at this moment.** The download is finished (113,201 replays: 76,870 single games,
+46,444 best-of-three games indexed; 24 deferred). The model in the bot is still
+`oppnet_v2_blind` (26,847 battles). Since 10-09 the search reads its forecast as the reply
+prior in ladder trials (the search session's work, weight 0.75): 70 ladder games were played
+on 10-09 (`ladder_replays_mc_search_nash1/2/3`, `ladder_replays_mc_search_forecast1`) and
+ten more are being played tonight into `ladder_replays_mc_search_forecast1`. Numbers already
+seen from those games, all from the search session's reading
+(`results_analysis/search_ladder_20261009/`): on the 30 trial games the predictor's own eight
+likeliest reply pairs held the real reply in 96 of 170 hidden-sheet decisions (56%), its
+first pair in 21%; replies holding a switch are covered worst (9 of 29 by the forecast
+alone). No reading of mine on those games exists yet.
+
+**Sets.**
+- *Development:* validation players and the OLD ladder holdout (the 401 own games played
+  before 10-05, in every dataset build so far). Every design choice below is made on these.
+- *Confirmation:* the FRESH ladder set = the opponent side of every own ladder game played on
+  10-09 and 10-10 (about 80 games), and the test players. The fresh games are read now once,
+  in aggregate, for the models that already exist (that is the user's first question), and
+  once more at the end for the final candidate. No design choice is made from them and
+  nobody looks through them for failure patterns.
+
+**What is tried** (in a separate worktree, branch `oppmodel-night-1010`; the code the bot
+runs does not change while ladder games play):
+1. The same architecture retrained on the full download (`v3full_20261010`).
+2. Explicit matchup inputs (type effectiveness and an estimated damage of each candidate on
+   each target, the threat on the slot, speed order) — new arrays that an old artifact never
+   reads, so the model in the bot stays bit-identical.
+3. A coupling of the two slots when ranking reply pairs (a table over intent-class pairs).
+4. More capacity, if the larger corpus asks for it.
+5. A correction for our own opponents (they switch less and protect more than the corpus),
+   fitted on the OLD ladder holdout only.
+
+**Readings, fixed now.** Paired with the model in the bot on the same slot-turns,
+game-clustered bootstrap, 95% intervals:
+- **R5a.** Fine NLL on the fresh ladder set: the final candidate counts as better on our
+  ladder opponents if the interval of (candidate − deployed) lies below zero.
+- **R5b.** Joint top-8 coverage on the fresh ladder set, turns whose acting slots are all
+  visible: reported with its interval; "not worse" is required (interval not wholly below
+  zero), "better" is claimed only if it lies above zero. With about 350 such turns a gain
+  under about four points cannot be shown; that is said when it happens.
+- **R5c.** Coverage of replies that hold a switch and of replies that hold a Protect, and
+  the switch / Protect calibration: reported, not gated (tens of cases).
+- Each single change (2-5) is kept only if it improves the development sets beyond the
+  fit-to-fit noise (0.007 nats between two fits of the same data); ablations are run on one
+  dataset build so that only the change differs.
+- **Not claimed:** win rate, or the coverage of the search's own table (that needs its live
+  worlds; a quarter of real replies are legal in none of them, which no predictor changes).
+- **What follows from it.** A candidate that passes R5a and is not worse on R5b is
+  RECOMMENDED as the new shadow / reply-prior model. The swap is a `DEPLOYED.json` change and
+  stays the user's decision.
+
 ### Not done, and what is next
 
 - **Read the shadow log** once real games exist; then a first guard, with thresholds fixed
