@@ -661,6 +661,32 @@ game-clustered bootstrap, 95% intervals:
   games of theirs may be in that model's training rows. The confirmation is therefore given
   twice: on all fresh games and on the 68 played on 10-09 alone.
 
+**Amendments, 04:18.**
+- *(6) the fine-tune on our old ladder games: taken by its own rule, NOT kept.* On the older
+  model it is worth -0.022 nats out of fold [-0.029, -0.016] (about -0.020 with folds by
+  account or with the setting chosen outside the fold), at the cost of 1-2.6 points of
+  coverage on replies holding a Protect. On tonight's retrained model the same grid gives
+  -0.0045 [-0.0079, -0.0013], with no gain in top-1, top-3 or joint top-8: under the 0.007
+  bar every change has to clear. Three times the corpus had already taught the network most
+  of what the 401 games add. No fine-tuned artifact goes to the confirmation.
+  (`analysis_20261010/finetune_ladder.md`; tool `training/finetune_oppmodel.py`.)
+- *(4) more capacity: not kept as a single model.* The 2.0M-parameter network learns faster,
+  overfits from epoch 18 and ends level on validation (1.3602 against 1.3593) and worse on
+  the old ladder games (1.471 against 1.453).
+- *(7) added AFTER its first measurement, said plainly:* the mean of two networks. A probe on
+  the two fits that already existed (same-size and wide) reads -0.020 nats on validation and
+  -0.015 [-0.021, -0.009] on the old ladder games against the better of the two, joint top-8
+  +1.0 / +1.2 points (`analysis_20261010/ensemble_probe.md`). It is being built as an
+  artifact kind; members must share one featurizer. A second network with the new inputs
+  (other seed, 20 epochs) is being trained as a partner for the new-inputs model.
+- *How the final candidate is named, fixed now (no model with the new inputs has finished,
+  no ensemble artifact exists yet):* among {retrained network, network with the new inputs,
+  mean of the two retrained networks, mean of the two new-input networks} the one with the
+  lowest fine NLL on the OLD ladder games through `oppmodel_ladder_read.py`; a difference
+  under 0.005 goes to the simpler one (a single network before a mean, the version-1 layout
+  before version 2). All four, and the coupled variant of the winner, are read on the fresh
+  games in ONE run; R5a / R5b are stated for the named one, the others are reported beside it.
+
 ### Not done, and what is next
 
 - **Read the shadow log** once real games exist; then a first guard, with thresholds fixed
