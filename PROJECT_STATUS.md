@@ -1,6 +1,6 @@
 # VGC Bot Project Status
 
-## The forced-move faults the long run found are fixed: an opponent between the two turns of a move (which a rebuilt world also took for hittable and about to charge again), our own Struggle, and a world the parser refuses (2026-October 10, 16:18)
+## The forced-move faults the long run found are fixed: an opponent between the two turns of a move (which a rebuilt world also took for hittable and about to charge again), our own Struggle, and a world the parser refuses (2026-October 10, 16:16)
 
 - **The user (15:58):** "its over, take the final reading and fix the faults". The
   reading is the entry below. No ladder game was played for this; `DEPLOYED.json` is
