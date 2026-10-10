@@ -1,5 +1,71 @@
 # VGC Bot Project Status
 
+## PRE-REGISTERED at the user's word: 300 ladder games of the search with the new predictor as its reply prior; the reading is the level they show (a performance rating) beside the bot's history (2026-October 10, 12:52, before any game)
+
+- **The user (10-10, 12:40):** "run the longer ladder run with the new predictor".
+  Nothing else is running; main is 3ccdcd5f plus this entry and its tool.
+- **What plays.** `tools/ladder_trial.sh` from main: the deployed configuration as
+  `DEPLOYED.json` stands since 11:57 (brain T6ep, team T6e, 14 guards, sticky
+  corrections, learned preview, sheet preview, forecast artifact
+  `results_deployed/opponent_forecast_ens_v3_base_wide.pt`) plus
+  `TRIAL_SEARCH="--search --search-every-turn --search-solution nash --search-leaf critic --search-anchor 0.07 --search-argmax --search-replies 8 --search-determinizations 4 --search-streams 4 --device cpu --search-reply-prior forecast --search-forecast-weight 0.75"`
+  -- the predictor trial's flags, unchanged. What differs from that trial: the forecast
+  artifact (the two-network mean retrained on the full download) and the three fixes of
+  3ccdcd5f. **The weight stays 0.75, fixed now**: it was chosen with the old model, and
+  nothing logged yet says another is better with the new one; the run logs every scheme
+  so that it will (reading 3). Replay directory `ladder_replays_mc_search_forecast2`.
+  `DEPLOYED.json` is not changed by this run and no promotion follows from it without
+  the user's word.
+- **Rehearsed** on a local server with exactly these flags and the new artifact: the
+  null search 0 changed of 44 (12:20, the entry below); as played 41 of 41 decisions
+  searched, 3 overrides, no fallback, p50 3.0 s, max 7.5 s (12:50).
+- **Length:** 300 games in stages 40 / 100 / 160 / 230 / 300, one directory, one
+  configuration; about fourteen hours of play. It is neither cut short nor extended for
+  what the record looks like.
+- **It stops:** `evaluation/search_health.py` exits 1 at a stage boundary (the next
+  stage is not launched; inside a stage a dead search plays the bot's own moves); the
+  launcher ends with `LADDER_ABORT` (the lid) or cannot restart; a game lost on our
+  clock or a stalled battle; the public rating below 1150 at a stage boundary; the
+  laptop on battery at a stage boundary; the user's word. After a stop it is launched
+  again only at the user's word.
+- **At a stage boundary** only these are looked at: health, power and lid, the public
+  rating. The launcher's log shows the record as it goes; no reading is taken from it
+  before the end.
+- **Readings, named now:**
+  1. *The level -- the reading this run is for.* A win rate on a ladder says little (the
+     ladder pairs a player with its own rating); the level a set of games shows is the
+     rating at which its results against the opponents actually met are the likeliest:
+     `evaluation/ladder_performance.py` (new; every finished rated game, a forfeit
+     included, a turn-1 quit left out; games resampled for the interval). Fixed before
+     any game, `results_analysis/search_ladder_20261010/baseline_before_the_run.*`:
+     - the bot's history, the 150 T6tac-family games of 09-26 to 10-03 without the
+       search: 77 of 146 counted, **1217 [1155, 1278]**; with the T6ep brain's fifteen
+       games 1211 [1153, 1266];
+     - the search with the brain's prior (10-09): 22 of 40, 1265 [1158, 1382];
+     - the search with the old predictor (10-09 / 10-10): 23 of 39, 1376 [1264, 1503];
+     - both search trials: 45 of 79, 1320 [1241, 1407]; minus history +103 [+8, +207].
+     **Claim rule:** "the search with the predictor plays at a higher level than the
+     bot's history" is said when this run's performance rating minus history's has a
+     95% interval above zero (both sets resampled); "lower" when it lies below zero;
+     otherwise "not separable", with the interval. Also given: the run pooled with the
+     two earlier search trials against history, labelled as three configurations.
+     **What this cannot carry:** history is one to two weeks older, the T6tac brain,
+     partly on T6 -- it is not a control. If the ladder's ratings have drifted since,
+     the difference holds the drift. A controlled answer needs the plain bot played in
+     alternation with the search; that is not this run.
+  2. *The table, hidden sheets.* The opponent's real reply in the table as played,
+     beside the old predictor's 140 of 227 (62%): "more often with the new predictor"
+     is said at p < 0.05 (two proportions, two-sided). Also: by what the reply was made
+     of (moves alone 66%, a Protect 60%, a switch 46%), the same-decision count against
+     the brain's ranking alone, the predictor's own eight (62%), legal in no world (24%).
+  3. *The weight.* Where the logged rankings put the reply under the brain, 0.25, 0.5,
+     0.75 and the forecast alone, on this run's decisions. For the next run, not this.
+  4. *Does it run:* decisions searched, fallbacks by cause, time per decision, the
+     timer; the recharge and locked-move turns met (3ccdcd5f, live).
+  5. *Overrides:* how many, and the edge where the reply made had been searched.
+  6. *The record and the rating,* as description: wins, forfeits, by sheets; the rating
+     at the start of a game (first, highest, lowest, last, mean of games 101 to 300).
+
 ## The two fixes the predictor trial asked for, and a third their rehearsal found: a recharging Pokemon no longer breaks a search world, the launcher starts and keeps no session under a closed lid, and the bot's own pair is found on a turn one of our Pokemon is locked into a move (2026-October 10, 12:27)
 
 - **The user (10-10, 11:5x):** "push it and do the two fixes". main was pushed at 11:56

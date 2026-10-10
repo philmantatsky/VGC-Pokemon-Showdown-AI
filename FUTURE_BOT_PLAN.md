@@ -302,8 +302,14 @@ ladder, in order:
     `evaluation/search_roster_ab.py --arms plain,search,forecast` gives a non-regression
     check against the clones of human play.
   - [ ] **The search with the forecast prior as a ladder configuration** -- the user's
-    decision. Forty games cannot measure a win rate; a run of hundreds of ladder games
-    can. Not deployed: DEPLOYED.json is unchanged and `--search` is off.
+    decision. **Under way since 2026-10-10 (the user: "run the longer ladder run with
+    the new predictor"): 300 ladder games with the retrained predictor as the reply
+    prior, pre-registered 12:52 (PROJECT_STATUS), `ladder_replays_mc_search_forecast2`.**
+    Its reading is a level, not a win rate: the performance rating of the games
+    (`evaluation/ladder_performance.py`) beside the bot's history, 1217 [1155, 1278]
+    over 146 games without the search; the two 40-game search trials read 1320
+    [1241, 1407] together. History is not a control (older games, the T6tac brain).
+    Not deployed: `--search` is off in DEPLOYED.json.
   - [ ] Before any ladder session with the search: `tools/ladder_rehearse.sh` (the ladder
     script itself on a local server) twice -- the trial's flags with `--search-anchor
     1e12` (0 changed decisions) and with its own anchor -- and `evaluation/
