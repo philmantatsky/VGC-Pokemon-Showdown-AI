@@ -1,6 +1,6 @@
 # VGC Bot Project Status
 
-## The long run is stopped at the user's word after game 65 (29 wins); interim reading: a level of 1278 [1179, 1371] beside the history's 1217, the real reply in the table 62% as with the old predictor; one family of fault found (2026-October 10, 16:00)
+## The long run is stopped at the user's word after game 65 (29 wins); interim reading: a level of 1278 [1179, 1371] beside the history's 1217, the real reply in the table 62% as with the old predictor; one family of fault found (2026-October 10, 15:54)
 
 - **The user (15:50):** "stop the ladder after the current game ends". A watcher ended
   the launcher and then the session the moment the 65th replay was on disk (15:52:57).
