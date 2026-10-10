@@ -314,14 +314,22 @@ ladder, in order:
     222; 24% in the first trial), whatever ranks them.
   - [ ] Replies with a switch on move decisions: within the table for 32% as played
     (13 of 40), the weakest kind; 2% under the brain's prior.
-  - [ ] An opposing Pokemon that must recharge fails every world of that turn
-    ("[Invalid choice] Can't move: recharge needs a target"; found by the null rehearsal
-    of 10-10, in none of the 80 ladder games): a reconciled world carries `mustrecharge`
-    without `lastMoveTargetLoc`, so Showdown's canonical `move recharge` has no target
-    and fails target validation when submitted by id. Bridge fix + a test on the real
-    simulator.
-  - [ ] `tools/ladder_read_loop.sh` must not restart a session while the lid is closed:
-    on 10-09 it logged in and queued in a dark wake, a second rated loss.
+  - [x] A Pokemon that must recharge failed every world of that turn ("[Invalid choice]
+    Can't move: recharge needs a target"; found by the null rehearsal of 10-10): a
+    rebuilt world carried `mustrecharge` without the last target, so its own choice
+    list said `move recharge`, which Showdown rejects when submitted by id. Fixed
+    2026-10-10 in the bridge for either side (`unit_tests/test_bridge_recharge.py`, on
+    the real simulator; 312 of 3,610 rosters carry Hyper Beam).
+  - [x] `tools/ladder_read_loop.sh` starts no session and stops a playing one while the
+    lid is closed and a closed lid means sleep (`tools/lid_closed.sh`; `LADDER_ABORT`,
+    status 3). 2026-10-10; on 10-09 a restart had logged in and queued in a dark wake,
+    a second rated loss.
+  - [x] The bot's own pair on a turn one of OUR Pokemon is locked into a move (a
+    charged Solar Beam): it could not be found among a world's choices -- the lock's
+    target against the target the bot's action names -- so the turn was planned without
+    its anchor and the null search read 1 changed of 32. Fixed 2026-10-10
+    (`_forced_slots`, `_same_pair` in live_exact.py;
+    `unit_tests/test_live_exact_locked_move.py`); null search after: 0 of 44.
   - [ ] A team with an Illusion species silences the predictor for the whole game (one
     game in forty); the search then ranks replies with the brain's prior alone.
   - [ ] A table that always holds each slot's Protect reply (neither the brain nor the

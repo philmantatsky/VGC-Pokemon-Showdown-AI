@@ -232,6 +232,18 @@ function applyPokemon(battle, pokemon, record) {
 		const moveVolatile = pokemon.volatiles[id(twoTurn.move)];
 		if (moveVolatile) moveVolatile.targetLoc = Number(twoTurn.target_loc);
 	}
+	// A Pokemon that must recharge is locked into "recharge", and Showdown's own
+	// spelling of that choice carries the target of the move before it
+	// (lastMoveTargetLoc: "move recharge +2"). A world rebuilt here has the volatile
+	// but not that target, so its choice list said "move recharge" -- and submitted by
+	// id, Side.chooseMove validates a target before it reaches the locked-move branch
+	// ("[Invalid choice] Can't move: recharge needs a target"). Every world of the turn
+	// failed the same way and the decision fell back to the bot's own move (a ladder
+	// rehearsal with the null search, 2026-10-10). The recharge turn does nothing
+	// whatever it names, so a foe slot serves; one the world already holds is kept.
+	if (pokemon.volatiles.mustrecharge && !(pokemon.lastMoveTargetLoc > 0)) {
+		pokemon.lastMoveTargetLoc = 1;
+	}
 	for (const move of record.moves || []) {
 		const slot = pokemon.moveSlots.find(candidate => candidate.id === id(move.id));
 		if (!slot) continue;

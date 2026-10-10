@@ -159,6 +159,43 @@ def _choice_atoms(choice: str) -> list[str]:
     return (atoms + ["pass", "pass"])[:2]
 
 
+def _forced_slots(legal: Sequence[str]) -> tuple[bool, bool]:
+    """Slots the simulator leaves no choice about: every legal joint choice spells that
+    slot the same way (the second turn of a charged move, a recharge, a lone trapped
+    move, an empty slot)."""
+    pairs = [_choice_atoms(choice) for choice in legal]
+    if not pairs:
+        return False, False
+    return (
+        len({pair[0] for pair in pairs}) == 1,
+        len({pair[1] for pair in pairs}) == 1,
+    )
+
+
+def _same_pair(
+    mapped: Sequence[int], wanted: Sequence[int], forced: Sequence[bool]
+) -> bool:
+    """Is the live pair ``wanted`` a root's pair ``mapped``? Equal -- or, in a slot the
+    simulator leaves no choice about, the same move aimed elsewhere.
+
+    A locked move keeps the target it was first given, and the root spells it with that
+    target. The bot's own action for the same turn names whatever target its mask
+    allows; the server takes the lock's either way. Compared number for number the two
+    never met: the bot's pair could not be found among the root's choices, the turn was
+    searched without the pair it is anchored to, and the null search read a change
+    (2026-10-10: our Solar Beam charged in the rain, then fired at its first target).
+    Move actions are 7 + 5 x (move, gimmick) + target: the same move is the same
+    quotient."""
+    for slot in (0, 1):
+        ours, theirs = int(mapped[slot]), int(wanted[slot])
+        if ours == theirs:
+            continue
+        same_move = ours >= 7 and theirs >= 7 and (ours - 7) // 5 == (theirs - 7) // 5
+        if not (forced[slot] and same_move):
+            return False
+    return True
+
+
 def _switch_species(node: ExactNode, role: str, atom: str) -> str:
     parts = atom.split()
     if len(parts) < 2:
@@ -2662,13 +2699,15 @@ class LiveExactSession:
                 legal = self.bridge.choices(root.node.state, "p1")
             except Exception:
                 legal = []
+            forced = _forced_slots(legal)
             for choice in legal:
                 try:
-                    if self._root_live_actions(root, choice, battle) == wanted:
-                        found = choice
-                        break
+                    mapped = self._root_live_actions(root, choice, battle)
                 except Exception:
                     continue
+                if _same_pair(mapped, wanted, forced):
+                    found = choice
+                    break
             choices.append(found)
         return choices
 
@@ -2855,11 +2894,22 @@ class LiveExactSession:
 
     def _live_actions(self, choice: str, battle: DoubleBattle) -> tuple[int, int]:
         errors: list[str] = []
+        champion = getattr(self, "champion_actions", None)
         for root in self.roots:
-            if choice not in self.bridge.choices(root.node.state, "p1"):
+            legal = self.bridge.choices(root.node.state, "p1")
+            if choice not in legal:
                 continue
             try:
                 actions = self._root_live_actions(root, choice, battle)
+                if (
+                    champion is not None
+                    and actions != tuple(champion)
+                    and _same_pair(actions, champion, _forced_slots(legal))
+                ):
+                    # the bot's own pair, spelled with the lock's target: hand it
+                    # back as the bot spells it, so "the search kept the bot's pair"
+                    # stays an equality everywhere downstream
+                    actions = (int(champion[0]), int(champion[1]))
                 # A reconciled clone may still retain stale trapping or party-order
                 # information. Never trust a simulator-legal switch until poke-env
                 # confirms that the exact pair is legal in the live request.
@@ -2914,13 +2964,14 @@ class LiveExactSession:
             return
         for root in self.roots:
             legal = self.bridge.choices(root.node.state, "p1")
+            forced = _forced_slots(legal)
             match = None
             for choice in legal:
                 try:
                     mapped = self._root_live_actions(root, choice, self.current_battle)
                 except Exception:
                     continue
-                if mapped == wanted:
+                if _same_pair(mapped, wanted, forced):
                     match = choice
                     break
             if match is not None:

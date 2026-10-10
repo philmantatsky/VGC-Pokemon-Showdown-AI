@@ -1,5 +1,66 @@
 # VGC Bot Project Status
 
+## The two fixes the predictor trial asked for, and a third their rehearsal found: a recharging Pokemon no longer breaks a search world, the launcher starts and keeps no session under a closed lid, and the bot's own pair is found on a turn one of our Pokemon is locked into a move (2026-October 10, 12:27)
+
+- **The user (10-10, 11:5x):** "push it and do the two fixes". main was pushed at 11:56
+  (859a20ce..6b49b98c). No ladder game was played; `DEPLOYED.json` is the predictor
+  session's swap (the entry below), not touched here; the search stays off in the
+  deployed bot. Nothing is running.
+- **1. Recharge** (`tools/exact_showdown_bridge.js`). Reproduced on the real simulator
+  before the fix, for the opponent's side and for ours: after Hyper Beam the real
+  game's choice is `move recharge +2`; a world rebuilt from the public snapshot said
+  `move recharge`, and playing it threw "[Invalid choice] Can't move: recharge needs a
+  target". Showdown validates a target for a move submitted by id before it reaches the
+  locked-move branch, and the rebuilt world had the `mustrecharge` volatile without the
+  last target. Now a recharging Pokemon without a foe target gets one (any serves: the
+  turn does nothing). `unit_tests/test_bridge_recharge.py`: both sides, a fresh world
+  and one with its own history; all four cases fail on the old bridge. 312 of the 3,610
+  rosters carry Hyper Beam, so "in none of the 80 ladder games" was luck of the worlds
+  more than rarity.
+- **2. The lid** (`tools/lid_closed.sh`, `tools/ladder_read_loop.sh`). The launcher asks
+  the power manager before every session start and at every look at a playing session
+  (`AppleClamshellState`, and `AppleClamshellCausesSleep`: a lid closed over an external
+  display keeps the machine awake and is left alone). Lid closed: no session starts
+  (`LADDER_ABORT`, status 3); a playing session is stopped (`LID_CLOSED`, then
+  `LADDER_ABORT`, status 3). It is launched again by hand. On 10-09 this would have
+  ended the launcher at its first look after the lid closed (14:09), before any of the
+  three restarts; the third had queued.
+  The price: a lid closed and opened again within the launcher's look at the session
+  costs the game in progress. Tests run the real loop in a tree of its own (false
+  credentials, a stand-in session, an `ioreg` that says what a file says): nothing logs
+  in with the lid closed; a session playing when it closes is gone and nothing
+  restarts. The old loop starts a session with the lid closed.
+- **3. Found by the rehearsal of the first two: the bot's pair on a locked turn**
+  (`vgc_bench/src/live_exact.py`). The null search changed **1 decision of 32** in the
+  first rehearsal. Our Charizard had charged Solar Beam in the opponent's rain; the
+  turn after, the simulator offers that slot one command, the move with the target it
+  was first given (`move solarbeam +1`), and the bot's own action named the other
+  target -- its mask allows both and the server takes the lock's either way. The search
+  compared the two number for number: the bot's pair was not found among a world's
+  choices, the turn was planned without the pair it is anchored to (`champion_choice`
+  null) and the answer came back in the lock's spelling. Nothing was played differently
+  that time; with a real anchor the PARTNER's slot had lost its default on such turns.
+  It is older than today's changes (the rehearsals before never met a charged move of
+  ours). Now a slot every legal choice spells the same way is forced, and there the
+  same move with another target is the same pair (`_forced_slots`, `_same_pair`) --
+  where the bot's pair is looked up, where a searched choice is turned into the bot's
+  action (the bot's own spelling comes back), and where what was played is written back
+  into the worlds. `unit_tests/test_live_exact_locked_move.py`, on the real simulator;
+  on the old code the three lookups read [None], (15, 8) for the bot's (16, 8), and a
+  fallback counted.
+- **Rehearsed after all three** (the ladder script on a local server, null search, the
+  forecast as the reply prior -- since the swap that is the NEW forecast artifact, its
+  first run under the search): eight games against rain and Hyper Beam rosters, **44 of
+  44 decisions searched, 0 changed, the bot's pair kept on all 44**, no fallback; two
+  recharge turns of the opponent searched. p50 3.8 s, p90 7.4 s, max 7.5 s. The first
+  rehearsal (before fix 3): 32 of 32 searched, three recharge turns searched, the one
+  change above. Whole suite 1,998 passed / 5 skipped; ruff clean; pyright clean on the
+  new files (live_exact.py keeps the five complaints it had).
+- **Still open from the trial's list:** the worlds (24% of real replies legal in none),
+  replies with a switch, the Illusion stand-down, and the user's decision on a longer
+  ladder run -- which, with the new forecast artifact, is a new configuration: its own
+  rehearsal at its own anchor and its own pre-registration.
+
 ## The bot's forecast model is swapped at the user's word: the two-network mean retrained on the full download is in `DEPLOYED.json` (shadow mode as before; brain, team, guards, preview unchanged) (2026-October 10, 11:57)
 
 - **The user (10-10, 11:55), asked "swap the bot's forecast model for the two-network average?

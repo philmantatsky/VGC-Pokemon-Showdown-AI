@@ -6,8 +6,11 @@ guard mirror / A/B runners."""
 
 from __future__ import annotations
 
+import os
 import re
+import shutil
 import subprocess
+import time
 from pathlib import Path
 
 import pytest
@@ -220,3 +223,150 @@ def test_the_rehearsal_plays_what_the_ladder_loop_plays_and_reads_no_credentials
     # the driver names a throwaway local guest and makes sure no password is set
     assert 'os.environ.pop("SHOWDOWN_PASSWORD", None)' in driver
     assert "ladder_ourteam.ShowdownServerConfiguration = SERVER" in driver
+
+
+# --- the lid ----------------------------------------------------------------------
+# 2026-10-09: the lid was closed in the middle of a rated game. The launcher's restart
+# logged in and queued in a dark wake seconds before the next sleep: a second rated
+# game abandoned.
+
+LID = '  |   "AppleClamshellState" = {}\n'
+SLEEPS = '  |   "AppleClamshellCausesSleep" = {}\n'
+OPEN = SLEEPS.format("Yes") + LID.format("No")
+CLOSED = SLEEPS.format("Yes") + LID.format("Yes")
+
+
+def _script(path: Path, body: str) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("#!/bin/bash\n" + body)
+    path.chmod(0o755)
+    return path
+
+
+def _fake_tools(tmp_path: Path) -> dict[str, str]:
+    """An ioreg that says what a file says, and no heavy job, on a PATH of its own."""
+    fake = tmp_path / "bin"
+    _script(fake / "ioreg", 'cat "$FAKE_IOREG" 2>/dev/null\n')
+    _script(fake / "pgrep", "exit 1\n")
+    _script(fake / "caffeinate", 'shift\nexec "$@"\n')
+    return {
+        "PATH": f"{fake}:/usr/bin:/bin",
+        "FAKE_IOREG": str(tmp_path / "registry"),
+        "FAKE_PID": str(tmp_path / "session.pid"),
+        "TICK": "1",
+    }
+
+
+@pytest.mark.parametrize(
+    "registry, closed",
+    [
+        (OPEN, False),
+        (CLOSED, True),
+        # a closed lid with a display and power does not sleep: clamshell mode
+        (SLEEPS.format("No") + LID.format("Yes"), False),
+        # closed, and nothing says it stays awake
+        (LID.format("Yes"), True),
+        # a desktop has no lid; an ioreg that answers nothing is no closed lid
+        ("", False),
+        (None, False),
+    ],
+)
+def test_the_lid_helper_reads_the_power_managers_two_keys(tmp_path, registry, closed):
+    helper = ROOT / "tools/lid_closed.sh"
+    subprocess.run(["bash", "-n", str(helper)], check=True)
+    env = _fake_tools(tmp_path)
+    if registry is not None:
+        Path(env["FAKE_IOREG"]).write_text(registry)
+    done = subprocess.run(["bash", str(helper)], env=env, capture_output=True)
+    assert (done.returncode == 0) is closed
+    assert done.stdout == b""
+
+
+def _ladder_tree(tmp_path: Path) -> tuple[Path, dict[str, str]]:
+    """The read loop and its lid helper in a tree of their own: a session that logs in
+    and then only waits, and credentials that are not the real ones -- the loop sources
+    ``../Laplace-Pokemon-Showdown-AI/.env`` relative to where IT lies."""
+    repo = tmp_path / "repo"
+    (repo / "tools").mkdir(parents=True)
+    for name in ("ladder_read_loop.sh", "lid_closed.sh"):
+        shutil.copy2(ROOT / "tools" / name, repo / "tools" / name)
+    assert (
+        'source "../Laplace-Pokemon-Showdown-AI/.env"'
+        in (repo / "tools/ladder_read_loop.sh").read_text()
+    )
+    (tmp_path / "Laplace-Pokemon-Showdown-AI").mkdir()
+    (tmp_path / "Laplace-Pokemon-Showdown-AI/.env").write_text("SHOWDOWN_USERNAME=x\n")
+    _script(
+        repo / ".venv/bin/python",
+        'echo "account : nobody"\necho $$ > "$FAKE_PID"\n'
+        "trap 'exit 0' TERM\nwhile :; do sleep 0.2; done\n",
+    )
+    (repo / "brain.zip").write_text("")
+    (repo / "team.txt").write_text("")
+    return repo, _fake_tools(tmp_path)
+
+
+def _run_loop(repo: Path, env: dict[str, str], during=None) -> tuple[int, str]:
+    """The read loop for one game in the tree, in a process group of its own so that
+    nothing of it outlives the test: a loop that never ends fails, it does not hang."""
+    loop = subprocess.Popen(
+        ["bash", str(repo / "tools/ladder_read_loop.sh"), "brain.zip", "team.txt"]
+        + ["1", "replays"],
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        start_new_session=True,
+    )
+    try:
+        if during is not None:
+            during(loop)
+        out, _ = loop.communicate(timeout=40)
+        return loop.returncode, out
+    finally:
+        try:
+            os.killpg(loop.pid, 9)
+        except ProcessLookupError:
+            pass
+
+
+def test_the_read_loop_starts_no_session_with_the_lid_closed(tmp_path):
+    repo, env = _ladder_tree(tmp_path)
+    Path(env["FAKE_IOREG"]).write_text(CLOSED)
+    status, out = _run_loop(repo, env)
+    assert status == 3, out
+    assert "LADDER_ABORT" in out and "the lid is closed" in out
+    assert "SESSION_START" not in out and "LADDER_DONE" not in out
+    assert not Path(env["FAKE_PID"]).exists()  # nothing logged in
+
+
+def test_the_read_loop_stops_a_playing_session_when_the_lid_closes(tmp_path):
+    repo, env = _ladder_tree(tmp_path)
+    registry, pid_file = Path(env["FAKE_IOREG"]), Path(env["FAKE_PID"])
+    registry.write_text(OPEN)
+
+    def close_the_lid(loop: subprocess.Popen) -> None:
+        deadline = time.monotonic() + 20
+        while not pid_file.exists() and time.monotonic() < deadline:
+            time.sleep(0.1)
+        assert pid_file.exists(), "the session never started with the lid open"
+        time.sleep(1.5)  # it plays; the loop has looked at it at least once
+        assert loop.poll() is None
+        registry.write_text(CLOSED)
+
+    status, out = _run_loop(repo, env, close_the_lid)
+    assert status == 3, out
+    assert out.count("SESSION_START") == 1
+    assert "LID_CLOSED session=1" in out
+    assert "the lid was closed during session 1" in out and "LADDER_DONE" not in out
+    with pytest.raises(ProcessLookupError):
+        os.kill(int(pid_file.read_text()), 0)  # the session is gone
+
+
+def test_the_read_loop_looks_at_a_session_every_twenty_seconds_unless_told():
+    text = (ROOT / "tools/ladder_read_loop.sh").read_text()
+    assert "TICK=${TICK:-20}" in text and 'sleep "$TICK"' in text
+    # both lid checks come before anything is started or restarted
+    start = text.index('echo "SESSION_START')
+    assert text.index("./tools/lid_closed.sh") < start
+    assert text.count("./tools/lid_closed.sh") == 2

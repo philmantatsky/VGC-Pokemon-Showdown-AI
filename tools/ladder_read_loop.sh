@@ -14,6 +14,10 @@
 #   a 10-game canary, an audit, then "25" for the remaining 15. No session is
 #   ever killed mid-game except on a dead socket or a 45-minute idle queue.
 # - A replay dir is single-config (ladder_ourteam.py refuses a changed config).
+# - No session starts, and a playing one is stopped, while the lid is closed and a
+#   closed lid means sleep (tools/lid_closed.sh): a laptop asleep under its lid wakes
+#   for seconds at a time, long enough to log in and queue, never to play. The launcher
+#   then ends with LADDER_ABORT and status 3; it is launched again by hand.
 # - PREVIEW_MODEL (env, set by ladder_deployed.sh from DEPLOYED.json): a learned,
 #   human-trained preview model chooses our four and leads (--learned_preview).
 # - MIXING (env, same source): ladder_ourteam.py mixed-strategy flags, or empty.
@@ -33,6 +37,7 @@ cd "$(dirname "$0")/.."
 CKPT=${1:?checkpoint}; TEAM=${2:?team file}; N=${3:?total games}; DIR=${4:?replay dir}
 GUARDS=${GUARDS:-resisted_target,overkill_split,dominated_weather_ball_weather}
 MAX_SESSIONS=${MAX_SESSIONS:-6}; LOGIN_GRACE=${LOGIN_GRACE:-180}; IDLE_MIN=${IDLE_MIN:-45}
+TICK=${TICK:-20}  # seconds between two looks at a playing session
 HEAVY='vgc_bench[.]train|run_gate_battery|eval_counterfactual[.]py|run_counterfactual_pipeline|generate_counterfactuals|vgc_bench[.]pretrain|logs2trajs|run_team_tournament|run_team_grid|run_team_confirmation|opening_study[.]py|run_t6_|run_set_prior_ablation|run_candidate_vs_t6|learned_preview_study|human_preview|preview_entropy[.]py|mirror_guard_ab|search_roster_ab|run_guard_ab|gen_tactical_data[.]py|tactical_sft[.]py'
 DEAD='keepalive ping timeout|ConnectionClosedError|TimeoutError: timed out while closing|Errno 49|Errno 54|Errno 60|Errno 8\]|nodename nor servname|gaierror|ConnectionRefusedError'
 stamp() { date '+%H:%M:%S'; }
@@ -90,6 +95,10 @@ session=0
 while :; do
   done_n=$(games_done); remaining=$((N - done_n))
   [ "$remaining" -le 0 ] && break
+  if bash ./tools/lid_closed.sh; then
+    echo "LADDER_ABORT [$(stamp)] the lid is closed: no session starts on a laptop that is going to sleep (it would queue a game it cannot play); games_done=$done_n -- open the lid and launch again"
+    exit 3
+  fi
   session=$((session + 1))
   [ "$session" -gt "$MAX_SESSIONS" ] && { echo "LADDER_ABORT [$(stamp)] $MAX_SESSIONS sessions used; games_done=$done_n"; break; }
   LOG="${DIR%/}_$(date +%Y%m%d_%H%M%S)_session$session.log"  # never reuse a name: a relaunch must not overwrite an earlier report
@@ -102,10 +111,14 @@ while :; do
     ${SEARCH_ARGS[@]+"${SEARCH_ARGS[@]}"} \
     ${FORECAST_ARGS[@]+"${FORECAST_ARGS[@]}"} \
     ${PLAYBOOK_ARGS[@]+"${PLAYBOOK_ARGS[@]}"} > "$LOG" 2>&1 &
-  PID=$!; started=$(date +%s); last_games=$done_n; last_change=$started
+  PID=$!; started=$(date +%s); last_games=$done_n; last_change=$started; lid=
   while kill -0 $PID 2>/dev/null; do
-    sleep 20
+    sleep "$TICK"
     now=$(date +%s)
+    if bash ./tools/lid_closed.sh; then
+      echo "LID_CLOSED session=$session [$(stamp)]; stopping the session: a laptop asleep under its lid abandons the game it is in and queues for the next"
+      kill $PID 2>/dev/null; sleep 5; kill -9 $PID 2>/dev/null; lid=1; break
+    fi
     if grep -qE "$DEAD" "$LOG"; then
       echo "SOCKET_DEAD session=$session [$(stamp)]; restarting"
       kill $PID 2>/dev/null; sleep 5; kill -9 $PID 2>/dev/null; break
@@ -126,6 +139,10 @@ while :; do
   wait $PID 2>/dev/null
   grep -h "^record:\|^win rate:\|parse errors" "$LOG" | sed "s/^/SESSION_RECORD $session /"
   echo "SESSION_END $session [$(stamp)] games_done=$(games_done)"
+  if [ -n "$lid" ]; then
+    echo "LADDER_ABORT [$(stamp)] the lid was closed during session $session; games_done=$(games_done) -- open the lid and launch again"
+    exit 3
+  fi
   sleep 15
 done
 echo "LADDER_DONE [$(stamp)] games=$(games_done) wins=$(wins_done)"
