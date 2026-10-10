@@ -52,9 +52,15 @@
   minutes (restored, verified). A counting bug in `evaluation/search_ladder_read.py` (a
   forecast switch could never match) was found by the code map and fixed by the search
   session (859a20ce): the predictor's own eight pairs read 61%, not 56%.
-- **Checked:** the model in the bot is bit-identical under the new code (golden dump of
-  38 arrays; logged forecasts 520 of 520). Test counts and the live check are in the next
-  entry / commit message.
+- **Checked, then brought onto main (06:04, fast-forward to fa87cccc; the search session
+  told first, nothing running):** the model in the bot is bit-identical under the new code
+  (golden dump of 38 arrays; the forecasts the bot logged, 520 of 520 turns);
+  `checks/forecast_shadow_live.py` passed on a local server with the deployed configuration
+  (two games, open and closed sheets, 9 forecasts, no failure counted; server stopped);
+  whole suite on main 1,980 passed / 5 skipped; ruff and pyright clean on the 32 changed
+  files. On 22,463 games of held-out human players the candidate reads fine NLL 1.357,
+  joint top-8 70.0% (count table 1.744 / 47.3%). Not pushed. The worktree
+  `../vgc-bench-oppmodel` is left in place (its data folders are links into this checkout).
 
 ## Correction: the reading tool undercounted the predictor's own eight pairs on every reply holding a switch; corrected, the predictor's own list is level with the search's table (61% against 62%), not behind it (2026-October 10, 01:40)
 

@@ -757,6 +757,13 @@ resamples of whole games.
   was not a first look, see the disclosures). On validation it is worth +0.2 to +0.5 points
   of top-8 and 0.010 nats per two-slot row (10 of 10 folds), on the old ladder games +0.35
   points inside the noise. It is in the code, off unless a consumer asks for pairs.
+- **Held-out human players** (the second confirmation set; the test split of the full build,
+  22,463 games, 300,996 labelled slot-turns; `analysis_20261010/scorecard_v3_final/`): the
+  candidate reads fine NLL 1.357 [1.351, 1.362], top-1 48.3%, top-3 80.4%, joint top-8 70.0%
+  [69.6, 70.3]; the single retrained network 1.377 and 68.9%; the count table of the same
+  build 1.744 and 47.3% (R1: -0.387 [-0.391, -0.384]). The model in the bot cannot be paired
+  on these rows (another build's featurizer); its own scorecard read 61.6% on its test
+  players on 10-05.
 - **The new code serves the model in the bot exactly as the bot did:** the forecast it
   computes for `oppnet_v2_blind` equals the one the bot logged on 520 of 520 turns (964
   slots, 7,676 listed actions, largest difference 0.0000).
