@@ -641,8 +641,9 @@ game-clustered bootstrap, 95% intervals:
   tool ranks pairs as `joint.py` does; the first run went round the tool's own refusal. No
   table was fitted on those games and the fitted coupling is decided by a mechanical rule on
   validation, but **R5b for a candidate that carries a coupling is no longer a first look**.
-  The probe has been repeated on old folders and the tool now refuses sealed games in a
-  direct call too. (2) The same review opened single fresh games to recompute the tool's
+  The probe has been repeated on old folders. (Written at 03:36 as "the tool now refuses
+  sealed games in a direct call too": that became true only with the 04:35 follow-up fix;
+  at the 03:36 checkpoint only the command-line path refused.) (2) The same review opened single fresh games to recompute the tool's
   numbers by hand; what was read there is not recorded. No design choice cites either.
 - *The baseline count tables saw sealed rows.* The table fit on tonight's full dataset
   (`v3full_20261010_f100_tables/fit_report.md`, 01:11-01:56) scores the test split and a
@@ -660,6 +661,17 @@ game-clustered bootstrap, 95% intervals:
   ten ladder games, so the ten opponents of games 31-40 were not yet known and any human-corpus
   games of theirs may be in that model's training rows. The confirmation is therefore given
   twice: on all fresh games and on the 68 played on 10-09 alone.
+
+**Disclosure, 04:41: a checker re-dated three real replay pages for about five minutes.**
+The data folders in the worktree are links into the main checkout, and an own game's date is
+its page's file time. A checking agent copied one such folder with `cp -Rp` (which copied
+the link), and its scratch test then set the file times of three pages of
+`ladder_replays_mc_deployed_T6ctx` (battles 2688390116, 2688391465, 2688392308) to 10-08 /
+10-09 / 10-10, from 04:30:48 to about 04:35. It noticed, and put the times back. Checked
+afterwards by me: the three times equal the ones every dataset build since 10-05 recorded
+(17:07:48, 17:10:01, 17:14:12 on 09-26), the folder holds its 17 files, contents were never
+written, and the scratch link is removed. Nothing of mine read pages by date in that window
+(the dataset build ended 03:51; the fits read no pages).
 
 **Amendments, 04:18.**
 - *(6) the fine-tune on our old ladder games: taken by its own rule, NOT kept.* On the older
