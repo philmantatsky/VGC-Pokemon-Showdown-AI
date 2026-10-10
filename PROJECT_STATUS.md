@@ -55,6 +55,21 @@
     stop. The run is not stopped or steered by an interim number except at the user's
     word; with a look every 25 games, a claim made at whichever look is most favourable
     would not be worth the interval printed beside it.
+- **15:00, at game 41: the platform's announcement on bots, and what follows from it
+  here.** Told by the predictor session and read from the source: Smogon staff's
+  "Initial policy on bots" of 2026-10-09 (smogon.com/forums/threads/3789528, by Django;
+  a reply by chaos). In its own terms it is a direction, not yet a rule: staff would
+  rather work with bot developers than drive them underground (developers are asked to
+  write to chaos); human against human play is to stay the norm and playing a bot is to
+  be the opponent's choice; a registry of self-declared bots is being built and will be
+  mandatory, and running an unregistered bot will be against the rules once it is
+  available; the registry is meant to keep what must be human -- suspect requirements,
+  usage statistics, general laddering -- human. How it will be enforced is undecided
+  ("could be case by case"). Nothing in it forbids a rated game today; everything in it
+  says where a bot on the rated ladder is heading, and the account is the user's.
+  **Done:** the user told at once, first thing; the block under way (to game 75) plays
+  on; **no further block is started without the user's word** -- a hold that fits the
+  amendment above ("stop ... every 25 games and analyze").
 - **Readings, named now:**
   1. *The level -- the reading this run is for.* A win rate on a ladder says little (the
      ladder pairs a player with its own rating); the level a set of games shows is the
