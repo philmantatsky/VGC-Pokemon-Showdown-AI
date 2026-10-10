@@ -225,12 +225,39 @@ function applyPokemon(battle, pokemon, record) {
 		pokemon.lastMove = null;
 		pokemon.lastMoveUsed = null;
 	}
+	// the charging move's own volatile, as a world that played the charge itself has it
+	const charged = pokemon.volatiles.twoturnmove ?
+		pokemon.volatiles[id(pokemon.volatiles.twoturnmove.move)] : null;
 	applyConditions(battle, pokemon, pokemon.volatiles, record.effects || {});
 	const twoTurn = record.effects?.twoturnmove;
-	if (twoTurn?.target_loc !== null && twoTurn?.target_loc !== undefined) {
-		pokemon.lastMoveTargetLoc = Number(twoTurn.target_loc);
-		const moveVolatile = pokemon.volatiles[id(twoTurn.move)];
-		if (moveVolatile) moveVolatile.targetLoc = Number(twoTurn.target_loc);
+	if (twoTurn?.move) {
+		// In Showdown a move between its two turns is TWO volatiles: twoturnmove, which
+		// locks the choice, and one named after the move, which the move looks for --
+		// finding it, it strikes; not finding it, it starts to charge again -- and which
+		// is what keeps a Pokemon in Fly, Dig or Phantom Force out of reach. The
+		// snapshot names only the first, and the list of volatiles is rebuilt from the
+		// snapshot: without this a world took the vanished Pokemon for one that can be
+		// hit and that will charge once more.
+		const moveId = id(twoTurn.move);
+		const moveVolatile = charged && charged.id === moveId ? charged :
+			conditionState(battle, moveId, pokemon, undefined, {duration: twoTurn.duration});
+		pokemon.volatiles[moveId] = moveVolatile;
+		// And it has a target, which the locked choice is spelled with ("move
+		// phantomforce +2"): our own command's, a world's own guess if it played the
+		// charge, else a foe slot -- the opponent's charge turn shows none ("|move|p2a:
+		// Dragapult|Phantom Force||[still]"), and the caller spreads the two slots over
+		// the worlds. A choice spelled without one is rejected when submitted by id
+		// ("[Invalid choice] Can't move: Phantom Force needs a target"): every world of
+		// the turn failed and the decision fell back, nine times in the 65 ladder
+		// games of 2026-10-10 with Struggle.
+		let loc = 0;
+		if (twoTurn.target_loc !== null && twoTurn.target_loc !== undefined) {
+			loc = Number(twoTurn.target_loc);
+		}
+		if (!loc) loc = Number(moveVolatile.targetLoc) || 0;
+		if (!loc) loc = 1;
+		pokemon.lastMoveTargetLoc = loc;
+		moveVolatile.targetLoc = loc;
 	}
 	// A Pokemon that must recharge is locked into "recharge", and Showdown's own
 	// spelling of that choice carries the target of the move before it

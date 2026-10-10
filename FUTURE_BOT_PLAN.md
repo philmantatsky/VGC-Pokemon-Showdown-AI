@@ -339,6 +339,18 @@ ladder, in order:
     its anchor and the null search read 1 changed of 32. Fixed 2026-10-10
     (`_forced_slots`, `_same_pair` in live_exact.py;
     `unit_tests/test_live_exact_locked_move.py`); null search after: 0 of 44.
+  - [x] A Pokemon between the two turns of a move in a rebuilt world (the long run of
+    2026-10-10: nine error fallbacks in 595 decisions, eight of this family): no target
+    in its choice (rejected by id), and only one of its two volatiles -- the world took
+    a vanished Pokemon for one that can be hit and that charges again. Fixed 10-10: the
+    bridge rebuilds both and always a target, the worlds are told our two slots in turn
+    (`_spread_charge_targets`); our own Struggle is no longer named a charged move; a
+    request poke-env refuses fails its world alone
+    (`unit_tests/test_bridge_forced_moves.py`; null search after: 0 changed of 59).
+  - [ ] Open from the same run: why one world held a fifth move (Chilly Reception); an
+    opponent locked into Outrage and its kind is not modelled in a rebuilt world; the
+    table is eight replies wide -- the first 16 of some world would hold the real reply
+    for 72% against 62%.
   - [ ] A team with an Illusion species silences the predictor for the whole game (one
     game in forty); the search then ranks replies with the brain's prior alone.
   - [ ] A table that always holds each slot's Protect reply (neither the brain nor the

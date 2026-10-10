@@ -177,7 +177,17 @@ def state_to_battle(
     # The private request is authoritative for the active Pokemon's *current* move
     # slots. Apply it after base-team enrichment so Transform/Imposter is not reset to
     # Ditto's original Transform-only set.
-    battle.parse_request(request)
+    try:
+        battle.parse_request(request)
+    except AssertionError as exc:
+        # poke-env asserts on a request it cannot square with the Pokemon it holds (a
+        # fifth move: "Error with move chillyreception. Expected self.moves to
+        # contain copycat, metronome ..."). That is one world failing, and the
+        # planner sets a failed world aside; an AssertionError it does not catch, so
+        # this ended the whole decision (2026-10-10, one of 595).
+        raise ActionEncodingError(
+            f"the {role} request does not fit the battle rebuilt from the state: {exc}"
+        ) from exc
     if latest_snapshot is not None:
         from vgc_bench.src.live_snapshot import apply_public_snapshot
 

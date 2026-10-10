@@ -276,7 +276,12 @@ def _pokemon_snapshot(
             forced_request_move = to_id_str(only.get("id") or only.get("move"))
     if must_recharge or forced_request_move == "recharge":
         effects["mustrecharge"] = {"duration": 1}
-    if forced_request_move not in {None, "recharge"}:
+    # Struggle is a forced move too, and no charge: a Pokemon left without a usable
+    # move (Encore, then Disable on the encored move) is offered it by the rules
+    # themselves, in the world as in the game. Named as a charged move here, it reached
+    # the simulator as a lock without a target -- "[Invalid choice] Can't move:
+    # Struggle needs a target" in every world, three decisions on 2026-10-10.
+    if forced_request_move not in {None, "recharge", "struggle"}:
         preparing_move = forced_request_move
     elif request_moves is not None:
         # Our request is authoritative.  A normal move list means no hard charge

@@ -1,5 +1,57 @@
 # VGC Bot Project Status
 
+## The forced-move faults the long run found are fixed: an opponent between the two turns of a move (which a rebuilt world also took for hittable and about to charge again), our own Struggle, and a world the parser refuses (2026-October 10, 16:18)
+
+- **The user (15:58):** "its over, take the final reading and fix the faults". The
+  reading is the entry below. No ladder game was played for this; `DEPLOYED.json` is
+  untouched; the search stays off in the deployed bot.
+- **1. A Pokemon between the two turns of a move** (Phantom Force, a Solar Beam out of
+  the sun, Electro Shot out of the rain) **in a world rebuilt from the snapshot** --
+  five of the nine error fallbacks. Reproduced on the real simulator, and it was three
+  faults, not one:
+  - *No target.* The opponent's charge turn shows none ("|move|p2a: Dragapult|Phantom
+    Force||[still]"), the rebuilt world's choice read `move phantomforce`, and Showdown
+    rejects that by id ("Phantom Force needs a target"): every world of the turn failed.
+  - *Half the effect.* In Showdown a move between its turns is two volatiles:
+    `twoturnmove`, which locks the choice, and one named after the move, which the move
+    looks for (finding it, it strikes; not finding it, it charges again) and which keeps
+    a Pokemon in Phantom Force out of reach. The snapshot names the first; the bridge
+    rebuilds the list of volatiles from the snapshot -- and so also took the second away
+    from worlds that had played the charge themselves. **On every such turn, error or
+    not, ours or theirs, the search's worlds held a vanished Pokemon that could be hit
+    and that would charge once more.**
+  - *An unknown target.* Now the worlds are told a slot each -- our slot a in the even
+    ones, slot b in the odd ones (`_spread_charge_targets`) -- so that between them
+    they hold both; our own charged move keeps our command's target.
+
+  `tools/exact_showdown_bridge.js` (both volatiles, always a target),
+  `vgc_bench/src/live_exact.py`.
+- **2. Struggle** -- three fallbacks, one game: Encore on our Incineroar's Throat Chop,
+  then Disable on Throat Chop, and the same on Torkoal. The snapshot named a forced
+  "struggle" as a charged move, which reached the simulator as a lock without a target.
+  It is no charge: the rules offer Struggle by themselves, in the world as in the game
+  (`vgc_bench/src/live_snapshot.py`).
+- **3. A world the parser refuses** -- one fallback: poke-env's assertion on a request
+  with a fifth move ("Error with move chillyreception"). The planner sets aside a world
+  that raises a ValueError; an AssertionError went through and ended the decision.
+  `state_to_battle` now raises the search's own error (`exact_observation.py`). Why
+  that world held a fifth move is NOT found -- its state was not kept.
+- **Tests, on the real simulator** (`unit_tests/test_bridge_forced_moves.py`, seven; six
+  fail on the code as it was): the rebuilt world spells the locked choice with the slot
+  it was told, holds both volatiles, strikes that slot and does not charge again; a
+  priority attack misses the vanished Dragapult in the game and in the rebuilt world
+  alike; a Garchomp under Encore and Disable is offered Struggle (and a switch) and
+  plays it; the refused request is one world's failure.
+- **Rehearsed** (the ladder script on a local server, null search, forecast prior): ten
+  games against rosters with Phantom Force, Electro Shot, rain and Hyper Beam -- **59
+  of 59 decisions searched, 0 changed, the bot's pair kept on all 59**; among them the
+  decision after an opponent's Electro Shot charge and one after a recharge, both
+  searched. Whole suite 2,011 passed / 5 skipped; ruff clean on what changed (the two
+  long lines `exact_observation.py` had stay); pyright adds no complaint.
+- **Open:** the cause of the fifth move; an opponent locked into Outrage and its kind
+  is not modelled in a rebuilt world (no error -- the world lets it choose); and what
+  the run named as the limit: the worlds and the table's width.
+
 ## The long run's final reading, at 65 games: not separable from the bot's history (+62 [-54, +175] in performance rating); the retrained predictor does not put the real reply in the search's table more often (62% and 62%) (2026-October 10, 16:00)
 
 - **The user (15:58):** "its over, take the final reading and fix the faults". The run

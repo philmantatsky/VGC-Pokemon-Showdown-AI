@@ -159,6 +159,30 @@ def _choice_atoms(choice: str) -> list[str]:
     return (atoms + ["pass", "pass"])[:2]
 
 
+def _spread_charge_targets(snapshot: dict[str, Any], index: int) -> dict[str, Any]:
+    """The snapshot as world number ``index`` is rebuilt from it. An opposing Pokemon
+    between the two turns of a move (Phantom Force, a Solar Beam out of the sun) will
+    strike a target nobody has seen -- its charge turn shows none. The even worlds are
+    told our slot a, the odd ones our slot b, so that between them the worlds hold both
+    instead of all agreeing on a guess. Our own side's target is our command's and is
+    left alone; without such a Pokemon the snapshot comes back as it is."""
+    sides = snapshot.get("sides") or []
+    if len(sides) < 2:
+        return snapshot
+    records, changed = [], False
+    for record in sides[1].get("pokemon") or []:
+        effects = record.get("effects") or {}
+        charge = effects.get("twoturnmove")
+        if charge and charge.get("target_loc") is None:
+            aimed = {**charge, "target_loc": 1 + index % 2}
+            record = {**record, "effects": {**effects, "twoturnmove": aimed}}
+            changed = True
+        records.append(record)
+    if not changed:
+        return snapshot
+    return {**snapshot, "sides": [sides[0], {**sides[1], "pokemon": records}]}
+
+
 def _forced_slots(legal: Sequence[str]) -> tuple[bool, bool]:
     """Slots the simulator leaves no choice about: every legal joint choice spells that
     slot the same way (the second turn of a charged move, a recharge, a lone trapped
@@ -920,7 +944,9 @@ class LiveExactSession:
                 p1_preview=p1_preview,
                 p2_preview=p2_preview,
             )
-            reconciled = self.bridge.reconcile(result["state"], snapshot)
+            reconciled = self.bridge.reconcile(
+                result["state"], _spread_charge_targets(snapshot, index)
+            )
             roots.append(
                 LiveRoot(
                     ExactNode.from_result(reconciled),
@@ -1091,7 +1117,7 @@ class LiveExactSession:
         self.last_reconcile_errors = []
         previous_roots = list(self.roots)
         advanced: list[LiveRoot] = []
-        for root in previous_roots:
+        for index, root in enumerate(previous_roots):
             state = root.node.state
             if self.pending_our_choice is not None:
                 try:
@@ -1134,7 +1160,9 @@ class LiveExactSession:
                         f"advance {root.label}: {type(exc).__name__}: {exc}"
                     )
             try:
-                reconciled = self.bridge.reconcile(state, snapshot)
+                reconciled = self.bridge.reconcile(
+                    state, _spread_charge_targets(snapshot, index)
+                )
             except Exception as exc:
                 self.root_reconcile_failures += 1
                 self.last_reconcile_errors.append(f"{type(exc).__name__}: {exc}")
