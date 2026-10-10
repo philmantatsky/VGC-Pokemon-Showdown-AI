@@ -1,5 +1,53 @@
 # VGC Bot Project Status
 
+## The long run is stopped at the user's word after game 65 (29 wins); interim reading: a level of 1278 [1179, 1371] beside the history's 1217, the real reply in the table 62% as with the old predictor; one family of fault found (2026-October 10, 16:00)
+
+- **The user (15:50):** "stop the ladder after the current game ends". A watcher ended
+  the launcher and then the session the moment the 65th replay was on disk (15:52:57).
+  No further game was started: the public record moved by exactly 29 wins and 36
+  losses (249-240 to 278-276), the rating reads 1294. Nothing is running. Whether the
+  run is over or paused is the user's to say; **the claim reading of the
+  pre-registration is not taken yet** -- what follows is the interim reading the
+  amendment provides for. The predictor session has the machine from now (the user
+  gave it build and test work); a further block needs the user's word and its.
+- **Interim, by block** (`evaluation/ladder_blocks.py`,
+  `results_analysis/search_ladder_20261010/interim/games_065.*`; one configuration
+  played all of it -- a block differs from the last by chance and by where the rating
+  stood):
+
+  | games | won | by forfeit | rating at its first and last game | opponents | level |
+  |---|---|---|---|---|---|
+  | 1-40 | 16 of 40 | 6 | 1409 -> 1237 | 1308 | 1221 |
+  | 41-65 | 13 of 25 | 2 | 1267 -> 1315 | 1351 | 1365 |
+  | all 65 | 29 of 65 | 8 | 1409 -> 1315 (1163 to 1427) | 1324 | **1278 [1179, 1371]** |
+
+  Beside it, fixed before the run: the bot's history without the search 1217
+  [1155, 1278]; the search with the old predictor 1376 [1264, 1503] over 39 games.
+  The intervals overlap both ways. The run began at the account's highest rating,
+  1409, against opponents rated 1272 to 1477, and lost 14 of its first 20.
+- **The search ran:** 580 of 595 decisions searched (97%); p50 2.7 s, max 7.6 s; no
+  game lost on our clock. The new forecast was handed over at every move decision.
+- **The table, hidden sheets:** the opponent's real reply in the table for 221 of 358
+  (62%) -- 59% in the first forty games, 66% in the next twenty-five; the old
+  predictor's trial read 140 of 227 (62%). By what the reply was made of: moves alone
+  147 of 223 (66%), a Protect 75 of 105 (71%; 60% in that trial), a switch 40 of 93
+  (43%; 46%). Sixty-five games do not show the retrained predictor putting the real
+  reply in the table more often.
+- **Overrides:** 55 of 580 searched decisions; the reply then made had been searched
+  for 21 of them: edge +0.45 on the search's own scale, 3 not positive.
+- **Faults found, none fixed during the run (the configuration was frozen):** nine
+  decisions fell back to the bot's own move on an error, eight of them one family -- a
+  move a Pokemon is forced into, spelled without a target in a rebuilt world, the fault
+  3ccdcd5f closed for recharge only. An opponent's two-turn move (Phantom Force three
+  times, Solar Beam, Electro Shot: `ActionEncodingError ... maps slot N to masked
+  action`), and "[Invalid choice] Can't move: Struggle needs a target" three times
+  (`live_snapshot` turns a forced "struggle" into a charged move). The ninth: poke-env's
+  "Error with move chillyreception" (a world's set without a move its log shows). They
+  are the turns on which the opponent's action is known in advance.
+- **Also today:** the platform's announcement on bots (the note in the entry below);
+  the user's answer, relayed by the predictor session and not yet given here: to keep
+  playing until the registry exists.
+
 ## PRE-REGISTERED at the user's word: 300 ladder games of the search with the new predictor as its reply prior; the reading is the level they show (a performance rating) beside the bot's history (2026-October 10, 12:52, before any game)
 
 - **The user (10-10, 12:40):** "run the longer ladder run with the new predictor".
