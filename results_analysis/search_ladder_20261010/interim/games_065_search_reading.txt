@@ -1,0 +1,73 @@
+GAMES 29 of 65 (45%) [33.2, 56.7]
+  hidden sheets: 26 of 55 (47%)
+  open sheets: 2 of 9 (22%)
+
+1. SEARCH  decisions 595  modes {'search': 580, 'search_fallback': 6, 'error_fallback': 9}
+   seconds a decision: p50 2.7  p90 7.4  p99 7.5  max 7.6;  7 s or more: 77 of 580 (13%);  9 s or more: 0
+      6  search_fallback: unsupported_low_prior_override
+      2  error_fallback: determinization search exhausted its budget; live-1:salamence,charizard: ActionEncodingErr
+      2  error_fallback: determinization search exhausted its budget; live-1:incineroar,rillaboom: ExactSimulatorEr
+      1  error_fallback: determinization search exhausted its budget; live-1:garchomp,venusaur: ActionEncodingError
+      1  error_fallback: determinization search exhausted its budget; live-1:whimsicott,pyroar: ActionEncodingError
+      1  error_fallback: determinization search exhausted its budget; live-1:lopunny,alakazam: ActionEncodingError:
+      1  error_fallback: determinization search exhausted its budget; live-1:gengar,rillaboom: ExactSimulatorError:
+      1  error_fallback: Error with move chillyreception. Expected self.moves to contain copycat, metronome, mefirs
+
+2. THE OPPONENT'S REAL REPLY IN THE SEARCH'S TABLE
+   hidden sheets: 221 of 358 (62%) in some world; mean share of worlds holding it 51%
+   open   sheets: 41 of 63 (65%) in some world; mean share of worlds holding it 63%
+   with a switch   40 of 93 (43%)
+   with a protect  75 of 105 (71%)
+   moves only      147 of 223 (66%)
+
+3. OVERRIDES  55 of 580 (9%) of searched decisions, 7 at forced replacements
+   expected edge +0.278 (n 44);  reply was in the table for 21: realized +0.447, not positive in 3
+
+4. THE WORLDS
+   hidden: decisions                            506
+   hidden: fewer than 4 worlds agree            0
+   hidden: no world agrees                      0
+   hidden: worlds redrawn                       79
+   open: decisions                              89
+   open: worlds redrawn                         0
+    428  hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+     43  open | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
+      2  hidden | advance live-5:charizard,kingambit: ActionEncodingError: exact legal choice 'move phantomforce, move
+      2  hidden | advance live-7:salamence,charizard: ActionEncodingError: exact legal choice 'move phantomforce, move
+      2  hidden | advance live-1:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+      2  hidden | advance live-2:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+      2  hidden | advance live-3:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+      2  hidden | advance live-4:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+      2  hidden | advance live-5:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+      2  hidden | advance live-6:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+      2  hidden | advance live-7:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+      2  hidden | advance live-8:incineroar,rillaboom: ExactSimulatorError: Error: [Invalid choice] Can't move: Strugg
+
+5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
+   hidden: table 221 of 358 (62%);  forecast 230 of 355 (65%) by the same rule, 239 of 355 (67%) on moves alone, its first 97 of 355 (27%)
+           both 190, forecast only 40, table only 29, neither 96
+   open  : table 41 of 63 (65%);  forecast 48 of 63 (76%) by the same rule, 49 of 63 (78%) on moves alone, its first 15 of 63 (24%)
+           both 41, forecast only 7, table only 0, neither 15
+
+5b. THE REAL REPLY UNDER OTHER REPLY PRIORS (logged world by world)
+   hidden n=335, within the table's width: table 61% (mass 52%)  brain 32% (mass 24%)  sum25 52% (mass 42%)  sum50 59% (mass 49%)  sum75 61% (mass 52%)  forecast 61% (mass 52%)
+   open n=62, within the table's width: table 65% (mass 64%)  brain 32% (mass 31%)  sum25 52% (mass 50%)  sum50 63% (mass 62%)  sum75 65% (mass 64%)  forecast 68% (mass 63%)
+   within the first k replies of some world:
+      k       brain     sum25     sum50     sum75  forecast
+      1         11%       13%       21%       29%       30%
+      2         18%       23%       35%       41%       42%
+      4         25%       36%       47%       54%       53%
+      6         29%       44%       55%       58%       58%
+      8         32%       52%       59%       62%       62%
+     10         36%       58%       62%       64%       66%
+     12         40%       62%       65%       67%       69%
+     16         46%       66%       69%       71%       72%
+     24         56%       73%       74%       74%       74%
+   the table as played against the brain's ranking alone, same decisions: both 118, played only 128, brain only 8, neither 143;  exact two-sided p 0.0000
+   legal in no world (no prior can list it): 78 of 397 (20%)
+   with a switch   brain 1 of 73 (1%)  sum25 17 of 73 (23%)  sum50 23 of 73 (32%)  sum75 26 of 73 (36%)  forecast 32 of 73 (44%)
+   with a protect  brain 22 of 104 (21%)  sum25 61 of 104 (59%)  sum50 68 of 104 (65%)  sum75 74 of 104 (71%)  forecast 71 of 104 (68%)
+   moves only      brain 103 of 220 (47%)  sum25 129 of 220 (59%)  sum50 144 of 220 (65%)  sum75 146 of 220 (66%)  forecast 143 of 220 (65%)
+
+6. GAMES
+   games with an override: 16 of 37 (43%) won;  without: 13 of 28 (46%)

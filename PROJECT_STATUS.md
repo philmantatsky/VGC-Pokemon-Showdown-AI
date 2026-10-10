@@ -35,6 +35,16 @@
   reply in the table more often.
 - **Overrides:** 55 of 580 searched decisions; the reply then made had been searched
   for 21 of them: edge +0.45 on the search's own scale, 3 not positive.
+- **What limits the table now -- two readings side by side (16:05).** The predictor
+  session scored both artifacts on these 65 games with its own tool and labels: the
+  predictor's own eight likeliest pairs hold the real reply 63% with the old model and
+  71% with the new one, +7.4 points [+3.8, +11.3] (replies with a switch 42% -> 51%) --
+  last night's reading again, on a second fresh set. The search's table reads 62% with
+  either. This side's log says why (`interim/games_065_search_reading.txt`, 5b): **78
+  of 397 real replies (20%) are legal in no world**, and ranked by the forecast alone
+  the reply is within the first 8 of some world for 62%, the first 16 for 72%, the
+  first 24 for 74% -- a ceiling the ranking cannot lift. A better forecast no longer
+  moves the table; the worlds and the table's width of eight do.
 - **Faults found, none fixed during the run (the configuration was frozen):** nine
   decisions fell back to the bot's own move on an error, eight of them one family -- a
   move a Pokemon is forced into, spelled without a target in a rebuilt world, the fault
