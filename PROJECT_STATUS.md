@@ -1,8 +1,8 @@
 # VGC Bot Project Status
 
-## The long run's final reading, at 65 games: not separable from the bot's history (+62 [-54, +175] in performance rating); the retrained predictor does not put the real reply in the search's table more often (62% and 62%) (2026-October 10, 16:12)
+## The long run's final reading, at 65 games: not separable from the bot's history (+62 [-54, +175] in performance rating); the retrained predictor does not put the real reply in the search's table more often (62% and 62%) (2026-October 10, 16:00)
 
-- **The user (16:08):** "its over, take the final reading and fix the faults". The run
+- **The user (15:58):** "its over, take the final reading and fix the faults". The run
   of 12:52 ends at 65 of its 300 games; the readings named before it are taken here,
   once (`results_analysis/search_ladder_20261010/final_level.*`, `final_reading.*`).
   The fixes are the next entry.
