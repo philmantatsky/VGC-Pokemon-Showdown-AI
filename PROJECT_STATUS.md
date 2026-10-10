@@ -1,6 +1,6 @@
 # VGC Bot Project Status
 
-## Predictor trial read at 40 games: 24 of 40 (60%); the real reply is in the search's table 62% of the time with hidden sheets against 37% under the brain's prior (confirmed, p = 3e-12); a quarter of real replies are still legal in no world (2026-October 10, 01:20)
+## Predictor trial read at 40 games: 24 of 40 (60%); the real reply is in the search's table 62% of the time with hidden sheets against 37% under the brain's prior (confirmed, p = 3e-12); a quarter of real replies are still legal in no world (2026-October 10, 01:15)
 
 - **The user (10-10, 00:25):** "continue where u left off" -- the lid open, the laptop on
   AC power. The last ten games played 00:37-01:07 into the same directory with the same
