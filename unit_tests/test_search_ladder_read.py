@@ -5,11 +5,14 @@ predictor expects?", which has to follow the same matching rule as the search's 
 
 from __future__ import annotations
 
+import itertools
 import json
+from typing import Any, cast
 
 import pytest
 
 from evaluation.search_ladder_read import (
+    _forecast_hit,
     forecast_matches,
     forecast_pairs,
     pool,
@@ -20,6 +23,7 @@ from evaluation.search_ladder_read import (
     sign_test,
     wilson,
 )
+from vgc_bench.src.live_exact import ObservedAction, choice_matches_observation
 from vgc_bench.src.oppmodel.runtime import ActionForecast
 
 
@@ -128,6 +132,69 @@ def test_a_forecast_action_matches_by_the_searchs_own_rule():
     # the bucket "some other move" names nothing; a slot that showed nothing fits all
     assert not forecast_matches(("other", "", None), ["move", "protect", None, 0], True)
     assert forecast_matches(("other", "", None), None, True)
+
+
+def test_the_reading_and_the_search_share_one_matching_rule():
+    """Reading 5 sets the predictor's own list beside the search's table "by the same
+    rule". For replies made of moves that rule is the search's own
+    ``choice_matches_observation``, and the reading agrees with it case by case: a
+    target is compared where the command names one; a Mega Evolution that was SEEN must
+    be named, one that is named but was not seen is not held against the entry; a slot
+    that showed nothing fits anything. (Until 2026-10-10 the reading asked for the exact
+    Mega state of both slots, a silent slot counted as not Mega-evolving -- stricter
+    than the table's own check, against the predictor.)"""
+    command = {"auto": "", "foe_a": " +1", "foe_b": " +2"}
+    entries = [
+        ("rockslide", "auto"),
+        ("powergem", "foe_a"),
+        ("powergem", "foe_b"),
+        ("protect", "auto"),
+    ]
+    sightings = [
+        None,  # the slot showed nothing
+        ("rockslide", 2, False),
+        ("rockslide", 1, True),
+        ("powergem", 1, False),
+        ("powergem", 2, True),
+        ("powergem", None, False),
+        ("protect", None, False),
+    ]
+    checked = 0
+    for a, b in itertools.product(entries, repeat=2):
+        for state in ((False, False), (True, False), (False, True)):
+            choice = ", ".join(
+                f"move {move}{command[target]}{' mega' if evolves else ''}"
+                for (move, target), evolves in zip((a, b), state)
+            )
+            pair = [(("move", *a), ("move", *b), state, 1.0)]
+            for seen in itertools.product(sightings, repeat=2):
+                actions = {
+                    slot: ObservedAction("move", *what)
+                    for slot, what in enumerate(seen)
+                    if what is not None
+                }
+                logged = {
+                    slot: [act.kind, act.identifier, act.target, act.mega]
+                    for slot, act in actions.items()
+                }
+                searchs = choice_matches_observation(
+                    cast(Any, None), "p2", choice, actions
+                )
+                assert _forecast_hit(pair, logged, True, True) == searchs, (
+                    choice,
+                    logged,
+                )
+                checked += 1
+    assert checked == 16 * 3 * 49
+    # the two cases the old rule got wrong, spelled out
+    silent_partner = {0: ["move", "protect", None, False]}
+    protect, gem = ("move", "protect", "auto"), ("move", "powergem", "foe_b")
+    evolving_partner = [(protect, gem, (False, True), 1.0)]
+    assert _forecast_hit(evolving_partner, silent_partner, True, True)
+    unseen_mega = [(protect, gem, (True, False), 1.0)]
+    assert _forecast_hit(unseen_mega, silent_partner, True, True)
+    seen_mega = {0: ["move", "protect", None, True]}
+    assert not _forecast_hit(evolving_partner, seen_mega, True, True)
 
 
 def test_replies_are_told_apart_by_what_they_are_made_of():

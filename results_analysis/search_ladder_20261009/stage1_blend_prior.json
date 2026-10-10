@@ -113,7 +113,7 @@
   "hidden: table": 1,
   "hidden: forecast": 2,
   "hidden: forecast, moves only": 2,
-  "hidden: forecast top 1": 0,
+  "hidden: forecast top 1": 1,
   "hidden: both": 1,
   "hidden: neither": 1,
   "hidden: forecast only": 1,
@@ -121,7 +121,7 @@
   "open: table": 9,
   "open: forecast": 19,
   "open: forecast, moves only": 19,
-  "open: forecast top 1": 12,
+  "open: forecast top 1": 14,
   "open: neither": 5,
   "open: forecast only": 10,
   "open: both": 9

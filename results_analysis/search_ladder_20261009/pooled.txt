@@ -6,7 +6,7 @@ ALL  22 of 40 (55%) [39.8, 69.3]
   hidden sheets: 20 of 35 (57%)
   open sheets: 2 of 5 (40%)
   decisions 316, searched 289 of 316 (91%), overrides 27 of 289 (9%) of searched (2 at replacements)
-  real reply, hidden: in the table 64 of 175 (37%);  in the forecast's eight 90 of 172 (52%);  both 40, forecast only 50, table only 22, neither 60
+  real reply, hidden: in the table 64 of 175 (37%);  in the forecast's eight 94 of 172 (55%);  both 41, forecast only 53, table only 21, neither 57
   real reply, open: in the table 14 of 30 (47%);  in the forecast's eight 21 of 30 (70%);  both 11, forecast only 10, table only 3, neither 6
   games with an override: 9 of 18 (50%)
   games without: 13 of 22 (59%)

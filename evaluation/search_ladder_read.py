@@ -189,11 +189,24 @@ def forecast_matches(action: tuple, observed: list | None, strict: bool) -> bool
     return seen < 0 if wanted is None else seen == wanted
 
 
-def _forecast_hit(pairs: list[tuple], observed: dict, strict: bool, megas=None) -> bool:
+def _forecast_hit(
+    pairs: list[tuple], observed: dict, strict: bool, mega: bool = False
+) -> bool:
+    """Is the reply seen among these joint replies? With ``mega``, Mega Evolution is
+    compared as the search's own check compares it (``live_exact.
+    choice_matches_observation``): a slot SEEN Mega-evolving must be named as
+    Mega-evolving, and nothing else -- a slot that showed nothing fits any entry, and so
+    does an entry that names a Mega Evolution nobody saw."""
+
+    def named(state: tuple | None, slot: int) -> bool:
+        seen = observed.get(slot)
+        return not (mega and seen and seen[3]) or bool(state and state[slot])
+
     return any(
         forecast_matches(a, observed.get(0), strict)
         and forecast_matches(b, observed.get(1), strict)
-        and (megas is None or state == megas)
+        and named(state, 0)
+        and named(state, 1)
         for a, b, state, _ in pairs
     )
 
@@ -379,18 +392,15 @@ def read(directory: Path, ours: str = OUR_NAME) -> dict[str, Any]:
                     tally[f"{sheets}: no forecast"] += 1
                 else:
                     observed = {int(k): v for k, v in cov["observed"].items()}
-                    megas = tuple(
-                        bool((observed.get(s) or [0, 0, 0, 0])[3]) for s in (0, 1)
-                    )
                     with_mega = forecast_pairs(forecast, mega=True)
                     plain = forecast_pairs(forecast, mega=False)
-                    same = _forecast_hit(with_mega, observed, True, megas)
+                    same = _forecast_hit(with_mega, observed, True, True)
                     tally[f"{sheets}: forecast"] += int(same)
                     tally[f"{sheets}: forecast, moves only"] += int(
                         _forecast_hit(plain, observed, False)
                     )
                     tally[f"{sheets}: forecast top 1"] += int(
-                        _forecast_hit(with_mega[:1], observed, True, megas)
+                        _forecast_hit(with_mega[:1], observed, True, True)
                     )
                     key = ("both", "table only", "forecast only", "neither")[
                         (0 if in_table else 2) + (0 if same else 1)

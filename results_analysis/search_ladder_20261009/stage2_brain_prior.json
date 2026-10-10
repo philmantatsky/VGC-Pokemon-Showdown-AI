@@ -180,10 +180,11 @@
  "forecast": {
   "hidden: replies": 88,
   "hidden: table": 32,
-  "hidden: forecast": 49,
+  "hidden: forecast": 51,
   "hidden: forecast, moves only": 53,
-  "hidden: forecast top 1": 21,
-  "hidden: neither": 30,
+  "hidden: forecast top 1": 23,
+  "hidden: forecast only": 28,
+  "hidden: neither": 28,
   "open: replies": 6,
   "open: table": 5,
   "open: forecast": 2,
@@ -193,7 +194,6 @@
   "open: table only": 3,
   "open: neither": 1,
   "hidden: both": 23,
-  "hidden: forecast only": 26,
   "hidden: table only": 9
  },
  "priors": {

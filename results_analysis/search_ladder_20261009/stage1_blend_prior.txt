@@ -26,9 +26,9 @@ GAMES 3 of 5 (60%) [23.1, 88.2]
       7  hidden | ExactSimulatorError: Error: Could not uniquely map snapshot Pokemon <species>
 
 5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
-   hidden: table 1 of 3 (33%);  forecast 2 of 3 (67%) by the same rule, 2 of 3 (67%) on moves alone, its first 0 of 3 (0%)
+   hidden: table 1 of 3 (33%);  forecast 2 of 3 (67%) by the same rule, 2 of 3 (67%) on moves alone, its first 1 of 3 (33%)
            both 1, forecast only 1, table only 0, neither 1
-   open  : table 9 of 24 (38%);  forecast 19 of 24 (79%) by the same rule, 19 of 24 (79%) on moves alone, its first 12 of 24 (50%)
+   open  : table 9 of 24 (38%);  forecast 19 of 24 (79%) by the same rule, 19 of 24 (79%) on moves alone, its first 14 of 24 (58%)
            both 9, forecast only 10, table only 0, neither 5
 
 6. GAMES

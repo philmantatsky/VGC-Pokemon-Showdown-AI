@@ -204,13 +204,13 @@
  "forecast": {
   "hidden: replies": 84,
   "hidden: table": 31,
-  "hidden: forecast": 39,
+  "hidden: forecast": 41,
   "hidden: forecast, moves only": 45,
-  "hidden: forecast top 1": 18,
-  "hidden: neither": 29,
-  "hidden: both": 16,
-  "hidden: forecast only": 23,
-  "hidden: table only": 13,
+  "hidden: forecast top 1": 19,
+  "hidden: neither": 28,
+  "hidden: both": 17,
+  "hidden: forecast only": 24,
+  "hidden: table only": 12,
   "hidden: no forecast": 3
  },
  "priors": {

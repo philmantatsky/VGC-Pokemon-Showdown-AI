@@ -1,5 +1,44 @@
 # VGC Bot Project Status
 
+## The search is unchanged by the predictor merge (null search 0 changed of 29); reading 5 cross-checked against the predictor session's own tool -- its Mega rule was stricter than the search's, fixed; the rest of the difference is the target rule (2026-October 10, 06:20)
+
+- **After the predictor session's merge** (fa87cccc; 10 commits of predictor files and
+  documents, no search, launcher or ladder file): the ladder script on a local server
+  with the null search and the forecast as the reply prior, the deployed artifact, six
+  games -- **29 of 29 decisions searched, 0 changed**, the forecast handed over at all
+  25 move decisions, p50 2.7 s, max 7.5 s, as before the merge. The 48 tests where the
+  search meets the forecast pass.
+- **Two tools, one question.** The predictor session's `evaluation/
+  oppmodel_ladder_read.py` applies "the search session's matching rule" to the same
+  decisions with its own labels, read from the replay pages. It counts the same 439
+  decisions in the four directories and the same open-sheet result (32 of 49). With
+  hidden sheets it reads 241 of 385; reading 5 read 224 of 390. Seventeen decisions,
+  taken apart on this side:
+  - *Five were a second flaw in reading 5.* It asked for the exact Mega state of both
+    slots and counted a slot that showed nothing as not Mega-evolving -- a Staraptor
+    that Mega-evolved and then flinched made its own first guess a miss. The search's
+    check of its table (`choice_matches_observation`) asks only that a Mega Evolution
+    that was SEEN is named. Reading 5 now applies exactly that; a test holds it against
+    the search's own function over 2,352 cases.
+  - *About eleven are the target rule, left as it is.* Reading 5 and the table both
+    compare the target the log shows with the one the command names; the other tool
+    matches on the move when the logged target is not certainly the one chosen (a move
+    retargeted after a knock-out). With targets ignored reading 5 counts 240 of 390,
+    beside their 241 of 385. For the predictor alone their number is the better one;
+    beside the table reading 5's is the like-for-like one, because the table is counted
+    the same way.
+- **Reading 5, final, hidden sheets:** predictor trial 135 of 218 (62%), first guess 55
+  (25%); both 109, forecast only 26, table only 27, neither 56. At 30 games 106 of 170.
+  First trial pooled 94 of 172 (55%); both 41, forecast only 53, table only 21, neither
+  57; its second stage 51 of 88 (58%). The readings under
+  `results_analysis/search_ladder_20261009/` are regenerated once more (the forecast
+  block only). The table as played, 5b and the pre-registered reading are untouched.
+- **For the decision about a longer ladder run:** the retrained predictor (the entry
+  below) holds the real pair in its top eight on 70% of these games against 62%, and
+  replies with a switch -- the search's weakest kind -- 57% against 41%. Reading it is a
+  new configuration for the search (its weight was chosen with the old model): its own
+  rehearsal and pre-registration, at the user's word.
+
 ## Opponent predictor read on the real ladder games, retrained on the finished download and averaged: fine NLL 1.551 -> 1.383 on 78 fresh ladder games, the opponent's real pair of actions in its top eight 62% -> 70% (2026-October 10, 06:02)
 
 - **The user (10-10, about 00:25):** "check out how the predictor did [on the ladder games]
@@ -88,6 +127,9 @@
     forecast only 50, table only 22, neither 60 [37 / 38 / 25 / 72]. Its fifteen
     second-stage games: 49 of 88 (56%) [41, 47%]; both 23, forecast only 26, table only
     9, neither 30 [21 / 20 / 11 / 36]. Open sheets unchanged (21 of 30).
+  - *[06:20, the entry at the top: these moved once more by one to four decisions when
+    the Mega rule was set to the search's own -- 135 of 218, 106 of 170, 94 of 172, 51
+    of 88.]*
 - **Fixed with a test** that builds the forecast record with the runtime's own class
   (on the old code the likeliest pair reads ("switch", "") and no double switch is
   among the pairs). Every reading under `results_analysis/search_ladder_20261009/` is
@@ -143,11 +185,12 @@
     alone a reply with a switch is the weakest kind: within the table's width for 13 of
     40 (32%) as played, 1 of 40 under the brain's prior, 16 of 40 under the forecast alone.
   - Open sheets (three games): 9 of 19 (47%).
-  - The predictor's own eight likeliest pairs, same decisions, hidden sheets: 134 of 218
-    (61%), its first guess 51 of 218 (23%); level with the table as played (table only
-    28, forecast only 26). *[Corrected 01:40, the entry above: first written as 121
-    (56%), 45 (21%), "the table holds the reply more often" -- the reading tool could
-    not match a forecast switch.]*
+  - The predictor's own eight likeliest pairs, same decisions, hidden sheets: 135 of 218
+    (62%), its first guess 55 of 218 (25%); level with the table as played (table only
+    27, forecast only 26). *[Corrected 01:40 and 06:20, the entries above: first written
+    as 121 (56%), 45 (21%), "the table holds the reply more often" -- the reading tool
+    could not match a forecast switch, and its Mega rule was stricter than the
+    search's.]*
   - Weight: the logged rankings put the reply within the table's width for 60% at the
     played 0.75, 61% under the forecast alone, 55% at 0.5, 37% under the brain alone
     (203 hidden-sheet decisions). Nothing here asks for another weight.
@@ -338,8 +381,9 @@
   the real reply 75 times in 172 with hidden sheets (44%) and 21 in 30 with open ones
   (70%), and the two lists miss different replies (hidden: both 37, the predictor alone
   38, the table alone 25, neither 72). *[Corrected 10-10, top of the log: the reading
-  tool could not match a forecast switch. Hidden sheets 90 of 172 (52%); both 40, the
-  predictor alone 50, the table alone 22, neither 60.]*
+  tool could not match a forecast switch and was stricter about Mega Evolution than the
+  search. Hidden sheets 94 of 172 (55%); both 41, the predictor alone 53, the table
+  alone 21, neither 57.]*
 - **5b. The measurement the last twenty games were for** (`reply_coverage.priors`, 75
   hidden-sheet decisions; every legal reply of every searched world ranked by the
   brain's prior, by the forecast, and by sums of the two; the logged brain ranking
@@ -551,8 +595,8 @@
   - *Why the measuring mode.* In the fifteen games the real reply was in the search's
     table in 32 of 88 hidden-sheet decisions (36%) and in the forecast's own eight
     likeliest in 41 (47%) -- and they miss different replies: both 21, the forecast
-    alone 20, the table alone 11, neither 36 *[corrected 10-10, top of the log: 49
-    (56%); both 23, the forecast alone 26, the table alone 9, neither 30]*. A reply
+    alone 20, the table alone 11, neither 36 *[corrected 10-10, top of the log: 51
+    (58%); both 23, the forecast alone 28, the table alone 9, neither 28]*. A reply
     with a switch in it was in the table 6 times in 22 (the opponents switched in 23%
     of the replies seen; the brain in their seat hardly expects it). Which mixture
     would cover most cannot be read from the logs as they were; the last twenty games

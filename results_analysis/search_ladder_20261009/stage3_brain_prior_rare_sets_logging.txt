@@ -25,8 +25,8 @@ GAMES 11 of 20 (55%) [34.2, 74.2]
      17  hidden | root refresh: ExactSimulatorError: TypeError: Cannot read properties of undefined (reading 'moveSlot
 
 5. THE PREDICTOR'S OWN EIGHT LIKELIEST REPLY PAIRS, SAME DECISIONS
-   hidden: table 31 of 84 (37%);  forecast 39 of 81 (48%) by the same rule, 45 of 81 (56%) on moves alone, its first 18 of 81 (22%)
-           both 16, forecast only 23, table only 13, neither 29
+   hidden: table 31 of 84 (37%);  forecast 41 of 81 (51%) by the same rule, 45 of 81 (56%) on moves alone, its first 19 of 81 (23%)
+           both 17, forecast only 24, table only 12, neither 28
 
 5b. THE REAL REPLY UNDER OTHER REPLY PRIORS (logged world by world)
    hidden n=75, within the table's width: table 32% (mass 20%)  brain 32% (mass 20%)  sum25 48% (mass 40%)  sum50 48% (mass 41%)  sum75 53% (mass 42%)  forecast 51% (mass 44%)
