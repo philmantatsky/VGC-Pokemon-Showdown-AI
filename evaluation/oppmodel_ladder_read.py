@@ -13,7 +13,36 @@ directories itself (every ``ladder_replays_mc*`` under the repo root, or under
 ``--fresh-root``, that holds a page dated on or after that day) and leaves
 older pages out; with ``--dir`` it only allows the named directories to hold
 sealed games. Without ``--fresh`` a reading that would hold a sealed game is
-refused before anything is scored.
+refused before anything is scored. The refusal is in ``read_games`` itself,
+not only in the command line: a script that calls ``read_games`` on a sealed
+page without ``fresh=True`` gets ``LadderReadError``, and the page is never
+driven (no state, no label is made of it).
+
+ONE DAY OF THE SEALED SET. ``--since D`` keeps the pages dated D or later,
+``--until D`` the pages dated BEFORE D (local time; D is ``YYYY-MM-DD`` or
+``YYYY-MM-DDTHH:MM``), and both combine with ``--fresh``. The confirmation on
+the games of 2026-10-09 alone (a model built before the games of 10-10 were
+played did not know those opponents, so its training rows may hold them) is:
+
+    nice -n 19 .venv/bin/python evaluation/oppmodel_ladder_read.py --fresh \\
+        --until 2026-10-10 --fresh-root ../vgc-bench \\
+        --artifact deployed=results_oppmodel/oppnet_v2_blind/artifact.pt \\
+        --artifact new=<path> --reference deployed --out <a new directory>
+
+Without ``--until`` the same line reads every sealed game. The reading stores
+both filters (``input.filters``) and the date of every game it kept.
+
+WHOSE SHEETS BUILT THE SET TABLE. A layout-version-2 artifact whose network
+reads the set prior carries a set table built from players' open team sheets.
+For every such artifact the reading asks the artifact itself
+(``Featurizer.set_table_holds``, by a crc32 of the account id) whether the
+opponent of each scored game is among the accounts whose sheets built the
+table: ``contributors`` (yes: that player's own sets are inside the model's
+inputs, so the reading on those games is NOT held out), ``not_contributors``
+and ``unknown`` (the table does not record its accounts, or the page names no
+opponent). A contributor is a leak: it is counted, its games are listed, a
+WARNING line is logged and stands at the top of the report. The reading is
+still written: the count is the finding.
 
 What is read, per replay directory of the bot's own games:
 
@@ -307,6 +336,15 @@ DEFINITIONS = {
     "probability of every fine action the log lists (move x target, switch "
     "destination, the OTHER bucket) here against the forecast the bot logged "
     "at the same turn of the same directory (four digits)",
+    "set_table": "for an artifact whose featurizer holds a set table (the set "
+    "prior of layout version 2): artifact.set_table.games counts the scored "
+    "games whose opponent IS among the accounts whose team sheets built the "
+    "table (contributors: a leak, the model is given that player's own sets), "
+    "is not, or cannot be told (the table records no accounts, or the page "
+    "names no opponent). Asked of the artifact itself by a crc32 of the "
+    "account id, so a contributor is 'this account or one with its hash'. "
+    "games[i].set_table_holds[label] is the answer per game; null for an "
+    "artifact without a set table",
     "per-game rows": "games[i].artifacts[label] holds sums, so any share of "
     "the headline can be rebuilt for a subset of games: fine_top1 / "
     "fine_labels, joint_top8 / joint_counted, switch_observed / switch_known, "
@@ -856,6 +894,7 @@ def read_games(
     include_unrated: bool = False,
     own_sheet: str = OWN_SHEET_FILE,
     formats: Sequence[str] = DEFAULT_FORMATS,
+    fresh: bool = False,
 ) -> tuple[list[Game], dict[str, Any]]:
     """The games to score, and what was found and left out (by reason).
 
@@ -866,6 +905,14 @@ def read_games(
     logged, and carries two tables for the scoring, both keyed by (directory,
     battle id, turn): ``_forecasts`` (the logged forecasts) and ``_search``
     (how many times a search session's reading counts the decision).
+
+    THE SEALED SET. A page dated on or after ``FRESH_SINCE`` that passes the
+    filters is confirmation data. Without ``fresh=True`` it is never driven
+    (no state and no label is made of it) and the call raises
+    ``LadderReadError`` once every page has been looked at, saying how many
+    there are. This function is the guard, so a script that calls it directly
+    is refused like the command line. ``until=FRESH_SINCE`` leaves those
+    pages out instead: an ordinary reading of the older games.
     """
     if own_sheet not in (OWN_SHEET_FILE, OWN_SHEET_NONE):
         raise LadderReadError(
@@ -880,6 +927,8 @@ def read_games(
     if twice:
         raise LadderReadError(f"replay directory given twice: {', '.join(twice)}")
     first, last = _day_start(since, "--since"), _day_start(until, "--until")
+    seal = _day_start(FRESH_SINCE, "the sealed set's first day") or 0.0
+    sealed_unasked = 0
     wanted = _game_ids(games)
     corpus = PageCorpus(root, directories, formats, own_sheet == OWN_SHEET_FILE)
     bots = corpus.bot_accounts()
@@ -897,6 +946,10 @@ def read_games(
             continue
         if last is not None and (raw.time is None or raw.time >= last):
             skipped["filter:at or after --until"] += 1
+            continue
+        if not fresh and raw.time is not None and raw.time >= seal:
+            # Sealed and not asked for: counted, never driven.
+            sealed_unasked += 1
             continue
         result = drive(raw)
         reason = drop_reason(raw, result, formats, bots)
@@ -929,6 +982,12 @@ def read_games(
                 both_sheets=state == OPEN and bool(raw.sheets_known),
                 result=result,
             )
+        )
+    if sealed_unasked:
+        raise LadderReadError(
+            f"{sealed_unasked} of the pages to read are dated on or after "
+            f"{FRESH_SINCE}: the sealed confirmation set. Give --fresh "
+            f"(fresh=True) to read it, or --until {FRESH_SINCE} to leave it out"
         )
     # One order whatever order the directories were given in (the resampling
     # of games depends on it): by battle id, then by directory.
@@ -1899,6 +1958,87 @@ def fresh_directories(
     return out
 
 
+def set_table_check(
+    loaded: Any, games: Sequence[Game]
+) -> tuple[dict[str, Any] | None, list[bool | None]]:
+    """Whether the opponents of the scored games built the artifact's set
+    table: (the summary, the answer per game); (None, []) for an artifact
+    whose featurizer holds no set table.
+
+    Per game ``Featurizer.set_table_holds(account id of the opponent)``: True
+    = that account's team sheets are among those the table was built from (a
+    LEAK: the model is given the player's own sets), False = not, None = not
+    known (the table does not record its accounts, or the page names no
+    opponent account). Counted over games and over distinct opponent
+    accounts. Never raises: a featurizer that cannot be asked answers None
+    for every game and says why.
+    """
+    featurizer = getattr(loaded, "featurizer", None)
+    if featurizer is None or getattr(featurizer, "set_table", None) is None:
+        return None, []
+    why = ""
+    answers: list[bool | None] = []
+    by_account: dict[str, bool | None] = {}
+    without_account = 0
+    for game in games:
+        account = str((game.result.player_ids or {}).get(game.opponent) or "")
+        answer: bool | None = None
+        if not account:
+            without_account += 1
+        else:
+            try:
+                held = featurizer.set_table_holds(account)
+                answer = None if held is None else bool(held)
+            except Exception as exc:
+                why = f"set_table_holds failed: {type(exc).__name__}"
+            by_account[account] = answer
+        answers.append(answer)
+    accounts = getattr(featurizer, "set_accounts", None)
+    if accounts is None and not why:
+        why = "the set table does not record whose sheets built it"
+
+    def tally(values: Sequence[bool | None]) -> dict[str, int]:
+        return {
+            "contributors": sum(1 for value in values if value is True),
+            "not_contributors": sum(1 for value in values if value is False),
+            "unknown": sum(1 for value in values if value is None),
+        }
+
+    counted = tally(answers)
+    summary = {
+        "signature": getattr(featurizer, "set_prior_signature", None),
+        "accounts_recorded": None if accounts is None else len(accounts),
+        "games": counted,
+        "opponent_accounts": tally(list(by_account.values())),
+        "games_without_an_opponent_account": without_account,
+        "why_unknown": why,
+        "leak": bool(counted["contributors"]),
+        "contributor_battles": [
+            f"battle-{game.battle_id}"
+            for game, answer in zip(games, answers)
+            if answer is True
+        ],
+    }
+    return summary, answers
+
+
+def set_table_warning(label: str, found: Mapping[str, Any] | None) -> str:
+    """The warning line of an artifact whose set table holds a scored
+    opponent's own sheets; '' when there is nothing to warn about."""
+    if not found or not (found.get("games") or {}).get("contributors"):
+        return ""
+    games = found["games"]
+    total = sum(int(games.get(name) or 0) for name in games)
+    accounts = (found.get("opponent_accounts") or {}).get("contributors")
+    return (
+        f"WARNING: SET-TABLE LEAK in {label}: the opponents of "
+        f"{games['contributors']} of the {total} scored games ({accounts} "
+        "accounts) are among the players whose team sheets built this "
+        "artifact's set table, so the model is given their own sets. Its "
+        "numbers on those games are not a held-out reading"
+    )
+
+
 def code_state(root: Path = ROOT) -> dict[str, Any]:
     """What produced a reading besides the artifacts: the commit, and the
     sha256 of this script, the scorecard, the dataset builder and every
@@ -2028,6 +2168,7 @@ def run(
         games=games,
         include_unrated=include_unrated,
         own_sheet=own_sheet,
+        fresh=fresh,
     )
     logged = info.pop("_forecasts")
     search = info.pop("_search")
@@ -2073,6 +2214,9 @@ def run(
         "definitions": dict(DEFINITIONS),
         "input": info,
         "order": labels,
+        # Lines for the top of the report (a set table that holds a scored
+        # opponent's own sheets). Empty when there is nothing to warn about.
+        "warnings": [],
         "artifacts": {},
         "paired": {},
     }
@@ -2103,6 +2247,14 @@ def run(
             "joint": f"coupled: {made.coupling}" if made.coupling else JOINT_PRODUCT,
             "coupling": None if pair is None else pair.describe(),
         }
+        # Are the scored opponents among the players whose sheets built the
+        # artifact's set table? None for an artifact without one.
+        table_check, held = set_table_check(loaded, kept)
+        found["artifact"]["set_table"] = table_check
+        warning = set_table_warning(label, table_check)
+        if warning:
+            reading["warnings"].append(warning)
+            log(warning)
         found["search_decisions_joined"] = int(np.asarray(made.search).sum())
         found["live_log"] = live_check(made, kept, logged, loaded.name)
         reading["artifacts"][label] = found
@@ -2113,6 +2265,8 @@ def run(
                 value = float(values[position]) if position < len(values) else 0.0
                 cells[name] = value if name.endswith("_sum") else int(round(value))
             row.setdefault("artifacts", {})[label] = cells
+            if table_check is not None and position < len(held):
+                row.setdefault("set_table_holds", {})[label] = held[position]
         block = found["splits"][ALL]
         log(
             f"{label} ({loaded.kind} {loaded.name}): {block['slot_turns']} labelled "
@@ -2161,6 +2315,25 @@ def _interval(found: Mapping[str, Any] | None, percent: bool = False) -> str:
     return SC._bracket(found)
 
 
+def _set_table_text(found: Mapping[str, Any] | None) -> str:
+    """What the set-table check found, for an artifact's line of the report;
+    '' for an artifact without a set table (and for an older reading)."""
+    if not found:
+        return ""
+    games = found.get("games") or {}
+    text = (
+        "; set table: the opponents of "
+        f"{games.get('contributors', 0)} scored games are contributors "
+        f"(a leak), of {games.get('not_contributors', 0)} are not, "
+        f"{games.get('unknown', 0)} unknown"
+    )
+    if found.get("why_unknown") and games.get("unknown"):
+        text += f" ({found['why_unknown']})"
+    if found.get("contributor_battles"):
+        text += "; contributors' games: " + ", ".join(found["contributor_battles"])
+    return text
+
+
 def _shown_contexts(reading: Mapping[str, Any]) -> list[str]:
     """Contexts with a turn in them; "not open" only when it is not "closed"."""
     first = reading["artifacts"][reading["order"][0]]["splits"]
@@ -2178,6 +2351,9 @@ def render_markdown(reading: Mapping[str, Any]) -> str:
     games = list(reading.get("games") or [])
     contexts = _shown_contexts(reading)
     lines = ["# Opponent predictor: read on the bot's own ladder games", ""]
+    # A reading of an earlier version has no such entry: nothing was checked.
+    for warning in reading.get("warnings") or []:
+        lines += [f"**{warning}.**", ""]
     if reading.get("note"):
         lines += [f"**{reading['note']}**", ""]
     lines += [
@@ -2355,6 +2531,7 @@ def render_markdown(reading: Mapping[str, Any]) -> str:
             f"sha256 `{str(entry['sha256'])[:12]}`, {entry['n_cand']} candidates"
             + (", dex differs" if entry["dex_signature_diff"] else "")
             + f"); joint lists: {entry.get('joint', JOINT_PRODUCT)}"
+            + _set_table_text(entry.get("set_table"))
         )
     lines.append("")
     coupled = [
@@ -2702,8 +2879,39 @@ def render_markdown(reading: Mapping[str, Any]) -> str:
 # --- command line ---------------------------------------------------------------
 
 
+def _day_after(day: str) -> str:
+    """The local day after ``YYYY-MM-DD`` (noon of the next day, so a clock
+    change cannot move it)."""
+    start = _day_start(day, "the day") or 0.0
+    return time.strftime("%Y-%m-%d", time.localtime(start + 36 * 3600))
+
+
+# ``--until`` of this day, with ``--fresh``, reads the sealed set's first day alone.
+FRESH_FIRST_DAY_UNTIL = _day_after(FRESH_SINCE)
+HELP_EPILOG = f"""the sealed set (ladder games dated on or after {FRESH_SINCE}):
+
+  every sealed game:
+    evaluation/oppmodel_ladder_read.py --fresh --fresh-root ../vgc-bench \\
+        --artifact deployed=results_oppmodel/oppnet_v2_blind/artifact.pt \\
+        --artifact new=<path> --reference deployed --out <a new directory>
+
+  the games of {FRESH_SINCE} alone (--until keeps the pages dated BEFORE its day):
+    the same line with  --until {FRESH_FIRST_DAY_UNTIL}
+
+  an ordinary reading of older games that share a directory with sealed ones:
+    --dir <directory> --until {FRESH_SINCE}     (no --fresh)
+
+Without --fresh a page dated on or after {FRESH_SINCE} is refused, also in a
+direct call of read_games (pass fresh=True there).
+"""
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=(__doc__ or "").split("\n\n")[0])
+    parser = argparse.ArgumentParser(
+        description=(__doc__ or "").split("\n\n")[0],
+        epilog=HELP_EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     parser.add_argument(
         "--artifact",
         action="append",
@@ -2734,8 +2942,20 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--reference", default=None, help="label to pair against (default: the first)"
     )
-    parser.add_argument("--since", default=None, help="pages dated YYYY-MM-DD or later")
-    parser.add_argument("--until", default=None, help="pages dated before YYYY-MM-DD")
+    parser.add_argument(
+        "--since",
+        default=None,
+        help="keep pages dated YYYY-MM-DD (or YYYY-MM-DDTHH:MM, local time) or "
+        "later; with --fresh and no --since it is the sealed set's first day",
+    )
+    parser.add_argument(
+        "--until",
+        default=None,
+        help="keep pages dated BEFORE YYYY-MM-DD (or YYYY-MM-DDTHH:MM, local "
+        f"time). With --fresh, --until {FRESH_FIRST_DAY_UNTIL} reads the games "
+        f"of {FRESH_SINCE} alone; without --fresh, --until {FRESH_SINCE} leaves "
+        "the sealed games out",
+    )
     parser.add_argument(
         "--games", default=None, help="comma list of battle ids / tags, or @file"
     )

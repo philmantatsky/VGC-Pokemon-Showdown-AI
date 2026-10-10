@@ -2140,8 +2140,24 @@ def warnings_of(card: Mapping[str, Any]) -> list[str]:
                 "split may not match this dataset's evaluation sets."
             )
         if info.get("dex_signature_diff"):
+            found = list(info["dex_signature_diff"])
+            # For a layout-version-2 artifact the list also names the families
+            # of version-2 arrays whose stored definitions are not this code's.
+            families = [
+                entry
+                for entry in found
+                if entry in (F.FAMILY_MATCHUP, F.FAMILY_SETPRIOR)
+            ]
             out.append(
-                f"{name} was written with another dex: {info['dex_signature_diff']}."
+                f"{name} was written with another dex: {found}."
+                + (
+                    f" {families}: the definitions of its version-2 input arrays "
+                    "are not this code's, so its weights were fitted on other "
+                    "numbers than are computed here; these scores are not the "
+                    "model's."
+                    if families
+                    else ""
+                )
             )
         if info.get("elo_blind_retrain") and info.get("reads_elo"):
             out.append(

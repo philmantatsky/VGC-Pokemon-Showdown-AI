@@ -175,10 +175,6 @@ def plain(value: Any) -> Any:
     return value
 
 
-def _tensor(value: Any) -> Any:
-    return value
-
-
 def same(first: Any, second: Any) -> bool:
     """Deep equality of two decoded artifact values (dicts, lists, arrays,
     tensors, scalars), dtype and shape included."""
@@ -191,7 +187,8 @@ def same(first: Any, second: Any) -> bool:
             same(a, b) for a, b in zip(first, second)
         )
     if hasattr(first, "detach") and hasattr(second, "detach"):
-        one, two = _tensor(first), _tensor(second)
+        one: Any = first  # two tensors: nothing else has ``detach``
+        two: Any = second
         a, b = one.detach().cpu().numpy(), two.detach().cpu().numpy()
         return a.dtype == b.dtype and a.shape == b.shape and a.tobytes() == b.tobytes()
     if isinstance(first, np.ndarray) and isinstance(second, np.ndarray):
@@ -1307,34 +1304,123 @@ def write_report(out_dir: Path, report: Mapping[str, Any]) -> None:
     (out_dir / REPORT_MD).write_text(render(data), encoding="utf-8")
 
 
+HELP_EPILOG = f"""the acceptance rule (fixed before the first fit; see the module text):
+  the coupling is TAKEN only if the held-out gain is above {C.DEFAULT_MARGIN} nats per
+  two-slot row in at least a share of {C.DEFAULT_FOLD_SHARE:g} of the folds
+  ({C.DEFAULT_FOLDS} folds of whole battles).
+  --margin / --fold-share / --folds / --seed / --kappa-grid / --buckets other
+  than the defaults are a departure: the report says so and no artifact is
+  written without --allow-other-rule.
+
+what is never read: the split 'test'. What is read only when asked:
+  the ladder holdout (--report-splits {SPLIT_LADDER}), and of it the bot's own
+  games from {F.OWN_SEALED_FROM} on only with --allow-fresh-holdout.
+
+a coupling belongs to ONE predictor state: after a calibration, a fine-tune
+or a retrain, fit it again. A coupling fitted before 2026-10-10 03:30 carries
+a later_one table that is not margin-neutral (coupling.py, "THE MARGINS OF A
+ONE-TARGET FIT") and must be fitted again too.
+
+the last line printed: {DONE} | {TAKEN_NO_ARTIFACT} | {NOT_TAKEN} | {FAILED} <reason>
+"""
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=(__doc__ or "").split("\n\n")[0])
-    parser.add_argument("--artifact", required=True)
-    parser.add_argument("--dataset", required=True)
-    parser.add_argument("--out", required=True, help="a new directory")
-    parser.add_argument("--fit-split", default=SPLIT_VAL, choices=(SPLIT_VAL,))
-    parser.add_argument(
-        "--buckets", default=C.BUCKET_SCHEME, choices=(C.BUCKET_SCHEME, "none")
+    parser = argparse.ArgumentParser(
+        description=(__doc__ or "").split("\n\n")[0],
+        epilog=HELP_EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        "--kappa-grid", type=float, nargs="+", default=list(C.DEFAULT_KAPPAS)
+        "--artifact",
+        required=True,
+        help="the artifact to fit a coupling for (read strictly: a differing "
+        "dex is refused); it is never changed",
     )
-    parser.add_argument("--folds", type=int, default=C.DEFAULT_FOLDS)
-    parser.add_argument("--seed", type=int, default=C.DEFAULT_SEED)
-    parser.add_argument("--margin", type=float, default=C.DEFAULT_MARGIN)
-    parser.add_argument("--fold-share", type=float, default=C.DEFAULT_FOLD_SHARE)
+    parser.add_argument(
+        "--dataset",
+        required=True,
+        help="the dataset build the artifact was trained on (same manifest "
+        "sha256, or --allow-other-dataset); only its validation split is "
+        "fitted on",
+    )
+    parser.add_argument(
+        "--out",
+        required=True,
+        help="a NEW directory (one that holds anything is refused): the "
+        "report, and the coupled artifact when the coupling is taken",
+    )
+    parser.add_argument(
+        "--fit-split",
+        default=SPLIT_VAL,
+        choices=(SPLIT_VAL,),
+        help="the split the coupling is fitted and judged on. Only "
+        f"'{SPLIT_VAL}' is offered: the rule was fixed on validation rows, "
+        "and the train-split diagnostic of the design was not built",
+    )
+    parser.add_argument(
+        "--buckets",
+        default=C.BUCKET_SCHEME,
+        choices=(C.BUCKET_SCHEME, "none"),
+        help=f"'{C.BUCKET_SCHEME}' (fixed): per-context tables may replace the "
+        "pooled one when they beat it by the margin; 'none' fits the pooled "
+        "table only. A departure from the fixed rule",
+    )
+    parser.add_argument(
+        "--kappa-grid",
+        type=float,
+        nargs="+",
+        default=list(C.DEFAULT_KAPPAS),
+        help="the shrinkage values tried, in rows per cell (fixed: "
+        f"{' '.join(str(k) for k in C.DEFAULT_KAPPAS)}); another grid is a "
+        "departure from the fixed rule",
+    )
+    parser.add_argument(
+        "--folds",
+        type=int,
+        default=C.DEFAULT_FOLDS,
+        help=f"folds of whole battles (fixed: {C.DEFAULT_FOLDS}); a departure "
+        "from the fixed rule when changed",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=C.DEFAULT_SEED,
+        help=f"seed of the fold assignment (fixed: {C.DEFAULT_SEED}); a "
+        "departure from the fixed rule when changed",
+    )
+    parser.add_argument(
+        "--margin",
+        type=float,
+        default=C.DEFAULT_MARGIN,
+        help="nats per two-slot row a fold's held-out gain must exceed "
+        f"(fixed: {C.DEFAULT_MARGIN}); a departure from the fixed rule when "
+        "changed",
+    )
+    parser.add_argument(
+        "--fold-share",
+        type=float,
+        default=C.DEFAULT_FOLD_SHARE,
+        help="share of the folds that must exceed the margin (fixed: "
+        f"{C.DEFAULT_FOLD_SHARE}); a departure from the fixed rule when changed",
+    )
     parser.add_argument(
         "--report-splits",
         nargs="*",
         default=[],
-        help=f"informational splits read after the verdict: {REPORT_SPLITS}",
+        help=f"informational splits read after the verdict: {REPORT_SPLITS} "
+        "(the test split is never offered). The ladder holdout is read "
+        f"without the bot's own games from {F.OWN_SEALED_FROM} on",
     )
     parser.add_argument(
         "--allow-fresh-holdout",
         "--allow-sealed-holdout",  # the trainer's name for the same thing
         dest="allow_fresh_holdout",
         action="store_true",
-        help="read the whole ladder holdout, the sealed own games included",
+        help="OPENS SEALED DATA: read the whole ladder holdout, the bot's own "
+        f"games from {F.OWN_SEALED_FROM} on (the confirmation set) included. "
+        "Only for the one final reading; also needed for a dataset whose rows "
+        "carry no times",
     )
     parser.add_argument(
         "--allow-other-rule",
@@ -1342,14 +1428,53 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         help="write the artifact although the rule or the fit settings are "
         "not the fixed ones (the report and the artifact say so)",
     )
-    parser.add_argument("--allow-other-dataset", action="store_true")
-    parser.add_argument("--refit", action="store_true")
-    parser.add_argument("--no-artifact", action="store_true")
-    parser.add_argument("--resamples", type=int, default=2000)
-    parser.add_argument("--threads", type=int, default=1)
-    parser.add_argument("--limit", type=int, default=None)
-    parser.add_argument("--suffix", default="_pair")
-    parser.add_argument("--render-only", action="store_true")
+    parser.add_argument(
+        "--allow-other-dataset",
+        action="store_true",
+        help="fit on a dataset build other than the one the artifact was "
+        "trained on. Its validation rows may then be the model's TRAINING "
+        "rows, and a coupling fitted on those is not a held-out result; the "
+        "report says so",
+    )
+    parser.add_argument(
+        "--refit",
+        action="store_true",
+        help="the artifact already carries a coupling: drop it and fit anew "
+        "from the plain product (a second one is never stacked on the first)",
+    )
+    parser.add_argument(
+        "--no-artifact",
+        action="store_true",
+        help=f"write the report only; a taken coupling then ends "
+        f"{TAKEN_NO_ARTIFACT} and no artifact.pt is written",
+    )
+    parser.add_argument(
+        "--resamples",
+        type=int,
+        default=2000,
+        help="resamples of whole games for the intervals of the report "
+        "(they decide nothing)",
+    )
+    parser.add_argument(
+        "--threads", type=int, default=1, help="torch threads of the predict passes"
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="a smoke: only the first N validation examples; the artifact's "
+        "name then ends _limit<N>, never the name of the real coupling",
+    )
+    parser.add_argument(
+        "--suffix",
+        default="_pair",
+        help="added to the source artifact's name to name the coupled one",
+    )
+    parser.add_argument(
+        "--render-only",
+        action="store_true",
+        help=f"rewrite {REPORT_MD} from {REPORT_JSON} in --out and stop",
+    )
     return parser.parse_args(argv)
 
 

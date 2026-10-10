@@ -43,6 +43,30 @@ games must not choose it. The report counts the rows left out.
 Differences between two models are paired per slot and their standard error is
 clustered by game (m_battle).
 
+WHICH SPLITS ARE SCORED (``evaluation_plan``, decided before any example is
+loaded). Nothing is ever fitted or chosen on them; they are scored for the
+report. On a dataset of before the fourth build the default is all four, as
+it always was: ``val``, ``test``, ``test_time_slice``, ``ladder_holdout``.
+Two things are confirmation data of the fourth build (OPPONENT_PREDICTOR.md)
+and are NOT read unless asked for by name:
+
+* the bot's own games from ``features.OWN_SEALED_FROM`` on. A dataset that
+  holds rows of them (told from the rows' own times, ``features.
+  own_time_range``, never from the day it was built) is loaded WITHOUT those
+  rows, so its ladder holdout is the old one; ``--allow-sealed-holdout`` reads
+  them;
+* the ``test`` split (and its time slice) of a dataset of the fourth build:
+  one that holds such rows, or one that was built with ``--own-before`` (its
+  manifest's ``own_cutoff``; that option exists only since the fourth build).
+  There the two are not loaded and not scored; ``--score-test`` scores them.
+
+``--eval-splits`` chooses among the four (``val`` is always needed: the
+strengths are chosen on it). Naming ``test`` for a dataset of the fourth build
+without ``--score-test`` is refused, never quietly dropped. The report and
+every artifact's ``extra`` hold only the splits that were scored, and the
+report says what was left out and why. The tables themselves do not depend on
+any of this: they are fitted on ``train`` and tuned on ``val``.
+
 A directory that already holds a fit is not written over without
 ``--overwrite``, and ``--limit`` (a smoke) needs its own ``--out``. The last
 line printed is ``FIT_DONE`` (exit code 0) or ``FIT_FAILED <reason>`` (exit
@@ -80,6 +104,7 @@ from vgc_bench.src.oppmodel.features import (
     CAND_VALID,
     ELO_SHUFFLE,
     N_INTENT,
+    OWN_SEALED_FROM,
     Y_PROTECT_KNOWN,
     Y_PROTECTED,
     Y_SWITCH_KNOWN,
@@ -92,7 +117,9 @@ from vgc_bench.src.oppmodel.features import (
     fine_probs,
     intent_probs,
     load_dataset,
+    local_time,
     normalize_prediction,
+    own_time_range,
     sheet_unknown_as_closed,
     slot_nll,
     take,
@@ -107,7 +134,10 @@ TEST = "test"
 TIME_SLICE = "test_time_slice"  # the test players' games in the latest 10%
 FLAG_TIME_SLICE = 1  # m_flag bits, as the dataset builder documents them
 FLAG_HOLDOUT_BATTLE = 4  # the battle has a ladder-holdout opponent
-EVAL_SPLITS: tuple[str, ...] = ("val", TEST, TIME_SLICE, "ladder_holdout")
+LADDER = "ladder_holdout"
+EVAL_SPLITS: tuple[str, ...] = ("val", TEST, TIME_SLICE, LADDER)
+# The two evaluation splits that are rows of the dataset's ``test`` split.
+TEST_SPLITS: tuple[str, ...] = (TEST, TIME_SLICE)
 REPORT_JSON = "fit_report.json"
 REPORT_MD = "fit_report.md"
 DEFAULT_OUT = "results_oppmodel/tables_v1"
@@ -545,6 +575,137 @@ def split_masks(
     return split == names.index(TRAIN), masks, int((val & holdout).sum())
 
 
+def parse_splits(text: str | Sequence[str] | None) -> list[str] | None:
+    """``--eval-splits`` as a list in ``EVAL_SPLITS`` order; None = not given.
+
+    Raises ``FitError`` for a name that is not an evaluation split, an empty
+    list, or a list without ``val`` (the strengths are chosen on it).
+    """
+    if text is None:
+        return None
+    parts = text.split(",") if isinstance(text, str) else list(text)
+    asked = [str(part).strip() for part in parts if str(part).strip()]
+    unknown = [name for name in asked if name not in EVAL_SPLITS]
+    if unknown or not asked:
+        raise FitError(f"--eval-splits {text!r}: choose from {EVAL_SPLITS}")
+    if VALIDATION not in asked:
+        raise FitError(
+            f"--eval-splits {text!r}: {VALIDATION} is always needed (the "
+            "strengths are chosen on it)"
+        )
+    return [name for name in EVAL_SPLITS if name in asked]
+
+
+def evaluation_plan(
+    dataset: Path,
+    eval_splits: str | Sequence[str] | None = None,
+    *,
+    score_test: bool = False,
+    allow_sealed_holdout: bool = False,
+) -> dict[str, Any]:
+    """Which splits a run scores and which rows it never loads, decided from
+    the manifest and the meta arrays ``m_split`` / ``m_time`` alone.
+
+    ``splits``: the evaluation splits scored, in ``EVAL_SPLITS`` order.
+    ``not_scored``: the others, each with its reason. ``own_before``: the
+    Unix time from which the bot's own games are left out of everything that
+    is loaded (None: nothing is left out). ``load_test``: whether the
+    dataset's ``test`` split is loaded at all. ``default``: nothing departs
+    from the script's behaviour of before (all four splits, every row).
+
+    A dataset is ``fourth_build`` when it holds own games dated from
+    ``features.OWN_SEALED_FROM`` on, or was built with ``--own-before`` (its
+    manifest's ``own_cutoff``): there the test split is scored only with
+    ``score_test`` and the sealed rows are read only with
+    ``allow_sealed_holdout`` (see the module text). Raises ``FitError`` for a
+    dataset that cannot be read, a bad list, or ``test`` named for such a
+    dataset without ``score_test``.
+    """
+    asked = parse_splits(eval_splits)
+    try:
+        text = (dataset / "manifest.json").read_text(encoding="utf-8")
+        manifest = json.loads(text)
+        sealed_from = local_time(OWN_SEALED_FROM)
+        held = own_time_range(dataset, sealed_from)
+    except (OSError, ValueError, KeyError) as exc:
+        raise FitError(
+            f"dataset {dataset}: its splits and the times of its own games "
+            f"cannot be read ({exc!r})"
+        ) from exc
+    sealed = int(held.get("late_rows") or 0)
+    cutoff = manifest.get("own_cutoff") if isinstance(manifest, Mapping) else None
+    built_with_cutoff = isinstance(cutoff, Mapping)
+    fourth_build = bool(sealed) or built_with_cutoff
+    chosen = list(EVAL_SPLITS) if asked is None else list(asked)
+    not_scored: dict[str, str] = {
+        name: "not in --eval-splits" for name in EVAL_SPLITS if name not in chosen
+    }
+    if fourth_build and not score_test:
+        why = (
+            f"the dataset holds own games from {OWN_SEALED_FROM} on"
+            if sealed
+            else "the dataset was built with --own-before"
+        ) + ": its test split is confirmation data (give --score-test to score it)"
+        named = [name for name in TEST_SPLITS if name in chosen]
+        if asked is not None and named:
+            raise FitError(f"--eval-splits names {named}, and {why}")
+        for name in named:
+            not_scored[name] = why
+        chosen = [name for name in chosen if name not in TEST_SPLITS]
+    leave_out = bool(sealed) and not allow_sealed_holdout
+    load_test = any(name in chosen for name in TEST_SPLITS)
+    return {
+        "splits": chosen,
+        "not_scored": not_scored,
+        "asked": asked,
+        "score_test": bool(score_test),
+        "allow_sealed_holdout": bool(allow_sealed_holdout),
+        "fourth_build": fourth_build,
+        "built_with_own_cutoff": built_with_cutoff,
+        "sealed_from": OWN_SEALED_FROM,
+        "sealed_rows_in_dataset": sealed,
+        "sealed_rows_read": bool(sealed) and not leave_out,
+        "own_before": sealed_from if leave_out else None,
+        "own_time_known": bool(held.get("has_time", True)),
+        "own_time": held.get("splits") or {},
+        "load_test": load_test,
+        "default": len(chosen) == len(EVAL_SPLITS) and not leave_out,
+    }
+
+
+def load_planned(
+    dataset: Path, plan: Mapping[str, Any]
+) -> tuple[Batch, dict[str, Any], list[str]]:
+    """(the examples a plan allows, the manifest, the splits not loaded).
+
+    The default plan loads the whole dataset, as this script always did. Any
+    other plan loads without the ``test`` split when neither of its two
+    evaluation splits is scored, and without the bot's own games from
+    ``plan['own_before']`` on: what is not to be scored is not read.
+    """
+    if plan["default"]:
+        data, manifest = load_dataset(dataset)
+        return data, manifest, []
+    text = (dataset / "manifest.json").read_text(encoding="utf-8")
+    names = list(json.loads(text)["splits"])
+    dropped = [] if plan["load_test"] else [name for name in names if name == TEST]
+    wanted = [name for name in names if name not in dropped]
+    if plan["own_before"] is None:
+        data, manifest = load_dataset(dataset, splits=wanted)
+    else:
+        data, manifest = load_dataset(
+            dataset, splits=wanted, own_before=int(plan["own_before"])
+        )
+    return data, manifest, dropped
+
+
+def scored_splits(report: Mapping[str, Any]) -> list[str]:
+    """The evaluation splits a report holds (a report of before the choice
+    existed holds all four)."""
+    found = report.get("evaluation_splits")
+    return list(found) if found else list(EVAL_SPLITS)
+
+
 def run(
     dataset: Path,
     out: Path,
@@ -552,8 +713,16 @@ def run(
     limit: int | None = None,
     overwrite: bool = False,
     log: Log = say,
+    eval_splits: str | Sequence[str] | None = None,
+    score_test: bool = False,
+    allow_sealed_holdout: bool = False,
 ) -> dict[str, Any]:
     """Fit, tune, score, write artifacts; returns the report (also written).
+
+    ``eval_splits`` / ``score_test`` / ``allow_sealed_holdout``: which splits
+    are scored and whether the confirmation data is read (``evaluation_plan``;
+    the defaults score everything an old dataset holds and neither the test
+    split nor the sealed own games of a dataset of the fourth build).
 
     Raises ``FitError`` when ``out`` already holds a fit and ``overwrite`` is
     not set; nothing is read or written then.
@@ -564,7 +733,22 @@ def run(
             f"{found[0]} exists; give --overwrite to replace the fit in {out}"
         )
     started = time.time()
-    data, manifest = load_dataset(dataset)
+    plan = evaluation_plan(
+        dataset,
+        eval_splits,
+        score_test=score_test,
+        allow_sealed_holdout=allow_sealed_holdout,
+    )
+    chosen: list[str] = list(plan["splits"])
+    for name, why in plan["not_scored"].items():
+        log(f"evaluation split {name} is NOT scored: {why}")
+    if plan["own_before"] is not None:
+        log(
+            f"{plan['sealed_rows_in_dataset']} rows of own games from "
+            f"{OWN_SEALED_FROM} on (the sealed set) are left out (give "
+            "--allow-sealed-holdout to read them)"
+        )
+    data, manifest, not_loaded = load_planned(dataset, plan)
     data = sheet_unknown_as_closed(data)
     featurizer = Featurizer.load(dataset)
     names = list(manifest["splits"])
@@ -576,7 +760,7 @@ def run(
         data = take(data, keep)
         split = np.asarray(data["m_split"])
     train_mask, masks, left_out = split_masks(data, names)
-    parts = {name: take(data, masks[name]) for name in EVAL_SPLITS}
+    parts = {name: take(data, masks[name]) for name in chosen}
     validation = parts[VALIDATION]
     tables = featurizer.tables
     log(
@@ -610,6 +794,12 @@ def run(
         "metric": "fine NLL = features.slot_nll 'fine' over 'fine_scored', nats per "
         "labelled slot-turn, after sheet_unknown_as_closed; lower is better",
     }
+    if not plan["default"] or plan["fourth_build"]:
+        # A run on an old dataset with the default plan writes the report of
+        # before, key for key; anything else says what was scored and why.
+        report["evaluation_splits"] = chosen
+        report["evaluation_plan"] = _plain(plan)
+        report["dataset"]["splits_not_loaded"] = not_loaded
 
     # 1. floors
     rate = train_switch_rate(take(data, train_mask))
@@ -844,14 +1034,14 @@ def run(
                 "config": entry["config"],
                 "fit_info": entry["fit_info"],
                 "calibration": {
-                    name: _brief(entry["calibration"][name]) for name in EVAL_SPLITS
+                    name: _brief(entry["calibration"][name]) for name in chosen
                 },
                 "metrics": {
                     name: {
                         key: entry["scores"][name][key]
                         for key in ("fine_nll", "action_nll", "target_nll", "mega_nll")
                     }
-                    for name in EVAL_SPLITS
+                    for name in chosen
                 },
                 "note": "predict on features only, after sheet_unknown_as_closed",
             },
@@ -892,10 +1082,12 @@ def _number(value: Any, digits: int = 4) -> str:
 
 
 def _fine(scores: Mapping[str, Mapping[str, Any]], digits: int = 4) -> str:
-    """Fine NLL on every evaluation split; '-' for a split with no label."""
+    """Fine NLL on every evaluation split that was scored, in ``EVAL_SPLITS``
+    order; '-' for a split with no label."""
     return " / ".join(
         _number((scores.get(name) or {}).get("fine_nll"), digits)
         for name in EVAL_SPLITS
+        if name in scores
     )
 
 
@@ -919,6 +1111,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     """The fit report as markdown; every number comes from the report dict."""
     lines: list[str] = ["# Opponent predictor: count tables", ""]
     data = report["dataset"]
+    splits = scored_splits(report)
     lines += [
         f"Rendered from `{REPORT_JSON}` by `training/fit_oppmodel_tables.py`. "
         f"Created {report['created']}; dataset `{data['directory']}` (tag "
@@ -937,19 +1130,42 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             "them.",
             "",
         ]
+    plan = report.get("evaluation_plan") or {}
+    if plan:
+        left = [
+            f"`{name}` ({why})" for name, why in (plan.get("not_scored") or {}).items()
+        ]
+        sealed_text = "The dataset holds no own game of the sealed set."
+        if plan.get("sealed_rows_in_dataset"):
+            sealed_text = (
+                f"{_number(plan.get('sealed_rows_in_dataset'))} rows of the bot's "
+                f"own games from {plan.get('sealed_from')} on (the sealed "
+                "confirmation set) were "
+                + (
+                    "READ (--allow-sealed-holdout)."
+                    if plan.get("sealed_rows_read")
+                    else "left out: never loaded."
+                )
+            )
+        lines += [
+            "Scored: "
+            + ", ".join(f"`{name}`" for name in splits)
+            + ". "
+            + ("Not scored: " + "; ".join(left) + ". " if left else "")
+            + sealed_text,
+            "",
+        ]
     lines += ["## Fine NLL", ""]
     floors, tables = report["floors"], report["tables"]
     rows: list[list[Any]] = [
         ["uniform over legal actions"]
-        + [_number(floors["uniform"][n]["fine_nll"]) for n in EVAL_SPLITS],
+        + [_number(floors["uniform"][n]["fine_nll"]) for n in splits],
         ["set-key prior + constant switch rate + uniform targets"]
-        + [_number(floors["prior"][n]["fine_nll"]) for n in EVAL_SPLITS],
+        + [_number(floors["prior"][n]["fine_nll"]) for n in splits],
     ]
     for label, entry in tables.items():
-        rows.append(
-            [label] + [_number(entry["scores"][n]["fine_nll"]) for n in EVAL_SPLITS]
-        )
-    lines += _table(["model", *EVAL_SPLITS], rows)
+        rows.append([label] + [_number(entry["scores"][n]["fine_nll"]) for n in splits])
+    lines += _table(["model", *splits], rows)
 
     lines += ["## Per head", ""]
     keys = (
@@ -964,7 +1180,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     )
     rows = []
     for label, entry in tables.items():
-        for name in EVAL_SPLITS:
+        for name in splits:
             got = entry["scores"][name]
             rows.append(
                 [label, name, _number(got["slots_scored"])]
@@ -977,8 +1193,8 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     for label, entry in report["comparisons"].items():
         if label.endswith("_setting"):
             continue
-        rows.append([label] + [_interval(entry[n]) for n in EVAL_SPLITS])
-    lines += _table(["difference", *EVAL_SPLITS], rows)
+        rows.append([label] + [_interval(entry[n]) for n in splits])
+    lines += _table(["difference", *splits], rows)
     fixed = report["comparisons"].get("elo_fixed_setting")
     if fixed:
         lines += [
@@ -997,7 +1213,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     lines += ["## Event calibration (every slot where the event is known)", ""]
     rows = []
     for label, entry in tables.items():
-        for name in EVAL_SPLITS:
+        for name in splits:
             for event, got in entry["calibration"][name].items():
                 rows.append(
                     [
@@ -1063,7 +1279,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     lines += ["## Ablations of the flags table (each a refit with one change)", ""]
     rows = []
     for item in report["ablations"]:
-        for name in EVAL_SPLITS:
+        for name in splits:
             got = item["splits"][name]
             cal = got["calibration"]
             rows.append(
@@ -1161,6 +1377,28 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="replace the fit that --out already holds",
     )
+    parser.add_argument(
+        "--eval-splits",
+        default=None,
+        help="comma list of the splits to score, from "
+        + ", ".join(EVAL_SPLITS)
+        + f" ({VALIDATION} is always needed). Default: all four for a dataset "
+        "of before the fourth build; without the test split and its time "
+        "slice for a dataset that holds own games from "
+        f"{OWN_SEALED_FROM} on or was built with --own-before",
+    )
+    parser.add_argument(
+        "--score-test",
+        action="store_true",
+        help="score the test split and its time slice of a dataset of the "
+        "fourth build (confirmation data: only for the final reading)",
+    )
+    parser.add_argument(
+        "--allow-sealed-holdout",
+        action="store_true",
+        help=f"read the bot's own games from {OWN_SEALED_FROM} on (the sealed "
+        "set); without it their rows are never loaded",
+    )
     return parser.parse_args(argv)
 
 
@@ -1185,7 +1423,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             (out / REPORT_MD).write_text(render_markdown(report), encoding="utf-8")
             say(f"wrote {out / REPORT_MD}")
             return 0
-        run(Path(args.dataset), out, limit=args.limit, overwrite=args.overwrite)
+        run(
+            Path(args.dataset),
+            out,
+            limit=args.limit,
+            overwrite=args.overwrite,
+            eval_splits=args.eval_splits,
+            score_test=args.score_test,
+            allow_sealed_holdout=args.allow_sealed_holdout,
+        )
     except Exception as exc:
         reason = " ".join(f"{type(exc).__name__}: {exc}".split())
         say(f"{FAILED} {reason}")

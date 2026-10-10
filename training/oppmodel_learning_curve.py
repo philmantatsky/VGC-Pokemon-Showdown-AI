@@ -182,6 +182,7 @@ HYPER_KEYS: tuple[str, ...] = (
     "elo_drop",
     "elo_mode",
     "epochs",
+    "extras",
     "ff",
     "heads",
     "layers",
@@ -194,6 +195,12 @@ HYPER_KEYS: tuple[str, ...] = (
     "warmup",
     "weight_decay",
 )
+# What a train report written before an argument existed says of it: the
+# value the trainer used then. ``extras`` (the bit mask of the version-2
+# arrays the network reads) is 0 for every fit from before the flag: the
+# version-1 network. Without this an old fit could never be reused, and an
+# old point would read as "trained with other arguments" beside a new one.
+HYPER_UNRECORDED: dict[str, Any] = {"extras": 0}
 MISMATCH_EXAMPLES = 5
 DOUBLING = (1.8, 2.2)  # a step whose size ratio is in here is called a doubling
 NO_READING = "NO READING"
@@ -693,6 +700,15 @@ def trainer_argv(
     return argv
 
 
+def hyper_value(args: Mapping[str, Any], key: str) -> Any:
+    """A recorded training argument; one that is absent (or None) reads as
+    the value of ``HYPER_UNRECORDED`` when the argument has one."""
+    value = args.get(key)
+    if value is None and key in HYPER_UNRECORDED:
+        return HYPER_UNRECORDED[key]
+    return value
+
+
 def checked_trainer_args(
     dataset: Path | str, directory: Path | str, args: argparse.Namespace
 ) -> tuple[list[str], dict[str, Any]]:
@@ -752,9 +768,9 @@ def ensure_fit(point: Point, args: argparse.Namespace, log: Log) -> None:
             )
         had = report.get("args") or {}
         other = [
-            f"{key} {had.get(key)!r}, not {wanted.get(key)!r}"
+            f"{key} {hyper_value(had, key)!r}, not {hyper_value(wanted, key)!r}"
             for key in HYPER_KEYS
-            if had.get(key) != wanted.get(key)
+            if hyper_value(had, key) != hyper_value(wanted, key)
         ]
         if other:
             raise CurveError(
@@ -1476,9 +1492,9 @@ def hyper_warnings(rows: Sequence[Mapping[str, Any]]) -> list[str]:
             )
             continue
         changed = [
-            f"{key} {args.get(key)!r} vs {reference.get(key)!r}"
+            f"{key} {hyper_value(args, key)!r} vs {hyper_value(reference, key)!r}"
             for key in HYPER_KEYS
-            if args.get(key) != reference.get(key)
+            if hyper_value(args, key) != hyper_value(reference, key)
         ]
         if changed:
             out.append(
@@ -1522,9 +1538,9 @@ def reading_problems(curve: Mapping[str, Any]) -> list[str]:
                 if not found
             ]
             changed = [
-                f"{key} {first.get(key)!r} vs {second.get(key)!r}"
+                f"{key} {hyper_value(first, key)!r} vs {hyper_value(second, key)!r}"
                 for key in HYPER_KEYS
-                if first.get(key) != second.get(key)
+                if hyper_value(first, key) != hyper_value(second, key)
             ]
             if unrecorded:
                 problems.append(

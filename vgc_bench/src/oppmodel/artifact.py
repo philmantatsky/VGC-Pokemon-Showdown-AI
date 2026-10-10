@@ -12,7 +12,7 @@ Keys of the stored dict:
 
     format         'oppmodel-artifact'
     version        1; 2 exactly when the file carries ``coupling``
-    kind           'table' | 'oppnet'
+    kind           'table' | 'oppnet' | 'ensemble'
     name           the model's name (for example 'flags_table')
     featurizer     Featurizer.to_payload(): vocabulary, numeric tables, repertoire
     dex_signature  events.dex_signature() when the artifact was written
@@ -29,8 +29,9 @@ version is 2, so a reader from before the coupling refuses the file instead of
 serving its plain joint under the coupled name; a file whose version and
 content disagree (2 without the key, 1 with it) is refused. The coupling says
 which predictor state it was fitted after (kind, temperatures, whether an event
-calibration was in force); loading it onto another state is an error, never
-dropped.
+calibration was in force; for an ensemble also ``state_sha256``, a hash of its
+weights and of each member's own payload); loading it onto another state is an
+error, never dropped.
 
 A WRITER THAT DOES NOT KNOW ABOUT COUPLINGS cannot drop one without saying so.
 The version guards against old readers; this guards against writers that
@@ -49,7 +50,10 @@ keeps the coupling, and refuses a new predictor or kind it does not fit.
 
 ``load_predictor`` rebuilds the featurizer and hands the payload to the kind's
 module, imported only then: ``tables.from_payload(payload, featurizer)`` for
-``'table'``, ``model.from_payload(payload, featurizer)`` for ``'oppnet'``. Each
+``'table'``, ``model.from_payload(payload, featurizer)`` for ``'oppnet'``,
+``ensemble.from_payload(payload, featurizer)`` for ``'ensemble'`` (several
+predictors of the other kinds on this one featurizer, served as the mean of
+their fine distributions; its payload holds each member's own payload). Each
 returns an object with ``predict(batch)``, ``name`` and ``kind``.
 
 Storage. The file holds only what ``torch.load(weights_only=True)`` accepts:
@@ -67,7 +71,16 @@ A different dex. Reading never fails because the installed dex differs from
 the one the artifact was written with: the names of the differing signature
 entries are returned in ``meta['dex_signature_diff']`` (and on
 ``featurizer.signature_diff``). ``strict=True`` turns that into a
-``ValueError``.
+``ValueError``. For an artifact whose featurizer is of layout version 1,
+``meta['dex_signature_diff']`` is what it always was: the difference of the
+ARTIFACT's own dex signature (``read_artifact``'s ``dex_signature_diff``; the
+featurizer's stored signature shows on ``featurizer.signature_diff`` alone).
+For a layout-version-2 featurizer it is the UNION of that and the
+featurizer's ``signature_diff``, which also names ``matchup`` / ``set_prior``
+when the stored definitions of those arrays are not this code's. So a tool
+that prints the field (the scorecard, the ladder read, the learning curve)
+shows a changed matchup definition too, and not only the runtime, which
+reads the featurizer.
 
 Errors. ``save_artifact`` / ``read_artifact`` / ``load_predictor`` are loaders,
 not decision-path code: they raise ``OSError`` for a file problem,
@@ -92,6 +105,7 @@ from vgc_bench.src.oppmodel.events import dex_signature
 from vgc_bench.src.oppmodel.features import (
     ELO_BLANK,
     ELO_KEEP,
+    LAYOUT_VERSION_EXTRAS,
     Featurizer,
     signature_diff,
 )
@@ -107,11 +121,16 @@ EXTRA_COUPLING = "pair_coupling"
 EXTRA_COUPLING_DROPPED = "pair_coupling_dropped"
 KIND_TABLE = "table"
 KIND_OPPNET = "oppnet"
-KINDS: tuple[str, ...] = (KIND_TABLE, KIND_OPPNET)
+# Several predictors served as the mean of their fine distributions
+# (``ensemble.py``). A reader from before this kind refuses the file here
+# ("unknown kind"), whatever its version.
+KIND_ENSEMBLE = "ensemble"
+KINDS: tuple[str, ...] = (KIND_TABLE, KIND_OPPNET, KIND_ENSEMBLE)
 # kind -> module with ``from_payload(payload, featurizer)``; imported on demand.
 _MODULES = {
     KIND_TABLE: "vgc_bench.src.oppmodel.tables",
     KIND_OPPNET: "vgc_bench.src.oppmodel.model",
+    KIND_ENSEMBLE: "vgc_bench.src.oppmodel.ensemble",
 }
 _ARRAY_TAG = "__ndarray__"
 _PLAIN_TYPES = (bool, int, float, str)
@@ -127,7 +146,10 @@ class LoadedPredictor(NamedTuple):
     ``kind``; ``featurizer`` encodes snapshots for it. ``meta`` holds
     ``format``, ``version``, ``path``, ``dex_signature`` (as stored),
     ``dex_signature_diff`` (names of entries that differ from the installed
-    dex; empty when they agree), ``elo_mode`` and ``extra``.
+    dex; for a layout-version-2 featurizer together with its own
+    ``signature_diff``, which adds ``matchup`` / ``set_prior`` for changed
+    version-2 definitions; empty when everything agrees), ``elo_mode`` and
+    ``extra``.
 
     Five fields, in this order (callers unpack them). ``coupling`` is an
     attribute beside them, not a sixth field: the artifact's
@@ -466,12 +488,20 @@ def load_predictor(
                 f"{path}: the coupling does not fit the predictor: {wrong}"
             )
     name = str(document["name"])
+    # What this artifact was written under that differs today. Layout version
+    # 1: the artifact's own dex signature, as always. Layout version 2: that
+    # and what its featurizer found (``Featurizer.signature_diff``: its stored
+    # dex signature and the stored matchup / set-prior definitions).
+    differs = [str(key) for key in document["dex_signature_diff"]]
+    if int(getattr(featurizer, "layout_version", 1)) >= LAYOUT_VERSION_EXTRAS:
+        own = getattr(featurizer, "signature_diff", None) or ()
+        differs = sorted(set(differs) | {str(key) for key in own})
     meta = {
         "format": document["format"],
         "version": document["version"],
         "path": str(path),
         "dex_signature": document["dex_signature"],
-        "dex_signature_diff": list(document["dex_signature_diff"]),
+        "dex_signature_diff": differs,
         "elo_mode": elo_mode,
         "extra": document["extra"],
     }

@@ -10,6 +10,8 @@ are git-ignored).
 from __future__ import annotations
 
 import ast
+import copy
+import dataclasses
 import hashlib
 import json
 import os
@@ -26,6 +28,7 @@ from evaluation import oppmodel_ladder_read as LR
 from evaluation import oppmodel_scorecard as SC
 from unit_tests import test_oppmodel_dataset as TD
 from unit_tests import test_oppmodel_scorecard as TS
+from unit_tests import test_oppmodel_setprior_integration as TSP
 from vgc_bench.src.oppmodel import artifact as A
 from vgc_bench.src.oppmodel import coupling as C
 from vgc_bench.src.oppmodel import events as E
@@ -1240,6 +1243,245 @@ def test_the_sealed_set_is_read_only_with_fresh(world: dict[str, Any], tmp_path:
     # The command line without --dir or --fresh reads nothing.
     assert LR.main(["--artifact", flags[0], "--out", str(root / "cli")]) == 1
     assert not (root / "cli").exists()
+
+
+def sealed_time(clock: str = "09:00", days: int = 0) -> float:
+    """A time on the sealed set's first day (or ``days`` later)."""
+    start = time.mktime(time.strptime(f"{LR.FRESH_SINCE} {clock}", "%Y-%m-%d %H:%M"))
+    return start + days * 86400
+
+
+def test_a_direct_read_of_sealed_pages_is_refused(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """``read_games`` itself is the guard, not only ``run``: a script that
+    calls it on a page dated on or after ``FRESH_SINCE`` is refused, and that
+    page is never driven (no state and no label is made of it)."""
+    root = tmp_path / "sealed"
+    write_directory(root)
+    new = root / "ladder_replays_mc_new"
+    new.mkdir()
+    save_page(new, 950, TD.make_log("Foe New", BOT, exact="p2"), when=sealed_time())
+    save_page(new, 951, TD.make_log("Foe Old", BOT, exact="p2"), when=PLAYED_AT)
+    driven: list[str] = []
+    real = LR.drive
+
+    def watched(raw: Any) -> Any:
+        driven.append(raw.battle_id)
+        return real(raw)
+
+    monkeypatch.setattr(LR, "drive", watched)
+    sealed, older = TD.replay_id(950), TD.replay_id(951)
+    # THE FAILING CASE: the direct call the first probe of 2026-10-10 made.
+    with pytest.raises(LR.LadderReadError, match="sealed confirmation set"):
+        LR.read_games(root, [root / FOLDER, new])
+    assert sealed not in driven and older in driven
+    with pytest.raises(LR.LadderReadError, match="1 of the pages .*fresh=True"):
+        LR.read_games(root, [new])
+    # The first second of the day is sealed; the second before it is not.
+    edge = root / "ladder_replays_mc_edge"
+    edge.mkdir()
+    page = save_page(edge, 952, TD.make_log("Foe Edge", BOT, exact="p2"))
+    midnight = sealed_time("00:00")
+    os.utime(page, (midnight, midnight))
+    with pytest.raises(LR.LadderReadError, match="sealed confirmation set"):
+        LR.read_games(root, [edge])
+    os.utime(page, (midnight - 1, midnight - 1))
+    assert len(LR.read_games(root, [edge])[0]) == 1
+    # Left out by date: an ordinary reading of the older games.
+    driven.clear()
+    games, info = LR.read_games(root, [root / FOLDER, new], until=LR.FRESH_SINCE)
+    assert len(games) == 4 and sealed not in driven
+    assert info["skipped"]["filter:at or after --until"] == 1
+    # A sealed page that a filter drops is not read, so nothing is refused.
+    only, _ = LR.read_games(root, [new], games=tag(951))
+    assert [game.battle_id for game in only] == [older] and sealed not in driven
+    # Asked for: read.
+    games, info = LR.read_games(root, [new], fresh=True)
+    assert [game.battle_id for game in games] == [sealed, older]
+    assert sealed in driven and info["kept"] == 2
+
+
+def test_one_day_of_the_sealed_set_is_read_with_until(
+    world: dict[str, Any], tmp_path: Path
+):
+    """``--fresh --until <the next day>`` is the confirmation on the first
+    sealed day alone; the help names the exact option."""
+    root = tmp_path / "days"
+    write_directory(root)
+    new = root / "ladder_replays_mc_new"
+    new.mkdir()
+    save_page(
+        new, 950, TD.make_log("Foe Day One", BOT, exact="p2"), sealed_time("21:00")
+    )
+    save_page(
+        new, 951, TD.make_log("Foe Day Two", BOT, exact="p2"), sealed_time("02:00", 1)
+    )
+    save_page(new, 952, TD.make_log("Foe Before", BOT, exact="p2"), PLAYED_AT)
+    next_day = time.strftime("%Y-%m-%d", time.localtime(sealed_time("12:00", 1)))
+    assert LR.FRESH_FIRST_DAY_UNTIL == next_day == LR._day_after(LR.FRESH_SINCE)
+    flags = [f"flags={world['flags']}"]
+    reading = LR.run(
+        flags,
+        root / "first_day",
+        fresh=True,
+        until=next_day,
+        root=root,
+        resamples=50,
+        log=quiet,
+    )
+    assert [row["battle"] for row in reading["games"]] == [tag(950)]
+    assert reading["games"][0]["date"] == LR.FRESH_SINCE
+    assert reading["input"]["skipped"] == {
+        "filter:at or after --until": 1,
+        "filter:before --since": 1,
+    }
+    assert reading["input"]["filters"] == {
+        "since": LR.FRESH_SINCE,
+        "until": next_day,
+        "games": None,
+    }
+    assert reading["input"]["sealed"]["games"] == reading["input"]["kept"] == 1
+    # Without --until: both sealed days.
+    both = LR.run(flags, root / "both", fresh=True, root=root, resamples=50, log=quiet)
+    assert [row["battle"] for row in both["games"]] == [tag(950), tag(951)]
+    # The day alone is not readable without --fresh, whatever the filters.
+    with pytest.raises(LR.LadderReadError, match="sealed confirmation set"):
+        LR.run(
+            flags,
+            root / "refused",
+            directories=[new.name],
+            since=LR.FRESH_SINCE,
+            until=next_day,
+            root=root,
+            log=quiet,
+        )
+    assert not (root / "refused").exists()
+    assert f"--until {next_day}" in LR.HELP_EPILOG
+    args = LR.parse_args(["--fresh", "--until", next_day])
+    assert (args.fresh, args.until, args.since) == (True, next_day, None)
+
+
+def test_set_table_contributors_are_counted_and_warned_about(world: dict[str, Any]):
+    """An artifact whose set table was built with a scored opponent's own
+    sheets is a leak: counted per artifact and per game, and a warning line
+    at the top of the report. Never a crash."""
+    root = world["root"]
+    games, _ = LR.read_games(root, [root / FOLDER])
+    opponents = [str(game.result.player_ids[game.opponent]) for game in games]
+    assert opponents == [E.user_id(name) for name in ("Foe One", "Foe Two", "Foe Six")]
+    base = featurizer_of(root)
+
+    def with_table(name: str, accounts: list[int] | None) -> str:
+        """A count table whose featurizer holds a set table said to be built
+        from the sheets of ``accounts`` (crc32 of account ids)."""
+        fz = F.Featurizer.build(
+            base.repertoire,
+            base.n_cand,
+            layout_version=2,
+            set_table=TSP.table(),
+            set_accounts=accounts,
+        )
+        batch = dict(LR.encode_games(games, fz))
+        batch["m_weight"] = np.ones(len(batch["turn"]), dtype=np.float32)
+        table = T.FlagsTable.fit(batch, featurizer=fz)
+        A.save_artifact(
+            root / f"{name}.pt",
+            kind=A.KIND_TABLE,
+            name=table.name,
+            featurizer=fz,
+            predictor_payload=table.to_payload(),
+            extra={"dataset_tag": "unit"},
+        )
+        return f"{name}={root / f'{name}.pt'}"
+
+    stranger = B.account_hash(E.user_id("Somebody Else"))
+    specs = [
+        f"flags={world['flags']}",
+        with_table("leaky", [B.account_hash(opponents[0]), stranger]),
+        with_table("clean", [stranger]),
+        with_table("blind", None),
+    ]
+    said: list[str] = []
+    out = root / "set_table"
+    reading = LR.run(
+        specs, out, directories=[FOLDER], root=root, resamples=50, log=said.append
+    )
+    found = {
+        label: reading["artifacts"][label]["artifact"]["set_table"]
+        for label in reading["order"]
+    }
+    assert found["flags"] is None  # no set table: nothing to ask
+    assert found["leaky"]["games"] == {
+        "contributors": 1,
+        "not_contributors": 2,
+        "unknown": 0,
+    }
+    assert found["leaky"]["opponent_accounts"]["contributors"] == 1
+    assert found["leaky"]["leak"] is True and found["leaky"]["accounts_recorded"] == 2
+    assert found["leaky"]["contributor_battles"] == [tag(CLOSED)]
+    assert found["leaky"]["signature"] == TSP.table().signature()
+    assert found["clean"]["games"] == {
+        "contributors": 0,
+        "not_contributors": 3,
+        "unknown": 0,
+    }
+    assert found["clean"]["leak"] is False and not found["clean"]["contributor_battles"]
+    assert found["blind"]["games"] == {
+        "contributors": 0,
+        "not_contributors": 0,
+        "unknown": 3,
+    }
+    assert found["blind"]["accounts_recorded"] is None
+    assert "does not record" in found["blind"]["why_unknown"]
+    rows = {row["battle"]: row for row in reading["games"]}
+    assert rows[tag(CLOSED)]["set_table_holds"] == {
+        "leaky": True,
+        "clean": False,
+        "blind": None,
+    }
+    assert rows[tag(OPEN)]["set_table_holds"]["leaky"] is False
+    # The warning: logged, stored, and the first thing the report says.
+    assert len(reading["warnings"]) == 1
+    assert reading["warnings"][0].startswith("WARNING: SET-TABLE LEAK in leaky: ")
+    assert "1 of the 3 scored games (1 accounts)" in reading["warnings"][0]
+    assert sum(line.startswith("WARNING: SET-TABLE LEAK") for line in said) == 1
+    lines = (out / LR.READ_MD).read_text().splitlines()
+    assert lines[2].startswith("**WARNING: SET-TABLE LEAK in leaky: ")
+    text = "\n".join(lines)
+    assert "set table: the opponents of 1 scored games are contributors" in text
+    assert f"contributors' games: {tag(CLOSED)}" in text
+    assert "0 scored games are contributors (a leak), of 3 are not, 0 unknown" in text
+    assert "0 are not, 3 unknown (the set table does not record" in text
+    assert "**set_table**" in text
+    # The numbers are the reading's own: the leak changes none of them here
+    # (a count table reads no set prior), and the run still ends.
+    assert reading["artifacts"]["leaky"]["splits"]["all"]["slot_turns"] > 0
+    # A reading without such an artifact warns of nothing, and one of an
+    # earlier version (no entry at all) still renders.
+    plain = read(world, "no_set_table")
+    assert plain["warnings"] == [] and "WARNING" not in LR.render_markdown(plain)
+    earlier = {key: value for key, value in reading.items() if key != "warnings"}
+    for label in earlier["order"]:
+        earlier["artifacts"][label]["artifact"].pop("set_table")
+    assert "SET-TABLE" not in LR.render_markdown(earlier)
+    # A page that names no opponent account is unknown, not a crash.
+    nameless = [dataclass_copy(game) for game in games]
+    nameless[0].result.player_ids[nameless[0].opponent] = None
+    loaded = A.load_predictor(root / "leaky.pt")
+    summary, answers = LR.set_table_check(loaded, nameless)
+    assert answers == [None, False, False] and summary is not None
+    assert summary["games_without_an_opponent_account"] == 1
+    assert summary["games"]["unknown"] == 1 and summary["leak"] is False
+    assert LR.set_table_check(A.load_predictor(world["flags"]), games) == (None, [])
+    assert LR.set_table_warning("x", None) == "" == LR.set_table_warning("x", summary)
+
+
+def dataclass_copy(game: LR.Game) -> LR.Game:
+    """A game whose driven result can be changed without touching the fixture's."""
+    result = copy.copy(game.result)
+    result.player_ids = dict(game.result.player_ids)
+    return dataclasses.replace(game, result=result)
 
 
 def test_live_check_compares_every_listed_action(world: dict[str, Any]):

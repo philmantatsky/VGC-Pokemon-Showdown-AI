@@ -147,6 +147,13 @@ VERDICT_NOT_TAKEN = "not_taken"
 ATTACKS_SEPARATE = "separate"  # rows hold both: each has half of the mix
 ATTACKS_MERGED = "merged"  # no row holds both: one class, "the one target"
 _TEMPERATURE_TOLERANCE = 1e-9
+# A predictor may name its whole state in ``describe()`` under this key: a
+# hash of everything that decides its answers (the ensemble does: its
+# members' own payloads and their weights, ``ensemble.STATE_KEY``).
+# ``fitted_after`` copies it into the record and ``PairCoupling.fits`` then
+# refuses every other state. A predictor that names none (a single network, a
+# count table) has the record of before: kind, temperatures, calibration flag.
+KEY_STATE = "state_sha256"
 
 # Failures of the functions a runtime calls, by function and exception type.
 COUNTERS: Counter[str] = Counter()
@@ -415,7 +422,13 @@ class PairCoupling:
                 return ""
             if after.get("kind") not in (None, kind):
                 return f"fitted after kind {after.get('kind')!r}, not {kind!r}"
+            state = str(after.get(KEY_STATE) or "")
             if described is None:
+                if state:
+                    return (
+                        f"fitted after predictor state {state[:16]}; this "
+                        "predictor names no state"
+                    )
                 return ""
             want = after.get("temperatures") or {}
             have = described.get("temperatures") or {}
@@ -436,6 +449,14 @@ class PairCoupling:
                     "fitted with event calibration "
                     f"{bool(after['event_calibrated'])}; this predictor has "
                     f"{bool(described.get('event_calibrated', False))}"
+                )
+            # A record that names a state is bound to it (``KEY_STATE``).
+            have_state = str(described.get(KEY_STATE) or "")
+            if state and state != have_state:
+                return (
+                    f"fitted after predictor state {state[:16]}; this predictor's "
+                    f"state is {have_state[:16] or 'not named'} (its members, "
+                    "their weights or their payloads differ)"
                 )
             return ""
         except Exception as exc:
@@ -522,7 +543,11 @@ class PairCoupling:
 
 
 def fitted_after(kind: str, described: Mapping[str, Any] | None) -> dict[str, Any]:
-    """The ``fitted_after`` record of a predictor (its ``describe()`` or None)."""
+    """The ``fitted_after`` record of a predictor (its ``describe()`` or None).
+
+    Kind, temperatures and calibration flag, and ``KEY_STATE`` when the
+    predictor names its state (the key is absent otherwise: the record of a
+    single network is what it always was)."""
     out: dict[str, Any] = {"kind": str(kind)}
     if described is not None:
         heat = described.get("temperatures") or {}
@@ -530,6 +555,8 @@ def fitted_after(kind: str, described: Mapping[str, Any] | None) -> dict[str, An
             head: float(heat.get(head, 1.0)) for head in ("action", "target")
         }
         out["event_calibrated"] = bool(described.get("event_calibrated", False))
+        if described.get(KEY_STATE):
+            out[KEY_STATE] = str(described[KEY_STATE])
     return out
 
 

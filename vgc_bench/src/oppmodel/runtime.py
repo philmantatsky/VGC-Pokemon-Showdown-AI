@@ -58,6 +58,13 @@ slots), an action or reply that cannot be classed counts
 ``pair_weight:unclassed`` / ``reply_weight:unread``, and a list that cannot be
 built ``joint_top:not_built``, in this module's ``COUNTERS``; the joint's and
 the coupling's own failures are in ``joint.COUNTERS`` / ``coupling.COUNTERS``.
+One case of "cannot be classed" has its own name, ``pair_weight:other_mixed``:
+a slot's ``other`` entry is the OTHER bucket (class ``unassigned``) plus every
+candidate the runtime could not name, and ``joint_top`` classes such a
+candidate by its own row of the intent table. With the tables a featurizer
+builds that row is unassigned too and the two agree; when it is not, the
+entry holds two classes, no one number fits it, and ``pair_weight`` /
+``reply_weight`` answer 1.0 and count instead of answering for the wrong class.
 A forecast has no runtime to count in, so these three are process-wide (every
 runtime of the process adds to them): ``OpponentPredictor.diagnostics()``
 reports them under ``process``, with the module they come from as a prefix
@@ -77,6 +84,22 @@ prediction that is not a probability table for an occupied slot: a negative
 entry, a slot whose legal actions carry no mass, a move with mass whose legal
 targets carry none (``opp_predictor_error:prediction_malformed``). A forecast
 that is served always says something.
+
+Version-2 inputs. A layout-version-2 featurizer never loses an example to its
+matchup or set-prior block: when one fails it writes ZEROS and counts a name
+(``matchup_error:*``, ``setprior_*``), which is right for building a dataset.
+A network fitted on real values would read those zeros as facts (a speed tie,
+no damage either way, a move no set holds), so the runtime does not serve
+that call: when the featurizer's counters show, across the encode of THIS
+call, that a block failed whose arrays the predictor reads
+(``extras_read``: the network's ``extra_keys``), ``predict`` returns None with
+``opp_predictor_error:extras_degraded`` and counts ``extras_degraded:<family>``
+(``matchup`` / ``set_prior``). A predictor that reads none of a block's arrays
+(a count table, a network fitted with ``--extras 0``, the live version-1
+model) is served as before whatever that block did. The comparison is made
+under the runtime's lock, like the one that notices a degraded predictor; a
+featurizer shared with another runtime can only make it stand down once too
+often, never serve a degraded call.
 
 Cache, lock, bound. A second ``predict`` at the same turn start returns the
 same ``Forecast`` object without recomputing (a failure is remembered for the
@@ -168,6 +191,9 @@ from vgc_bench.src.oppmodel.features import (
     CAND_VALID,
     ELO_BLANK,
     ELO_KEEP,
+    EXTRA_ARRAYS,
+    FAMILY_MATCHUP,
+    FAMILY_SETPRIOR,
     FLAG_MEGA_POSSIBLE,
     G_ACTOR_SHEET,
     G_OTHER_SHEET,
@@ -243,6 +269,18 @@ _STATE_PREFIX = "state:"
 _PREDICTOR_FAILURE = "predict_error"
 _ENCODE_SKIP = "encode_skip:"
 _ENCODE_FAILURE = "encode_error:"
+# A version-2 block of the featurizer that failed for an example: it wrote
+# zeros and counted a name starting with one of these (``Featurizer._matchup``
+# / ``_set_prior``), by the family of ``features.EXTRA_ARRAYS`` it writes.
+# ``matchup_no_stats`` is not among them: a Pokemon without a stat line is
+# encoded the same way in every dataset, so the network has seen it.
+_EXTRAS_FAILED: dict[str, tuple[str, ...]] = {
+    FAMILY_MATCHUP: ("matchup_error:",),
+    FAMILY_SETPRIOR: ("setprior_",),
+}
+# The stand-down of a call whose version-2 inputs were zeroed, and the prefix
+# of the counter that names the family.
+EXTRAS_DEGRADED = "extras_degraded"
 _FEED_FAILURE = "feed_error"
 _STREAM_SKIP = "sync_skip:"  # the shadow passed over an entry of the stream
 # A served slot's legal actions, and the legal targets of each move with mass,
@@ -264,6 +302,9 @@ COUNTERS: Counter[str] = Counter()
 PAIR_UNCLASSED = "pair_weight:unclassed"
 REPLY_UNREAD = "reply_weight:unread"
 JOINT_NOT_BUILT = "joint_top:not_built"
+# A slot's ``other`` entry that holds two classes (see the module text): it is
+# counted here and, by the method that asked, as unclassed / unread.
+PAIR_OTHER_MIXED = "pair_weight:other_mixed"
 
 _LOG = logging.getLogger(__name__)
 
@@ -633,10 +674,38 @@ class Forecast:
             _failed("pair_class_weight", exc)
             return 1.0
 
+    def _other_class(self, which: int) -> int | None:
+        """The class of slot ``which``'s ``other`` entry; None when it holds
+        two (then ``pair_weight:other_mixed`` is counted).
+
+        The entry is the OTHER bucket (``unassigned``) plus every candidate
+        without a name. ``joint_top`` classes such a candidate by its own row
+        of the intent table. Where that row is ``unassigned`` as well (every
+        table a featurizer builds: the row of "no move"), or the candidate
+        carries no mass, the entry is one class and ``pair_weight`` agrees
+        with ``joint_top``. Otherwise no one class fits it.
+        """
+        inputs, made = self.joint_inputs, self.slots[which]
+        if made is None or inputs is None or KEY_CLASS not in inputs:
+            return None
+        classes = np.asarray(inputs[KEY_CLASS])[0, which]
+        for column, name in enumerate(made.moves):
+            if name or float(made.action_probs[column]) <= 0.0:
+                continue
+            kinds = classes[column * N_TARGET : (column + 1) * N_TARGET]
+            aimed = np.asarray(made.target_probs[column]) > 0.0
+            if aimed.any():
+                kinds = kinds[aimed]
+            if (kinds != C_UNASSIGNED).any():
+                _count(PAIR_OTHER_MIXED)
+                return None
+        return C_UNASSIGNED
+
     def action_class(self, which: int, action: Any) -> int | None:
         """The reply class (index into ``coupling.CLASSES``) of an entry of
         slot ``which``'s list; None without a coupling or when the entry
-        cannot be classed. Never raises."""
+        cannot be classed (an ``other`` entry that holds two classes
+        included: see ``_other_class``). Never raises."""
         try:
             inputs = self.joint_inputs
             if which not in (0, 1) or inputs is None or KEY_CLASS not in inputs:
@@ -647,7 +716,7 @@ class Forecast:
             if action.kind == ACTION_SWITCH:
                 return C_SWITCH
             if action.kind == ACTION_OTHER:
-                return C_UNASSIGNED
+                return self._other_class(which)
             if action.kind != ACTION_MOVE or not action.move:
                 return None
             if action.move not in made.moves or action.target not in TARGET_CLASSES:
@@ -672,7 +741,11 @@ class Forecast:
         pair it counts ``pair_weight:unclassed`` in this module's
         ``COUNTERS`` (``OpponentPredictor.diagnostics()['process']``), so a
         1.0 that hides a broken forecast can be told from the 1.0 of no
-        coupling.
+        coupling. An ``other`` entry that holds two classes is such a case
+        and also counts ``pair_weight:other_mixed``. For every other entry
+        of ``joint_top`` (without the Mega bit) the product of its two
+        slots' probabilities times this number is the entry's probability up
+        to the list's one normalising constant.
         """
         if self.pair is None:
             return 1.0  # no coupling, or an empty slot: nothing to weigh
@@ -697,7 +770,9 @@ class Forecast:
         Multiply a product of per-slot likelihoods by it. Never raises.
 
         A reply that cannot be read (not a pass) on a forecast that has a
-        pair counts ``reply_weight:unread`` in this module's ``COUNTERS``.
+        pair counts ``reply_weight:unread`` in this module's ``COUNTERS``;
+        ``("other",)`` is this forecast's ``other`` entry and is unread when
+        that entry holds two classes (``pair_weight:other_mixed``).
         """
         if self.pair is None or first is None or second is None:
             return 1.0  # no coupling, an empty slot, or a pass
@@ -723,11 +798,13 @@ class Forecast:
         if parts[0] == ACTION_SWITCH:
             return C_SWITCH
         if parts[0] == ACTION_OTHER:
-            return C_UNASSIGNED
+            # This forecast's ``other`` entry, as ``action_class`` reads it.
+            return self._other_class(which)
         if parts[0] != ACTION_MOVE or len(parts) < 2:
             return None
         move = str(parts[1] or "")
         if not move or move not in made.moves:
+            # A move outside the candidates: the OTHER bucket's own move.
             return C_UNASSIGNED
         aim = _PLAIN_TARGETS.get(parts[2] if len(parts) > 2 else None)
         if aim is None:
@@ -913,7 +990,10 @@ class OpponentPredictor:
     the runtime stand down in a battle of any other format; an artifact that
     names none is served in every doubles format. ``coupling`` is the
     artifact's pair coupling (``load`` passes it on); it adds
-    ``Forecast.pair`` and changes no per-slot number.
+    ``Forecast.pair`` and changes no per-slot number. A predictor that reads
+    version-2 arrays (``extras_read``) is not served on a call whose
+    featurizer block failed (``opp_predictor_error:extras_degraded``; the
+    module text, "Version-2 inputs").
     """
 
     def __init__(
@@ -950,6 +1030,11 @@ class OpponentPredictor:
         # shadow that is rebuilt after its entry was evicted.
         self._noted: OrderedDict[tuple[str, str], tuple[bool, Any, Any]] = OrderedDict()
         self._formats = _format_ids(self.meta)
+        # The version-2 arrays the predictor reads, and the families of
+        # featurizer blocks they come from: a call whose block failed is not
+        # served (see the module text, "Version-2 inputs").
+        self._extras_read = extras_read(predictor)
+        self._extra_families = _families_of(self._extras_read)
         blind = featurizer is not None and featurizer.elo_mode == ELO_BLANK
         blind = blind or getattr(predictor, "elo_mode", ELO_KEEP) == ELO_BLANK
         self._elo_blind = bool(blind)
@@ -1036,6 +1121,12 @@ class OpponentPredictor:
     def coupling(self) -> Any:
         """The artifact's pair coupling, or None."""
         return self._coupling
+
+    @property
+    def extras_read(self) -> tuple[str, ...]:
+        """The version-2 arrays the predictor reads (``extras_read``); a call
+        whose featurizer block failed for one of them is not served."""
+        return self._extras_read
 
     @property
     def elo_mode(self) -> str:
@@ -1318,6 +1409,14 @@ class OpponentPredictor:
         example = featurizer.encode(snapshot, other)
         if example is None:
             return None, self._bump(_encode_reason(featurizer.counters - before))
+        if self._extra_families:
+            # A version-2 block the predictor reads wrote zeros for this
+            # example: no forecast from made-up inputs.
+            failed = _failed_extras(featurizer.counters - before, self._extra_families)
+            if failed:
+                for family in failed:
+                    self._bump(f"{EXTRAS_DEGRADED}:{family}")
+                return None, self._bump(FAILURE + EXTRAS_DEGRADED)
         reported = collate([example])
         if not reported:
             return None, self._bump(FAILURE + "collate")
@@ -1664,6 +1763,43 @@ def _predictor_failures(predictor: Any) -> int:
         if str(name).startswith(_PREDICTOR_FAILURE):
             total += _whole(count, 0)
     return total
+
+
+def extras_read(predictor: Any) -> tuple[str, ...]:
+    """The version-2 arrays (``features.EXTRA_ARRAYS`` names) a predictor
+    reads, in table order: its own ``extra_keys``, or its network's
+    (``model.OppNet.extra_keys``). ``()`` for a predictor that names none: a
+    count table, a network fitted with ``--extras 0``, every model from
+    before layout version 2. Never raises."""
+    try:
+        for holder in (predictor, getattr(predictor, "net", None)):
+            keys = getattr(holder, "extra_keys", None)
+            if isinstance(keys, (tuple, list)):
+                asked = {str(key) for key in keys}
+                return tuple(spec.name for spec in EXTRA_ARRAYS if spec.name in asked)
+    except Exception as exc:
+        _failed("extras_read", exc)
+    return ()
+
+
+def _families_of(names: Iterable[str]) -> frozenset[str]:
+    """The block families (``features.FAMILY_*``) that write ``names``."""
+    asked = set(names)
+    return frozenset(spec.family for spec in EXTRA_ARRAYS if spec.name in asked)
+
+
+def _failed_extras(fresh: Mapping[str, int], families: Iterable[str]) -> list[str]:
+    """The families among ``families`` whose block failed, by the names the
+    featurizer counted during one encode (``fresh``), sorted."""
+    out: list[str] = []
+    for family in sorted(families):
+        prefixes = _EXTRAS_FAILED.get(family, ())
+        if any(
+            count > 0 and str(name).startswith(prefixes)
+            for name, count in fresh.items()
+        ):
+            out.append(family)
+    return out
 
 
 def _encode_reason(fresh: Mapping[str, int]) -> str:

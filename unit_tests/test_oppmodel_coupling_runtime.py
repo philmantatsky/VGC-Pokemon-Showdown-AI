@@ -172,14 +172,15 @@ def test_a_coupling_changes_no_per_slot_number_and_adds_the_pair(fz: F.Featurize
         # coupled=False is the plain product, the same as without a coupling
         assert after.joint_top(8, coupled=False) == before.joint_top(8)
         # entries stand in the ratio p_a * p_b * pair_weight says
+        # (the OTHER bucket's entries included: a candidate without a name
+        # reads "other" too, and its own row of the intent table is
+        # unassigned in every table a featurizer builds)
         classes = CP.reply_classes(kept(after), intents)[0]
         scaled = []
         for entry in top:
             first, second = entry.slots
             if first is None or second is None:
                 continue
-            if R.ACTION_OTHER in (first.kind, second.kind):
-                continue  # a candidate without a name reads "other"
             weight = after.pair_weight(first, second)
             assert weight == float(
                 made.table[

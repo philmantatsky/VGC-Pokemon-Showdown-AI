@@ -29,6 +29,24 @@ Hygiene.
 * An artifact that already carries an event calibration is refused: a second
   map fitted on calibrated output must never be stacked on the first.
   ``--refit`` drops the stored one and fits anew from the uncalibrated output.
+* An artifact that carries a PAIR COUPLING is refused before anything is
+  fitted. A coupling is fitted after one predictor state (its temperatures
+  and whether an event calibration is in force); the calibrated predictor is
+  another state, so the coupling cannot be carried over and is never dropped
+  quietly. Calibrate the artifact the coupling was fitted on (the one without
+  it), then fit the coupling again on the calibrated artifact
+  (``training/fit_oppmodel_coupling.py``).
+* The informational splits are confirmation data in a dataset of the fourth
+  build (OPPONENT_PREDICTOR.md), decided before anything is fitted
+  (``informational_plan``). The bot's own games from
+  ``features.OWN_SEALED_FROM`` on (told from the rows' own times, never from
+  the day the dataset was built) are left out of the ladder holdout unless
+  ``--allow-sealed-holdout`` is given. The ``test`` split of a dataset that
+  holds such games, or that was built with ``--own-before`` (its manifest's
+  ``own_cutoff``), is not loaded unless ``--score-test`` is given.
+  ``--informational-splits`` names the splits to read (``none`` reads
+  neither). On a dataset of before the fourth build the default is what it
+  always was: both, whole.
 
 Context terms. One map over all slot-turns left P(switch) 8-10 points too
 high on turn 1 on held-out players (review of 2026-10-05). Each map may
@@ -117,7 +135,7 @@ import math
 import re
 import time
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -135,7 +153,9 @@ from vgc_bench.src.oppmodel import model as M
 ROOT = Path(__file__).resolve().parents[1]
 SPLIT_VAL = "val"
 SPLIT_LADDER = "ladder_holdout"
-INFORMATIONAL_SPLITS: tuple[str, ...] = ("test", SPLIT_LADDER)
+SPLIT_TEST = "test"
+INFORMATIONAL_SPLITS: tuple[str, ...] = (SPLIT_TEST, SPLIT_LADDER)
+NO_SPLITS = "none"  # ``--informational-splits none``: read neither
 SPLIT_SHORT = {
     SPLIT_VAL: "validation",
     "test": "test players",
@@ -249,6 +269,29 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         help="fit on a dataset build other than the one the artifact names",
     )
     parser.add_argument(
+        "--informational-splits",
+        default=None,
+        help="comma list of the informational splits to read after the "
+        "artifact is written, from "
+        + ", ".join(INFORMATIONAL_SPLITS)
+        + f"; '{NO_SPLITS}' reads neither. Default: both for a dataset of "
+        "before the fourth build; the ladder holdout alone for a dataset "
+        f"that holds own games from {F.OWN_SEALED_FROM} on or was built with "
+        "--own-before",
+    )
+    parser.add_argument(
+        "--score-test",
+        action="store_true",
+        help="read the test split of a dataset of the fourth build "
+        "(confirmation data: only for the final reading)",
+    )
+    parser.add_argument(
+        "--allow-sealed-holdout",
+        action="store_true",
+        help=f"read the bot's own games from {F.OWN_SEALED_FROM} on (the "
+        "sealed set) in the ladder holdout; without it they are left out",
+    )
+    parser.add_argument(
         "--overwrite",
         action="store_true",
         help="replace an earlier calibration run that --out already holds",
@@ -326,6 +369,85 @@ def same(first: Any, second: Any) -> bool:
     if isinstance(first, float) and isinstance(second, float):
         return first == second or (math.isnan(first) and math.isnan(second))
     return type(first) is type(second) and first == second
+
+
+def informational_plan(args: argparse.Namespace, dataset: Path) -> dict[str, Any]:
+    """Which informational splits a run reads and which rows it leaves out,
+    decided before anything is fitted, from the manifest and the meta arrays
+    ``m_split`` / ``m_time`` alone.
+
+    ``splits``: the splits read, in ``INFORMATIONAL_SPLITS`` order.
+    ``not_read``: the others, each with its reason. ``own_before``: the Unix
+    time from which the bot's own games are left out (None: none are).
+    ``default``: both splits, every row, as before the choice existed.
+
+    A dataset is ``fourth_build`` when it holds own games dated from
+    ``features.OWN_SEALED_FROM`` on, or was built with ``--own-before`` (its
+    manifest's ``own_cutoff``): there the test split is read only with
+    ``--score-test`` and the sealed rows only with ``--allow-sealed-holdout``.
+    Raises ``CalibrationError`` for a dataset whose rows cannot be read, a bad
+    list, or ``test`` named for such a dataset without ``--score-test``.
+    """
+    text = getattr(args, "informational_splits", None)
+    asked: list[str] | None = None
+    if text is not None:
+        parts = [part.strip() for part in str(text).split(",") if part.strip()]
+        if parts == [NO_SPLITS]:
+            parts = []
+        elif not parts or any(part not in INFORMATIONAL_SPLITS for part in parts):
+            raise CalibrationError(
+                f"--informational-splits {text!r}: choose from "
+                f"{INFORMATIONAL_SPLITS}, or '{NO_SPLITS}'"
+            )
+        asked = [name for name in INFORMATIONAL_SPLITS if name in parts]
+    score_test = bool(getattr(args, "score_test", False))
+    allowed = bool(getattr(args, "allow_sealed_holdout", False))
+    try:
+        manifest = json.loads((dataset / "manifest.json").read_text(encoding="utf-8"))
+        sealed_from = F.local_time(F.OWN_SEALED_FROM)
+        held = F.own_time_range(dataset, sealed_from)
+    except (OSError, ValueError, KeyError) as exc:
+        raise CalibrationError(
+            f"dataset {dataset}: its splits and the times of its own games "
+            f"cannot be read ({exc!r})"
+        ) from exc
+    sealed = int(held.get("late_rows") or 0)
+    cutoff = manifest.get("own_cutoff") if isinstance(manifest, Mapping) else None
+    built_with_cutoff = isinstance(cutoff, Mapping)
+    fourth_build = bool(sealed) or built_with_cutoff
+    chosen = list(INFORMATIONAL_SPLITS) if asked is None else list(asked)
+    not_read: dict[str, str] = {
+        name: "not in --informational-splits"
+        for name in INFORMATIONAL_SPLITS
+        if name not in chosen
+    }
+    if fourth_build and not score_test and SPLIT_TEST in chosen:
+        why = (
+            f"the dataset holds own games from {F.OWN_SEALED_FROM} on"
+            if sealed
+            else "the dataset was built with --own-before"
+        ) + ": its test split is confirmation data (give --score-test to read it)"
+        if asked is not None:
+            raise CalibrationError(f"--informational-splits names test, and {why}")
+        not_read[SPLIT_TEST] = why
+        chosen.remove(SPLIT_TEST)
+    leave_out = bool(sealed) and not allowed
+    return {
+        "splits": chosen,
+        "not_read": not_read,
+        "asked": asked,
+        "score_test": score_test,
+        "allow_sealed_holdout": allowed,
+        "fourth_build": fourth_build,
+        "built_with_own_cutoff": built_with_cutoff,
+        "sealed_from": F.OWN_SEALED_FROM,
+        "sealed_rows_in_dataset": sealed,
+        "sealed_rows_read": bool(sealed) and not leave_out,
+        "own_before": sealed_from if leave_out else None,
+        "own_time_known": bool(held.get("has_time", True)),
+        "own_time": held.get("splits") or {},
+        "default": len(chosen) == len(INFORMATIONAL_SPLITS) and not leave_out,
+    }
 
 
 def trained_on_manifest(extra: Mapping[str, Any]) -> str | None:
@@ -1095,15 +1217,19 @@ class Inputs:
     manifest_sha: str
     same_build: bool
     name: str
+    plan: dict[str, Any] = field(default_factory=dict)
 
 
 def read_inputs(args: argparse.Namespace, source: Path, dataset: Path) -> Inputs:
     """Load the artifact and apply every refusal that needs no computation.
 
     Raises ``CalibrationError`` for: a file that is not a readable artifact; a
-    kind that carries no event calibration; an artifact that already has one
-    without ``--refit``; a dataset build other than the one it was trained on
-    without ``--allow-other-dataset``; an empty name suffix. Writes nothing.
+    kind that carries no event calibration; an artifact that carries a pair
+    coupling (it was fitted after the uncalibrated state: refit it after the
+    calibration); an artifact that already has an event calibration without
+    ``--refit``; a dataset build other than the one it was trained on without
+    ``--allow-other-dataset``; an empty name suffix; informational splits
+    that cannot be read as asked (``informational_plan``). Writes nothing.
     """
     try:
         document = A.read_artifact(source, strict=True)
@@ -1115,6 +1241,19 @@ def read_inputs(args: argparse.Namespace, source: Path, dataset: Path) -> Inputs
         raise CalibrationError(
             f"{source} is a {loaded.kind!r} artifact; only {M.KIND!r} carries "
             "an event calibration"
+        )
+    coupling = getattr(loaded, "coupling", None)
+    if coupling is not None or document.get(A.KEY_COUPLING) is not None:
+        # Before any predict pass: the calibrated predictor is another state
+        # than the one the coupling was fitted after, so it cannot ride along.
+        raise CalibrationError(
+            f"{source} carries a pair coupling "
+            f"({getattr(coupling, 'name', None) or 'unnamed'}), fitted after "
+            "this predictor's present state. A calibration changes that state, "
+            "so the coupling cannot be carried over and is never dropped "
+            "quietly: calibrate the artifact WITHOUT the coupling (the one it "
+            "was fitted on), then fit the coupling again on the calibrated "
+            "artifact (training/fit_oppmodel_coupling.py)"
         )
     had = base.event_calibration is not None
     if had:
@@ -1142,6 +1281,7 @@ def read_inputs(args: argparse.Namespace, source: Path, dataset: Path) -> Inputs
         raise CalibrationError("the new artifact needs a name suffix")
     if args.limit is not None and int(args.limit) < 0:
         raise CalibrationError(f"--limit {args.limit} is negative")
+    plan = informational_plan(args, dataset)
     return Inputs(
         document=document,
         loaded=loaded,
@@ -1154,6 +1294,7 @@ def read_inputs(args: argparse.Namespace, source: Path, dataset: Path) -> Inputs
         # A refit of an artifact this script wrote keeps one suffix; a --limit
         # run never gets the name of the real calibration.
         name=calibrated_name(loaded.name, suffix, args.limit, refit=had),
+        plan=plan,
     )
 
 
@@ -1392,13 +1533,28 @@ def _calibrate(
     report["artifact_sha256"] = S.sha256_file(path)
 
     # Nothing below is fitted or chosen: the artifact is already written.
+    # What is read was decided before the fit (``informational_plan``).
     report["informational"] = {}
+    plan = inputs.plan or informational_plan(args, dataset)
+    if not plan["default"] or plan["fourth_build"]:
+        report["informational_plan"] = _plain(plan)
+    for split, why in plan["not_read"].items():
+        say(f"INFORMATIONAL {split}: NOT read: {why}")
+    own_before = plan["own_before"]
+    if own_before is not None and SPLIT_LADDER in plan["splits"]:
+        say(
+            f"INFORMATIONAL {SPLIT_LADDER}: {plan['sealed_rows_in_dataset']} rows "
+            f"of own games from {F.OWN_SEALED_FROM} on (the sealed set) are left "
+            "out (give --allow-sealed-holdout to read them)"
+        )
     present = tuple(
-        split
-        for split in INFORMATIONAL_SPLITS
-        if split in (manifest.get("splits") or [])
+        split for split in plan["splits"] if split in (manifest.get("splits") or [])
     )
-    extra_splits = T.load_splits(dataset, present)[0] if present else {}
+    extra_splits: dict[str, F.Batch] = {}
+    if present and own_before is None:
+        extra_splits = T.load_splits(dataset, present)[0]  # the call of before
+    elif present:
+        extra_splits = T.load_splits(dataset, present, own_before)[0]
     for split in present:
         rows = extra_splits[split]
         if args.limit is not None:
@@ -1607,6 +1763,32 @@ def _map_text(found: Mapping[str, Any]) -> str:
     return "p (no change)"
 
 
+def _plan_lines(plan: Mapping[str, Any] | None) -> list[str]:
+    """One bullet saying which informational splits were read; nothing for a
+    report of a dataset of before the fourth build read whole (as always)."""
+    if not plan:
+        return []
+    read = ", ".join(f"`{name}`" for name in plan.get("splits") or []) or "none"
+    left = "; ".join(
+        f"`{name}` ({why})" for name, why in (plan.get("not_read") or {}).items()
+    )
+    sealed = plan.get("sealed_rows_in_dataset")
+    text = f"- informational splits read: {read}"
+    if left:
+        text += f"; not read: {left}"
+    if sealed:
+        text += (
+            f"; {sealed} rows of the bot's own games from "
+            f"{plan.get('sealed_from')} on (the sealed confirmation set) "
+            + (
+                "were READ (--allow-sealed-holdout)"
+                if plan.get("sealed_rows_read")
+                else "were left out"
+            )
+        )
+    return [text + "."]
+
+
 def _splits_of(data: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
     out: dict[str, Mapping[str, Any]] = {}
     if data.get("validation"):
@@ -1644,6 +1826,7 @@ def render_report(report: Mapping[str, Any]) -> str:
         f"({dataset.get('validation_rows_left_out_holdout_battles')} rows of battles "
         "with a ladder-holdout opponent left out). Nothing is fitted or chosen on "
         "test or the ladder holdout.",
+        *_plan_lines(data.get("informational_plan")),
         f"- new artifact: `{data.get('artifact')}`"
         + (
             f" (sha256 {str(data.get('artifact_sha256'))[:12]})"
