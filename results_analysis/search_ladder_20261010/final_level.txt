@@ -1,0 +1,9 @@
+history: 77 of 146 (53%), 35 wins by forfeit; opponents' mean rating 1197; performance rating 1217 [1155, 1278]; own rating 1140 -> 1289 (mean 1202, 1067 to 1353), which expected 74.2 wins
+run_new_predictor: 28 of 64 (44%), 8 wins by forfeit; opponents' mean rating 1324; performance rating 1278 [1179, 1371]; own rating 1409 -> 1315 (mean 1319, 1163 to 1427), which expected 31.6 wins
+search_old_predictor: 23 of 39 (59%), 9 wins by forfeit; opponents' mean rating 1311; performance rating 1376 [1264, 1503]; own rating 1274 -> 1426 (mean 1318, 1215 to 1426), which expected 19.9 wins
+search_brain_prior: 22 of 40 (55%), 10 wins by forfeit; opponents' mean rating 1229; performance rating 1265 [1158, 1382]; own rating 1189 -> 1295 (mean 1234, 1189 to 1295), which expected 20.3 wins
+all_search_games: 73 of 143 (51%), 27 wins by forfeit; opponents' mean rating 1294; performance rating 1302 [1242, 1359]; own rating 1189 -> 1315 (mean 1295, 1163 to 1427), which expected 71.8 wins
+run_new_predictor - history: +62 [-54, +175]; above zero in 85% of resamples
+search_old_predictor - history: +160 [+29, +300]; above zero in 100% of resamples
+search_brain_prior - history: +49 [-72, +175]; above zero in 79% of resamples
+all_search_games - history: +85 [-1, +170]; above zero in 97% of resamples

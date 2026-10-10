@@ -1,0 +1,133 @@
+{
+ "sets": {
+  "history": {
+   "games": 146,
+   "wins": 77,
+   "forfeit_wins": 35,
+   "performance": 1216.8605593874104,
+   "interval": [
+    1155.171461575097,
+    1278.0889648173534
+   ],
+   "opponents_mean": 1196.876712328767,
+   "own_rating": {
+    "first": 1140,
+    "last": 1289,
+    "mean": 1202.4383561643835,
+    "lowest": 1067,
+    "highest": 1353
+   },
+   "expected_wins_at_own_rating": 74.15217090022415
+  },
+  "run_new_predictor": {
+   "games": 64,
+   "wins": 28,
+   "forfeit_wins": 8,
+   "performance": 1278.411081678651,
+   "interval": [
+    1179.495135381972,
+    1371.2217473493783
+   ],
+   "opponents_mean": 1324.484375,
+   "own_rating": {
+    "first": 1409,
+    "last": 1315,
+    "mean": 1319.484375,
+    "lowest": 1163,
+    "highest": 1427
+   },
+   "expected_wins_at_own_rating": 31.555759642552264
+  },
+  "search_old_predictor": {
+   "games": 39,
+   "wins": 23,
+   "forfeit_wins": 9,
+   "performance": 1376.3927070196446,
+   "interval": [
+    1263.5406788206724,
+    1503.133834854108
+   ],
+   "opponents_mean": 1310.5384615384614,
+   "own_rating": {
+    "first": 1274,
+    "last": 1426,
+    "mean": 1318.3333333333333,
+    "lowest": 1215,
+    "highest": 1426
+   },
+   "expected_wins_at_own_rating": 19.934317021311056
+  },
+  "search_brain_prior": {
+   "games": 40,
+   "wins": 22,
+   "forfeit_wins": 10,
+   "performance": 1265.4784147833589,
+   "interval": [
+    1158.3256956885207,
+    1381.9615759938733
+   ],
+   "opponents_mean": 1229.45,
+   "own_rating": {
+    "first": 1189,
+    "last": 1295,
+    "mean": 1234.4,
+    "lowest": 1189,
+    "highest": 1295
+   },
+   "expected_wins_at_own_rating": 20.270245211759782
+  },
+  "all_search_games": {
+   "games": 143,
+   "wins": 73,
+   "forfeit_wins": 27,
+   "performance": 1301.610706174581,
+   "interval": [
+    1241.654258749753,
+    1359.4772007046167
+   ],
+   "opponents_mean": 1294.097902097902,
+   "own_rating": {
+    "first": 1189,
+    "last": 1315,
+    "mean": 1295.3706293706293,
+    "lowest": 1163,
+    "highest": 1427
+   },
+   "expected_wins_at_own_rating": 71.7603218756231
+  }
+ },
+ "differences": {
+  "run_new_predictor - history": {
+   "difference": 61.55052229124067,
+   "interval": [
+    -54.056060803739,
+    175.3892325939646
+   ],
+   "share_above_zero": 0.8535
+  },
+  "search_old_predictor - history": {
+   "difference": 159.53214763223423,
+   "interval": [
+    28.585301330533184,
+    299.8590232964848
+   ],
+   "share_above_zero": 0.9955
+  },
+  "search_brain_prior - history": {
+   "difference": 48.61785539594848,
+   "interval": [
+    -72.18443613514228,
+    175.0642672705153
+   ],
+   "share_above_zero": 0.7945
+  },
+  "all_search_games - history": {
+   "difference": 84.7501467871707,
+   "interval": [
+    -1.4375637647231088,
+    169.8454928482297
+   ],
+   "share_above_zero": 0.9745
+  }
+ }
+}

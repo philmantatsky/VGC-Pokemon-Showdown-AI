@@ -1,5 +1,63 @@
 # VGC Bot Project Status
 
+## The long run's final reading, at 65 games: not separable from the bot's history (+62 [-54, +175] in performance rating); the retrained predictor does not put the real reply in the search's table more often (62% and 62%) (2026-October 10, 16:12)
+
+- **The user (16:08):** "its over, take the final reading and fix the faults". The run
+  of 12:52 ends at 65 of its 300 games; the readings named before it are taken here,
+  once (`results_analysis/search_ladder_20261010/final_level.*`, `final_reading.*`).
+  The fixes are the next entry.
+- **1. The level -- the reading the run was for: NOT SEPARABLE, by the rule set before
+  it.** The run: 28 of 64 counted games (one turn-1 quit left out) against opponents
+  rated 1324 on average, performance rating **1278 [1179, 1371]**. The bot's history
+  without the search: 1217 [1155, 1278]. The run minus history: **+62 [-54, +175]**,
+  above zero in 85% of resamples. Pooled with the two earlier search trials -- three
+  configurations, 143 games -- the search reads 1302 [1242, 1359], minus history +85
+  [-1, +170]: suggestive, not established, and history is not a control (older games,
+  the T6tac brain). The earlier trial with the old predictor read 1376 [1264, 1503]
+  over 39 games, eight of its last ten won at one in the morning; no claim was named
+  between the two predictors' levels and none is made.
+- **2. The table, hidden sheets: "more often with the new predictor" is NOT said.** The
+  opponent's real reply was in the table as played for 221 of 358 (62%); with the old
+  predictor 140 of 227 (62%); p = 0.99. Moves alone 147 of 223 (66%; 66% then), a
+  Protect 75 of 105 (71%; 60%), a switch 40 of 93 (43%; 46%). Open sheets 41 of 63.
+  Against the brain's ranking alone on the same decisions: both 118, the played table
+  only 128, the brain only 8, neither 143. The predictor's own eight, by the search's
+  rule: 230 of 355 (65%), its first guess 27%; by the predictor session's own tool and
+  labels 71% against 63% for the old model on these same games (+7.4 points [+3.8,
+  +11.3]) -- the predictor did get better, and the table did not move. **78 of 397
+  real replies (20%) are legal in no world.**
+- **3. The weight:** within the table's width for 32% under the brain alone, 52% at
+  0.25, 59% at 0.5, 61% at the played 0.75, 61% under the forecast alone (335
+  hidden-sheet decisions). Replies with a switch: 26 of 73 at 0.75, 32 of 73 under the
+  forecast alone. Nothing asks for another weight; the first 16 replies of some world
+  would hold the reply for 72%, the first 24 for 74%.
+- **4. Does it run:** 580 of 595 decisions searched (97%); six ordinary fallbacks and
+  nine errors (the family below); p50 2.7 s, p90 7.4 s, max 7.6 s, none of 9 s; no game
+  lost on our clock. Of the fixes of 3ccdcd5f: no recharge turn and no charged move of
+  ours came up; the bot's own pair was found among the choices on all 580 searched
+  decisions. Opponents charged a two-turn move 16 times; our own Pokemon had to
+  Struggle on three turns (Encore, then Disable on the encored move).
+- **5. Overrides:** 55 of 580 searched decisions (9%), 7 at forced replacements. The
+  reply then made had been searched for 21: realized +0.45 on the search's own scale
+  (+0.28 expected over 44), 3 not positive. Games with an override 16 of 37 won,
+  without 13 of 28.
+- **6. The record and the rating:** 29 of 65 (45% [33, 57]); hidden sheets 26 of 55,
+  open 2 of 9; eight wins were forfeits. Rating at the start of a game: 1409 at the
+  first (the account's highest then), 1163 the lowest, 1427 the highest, 1315 at the
+  last; 1294 on the public page after it. The run opened 6-14 against opponents rated
+  1272 to 1477.
+- **What it comes to.** Sixty-five games do not show the search with the retrained
+  predictor playing above the bot's history, and do not show it below. The three
+  search trials together sit about 85 points above history with an interval that
+  touches zero -- and without a control. What the run did establish is where the
+  search's picture of the opponent is bounded now: not by the ranking (a better
+  predictor changed nothing in the table) but by the worlds, a fifth of real replies
+  being impossible in all of them, and by a table eight replies wide.
+- **What needs to happen:** the forced-move fault family (the next entry); the worlds
+  and the table's width; a controlled comparison -- the plain bot and the search in
+  alternation on the same account -- if a claim about level is wanted; and the
+  platform's bot registry, when it opens (the user: keep playing until then).
+
 ## The long run is stopped at the user's word after game 65 (29 wins); interim reading: a level of 1278 [1179, 1371] beside the history's 1217, the real reply in the table 62% as with the old predictor; one family of fault found (2026-October 10, 15:54)
 
 - **The user (15:50):** "stop the ladder after the current game ends". A watcher ended
