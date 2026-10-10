@@ -699,6 +699,27 @@ written, and the scratch link is removed. Nothing of mine read pages by date in 
   before version 2). All four, and the coupled variant of the winner, are read on the fresh
   games in ONE run; R5a / R5b are stated for the named one, the others are reported beside it.
 
+**The final candidate is named, 06:00, before the fresh games are read for any of the four.**
+Development read on the 401 old ladder games (`analysis_20261010/ladder_read_old_dev_final`,
+4,810 labelled slot-turns, 1,714 fully visible turns):
+
+| | fine NLL | joint top-8 |
+|---|---|---|
+| in the bot (`oppnet_v2_blind`) | 1.5831 | 62.3% |
+| retrained on the full download (`v3full_20261010_f100_oppnet`) | 1.4529 | 66.9% |
+| the same with the new inputs (`v4x_20261010_oppnet_x15`) | 1.4553 | 66.6% |
+| mean of the two retrained networks (`night_ens_v3_base_wide_r2`) | 1.4381 | 68.1% |
+| mean of two networks with the new inputs (`night_ens_v4x_x15_pair`) | 1.4398 | 67.3% |
+| mean of the two retrained networks, coupled | 1.4381 | 68.5% |
+
+By the rule fixed at 04:18 the candidate is **the mean of the two retrained networks**: the
+lowest fine NLL, 0.015 under the single retrained network (more than the 0.005 that would
+send the choice to the simpler one) and level with the mean of the new-input networks, which
+is the less simple of the two. *(2)-(3) the new inputs are not kept:* at convergence a network
+with them reads 1.3617 and 1.3595 on validation (two seeds) against 1.3593 without; they make
+the first epochs faster (0.07 nats ahead after one, 0.003 after thirteen) and change nothing
+at the end, as the probes said. The version-2 layout stays in the code, off by default.
+
 ### Not done, and what is next
 
 - **Read the shadow log** once real games exist; then a first guard, with thresholds fixed
