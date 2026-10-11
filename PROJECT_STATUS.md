@@ -14,7 +14,7 @@
   context some smaller tasks"; the user at 15:10, after a status: "cool, continue as
   planned"). Nothing of it is in this repository and nothing was written in its trees;
   my copy of its engine and the results are in `~/vgczero-peer/`.
-  - A parity battery of its engine (my snapshot of 11:33, source to 10:47) against
+  - A parity battery of its engine (my copy of 11:33, source to 11:16) against
     Showdown 942cda71d that plays 3, 5 or 8 decisions before comparing: 84 runs, 56,609
     scenarios, 200 + 200 runs each, 151,430 request checks with no difference. Three
     scenarios flagged, two causes: Quick Guard lets a partner's priority move through
@@ -24,8 +24,11 @@
     Findings: `~/vgczero-peer/steps_findings.md`, `causes.md`.
   - A cold read of its runbook for tonight's training pilot on the rented machine: nine
     findings, all accepted. Its go / no-go document is still to come.
-- Nothing of mine is running. The ladder bot is unchanged; the next trial's
-  configuration (the 00:30 entry) still waits for the user's word.
+- Running since 15:31, at its request, until 17:30 at the latest: the same battery on a
+  fresh copy of its engine (taken 15:29) for the 52 list lines the first one did not
+  reach (`~/vgczero-peer/r2/`); its engine is frozen for the pilot after that.
+- The ladder bot is unchanged; the next trial's configuration (the 00:30 entry) still
+  waits for the user's word.
 
 ## Rule notes from Showdown's source for the eight mechanics the vgczero engine lacks most (2026-October 11, 02:06)
 
