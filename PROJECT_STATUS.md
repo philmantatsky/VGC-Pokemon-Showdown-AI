@@ -1,5 +1,30 @@
 # VGC Bot Project Status
 
+## A self-play replica ("vgczero") started its training pilot on a rented GPU; the ladder bot is untouched by it (2026-October 11, 17:57)
+
+- Written at the vgczero session's request (it stays off `main` tonight). What I checked
+  myself says so; the rest is its account.
+- A self-play replica, "vgczero": branch `claude/nice-bohr-mvs9zh` (the worktree
+  `../vgczero-wt`; checked), working trees under `~/vgczero-build`, nothing committed there
+  yet by its account. It is a separate line of work from the ladder bot.
+- Its first paid GPU hour was the night of 2026-10-10. Its pilot started 2026-10-11 17:54
+  CDT on a rented RTX 5090 (checked: the first arm's launcher log in the laptop's copy says
+  22:54:01 UTC, 1,000 updates): three arms of 1,000 updates, one after the other: a
+  baseline, the same with an opponent-prediction head, and the baseline with another
+  seed. The pool is 4,133 weighted teams built from 10,811 collected Regulation M-C teams,
+  with 10% of its team groups held out of training. The pilot is self-play on the rented
+  machine.
+- **The deployed ladder bot and `results_deployed/DEPLOYED.json` are untouched by it**
+  (checked: nothing under `results_deployed/` is modified, and `DEPLOYED.json` was last
+  committed 2026-10-10 11:57).
+- Its records, which carry the numbers: `../vgczero-wt/vgczero/CLOUD_RUN_PLAN.md`, and under
+  `../vgczero-wt/vgczero/docs/cloud_plan_20261010/`: `READY_FOR_PILOT.md` (the go / no-go:
+  what was checked, on which build, and what remains), `specs/POOL_SPEC.md` and
+  `specs/PRE_PILOT_LOG.md`.
+- What this session did for it is in the entries below: the game-length reading (01:31),
+  the corpus refresh and the local bridge (01:52, finished 15:28), the rule notes (02:06),
+  the parity battery (15:28, 17:27) and the document check (17:50).
+
 ## The vgczero session's go / no-go document checked against its sources; one of my six causes was partly wrong (2026-October 11, 17:50)
 
 - For the vgczero session (its request at 17:44, with a start of the training arms at about
