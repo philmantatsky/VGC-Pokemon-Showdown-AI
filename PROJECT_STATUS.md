@@ -1,6 +1,6 @@
 # VGC Bot Project Status
 
-## Pre-registration: the time of a reply list of 8, 12 and 16 on a quiet machine (2026-October 10, 23:07)
+## Pre-registration: the time of a reply list of 8, 12 and 16 on a quiet machine (2026-October 10, 23:06)
 
 - **Why.** "make the list 16" (the user, 16:20). A table of sixteen runs, but its time
   was read only while another session's builds held the machine (load 170 to 200).
