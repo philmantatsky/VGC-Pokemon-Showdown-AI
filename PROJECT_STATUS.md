@@ -1,5 +1,28 @@
 # VGC Bot Project Status
 
+## Rule notes from Showdown's source for the eight mechanics the vgczero engine lacks most (2026-October 11, 02:06)
+
+- Asked for by the vgczero session after its four (optional; the user's word for the
+  night: the 01:31 entry). 640 of its 10,811 collected teams need a mechanic its engine
+  has not built; eight of them block most: Ally Switch, Illusion, Dragon Darts,
+  Bulletproof, Leek, Disguise, Imposter, Transform.
+- `results_analysis/vgczero_mechanics_20261011/SHOWDOWN_RULE_NOTES.md`: for each, the
+  handlers in the order they run with file and line (base data and what the Champions
+  mod replaces: its hit loop, its single-hit routine, its forme change, its PP rule),
+  what is specific to doubles, what the request and the log show, the hidden state it
+  adds, and tests that would catch a wrong implementation. Read from the checkout at
+  `~/vgczero-build/showdown_ps_head` (942cda71d); nothing was played -- the scenarios
+  are tests to run, not results.
+- Worth knowing from it: an Illusion holder that faints to indirect damage is logged
+  as its disguise fainting, with no reveal; Dragon Darts drops a protected, immune or
+  missed target without the usual message and gives both darts to the other; the hit
+  that busts a Disguise deals 0 but still counts as a hit (Rocky Helmet fires);
+  Transform has no protect flag; Imposter copies the Pokemon directly across (our
+  slot a faces their slot b); the Leek is a base handler the mod only makes legal.
+- The feed fetch is at 1,100 of 36,740; a watcher writes
+  `battle_logs_feed_mc/refresh_20261011_done.txt` (end time and the scraper's totals)
+  when it ends.
+
 ## Side work for the vgczero session, continued: its two write-ups checked against their sources, the feed refresh running, a local bridge harness built and rehearsed (2026-October 11, 01:52)
 
 - The other three things the vgczero session asked for (the user's word and the first
