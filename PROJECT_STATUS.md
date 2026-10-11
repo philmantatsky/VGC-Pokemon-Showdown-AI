@@ -1,5 +1,33 @@
 # VGC Bot Project Status
 
+## Pre-registration: the time of a reply list of 8, 12 and 16 on a quiet machine (2026-October 10, 23:07)
+
+- **Why.** "make the list 16" (the user, 16:20). A table of sixteen runs, but its time
+  was read only while another session's builds held the machine (load 170 to 200).
+  That session reported the machine quiet at 23:01 (load 3.2 at 23:06, twelve cores).
+- **Runs.** Null search (`--search-anchor 1e12`) through the ladder script on a local
+  server (port 7633) with the long run's flags (forecast prior at weight 0.75, nash,
+  critic leaf, four worlds, four streams, cpu), the same 24 closed-sheet rosters for
+  each of four configurations: the likely-move worlds with a list of 16, of 8 and of
+  12, and the worlds as they were with a list of 8. Two passes of 12 rosters, the four
+  in turn within a pass, so that a drift of the machine falls on all four alike. No
+  ladder game is played.
+- **Read**, a configuration over its 24 games: decisions; decisions not searched; the
+  time of a decision as the player measures it (the session's `search latency` line)
+  and as the audit does (preparation + search): p50, p90, max, the share at 7 s or
+  more; decisions in which a planned world did not finish its table (the bot's own pair
+  held by less than the whole planned mass); decisions cut short (`truncated`); the
+  real reply in the table and legal in no world; the null search's changed decisions
+  (0 in all eight segments, or the timing is of a search that is not the trial's).
+- **The rule, set before the runs.** A width fits when (a) no decision takes 9 s or
+  more (the ladder's cap is 10), (b) at most 2% of decisions are not searched, (c) a
+  planned world is lost in at most 5% of decisions. The next trial's width is the
+  widest of 16, 12 and 8 that fits. (b) and (c) are judgment: a table that is wider
+  but rests on fewer worlds is not known to be the better one.
+- **What it cannot say.** Whether a wider list plays better: 24 local games against a
+  heuristic measure time and coverage, not strength. A segment during which the load
+  average passes 12 is marked and its times are not used.
+
 ## The guessed teams are widened (opt-in): a world gives the opponent's active Pokemon what they have shown plus the likeliest moves they have not; real replies legal in no world fall from 23% to 8% on the ladder logs; a table of sixteen runs, its time on a quiet machine still to be measured (2026-October 10, 17:36)
 
 - **The user (16:20):** "fix the guessed teams and make the list 16". No ladder game
