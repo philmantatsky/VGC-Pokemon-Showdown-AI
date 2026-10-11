@@ -1,5 +1,45 @@
 # VGC Bot Project Status
 
+## Side work for the vgczero session: real games take about 12 decision steps when played to the end, not the 14.5 its cost projection assumed (2026-October 11, 01:31)
+
+- **The user (01:13):** "i got the other context doing a bunch of stuff, if u think u
+  can help it with anything on the side go for it for tonight just dont impede on it
+  if u can". The vgczero session named four things (game length from the replay
+  corpus, a refresh of the corpus for 10-05 to 10-11, a check of the numbers in two of
+  its write-ups against their sources, a local harness for games against an external
+  client); this is the first. One process at a time; nothing written in its trees.
+- **The question.** Its projection for a self-play run counts 14.5 simulator steps a
+  game; an untrained policy had played 9.0. How long are real games?
+- **The reading** (`evaluation/feed_game_length.py`, six tests;
+  `results_analysis/feed_game_length_20261011/game_length.{txt,json}`; the feed corpus
+  as it stood, 113,201 games uploaded 09-09 to 10-04; mean / median / p90):
+
+  | | games | steps, all games as played | steps, games played to the end | ended early |
+  |---|---|---|---|---|
+  | all | 113,201 | 10.6 / 10 / 16 | 12.0 / 12 / 16 (69,632 games) | 38.5% |
+  | rating 1300+ | 11,255 | 10.9 / 11 / 16 | 12.5 / 12 / 17 (6,650) | 40.9% |
+  | rating 1500+ | 705 | 11.0 / 11 / 16 | 13.2 / 12 / 18 (362) | 48.7% |
+
+  Bo1 and Bo3 agree (11.9 and 12.2 played to the end). A game played to the end is one
+  preview, 7.6 move requests, 2.9 replacement requests after a turn and 0.5 switch
+  requests inside one (U-turn, Parting Shot ...): 21.0 choices counting each side that
+  chooses. 36.7% of games end by forfeit and 1.8% on the timer -- nine forfeits in ten
+  from behind in Pokemon, 6% on turn 0 or 1.
+- **How a step is counted.** A step is a stop of the simulator that somebody answered:
+  Showdown writes one `|t:|` line each time `Battle.turnLoop` resumes after a committed
+  request and one at the battle's creation, so a game's steps are its `|t:|` lines less
+  one -- no modelling of who had to switch. The request a forfeit or a timeout ended on
+  is not counted, which is why "all games" reads low. A simulator has no forfeit:
+  giving every game cut short the steps that games played to the end still took from
+  the same Pokemon left (loser against winner) puts it at 12.2, 12.6 and 13.0 for the
+  three bands -- an estimate, probably a little high.
+- **For the projection.** 14.5 is 10 to 20% above what people play; games lengthen with
+  rating (about half a step a band; the 1500+ mean has a standard error near 0.25), so
+  a strong policy may sit at 13 to 14.
+- **The corpus refresh** (its second request) started 01:29: `datagen/oppmodel_scrape.py
+  index --newer-only`, then `fetch`, appending to `battle_logs_feed_mc` (network-bound,
+  one request a second; hours).
+
 ## A reply list of 16 fits the time: the slowest decision 7.7 s, none unsearched, no world lost; a move decision takes 4.4 s where it took 1.8, and one in six runs to the limit; the next trial's configuration is rehearsed (2026-October 11, 00:30)
 
 - **The user (10-10, 16:20):** "make the list 16". Pre-registered 23:06 (the entry

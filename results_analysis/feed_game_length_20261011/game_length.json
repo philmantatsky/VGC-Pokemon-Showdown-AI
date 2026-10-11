@@ -1,0 +1,567 @@
+{
+ "corpus": "battle_logs_feed_mc",
+ "games": 113201,
+ "rated": 80422,
+ "table": {
+  "all formats | all": {
+   "games": 113201,
+   "turns": {
+    "mean": 6.851670921634968,
+    "median": 7,
+    "p90": 11
+   },
+   "steps": {
+    "mean": 10.557159389051334,
+    "median": 10,
+    "p90": 16
+   },
+   "choices": {
+    "mean": 18.46587044284061,
+    "median": 18,
+    "p90": 27
+   },
+   "steps_by_kind": {
+    "preview": 0.9933216137666628,
+    "move": 6.612821441506701,
+    "after_turn": 2.4694569835955513,
+    "inside_turn": 0.4815593501824189
+   },
+   "played_to_the_end": {
+    "games": 69632,
+    "turns": {
+     "mean": 7.645909926470588,
+     "median": 7.0,
+     "p90": 11
+    },
+    "steps": {
+     "mean": 12.032197840073529,
+     "median": 12.0,
+     "p90": 16
+    },
+    "choices": {
+     "mean": 21.046860638786764,
+     "median": 20.0,
+     "p90": 29
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 7.645909926470588,
+     "after_turn": 2.913631663602941,
+     "inside_turn": 0.47265625
+    }
+   },
+   "ended": {
+    "forfeit": 41550,
+    "natural": 69632,
+    "other": 5,
+    "timer": 2014
+   },
+   "ended_in_preview": 756,
+   "completed_steps": {
+    "mean": 12.235135364395198,
+    "median": 12.0,
+    "p90": 16.594224137931036
+   },
+   "completed_of": 113199
+  },
+  "all formats | 1300+": {
+   "games": 11255,
+   "turns": {
+    "mean": 7.090715237672145,
+    "median": 7,
+    "p90": 11
+   },
+   "steps": {
+    "mean": 10.860062194580186,
+    "median": 11,
+    "p90": 16
+   },
+   "choices": {
+    "mean": 18.990581963571746,
+    "median": 19,
+    "p90": 28
+   },
+   "steps_by_kind": {
+    "preview": 0.9966237227898712,
+    "move": 6.8417592181252775,
+    "after_turn": 2.511328298533985,
+    "inside_turn": 0.5103509551310529
+   },
+   "played_to_the_end": {
+    "games": 6650,
+    "turns": {
+     "mean": 7.972781954887218,
+     "median": 8.0,
+     "p90": 11
+    },
+    "steps": {
+     "mean": 12.462406015037594,
+     "median": 12.0,
+     "p90": 17
+    },
+    "choices": {
+     "mean": 21.796240601503758,
+     "median": 21.0,
+     "p90": 30
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 7.972781954887218,
+     "after_turn": 2.977894736842105,
+     "inside_turn": 0.5117293233082707
+    }
+   },
+   "ended": {
+    "forfeit": 4468,
+    "natural": 6650,
+    "timer": 137
+   },
+   "ended_in_preview": 38,
+   "completed_steps": {
+    "mean": 12.554729726652269,
+    "median": 12.0,
+    "p90": 17.0
+   },
+   "completed_of": 11254
+  },
+  "all formats | 1500+": {
+   "games": 705,
+   "turns": {
+    "mean": 7.245390070921986,
+    "median": 7,
+    "p90": 11
+   },
+   "steps": {
+    "mean": 10.98581560283688,
+    "median": 11,
+    "p90": 16
+   },
+   "choices": {
+    "mean": 19.211347517730495,
+    "median": 19,
+    "p90": 28
+   },
+   "steps_by_kind": {
+    "preview": 0.9985815602836879,
+    "move": 6.961702127659574,
+    "after_turn": 2.480851063829787,
+    "inside_turn": 0.5446808510638298
+   },
+   "played_to_the_end": {
+    "games": 362,
+    "turns": {
+     "mean": 8.577348066298342,
+     "median": 8.0,
+     "p90": 12
+    },
+    "steps": {
+     "mean": 13.243093922651934,
+     "median": 12.0,
+     "p90": 18
+    },
+    "choices": {
+     "mean": 23.146408839779006,
+     "median": 22.0,
+     "p90": 31
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 8.577348066298342,
+     "after_turn": 3.088397790055249,
+     "inside_turn": 0.5773480662983426
+    }
+   },
+   "ended": {
+    "forfeit": 334,
+    "natural": 362,
+    "timer": 9
+   },
+   "ended_in_preview": 1,
+   "completed_steps": {
+    "mean": 13.002772840865108,
+    "median": 12.057869864781685,
+    "p90": 17.13035244608101
+   },
+   "completed_of": 705
+  },
+  "gen9championsvgc2026regmc | all": {
+   "games": 71869,
+   "turns": {
+    "mean": 6.752438464428335,
+    "median": 6,
+    "p90": 10
+   },
+   "steps": {
+    "mean": 10.424898078448289,
+    "median": 10,
+    "p90": 15
+   },
+   "choices": {
+    "mean": 18.239046042104384,
+    "median": 18,
+    "p90": 27
+   },
+   "steps_by_kind": {
+    "preview": 0.9941282054849796,
+    "move": 6.518401536128233,
+    "after_turn": 2.4629534291558253,
+    "inside_turn": 0.44941490767924974
+   },
+   "played_to_the_end": {
+    "games": 44370,
+    "turns": {
+     "mean": 7.563308541807528,
+     "median": 7.0,
+     "p90": 11
+    },
+    "steps": {
+     "mean": 11.918706333107956,
+     "median": 11.0,
+     "p90": 16
+    },
+    "choices": {
+     "mean": 20.850619788145142,
+     "median": 20.0,
+     "p90": 28
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 7.563308541807528,
+     "after_turn": 2.9125535271579897,
+     "inside_turn": 0.4428442641424386
+    }
+   },
+   "ended": {
+    "forfeit": 26241,
+    "natural": 44370,
+    "other": 2,
+    "timer": 1256
+   },
+   "ended_in_preview": 422,
+   "completed_steps": {
+    "mean": 12.100465046169353,
+    "median": 11.899272011354793,
+    "p90": 16.138899034041536
+   },
+   "completed_of": 71868
+  },
+  "gen9championsvgc2026regmc | 1300+": {
+   "games": 10935,
+   "turns": {
+    "mean": 7.092089620484682,
+    "median": 7,
+    "p90": 11
+   },
+   "steps": {
+    "mean": 10.86310013717421,
+    "median": 11,
+    "p90": 16
+   },
+   "choices": {
+    "mean": 18.99570187471422,
+    "median": 19,
+    "p90": 28
+   },
+   "steps_by_kind": {
+    "preview": 0.9967992684042066,
+    "move": 6.844901691815272,
+    "after_turn": 2.5142203932327387,
+    "inside_turn": 0.5071787837219937
+   },
+   "played_to_the_end": {
+    "games": 6498,
+    "turns": {
+     "mean": 7.976608187134503,
+     "median": 8.0,
+     "p90": 11
+    },
+    "steps": {
+     "mean": 12.465220067713142,
+     "median": 12.0,
+     "p90": 17
+    },
+    "choices": {
+     "mean": 21.801169590643276,
+     "median": 21.0,
+     "p90": 30
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 7.976608187134503,
+     "after_turn": 2.9764542936288088,
+     "inside_turn": 0.5121575869498307
+    }
+   },
+   "ended": {
+    "forfeit": 4303,
+    "natural": 6498,
+    "timer": 134
+   },
+   "ended_in_preview": 35,
+   "completed_steps": {
+    "mean": 12.54356612722506,
+    "median": 12.0,
+    "p90": 17.0
+   },
+   "completed_of": 10935
+  },
+  "gen9championsvgc2026regmc | 1500+": {
+   "games": 703,
+   "turns": {
+    "mean": 7.250355618776672,
+    "median": 7,
+    "p90": 11
+   },
+   "steps": {
+    "mean": 10.991465149359886,
+    "median": 11,
+    "p90": 16
+   },
+   "choices": {
+    "mean": 19.223328591749645,
+    "median": 19,
+    "p90": 28
+   },
+   "steps_by_kind": {
+    "preview": 0.9985775248933144,
+    "move": 6.9672830725462305,
+    "after_turn": 2.4822190611664294,
+    "inside_turn": 0.5433854907539118
+   },
+   "played_to_the_end": {
+    "games": 362,
+    "turns": {
+     "mean": 8.577348066298342,
+     "median": 8.0,
+     "p90": 12
+    },
+    "steps": {
+     "mean": 13.243093922651934,
+     "median": 12.0,
+     "p90": 18
+    },
+    "choices": {
+     "mean": 23.146408839779006,
+     "median": 22.0,
+     "p90": 31
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 8.577348066298342,
+     "after_turn": 3.088397790055249,
+     "inside_turn": 0.5773480662983426
+    }
+   },
+   "ended": {
+    "forfeit": 332,
+    "natural": 362,
+    "timer": 9
+   },
+   "ended_in_preview": 1,
+   "completed_steps": {
+    "mean": 13.003873204879788,
+    "median": 12.057869864781685,
+    "p90": 17.13035244608101
+   },
+   "completed_of": 703
+  },
+  "gen9championsvgc2026regmcbo3 | all": {
+   "games": 41332,
+   "turns": {
+    "mean": 7.024218523178167,
+    "median": 7.0,
+    "p90": 11
+   },
+   "steps": {
+    "mean": 10.787138294783702,
+    "median": 11.0,
+    "p90": 16
+   },
+   "choices": {
+    "mean": 18.86027775089519,
+    "median": 19.0,
+    "p90": 28
+   },
+   "steps_by_kind": {
+    "preview": 0.9919190941643279,
+    "move": 6.777000870995838,
+    "after_turn": 2.4807655085647924,
+    "inside_turn": 0.5374528210587438
+   },
+   "played_to_the_end": {
+    "games": 25262,
+    "turns": {
+     "mean": 7.790990420394268,
+     "median": 7.0,
+     "p90": 11
+    },
+    "steps": {
+     "mean": 12.231533528620062,
+     "median": 12.0,
+     "p90": 17
+    },
+    "choices": {
+     "mean": 21.391536695431874,
+     "median": 20.0,
+     "p90": 29
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 7.790990420394268,
+     "after_turn": 2.91552529490935,
+     "inside_turn": 0.5250178133164437
+    }
+   },
+   "ended": {
+    "forfeit": 15309,
+    "natural": 25262,
+    "other": 3,
+    "timer": 758
+   },
+   "ended_in_preview": 334,
+   "completed_steps": {
+    "mean": 12.469305513442043,
+    "median": 12.0,
+    "p90": 17.0
+   },
+   "completed_of": 41331
+  },
+  "gen9championsvgc2026regmcbo3 | 1300+": {
+   "games": 320,
+   "turns": {
+    "mean": 7.04375,
+    "median": 7.0,
+    "p90": 11
+   },
+   "steps": {
+    "mean": 10.75625,
+    "median": 11.0,
+    "p90": 17
+   },
+   "choices": {
+    "mean": 18.815625,
+    "median": 18.0,
+    "p90": 28
+   },
+   "steps_by_kind": {
+    "preview": 0.990625,
+    "move": 6.734375,
+    "after_turn": 2.4125,
+    "inside_turn": 0.61875
+   },
+   "played_to_the_end": {
+    "games": 152,
+    "turns": {
+     "mean": 7.809210526315789,
+     "median": 8.0,
+     "p90": 11
+    },
+    "steps": {
+     "mean": 12.342105263157896,
+     "median": 12.0,
+     "p90": 17
+    },
+    "choices": {
+     "mean": 21.585526315789473,
+     "median": 21.0,
+     "p90": 29
+    },
+    "steps_by_kind": {
+     "preview": 1.0,
+     "move": 7.809210526315789,
+     "after_turn": 3.039473684210526,
+     "inside_turn": 0.4934210526315789
+    }
+   },
+   "ended": {
+    "forfeit": 165,
+    "natural": 152,
+    "timer": 3
+   },
+   "ended_in_preview": 3,
+   "completed_steps": {
+    "mean": 12.937406716422041,
+    "median": 12.032197840073529,
+    "p90": 18.0
+   },
+   "completed_of": 319
+  },
+  "gen9championsvgc2026regmcbo3 | 1500+": {
+   "games": 2,
+   "turns": {
+    "mean": 5.5,
+    "median": 5.5,
+    "p90": 8
+   },
+   "steps": {
+    "mean": 9.0,
+    "median": 9.0,
+    "p90": 12
+   },
+   "choices": {
+    "mean": 15.0,
+    "median": 15.0,
+    "p90": 20
+   },
+   "steps_by_kind": {
+    "preview": 1.0,
+    "move": 5.0,
+    "after_turn": 2.0,
+    "inside_turn": 1.0
+   },
+   "played_to_the_end": {
+    "games": 0,
+    "turns": null,
+    "steps": null,
+    "choices": null,
+    "steps_by_kind": {
+     "preview": null,
+     "move": null,
+     "after_turn": null,
+     "inside_turn": null
+    }
+   },
+   "ended": {
+    "forfeit": 2
+   },
+   "ended_in_preview": 0,
+   "completed_steps": {
+    "mean": 12.615994889704897,
+    "median": 12.615994889704897,
+    "p90": 14.332717768055003
+   },
+   "completed_of": 2
+  }
+ },
+ "remaining_by_left": {
+  "1 v 1": 2.9665949540387246,
+  "1 v 2": 2.02225907646812,
+  "1 v 3": 2.3327177680550033,
+  "1 v 4": 2.5942241379310347,
+  "1 v 5": 2.25,
+  "2 v 1": 3.9586747834230858,
+  "2 v 2": 3.13035244608101,
+  "2 v 3": 4.138899034041535,
+  "2 v 4": 4.899272011354792,
+  "2 v 5": 4.266666666666667,
+  "2 v 6": 14.5,
+  "3 v 1": 7.834756097560976,
+  "3 v 2": 5.48003783016956,
+  "3 v 3": 6.68848266608562,
+  "3 v 4": 8.057869864781685,
+  "3 v 5": 6.733333333333333,
+  "3 v 6": 10.857142857142858,
+  "4 v 1": 12.882352941176471,
+  "4 v 2": 7.62756028001037,
+  "4 v 3": 9.054310132459117,
+  "4 v 4": 10.919860174612317,
+  "4 v 4 in preview": 12.032197840073529,
+  "4 v 5": 9.782608695652174,
+  "4 v 6": 10.5,
+  "5 v 4": 10.363636363636363,
+  "5 v 5": 12.235294117647058,
+  "5 v 6": 14.571428571428571,
+  "6 v 5": 16.153846153846153,
+  "6 v 6": 17.19047619047619
+ }
+}
