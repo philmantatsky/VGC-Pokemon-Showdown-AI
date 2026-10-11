@@ -1,0 +1,52 @@
+particle8: list {8: 129}, worlds {'particle': 129}, 24 games, 129 decisions
+   particle8_a: 23:28:54 to 23:36:03, load [4.18, 4.04]; the player's own timing p50 2030 ms, p90 7400 ms, max 7457 ms
+   particle8_b: 23:59:27 to 00:06:51, load [3.14, 3.71]; the player's own timing p50 2493 ms, p90 7404 ms, max 7454 ms
+   not searched 0 of 129 (0%)
+   seconds a decision (preparation + search): p50 2.0  p90 7.4  max 7.5;  7 s or more: 21 of 129 (16%);  9 s or more: 0
+   move decisions: 103;  p50 1.8  p75 2.8  p90 4.0  max 6.8;  7 s or more: 0 of 103 (0%);  cut short: 0 of 103 (0%);  simulated branches, mean 264
+   forced switch-ins: 26;  p50 7.4  p75 7.4  p90 7.4  max 7.5;  7 s or more: 21 of 26 (81%);  cut short: 21 of 26 (81%);  simulated branches, mean 767
+   a planned world lost: 0 of 129 (0%);  cut short: 21 of 129 (16%) {'partial_determinization_search': 21}
+   the real reply in the table (hidden sheets): 47 of 74 (64%);  legal in no world: 9 of 64 (14%)
+   the same replies within the first 8 / 12 / 16 of some world's list (sum75): 38 of 64 (59%) / 45 of 64 (70%) / 48 of 64 (75%)
+   null search changed: 0 of 129
+   FITS
+
+likely8: list {8: 119}, worlds {'likely': 119}, 24 games, 119 decisions
+   likely8_a: 23:14:48 to 23:21:34, load [3.96, 4.41]; the player's own timing p50 2087 ms, p90 6567 ms, max 7477 ms
+   likely8_b: 23:44:53 to 23:51:50, load [4.21, 3.36]; the player's own timing p50 2327 ms, p90 7393 ms, max 7452 ms
+   not searched 0 of 119 (0%)
+   seconds a decision (preparation + search): p50 2.1  p90 7.4  max 7.5;  7 s or more: 12 of 119 (10%);  9 s or more: 0
+   move decisions: 97;  p50 1.8  p75 2.9  p90 3.7  max 6.3;  7 s or more: 0 of 97 (0%);  cut short: 0 of 97 (0%);  simulated branches, mean 263
+   forced switch-ins: 22;  p50 7.4  p75 7.4  p90 7.4  max 7.5;  7 s or more: 12 of 22 (55%);  cut short: 13 of 22 (59%);  simulated branches, mean 798
+   a planned world lost: 0 of 119 (0%);  cut short: 13 of 119 (11%) {'partial_determinization_search': 13}
+   the real reply in the table (hidden sheets): 45 of 70 (64%);  legal in no world: 4 of 60 (7%)
+   the same replies within the first 8 / 12 / 16 of some world's list (sum75): 35 of 60 (58%) / 41 of 60 (68%) / 41 of 60 (68%)
+   null search changed: 0 of 119
+   FITS
+
+likely12: list {12: 124}, worlds {'likely': 124}, 24 games, 124 decisions
+   likely12_a: 23:21:34 to 23:28:54, load [4.41, 4.18]; the player's own timing p50 2789 ms, p90 7423 ms, max 7607 ms
+   likely12_b: 23:51:50 to 23:59:27, load [3.36, 3.14]; the player's own timing p50 2922 ms, p90 7106 ms, max 7447 ms
+   not searched 0 of 124 (0%)
+   seconds a decision (preparation + search): p50 2.8  p90 7.4  max 7.6;  7 s or more: 17 of 124 (14%);  9 s or more: 0
+   move decisions: 100;  p50 2.6  p75 4.1  p90 5.4  max 7.6;  7 s or more: 4 of 100 (4%);  cut short: 2 of 100 (2%);  simulated branches, mean 372
+   forced switch-ins: 24;  p50 7.4  p75 7.4  p90 7.4  max 7.4;  7 s or more: 13 of 24 (54%);  cut short: 13 of 24 (54%);  simulated branches, mean 703
+   a planned world lost: 0 of 124 (0%);  cut short: 15 of 124 (12%) {'partial_determinization_search': 15}
+   the real reply in the table (hidden sheets): 48 of 71 (68%);  legal in no world: 5 of 63 (8%)
+   the same replies within the first 8 / 12 / 16 of some world's list (sum75): 42 of 63 (67%) / 43 of 63 (68%) / 46 of 63 (73%)
+   null search changed: 0 of 124
+   FITS
+
+likely16: list {16: 115}, worlds {'likely': 115}, 24 games, 115 decisions
+   likely16_a: 23:06:29 to 23:14:48, load [3.25, 3.96]; the player's own timing p50 4965 ms, p90 7428 ms, max 7670 ms
+   likely16_b: 23:36:03 to 23:44:53, load [4.04, 4.21]; the player's own timing p50 4738 ms, p90 7511 ms, max 7701 ms
+   not searched 0 of 115 (0%)
+   seconds a decision (preparation + search): p50 4.7  p90 7.4  max 7.7;  7 s or more: 33 of 115 (29%);  9 s or more: 0
+   move decisions: 92;  p50 4.4  p75 6.1  p90 7.4  max 7.7;  7 s or more: 15 of 92 (16%);  cut short: 10 of 92 (11%);  simulated branches, mean 556
+   forced switch-ins: 23;  p50 7.4  p75 7.4  p90 7.4  max 7.5;  7 s or more: 18 of 23 (78%);  cut short: 18 of 23 (78%);  simulated branches, mean 831
+   a planned world lost: 0 of 115 (0%);  cut short: 28 of 115 (24%) {'partial_determinization_search': 28}
+   the real reply in the table (hidden sheets): 54 of 74 (73%);  legal in no world: 5 of 59 (8%)
+   the same replies within the first 8 / 12 / 16 of some world's list (sum75): 39 of 59 (66%) / 40 of 59 (68%) / 41 of 59 (69%)
+   null search changed: 0 of 115
+   FITS
+

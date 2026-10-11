@@ -1,0 +1,450 @@
+[
+ {
+  "name": "particle8",
+  "segments": [
+   {
+    "segment": "particle8_a",
+    "clock": [
+     "23:28:54",
+     "23:36:03"
+    ],
+    "load": [
+     4.18,
+     4.04
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 66,
+     "p50_ms": 2030,
+     "p90_ms": 7400,
+     "max_ms": 7457
+    },
+    "games": 12
+   },
+   {
+    "segment": "particle8_b",
+    "clock": [
+     "23:59:27",
+     "00:06:51"
+    ],
+    "load": [
+     3.14,
+     3.71
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 63,
+     "p50_ms": 2493,
+     "p90_ms": 7404,
+     "max_ms": 7454
+    },
+    "games": 12
+   }
+  ],
+  "games": 24,
+  "width": {
+   "8": 129
+  },
+  "world_moves": {
+   "particle": 129
+  },
+  "decisions": 129,
+  "not_searched": 0,
+  "not_searched_why": {},
+  "seconds": {
+   "p50": 2.0436970840673894,
+   "p90": 7.397167207673192,
+   "max": 7.4510977091267705
+  },
+  "at_7s_or_more": 21,
+  "at_9s_or_more": 0,
+  "slowest_as_the_player_timed_it_ms": 7457,
+  "by_kind": {
+   "move": {
+    "decisions": 103,
+    "seconds": {
+     "p50": 1.8193101258948445,
+     "p75": 2.8459776248782873,
+     "p90": 3.9991965419612825,
+     "max": 6.7779437091667205
+    },
+    "at_7s_or_more": 0,
+    "cut_short": 0,
+    "simulated_branches_mean": 264.02912621359224
+   },
+   "switch_in": {
+    "decisions": 26,
+    "seconds": {
+     "p50": 7.397167207673192,
+     "p75": 7.425976998871192,
+     "p90": 7.448213749798015,
+     "max": 7.4510977091267705
+    },
+    "at_7s_or_more": 21,
+    "cut_short": 21,
+    "simulated_branches_mean": 766.8461538461538
+   }
+  },
+  "a_world_lost": 0,
+  "mass_held_when_lost": [],
+  "cut_short": 21,
+  "cut_short_why": {
+   "partial_determinization_search": 21
+  },
+  "replies_hidden": 74,
+  "replies_in_table": 47,
+  "replies_ranked": 64,
+  "replies_legal_in_no_world": 9,
+  "replies_within_first": {
+   "8": 38,
+   "12": 45,
+   "16": 48
+  },
+  "null_search_changed": {
+   "changed": 0,
+   "of": 129,
+   "by": {}
+  },
+  "fits": {
+   "a_no_decision_at_9s": true,
+   "b_not_searched": true,
+   "c_worlds_lost": true
+  }
+ },
+ {
+  "name": "likely8",
+  "segments": [
+   {
+    "segment": "likely8_a",
+    "clock": [
+     "23:14:48",
+     "23:21:34"
+    ],
+    "load": [
+     3.96,
+     4.41
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 60,
+     "p50_ms": 2087,
+     "p90_ms": 6567,
+     "max_ms": 7477
+    },
+    "games": 12
+   },
+   {
+    "segment": "likely8_b",
+    "clock": [
+     "23:44:53",
+     "23:51:50"
+    ],
+    "load": [
+     4.21,
+     3.36
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 59,
+     "p50_ms": 2327,
+     "p90_ms": 7393,
+     "max_ms": 7452
+    },
+    "games": 12
+   }
+  ],
+  "games": 24,
+  "width": {
+   "8": 119
+  },
+  "world_moves": {
+   "likely": 119
+  },
+  "decisions": 119,
+  "not_searched": 0,
+  "not_searched_why": {},
+  "seconds": {
+   "p50": 2.134496917016804,
+   "p90": 7.368108582915738,
+   "max": 7.47139895777218
+  },
+  "at_7s_or_more": 12,
+  "at_9s_or_more": 0,
+  "slowest_as_the_player_timed_it_ms": 7477,
+  "by_kind": {
+   "move": {
+    "decisions": 97,
+    "seconds": {
+     "p50": 1.809815124841407,
+     "p75": 2.8753185828682035,
+     "p90": 3.6763656670227647,
+     "max": 6.255048709223047
+    },
+    "at_7s_or_more": 0,
+    "cut_short": 0,
+    "simulated_branches_mean": 263.12371134020617
+   },
+   "switch_in": {
+    "decisions": 22,
+    "seconds": {
+     "p50": 7.373918333090842,
+     "p75": 7.40736358310096,
+     "p90": 7.436215167166665,
+     "max": 7.47139895777218
+    },
+    "at_7s_or_more": 12,
+    "cut_short": 13,
+    "simulated_branches_mean": 798.0
+   }
+  },
+  "a_world_lost": 0,
+  "mass_held_when_lost": [],
+  "cut_short": 13,
+  "cut_short_why": {
+   "partial_determinization_search": 13
+  },
+  "replies_hidden": 70,
+  "replies_in_table": 45,
+  "replies_ranked": 60,
+  "replies_legal_in_no_world": 4,
+  "replies_within_first": {
+   "8": 35,
+   "12": 41,
+   "16": 41
+  },
+  "null_search_changed": {
+   "changed": 0,
+   "of": 119,
+   "by": {}
+  },
+  "fits": {
+   "a_no_decision_at_9s": true,
+   "b_not_searched": true,
+   "c_worlds_lost": true
+  }
+ },
+ {
+  "name": "likely12",
+  "segments": [
+   {
+    "segment": "likely12_a",
+    "clock": [
+     "23:21:34",
+     "23:28:54"
+    ],
+    "load": [
+     4.41,
+     4.18
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 60,
+     "p50_ms": 2789,
+     "p90_ms": 7423,
+     "max_ms": 7607
+    },
+    "games": 12
+   },
+   {
+    "segment": "likely12_b",
+    "clock": [
+     "23:51:50",
+     "23:59:27"
+    ],
+    "load": [
+     3.36,
+     3.14
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 64,
+     "p50_ms": 2922,
+     "p90_ms": 7106,
+     "max_ms": 7447
+    },
+    "games": 12
+   }
+  ],
+  "games": 24,
+  "width": {
+   "12": 124
+  },
+  "world_moves": {
+   "likely": 124
+  },
+  "decisions": 124,
+  "not_searched": 0,
+  "not_searched_why": {},
+  "seconds": {
+   "p50": 2.767192624974996,
+   "p90": 7.379771334119141,
+   "max": 7.571014792192727
+  },
+  "at_7s_or_more": 17,
+  "at_9s_or_more": 0,
+  "slowest_as_the_player_timed_it_ms": 7607,
+  "by_kind": {
+   "move": {
+    "decisions": 100,
+    "seconds": {
+     "p50": 2.5853873749729246,
+     "p75": 4.06784216593951,
+     "p90": 5.440472166985273,
+     "max": 7.571014792192727
+    },
+    "at_7s_or_more": 4,
+    "cut_short": 2,
+    "simulated_branches_mean": 371.69
+   },
+   "switch_in": {
+    "decisions": 24,
+    "seconds": {
+     "p50": 7.378809791058302,
+     "p75": 7.412758459104225,
+     "p90": 7.436008625198156,
+     "max": 7.442487874999642
+    },
+    "at_7s_or_more": 13,
+    "cut_short": 13,
+    "simulated_branches_mean": 703.125
+   }
+  },
+  "a_world_lost": 0,
+  "mass_held_when_lost": [],
+  "cut_short": 15,
+  "cut_short_why": {
+   "partial_determinization_search": 15
+  },
+  "replies_hidden": 71,
+  "replies_in_table": 48,
+  "replies_ranked": 63,
+  "replies_legal_in_no_world": 5,
+  "replies_within_first": {
+   "8": 42,
+   "12": 43,
+   "16": 46
+  },
+  "null_search_changed": {
+   "changed": 0,
+   "of": 124,
+   "by": {}
+  },
+  "fits": {
+   "a_no_decision_at_9s": true,
+   "b_not_searched": true,
+   "c_worlds_lost": true
+  }
+ },
+ {
+  "name": "likely16",
+  "segments": [
+   {
+    "segment": "likely16_a",
+    "clock": [
+     "23:06:29",
+     "23:14:48"
+    ],
+    "load": [
+     3.25,
+     3.96
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 56,
+     "p50_ms": 4965,
+     "p90_ms": 7428,
+     "max_ms": 7670
+    },
+    "games": 12
+   },
+   {
+    "segment": "likely16_b",
+    "clock": [
+     "23:36:03",
+     "23:44:53"
+    ],
+    "load": [
+     4.04,
+     4.21
+    ],
+    "busy": false,
+    "latency": {
+     "decisions": 59,
+     "p50_ms": 4738,
+     "p90_ms": 7511,
+     "max_ms": 7701
+    },
+    "games": 12
+   }
+  ],
+  "games": 24,
+  "width": {
+   "16": 115
+  },
+  "world_moves": {
+   "likely": 115
+  },
+  "decisions": 115,
+  "not_searched": 0,
+  "not_searched_why": {},
+  "seconds": {
+   "p50": 4.72261608322151,
+   "p90": 7.444061875110492,
+   "max": 7.669058333849534
+  },
+  "at_7s_or_more": 33,
+  "at_9s_or_more": 0,
+  "slowest_as_the_player_timed_it_ms": 7701,
+  "by_kind": {
+   "move": {
+    "decisions": 92,
+    "seconds": {
+     "p50": 4.377020916901529,
+     "p75": 6.149066790938377,
+     "p90": 7.380674749147147,
+     "max": 7.669058333849534
+    },
+    "at_7s_or_more": 15,
+    "cut_short": 10,
+    "simulated_branches_mean": 555.5434782608696
+   },
+   "switch_in": {
+    "decisions": 23,
+    "seconds": {
+     "p50": 7.41553641599603,
+     "p75": 7.431863041128963,
+     "p90": 7.447222165996209,
+     "max": 7.45473050000146
+    },
+    "at_7s_or_more": 18,
+    "cut_short": 18,
+    "simulated_branches_mean": 830.6521739130435
+   }
+  },
+  "a_world_lost": 0,
+  "mass_held_when_lost": [],
+  "cut_short": 28,
+  "cut_short_why": {
+   "partial_determinization_search": 28
+  },
+  "replies_hidden": 74,
+  "replies_in_table": 54,
+  "replies_ranked": 59,
+  "replies_legal_in_no_world": 5,
+  "replies_within_first": {
+   "8": 39,
+   "12": 40,
+   "16": 41
+  },
+  "null_search_changed": {
+   "changed": 0,
+   "of": 115,
+   "by": {}
+  },
+  "fits": {
+   "a_no_decision_at_9s": true,
+   "b_not_searched": true,
+   "c_worlds_lost": true
+  }
+ }
+]

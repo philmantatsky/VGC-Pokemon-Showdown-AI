@@ -78,6 +78,15 @@ def quantile(values: list[float], q: float) -> float:
     return ordered[min(len(ordered) - 1, int(q * len(ordered)))]
 
 
+def decision_kind(audit: dict) -> str:
+    """ "switch_in" when the bot's own two actions are a pass or a switch -- who comes
+    in after a faint or a pivot move -- and "move" otherwise. Only a move decision is a
+    table of replies; a forced switch-in is searched two turns deep until the time is
+    up, whatever the reply list's width, so the two are timed apart."""
+    own = [int(action) for action in audit.get("champion_actions") or (9, 9)]
+    return "switch_in" if all(action < 7 for action in own) else "move"
+
+
 def load_rows(path: Path) -> list[dict]:
     rows = []
     if not path.exists():
@@ -245,6 +254,8 @@ def read(directory: Path, ours: str = OUR_NAME) -> dict[str, Any]:
     modes: collections.Counter[str] = collections.Counter()
     reasons: collections.Counter[str] = collections.Counter()
     seconds: list[float] = []
+    kind_seconds: dict[str, list[float]] = {"move": [], "switch_in": []}
+    kind_cut: collections.Counter[str] = collections.Counter()
     per_game: dict[str, float] = collections.defaultdict(float)
     for row in audits:
         audit = row["exact_search"]
@@ -261,6 +272,8 @@ def read(directory: Path, ours: str = OUR_NAME) -> dict[str, Any]:
             spent += float(schedule.get("preparation_elapsed_s") or 0.0)
             seconds.append(spent)
             per_game[row["battle"]] += spent
+            kind_seconds[decision_kind(audit)].append(spent)
+            kind_cut[decision_kind(audit)] += int(bool(result.get("truncated")))
     search = {
         "decisions": sum(modes.values()),
         "modes": dict(modes),
@@ -272,6 +285,18 @@ def read(directory: Path, ours: str = OUR_NAME) -> dict[str, Any]:
         "at_7s_or_more": sum(s >= 7.0 for s in seconds),
         "at_9s_or_more": sum(s >= 9.0 for s in seconds),
         "most_seconds_in_one_game": max(per_game.values()) if per_game else None,
+        "by_kind": {
+            kind: {
+                "decisions": len(took),
+                "seconds": {
+                    name: quantile(took, q)
+                    for name, q in (("p50", 0.5), ("p90", 0.9), ("max", 1.0))
+                },
+                "at_7s_or_more": sum(s >= 7.0 for s in took),
+                "cut_short": kind_cut[kind],
+            }
+            for kind, took in kind_seconds.items()
+        },
     }
 
     # 2. the reply table, 3. overrides, 4. worlds, 5b. other priors
@@ -490,6 +515,16 @@ def render(reading: dict[str, Any], games: bool = False) -> list[str]:
         f"{share(search['at_7s_or_more'], done)};  9 s or more: "
         f"{search['at_9s_or_more']}"
     )
+    for label, kind in (("move decisions", "move"), ("forced switch-ins", "switch_in")):
+        cell = (search.get("by_kind") or {}).get(kind)
+        if cell and cell["decisions"]:
+            took = cell["seconds"]
+            out.append(
+                f"   {label} {cell['decisions']}: p50 {took['p50']:.1f}  p90 "
+                f"{took['p90']:.1f}  max {took['max']:.1f};  7 s or more: "
+                f"{share(cell['at_7s_or_more'], cell['decisions'])};  cut short: "
+                f"{share(cell['cut_short'], cell['decisions'])}"
+            )
     for text, count in search["reasons"].items():
         out.append(f"   {count:4d}  {text}")
     out.append("\n2. THE OPPONENT'S REAL REPLY IN THE SEARCH'S TABLE")

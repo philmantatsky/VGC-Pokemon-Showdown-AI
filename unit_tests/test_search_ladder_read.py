@@ -13,6 +13,7 @@ import pytest
 
 from evaluation.search_ladder_read import (
     _forecast_hit,
+    decision_kind,
     forecast_matches,
     forecast_pairs,
     pool,
@@ -229,6 +230,35 @@ def _audit(turn, actions, champion, coverage=None, mode="search", **more):
             **more,
         },
     }
+
+
+def test_move_decisions_and_forced_switch_ins_are_timed_apart(tmp_path):
+    """2026-10-11: a forced switch-in is searched until the time is up whatever the
+    reply list's width -- a fifth of the decisions, 7.4 s each -- so a run's p90 read
+    7.4 s with a list of eight, whose move decisions never reached 7 s."""
+    rows = [
+        _audit(1, [9, 9], [9, 9]),
+        _audit(2, [0, 3], [0, 3]),  # one slot's replacement
+        _audit(3, [2, 3], [2, 3]),  # both slots'
+        _audit(4, [12, 0], [12, 0]),  # a move beside an empty slot
+    ]
+    for row, spent in ((rows[1], 7.2), (rows[2], 7.3)):
+        row["exact_search"]["result"] = {"elapsed_s": spent, "truncated": True}
+    (tmp_path / "decisions.jsonl").write_text(
+        "".join(json.dumps(r) + "\n" for r in rows)
+    )
+    reading = read(tmp_path)
+    moves = reading["search"]["by_kind"]["move"]
+    switch_ins = reading["search"]["by_kind"]["switch_in"]
+    assert moves["decisions"] == 2 and moves["seconds"]["max"] == 2.25
+    assert moves["at_7s_or_more"] == 0 and moves["cut_short"] == 0
+    assert switch_ins["decisions"] == 2 and switch_ins["seconds"]["p50"] == 7.55
+    assert switch_ins["at_7s_or_more"] == 2 and switch_ins["cut_short"] == 2
+    assert reading["search"]["at_7s_or_more"] == 2
+    text = "\n".join(render(reading))
+    assert "move decisions 2: p50 2.2" in text
+    assert "forced switch-ins 2: p50 7.5" in text and "cut short: 2 of 2" in text
+    assert decision_kind({}) == "move"
 
 
 def test_a_directory_is_read_from_its_logs_alone(tmp_path):

@@ -325,10 +325,25 @@ ladder, in order:
     the species' recorded usage), the last free slot differing from world to world.
     Offline on 502 ladder replies: legal in some world 77% -> 92%; on local games
     legal in no world 15% -> 6%, in the table 65% -> 72%; null search 0 changed.
-  - [ ] Still open for the worlds: the timing of the likely-move worlds and of a table
-    of sixteen on a quiet machine (measured only under another session's load: p50 3.6 s
-    at eight, 6.0 s at sixteen); replies holding a switch; a set's item that forbids a
-    move the world was told; a species unknown to both set sources (Arbok).
+  - [x] A reply list of sixteen (2026-10-11; the user: "make the list 16"). On a quiet
+    machine, 24 rosters a width through the ladder script (null search, 0 changed):
+    every decision searched, no planned world lost, the slowest decision 7.7 s (7.5 s
+    with eight) -- by the rule set before the runs it fits. A move decision takes 4.4 s
+    where it took 1.8 (2.6 with twelve) and one in six reaches the limit (none with
+    eight, 4 in 100 with twelve); those keep their whole table, the cells scored last
+    one step shallower. The likely-move worlds cost no time. Forced switch-ins are a
+    fifth of the decisions and take the whole time at any width:
+    `evaluation/search_ladder_read.py` times the two apart.
+  - [ ] **The next trial's configuration** (it needs the user's word, a
+    pre-registration and a look at the bot registry): the long run's flags with
+    `--search-replies 16 --search-world-moves likely`. Rehearsed 2026-10-11 on 13
+    rosters through the ladder script: null search 0 changed of 72; with the anchor
+    0.07, 72 of 72 searched, 4 overrides, slowest decision 7.9 s. The rehearsal holds
+    while the search code is unchanged. Its reading should split overrides by cut short
+    or not; twelve is the width to fall back to.
+  - [ ] Still open for the worlds: replies holding a switch; a set's item that forbids a
+    move the world was told; a species unknown to both set sources (Arbok); a table
+    that widens only where the time allows (not built).
   - [ ] Replies with a switch on move decisions: within the table for 32% as played
     (13 of 40), the weakest kind; 2% under the brain's prior.
   - [x] A Pokemon that must recharge failed every world of that turn ("[Invalid choice]

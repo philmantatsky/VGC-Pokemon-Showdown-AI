@@ -1,5 +1,75 @@
 # VGC Bot Project Status
 
+## A reply list of 16 fits the time: the slowest decision 7.7 s, none unsearched, no world lost; a move decision takes 4.4 s where it took 1.8, and one in six runs to the limit; the next trial's configuration is rehearsed (2026-October 11, 00:30)
+
+- **The user (10-10, 16:20):** "make the list 16". Pre-registered 23:06 (the entry
+  below), played 23:06 to 00:06 with nothing else on the machine (load 3.1 to 4.4 at
+  the sixteen segment edges; the other session's builds had ended at 23:01). No ladder
+  game; `DEPLOYED.json` untouched; the search stays off in the deployed bot.
+- **The reading** (`results_analysis/search_worlds_20261010/list_width_timing.{py,txt,
+  json}`; 24 closed-sheet rosters a configuration, the null search through the ladder
+  script, the long run's other flags):
+
+  | | worlds as they were, list of 8 | likely moves, 8 | likely moves, 12 | likely moves, 16 |
+  |---|---|---|---|---|
+  | decisions | 129 | 119 | 124 | 115 |
+  | not searched | 0 | 0 | 0 | 0 |
+  | slowest decision, as the player timed it | 7.46 s | 7.48 s | 7.61 s | 7.70 s |
+  | a planned world lost | 0 | 0 | 0 | 0 |
+  | null search changed | 0 | 0 | 0 | 0 |
+  | **move decisions** | 103 | 97 | 100 | 92 |
+  | seconds: p50 / p75 / p90 / max | 1.8 / 2.8 / 4.0 / 6.8 | 1.8 / 2.9 / 3.7 / 6.3 | 2.6 / 4.1 / 5.4 / 7.6 | 4.4 / 6.1 / 7.4 / 7.7 |
+  | at 7 s or more | 0 | 0 | 4 (4%) | 15 (16%) |
+  | cut short | 0 | 0 | 2 (2%) | 10 (11%) |
+  | branches simulated, mean | 264 | 263 | 372 | 556 |
+  | **forced switch-ins** | 26 | 22 | 24 | 23 |
+  | seconds: p50 | 7.4 | 7.4 | 7.4 | 7.4 |
+  | real reply in the table, hidden sheets | 47 of 74 (64%) | 45 of 70 (64%) | 48 of 71 (68%) | 54 of 74 (73%) |
+  | real reply legal in no world | 9 of 64 (14%) | 4 of 60 (7%) | 5 of 63 (8%) | 5 of 59 (8%) |
+
+- **By the rule set before the runs every width fits** -- (a) no decision at 9 s or
+  more, (b) none unsearched, (c) no planned world lost -- so the next trial's list is
+  **16**: `--search-replies 16 --search-world-moves likely` beside the long run's other
+  flags.
+- **What it costs.** A decision's time is the branches it simulates (7.4 ms a branch at
+  every width), and a move decision's branches grow with the list: 263, 372, 556. With
+  a list of 8 no move decision reaches the limit; with 12, 4 in 100; with 16, one in
+  six. A decision cut short still has its whole table: the cells scored after the limit
+  are scored at the forced-switch request, not after the switch-in is played out.
+  Whether that moves choices is not known, and the ladder games played so far cannot
+  say: of their 1,006 searched move decisions (list of 8) only 8 were cut short (p50
+  2.2 s, p90 4.7 s -- a little slower than the local 1.8 and 3.7 to 4.0, so on the
+  ladder the share at the limit with 16 is likely above the local one in six).
+- **A fifth of the decisions are forced switch-ins, and they take the whole time
+  whatever the list** (who comes in after a faint or a Parting Shot: not a table of
+  replies; the planner searches them two turns deep until the time is up). That is why
+  a run's p90 read 7.4 s with a list of 8 and why a run-wide "cut short" share says
+  nothing about the table: on the ladder logs 141 of the 149 decisions cut short are
+  switch-ins (211 switch-ins of 1,217 searched decisions, p50 7.4 s).
+  `evaluation/search_ladder_read.py` now times the two apart (`decision_kind`; a
+  test).
+- **The likely-move worlds cost no time** (1.8 s with either) and again halve the real
+  replies legal in no world (14% against 7 to 8%; 15% against 6% at 17:36).
+- **What the wider list buys is not read from these games** (a heuristic opponent, not
+  the people the predictor learned from). The same logged replies of the three
+  likely-move runs lie within the first 8 of some world's list 116 times of 182 (64%),
+  the first 12 124 (68%), the first 16 128 (70%); on the long ladder run's logs (worlds
+  as they were) it was 62% and 72%.
+- **Rehearsed for a trial** (the rule before any ladder session with the search; 00:10
+  to 00:28, 13 rosters -- rain and Electro Shot, Hyper Beam and Solar Beam, Phantom
+  Force, Illusion, Fly, Outrage, two with open sheets -- the configuration above; not a
+  timing run: my linters and the other session's first jobs ran beside it, load 6 to
+  10). Null search: **0 changed of 72**, all searched. The trial's own anchor (0.07):
+  72 of 72 searched, 4 overrides (none at a forced switch-in; expected edge +0.14),
+  slowest decision 7.9 s (8.1 s in the null run), `search_health.py` passes. The
+  rehearsal holds for the code as it is at this commit.
+- **Not done, open.** No ladder game: a trial needs the user's word, its own
+  pre-registration and a look at the bot registry (not open as of 10-11, 00:10; the
+  thread's last staff post is still the first evening's). If the decisions cut short
+  turn out to matter, 12 is the cheaper width (4% at the limit, the table at 68%), and
+  a table that widens only where the time allows would keep 16 without them (not
+  built). The trial's reading should split overrides by cut short or not.
+
 ## Pre-registration: the time of a reply list of 8, 12 and 16 on a quiet machine (2026-October 10, 23:06)
 
 - **Why.** "make the list 16" (the user, 16:20). A table of sixteen runs, but its time
