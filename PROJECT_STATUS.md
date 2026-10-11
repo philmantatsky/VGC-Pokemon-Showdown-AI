@@ -1,5 +1,31 @@
 # VGC Bot Project Status
 
+## The vgczero session's go / no-go document checked against its sources; one of my six causes was partly wrong (2026-October 11, 17:50)
+
+- For the vgczero session (its request at 17:44, with a start of the training arms at about
+  18:15). Read-only; the findings went to it in one message at 17:50.
+- `READY_FOR_PILOT.md` against the freeze and sweep sections of its log, the copied files of
+  the rented machine's setup hour, the package and my own battery files: 12 mismatches,
+  the rest matches (the package's hash, size and tree; the engine digests recomputed in
+  its two trees and inside the package; the pool hash; every test count; the probe; every
+  figure of the resume check). The two that touch the start: every row measured on the
+  rented machine is the 15:51 package, not the final one named for the pilot (17:36), and
+  the Mac test count predates the last edit of one test file by a minute. The rest are
+  figures: 30 usable CPUs, not 32; 7.7 s an update, not 7.5; 18% to 46% of samples used,
+  not 18% to 30%; 14 of 40 Pokémon off against the best-of-one field, not 15; five causes
+  fixed, not four; a cost line that counts one setup hour where the setup took over 1.5.
+- **A correction to my own battery report.** Cause 6 as I sent it named Mirror Coat, Counter
+  and Metal Burst. Its freeze step tested Metal Burst with a crafted control: Showdown's
+  Metal Burst does go to the other opponent when its attacker has fainted, so its engine
+  was right there. I had extended the cause from the one Mirror Coat scenario to Metal
+  Burst by the look of its handler, without a run; the two moves name their target at
+  different points of Showdown's target resolution (read again in the source: it is so).
+  Corrected in `~/vgczero-peer/r2/causes.md`. The lesson: a cause covers the move the
+  scenario showed; siblings go under "by reading only" until a run shows them.
+- State of the six causes in its frozen engine, by its log: five fixed (two by its own
+  sweep before I reported them, three in the freeze), White Herb's order left as it is.
+- Nothing of mine is running. The ladder bot is unchanged.
+
 ## The vgczero engine's parity battery, second round: four more differences (2026-October 11, 17:27)
 
 - For the vgczero session, as the entry below (its request at 15:27; its engine is frozen
@@ -14,8 +40,10 @@
   Entrainment hands over an ability without starting it (no Attack drop from a passed-on
   Intimidate); a stat drop bounced by Mirror Armor is lost when the user also has Mirror
   Armor; a Mega Stone on a Pokémon that cannot use it is treated as unremovable (Knock
-  Off neither removes it nor gets its 1.5x); Mirror Coat, Counter and Metal Burst hit
-  the other opponent when the attacker has already fainted (Showdown fails the move).
+  Off neither removes it nor gets its 1.5x); Mirror Coat and Counter hit the other
+  opponent when the attacker has already fainted (Showdown fails the move). As first
+  sent, the last one also named Metal Burst: that part was my misreading (see the entry
+  above).
   None is about the feature its run was forcing: all four are rare pairings the random
   battles happened to produce.
 - Both rounds: 126 runs, 85,212 scenarios, 227,529 request checks with no difference,
