@@ -1,5 +1,28 @@
 # VGC Bot Project Status
 
+## The vgczero engine's parity battery, second round: four more differences (2026-October 11, 17:27)
+
+- For the vgczero session, as the entry below (its request at 15:27; its engine is frozen
+  for tonight's training pilot at about 17:30 to 18:00). Nothing of it is in this
+  repository; everything is in `~/vgczero-peer/r2/`. I changed no engine code.
+- A fresh copy of its engine (taken 15:29, source to 15:22), the list lines the first
+  round did not reach: 42 runs, 28,603 scenarios (3, 5 or 8 decisions each, 200 + 200
+  runs), 76,099 request checks with no difference. Two lines could not run (no team its
+  engine supports carries Outrage or Stockpile); eight of the top-twenty lines were not
+  reached by the 17:26 stop.
+- Four scenarios flagged, four causes, each sent to it with file and line:
+  Entrainment hands over an ability without starting it (no Attack drop from a passed-on
+  Intimidate); a stat drop bounced by Mirror Armor is lost when the user also has Mirror
+  Armor; a Mega Stone on a Pokémon that cannot use it is treated as unremovable (Knock
+  Off neither removes it nor gets its 1.5x); Mirror Coat, Counter and Metal Burst hit
+  the other opponent when the attacker has already fainted (Showdown fails the move).
+  None is about the feature its run was forcing: all four are rare pairings the random
+  battles happened to produce.
+- Both rounds: 126 runs, 85,212 scenarios, 227,529 request checks with no difference,
+  six causes. Nothing of mine is running.
+- Still to come from it: the path of its go / no-go document for the pilot, for a cold
+  read against sources.
+
 ## The feed refresh is done (149,941 games); the vgczero engine checked against Showdown over several decisions in a row: two differences (2026-October 11, 15:28)
 
 - **Feed.** The fetch ended 13:37 CDT (18:37:51 UTC), exit 0: 36,740 new logs, none
@@ -24,9 +47,7 @@
     Findings: `~/vgczero-peer/steps_findings.md`, `causes.md`.
   - A cold read of its runbook for tonight's training pilot on the rented machine: nine
     findings, all accepted. Its go / no-go document is still to come.
-- Running since 15:31, at its request, until 17:30 at the latest: the same battery on a
-  fresh copy of its engine (taken 15:29) for the 52 list lines the first one did not
-  reach (`~/vgczero-peer/r2/`); its engine is frozen for the pilot after that.
+- A second round ran 15:31 to 17:26 at its request (the entry above).
 - The ladder bot is unchanged; the next trial's configuration (the 00:30 entry) still
   waits for the user's word.
 
