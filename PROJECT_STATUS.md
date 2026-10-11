@@ -1,5 +1,58 @@
 # VGC Bot Project Status
 
+## Side work for the vgczero session, continued: its two write-ups checked against their sources, the feed refresh running, a local bridge harness built and rehearsed (2026-October 11, 01:54)
+
+- The other three things the vgczero session asked for (the user's word and the first
+  one: the entry below). Nothing written in its trees; one process at a time.
+- **Its numbers against their sources** (read-only; the findings went to it).
+  `vgczero/CLOUD_RUN_PLAN.md`, "Phase 1 result", against
+  `~/vgczero-runs/first_hour_20261010`: every measured figure matches (the probe's
+  rates, the time split, the projection, the kill-and-resume run row by row) except
+  "league 0.8 s per update", which the probe has as 0.955 s; the instance, the image,
+  the 55 minutes and the count of CUDA tests are not in the copied files.
+  `teams_research_20261011/REPORT.md` against `final/`: the counts, the simulator's
+  coverage, the left-out rows and all 72 cells of the two usage tables match (the
+  tables also recomputed from the index and from the 3,609 pool files). Five statements
+  do not: the most source rows on one team is 150, not 95; the 693 official-event teams
+  are 609 from five Regionals and 84 from Global Challenge 2027 I; Louisville's 143 is
+  source rows (128 teams); 162 replay logs were re-fetched, not ten; 4 ladder teams have
+  no games and 355 no top rating.
+- **The feed refresh** (`datagen/oppmodel_scrape.py`, as it was run before). Index
+  topped up to 2026-10-11 06:29 UTC: +24,367 Bo1 and +12,551 Bo3 rows, 160,232 in all,
+  no failure. The fetch of the 36,740 new logs runs in the background since 01:44, one
+  request a second, about twelve hours: `battle_logs_feed_mc/scrape.log` (a `REFRESH
+  fetch exit` line ends it); `touch battle_logs_feed_mc/STOP` stops it before its next
+  request; running `fetch` again resumes. A pass over the corpus meanwhile should keep
+  to `uploadtime <= 1791153629` for the corpus as it stood.
+- **A local bridge** (the vgczero plan's last phase: at least 300 serial games against
+  the deployed bot in four blocks -- who challenges x sheets open or closed -- and an
+  arm on our own team). `tools/local_bridge.sh <port> <out dir> <client account>
+  <blocks> [--client "<command template>"]` runs `evaluation/local_bridge.py`:
+  `ladder_ourteam.main()` itself with the ladder loop's argument list (the search off),
+  pointed at a local server as the rehearsal is, playing a list of blocks
+  `<they|we>:<open|closed>:<games>[:same]`. The client is any program that logs in
+  under the name given and challenges the bot or accepts its challenges; with
+  `--client` the script starts it once a block. The bot answers the sheet question as
+  the block says, and what a game really had is logged -- the bot itself forgets a
+  battle's open sheets when the battle ends, so the bridge keeps them. A challenge of
+  ours the client has not taken is withdrawn and sent again; a game that does not end,
+  or a client the script started that is gone, stops the run with the reason;
+  `--resume` continues a stopped run and refuses another block list. Written as games
+  end: `games.jsonl`; at the end a tally by block and by arm with intervals, the games
+  whose sheets or team were not as asked, and the plan's claim line (the client is
+  "better" at 168 of 300). `checks/local_bridge_standin.py` is a stand-in client: the
+  deployed bot without search, or the heuristic player.
+- **Rehearsed** (search off, a local server on 7650; tallies and game rows in
+  `results_analysis/local_bridge_20261011/`): 20 games against the heuristic stand-in
+  in six blocks, sheets and teams as asked in every one, the bot 14-6; 4 games with
+  the deployed bot as the client -- on T6e in blocks of "its own" team, which the tally
+  counted as team not as asked, as it should. The first game of a block the bot
+  challenges in takes 20 s more: the client is not in yet and the challenge is sent
+  again. Games are untimed (no battle timer in challenges).
+- Nine tests for the bridge (its loop with a stand-in for the bot: rows as games end,
+  the sheets a game really had, a stop and a resume), one for the launcher; 2,034
+  passed. The real client does not exist yet.
+
 ## Side work for the vgczero session: real games take about 12 decision steps when played to the end, not the 14.5 its cost projection assumed (2026-October 11, 01:31)
 
 - **The user (01:13):** "i got the other context doing a bunch of stuff, if u think u

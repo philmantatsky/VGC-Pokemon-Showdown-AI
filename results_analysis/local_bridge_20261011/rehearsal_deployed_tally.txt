@@ -1,0 +1,5 @@
+4 games
+  the bot challenges, sheets open: 2 games, the client won 0, the bot 2; the client's share 0% [0, 66]; the client's team not as asked in 2
+  the client challenges, sheets closed: 2 games, the client won 0, the bot 2; the client's share 0% [0, 66]; the client's team not as asked in 2
+ARM the client's own team: 4 games, the client won 0, the bot 4; the client's share 0% [0, 49]; the client's team not as asked in 4
+CLAIM (the client's own team): 0 of 4 decided games; too few games for any count to claim better

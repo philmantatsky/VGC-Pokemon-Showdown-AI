@@ -225,6 +225,51 @@ def test_the_rehearsal_plays_what_the_ladder_loop_plays_and_reads_no_credentials
     assert "ladder_ourteam.ShowdownServerConfiguration = SERVER" in driver
 
 
+def test_the_local_bridge_plays_the_ladder_loops_configuration_without_credentials():
+    """tools/local_bridge.sh puts the deployed configuration -- the ladder loop's own
+    argument list, the search off -- against an external client on a local server
+    (2026-10-11, for the vgczero plan's bridge)."""
+    bridge = (ROOT / "tools/local_bridge.sh").read_text()
+    loop = (ROOT / "tools/ladder_read_loop.sh").read_text()
+    for flags in (
+        '--checkpoint "$CKPT" --reg mc --our_team "$TEAM"',
+        '--guards-extra "$GUARDS"',
+        '--learned_preview --preview_model "$PREVIEW_MODEL"',
+        "--sticky-corrections",
+        "--sheet-preview",
+        '--opponent-forecast "$FORECAST"',
+        '--playbook "$PLAYBOOK"',
+        'read -r -a MIXING_ARGS <<< "$MIXING"',
+    ):
+        assert flags in bridge and flags in loop, flags
+    assert "tools/deployed_config.py" in bridge
+    assert 'export VGC_SET_PRIOR_REG="$SET_PRIOR"' in bridge
+    assert (
+        "--search" not in bridge
+    )  # the deployed bot: no search unless passed after --
+    driver = (ROOT / "evaluation/local_bridge.py").read_text()
+    standin = (ROOT / "checks/local_bridge_standin.py").read_text()
+    for text in (bridge, driver, standin):
+        assert "Laplace-Pokemon-Showdown-AI" not in text and "/.env" not in text
+    assert "SHOWDOWN" not in bridge and "source " not in bridge
+    assert 'os.environ.pop("SHOWDOWN_PASSWORD", None)' in driver
+    assert "ws://localhost:{port}/showdown/websocket" in driver
+    # refuses the training and evaluation ports, a missing server, a playing ladder
+    out = subprocess.run(
+        [
+            "bash",
+            str(ROOT / "tools/local_bridge.sh"),
+            "7400",
+            "/tmp/x",
+            "c",
+            "we:open:1",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert out.returncode == 2 and "BRIDGE_REFUSED port 7400" in out.stdout
+
+
 # --- the lid ----------------------------------------------------------------------
 # 2026-10-09: the lid was closed in the middle of a rated game. The launcher's restart
 # logged in and queued in a dark wake seconds before the next sleep: a second rated
