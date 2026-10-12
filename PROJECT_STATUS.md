@@ -1,5 +1,74 @@
 # VGC Bot Project Status
 
+## Overnight for the vgczero session, second part: the six finished pilot arms played against each other, one page for the long run's settings, its team-convergence fixes checked (2026-October 12, 07:45)
+
+- Continues the 00:54 entry below. Side work for the vgczero session; no code of this repository
+  changed, and nothing here touches the ladder, the deployed bot or the rented machine. Everything
+  written is in `~/vgczero-peer/` (`pilot_h2h/`, `pilot_arms/`, `converge_verify/`,
+  `pilot_generalisation/`, `gpuq/`).
+- **The pilot** is seven 1,000-update arms. Arms 1 to 6 are finished (23.6 to 25.5 million games
+  each, 1.34 to 2.79 hours). Arm 7 is the head with 1.5e-4, not the head's seed replicate named
+  in the 00:54 entry (the vgczero session's choice at 03:50); it started at 06:32 and ends about
+  09:10 if it is left to run.
+- **Direct games between the arms** (`pilot_h2h/H2H.md` parts A to G; 72 saved copies, 193 pairs,
+  1.97 million games; 10,000 games a pair, each copy at both seats, good to one point). After
+  1,000 updates: the head (arm 2) beats the two baselines 62.0% / 58.2%; 7.5e-5 (arm 4) 65.7% /
+  64.3%; 1.5e-4 (arm 5) 66.0% / 63.1%; the head with 7.5e-5 (arm 6) 65.9% / 63.5%. Arm 6 beats
+  arm 4 53.8%, arm 5 53.7% and arm 2 57.0%; arms 4 and 5 are level (49.5%); the two baselines are
+  52.7% apart. After the same training hours (about 1.3 h) the order turns: against the head arm,
+  arm 4 has 45.5%, arm 5 47.9% and arm 6 43.9%.
+- **Reading.** Per game the order is the head with 7.5e-5, then the two lower rates, then the head
+  at 3e-4, then the baselines. Per hour the head at 3e-4 leads everything from 0.75 h to the 1.6 h
+  where it ends; the low-rate arms were still climbing at 2.5 h. The cause is the trainer's KL
+  stop: at 3e-4 it ends every update early and 24% to 31% of each batch is trained; at 7.5e-5 99%
+  is trained and an update takes twice as long; 1.5e-4 sits between (84%).
+- **The one page for the user** (`pilot_arms/ONE_PAGE.md`): start the long run as planned with the
+  head on (`--aux-opp-action true`, `--lr 3e-4`, `--lr-horizon 18000`). Head on: fairly sure (it
+  helped in both pairs of runs that test it). 3e-4 rather than a lower start: not sure. The
+  planned schedule falls under 1.5e-4 at about update 9,600 and under 7.5e-5 at about 13,200 of
+  18,254 by itself. Not run: a second seed of the head at 3e-4.
+- **Arm 7 to its first hour.** Against the head arm after the same hours: 46.3% (0.52 h), 46.3%
+  (0.65 h), 46.6% (0.78 h), 48.0% (0.89 h), 49.7% (1.0 h, 20,000 games). The page's test for
+  changing the start (53% at 1.0, 1.3 and 1.6 h) fails at its first point by limits fixed before
+  the game, so the answer stands. The path is not flat, though (arm 5 never passed 47.9%), so a
+  reading for the 1.3 h and 1.6 h points was written into the page before they are played: both
+  at 53% or more and I would start at 1.5e-4 with the head, either under 52% and the planned line
+  stands.
+- **Its team-convergence fixes** were checked as it made them (`converge_verify/VERIFY.md`,
+  "Delta" sections). Second build, 03:30: every finding of the first check is closed, and all 30
+  hand-made faults now fail a test. New: its own long-run line (`--total-updates 18254
+  --team-cut-games 330000000`) was refused by 12,178 games. Third build, 04:09: a 5% tolerance
+  fixes that; one remark left (with a games cap and `--team-cut-end` above 0.952 the last step can
+  fall after the capped run's end without a word). The feature is still off and used on no run.
+- **The generalisation reads** of arms 1 and 2 at 1M, 3M, 10M games and their finals are done
+  (`pilot_generalisation/READS.md`, 05:03): all eight pass both held-out gates; the gap piloting
+  teams never trained on is between -0.7 and +1.7 points and does not open with training.
+- Its morning summary for the user was checked against my files (07:11): the figures agree; three
+  remarks went back. The one that matters: T6e "ranked 1,473 of 3,762" is arm 1 only. In the
+  other five arms it ranks 2,367 to 3,453, so a cut by rank would reach it at the first to third
+  step. Its advice to protect the team stands, with more reason.
+- **Where I was wrong overnight**, all corrected in the files and told to the vgczero session:
+  "1.5e-4 and 7.5e-5 cannot be told apart per game" (03:50) was read from the arms' ends only;
+  before the end 7.5e-5 was the stronger (59%, 54%, 53% at updates 200, 400, 650). "The head adds
+  nothing at 7.5e-5" (05:10, 05:53) was read from the first half of arm 6; its final beats arm 4
+  53.8%. "Arm 6's KL per update is 0.021" (05:03) was updates 101 to 130 only; over the arm it
+  reads 0.031 like arm 4. My 07:20 guess for arm 7 at 1.0 h was 46% to 49%; it came in at 49.7%.
+  Three of the four are one mistake: an arm read before it has run long enough. Also, at 07:00 a
+  lookup in my own script matched nothing and wrote twelve rows without a result; they are
+  removed and no table had read them.
+- Laptop: since 00:49 all my GPU work goes through one queue, one process at a time
+  (`~/vgczero-peer/gpuq/`), because the laptop was losing charge on its 60 W cable while the
+  vgczero session's parity sweep ran (lowest reading 68%; 79% and charging at 07:05).
+- **Paused at 07:39 at the user's word** ("pause any heavy work"; the laptop was on battery,
+  75%). My queue runner and all five loops are stopped and nothing of mine runs. Arm 7's two
+  later points against the head arm are not played; its copies keep arriving in the mirror, and
+  the two games take two minutes when he says go.
+- Waiting for the user: the rented machine and the long run's settings are the vgczero session's
+  questions to him. Mine are unchanged: the optional 300-game local match between the deployed
+  bot and the pilot's best checkpoint (not run), and the search ladder trial (the bot registry is
+  checked first).
+- The deployed configuration is untouched. Search is still off in the deployed bot.
+
 ## Overnight for the vgczero session: its team-convergence build checked independently, and the pilot's arms played against each other for the first time (2026-October 12, 00:54)
 
 - Side work for the vgczero session (the user, 10-11 about 19:40: "keep helping it if it needs
