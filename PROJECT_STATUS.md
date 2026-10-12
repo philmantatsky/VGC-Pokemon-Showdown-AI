@@ -62,9 +62,9 @@
 - **Paused at 07:39 at the user's word** ("pause any heavy work"; the laptop was on battery,
   75%). My queue runner and all five loops are stopped and nothing of mine runs. Arm 7's two
   later points against the head arm are not played; its copies keep arriving in the mirror, and
-  the two games take two minutes when he says go.
+  the two games take two minutes at the user's word.
 - Waiting for the user: the rented machine and the long run's settings are the vgczero session's
-  questions to him. Mine are unchanged: the optional 300-game local match between the deployed
+  questions to the user. Mine are unchanged: the optional 300-game local match between the deployed
   bot and the pilot's best checkpoint (not run), and the search ladder trial (the bot registry is
   checked first).
 - The deployed configuration is untouched. Search is still off in the deployed bot.
@@ -72,7 +72,7 @@
 ## Overnight for the vgczero session: its team-convergence build checked independently, and the pilot's arms played against each other for the first time (2026-October 12, 00:54)
 
 - Side work for the vgczero session (the user, 10-11 about 19:40: "keep helping it if it needs
-  anything tonight"; it relayed his "do u wanna offload any work to the other context?" at
+  anything tonight"; it relayed the "do u wanna offload any work to the other context?" at
   21:30). No code of this repository changed and nothing here touches the ladder, the deployed
   bot or the rented machine. Everything written is in `~/vgczero-peer/` (`pilot_arms/`,
   `pool_refresh/`, `converge_verify/`, `pilot_h2h/`, `pilot_generalisation/`).
