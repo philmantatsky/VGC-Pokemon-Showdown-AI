@@ -13,13 +13,14 @@
   Showdown its engine is matched to (942cda71d) on port 7650, not this repository's
   checkout (068838007, 2026-09-09); stopped at 20:33.
 - **Health, which was the question:** 137 games, every one ended, 1,513 decisions of the
-  client at 0.011 s median, none refused for time. Four bugs of its live client found and
+  client at 0.011 s median, none over its deadline. Four bugs of its live client found and
   fixed in my copy, all in what it tells its engine or the server about its own Pokémon:
   Solar Beam in sun left its user "charging" for the rest of its stay; a target was sent
   for the second turn of a charged move; the recharge turn was answered with a pass; a
   choice item's lock was never passed on. Before the fixes 3 choices were refused by the
   server and 15 decisions had a rebuilt state that disagreed with the server's request;
-  after them none in 68 games, and none when all 137 recorded games are replayed.
+  none in the 48 games played with all four fixes (nor in the 20 after the first two),
+  and none when all 137 recorded games are replayed through the fixed code.
 - **The score, which is not evidence of strength:** on T6e against the deployed bot's T6e
   the engine-trained bot won 26 of 40 (65%, 95% interval 49.5% to 78%); piloting twelve
   other pool teams against the deployed bot's T6e it won 37 of 96 (38.5%, 29% to 48.5%).
