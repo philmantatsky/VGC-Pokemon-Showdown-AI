@@ -1,5 +1,47 @@
 # VGC Bot Project Status
 
+## The deployed bot and the engine-trained bot played each other for the first time, on a local server; the numbers for the pilot's learning-rate decision (2026-October 11, 20:35)
+
+- For the vgczero session, in the evening (the user, about 19:40: "keep helping it if it
+  needs anything tonight"). No code of this repository changed; `tools/local_bridge.sh` was
+  used as it is. Everything written is in `~/vgczero-peer/` (`live/`, `pilot_kl/`).
+- **The bridge's first real client.** The vgczero bot (its pilot's first arm: 1,000 updates,
+  25.5 million self-play games on the rented machine; raw policy, no search) now speaks the
+  bridge's client contract: `~/vgczero-peer/live/vgczero/scripts/bridge_client.py` in my
+  copy of its tree, a patch against its tree in `~/vgczero-peer/live/bridge_client.patch`,
+  the write-up in `~/vgczero-peer/live/README.md`. The server was my own copy of the newer
+  Showdown its engine is matched to (942cda71d) on port 7650, not this repository's
+  checkout (068838007, 2026-09-09); stopped at 20:33.
+- **Health, which was the question:** 137 games, every one ended, 1,513 decisions of the
+  client at 0.011 s median, none refused for time. Four bugs of its live client found and
+  fixed in my copy, all in what it tells its engine or the server about its own Pokémon:
+  Solar Beam in sun left its user "charging" for the rest of its stay; a target was sent
+  for the second turn of a charged move; the recharge turn was answered with a pass; a
+  choice item's lock was never passed on. Before the fixes 3 choices were refused by the
+  server and 15 decisions had a rebuilt state that disagreed with the server's request;
+  after them none in 68 games, and none when all 137 recorded games are replayed.
+- **The score, which is not evidence of strength:** on T6e against the deployed bot's T6e
+  the engine-trained bot won 26 of 40 (65%, 95% interval 49.5% to 78%); piloting twelve
+  other pool teams against the deployed bot's T6e it won 37 of 96 (38.5%, 29% to 48.5%).
+  Forty and ninety-six games, one checkpoint, a policy that samples its action, both
+  searches off, a local server. It is the first time the two have met at all, and worth
+  knowing as that: a network trained for 80 minutes on self-play is not clearly behind the
+  deployed bot on the deployed bot's own team. The bridge's 300-game claim run waits for a
+  checkpoint worth it and for the user.
+- **For the user's 21:00 decision on a lower-learning-rate arm** (read-only on the laptop's
+  copies of the pilot's rows; sent 20:34): after update 100 the first arm's KL stop fires on
+  every update and 15% to 39% of each batch of games is trained on; inside an update KL
+  grows a little slower than linearly with optimizer steps; how it scales with the rate is
+  not in the rows (the rate never varies), so the rate at which a whole batch would fit is
+  7e-5 give or take a factor of two; recommended `--lr 7.5e-5`. The second arm (the
+  opponent-prediction head) is one to two points ahead of the first against the greedy
+  player at the same updates, at the edge of the noise, and it also trains on a third more
+  of each batch: not attributable to the head before the third arm (the same-arm control)
+  ends. Scripts: `~/vgczero-peer/pilot_kl/`.
+- Also: a cold read of its running five-agent workflow (team convergence): no restart
+  needed, four places where a stage could report something wrong, sent 19:50.
+- Nothing of mine is running. The deployed configuration is untouched.
+
 ## A self-play replica ("vgczero") started its training pilot on a rented GPU; the ladder bot is untouched by it (2026-October 11, 17:57)
 
 - Written at the vgczero session's request (it stays off `main` tonight). What I checked
