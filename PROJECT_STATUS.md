@@ -1,5 +1,51 @@
 # VGC Bot Project Status
 
+## Overnight for the vgczero session: its team-convergence build checked independently, and the pilot's arms played against each other for the first time (2026-October 12, 00:54)
+
+- Side work for the vgczero session (the user, 10-11 about 19:40: "keep helping it if it needs
+  anything tonight"; it relayed his "do u wanna offload any work to the other context?" at
+  21:30). No code of this repository changed and nothing here touches the ladder, the deployed
+  bot or the rented machine. Everything written is in `~/vgczero-peer/` (`pilot_arms/`,
+  `pool_refresh/`, `converge_verify/`, `pilot_h2h/`, `pilot_generalisation/`).
+- **Its pilot** is now seven 1,000-update arms on the rented RTX 5090 (the last two queued at the
+  user's word at 00:20, the chain ends about 07:15): arm 1 the baseline, arm 2 the baseline with an
+  auxiliary head that predicts the opponent's action, arm 3 the baseline with another seed, arms 4
+  and 5 lower learning rates (7.5e-5, 1.5e-4), arm 6 the head with 7.5e-5, arm 7 the head with the
+  other seed.
+- **Direct games between the arms** (`pilot_h2h/H2H.md`; 10,000 games a pair, each checkpoint at
+  both seats, the training teams drawn by the run's weights, on the laptop's GPU). At 1,000 updates
+  the head arm beats arm 1 62.0% and arm 3 58.2% (60.4% and 58.1% on the 371 held-out teams); the
+  two baselines, which differ in the seed alone, are 52.7% apart (55.7% on held-out teams). At equal
+  training hours (0.68 to 1.33 h) the head arm beats the baselines 54% to 57%, the 7.5e-5 arm beats
+  them 52% to 56%, and the head arm beats the 7.5e-5 arm 52% to 54.5%. In the first 20 minutes both
+  changes are behind. Against the greedy player the same arms had looked alike (all win about three
+  games in four): my 22:52 reading "the head's lead is within seed noise" was true of those rows and
+  is withdrawn as a statement about strength. One head arm against two baselines; the seed gap is
+  known from one pair.
+- **Its team-convergence feature** (the bot's own seat stops drawing its weakest teams on a
+  schedule; built behind flags that are off, used on no run) was checked independently
+  (`converge_verify/VERIFY.md`, 23:54), with my own scripts in my own copies. It holds on all seven
+  points asked: the patch applies cleanly; with the flags off the trainer is identical to the
+  unchanged one in every draw, random stream, weight and file (five pairs of runs, two hand-overs
+  between the trees); over 265,939 drawn battles no held-out team at either seat, no cut team at
+  the learner's seat after a cut (0 of 201,143), the opponent's seat on its weights before and after
+  (chi-square 3,766 on 3,761); a real kill inside an update and a resume give the same working set,
+  records and next step; the records rebuilt from raw games with my own code equal the trainer's to
+  1e-17, and the rule written from the spec's words cuts the same teams at 24 of 24 steps. Found:
+  a game horizon that is far too small is accepted (the pilot arm's line pasted into the long run
+  would narrow to 100 teams in the first 6% of it); six guards that no test holds (all six work
+  today, by fault injection and my own counts); the hold file pauses the schedule but does not move
+  its end. The vgczero session is closing these and will ask for a check of the delta.
+- Also delivered: the pool's ladder usage recomputed on the refreshed replay feed and the Louisville
+  regional's top cut (`pool_refresh/`, 21:47; all 20 top-cut teams were already in the collection);
+  the seed-to-seed spread of the pilot per team (`pilot_arms/ARMS.md` part B: two seeds agree 0.960
+  on the 3,762 teams' win rates, share 67 of their best 100 and 252 of their worst 300); the
+  generalisation reads of the two first arms' finals (both pass the held-out gates: +1.7 and +0.8
+  points piloting held-out teams against greedy).
+- Still to come before the user wakes (about 07:15): the same direct games for arms 4 to 7 as they
+  end, and one page for him: which learning rate, head on or off, how sure.
+- The deployed configuration is untouched. Search is still off in the deployed bot.
+
 ## The deployed bot and the engine-trained bot played each other for the first time, on a local server; the numbers for the pilot's learning-rate decision (2026-October 11, 20:35)
 
 - For the vgczero session, in the evening (the user, about 19:40: "keep helping it if it
